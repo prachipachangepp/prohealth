@@ -36,6 +36,7 @@ class IconButtonWidget extends StatelessWidget {
         ),
         onPressed: () => onPressed(),
         icon: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             iconData == null ? Offstage():
             Icon(
@@ -55,6 +56,7 @@ class IconButtonWidget extends StatelessWidget {
                 color: textColor,
               ),
             ),
+            iconData1 == null ? Offstage():
             SizedBox(
               width: MediaQuery.of(context).size.width / 200,
             ),

@@ -113,7 +113,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
           StreamBuilder<List<AllCountyGet>>(
             stream: _contyController.stream,
             builder: (context, snapshot) {
-              getZoneBYcompOffice(context, widget.officeId,widget.companyID, 1, 20).then((data){
+              getZoneBYcompOffice(context, widget.officeId,1, 20).then((data){
                 _contyController.add(data);
               }).catchError((error){});
               print('1111111');
@@ -231,7 +231,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                         countryName == countyController.text ? countryName.toString() : countyController.text,
                                                         "37.0902°",
                                                         "95.7129°", widget.companyID, widget.officeId);
-                                                    getZoneBYcompOffice(context, widget.officeId, widget.companyID, 1, 20).then((data){
+                                                    getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
                                                       _contyController.add(data);
                                                     }).catchError((error){});
                                                   },
@@ -254,7 +254,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                             Navigator.pop(context);
                                           }, onDelete: ()async{
                                             await deleteCounty(context, snapshot.data![index].countyId);
-                                            getZoneBYcompOffice(context, '18', 5, 1, 15).then((data){
+                                            getZoneBYcompOffice(context, '18', 1, 15).then((data){
                                               _contyController.add(data);
                                             }).catchError((error){});
                                           }));

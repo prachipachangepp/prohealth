@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employee_banking_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employee_banking_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/bancking_child/widget/edit_banking_popup.dart';
@@ -34,11 +35,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
   @override
   void initState() {
     // TODO: implement initState
-    getEmployeeBanking(context, 2).then((data) {
-      bankingStreamController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
   }
 
   @override
@@ -46,6 +43,11 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
     return StreamBuilder<List<EmployeeBankingData>>(
       stream: bankingStreamController.stream,
       builder: (context,snapshot) {
+        getEmployeeBanking(context, 2).then((data) {
+          bankingStreamController.add(data);
+        }).catchError((error) {
+          // Handle error
+        });
         if(snapshot.connectionState == ConnectionState.waiting){
           return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
         }
@@ -178,7 +180,7 @@ class BankingContainerConst extends StatelessWidget {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(8),
-        height: 187,
+        height: MediaQuery.of(context).size.height/3.3,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -197,7 +199,7 @@ class BankingContainerConst extends StatelessWidget {
               children: [
                  Text("Bank #${bankId.toString()}",
                   style: GoogleFonts.firaSans(
-                    fontSize: 13,
+                    fontSize: AppSize.s13,
                     color: Color(0xFF333333),
                     fontWeight: FontWeight.w500,
                   ),),

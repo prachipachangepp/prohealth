@@ -201,6 +201,9 @@ class EstablishmentManagerRepository {
   static String getPrefillEmployeDocSetup({required int empDocTypeId}){
     return "$employeedocSetup/$empDocTypeId";
   }
+  static String getEmployeDocSetupDropdown(){
+    return "$employeedocSetup";
+  }
 
   static String addEmployeDocSetup(){
     return "$employeedocSetup$add";

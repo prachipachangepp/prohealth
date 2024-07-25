@@ -11,7 +11,11 @@ class EducationData {
   final String phone;
   final String state;
   bool? approved;
+  final String country;
+  final String startDate;
   EducationData({required this.sucess, required this.message,
+    required this.country,
+    required this.startDate,
     this.approved,
     required this.educationId,
     required this.employeeID,
@@ -38,7 +42,9 @@ class EducationPrefillData {
   final String phone;
   final String state;
   bool? approved;
-  EducationPrefillData({required this.sucess, required this.message,
+  final String country;
+  final String startDate;
+  EducationPrefillData({required this.country, required this.startDate,required this.sucess, required this.message,
     this.approved,
     required this.educationId,
     required this.employeeID,

@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
@@ -17,7 +18,7 @@ class AddReferencePopup extends StatefulWidget {
   final TextEditingController associationLengthController;
   final TextEditingController mobileNumberController;
   final String title;
-  final VoidCallback onpressedClose;
+   VoidCallback onpressedClose;
   Future<void> Function() onpressedSave;
    AddReferencePopup({super.key, required this.nameController, required this.emailController, required this.titlePositionController, required this.knowPersonController, required this.companyNameController, required this.associationLengthController, required this.mobileNumberController, required this.onpressedClose, required this.onpressedSave, required this.title});
 
@@ -33,7 +34,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width/1.5,
-        height: AppSize.s420,
+        height: MediaQuery.of(context).size.height/2,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -216,9 +217,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  CustomButtonTransparent(text: "Cancel", onPressed: () async{
-                    widget.onpressedClose();
-                  }),
+                  CustomButtonTransparent(text: "Cancel", onPressed:(){}),
                   const SizedBox(width: 10,),
                  isLoading ? SizedBox(
                    height: 25,
@@ -235,6 +234,17 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                        isLoading = false;
                      });
                      Navigator.pop(context);
+                     showDialog(
+                       context: context,
+                       builder: (BuildContext context) {
+                         Future.delayed(Duration(seconds: 3), () {
+                           if (Navigator.of(context).canPop()) {
+                             Navigator.of(context).pop();
+                           }
+                         });
+                         return AddSuccessPopup(message: 'Added Successfully',);
+                       },
+                     );
                      widget.nameController.clear();
                      widget.emailController.clear();
                      widget.companyNameController.clear();

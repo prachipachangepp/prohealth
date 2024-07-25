@@ -13,7 +13,7 @@ Future<List<EducationData>> getEmployeeEducation(
     DateTime dateTime = DateTime.parse(isoDate);
 
     // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('dd MMM yyyy');
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
@@ -27,8 +27,8 @@ Future<List<EducationData>> getEmployeeEducation(
         path: ManageReposotory.getEmployeeDucation(employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        // String expFormattedDate = convertIsoToDayMonthYear(item['expDate']);
-        // String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        //String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);
+        //String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
         itemsData.add(EducationData(
             educationId: item['educationId'],
             employeeID: item['employeeId'],
@@ -39,9 +39,11 @@ Future<List<EducationData>> getEmployeeEducation(
             college: item['college'],
             phone: item['phone'],
             state: item['state'],
-            approved: item['approved'],
+            approved: item['approved']??false,
             sucess: true,
-            message: response.statusMessage!));
+            message: response.statusMessage!,
+            country: item['country']??"--",
+            startDate: item['startDate']??"--"));
       }
     } else {
       print("Employee Education");
@@ -63,7 +65,8 @@ Future<ApiData> addEmployeeEducation(
     String city,
     String college,
     String phone,
-    String state) async {
+    String state,
+    String country,String startDate) async {
   try {
     var response = await Api(context).post(
       path: ManageReposotory.addEmployeeDucation(),
@@ -75,7 +78,9 @@ Future<ApiData> addEmployeeEducation(
         "city": city,
         "college": college,
         "phone": phone,
-        "state": state
+        "state": state,
+        "country": country,
+        "startDate": "${startDate}T00:00:00Z"
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -107,7 +112,7 @@ Future<EducationPrefillData> getPrefillEmployeeEducation(
     DateTime dateTime = DateTime.parse(isoDate);
 
     // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('dd MMM yyyy');
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
@@ -120,7 +125,7 @@ Future<EducationPrefillData> getPrefillEmployeeEducation(
     final response = await Api(context).get(
         path: ManageReposotory.patchEmployeeDucation(educationId: educationId));
     if (response.statusCode == 200 || response.statusCode == 201) {
-        // String expFormattedDate = convertIsoToDayMonthYear(item['expDate']);
+        //String startDateFormattedDate = response.data['startDate'] == null ? "--" : convertIsoToDayMonthYear(response.data['expDate']);
         // String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
         itemsData = EducationPrefillData(
             educationId: response.data['educationId'],
@@ -132,9 +137,11 @@ Future<EducationPrefillData> getPrefillEmployeeEducation(
             college: response.data['college'],
             phone: response.data['phone'],
             state: response.data['state'],
-            approved: response.data['approved'],
+            approved: response.data['approved'] ?? false,
             sucess: true,
-            message: response.statusMessage!);
+            message: response.statusMessage!,
+            country: response.data['country']??"--",
+            startDate: response.data['startDate']??"--");
 
     } else {
       print("Employee Education prefill");
@@ -157,7 +164,9 @@ Future<ApiData> updateEmployeeEducation(
     String city,
     String college,
     String phone,
-    String state) async {
+    String state,
+    String country,
+    String startDate) async {
   try {
     var response = await Api(context).patch(
       path: ManageReposotory.patchEmployeeDucation(educationId: educationId),
@@ -169,7 +178,9 @@ Future<ApiData> updateEmployeeEducation(
         "city": city,
         "college": college,
         "phone": phone,
-        "state": state
+        "state": state,
+        "country": country,
+        "startDate": "${startDate}T00:00:00Z"
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

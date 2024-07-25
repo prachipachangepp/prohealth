@@ -10,6 +10,7 @@ import 'package:prohealth/app/services/api/repository/hr_module_repository/manag
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'dart:convert';
+import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 
 Future<ApiData> uploadDocuments({
@@ -17,21 +18,20 @@ Future<ApiData> uploadDocuments({
   required int employeeDocumentMetaId,
   required int employeeDocumentTypeSetupId,
   required int employeeId,
-  required dynamic documentFile,
+  required html.File documentFile,
   required String documentName
 }) async {
   try {
     print("File ${documentFile}");
-    var fileDocuments = MultipartFile(
-      documentFile,
-      filename: documentName,
-    );
-    print("file Doc ${fileDocuments}");
+    // var fileDocuments = MultipartFile(
+    //   documentFile,
+    //   filename: documentName,
+    // );
+    // print("file Doc ${fileDocuments}");
     var response = await Api(context).post(
       path: UploadDocumentRepository.uploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId, employeeId: employeeId),
       data: {
-
-        'file':documentName
+        'file':documentFile
       },
     );
     print("Response ${response.toString()}");
@@ -62,18 +62,18 @@ Future<void> uploadHttpDocuments({
   required int employeeDocumentMetaId,
   required int employeeDocumentTypeSetupId,
   required int employeeId,
-  required dynamic documentFile,
+  required html.File documentFile,
   required String documentName
 }) async {
   try {
     var headers = {
-  'accept': 'application/json',
-  'Content-Type': 'application/json',
   'Authorization':  TokenManager.getAccessToken().toString(),
 };
+    File file = documentFile as File;
+    print("::::${file}");
 var request = http.MultipartRequest('POST',
     Uri.parse('http://50.112.139.35:3000/employee-documents/uploadDocument/$employeeDocumentMetaId/$employeeDocumentTypeSetupId/$employeeId'));
-request.files.add(http.MultipartFile.fromBytes('file', documentFile));
+request.files.add(http.MultipartFile.fromPath('file', documentName) as http.MultipartFile);
 request.headers.addAll(headers);
 
 http.StreamedResponse response = await request.send();

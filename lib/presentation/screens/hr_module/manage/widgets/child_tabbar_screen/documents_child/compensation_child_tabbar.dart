@@ -57,8 +57,8 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                             labelName: 'Add Compensation',
                             AcknowledgementnameController:
                             compensitionAddNameController, onSavePressed: () {  },
-                            child: FutureBuilder<List<EmployeeDocTabModal>>(
-                                future: getEmployeeDocTab(context),
+                            child: FutureBuilder<List<EmployeeDocSetupModal>>(
+                                future: getEmployeeDocSetupDropDown(context),
                                 builder: (context,snapshot) {
                                   if(snapshot.connectionState == ConnectionState.waiting){
                                     return Shimmer.fromColors(
@@ -90,8 +90,8 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                     for(var i in snapshot.data!){
                                       dropDownMenuItems.add(
                                         DropdownMenuItem<String>(
-                                          child: Text(i.employeeDocType),
-                                          value: i.employeeDocType,
+                                          child: Text(i.documentName,),
+                                          value: i.documentName,
                                         ),
                                       );
                                     }
@@ -99,7 +99,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                         initialValue: dropDownMenuItems[0].value,
                                         onChange: (val){
                                           for(var a in snapshot.data!){
-                                            if(a.employeeDocType == val){
+                                            if(a.documentName == val){
                                               docType = a.employeeDocMetaDataId;
                                               //docMetaId = docType;
                                             }
@@ -270,9 +270,9 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                                 // expiryType: compensationExpiryType,
                                                 labelName: 'Edit Compensation',
                                                 AcknowledgementnameController:
-                                                compensitionAddNameController, onSavePressed: () {  },
-                                                child: FutureBuilder<List<EmployeeDocTabModal>>(
-                                                    future: getEmployeeDocTab(context),
+                                                editCompensationNameController, onSavePressed: () {  },
+                                                child: FutureBuilder<List<EmployeeDocSetupModal>>(
+                                                    future: getEmployeeDocSetupDropDown(context),
                                                     builder: (context,snapshot) {
                                                       if(snapshot.connectionState == ConnectionState.waiting){
                                                         return Shimmer.fromColors(
@@ -304,8 +304,8 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                                         for(var i in snapshot.data!){
                                                           dropDownMenuItems.add(
                                                             DropdownMenuItem<String>(
-                                                              child: Text(i.employeeDocType),
-                                                              value: i.employeeDocType,
+                                                              child: Text(i.documentName),
+                                                              value: i.documentName,
                                                             ),
                                                           );
                                                         }
@@ -313,7 +313,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                                             initialValue: dropDownMenuItems[0].value,
                                                             onChange: (val){
                                                               for(var a in snapshot.data!){
-                                                                if(a.employeeDocType == val){
+                                                                if(a.documentName == val){
                                                                   docType = a.employeeDocMetaDataId;
                                                                   //docMetaId = docType;
                                                                 }
