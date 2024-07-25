@@ -41,7 +41,7 @@ class McqWidget extends StatelessWidget {
           padding: const EdgeInsets.only(left: AppPadding.p3,right: AppPadding.p6),
           child: Container(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: buildItemList(context, textFontSize, radioButtonSize),
             ),
