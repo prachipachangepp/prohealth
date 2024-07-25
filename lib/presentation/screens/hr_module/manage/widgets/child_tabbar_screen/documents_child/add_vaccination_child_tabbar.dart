@@ -178,7 +178,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                       Text('ID:${health.employeeDocumentId}',
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       SizedBox(height: 5,),
-                                      Text(health.UploadDate,
+                                      Text(health.ReminderThreshold,
                                           style:TextStyle(
                                             fontFamily: 'FiraSans',
                                             fontSize: 10,

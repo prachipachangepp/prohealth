@@ -71,10 +71,14 @@ class _CustomIconButtonState extends State<CustomIconButton> {
 class CustomButtonTransparent extends StatefulWidget {
   final String text;
   final VoidCallback onPressed;
+  final double? height;
+  final double? width;
 
    CustomButtonTransparent({
     required this.text,
     required this.onPressed,
+     this.height,
+     this.width,
     Key? key,
   }) : super(key: key);
 

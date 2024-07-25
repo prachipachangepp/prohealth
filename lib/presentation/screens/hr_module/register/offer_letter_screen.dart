@@ -56,6 +56,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   late List<Map<String, dynamic>> checkboxStates;
   late List<Map<String, dynamic>> checkboxStatesCity;
 
+
+  String _salary = "";
+
   @override
   void initState() {
     super.initState();
@@ -120,7 +123,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           width: 1100,
-          height: 1029,
+          height: 700, //1029
           child: Scaffold(
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
@@ -291,14 +294,14 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         // SizedBox(width: MediaQuery.of(context).size.width / 3.15),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    SizedBox(height: MediaQuery.of(context).size.height / 50),
                     Divider(
                       color: ColorManager.cream,
                       thickness: 4,
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 20),
+                    SizedBox(height: MediaQuery.of(context).size.height / 40),
                     Container(
-                      width: 1050,
+                      width: 1030,
                       height: MediaQuery.of(context).size.height / 2,
                       decoration: BoxDecoration(
                         border: Border.all(color: Color(0xff1696C8)),
@@ -314,75 +317,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 child: SingleChildScrollView(
                                   child: Column(
                                     children: [
-                                      // SizedBox(
-                                      //   width: MediaQuery.of(context).size.width/5,
-                                      //   height: AppSize.s40,
-                                      //   //alignment: Alignment.center,
-                                      //   //color: Colors.cyan,
-                                      //
-                                      //   child:
-                                      //   FutureBuilder<List<AEClinicalCity>>(
-                                      //     future: HrAddEmplyClinicalCityApi(context),
-                                      //     builder: (context, snapshot) {
-                                      //       if (snapshot.connectionState ==
-                                      //           ConnectionState.waiting) {
-                                      //         return Shimmer.fromColors(
-                                      //           baseColor: Colors.grey[300]!,
-                                      //           highlightColor: Colors.grey[100]!,
-                                      //           child: Padding(
-                                      //             padding: const EdgeInsets.symmetric(
-                                      //                 horizontal: 7),
-                                      //             child: Container(
-                                      //               width: 180,
-                                      //               height: 40,
-                                      //               decoration: BoxDecoration(
-                                      //                   color:
-                                      //                   ColorManager.faintGrey),
-                                      //             ),
-                                      //           ),
-                                      //         );
-                                      //       }
-                                      //       if (snapshot.hasData) {
-                                      //         List<String> dropDownList = [];
-                                      //         for (var i in snapshot.data!) {
-                                      //           dropDownList.add(i.cityName!);
-                                      //         }
-                                      //         return  CustomDropdownFormField(
-                                      //           height: 45,
-                                      //           hintText: 'Select a City',
-                                      //           labelText: 'City',
-                                      //           items: dropDownList,
-                                      //          // onChanged: (String? value) {},
-                                      //         );
-                                      //         //   MyDropdownTextField(
-                                      //         //   hint: AppString.city,
-                                      //         //   // labelStyle: GoogleFonts.firaSans(
-                                      //         //   //   fontSize: 12,
-                                      //         //   //   color: Color(0xff575757),
-                                      //         //   //   fontWeight: FontWeight.w400,
-                                      //         //   // ),
-                                      //         //   // labelFontSize: 12,
-                                      //         //   items: dropDownList,
-                                      //         // );
-                                      //       } else {
-                                      //         return const Offstage();
-                                      //       }
-                                      //     },
-                                      //   ),),
-
-
-                                      // CustomDropdownFormField(
-                                      //   height: 45,
-                                      //   hintText: 'Select a City',
-                                      //   labelText: 'City',
-                                      //   items: [
-                                      //     'ProHealth San Jose',
-                                      //     'ProHealth Sacramento',
-                                      //     'ProHealth Walnut Creek',
-                                      //     'ProHealth Stockton',
-                                      //   ],
-                                      //   onChanged: (String? value) {},
-                                      // ),
                                       ///county
                                       FutureBuilder<List<AllCountyGetList>>(
                                         future:getCountyZoneList(context),
@@ -446,98 +380,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                           }
                                         },
                                       ),
-//                                       FutureBuilder<List<AllCountyGetList>>(
-//                                         future: getCountyZoneList(context),
-//                                         builder: (context, snapshot) {
-//                                           if (snapshot.connectionState ==
-//                                               ConnectionState.waiting) {
-//                                             return Shimmer.fromColors(
-//                                               baseColor: Colors.grey[300]!,
-//                                               highlightColor: Colors.grey[100]!,
-//                                               child: Padding(
-//                                                 padding: const EdgeInsets.symmetric(
-//                                                     horizontal: 7),
-//                                                 child: Container(
-//                                                   width: AppSize.s250,
-//                                                   height: AppSize.s40,
-//                                                   decoration: BoxDecoration(
-//                                                       color: ColorManager.faintGrey),
-//                                                 ),
-//                                               ),
-//                                             );
-//                                           }
-//                                           if (snapshot.hasData) {
-//                                             List<String> dropDownList = [];
-//                                             for (var i in snapshot.data!) {
-//                                               dropDownList.add(i.countyName);
-//                                             }
-//                                      return CustomDropdownFormField(
-//                                         height: 45,
-//                                         hintText: 'County',
-//                                         labelText: 'Country',
-//                                         items: dropDownList
-//                                        // onChanged: (String? value) {},
-//                                       );
-//   } else {
-//   return const Offstage();
-//   }
-// },
-// ),
+
 
                                       SizedBox(height: MediaQuery.of(context).size.height / 20),
                                       ///zone api
-                                      // FutureBuilder<List<AEClinicalZone>>(
-                                      //   future: HrAddEmplyClinicalZoneApi(
-                                      //     context,
-                                      //   ),
-                                      //   builder: (context, snapshot) {
-                                      //     if (snapshot.connectionState ==
-                                      //         ConnectionState.waiting) {
-                                      //       return Shimmer.fromColors(
-                                      //         baseColor: Colors.grey[300]!,
-                                      //         highlightColor: Colors.grey[100]!,
-                                      //         child: Padding(
-                                      //           padding: const EdgeInsets.symmetric(
-                                      //               horizontal: 7),
-                                      //           child: Container(
-                                      //             width: 180,
-                                      //             height: 40,
-                                      //             decoration: BoxDecoration(
-                                      //                 color: Colors.grey[300]),
-                                      //           ),
-                                      //         ),
-                                      //       );
-                                      //     }
-                                      //     else if (snapshot.hasError) {
-                                      //       return MyDropdownTextField(
-                                      //         hint: AppString.zone,
-                                      //         // labelText: 'Zone',
-                                      //         // labelStyle: TextStyle(
-                                      //         //   fontSize: 12,
-                                      //         //   color: Color(0xff575757),
-                                      //         //   fontWeight: FontWeight.w400,
-                                      //         // ),
-                                      //         // labelFontSize: 12,
-                                      //         items: ['Error'],
-                                      //       );
-                                      //     }
-                                      //     else if (snapshot.hasData) {
-                                      //       List<String> dropDownList = snapshot
-                                      //           .data!
-                                      //           .map((zone) => zone.zoneName ?? '')
-                                      //           .toList();
-                                      //        return CustomDropdownFormField(
-                                      //           height: 45,
-                                      //           hintText: 'Zone',
-                                      //           labelText: 'Zone',
-                                      //           items: dropDownList
-                                      //         // onChanged: (String? value) {},
-                                      //       );;
-                                      //     } else {
-                                      //       return Offstage();
-                                      //     }
-                                      //   },
-                                      // ),
+
                                       FutureBuilder<List<AEClinicalZone>>(
                                         future: HrAddEmplyClinicalZoneApi(
                                           context,
@@ -603,80 +450,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                         },
                                       ),
                                       ///
-                                      // SizedBox(
-                                      //   width: MediaQuery.of(context).size.width/5,
-                                      //   height: AppSize.s40,
-                                      //   //alignment: Alignment.center,
-                                      //   //color: Colors.cyan,
-                                      //   child:
-                                      //   FutureBuilder<List<AEClinicalZone>>(
-                                      //     future: HrAddEmplyClinicalZoneApi(
-                                      //       context,
-                                      //     ),
-                                      //     builder: (context, snapshot) {
-                                      //       if (snapshot.connectionState ==
-                                      //           ConnectionState.waiting) {
-                                      //         return Shimmer.fromColors(
-                                      //           baseColor: Colors.grey[300]!,
-                                      //           highlightColor: Colors.grey[100]!,
-                                      //           child: Padding(
-                                      //             padding: const EdgeInsets.symmetric(
-                                      //                 horizontal: 7),
-                                      //             child: Container(
-                                      //               width: 180,
-                                      //               height: 40,
-                                      //               decoration: BoxDecoration(
-                                      //                   color: Colors.grey[300]),
-                                      //             ),
-                                      //           ),
-                                      //         );
-                                      //       } else if (snapshot.hasError) {
-                                      //         return MyDropdownTextField(
-                                      //           hint: AppString.zone,
-                                      //           // labelText: 'Zone',
-                                      //           // labelStyle: TextStyle(
-                                      //           //   fontSize: 12,
-                                      //           //   color: Color(0xff575757),
-                                      //           //   fontWeight: FontWeight.w400,
-                                      //           // ),
-                                      //           // labelFontSize: 12,
-                                      //           items: ['Error'],
-                                      //         );
-                                      //       } else if (snapshot.hasData) {
-                                      //         List<String> dropDownList = snapshot
-                                      //             .data!
-                                      //             .map((zone) => zone.zoneName ?? '')
-                                      //             .toList();
-                                      //         return MyDropdownTextField(
-                                      //           hint: AppString.zone,
-                                      //           // labelText: 'Zone',
-                                      //           // labelStyle: TextStyle(
-                                      //           //   fontSize: 12,
-                                      //           //   color: Color(0xff575757),
-                                      //           //   fontWeight: FontWeight.w400,
-                                      //           // ),
-                                      //           // labelFontSize: 12,
-                                      //           items: dropDownList,
-                                      //           onChanged: (newValue) {
-                                      //             // Handle onChanged here if needed
-                                      //           },
-                                      //         );
-                                      //       } else {
-                                      //         return MyDropdownTextField(
-                                      //           hint: AppString.zone,
-                                      //           // labelText: 'Zone',
-                                      //           // labelStyle: TextStyle(
-                                      //           //   fontSize: 12,
-                                      //           //   color: Color(0xff575757),
-                                      //           //   fontWeight: FontWeight.w400,
-                                      //           // ),
-                                      //           // labelFontSize: 12,
-                                      //           items: ['No Data'],
-                                      //         );
-                                      //       }
-                                      //     },
-                                      //   ),
-                                      // ),
                                     ],
                                   ),
                                 ),
@@ -756,7 +529,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height/20),
+                    SizedBox(height: MediaQuery.of(context).size.height/40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -798,6 +571,16 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        if (_salary.isNotEmpty)
+                          Text(
+                            _salary,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                            ),
+                          ),
+                        SizedBox(width: MediaQuery.of(context).size.width/120),
                         ElevatedButton(
                           onPressed: () {
                             showDialog(
@@ -889,6 +672,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                   contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                                                 ),
                                                 keyboardType: TextInputType.number,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    _salary = value;
+                                                  });
+                                                },
                                               ),
                                               SizedBox(height: MediaQuery.of(context).size.height/20),
                                               Center(
@@ -944,7 +732,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       ],
                     ),
 
-                    SizedBox(height: MediaQuery.of(context).size.height/10),
+                    SizedBox(height: MediaQuery.of(context).size.height/30),
                     Container(
                       height: 50,
                       width: double.infinity,
@@ -966,7 +754,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height/60),
+                    SizedBox(height: MediaQuery.of(context).size.height/80),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -979,7 +767,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),)
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height/15),
+                    SizedBox(height: MediaQuery.of(context).size.height/40),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1047,6 +835,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
     );
   }
 }
+
+
 
 
 

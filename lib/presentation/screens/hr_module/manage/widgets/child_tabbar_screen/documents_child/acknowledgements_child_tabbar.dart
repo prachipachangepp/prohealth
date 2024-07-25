@@ -189,7 +189,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                       return AcknowledgementAddPopup(labelName: 'Add Acknowledgement',
                         AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
 
-                        }, child: FutureBuilder<List<EmployeeDocTabModal>>(
+                        },
+                        child: FutureBuilder<List<EmployeeDocTabModal>>(
                             future: getEmployeeDocTab(context),
                             builder: (context,snapshot) {
                               if(snapshot.connectionState == ConnectionState.waiting){
@@ -362,7 +363,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                             SizedBox(width: 10),
                             Expanded(
                               child: Text(
-                                data.UploadDate,
+                                data.ReminderThreshold,
                                 style: AknowledgementStyleConst.customTextStyle(context),
                               ),
                             ),

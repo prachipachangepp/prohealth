@@ -156,6 +156,7 @@ class _OfferLetterDescriptionScreenState
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 100),
+
             Padding(
               padding: const EdgeInsets.only(left: 230.0),
               child: Row(

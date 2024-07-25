@@ -5,12 +5,19 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 
+//typedef void CheckBoxCallBack(int id);
+
 class QualificationActionButtons extends StatelessWidget {
+  //final CheckBoxCallBack onChanged;
+  //final int id;
   final VoidCallback onRejectPressed;
   final VoidCallback onApprovePressed;
   final bool? approve;
 
-  QualificationActionButtons({super.key, required this.onRejectPressed, required this.onApprovePressed,this.approve});
+  QualificationActionButtons({super.key, required this.onRejectPressed,
+    required this.onApprovePressed,this.approve,
+    //required this.onChanged, required this.id
+  });
 
   @override
   Widget build(BuildContext context) {

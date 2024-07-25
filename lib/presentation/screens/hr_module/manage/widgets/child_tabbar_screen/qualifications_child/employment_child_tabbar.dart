@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -183,10 +184,10 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Employment #${snapshot.data![index].employmentId}',
-                                style: TextStyle(
-                                  fontFamily: 'FiraSans',
+                                style: GoogleFonts.firaSans(
+                                  // fontFamily: 'FiraSans',
                                   fontSize: 13,
-                                  color: Color(0xFF333333),
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w500,
                                 ),),
                               Row(

@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -78,12 +79,12 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
             ),
             SizedBox(height:MediaQuery.of(context).size.height/20),
             Padding(
-              padding: const EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(right: 60),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   widget.child,
-                  SizedBox(width: 40,),
+                  SizedBox(width: 20,),
                   CustomIconButton(icon: Icons.file_upload_outlined,text: 'Upload License', onPressed: () async
                   {
                     FilePickerResult? result =
@@ -101,7 +102,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 ],
               ),
             ),
-             SizedBox(height:MediaQuery.of(context).size.height/10),
+             SizedBox(height:MediaQuery.of(context).size.height/20), //10
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -241,7 +242,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
             ),
             SizedBox(height:MediaQuery.of(context).size.height/10),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.only(right: 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
