@@ -93,15 +93,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 );
               }
               if (snapshot.hasData) {
-              //  int totalItems = snapshot.data!.length;
-                // int totalPages = (totalItems / itemsPerPage).ceil();
-                // List<RegisterEnrollData> currentPageItems =
-                //     snapshot.data!.sublist(
-                //   (currentPage - 1) * itemsPerPage,
-                //   (currentPage * itemsPerPage) > totalItems
-                //       ? totalItems
-                //       : (currentPage * itemsPerPage),
-                // );
                 return Container(
                   height: double.maxFinite,
                   child: WrapWidget(
@@ -282,16 +273,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         OnBoardingWelcome()));
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(builder: (context) =>
-                                            //       OnBoardingWelcome()
-                                            //   ),
-                                            // );
                                           },
                                           child: Text(
                                             //'https://prohealth.symmetry.care/register',
-                                            snapshot.data![index].link,
+                                          snapshot.data![index].status == 'NotOpened'
+                                              ? ''
+                                              : snapshot.data![index].link,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w400,

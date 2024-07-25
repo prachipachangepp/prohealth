@@ -65,6 +65,17 @@ class RegisterDataPrefill {
   final String email;
   final String link;
   final String status;
+  final int departmentId;
+  final String position;
+  final String speciality;
+  final int clinicianTypeId;
+  final String reportingOfficeId;
+  final int cityId;
+  final int countryId;
+  final int countyId;
+  final int zoneId;
+  final String employment;
+  final String service;
 
   RegisterDataPrefill({
     required this.empEnrollId,
@@ -78,5 +89,16 @@ class RegisterDataPrefill {
     required this.email,
     required this.link,
     required this.status,
+    required this.departmentId,
+    required this.position,
+    required this.speciality,
+    required this.clinicianTypeId,
+    required this.reportingOfficeId,
+    required this.cityId,
+    required this.countryId,
+    required this.countyId,
+    required this.zoneId,
+    required this.employment,
+    required this.service,
   });
 }
