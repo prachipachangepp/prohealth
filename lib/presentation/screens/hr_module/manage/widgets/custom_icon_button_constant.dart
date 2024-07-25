@@ -93,37 +93,40 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
   Widget build(BuildContext context) {
     return isLoading
         ? CircularProgressIndicator( color: ColorManager.blueprime,)
-        :ElevatedButton(
-      onPressed: () async{
-        setState(() {
-          isLoading = true;
-        });
-        try {
-          await widget.onPressed;
-        } finally {
+        :SizedBox(height: 35,width: 100,
+
+          child: ElevatedButton(
+                onPressed: () async{
           setState(() {
-            isLoading = false;
+            isLoading = true;
           });
-        }
-        },
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: Color(0xFF50B5E5)),
-        ),
-      ),
-      child: Text(
-        widget.text,
-        style: const TextStyle(
-          fontFamily: 'FiraSans',
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-          color: Color(0xFF50B5E5),
-        ),
-      ),
-    );
+          try {
+            await widget.onPressed;
+          } finally {
+            setState(() {
+              isLoading = false;
+            });
+          }
+          },
+                style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: const BorderSide(color: Color(0xFF50B5E5)),
+          ),
+                ),
+                child: Text(
+          widget.text,
+          style: const TextStyle(
+            fontFamily: 'FiraSans',
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF50B5E5),
+          ),
+                ),
+              ),
+        );
   }
 }
 

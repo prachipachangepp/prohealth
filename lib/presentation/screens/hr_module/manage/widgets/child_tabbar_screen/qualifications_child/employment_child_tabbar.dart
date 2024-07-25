@@ -136,10 +136,12 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     },
                                     checkBoxTile: Container(
                                         width: 300,
-                                        child: CheckboxTile(
-                                          title: 'Currently work here',
-                                          initialValue: false,
-                                          onChanged: (value) {},
+                                        child: Center(
+                                          child: CheckboxTile(
+                                            title: 'Currently work here',
+                                            initialValue: false,
+                                            onChanged: (value) {},
+                                          ),
                                         )),
                                     tite: 'Add Employeement', onpressedClose: () {Navigator.pop(context);},
                                   );
