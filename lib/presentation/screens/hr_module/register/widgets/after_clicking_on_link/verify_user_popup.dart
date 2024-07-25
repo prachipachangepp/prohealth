@@ -528,3 +528,45 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
 /////////////////
 
 ////
+// Future<void> _verifyOTPAndProcess(String email, String otp) async {
+//   setState(() {
+//     _isVerifyingOTP = true;
+//     _errorMessage = "";
+//     _otpErrorMessage = null; // Clear previous OTP error message
+//   });
+//
+//   String enteredOTP = otp;
+//
+//   try {
+//     ApiDataRegister result = await AuthManager.verifyOTPAndRegister(
+//       email: email,
+//       otp: enteredOTP,
+//       context: context,
+//     );
+//
+//     if (result.success) {
+//       print('Success navigate');
+//       showDialog(
+//         context: context,
+//         builder: (BuildContext context) {
+//           return Dialog(
+//             shape: RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(20.0),
+//             ),
+//             child: OnBoardingCongratulation(),
+//           );
+//         },
+//       );
+//     } else {
+//       setState(() {
+//         _otpErrorMessage = result.message; // Set OTP error message
+//       });
+//     }
+//
+//     setState(() {
+//       _isVerifyingOTP = false;
+//     });
+//   } catch (e) {
+//     print(e);
+//   }
+// }

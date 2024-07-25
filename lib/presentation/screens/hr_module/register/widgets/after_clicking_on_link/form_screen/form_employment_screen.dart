@@ -69,7 +69,7 @@ class _Employment_screenState extends State<Employment_screen> {
     });
   }
 
-  Future<void> postemploymentscreen(
+  Future<void> postemploymentscreendata(
     BuildContext context,
     int id,
     String employer,

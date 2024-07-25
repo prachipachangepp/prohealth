@@ -57,7 +57,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
     });
   }
 
-  Future<void> postlicensesscreen(
+  Future<void> postlicensesscreendata(
       BuildContext context,
       String country,
       int employeeId,
@@ -197,7 +197,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                 ),
                 icon: Icon(Icons.add, color: Colors.white),
                 label: Text(
-                  'Add Education',
+                  'Add Licenses',
                   style: GoogleFonts.firaSans(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w700,

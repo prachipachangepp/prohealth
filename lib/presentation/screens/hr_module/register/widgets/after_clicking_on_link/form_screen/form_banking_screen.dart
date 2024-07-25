@@ -42,7 +42,7 @@ class _BankingScreenState extends State<BankingScreen> {
     });
   }
 
-  Future<void> postbankingscreen(
+  Future<void> postbankingscreendata(
       BuildContext context,
       int employeeId,
       String accountNumber,
@@ -115,7 +115,7 @@ class _BankingScreenState extends State<BankingScreen> {
                 ),
                 icon: Icon(Icons.add, color: Colors.white),
                 label: Text(
-                  'Add Education',
+                  'Add Banking',
                   style: GoogleFonts.firaSans(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w700,
@@ -143,8 +143,7 @@ class _BankingScreenState extends State<BankingScreen> {
                 for (var key in bankingFormKeys) {
                   final st = key.currentState!;
                   await postbankingscreen(
-                    context,
-                    0,
+                    context, 3,
                     st.accountnumber.text,
                     st.bankname.text,
                     int.parse(st.requestammount.text),

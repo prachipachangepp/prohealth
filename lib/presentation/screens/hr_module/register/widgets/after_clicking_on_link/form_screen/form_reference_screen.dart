@@ -48,7 +48,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
   }
 
 
-  Future<void> postreferencescreen(
+  Future<void> postreferencescreendata(
       BuildContext context,
       String association,
       String comment,
@@ -135,7 +135,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                 ),
                 icon: Icon(Icons.add, color: Colors.white),
                 label: Text(
-                  'Add Education',
+                  'Add Reference',
                   style: GoogleFonts.firaSans(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w700,

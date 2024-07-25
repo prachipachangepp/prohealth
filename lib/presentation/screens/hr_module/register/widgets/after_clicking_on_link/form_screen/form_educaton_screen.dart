@@ -61,7 +61,7 @@ class _EducationScreenState extends State<EducationScreen> {
     });
   }
 
-  Future<void> posteducationscreen(
+  Future<void> posteducationscreendata(
     BuildContext context,
     int employeeId,
     String graduate,
@@ -165,7 +165,7 @@ class _EducationScreenState extends State<EducationScreen> {
                     final st = key.currentState!;
                     await posteducationscreen(
                         context,
-                        0,
+                        5,
                         st.collegeuniversity.text,
                         st.majorsubject.text,
                         st.phone.text,
