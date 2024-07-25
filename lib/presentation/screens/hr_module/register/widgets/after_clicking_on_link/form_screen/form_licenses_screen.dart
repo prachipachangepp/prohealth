@@ -65,7 +65,11 @@ class _LicensesScreenState extends State<LicensesScreen> {
       String licensure,
       String licenseNumber,
       String org,
-      String documentType) async {}
+      String documentType) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Licenses data saved")),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

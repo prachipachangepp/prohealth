@@ -51,7 +51,11 @@ class _BankingScreenState extends State<BankingScreen> {
       String checkUrl,
       String routingNumber,
       String type,
-      String requestedPercentage) async {}
+      String requestedPercentage) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Banking data saved")),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

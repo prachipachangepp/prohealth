@@ -72,7 +72,11 @@ class _EducationScreenState extends State<EducationScreen> {
     String phone,
     String state,
     String country,
-  ) async {}
+  ) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Education data saved")),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

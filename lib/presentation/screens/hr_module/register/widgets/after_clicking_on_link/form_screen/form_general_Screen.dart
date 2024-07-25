@@ -750,6 +750,9 @@ class _generalFormState extends State<generalForm> {
                       'rating',
                       'SignatureURL'
                   );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("General data saved")),
+                  );
                  },
                 child: Text(
                   'Save',

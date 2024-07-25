@@ -58,7 +58,11 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
       String mob,
       String name,
       String references,
-      String title) async {}
+      String title) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Reference data saved")),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
