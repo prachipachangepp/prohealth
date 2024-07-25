@@ -56,7 +56,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    getVisit(context, 1, 1, 20).then((data) {
+    getVisit(context, 1, 30).then((data) {
       _visitController.add(data);
     }).catchError((error) {
       // Handle error
@@ -146,8 +146,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               onSavePressed: () async {
                                 print(":::::${_selectedItem}");
                                 await addVisitPost(context,
-                                    docNamecontroller.text, 1, selectedChipsId);
-                                getVisit(context, 1, 1, 15).then((data) {
+                                    docNamecontroller.text,  selectedChipsId);
+                                getVisit(context,  1, 30).then((data) {
                                   _visitController.add(data);
                                 }).catchError((error) {
                                   // Handle error
@@ -540,14 +540,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                 docNamecontroller.text
                                                                             ? visitName.toString()
                                                                             : docNamecontroller.text,
-                                                                        1,
                                                                         selectedEditChipsId);
 
                                                                     getVisit(
                                                                             context,
                                                                             1,
-                                                                            1,
-                                                                            10)
+                                                                            30)
                                                                         .then(
                                                                             (data) {
                                                                       _visitController
@@ -722,7 +720,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                               .visitId);
                                                                       setState(
                                                                           () async {
-                                                                        await getVisit(context, 1, 1, 20).then(
+                                                                        await getVisit(context,  1, 30).then(
                                                                             (data) {
                                                                           _visitController
                                                                               .add(data);

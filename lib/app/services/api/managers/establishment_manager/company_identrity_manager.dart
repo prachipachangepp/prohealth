@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
@@ -41,10 +42,11 @@ Future<List<CompanyModel>> companyAllApi(
 }
 
 /// Get company by id
-Future<CompanyModel> companyByIdApi(BuildContext context, int compantId) async {
+Future<CompanyModel> companyByIdApi(BuildContext context) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).get(
-        path: EstablishmentManagerRepository.companyById(companyId: compantId));
+        path: EstablishmentManagerRepository.companyById(companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Company by id ::: ${response}");
       return CompanyModel(companyId: response.data['company_id']);
@@ -58,10 +60,11 @@ Future<CompanyModel> companyByIdApi(BuildContext context, int compantId) async {
 }
 
 /// Get company details
-Future<CompanyModel> companyDetailsApi(BuildContext context, int id) async {
+Future<CompanyModel> companyDetailsApi(BuildContext context,) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).get(
-        path: EstablishmentManagerRepository.companyDetails(companyId: id));
+        path: EstablishmentManagerRepository.companyDetails(companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Company Details id ::: ${response}");
       return CompanyModel(companyId: response.data['company_id']);
@@ -76,13 +79,14 @@ Future<CompanyModel> companyDetailsApi(BuildContext context, int id) async {
 
 /// Get upload company logo
 Future<ApiData> uploadCompanyLogoApi(
-    BuildContext context, int id, String type) async {
+    BuildContext context,String type) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.uploadCompanyLogo(
-            companyId: id, type: type),
+            companyId: companyId, type: type),
         data: {
-          'company_id': id,
+          'company_id': companyId,
           'type': type,
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -111,6 +115,7 @@ Future<ApiData> uploadCompanyLogoApi(
 Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
     primaryPhone, secondaryPhone) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context)
         .post(path: EstablishmentManagerRepository.addNewOffice(), data: {
       'name': name,
@@ -118,7 +123,7 @@ Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
       'email': email,
       'primary_phone': primaryPhone,
       'secondary_phone': secondaryPhone,
-      'company_id': 11,
+      'company_id': companyId,
       'primary_fax': name,
       'secondary_fax': secondaryPhone,
       'office_id': name,
@@ -176,9 +181,10 @@ Future<List<ManageInsuranceVendorData>> companyVendorGet(
 
 ///Get Company by office list by company
 Future<List<CompanyIdentityModel>> companyOfficeListGet(
-    BuildContext context, int companyId, int pageNo, int rowsNo) async {
+    BuildContext context,int pageNo, int rowsNo) async {
   List<CompanyIdentityModel> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.companyOfficeListGet(
             pageNo: pageNo, rowsNo: rowsNo, companyId: companyId));

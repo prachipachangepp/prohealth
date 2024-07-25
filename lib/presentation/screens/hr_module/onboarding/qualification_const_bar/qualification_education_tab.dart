@@ -15,7 +15,6 @@ import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../widgets/widgets/banking_tab_constant.dart';
 
-
 class QualificationEducation extends StatefulWidget {
   const QualificationEducation({Key? key}) : super(key: key);
 

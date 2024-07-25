@@ -8,10 +8,12 @@ class IconButtonWidget extends StatelessWidget {
   final Color iconColor;
   final Color textColor;
   final Function onPressed;
+  final double? width;
 
   const IconButtonWidget({
     Key? key,
     this.iconData,
+    this.width,
     required this.buttonText,
     required this.onPressed,
     this.iconColor = const Color(0xFF1696C8),
@@ -22,7 +24,7 @@ class IconButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 30,
-      width: 100,
+      width: width,
       child: IconButton(
         style: IconButton.styleFrom(
           padding: EdgeInsets.symmetric(

@@ -177,6 +177,11 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
+                          Future.delayed(Duration(seconds: 3), () {
+                            if (Navigator.of(context).canPop()) {
+                              Navigator.of(context).pop();
+                            }
+                          });
                           return AddSuccessPopup(message: 'Added Successfully',);
                         },
                       );
