@@ -94,29 +94,33 @@ class _BankingScreenState extends State<BankingScreen> {
             );
           }).toList(),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ElevatedButton.icon(
-              onPressed: addEducationForm,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff50B5E5),
-                // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 150),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ElevatedButton.icon(
+                onPressed: addEducationForm,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff50B5E5),
+                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                icon: Icon(Icons.add, color: Colors.white),
+                label: Text(
+                  'Add Education',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              icon: Icon(Icons.add, color: Colors.white),
-              label: Text(
-                'Add Education',
-                style: GoogleFonts.firaSans(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
         Row(
@@ -217,12 +221,21 @@ class _BankingFormState extends State<BankingForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Bank Details #1',
-            style: GoogleFonts.firaSans(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff686464)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Bank Details #${widget.index}',
+                style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff686464)),
+              ),
+              IconButton(
+                icon: Icon(Icons.remove_circle, color: Colors.red),
+                onPressed: widget.onRemove,
+              ),
+            ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
           Row(
@@ -490,8 +503,10 @@ class _BankingFormState extends State<BankingForm> {
                                   ))
                               .toList(),
                         )
-                      : SizedBox(), // Display file names if picked
+                      : SizedBox(),
+              SizedBox(height: MediaQuery.of(context).size.height / 20),// Display file names if picked
             ],
+
           ),
          const Divider(color: Colors.grey,thickness: 2,)
         ],

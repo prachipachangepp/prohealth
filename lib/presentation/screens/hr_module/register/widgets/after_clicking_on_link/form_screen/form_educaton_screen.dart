@@ -117,29 +117,32 @@ class _EducationScreenState extends State<EducationScreen> {
             }).toList(),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ElevatedButton.icon(
-                onPressed: addEducationForm,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff50B5E5),
-                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+          Padding(
+            padding: const EdgeInsets.only(left: 150),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: addEducationForm,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff50B5E5),
+                    // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  icon: Icon(Icons.add, color: Colors.white),
+                  label: Text(
+                    'Add Education',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-                icon: Icon(Icons.add, color: Colors.white),
-                label: Text(
-                  'Add Education',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -524,6 +527,7 @@ class _EducationFormState extends State<EducationForm> {
             .toList(),
                   )
             : SizedBox(),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
           ],
         ),
         const Divider(color: Colors.grey,thickness: 2,)

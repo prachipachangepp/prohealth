@@ -176,29 +176,33 @@ class _LicensesScreenState extends State<LicensesScreen> {
             );
           }).toList(),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ElevatedButton.icon(
-              onPressed: addEducationForm,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff50B5E5),
-                // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 150),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ElevatedButton.icon(
+                onPressed: addEducationForm,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff50B5E5),
+                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                icon: Icon(Icons.add, color: Colors.white),
+                label: Text(
+                  'Add Education',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              icon: Icon(Icons.add, color: Colors.white),
-              label: Text(
-                'Add Education',
-                style: GoogleFonts.firaSans(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
         Row(
@@ -316,6 +320,7 @@ class _licensesFormState extends State<licensesForm> {
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
               child: Column(
@@ -440,6 +445,8 @@ class _licensesFormState extends State<licensesForm> {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+
                 children: [
                   Text(
                     'Issue Date',
@@ -479,7 +486,7 @@ class _licensesFormState extends State<licensesForm> {
                       },
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 200),
+                  SizedBox(height: MediaQuery.of(context).size.height / 100),
                   Row(
                     children: [
                       Expanded(
@@ -532,6 +539,7 @@ class _licensesFormState extends State<licensesForm> {
                       },
                     ),
                   ),
+                  SizedBox(height: 150)
                 ],
               ),
             ),
@@ -552,18 +560,7 @@ class _licensesFormState extends State<licensesForm> {
             SizedBox(width: MediaQuery.of(context).size.width / 5),
             ElevatedButton.icon(
               onPressed: _pickFiles,
-// onPressed: () async {
-//   FilePickerResult? result =
-//       await FilePicker.platform.pickFiles(
-//     allowMultiple: false,
-//   );
-//   if (result != null) {
-//     PlatformFile file = result.files.first;
-//     print('File picked: ${file.name}');
-//   } else {
-//     // User canceled the picker
-//   }
-// },
+
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xff50B5E5),
 // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
