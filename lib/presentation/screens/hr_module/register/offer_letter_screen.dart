@@ -113,12 +113,14 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        // titlePadding: EdgeInsets.zero,
-        title: Container(
+      child:
+      // AlertDialog(
+      //   shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(12.0),
+      //   ),
+      //   // titlePadding: EdgeInsets.zero,
+      //   title:
+        Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
           ),
@@ -301,7 +303,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 40),
                     Container(
-                      width: 1030,
+                      width: 1500, //1030
                       height: MediaQuery.of(context).size.height / 2,
                       decoration: BoxDecoration(
                         border: Border.all(color: Color(0xff1696C8)),
@@ -463,7 +465,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 child: Column(
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(left: 135.0, right: 135.0),
+                                      padding: EdgeInsets.only(left: 180.0, right: 180.0),
                                       child: TabBar(
                                         indicatorColor: Color(0xff1696C8),
                                         labelColor: Color(0xff686464),
@@ -831,8 +833,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
 

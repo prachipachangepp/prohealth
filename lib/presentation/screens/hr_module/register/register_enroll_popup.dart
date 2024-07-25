@@ -837,16 +837,15 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 children: [
                   CustomIconButtonConst(
                       text: AppString.next, onPressed: () {
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
-                    Navigator.pop(context);
-                    showDialog(
-                        context: context,
-                        builder:
-                            (BuildContext context) {
-                          return OfferLetterScreen(
-                          );
-                        });
-                    //Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+                    // Navigator.pop(context);
+                    // showDialog(
+                    //     context: context,
+                    //     builder:
+                    //         (BuildContext context) {
+                    //       return OfferLetterScreen(
+                    //       );
+                    //     });
                   }),
                 ],
               ),

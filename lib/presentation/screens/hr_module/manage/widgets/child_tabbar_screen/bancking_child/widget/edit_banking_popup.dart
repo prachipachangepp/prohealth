@@ -50,7 +50,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
           ),
-          width: MediaQuery.of(context).size.width * 0.8,
+          width: MediaQuery.of(context).size.width * 0.6, //0.8
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
@@ -228,7 +228,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             );
           },
         ),
-        SizedBox(height: MediaQuery.of(context).size.height / 100),
+        SizedBox(height: MediaQuery.of(context).size.height / 40),
         _buildTextFormField(widget.routingNumberController, 'Routing Number/ Transit Number'),
         SizedBox(height: MediaQuery.of(context).size.height / 40),
         Text('Requested Amount for this Account (select one)', style: _labelStyle()),
@@ -333,27 +333,30 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextFormField(
-          style: TextStyle(
-            fontSize: AppSize.s12,
-          ),
-          controller: controller,
-          decoration: InputDecoration(
-            labelText: labelText,
-            suffixIcon: suffixIcon,
-            prefixText: prefixText,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Color(0xffB1B1B1)),
+        Container(
+          height: 36,
+          child: TextFormField(
+            style: TextStyle(
+              fontSize: AppSize.s12,
             ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+            controller: controller,
+            decoration: InputDecoration(
+              labelText: labelText,
+              suffixIcon: suffixIcon,
+              prefixText: prefixText,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Color(0xffB1B1B1)),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter ${labelText.toLowerCase()}';
+              }
+              return null;
+            },
           ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter ${labelText.toLowerCase()}';
-            }
-            return null;
-          },
         ),
         SizedBox(height: 5),
       ],
@@ -370,19 +373,22 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
 
   List<Widget> _buildDialogActions(BuildContext context) {
     return [
-      ElevatedButton(
-        child: Text('Cancel',
-            style: GoogleFonts.firaSans(
-              color: Color(0xff1696C8),
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            )),
-        onPressed: () => Navigator.of(context).pop(),
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-            side: BorderSide(color: Color(0xFF27A3E0)),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: ElevatedButton(
+          child: Text('Cancel',
+              style: GoogleFonts.firaSans(
+                color: Color(0xff1696C8),
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+              )),
+          onPressed: () => Navigator.of(context).pop(),
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+              side: BorderSide(color: Color(0xFF27A3E0)),
+            ),
           ),
         ),
       ),
@@ -393,42 +399,45 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           child: CircularProgressIndicator(
             color: ColorManager.blueprime,
           ))
-          : ElevatedButton(
-        child: Text('Save',
-            style: GoogleFonts.firaSans(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 12)),
-        onPressed: () async {
-          if (_formKey.currentState!.validate()) {
-            setState(() {
-              isLoading = true;
-            });
-            try {
-              await widget.onPressed();
-            } finally {
+          : Padding(
+            padding: const EdgeInsets.only(right: 20.0, bottom: 20),
+            child: ElevatedButton(
+                    child: Text('Save',
+              style: GoogleFonts.firaSans(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12)),
+                    onPressed: () async {
+            if (_formKey.currentState!.validate()) {
               setState(() {
-                isLoading = false;
+                isLoading = true;
               });
-              Navigator.pop(context);
-              widget.effectiveDateController.clear();
-              widget.specificAmountController.clear();
-              widget.bankNameController.clear();
-              widget.routingNumberController.clear();
-              widget.accountNumberController.clear();
-              widget.verifyAccountController.clear();
-              widget.selectedType = null;
-              _typeFieldKey.currentState?.reset();
+              try {
+                await widget.onPressed();
+              } finally {
+                setState(() {
+                  isLoading = false;
+                });
+                Navigator.pop(context);
+                widget.effectiveDateController.clear();
+                widget.specificAmountController.clear();
+                widget.bankNameController.clear();
+                widget.routingNumberController.clear();
+                widget.accountNumberController.clear();
+                widget.verifyAccountController.clear();
+                widget.selectedType = null;
+                _typeFieldKey.currentState?.reset();
+              }
             }
-          }
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF27A3E0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
+                    },
+                    style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFF27A3E0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+                    ),
+                  ),
           ),
-        ),
-      ),
     ];
   }
 }
