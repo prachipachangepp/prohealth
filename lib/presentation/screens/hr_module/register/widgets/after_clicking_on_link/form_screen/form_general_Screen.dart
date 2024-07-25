@@ -376,6 +376,7 @@ class _generalFormState extends State<generalForm> {
                           return null;
                         },
                         height: 32,
+
                       ),
                     ],
                   ),
@@ -515,6 +516,9 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
+                          // const SizedBox(
+                          //   width: 3,
+                          // ),
 
                           CustomRadioListTile(
                             title: 'White',
@@ -526,20 +530,14 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
-                          CustomRadioListTile(
-                            title: 'Hispanic or Latino',
-                            value: 'Hispanic or Latino',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          const SizedBox(
+                            width: 5,
                           ),
+
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomRadioListTile(
                             title: 'Black or African American',
@@ -551,9 +549,7 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
-                          const SizedBox(
-                            width: 3,
-                          ),
+
                           CustomRadioListTile(
                             title: 'Other',
                             value: 'Other',
@@ -564,8 +560,32 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
+                          const SizedBox(
+                            width: 3,
+                          ),
 
 
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomRadioListTile(
+                            title: 'Hispanic or Latino',
+                            value: 'Hispanic or Latino',
+                            groupValue: racetype,
+                            onChanged: (value) {
+                              setState(() {
+                                racetype = value;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const SizedBox(
+                            width: 3,
+                          ),
                         ],
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
