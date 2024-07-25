@@ -25,6 +25,10 @@ class RegisterEnrollPopup extends StatefulWidget {
   final TextEditingController lastName;
   //final TextEditingController phone;
   final TextEditingController email;
+  final int userId;
+  final String role;
+  final String status;
+
   // final TextEditingController position;
   final VoidCallback onPressed;
   RegisterEnrollPopup({super.key,
@@ -32,7 +36,7 @@ class RegisterEnrollPopup extends StatefulWidget {
     //required this.phone,
     required this.email,
     //required this.position,
-    required this.onPressed
+    required this.onPressed, required this.userId, required this.role, required this.status,
   });
 
   @override
@@ -48,6 +52,14 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   // final TextEditingController email = TextEditingController();
   FocusNode _focusNode = FocusNode();
   int? _selectedItemIndex;
+   int country = 0;
+   int zoneId = 0;
+   int countyId =0;
+   String reportingOfficeId ='';
+   String specialityName = '';
+   String clinicialName ='';
+   String cityName = '';
+   String serviceVal ='';
 
   @override
   Widget build(BuildContext context) {
@@ -194,7 +206,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   items: dropDownList,
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
-                                      if (a.empType == newValue) {}
+                                      if (a.empType == newValue) {
+                                        specialityName = a.empType!;
+                                      }
                                     }
                                   },
                                 );
@@ -384,6 +398,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
                                       if (a.empType == newValue) {
+                                        clinicialName = a.empType!;
                                         // int docType = a.employeeTypesId;
                                         // Do something with docType
                                       }
@@ -460,6 +475,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   dropDownList.add(i.cityName!);
                                 }
                                 return CustomDropdownTextField(
+                                  onChanged: (val){
+                                    cityName = val!;
+                                  },
                                   labelText: 'City',
                                   labelStyle: GoogleFonts.firaSans(
                                     fontSize: 12,
@@ -567,6 +585,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
                                       if (a.officeName == newValue) {
+                                        reportingOfficeId = a.officeName;
                                         // int docType = a.employeeTypesId;
                                         // Do something with docType
                                       }
@@ -641,6 +660,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
                                       if (a.name == newValue) {
+                                       //country = a
                                         // int? docType = a.companyOfficeID;
                                       }
                                     }
@@ -749,7 +769,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                 child: McqWidget(
                                   title: 'Service',
                                   items: serviceName,
-                                  onChanged: (int) {},
+                                  onChanged: (val) {
+
+                                    serviceVal =  serviceName[val].toString();
+                                   print('Service data ${serviceVal}');
+                                  },
                                 ),
                               );
                             }
@@ -768,7 +792,24 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 children: [
                   CustomIconButtonConst(
                       text: AppString.next,
-                  onPressed: widget.onPressed,
+                  onPressed: (){
+                        Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
+                      email: widget.email.text,
+                      userId: widget.userId,
+                      status: widget.status,
+                      firstName: widget.firstName.text,
+                      lastName: widget.lastName.text,
+                      role: widget.role,
+                      position: position.text,
+                      phone: phone.text,
+                      reportingOffice: reportingOfficeId,
+                      services: serviceVal,
+                      employement: 'Full Time',
+                      clinicalName: clinicialName,
+                      soecalityName: specialityName,
+                      )));
+                  },
                   //     onPressed: () {
                   //   //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
                   //   // Navigator.pop(context);

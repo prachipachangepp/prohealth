@@ -1153,7 +1153,8 @@
 // //                                       child: Row(
 // //                                         children: _buildCheckboxes(),
 // //                                       ),
-// //                                     ),
+// //
+import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 // //                                     SingleChildScrollView(
 // //                                       scrollDirection: Axis.horizontal,
 // //                                       child: Row(
@@ -1179,6 +1180,7 @@
 // //   }
 // // }
 
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -1219,7 +1221,24 @@ List<Map<String, dynamic>> checkboxDataCity = [
 ];
 
 class OfferLetterScreen extends StatefulWidget {
-  const OfferLetterScreen({super.key});
+  final String email;
+  final int userId;
+  final String role;
+  final String status;
+  final String firstName;
+  final String lastName;
+  final String position;
+  final String phone;
+  final String reportingOffice;
+  final String services;
+  final String employement;
+  final String soecalityName;
+  final String clinicalName;
+
+  const OfferLetterScreen({super.key, required this.email, required this.userId,
+    required this.role, required this.status, required this.firstName,
+    required this.lastName, required this.position, required this.phone, required this.reportingOffice,
+    required this.services, required this.employement, required this.soecalityName, required this.clinicalName});
 
   @override
   State<OfferLetterScreen> createState() => _OfferLetterScreenState();
@@ -1239,10 +1258,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
 
 
   String _salary = "";
+  String generatedURL = '';
 
   @override
   void initState() {
     super.initState();
+    _initAppLinks();
     checkboxStates = List.from(checkboxData);
     checkboxStatesCity = List.from(checkboxDataCity);
   }
@@ -1289,6 +1310,21 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
         },
       );
     }).toList();
+  }
+  AppLinks? _appLinks;
+
+
+
+  void _initAppLinks() async {
+    _appLinks = AppLinks();
+  }
+  Future<String> _generateUrlLink(String email, String Id) async {
+    final String user = email;
+    final String id = Id;
+    final String url = 'http://$user/$id';
+    generatedURL = url;
+    print('Generated URL: $generatedURL');
+    return url;
   }
 
   @override
@@ -1977,13 +2013,21 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width/75),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async{
+                          await _generateUrlLink(widget.email,widget.userId.toString());
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return ConfirmationPopup(
                                 onCancel: () {Navigator.pop(context);},
-                                onConfirm: () {Navigator.pop(context);},
+                                onConfirm: () async{
+                                  await addEmpEnroll(context: context, employeeId: 0, code: "", userId: widget.userId,
+                                      firstName: widget.firstName, lastName: widget.lastName,
+                                      phoneNbr: widget.phone, email: widget.email, link: generatedURL, status: widget.status, departmentId:
+                                      1, position: widget.position, speciality: widget.soecalityName, clinicianTypeId: 1,
+                                      reportingOfficeId: widget.reportingOffice, cityId: 1, countryId: 1, countyId: 9, zoneId: 18, employment: widget.employement, service: widget.services);
+                                   Navigator.pop(context);
+                                },
                                 title: 'Confirm Enrollment',
                                 containerText: 'Do you really want to enroll?',
                               );
