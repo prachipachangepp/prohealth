@@ -333,7 +333,7 @@ class BankingContainerConst extends StatelessWidget {
              Row(
                mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                   IconButtonWidget(iconData: Icons.remove_red_eye_outlined, buttonText: AppStringHr.voidcheck, onPressed:(){},),
+                   IconButtonWidget(iconData: Icons.remove_red_eye_rounded, buttonText: AppStringHr.voidcheck, onPressed:(){},),
                 const SizedBox(width: 10,),
                 IconButtonWidget(iconData1: Icons.print_outlined, buttonText: AppStringHr.print, onPressed:(){},),
                 const SizedBox(width: 10,),

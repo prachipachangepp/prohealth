@@ -37,240 +37,242 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
-      child: Container(
-        width: MediaQuery.of(context).size.width/1.5,
-        height: AppSize.s400,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          children: [
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: Color(0xff50B5E5),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
+      child: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width/1.5,
+          height: AppSize.s400,
+          decoration: BoxDecoration(
+            color: ColorManager.white,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            children: [
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color(0xff50B5E5),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
+                      child: Text(widget.title,style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                      ),),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).pop();
+                      },
+                      icon: const Icon(Icons.close,color: Colors.white,),
+                    ),
+                  ],
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                    child: Text(widget.title,style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).pop();
+              SizedBox(height:MediaQuery.of(context).size.height/20),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    widget.child,
+                    SizedBox(width: 40,),
+                    CustomIconButton(icon: Icons.file_upload_outlined,text: 'Upload License', onPressed: () async
+                    {
+                      FilePickerResult? result =
+                      await FilePicker.platform.pickFiles(
+                        allowMultiple: false,
+                      );
+                      if (result != null) {
+                        PlatformFile file = result.files.first;
+                        print('File picked: ${file.name}');
+                      } else {
+                        // User canceled the picker
+                      }
                     },
-                    icon: const Icon(Icons.close,color: Colors.white,),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height:MediaQuery.of(context).size.height/20),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  widget.child,
-                  SizedBox(width: 40,),
-                  CustomIconButton(icon: Icons.file_upload_outlined,text: 'Upload License', onPressed: () async
-                  {
-                    FilePickerResult? result =
-                    await FilePicker.platform.pickFiles(
-                      allowMultiple: false,
-                    );
-                    if (result != null) {
-                      PlatformFile file = result.files.first;
-                      print('File picked: ${file.name}');
-                    } else {
-                      // User canceled the picker
-                    }
-                  },
-                  ),
-                ],
-              ),
-            ),
-             SizedBox(height:MediaQuery.of(context).size.height/10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.LivensureController,
-                  labelText: "Livensure/Certification",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                    ),
+                  ],
                 ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.issueDateController,
-                  labelText: "Issue Date",
-                  keyboardType: TextInputType.text,
-                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+              ),
+               SizedBox(height:MediaQuery.of(context).size.height/10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.LivensureController,
+                    labelText: "Livensure/Certification",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+        
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.issueDateController,
+                    labelText: "Issue Date",
+                    keyboardType: TextInputType.text,
+                    suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                      onTap: () async{
+                        DateTime? date = await showDatePicker(
+                          context: context,
+                          initialDate: _selectedIssueDate,
+                          firstDate: DateTime(1100),
+                          lastDate: DateTime(2025),
+                        );
+                        if (date != null) {
+                          String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                          widget.issueDateController.text = formattedDate;
+                          //field.didChange(formattedDate);
+                        }
+                      },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.expiryDateController,
+                    labelText: "Expiry Date",
+                    keyboardType: TextInputType.text,
+                    suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                     onTap: () async{
                       DateTime? date = await showDatePicker(
                         context: context,
-                        initialDate: _selectedIssueDate,
+                        initialDate: _selectedExpDate,
                         firstDate: DateTime(1100),
                         lastDate: DateTime(2025),
                       );
                       if (date != null) {
                         String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                        widget.issueDateController.text = formattedDate;
+                        widget.expiryDateController.text = formattedDate;
                         //field.didChange(formattedDate);
                       }
                     },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.expiryDateController,
-                  labelText: "Expiry Date",
-                  keyboardType: TextInputType.text,
-                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onTap: () async{
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: _selectedExpDate,
-                      firstDate: DateTime(1100),
-                      lastDate: DateTime(2025),
-                    );
-                    if (date != null) {
-                      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                      widget.expiryDateController.text = formattedDate;
-                      //field.didChange(formattedDate);
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-
-              ],
-            ),
-            SizedBox(height:MediaQuery.of(context).size.height/20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.issuingOrganizationController,
-                  labelText: "Issuing Organization",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.countryController,
-                  labelText: "Country",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.numberIDController,
-                  labelText: "Number/ID",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-
-              ],
-            ),
-            SizedBox(height:MediaQuery.of(context).size.height/10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomButtonTransparent(text: "Cancel", onPressed: () async{
-                    widget.onpressedClose();
-                  }),
-                  SizedBox(width: 10,),
-                  isLoading
-                      ? SizedBox(
-                      width: 25,
-                      height: 25,
-                      child: CircularProgressIndicator( color: ColorManager.blueprime,))
-                      :CustomElevatedButton(text: "Save",onPressed: () async{
-                    setState(() {
-                      isLoading = true;
-                    });
-                    try {
-                      await widget.onpressedSave();
-                    } finally {
-                      setState(() {
-                        isLoading = false;
-                      });
-                    }
-                  }),
-
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+        
                 ],
               ),
-            )
-          ],
+              SizedBox(height:MediaQuery.of(context).size.height/20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.issuingOrganizationController,
+                    labelText: "Issuing Organization",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+        
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.countryController,
+                    labelText: "Country",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+        
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.numberIDController,
+                    labelText: "Number/ID",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+        
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+        
+                ],
+              ),
+              SizedBox(height:MediaQuery.of(context).size.height/10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CustomButtonTransparent(text: "Cancel", onPressed: () async{
+                      widget.onpressedClose();
+                    }),
+                    SizedBox(width: 10,),
+                    isLoading
+                        ? SizedBox(
+                        width: 25,
+                        height: 25,
+                        child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                        :CustomElevatedButton(text: "Save",onPressed: () async{
+                      setState(() {
+                        isLoading = true;
+                      });
+                      try {
+                        await widget.onpressedSave();
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
+                    }),
+        
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
