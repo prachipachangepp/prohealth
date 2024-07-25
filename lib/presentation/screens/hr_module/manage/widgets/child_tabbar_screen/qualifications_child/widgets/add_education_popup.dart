@@ -357,6 +357,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
   bool _isRadioButtonSelected = false;
   bool _radioButtonError = false;
 
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -400,7 +401,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: const Icon(
+                    icon:  Icon(
                       Icons.close,
                       color: Colors.white,
                     ),
@@ -411,8 +412,9 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding:  EdgeInsets.symmetric(horizontal: 20,vertical: 40),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Row(
                         children: [
