@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 import '../../../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 import '../../../../token/token_manager.dart';
 import '../../../api.dart';
@@ -24,7 +22,7 @@ Future<List<RegisterDataCompID>> GetRegisterByCompId(
             role: item['role'] ?? '--',
             email: item['email'] ?? '--',
             company_id: item['company_id'] ?? 0,
-            status: item['status'] ?? '--'));
+            status: item['status'] ?? 'null'));
       }
     } else {
       print('Api Error');

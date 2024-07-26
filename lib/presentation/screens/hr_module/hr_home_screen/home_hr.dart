@@ -143,7 +143,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           ///appbar titles
           Container(
             // color: Colors.pink,
-            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -452,27 +452,27 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                 ),
 
                 ///see all
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Obx(
-                      () => CustomTitleButton(
-                        height: 30,
-                        width: 140,
-                        onPressed: () {
-                          //companyAll(context);
-                          myController.selectButton(6);
-                          _pageController.animateToPage(6,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                        },
-                        text: 'See All',
-                        isSelected: myController.selectedIndex.value == 6,
-                      ),
-                    ),
-                  ],
-                )
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.end,
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     Obx(
+                //       () => CustomTitleButton(
+                //         height: 30,
+                //         width: 140,
+                //         onPressed: () {
+                //           //companyAll(context);
+                //           myController.selectButton(6);
+                //           _pageController.animateToPage(6,
+                //               duration: Duration(milliseconds: 500),
+                //               curve: Curves.ease);
+                //         },
+                //         text: 'See All',
+                //         isSelected: myController.selectedIndex.value == 6,
+                //       ),
+                //     ),
+                //   ],
+                // )
               ],
             ),
           ),
