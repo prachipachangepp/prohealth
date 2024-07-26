@@ -162,3 +162,59 @@ Future<ApiData> PatchEmployeeBanking(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+/// Reject license
+Future<ApiData> rejectBankPatch(BuildContext context, int empBankingId) async {
+  try {
+    var response = await Api(context).patch(
+      path: ManageReposotory.rejectBankingEmployee(empBankingId: empBankingId),
+      data: {},
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Bank rejected");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Approve license
+Future<ApiData> approveBankPatch(BuildContext context, int empBankingId) async {
+  try {
+    var response = await Api(context).patch(
+      path: ManageReposotory.approveBankingEmployee(empBankingId: empBankingId),
+      data: {},
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Bank Approved");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}

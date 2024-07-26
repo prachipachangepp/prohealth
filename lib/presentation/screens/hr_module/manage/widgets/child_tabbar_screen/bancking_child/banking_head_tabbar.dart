@@ -80,10 +80,10 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                               activeColor: ColorManager.blueprime,
                               hoverColor: Colors.transparent,
                               focusColor: Colors.transparent,
-                              value: checkBox1,
+                              value: snapshot.data![index].approve,
                               onChanged: (value) {
                                 setState(() {
-                                  checkBox1 = value!;
+                                  approveBankPatch(context,snapshot.data![index].empBankingId);
                                 });
                               },
                             ),
