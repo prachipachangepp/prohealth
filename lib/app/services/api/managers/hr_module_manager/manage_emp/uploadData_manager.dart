@@ -1,5 +1,6 @@
 
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ Future<void> uploadHttpDocuments({
     final String token = await TokenManager.getAccessToken();
     var headers = {
       'accept': 'application/json',
-      'Authorization': token,
+      'Authorization': 'Bearer $token',
       'Content-Type': 'application/json'
 };
     // File file = documentFile as File;
@@ -94,8 +95,7 @@ Future<void> uploadHttpDocuments({
     // }
     // await convertHtmlFileToXFile(file as String);
     // print("::::${file}");
-
-    print("XFile :::${documentFile.toString()}" );
+    print("XFile :::${documentFile.path.toString()}" );
     print("Token :: $token");
 var request = http.MultipartRequest('POST',
     Uri.parse('${AppConfig.dev}/employee-documents/uploadDocument/$employeeDocumentMetaId/$employeeDocumentTypeSetupId/$employeeId'));
@@ -103,8 +103,9 @@ request.files.add(http.MultipartFile.fromString('file',documentFile.path));
 request.headers.addAll(headers);
 
 http.StreamedResponse response = await request.send();
+    var responseData = await http.Response.fromStream(response);
 
-print("Response ::: ${request}");
+print("Response ::: ${responseData.body}");
 if (response.statusCode == 200 || response.statusCode == 201) {
   print("Uploded");
 print(await response.stream.bytesToString());

@@ -126,7 +126,7 @@ Future<EducationPrefillData> getPrefillEmployeeEducation(
         path: ManageReposotory.patchEmployeeDucation(educationId: educationId));
     if (response.statusCode == 200 || response.statusCode == 201) {
         //String startDateFormattedDate = response.data['startDate'] == null ? "--" : convertIsoToDayMonthYear(response.data['expDate']);
-        // String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        String issueFormattedDate = convertIsoToDayMonthYear(response.data['startDate']);
         itemsData = EducationPrefillData(
             educationId: response.data['educationId'],
             employeeID: response.data['employeeId'],
@@ -141,7 +141,7 @@ Future<EducationPrefillData> getPrefillEmployeeEducation(
             sucess: true,
             message: response.statusMessage!,
             country: response.data['country']??"--",
-            startDate: response.data['startDate']??"--");
+            startDate: issueFormattedDate);
 
     } else {
       print("Employee Education prefill");
