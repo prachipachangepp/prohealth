@@ -21,18 +21,25 @@ class AcknowledgementTab extends StatefulWidget {
 
 class _AcknowledgementTabState extends State<AcknowledgementTab> {
   final StreamController<List<OnboardingAckHealthData>> _controller = StreamController<List<OnboardingAckHealthData>>();
+  List<OnboardingAckHealthData> _fetchedData = [];
   List<bool> _checked = [];
   List<int> _selectedDocumentIds = [];
 
   @override
   void initState() {
     super.initState();
-    getAckHealthRecord(context, 10, 48, 2).then((data) {
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    try {
+      var data = await getAckHealthRecord(context, 12, 37, 36);
+      _fetchedData = data;
       _controller.add(data);
       _checked = List.generate(data.length, (_) => false);
-    }).catchError((error) {
-      // Handle error
-    });
+    } catch (error) {
+      _controller.addError(error);
+    }
   }
 
   void _handleCheckboxChanged(bool? value, int index, int employeeDocumentId) {
@@ -65,17 +72,16 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
   }
 
   Future<void> _rejectSelectedDocuments() async {
-    for (var documentId in _selectedDocumentIds) {
-      await rejectOnboardAckHealthPatch(context, documentId);
-    }
-    /// Refresh the data after rejection
-    getAckHealthRecord(context, 10, 48, 2).then((data) {
-      _controller.add(data);
-      _checked = List.generate(data.length, (_) => false);
-      _selectedDocumentIds.clear();
-    }).catchError((error) {
+    var result = await batchRejectOnboardAckHealthPatch(context, _selectedDocumentIds);
+    if (result.success) {
+      await _fetchData();
+      setState(() {
+        _selectedDocumentIds.clear();
+      });
+    } else {
       // Handle error
-    });
+      print(result.message);
+    }
   }
 
   void _handleApproveSelected() {
@@ -85,29 +91,34 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
       context: context,
       builder: (BuildContext context) {
         return ApproveConfirmPopup(
-            onCancel: (){
+            onCancel: () {
               Navigator.pop(context);
             },
-            onApprove: (){
+            onApprove: () {
               _approveSelectedDocuments();
               Navigator.of(context).pop();
             });
-        },
+      },
     );
   }
 
   Future<void> _approveSelectedDocuments() async {
-    for (var documentId in _selectedDocumentIds) {
-      await approveOnboardAckHealthPatch(context, documentId);
-    }
-    /// Refresh the data after approval
-    getAckHealthRecord(context, 10, 48, 2).then((data) {
-      _controller.add(data);
-      _checked = List.generate(data.length, (_) => false);
-      _selectedDocumentIds.clear();
-    }).catchError((error) {
+    var result = await batchApproveOnboardAckHealthPatch(context, _selectedDocumentIds);
+    if (result.success) {
+      await _fetchData();
+      setState(() {
+        for (var id in _selectedDocumentIds) {
+          int index = _fetchedData.indexWhere((data) => data.employeeDocumentId == id);
+          if (index != -1) {
+            _checked[index] = false;
+          }
+        }
+        _selectedDocumentIds.clear();
+      });
+    } else {
       // Handle error
-    });
+      print(result.message);
+    }
   }
 
   @override
@@ -143,11 +154,11 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
           );
         }
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height / 2,
+                height: 500,// MediaQuery.of(context).size.height / 2,
                 padding: EdgeInsets.symmetric(vertical: 30, horizontal: 10),
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -201,21 +212,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 40),
                             child: Container(
-                              width: MediaQuery.of(context).size.width/3,
-                              // margin: EdgeInsets.symmetric(vertical: 10),
-                              // padding: EdgeInsets.all(10),
-                              // decoration: BoxDecoration(
-                              //   color: ColorManager.white,
-                              //   borderRadius: BorderRadius.circular(8),
-                              //   boxShadow: [
-                              //     BoxShadow(
-                              //       color: ColorManager.shadow.withOpacity(0.1),
-                              //       spreadRadius: 1,
-                              //       blurRadius: 5,
-                              //       offset: Offset(0, 3),
-                              //     ),
-                              //   ],
-                              // ),
+                              width: MediaQuery.of(context).size.width / 3,
                               child: Row(
                                 children: [
                                   Checkbox(
@@ -256,11 +253,10 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20.0,right: 120),
+                padding: const EdgeInsets.only(top: 20.0, right: 120),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ///reject
                     ElevatedButton(
                       onPressed: _handleRejectSelected,
                       style: ElevatedButton.styleFrom(
