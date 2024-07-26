@@ -8,6 +8,8 @@ class OnboardingQualificationRepo {
   static String employee_doc = "/employee-documents";
   static String approve = "/approve";
   static String reject = "/reject";
+  static String batchreject = "/BatchReject";
+  static String batchApprove = "/BatchApprove";
 
   /// /employee-employment-histories
   static String getEmpEmploymentHistories({required int employeeid}) {
@@ -83,5 +85,13 @@ class OnboardingQualificationRepo {
   //employee-documents/reject/{employeeDocumentId}
   static String rejectAckHealthRecord({required int employeeDocumentId}) {
     return "$employee_doc$reject/$employeeDocumentId";
+  }
+  ///employee-documents/BatchApprove
+  static String batchApproveAckHealthRecord() {
+    return "$employee_doc$batchApprove";
+  }
+  ///employee-documents/BatchReject
+  static String batchRejectAckHealthRecord() {
+    return "$employee_doc$batchreject";
   }
 }

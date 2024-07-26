@@ -1,13 +1,15 @@
 ///get
 class OnboardingAckHealthData {
   final String DocumentName;
-  final int employeeDocumentId;
+  final String Expiry;
+  final String ReminderThreshold;
+  final String DocumentType;
   final int EmployeeDocumentTypeMetaDataId;
   final int EmployeeDocumentTypeSetupId;
-  final int employeeId;
   final String DocumentUrl;
-  final String ReminderThreshold;
-  final bool approved;
+  final int employeeDocumentId;
+  final int employeeId;
+  // final bool approved;
 
   OnboardingAckHealthData({
     required this.DocumentName,
@@ -17,7 +19,8 @@ class OnboardingAckHealthData {
     required this.employeeId,
     required this.DocumentUrl,
     required this.ReminderThreshold,
-    required this.approved,
+    required this.Expiry, required this.DocumentType,
+   // required this.approved,
   });
 }
 

@@ -31,14 +31,16 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
               employeeId: item['employeeId'] ?? 1,
               DocumentUrl: item['DocumentUrl'] ?? 'null',
               ReminderThreshold: item['ReminderThreshold'] ?? '--',
-              approved: item['approved'] ?? false)
+            Expiry: item['Expiry'] ?? '--',
+            DocumentType: item['DocumentType'] ?? '--',
+             // approved: item['approved'] ?? false)
           // EmployeeDocTabModal(
           //   employeeDocType: item['EmployeeDocumentType']== null ?"null" :item['EmployeeDocumentType'],
           //   employeeDocMetaDataId: item['EmployeeDocumentTypeMetaDataId']== null ? 0 :item['EmployeeDocumentTypeMetaDataId'],
           //   success: true,
           //   message: response.statusMessage!,
           // ),
-        );
+          ) );
         print(".....Get ack Health......$response");
       }
       print("onboarding Document Response:::::${itemsList}");
@@ -91,6 +93,66 @@ Future<ApiData> approveOnboardAckHealthPatch(BuildContext context, int employeeD
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Ack Health Approved$employeeDocumentId");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///batch approve
+Future<ApiData> batchApproveOnboardAckHealthPatch(BuildContext context,List<int> employeeDocumentId) async {
+  try {
+    var response = await Api(context).patch(
+      path: OnboardingQualificationRepo.batchApproveAckHealthRecord(),
+      data:  {
+        "employeeDocumentId": employeeDocumentId.map((id) => id.toString()).toList(),
+      },
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Ack Health batch Approved : ${employeeDocumentId.join(", ")}");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///bbatch reject
+Future<ApiData> batchRejectOnboardAckHealthPatch(BuildContext context,List<int> employeeDocumentId) async {
+  try {
+    var response = await Api(context).patch(
+      path: OnboardingQualificationRepo.batchRejectAckHealthRecord(),
+      data:  {
+        "employeeDocumentId": employeeDocumentId.map((id) => id.toString()).toList(),
+      },
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Ack Health batch rejected${employeeDocumentId.join(", ")}");
       // orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,
