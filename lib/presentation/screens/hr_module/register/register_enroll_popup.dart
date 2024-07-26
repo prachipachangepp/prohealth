@@ -92,7 +92,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Text(
-                        'Enroll Popup',
+                        'Enroll',
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.semiBold,

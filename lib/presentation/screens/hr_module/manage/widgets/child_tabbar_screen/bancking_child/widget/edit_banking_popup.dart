@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
+import '../../../../../../em_module/widgets/button_constant.dart';
+import '../../../custom_icon_button_constant.dart';
+
 class EditBankingPopUp extends StatefulWidget {
   String? selectedType;
   final TextEditingController effectiveDateController;
@@ -85,8 +88,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       decoration: BoxDecoration(
           color: Color(0xFF27A3E0),
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(12.0),
-              topLeft: Radius.circular(12.0))),
+              topRight: Radius.circular(12.0), topLeft: Radius.circular(12.0))),
       padding: EdgeInsets.only(left: 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -160,7 +162,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       children: [
         Text(
           'Type',
-          style: GoogleFonts.firaSans(fontWeight: FontWeight.w600, fontSize: 14),
+          style:
+              GoogleFonts.firaSans(fontWeight: FontWeight.w600, fontSize: 14),
         ),
         FormField<String>(
           key: _typeFieldKey,
@@ -183,7 +186,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                       onChanged: (value) {
                         setState(() {
                           widget.selectedType = value.toString();
-                          _typeFieldKey.currentState?.didChange(value.toString());
+                          _typeFieldKey.currentState
+                              ?.didChange(value.toString());
                         });
                       },
                     ),
@@ -200,7 +204,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                       onChanged: (value) {
                         setState(() {
                           widget.selectedType = value.toString();
-                          _typeFieldKey.currentState?.didChange(value.toString());
+                          _typeFieldKey.currentState
+                              ?.didChange(value.toString());
                         });
                       },
                     ),
@@ -229,9 +234,11 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           },
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 40),
-        _buildTextFormField(widget.routingNumberController, 'Routing Number/ Transit Number'),
+        _buildTextFormField(
+            widget.routingNumberController, 'Routing Number/ Transit Number'),
         SizedBox(height: MediaQuery.of(context).size.height / 40),
-        Text('Requested Amount for this Account (select one)', style: _labelStyle()),
+        Text('Requested Amount for this Account (select one)',
+            style: _labelStyle()),
         Row(
           children: [
             Radio(
@@ -251,7 +258,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         Row(
           children: [
             Expanded(
-              child: _buildTextFormField(widget.specificAmountController, '', prefixText: '\$'),
+              child: _buildTextFormField(widget.specificAmountController, '',
+                  prefixText: '\$'),
             ),
             SizedBox(width: 10),
             ElevatedButton(
@@ -309,7 +317,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       lastDate: DateTime(2101),
     );
     if (pickedDate != null) {
-      widget.effectiveDateController.text = "${pickedDate.toLocal()}".split(' ')[0];
+      widget.effectiveDateController.text =
+          "${pickedDate.toLocal()}".split(' ')[0];
     }
   }
 
@@ -319,17 +328,18 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       children: [
         _buildTextFormField(widget.bankNameController, 'Bank Name'),
         SizedBox(height: MediaQuery.of(context).size.height / 30),
-        _buildTextFormField(widget.verifyAccountController, 'Verify Account Number'),
+        _buildTextFormField(
+            widget.verifyAccountController, 'Verify Account Number'),
       ],
     );
   }
 
   Widget _buildTextFormField(
-      TextEditingController controller,
-      String labelText, {
-        Widget? suffixIcon,
-        String? prefixText,
-      }) {
+    TextEditingController controller,
+    String labelText, {
+    Widget? suffixIcon,
+    String? prefixText,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -375,69 +385,78 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     return [
       Padding(
         padding: const EdgeInsets.only(bottom: 20),
-        child: ElevatedButton(
-          child: Text('Cancel',
-              style: GoogleFonts.firaSans(
-                color: Color(0xff1696C8),
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-              )),
-          onPressed: () => Navigator.of(context).pop(),
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
-              side: BorderSide(color: Color(0xFF27A3E0)),
-            ),
-          ),
+        child:
+            // ElevatedButton(
+            //   child: Text('Cancel',
+            //       style: GoogleFonts.firaSans(
+            //         color: Color(0xff1696C8),
+            //         fontWeight: FontWeight.w700,
+            //         fontSize: 12,
+            //       )),
+            //   onPressed: () => Navigator.of(context).pop(),
+            //   style: TextButton.styleFrom(
+            //     backgroundColor: Colors.white,
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(12.0),
+            //       side: BorderSide(color: Color(0xFF27A3E0)),
+            //     ),
+            //   ),
+            // ),
+            CustomButtonTransparent(
+          text: "Cancel",
+          onPressed: () {},
         ),
       ),
       isLoading
           ? SizedBox(
-          height: 30,
-          width: 30,
-          child: CircularProgressIndicator(
-            color: ColorManager.blueprime,
-          ))
+              height: 30,
+              width: 30,
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ))
           : Padding(
-            padding: const EdgeInsets.only(right: 20.0, bottom: 20),
-            child: ElevatedButton(
-                    child: Text('Save',
-              style: GoogleFonts.firaSans(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12)),
-                    onPressed: () async {
-            if (_formKey.currentState!.validate()) {
-              setState(() {
-                isLoading = true;
-              });
-              try {
-                await widget.onPressed();
-              } finally {
-                setState(() {
-                  isLoading = false;
-                });
-                Navigator.pop(context);
-                widget.effectiveDateController.clear();
-                widget.specificAmountController.clear();
-                widget.bankNameController.clear();
-                widget.routingNumberController.clear();
-                widget.accountNumberController.clear();
-                widget.verifyAccountController.clear();
-                widget.selectedType = null;
-                _typeFieldKey.currentState?.reset();
-              }
-            }
-                    },
-                    style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF27A3E0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
+              padding: const EdgeInsets.only(right: 20.0, bottom: 20),
+              child:
+                  // ElevatedButton(
+                  //         child: Text('Save',
+                  //   style: GoogleFonts.firaSans(
+                  //       color: Colors.white,
+                  //       fontWeight: FontWeight.w700,
+                  //       fontSize: 12)),
+
+                  CustomElevatedButton(
+                text: "Save",
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    try {
+                      await widget.onPressed();
+                    } finally {
+                      setState(() {
+                        isLoading = false;
+                      });
+                      Navigator.pop(context);
+                      widget.effectiveDateController.clear();
+                      widget.specificAmountController.clear();
+                      widget.bankNameController.clear();
+                      widget.routingNumberController.clear();
+                      widget.accountNumberController.clear();
+                      widget.verifyAccountController.clear();
+                      widget.selectedType = null;
+                      _typeFieldKey.currentState?.reset();
+                    }
+                  }
+                },
+                //         style: ElevatedButton.styleFrom(
+                // backgroundColor: Color(0xFF27A3E0),
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: BorderRadius.circular(12.0),
+                // ),
+                //         ),
+              ),
             ),
-                    ),
-                  ),
-          ),
     ];
   }
 }
