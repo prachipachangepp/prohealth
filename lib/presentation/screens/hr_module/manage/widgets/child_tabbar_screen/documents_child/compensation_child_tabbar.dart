@@ -6,10 +6,13 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -29,6 +32,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
       TextEditingController();
   TextEditingController compensitionAddIdController = TextEditingController();
   TextEditingController compensitionAddNameController = TextEditingController();
+  final StreamController<List<OnboardingAckHealthData>> _controllerCompensation = StreamController<List<OnboardingAckHealthData>>();
   String compensationExpiryType = '';
   final StreamController<List<EmployeeDocumentModal>> _controller =
       StreamController<List<EmployeeDocumentModal>>();
@@ -137,10 +141,10 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
           height: 20,
         ),
         StreamBuilder(
-            stream: _controller.stream,
+            stream: _controllerCompensation.stream,
             builder: (context, snapshot) {
-              getEmployeeDoc(context, 11, 1, 20).then((data) {
-                _controller.add(data);
+              getAckHealthRecord(context, 11, 36, 36).then((data) {
+                _controllerCompensation.add(data);
               }).catchError((error) {
                 // Handle error
               });
@@ -171,6 +175,38 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       var compaensation = snapshot.data![index];
+
+                      var fileUrl = compaensation.DocumentUrl;
+                      final fileExtension = fileUrl.split('.').last.toLowerCase();
+
+                      Widget fileWidget;
+
+                      if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                        fileWidget = Image.network(
+                          fileUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(
+                              Icons.broken_image,
+                              size: 45,
+                              color: ColorManager.faintGrey,
+                            );
+                          },
+                        );
+                      }
+                      else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                        fileWidget = Icon(
+                          Icons.description,
+                          size: 45,
+                          color: ColorManager.faintGrey,
+                        );
+                      } else {
+                        fileWidget = Icon(
+                          Icons.insert_drive_file,
+                          size: 45,
+                          color: ColorManager.faintGrey,
+                        );
+                      }
                       return Column(
                         children: [
                           SizedBox(height: 5),
@@ -214,13 +250,13 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            'ID:${compaensation.employeeDocTypesetupId}',
+                                            'ID:${compaensation.employeeId}',
                                             style: AknowledgementStyleConst
                                                 .customTextStyle(context)),
                                         SizedBox(
                                           height: 5,
                                         ),
-                                        Text(compaensation.docName,
+                                        Text(compaensation.DocumentName,
                                             style: TextStyle(
                                               fontFamily: 'FiraSans',
                                               fontSize: 10,
@@ -252,7 +288,9 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                       iconSize: 20,
                                     ),
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        downloadFile(fileUrl);
+                                      },
                                       icon: Icon(
                                         Icons.save_alt_outlined,
                                         color: Color(0xff1696C8),
@@ -358,17 +396,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                                   Navigator.pop(context);
                                                 }, onDelete: () {
                                                   setState(() async {
-                                                    await employeedoctypeSetupIdDelete(
-                                                        context,
-                                                        snapshot.data![index]
-                                                            .employeeDocTypesetupId);
-                                                    getEmployeeDoc(
-                                                            context, 11, 1, 20)
-                                                        .then((data) {
-                                                      _controller.add(data);
-                                                    }).catchError((error) {
-                                                      // Handle error
-                                                    });
+
                                                     Navigator.pop(context);
                                                   });
                                                 }, title: 'Delete Compensation',));

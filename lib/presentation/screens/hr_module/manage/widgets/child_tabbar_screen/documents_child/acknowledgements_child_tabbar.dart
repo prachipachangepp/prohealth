@@ -259,7 +259,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (context, snapshot) {
-            getAckHealthRecord(context, 10, 1, 20).then((data) {
+            getAckHealthRecord(context, 10, 48, 2).then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
