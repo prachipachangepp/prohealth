@@ -437,11 +437,18 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(
-              color: ColorManager.blueprime,
+            child: SizedBox(width: 25,
+              height: 25,
+              child: CircularProgressIndicator(
+
+
+
+                color: ColorManager.blueprime,
+              ),
             ),
           );
         }
+        ////////
         if (snapshot.data!.isEmpty) {
           return Center(
             child: Text(

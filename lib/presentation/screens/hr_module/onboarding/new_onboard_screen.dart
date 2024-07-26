@@ -314,20 +314,20 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
               padding: const EdgeInsets.only(top: 30, left: 100),
               child: Row(
                 children: [
-                  InkWell(
-                    onTap: (){
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      'Go Back',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: (){
+                  //     Navigator.pop(context);
+                  //   },
+                  //   child: Text(
+                  //     'Go Back',
+                  //     style: GoogleFonts.firaSans(
+                  //       fontSize: FontSize.s12,
+                  //       fontWeight: FontWeightManager.bold,
+                  //       color: ColorManager.mediumgrey,
+                  //       decoration: TextDecoration.underline,
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(width: MediaQuery.of(context).size.width/6),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

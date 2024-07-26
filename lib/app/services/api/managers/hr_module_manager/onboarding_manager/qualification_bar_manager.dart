@@ -128,7 +128,7 @@ Future<List<OnboardingQualificationEducationData>> getOnboardingQualificationEdu
     return itemData;
   }
 }
-
+//////0000000000000education
 /// reject education
 Future<ApiData> rejectOnboardQualifyEducationPatch(BuildContext context, int educationId) async {
   try {
@@ -156,7 +156,7 @@ Future<ApiData> rejectOnboardQualifyEducationPatch(BuildContext context, int edu
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
-
+///////////////
 /// Approve Education
 Future<ApiData> approveOnboardQualifyEducationPatch(BuildContext context, int educationId) async {
   try {
