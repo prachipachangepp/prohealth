@@ -551,7 +551,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
     currentPage = 1;
     itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    getEmployeeSeeAll(context, 1).then((data) {
+    getEmployeeSeeAll(context).then((data) {
       generalController.add(data);
     }).catchError((error) {});
   }
@@ -630,8 +630,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                   Radius.circular(20))),
                                           child: Center(
                                             child: Text(
-                                                snapshot.data![index].approved
-                                                    .toString(),
+                                                snapshot.data![index].approved.toString(),
                                                 textAlign: TextAlign.center,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
@@ -732,7 +731,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                   text1: snapshot.data![index]
                                                       .driverLicenseNum,
                                                   text2: snapshot
-                                                      .data![index].expertise,
+                                                      .data![index].service,///experties
                                                   text3: snapshot
                                                       .data![index].cityID
                                                       .toString(),
@@ -753,7 +752,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                               children: [
                                                 ObGeneralDataConstant(
                                                   text1: snapshot
-                                                      .data![index].address,
+                                                      .data![index].finalAddress,
                                                   text2: snapshot
                                                       .data![index].employment,
                                                   text3: snapshot

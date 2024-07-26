@@ -67,7 +67,9 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                             associationLengthController,
                             mobileNumberController:
                             mobileNumberController,
-                            onpressedClose: () {},
+                            onpressedClose: () {
+                              Navigator.pop(context);
+                            },
                             onpressedSave: () async {
                               await addReferencePost(
                                   context,
@@ -75,7 +77,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                   'Reference',
                                   companyNameController.text,
                                   emailController.text,
-                                  widget.employeeId!,
+                                  widget.employeeId,
                                   mobileNumberController.text,
                                   nameController.text,
                                   knowPersonController.text,
@@ -231,7 +233,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              IconButtonWidget(iconData: Icons.edit_outlined,
+                              BorderIconButton(iconData: Icons.edit_outlined,
                                   buttonText: 'Edit', onPressed: (){
                                 showDialog(context: context, builder: (BuildContext context){
                                   return FutureBuilder<ReferencePrefillData>(
@@ -269,8 +271,8 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                         builder: (BuildContext context, void Function(void Function()) setState) {
                                           return AddReferencePopup(nameController: nameController, emailController: emailController, titlePositionController: titlePositionController, knowPersonController: knowPersonController, companyNameController: companyNameController,
                                               associationLengthController: associationLengthController, mobileNumberController: mobileNumberController,
-                                              onpressedClose: (){
-                                                Navigator.pop(context);
+                                              onpressedClose: ()async{
+                                                // Navigator.pop(context);
                                               }, onpressedSave: () async{
                                                 await updateReferencePatch(context,
                                                     snapshot.data![index].referenceId,

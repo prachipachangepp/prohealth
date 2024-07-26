@@ -146,6 +146,7 @@
 
 ///////////////////////////////////after validation/////////////////////////////////
 import 'dart:io';
+import 'dart:html' as html;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -179,28 +180,24 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   final _formKey = GlobalKey<FormState>();
   String? _selectedDocumentType;
   bool _documentUploaded = true;
-  var file;
   var fileName;
   var fileName1;
-  String? filePath;
+  html.File? filePath;
   var finalPath;
   // PlatformFile? fileName;
 
-  Future<String> saveFileFromBytes(dynamic bytes, String fileName) async {
+  Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
     // Get the directory to save the file.
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
-
-    fileName1 = fileName;
+    final blob = html.Blob(bytes);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    
 
     // Create the file.
-    File file = File('$tempPath/$fileName');
-
+    //final anchor = html.AnchorElement(href: url)..setAttribute("download", fileName)..click();
+    final file = html.File(blob as List<Object>,fileName);
     // Write the bytes to the file.
-    await file.writeAsBytes(bytes);
-
-    // Return the file path.
-    return file.path;
+    print(file.toString());
+    return WebFile(file, url);
   }
   @override
   Widget build(BuildContext context) {
@@ -295,18 +292,19 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                     GestureDetector(
                       onTap: () async {
                         FilePickerResult? result = await FilePicker.platform.pickFiles(
-                          type: FileType.any,
                           allowMultiple: false,
                         );
                         if (result != null) {
                           try{
-
-                              file = result.files.first.bytes;
+                             WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
+                             html.File file = webFile.file;
+                             filePath = file;
+                             print("L::::::${filePath}");
                               fileName = result.files.first.name;
 
                             print('File picked: ${fileName}');
-                            print(String.fromCharCodes(file));
-                            finalPath = file;
+                            //print(String.fromCharCodes(file));
+                            finalPath;
                             setState(() {
                               widget.AcknowledgementnameController.text = fileName;
                               _documentUploaded = true;
@@ -351,7 +349,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                         //File filePath = File(finalPath!);
                         await uploadHttpDocuments(context: context, employeeDocumentMetaId: 2, employeeDocumentTypeSetupId: 6,
                             employeeId: 8, documentName: widget.AcknowledgementnameController.text,
-                            documentFile: finalPath);
+                            documentFile: filePath!);
                       }catch(e){
                         print(e);
                       }
@@ -373,3 +371,14 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
     );
   }
 }
+
+class WebFile{
+final html.File file;
+final String url;
+WebFile(this.file,this.url);
+
+void dispose()
+{
+  print("File $file");
+  html.Url.revokeObjectUrl(url);
+}}
