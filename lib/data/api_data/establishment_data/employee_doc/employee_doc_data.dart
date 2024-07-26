@@ -88,6 +88,26 @@ class EmployeeDocTabModal {
   });
 }
 
+class EmployeeDocSetupModal {
+  final int employeeDocTypeSetupId;
+  final int employeeDocMetaDataId;
+  final String documentName;
+  final String reminderThreshould;
+  final String expiry;
+  final bool success;
+  final String message;
+
+  EmployeeDocSetupModal({
+    required this.employeeDocTypeSetupId,
+    required this.employeeDocMetaDataId,
+    required this.documentName,
+    required this.expiry,
+    required this.reminderThreshould,
+    required this.success,
+    required this.message,
+  });
+}
+
 class GetEmployeeSetupPrefillData {
   final String docName;
   final String expiry;

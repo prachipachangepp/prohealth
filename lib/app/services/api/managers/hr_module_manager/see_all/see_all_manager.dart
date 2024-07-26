@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/see_all/see_all.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/see_all_data/see_all_data.dart';
 
 ///see all get
 
-Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context, int compID) async {
+Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context) async {
   List<SeeAllData> itemsData = [];
+
   try{
+    final compID = await TokenManager.getCompanyId();
     final response = await Api(context).get(path:
     SeeAllRepository.getEmpSeeAll(compId: compID));
     if(response.statusCode == 200 || response.statusCode == 201){
@@ -20,7 +23,6 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context, int compID) asy
         lastName: item['lastName'],
         deptId: item['departmentId'],
         empTypeId: item['employeeTypeId'],
-        expertise: item['expertise'],
         cityID: item['cityId'],
         countryId: item['countryId'],
         zoneId: item['zoneId'],
@@ -31,7 +33,6 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context, int compID) asy
         regOfficId: item['regOfficId'],
         personalEmail: item['personalEmail'],
         workEmail: item['workEmail'],
-        address: item['address'],
         dateOfBirth: item['dateOfBirth'],
         emergencyContact: item['emergencyContact'],
         employment: item['employment'],
@@ -42,10 +43,8 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context, int compID) asy
         imgurl: item['imgurl'],
         resumeurl: item['resumeurl'],
         onboardingStatus: item['onboardingStatus'],
-        companyId: item['companyId'],
-        terminationFlag: item['terminationFlag'],
         driverLicenseNum: item['driverLicenceNbr'],
-        approved: item['approved'] ?? false,
+        createdAt: item['createdAt'],
         dateofTermination: item['dateofTermination'],
         dateofResignation: item['dateofResignation'],
         dateofHire: item['dateofHire'],
@@ -61,6 +60,16 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context, int compID) asy
         methods: item['methods'],
         materials: item['materials'],
         race: item['race'],
+        approved: item['approved'] ?? false,
+        signatureURL: item['signatureURL'],
+        city: item['city'],
+        employeeType: item['employeeType'],
+        department: item['department'],
+        country: item['country'],
+        county: item['county'],
+        zone: item['zone'],
+        profileScorePercentage: item['profileScorePercentage'],
+
       ));
       }
     }else {

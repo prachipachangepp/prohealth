@@ -12,9 +12,11 @@ class CustomIconButton extends StatefulWidget {
   final String text;
   final IconData? icon;
   final Color? color;
+  final Color? textColor;
   final Future<void> Function() onPressed;
 
    CustomIconButton({
+     this.textColor,
     required this.text,
     this.icon,
     required this.onPressed,
@@ -24,6 +26,7 @@ class CustomIconButton extends StatefulWidget {
   @override
   State<CustomIconButton> createState() => _CustomIconButtonState();
 }
+
 
 class _CustomIconButtonState extends State<CustomIconButton> {
   bool isLoading = false;
@@ -53,7 +56,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
           style: CustomTextStylesCommon.commonStyle(
               fontSize: FontSize.s12,
               fontWeight: FontWeightManager.bold,
-              color: ColorManager.white)),
+              color: widget.textColor == null ?ColorManager.white:widget.textColor)),
       style: ElevatedButton.styleFrom(
         padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         backgroundColor:  widget.color == null ? Color(0xFF50B5E5) : widget.color,
@@ -70,7 +73,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
 ///button constant with white bg, colored text
 class CustomButtonTransparent extends StatefulWidget {
   final String text;
-  final VoidCallback onPressed;
+   VoidCallback onPressed;
   final double? height;
   final double? width;
 
@@ -93,37 +96,41 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
   Widget build(BuildContext context) {
     return isLoading
         ? CircularProgressIndicator( color: ColorManager.blueprime,)
-        :ElevatedButton(
-      onPressed: () async{
-        setState(() {
-          isLoading = true;
-        });
-        try {
-          await widget.onPressed;
-        } finally {
+        :SizedBox(height: 35,width: 100,
+
+          child: ElevatedButton(
+                onPressed: () async{
           setState(() {
-            isLoading = false;
+            isLoading = true;
           });
-        }
-        },
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: Color(0xFF50B5E5)),
-        ),
-      ),
-      child: Text(
-        widget.text,
-        style: const TextStyle(
-          fontFamily: 'FiraSans',
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-          color: Color(0xFF50B5E5),
-        ),
-      ),
-    );
+          try {
+            await widget.onPressed;
+          } finally {
+            setState(() {
+              isLoading = false;
+            });
+          }
+          Navigator.pop(context);
+          },
+                style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: const BorderSide(color: Color(0xFF50B5E5)),
+          ),
+                ),
+                child: Text(
+          widget.text,
+          style: const TextStyle(
+            fontFamily: 'FiraSans',
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF50B5E5),
+          ),
+                ),
+              ),
+        );
   }
 }
 

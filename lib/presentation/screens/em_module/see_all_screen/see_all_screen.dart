@@ -17,6 +17,7 @@ import '../../../../app/resources/color.dart';
 import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import '../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
+import '../../hr_module/manage/web_manage/manage_screen.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../login_module/login/widgets/login_web.dart';
 import '../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -153,7 +154,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   bottom: MediaQuery.of(context).size.width/120,),
                 child: InkWell(
                   onTap: (){
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>ManageScreen(),
+                      ),
+                    );
                   },
                   child: Row(
                     children: [

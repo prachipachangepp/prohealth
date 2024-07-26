@@ -1,4 +1,4 @@
-///////////////////////
+
 
 import 'dart:math';
 
@@ -41,11 +41,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
 
   TextEditingController firstName = TextEditingController();
 
-  /////
+  ///
   // TextEditingController _controller = TextEditingController();
   // TextEditingController _controllerIssueDate = TextEditingController();
   // TextEditingController _controllerExpirationDate = TextEditingController();
-
   // Current step in the stepper
   int _currentStep = 0;
 

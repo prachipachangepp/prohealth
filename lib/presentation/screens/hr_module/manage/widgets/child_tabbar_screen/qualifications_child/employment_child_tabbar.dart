@@ -8,7 +8,9 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employeement_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/add_employee_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_employeement_popup.dart';
@@ -48,110 +50,127 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
   }
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<EmployeementData>>(
-      stream: employeementStreamController.stream,
-      builder: (context,snapshot) {
-        getEmployeement(context,widget.employeeId).then((data) {
-          employeementStreamController.add(data);
-        }).catchError((error) {
-          // Handle error
-        });
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: Padding(
-              padding:const EdgeInsets.symmetric(vertical: 100),
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime,
-              ),
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              width: 100,
+              margin: EdgeInsets.only(right: 40),
+              child: CustomIconButtonConst(
+                  text: AppStringHr.add,
+                  icon: Icons.add,
+                  onPressed: () {
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      // routeSettings: ,
+                      builder: (BuildContext context) {
+                        return StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function()) setState) {
+                            return AddEmployeementPopup(
+                              positionTitleController:
+                              positionTitleController,
+                              leavingResonController:
+                              leavingResonController,
+                              startDateContoller: startDateContoller,
+                              endDateController: endDateController,
+                              lastSupervisorNameController:
+                              lastSupervisorNameController,
+                              supervisorMobileNumber:
+                              supervisorMobileNumber,
+                              cityNameController: cityNameController,
+                              employeerController: employeerController,
+                              emergencyMobileNumber:
+                              emergencyMobileNumber,
+                              onpressedSave: () async {
+                                await addEmployeement(
+                                    context,
+                                    widget.employeeId,
+                                    employeerController.text,
+                                    cityNameController.text,
+                                    leavingResonController.text,
+                                    lastSupervisorNameController.text,
+                                    supervisorMobileNumber.text,
+                                    positionTitleController.text,
+                                    startDateContoller.text,
+                                    endDateController.text,
+                                    emergencyMobileNumber.text,
+                                    'USA');
+                                // if(apiData.statusCode == 200 && apiData.statusCode == 201){
+                                //   return showDialog(
+                                //     context: context,
+                                //     builder: (BuildContext context) {
+                                //       Future.delayed(Duration(seconds: 3), () {
+                                //         if (Navigator.of(context).canPop()) {
+                                //           Navigator.of(context).pop();
+                                //         }
+                                //       });
+                                //       return AddSuccessPopup(message: 'Data Added Successfully',);
+                                //     },
+                                //   );
+                                //
+                                // }
+
+                              },
+                              checkBoxTile: Container(
+                                  width: 300,
+                                  child: Center(
+                                    child: CheckboxTile(
+                                      title: 'Currently work here',
+                                      initialValue: false,
+                                      onChanged: (value) {},
+                                    ),
+                                  )),
+                              tite: 'Add Employeement', onpressedClose: () {Navigator.pop(context);},
+                            );
+                          },
+                        );
+                      },
+                    );
+                  }),
             ),
-          );
-        }
-        if (snapshot.data!.isEmpty) {
-          return Center(
-              child: Text(
-                AppString.dataNotFound,
-                style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey),
-              ));
-        }
-        if(snapshot.hasData){
-          int totalItems = snapshot.data!.length;
-          List<EmployeementData> currentPageItems = snapshot.data!.sublist(
-            (currentPage - 1) * itemsPerPage,
-            (currentPage * itemsPerPage) > totalItems
-                ? totalItems
-                : (currentPage * itemsPerPage),
-          );
-          return Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: 100,
-                    margin: EdgeInsets.only(right: 40),
-                    child: CustomIconButtonConst(
-                        text: AppStringHr.add,
-                        icon: Icons.add,
-                        onPressed: () {
-                          showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            // routeSettings: ,
-                            builder: (BuildContext context) {
-                              return StatefulBuilder(
-                                builder: (BuildContext context,
-                                    void Function(void Function()) setState) {
-                                  return AddEmployeementPopup(
-                                    positionTitleController:
-                                    positionTitleController,
-                                    leavingResonController:
-                                    leavingResonController,
-                                    startDateContoller: startDateContoller,
-                                    endDateController: endDateController,
-                                    lastSupervisorNameController:
-                                    lastSupervisorNameController,
-                                    supervisorMobileNumber:
-                                    supervisorMobileNumber,
-                                    cityNameController: cityNameController,
-                                    employeerController: employeerController,
-                                    emergencyMobileNumber:
-                                    emergencyMobileNumber,
-                                    onpressedSave: () async {
-                                      await addEmployeement(
-                                          context,
-                                          widget.employeeId,
-                                          employeerController.text,
-                                          cityNameController.text,
-                                          leavingResonController.text,
-                                          lastSupervisorNameController.text,
-                                          supervisorMobileNumber.text,
-                                          positionTitleController.text,
-                                          startDateContoller.text,
-                                          endDateController.text,
-                                          emergencyMobileNumber.text,
-                                          'USA');
-                                    },
-                                    checkBoxTile: Container(
-                                        width: 300,
-                                        child: CheckboxTile(
-                                          title: 'Currently work here',
-                                          initialValue: false,
-                                          onChanged: (value) {},
-                                        )),
-                                    tite: 'Add Employeement', onpressedClose: () {Navigator.pop(context);},
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        }),
+          ],
+        ),
+        StreamBuilder<List<EmployeementData>>(
+          stream: employeementStreamController.stream,
+          builder: (context,snapshot) {
+            getEmployeement(context,widget.employeeId).then((data) {
+              employeementStreamController.add(data);
+            }).catchError((error) {
+              // Handle error
+            });
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Padding(
+                  padding:const EdgeInsets.symmetric(vertical: 100),
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
                   ),
-                ],
-              ),
-              WrapWidget(
+                ),
+              );
+            }
+            if (snapshot.data!.isEmpty) {
+              return Center(
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey),
+                  ));
+            }
+            if(snapshot.hasData){
+              int totalItems = snapshot.data!.length;
+              List<EmployeementData> currentPageItems = snapshot.data!.sublist(
+                (currentPage - 1) * itemsPerPage,
+                (currentPage * itemsPerPage) > totalItems
+                    ? totalItems
+                    : (currentPage * itemsPerPage),
+              );
+              return WrapWidget(
                   childern:List.generate(snapshot.data!.length, (index){
                     int serialNumber =
                         index + 1 + (currentPage - 1) * itemsPerPage;
@@ -399,11 +418,6 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                     emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
                                                     'USA'
                                                     );
-                                                getEmployeement(context,2).then((data) {
-                                                  employeementStreamController.add(data);
-                                                }).catchError((error) {
-                                                  // Handle error
-                                                });
                                               }, checkBoxTile:  Padding(
                                                 padding:  EdgeInsets.only(left: 25.0),
                                                 child: Container(
@@ -503,14 +517,14 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                       ),
                     );
                   })
-              ),
-            ],
-          );
-        }else{
-          return SizedBox();
-        }
+              );
+            }else{
+              return SizedBox();
+            }
 
-      }
+          }
+        ),
+      ],
     );
 
 

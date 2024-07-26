@@ -90,7 +90,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   final AppConfig appConfig = AppConfig();
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         SizedBox(

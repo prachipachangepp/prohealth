@@ -190,8 +190,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
 
                         },
-                        child: FutureBuilder<List<EmployeeDocTabModal>>(
-                            future: getEmployeeDocTab(context),
+                        child: FutureBuilder<List<EmployeeDocSetupModal>>(
+                            future: getEmployeeDocSetupDropDown(context),
                             builder: (context,snapshot) {
                               if(snapshot.connectionState == ConnectionState.waiting){
                                 return Shimmer.fromColors(
@@ -223,8 +223,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                 for(var i in snapshot.data!){
                                   dropDownMenuItems.add(
                                     DropdownMenuItem<String>(
-                                      child: Text(i.employeeDocType),
-                                      value: i.employeeDocType,
+                                      child: Text(i.documentName),
+                                      value: i.documentName,
                                     ),
                                   );
                                 }
@@ -232,7 +232,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                     initialValue: dropDownMenuItems[0].value,
                                     onChange: (val){
                                       for(var a in snapshot.data!){
-                                        if(a.employeeDocType == val){
+                                        if(a.documentName == val){
                                           docType = a.employeeDocMetaDataId;
                                           //docMetaId = docType;
                                         }
