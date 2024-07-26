@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 import '../../../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 import '../../../../token/token_manager.dart';
 import '../../../api.dart';
