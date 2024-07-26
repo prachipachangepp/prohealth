@@ -506,63 +506,79 @@ class _generalFormState extends State<generalForm> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomRadioListTile(
-                            title: 'Asian',
-                            value: 'Asian',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'Asian',
+                                value: 'Asian',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                           // const SizedBox(
                           //   width: 3,
                           // ),
 
-                          CustomRadioListTile(
-                            title: 'White',
-                            value: 'White',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'White',
+                                value: 'White',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            width: 5,
-                          ),
+                          // const SizedBox(
+                          //   width: 5,
+                          // ),
 
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomRadioListTile(
-                            title: 'Black or African American',
-                            value: 'Black or African American',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'Black or African American',
+                                value: 'Black or African American',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
 
-                          CustomRadioListTile(
-                            title: 'Other',
-                            value: 'Other',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'Other',
+                                value: 'Other',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            width: 3,
-                          ),
+                          // const SizedBox(
+                          //   width: 3,
+                          // ),
 
 
                         ],
