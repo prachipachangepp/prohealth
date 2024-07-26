@@ -142,7 +142,7 @@ Future<ApiData> batchApproveOnboardAckHealthPatch(BuildContext context,List<int>
   }
 }
 
-///bbatch reject
+///batch reject
 Future<ApiData> batchRejectOnboardAckHealthPatch(BuildContext context,List<int> employeeDocumentId) async {
   try {
     var response = await Api(context).patch(

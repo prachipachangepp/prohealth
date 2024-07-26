@@ -24,7 +24,7 @@ Future<List<RegisterDataCompID>> GetRegisterByCompId(
             role: item['role'] ?? '--',
             email: item['email'] ?? '--',
             company_id: item['company_id'] ?? 0,
-            status: item['status'] ?? '--'));
+            status: item['status'] ?? 'null'));
       }
     } else {
       print('Api Error');
