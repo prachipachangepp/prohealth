@@ -570,18 +570,28 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
           labelText: labelText,
-          keyboardType: TextInputType.text,
+          keyboardType: (labelText == "Supervisor's Mobile Number" || labelText == "Emergency Mobile Number")
+              ? TextInputType.phone
+              : TextInputType.text,
           padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
           suffixIcon: suffixIcon,
           onTap: onTap,
           onChanged: (value) {
             setState(() {
-              errorStates[errorKey] = value.isEmpty;
+              if (labelText == "Supervisor's Mobile Number" || labelText == "Emergency Mobile Number") {
+                errorStates[errorKey] = value.isEmpty || value.length != 10 || int.tryParse(value) == null;
+              } else {
+                errorStates[errorKey] = value.isEmpty;
+              }
             });
           },
           validator: (value) {
             if (value == null || value.isEmpty) {
               return AppString.enterText;
+            }
+            if ((labelText == "Supervisor's Mobile Number" || labelText == "Emergency Mobile Number") &&
+                (value.length != 10 || int.tryParse(value) == null)) {
+              return 'Please enter a valid 10-digit mobile number';
             }
             return null;
           },
@@ -590,7 +600,9 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
           Padding(
             padding: const EdgeInsets.only(top: 5),
             child: Text(
-              'Please enter $labelText',
+              (labelText == "Supervisor's Mobile Number" || labelText == "Emergency Mobile Number")
+                  ? 'Please enter a valid 10-digit mobile number'
+                  : 'Please enter $labelText',
               style: TextStyle(color: Colors.red, fontSize: 10),
             ),
           ),
@@ -622,10 +634,14 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       errorStates['startDate'] = widget.startDateContoller.text.isEmpty;
       errorStates['endDate'] = widget.endDateController.text.isEmpty;
       errorStates['lastSupervisorName'] = widget.lastSupervisorNameController.text.isEmpty;
-      errorStates['supervisorMobileNumber'] = widget.supervisorMobileNumber.text.isEmpty;
+      errorStates['supervisorMobileNumber'] = widget.supervisorMobileNumber.text.isEmpty ||
+          widget.supervisorMobileNumber.text.length != 10 ||
+          int.tryParse(widget.supervisorMobileNumber.text) == null;
       errorStates['cityName'] = widget.cityNameController.text.isEmpty;
       errorStates['employer'] = widget.employeerController.text.isEmpty;
-      errorStates['emergencyMobileNumber'] = widget.emergencyMobileNumber.text.isEmpty;
+      errorStates['emergencyMobileNumber'] = widget.emergencyMobileNumber.text.isEmpty ||
+          widget.emergencyMobileNumber.text.length != 10 ||
+          int.tryParse(widget.emergencyMobileNumber.text) == null;
     });
 
     if (!errorStates.values.contains(true)) {
