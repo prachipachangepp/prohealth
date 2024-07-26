@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_licenses_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
 class LicensesScreen extends StatefulWidget {
@@ -57,7 +58,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
     });
   }
 
-  Future<void> postlicensesscreen(
+  Future<void> postlicensesscreendata(
       BuildContext context,
       String country,
       int employeeId,
@@ -65,7 +66,11 @@ class _LicensesScreenState extends State<LicensesScreen> {
       String licensure,
       String licenseNumber,
       String org,
-      String documentType) async {}
+      String documentType) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Licenses data saved")),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,56 +181,62 @@ class _LicensesScreenState extends State<LicensesScreen> {
             );
           }).toList(),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ElevatedButton.icon(
-              onPressed: addEducationForm,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff50B5E5),
-                // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 150),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ElevatedButton.icon(
+                onPressed: addEducationForm,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff50B5E5),
+                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                icon: Icon(Icons.add, color: Colors.white),
+                label: Text(
+                  'Add Licenses',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              icon: Icon(Icons.add, color: Colors.white),
-              label: Text(
-                'Add Education',
-                style: GoogleFonts.firaSans(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff1696C8),
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
+            CustomButton(
+              width: 117,
+              height: 30,
+              text: 'Save',
+              style: TextStyle(
+                fontFamily: 'FiraSans',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
               ),
+              borderRadius: 12,
               onPressed: () async {
-                // Loop through each form and extract data to post
                 for (var key in licensesFormKeys) {
                   final st = key.currentState!;
                   await postlicensesscreen(
                       context,
                       "--",
-                      0,
+                      15,
                       "__",
                       st.licensure.text,
                       st.licensurenumber.text,
                       st.org.text,
                       "__");
                 }
+                //licensure.clear();
               },
               child: Text(
                 'Save',
@@ -316,6 +327,7 @@ class _licensesFormState extends State<licensesForm> {
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
               child: Column(
@@ -440,6 +452,8 @@ class _licensesFormState extends State<licensesForm> {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+
                 children: [
                   Text(
                     'Issue Date',
@@ -479,7 +493,7 @@ class _licensesFormState extends State<licensesForm> {
                       },
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 200),
+                  SizedBox(height: MediaQuery.of(context).size.height / 100),
                   Row(
                     children: [
                       Expanded(
@@ -532,6 +546,7 @@ class _licensesFormState extends State<licensesForm> {
                       },
                     ),
                   ),
+                  SizedBox(height: 150)
                 ],
               ),
             ),
@@ -552,18 +567,7 @@ class _licensesFormState extends State<licensesForm> {
             SizedBox(width: MediaQuery.of(context).size.width / 5),
             ElevatedButton.icon(
               onPressed: _pickFiles,
-// onPressed: () async {
-//   FilePickerResult? result =
-//       await FilePicker.platform.pickFiles(
-//     allowMultiple: false,
-//   );
-//   if (result != null) {
-//     PlatformFile file = result.files.first;
-//     print('File picked: ${file.name}');
-//   } else {
-//     // User canceled the picker
-//   }
-// },
+
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xff50B5E5),
 // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),

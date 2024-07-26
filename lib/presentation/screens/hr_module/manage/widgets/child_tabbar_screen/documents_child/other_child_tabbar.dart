@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -181,7 +184,20 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                               icon: const Icon(Icons.refresh_outlined,color: Color(0xff1696C8),),
                               iconSize: 20,),
                             IconButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                final pdf = pw.Document();
+
+                                pdf.addPage(
+                                  pw.Page(
+                                    build: (pw.Context context) => pw.Center(
+                                      child: pw.Text('Hello, this is a test print!'),
+                                    ),
+                                  ),
+                                );
+
+                                await Printing.layoutPdf(
+                                  onLayout: (PdfPageFormat format) async => pdf.save(),
+                                );
                               },
                               icon: const Icon(Icons.print_outlined,color: Color(0xff1696C8),),
                               iconSize: 20,),

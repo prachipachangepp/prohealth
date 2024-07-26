@@ -131,7 +131,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: Colors.white),
+                    icon: const Icon(Icons.close, color: Colors.white,size: 16),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -139,6 +139,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                 ],
               ),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(
@@ -528,3 +529,45 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
 /////////////////
 
 ////
+// Future<void> _verifyOTPAndProcess(String email, String otp) async {
+//   setState(() {
+//     _isVerifyingOTP = true;
+//     _errorMessage = "";
+//     _otpErrorMessage = null; // Clear previous OTP error message
+//   });
+//
+//   String enteredOTP = otp;
+//
+//   try {
+//     ApiDataRegister result = await AuthManager.verifyOTPAndRegister(
+//       email: email,
+//       otp: enteredOTP,
+//       context: context,
+//     );
+//
+//     if (result.success) {
+//       print('Success navigate');
+//       showDialog(
+//         context: context,
+//         builder: (BuildContext context) {
+//           return Dialog(
+//             shape: RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(20.0),
+//             ),
+//             child: OnBoardingCongratulation(),
+//           );
+//         },
+//       );
+//     } else {
+//       setState(() {
+//         _otpErrorMessage = result.message; // Set OTP error message
+//       });
+//     }
+//
+//     setState(() {
+//       _isVerifyingOTP = false;
+//     });
+//   } catch (e) {
+//     print(e);
+//   }
+// }

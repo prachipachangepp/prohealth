@@ -8,6 +8,7 @@ import 'package:prohealth/data/api_data/hr_module_data/offer_letter_html_data/of
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/signature_screen.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../manage/widgets/bottom_row.dart';
@@ -134,7 +135,10 @@ class _OfferLetterDescriptionScreenState
                     child: _selectedFile == null
                         ? Center(
                             child: ElevatedButton(
-                              onPressed: _pickFile,
+                              // onPressed: _pickFile,
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => SignaturePage()));
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xff1696C8),
                                 foregroundColor: Colors.white,
