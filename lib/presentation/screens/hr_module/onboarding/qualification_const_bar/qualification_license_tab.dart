@@ -9,6 +9,7 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/api_data/hr_module_data/onboarding_data/onboarding_qualification_data.dart';
 import '../../manage/const_wrap_widget.dart';
 
@@ -142,11 +143,138 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                             QualificationActionButtons(
                                 approve: snapshot.data![index].approve,
                                 onRejectPressed: () async {
-                                  await rejectOnboardQualifyLicensePatch(context, snapshot.data![index].licenseId);
-                                  getOnboardingQualificationLicense(context, 2).then((data){
-                                    licenseStreamController.add(data);
-                                  }).catchError((error){});
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                        ),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20.0),
+                                          ),
+                                          height: 181.0,
+                                          width: 500.0,
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: ColorManager.bluebottom,
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(8),
+                                                    topRight: Radius.circular(8),
+                                                  ),
+                                                ),
+                                                height: 35,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 10.0),
+                                                      child: Text(
+                                                        'Reject',
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: FontSize.s12,
+                                                          fontWeight: FontWeightManager.semiBold,
+                                                          color: ColorManager.white,
+                                                          decoration: TextDecoration.none,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      icon: Icon(Icons.close, color: ColorManager.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(left: 20.0),
+                                                  child: Text(
+                                                    "Do you really want to,reject this?",
+                                                    textAlign: TextAlign.center,
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeightManager.regular,
+                                                      color: ColorManager.mediumgrey,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
+                                                child: Align(
+                                                  alignment: Alignment.bottomRight,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        style: ElevatedButton.styleFrom(
+                                                          elevation: 5,
+                                                          backgroundColor: Colors.white,
+                                                          foregroundColor: Color(0xff1696C8),
+                                                          side: BorderSide(color: Color(0xff1696C8)),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          'Cancel',
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10.0,
+                                                            fontWeight: FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: MediaQuery.of(context).size.width / 75),
+                                                      ElevatedButton(
+                                                        onPressed: () async {
+                                                          await rejectOnboardQualifyLicensePatch(context, snapshot.data![index].licenseId);
+                                                          getOnboardingQualificationLicense(context, 2).then((data){
+                                                            licenseStreamController.add(data);
+                                                          }).catchError((error){});
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        style: ElevatedButton.styleFrom(
+                                                          backgroundColor: Color(0xff1696C8),
+                                                          foregroundColor: Colors.white,
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          'Yes',
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10.0,
+                                                            fontWeight: FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
                                 },
+                                // onRejectPressed: () async {
+                                //   await rejectOnboardQualifyLicensePatch(context, snapshot.data![index].licenseId);
+                                //   getOnboardingQualificationLicense(context, 2).then((data){
+                                //     licenseStreamController.add(data);
+                                //   }).catchError((error){});
+                                // },
                                 onApprovePressed: ()async{
                                   showDialog(
                                     context: context,
