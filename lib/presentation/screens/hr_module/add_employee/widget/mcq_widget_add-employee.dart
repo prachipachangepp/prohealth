@@ -12,10 +12,12 @@ class McqWidget extends StatelessWidget {
   final List<String> items;
   final RxInt selectedItemIndex = RxInt(-1);
   final Function(int)? onChanged;
+  final double? fontSize;
   McqWidget({
     required this.title,
     required this.items,
     this.onChanged,
+    this.fontSize
   });
 
   @override
@@ -33,7 +35,7 @@ class McqWidget extends StatelessWidget {
             style: GoogleFonts.firaSans(
               fontSize: textFontSize,
               color: ColorManager.mediumgrey,
-              fontWeight: FontWeight.w700
+              fontWeight: FontWeight.w600
             ),
           ),
         ),

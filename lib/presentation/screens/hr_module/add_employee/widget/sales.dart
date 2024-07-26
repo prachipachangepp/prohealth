@@ -861,6 +861,7 @@ class _SalesTabState extends State<SalesTab> {
                         children: [
                           McqWidget(
                             title: 'Employment',
+                            fontSize: 14.0,
                             items: [
                               'Full Time',
                               'Contract',
