@@ -1,7 +1,10 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 
@@ -60,6 +63,20 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
       print(e);
     }
   }
+  Timer? _timer;
+  int _remainingTime = 59;
+  void _startTimer() {
+    _timer?.cancel(); // Cancel any existing timer
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_remainingTime > 0) {
+          _remainingTime--;
+        } else {
+          timer.cancel();
+        }
+      });
+    });
+  }
 
   final List<FocusNode> _focusNodes = List.generate(6, (index) => FocusNode());
 
@@ -73,7 +90,6 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
     }
     super.dispose();
   }
-
 
   TextEditingController emailController = TextEditingController();
   TextEditingController otpController = TextEditingController();
@@ -96,7 +112,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
       backgroundColor: Colors.white,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.3,
-        height:  MediaQuery.of(context).size.height*0.5,
+        height: MediaQuery.of(context).size.height * 0.5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -172,40 +188,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         }
                         return null;
                       },
-                      // // Ensure minimum size when empty
-                      // minWidth: MediaQuery.of(context).size.width / 5,
-                      // minHeight: MediaQuery.of(context).size.height / 20,
                     ),
-
-
-                    // CustomTextFieldRegister(
-                    //   focusNode: emailFocusNode,
-                    //   onFieldSubmitted: (String value) {
-                    //     FocusScope.of(context).requestFocus(otpFocusNode);
-                    //   },
-                    //   height:MediaQuery.of(context).size.height / 20,
-                    //   width: MediaQuery.of(context).size.width / 5,
-                    //   controller: emailController,
-                    //   labelText: 'Email',
-                    //   keyboardType: TextInputType.text,
-                    //   padding: const EdgeInsets.only(
-                    //       bottom: AppPadding.p5, left: AppPadding.p20),
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       emailEntered = value.isNotEmpty;
-                    //     });
-                    //   },
-                    //   validator: (value) {
-                    //     if (value == null || value.isEmpty) {
-                    //       return 'Please enter an email address';
-                    //     } else if (!RegExp(
-                    //         r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                    //         .hasMatch(value)) {
-                    //       return 'Please enter a valid email address';
-                    //     }
-                    //     return null;
-                    //   },
-                    // ),
                     const SizedBox(height: 20),
                     isLoading
                         ? SizedBox(
@@ -227,9 +210,10 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         setState(() {
                           isLoading = true;
                           otpEnabled = true;
+                          _remainingTime = 59; // Reset timer
+                          _startTimer(); // Start timer
                         });
-                        await postverifyuser(
-                            context, emailController.text);
+                        await postverifyuser(context, emailController.text);
                         Future.delayed(
                           const Duration(seconds: 2),
                               () {
@@ -244,7 +228,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     ),
                     const SizedBox(height: 20),
                     CustomTextFieldRegister(
-                      height:MediaQuery.of(context).size.height / 20,
+                      height: MediaQuery.of(context).size.height / 20,
                       width: MediaQuery.of(context).size.width / 5,
                       controller: otpController,
                       labelText: 'Enter OTP',
@@ -260,6 +244,42 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         return null;
                       },
                     ),
+                    const SizedBox(height: 3),
+                    otpEnabled ?
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 55),
+                          child: Text(
+                            '00:$_remainingTime',
+                            style:  GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              color: ColorManager.mediumgrey,
+                              fontWeight: FontWeightManager.semiBold
+                            ),
+                          ),
+                        ),
+                      ): _remainingTime == 0 ?InkWell(
+                      onTap: ()async{
+                       await postverifyuser(context, emailController.text);
+                        _remainingTime = 59;
+                        _startTimer();
+                      },
+                        child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 55),
+                          child: Text(
+                            'Resend Otp',
+                            style:  GoogleFonts.firaSans(
+                                fontSize: FontSize.s12,
+                                color: ColorManager.blueprime,
+                                fontWeight: FontWeightManager.medium
+                            ),
+                          ),
+                        ),
+                                            ),
+                      ):
                     const SizedBox(height: 20),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -268,17 +288,15 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                           borderRadius: BorderRadius.circular(6.0),
                         ),
                       ),
-                      onPressed: otpEnabled //&& otpController.text.isNotEmpty
-                          ? ()async {
-                        if (_formKey.currentState!.validate())  {
+                      onPressed: otpEnabled
+                          ? () async {
+                        if (_formKey.currentState!.validate()) {
                           String email = emailController.text;
-                           String otp = otpController.text;
-                           await _verifyOTPAndProcess(emailController.text,otpController.text);
-                          print('Email: $email, OTP: $otp');
-
-                        }else(){
-                          return const Text("password is not correct");
-                        };
+                          String otp = otpController.text;
+                          await _verifyOTPAndProcess(email, otp);
+                        } else {
+                          return  print('OTP not valid');
+                        }
                       }
                           : null,
                       child: const Text('Submit'),

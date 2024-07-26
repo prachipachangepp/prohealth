@@ -774,7 +774,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             child: _buildTextField(
                               controller: widget.phoneController,
                               labelText: "Phone",
-                              errorText: _phoneError ? 'Please enter a valid 10-digit phone number' : null,
+                              errorText: _phoneError ? 'Please enter valid phone number' : null,
                             ),
                           ),
                           SizedBox(width: 20),
@@ -923,7 +923,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                 _phoneError = value.isEmpty || value.length != 10 || int.tryParse(value) == null;
               }
               if (labelText == "City") _cityError = value.isEmpty;
-              if (labelText == "Degree") _degreeError = value.isEmpty;
+              //if (labelText == "Degree") _degreeError = value.isEmpty;
               if (labelText == "State") _stateError = value.isEmpty;
               if (labelText == "Major Subject") _majorSubjectError = value.isEmpty;
               if (labelText == "Country Name") _countryNameError = value.isEmpty;
@@ -964,14 +964,13 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
       _stateError = widget.stateController.text.isEmpty;
       _majorSubjectError = widget.majorSubjectController.text.isEmpty;
       _countryNameError = widget.countryNameController.text.isEmpty;
-      _radioButtonError = !_isRadioButtonSelected;
+      //_radioButtonError = !_isRadioButtonSelected;
     });
 
     if (!_collegeUniversityError &&
         !_phoneError &&
         !_calendarError &&
         !_cityError &&
-        !_degreeError &&
         !_stateError &&
         !_majorSubjectError &&
         !_countryNameError &&

@@ -49,7 +49,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     GetRegisterByCompId(context).then((data) {
       registerController.add(data);
     }).catchError((error) {});
+    RegisterGetData(context);
   }
+  late RegisterEnrollData registerEnrollData;
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +281,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           },
                                           child: Text(
                                             //'https://prohealth.symmetry.care/register',
-                                          snapshot.data![index].status == 'Notopen'
+                                              snapshot.data![index].status == 'Notopen'
                                               ? ''
                                               : snapshot.data![index].role,
                                             style: GoogleFonts.firaSans(

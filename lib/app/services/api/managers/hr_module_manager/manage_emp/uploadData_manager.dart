@@ -1,15 +1,15 @@
 
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/multipart/form_data.dart';
-import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/upload_repo.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
-import 'dart:convert';
 import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 
@@ -18,11 +18,12 @@ Future<ApiData> uploadDocuments({
   required int employeeDocumentMetaId,
   required int employeeDocumentTypeSetupId,
   required int employeeId,
-  required html.File documentFile,
+  required XFile documentFile,
   required String documentName
 }) async {
   try {
-    print("File ${documentFile}");
+    File file = File(documentFile.path);
+    print("File ${file}");
     // var fileDocuments = MultipartFile(
     //   documentFile,
     //   filename: documentName,
@@ -31,7 +32,7 @@ Future<ApiData> uploadDocuments({
     var response = await Api(context).post(
       path: UploadDocumentRepository.uploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId, employeeId: employeeId),
       data: {
-        'file':documentFile
+        'file':file
       },
     );
     print("Response ${response.toString()}");
@@ -62,26 +63,55 @@ Future<void> uploadHttpDocuments({
   required int employeeDocumentMetaId,
   required int employeeDocumentTypeSetupId,
   required int employeeId,
-  required html.File documentFile,
+  required XFile documentFile,
   required String documentName
 }) async {
   try {
+    final String token = await TokenManager.getAccessToken();
     var headers = {
-  'Authorization':  TokenManager.getAccessToken().toString(),
+      'accept': 'application/json',
+      'Authorization': token,
+      'Content-Type': 'application/json'
 };
-    File file = documentFile as File;
-    print("::::${file}");
+    // File file = documentFile as File;
+    // Future<XFile> convertHtmlFileToXFile(String assetPath) async {
+    //   // Load the HTML file content from assets
+    //   final String htmlContent = await rootBundle.loadString(assetPath);
+    //
+    //   // Get the temporary directory
+    //   final Directory tempDir = await getTemporaryDirectory();
+    //
+    //   // Create a temporary file
+    //   final File tempFile = File('${tempDir.path}/temp.html');
+    //
+    //   // Write the HTML content to the temporary file
+    //   await tempFile.writeAsString(htmlContent);
+    //
+    //   // Convert the temporary file to an XFile
+    //   final XFile xFile = XFile(tempFile.path);
+    //
+    //   return xFile;
+    // }
+    // await convertHtmlFileToXFile(file as String);
+    // print("::::${file}");
+
+    print("XFile :::${documentFile.toString()}" );
+    print("Token :: $token");
 var request = http.MultipartRequest('POST',
-    Uri.parse('http://50.112.139.35:3000/employee-documents/uploadDocument/$employeeDocumentMetaId/$employeeDocumentTypeSetupId/$employeeId'));
-request.files.add(http.MultipartFile.fromPath('file', documentName) as http.MultipartFile);
+    Uri.parse('${AppConfig.dev}/employee-documents/uploadDocument/$employeeDocumentMetaId/$employeeDocumentTypeSetupId/$employeeId'));
+request.files.add(http.MultipartFile.fromString('file',documentFile.path));
 request.headers.addAll(headers);
 
 http.StreamedResponse response = await request.send();
-if (response.statusCode == 200) {
+
+print("Response ::: ${request}");
+if (response.statusCode == 200 || response.statusCode == 201) {
   print("Uploded");
 print(await response.stream.bytesToString());
 }
 else {
+  print("Faild");
+  print("${response.statusCode}");
 print(response.reasonPhrase);
 }
   } catch (e) {
