@@ -98,7 +98,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     startDateContoller.text,
                                     endDateController.text,
                                     emergencyMobileNumber.text,
-                                    'USA');
+                                    'INDIA');
                                 // if(apiData.statusCode == 200 && apiData.statusCode == 201){
                                 //   return showDialog(
                                 //     context: context,
@@ -378,10 +378,9 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                             var startDate = snapshotPrefill.data!.dateOfJoining;
                                             startDateContoller = TextEditingController(text: snapshotPrefill.data?.dateOfJoining);
 
-                                            String endDate = snapshotPrefill.data!.endDate;
+                                            var endDate = snapshotPrefill.data!.endDate;
                                             endDateController = TextEditingController(text: snapshotPrefill.data?.endDate);
-                                            DateTime.tryParse(endDate.toString());
-                                            print("Date ${endDate}");
+
 
                                             var supervisorName = snapshotPrefill.data!.supervisor;
                                             lastSupervisorNameController = TextEditingController(text: snapshotPrefill.data!.supervisor);

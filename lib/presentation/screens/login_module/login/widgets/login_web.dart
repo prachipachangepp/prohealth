@@ -32,9 +32,15 @@ class _LoginWebState extends State<LoginWeb> {
   FocusNode passwordFocusNode = FocusNode();
   String? otpFromRunTab;
   String? _errorMessage;
+   void clearSvgCache() {
+     final cache = PaintingBinding.instance.imageCache;
+     cache.clear();
+     cache.clearLiveImages();
+   }
   @override
   void initState() {
     super.initState();
+    clearSvgCache();
   }
 
   @override

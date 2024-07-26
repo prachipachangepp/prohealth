@@ -23,7 +23,7 @@ class IconButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
+      height:MediaQuery.of(context).size.height/20,
       width: width,
       child: IconButton(
         style: IconButton.styleFrom(

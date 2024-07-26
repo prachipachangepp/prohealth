@@ -41,7 +41,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width/1.5,
-        height: AppSize.s400,
+        height:MediaQuery.of(context).size.height/1.7,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),

@@ -147,9 +147,11 @@
 ///////////////////////////////////after validation/////////////////////////////////
 import 'dart:io';
 import 'dart:html' as html;
+import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -182,7 +184,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   bool _documentUploaded = true;
   var fileName;
   var fileName1;
-  html.File? filePath;
+  XFile? filePath;
   var finalPath;
   // PlatformFile? fileName;
 
@@ -194,11 +196,29 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
 
     // Create the file.
     //final anchor = html.AnchorElement(href: url)..setAttribute("download", fileName)..click();
-    final file = html.File(blob as List<Object>,fileName);
+    final file = html.File([blob],fileName);
     // Write the bytes to the file.
     print(file.toString());
     return WebFile(file, url);
   }
+
+  Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
+    // Create a Blob from the bytes
+    final blob = html.Blob([bytes]);
+
+    // Create an object URL from the Blob
+    final url = html.Url.createObjectUrlFromBlob(blob);
+
+    // Create a File from the Blob
+    final file = html.File([blob], fileName);
+
+    print("XFILE ${url}");
+
+    // Return the XFile created from the object URL
+    return XFile(url);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -296,9 +316,14 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                         );
                         if (result != null) {
                           try{
+                            Uint8List? bytes = result.files.first.bytes;
+                            XFile xlfile = XFile(result.xFiles.first.path);
+                            print("::::XFile ${xlfile.toString()}");
+                            XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
                              WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
                              html.File file = webFile.file;
-                             filePath = file;
+                             print("XFILE ${xFile}");
+                             filePath = xlfile;
                              print("L::::::${filePath}");
                               fileName = result.files.first.name;
 
