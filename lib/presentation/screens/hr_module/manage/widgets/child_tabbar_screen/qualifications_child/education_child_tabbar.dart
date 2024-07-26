@@ -32,7 +32,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
   TextEditingController stateController = TextEditingController();
   TextEditingController majorSubjectController = TextEditingController();
   TextEditingController countryNameController = TextEditingController();
-  String expiryType = '';
+  String expiryType = 'No';
   @override
   void initState() {
     // TODO: implement initState

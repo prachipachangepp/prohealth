@@ -317,11 +317,13 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                         if (result != null) {
                           try{
                             Uint8List? bytes = result.files.first.bytes;
-                            XFile xFile = await convertBytesToXFile(bytes!, result.files.first.name);
+                            XFile xlfile = XFile(result.xFiles.first.path);
+                            print("::::XFile ${xlfile.toString()}");
+                            XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
                              WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
                              html.File file = webFile.file;
                              print("XFILE ${xFile}");
-                             filePath = xFile;
+                             filePath = xlfile;
                              print("L::::::${filePath}");
                               fileName = result.files.first.name;
 
