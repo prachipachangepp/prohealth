@@ -231,8 +231,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              IconButtonWidget(iconData: Icons.edit_outlined,
-
+                              BorderIconButton(iconData: Icons.edit_outlined,
                                   buttonText: 'Edit', onPressed: (){
                                 showDialog(context: context, builder: (BuildContext context){
                                   return FutureBuilder<ReferencePrefillData>(

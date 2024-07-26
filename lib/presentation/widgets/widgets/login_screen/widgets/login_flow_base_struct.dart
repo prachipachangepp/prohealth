@@ -27,7 +27,8 @@ class LoginBaseConstant extends StatelessWidget {
   final double? containerHeight;
   final double? containerWidth;
   final EdgeInsetsGeometry? textActionPadding;
-  final SvgPicture backImg = SvgPicture.asset("images/background.svg");
+  final SvgPicture backImg = SvgPicture.asset("images/background.svg",);
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,14 @@ class LoginBaseConstant extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: SvgPicture.asset(
+                          key: UniqueKey(),
+                          placeholderBuilder: (BuildContext context) => Container(
+                            width: 25,
+                            height: 25,
+                            child: Center(
+                              child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                            ),
+                          ),
                           'images/vector.svg',
                           height: MediaQuery.of(context).size.height / 1.25,
                           // width: MediaQuery.of(context).size.width / 1,
@@ -61,7 +70,9 @@ class LoginBaseConstant extends StatelessWidget {
                       children: [
                         Align(
                           alignment: Alignment.topLeft,
-                          child: SvgPicture.asset('images/vector1.svg',
+                          child: SvgPicture.asset(
+                            key: UniqueKey(),
+                              'images/vector1.svg',
                               height: MediaQuery.of(context).size.height / 1,
                               width: MediaQuery.of(context).size.width),
                         ),
@@ -165,12 +176,14 @@ class LoginBaseConstant extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Image.asset(
+                                  key: UniqueKey(),
                                   'images/logo_login.png',
                                   width: MediaQuery.of(context).size.width / 5,
                                   height: MediaQuery.of(context).size.height / 5,
                                 ),
                                 Expanded(
                                   child:  SvgPicture.asset(
+                                    key: UniqueKey(),
                                     'images/amico.svg',
                                     // fit: BoxFit.fill,
                                   ),

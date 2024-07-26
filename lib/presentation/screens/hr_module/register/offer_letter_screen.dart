@@ -2052,6 +2052,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       phoneNbr: widget.phone, email: widget.email, link: generatedURL, status: widget.status, departmentId:
                                       1, position: widget.position, speciality: widget.soecalityName, clinicianTypeId: 1,
                                       reportingOfficeId: widget.reportingOffice, cityId: 1, countryId: 1, countyId: 9, zoneId: 18, employment: widget.employement, service: widget.services);
+
                                    Navigator.pop(context);
                                 },
                                 title: 'Confirm Enrollment',
@@ -2060,7 +2061,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             },
                           );
                         },
-
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xff1696C8),
                           foregroundColor: Colors.white,

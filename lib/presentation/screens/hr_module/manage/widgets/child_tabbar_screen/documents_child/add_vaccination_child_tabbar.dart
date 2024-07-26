@@ -141,7 +141,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
         StreamBuilder(
           stream: _controller.stream,
           builder: (context,snapshot) {
-            getAckHealthRecord(context, 1,1,20).then((data) {
+            getAckHealthRecord(context, 1,10,5).then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -167,7 +167,8 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
             }
             if(snapshot.hasData){
 
-              return Expanded(
+              return Container(
+                height: MediaQuery.of(context).size.height/1,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: snapshot.data!.length,
@@ -190,7 +191,8 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                           );
                         },
                       );
-                    } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                    }
+                    else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
                       fileWidget = Icon(
                         Icons.description,
                         size: 45,
@@ -235,7 +237,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                         borderRadius: BorderRadius.circular(4),
                                         border: Border.all(width: 2,color:ColorManager.faintGrey),
                                       ),
-                                      child: fileWidget),
+                                      child: Image.asset('images/Vector.png')),
                                   SizedBox(width: 10),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -244,7 +246,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                       Text('ID:${health.employeeDocumentId}',
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       SizedBox(height: 5,),
-                                      Text(health.ReminderThreshold,
+                                      Text(health.DocumentName,
                                           style:TextStyle(
                                             fontFamily: 'FiraSans',
                                             fontSize: 10,
