@@ -683,6 +683,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     widget.employeerController.clear();
     widget.positionTitleController.clear();
     widget.emergencyMobileNumber.clear();
+
   }
 }
 
