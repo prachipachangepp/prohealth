@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/Register/register.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/register_data/register_data.dart';
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
-
 
 ///register enroll get
 Future<List<RegisterEnrollData>> RegisterGetData(
@@ -54,29 +54,29 @@ Future<List<RegisterEnrollData>> RegisterGetData(
 
 ///register enroll add
 Future<ApiData> addEmpEnroll(
-    BuildContext context,
-    int companyId,
-    int employeeId,
-    String code,
-    int userId,
-    String firstName,
-    String lastName,
-    String phoneNbr,
-    String email,
-    String link,
-    String status,
-    int departmentId,
-    String position,
-    String speciality,
-    int clinicianTypeId,
-    String reportingOfficeId,
-    int cityId,
-    int countryId,
-    int countyId,
-    int zoneId,
-    String employment,
-    String service) async {
+    {required BuildContext context,
+    required int employeeId,
+    required String code,
+    required int userId,
+    required String firstName,
+    required String lastName,
+    required String phoneNbr,
+    required String email,
+    required String link,
+    required String status,
+    required int departmentId,
+    required String position,
+    required String speciality,
+    required int clinicianTypeId,
+    required String reportingOfficeId,
+    required int cityId,
+    required int countryId,
+    required int countyId,
+    required int zoneId,
+    required String employment,
+    required String service}) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
       path: AllRegisterRepository.addEmpEnrollAdd(),
       data: {
@@ -144,7 +144,7 @@ Future<RegisterDataPrefill> getRegisterEnrollPrefill(
         firstName: response.data['firstName'] ?? "--",
         lastName: response.data['lastName'] ?? "--",
         phoneNbr: response.data['phoneNbr'] ?? "--",
-        email: response.data['email'] ?? '-',
+        email: response.data['email'] ?? '--',
         link: response.data['link'] ?? "--",
         status: response.data['status'] ?? "--",
         departmentId: response.data['departmentId'] ?? 0,
@@ -171,14 +171,14 @@ Future<RegisterDataPrefill> getRegisterEnrollPrefill(
 
 ///post /employee-enroll/addOffers
 Future<ApiData> addEmpEnrollOffers(
-    BuildContext context,
-    int employeeEnrollId,
-    int employeeId,
-    String issueDate,
-    String lastDate,
-    String startDate,
-    String verbalDate,
-  ) async {
+  BuildContext context,
+  int employeeEnrollId,
+  int employeeId,
+  String issueDate,
+  String lastDate,
+  String startDate,
+  String verbalDate,
+) async {
   try {
     var response = await Api(context).post(
       path: AllRegisterRepository.addEmpEnrollOffers(),
@@ -215,12 +215,12 @@ Future<ApiData> addEmpEnrollOffers(
 
 ///post /employee-enroll/addZipCodes
 Future<ApiData> addEmpEnrollZipCode(
-    BuildContext context,
-    int employeeEnrollId,
-    int employeeEnrollCoverageId,
-    int employeeId,
-   List<String> zipcodeSetupId,
-    ) async {
+  BuildContext context,
+  int employeeEnrollId,
+  int employeeEnrollCoverageId,
+  int employeeId,
+  List<String> zipcodeSetupId,
+) async {
   try {
     var response = await Api(context).post(
       path: AllRegisterRepository.addEmpEnrollZipCodes(),
@@ -255,12 +255,12 @@ Future<ApiData> addEmpEnrollZipCode(
 
 ///employee-enroll/addCompensations
 Future<ApiData> addEmpEnrollAddCompensation(
-    BuildContext context,
-    int employeeEnrollId,
-    int employeeId,
-    String payrollType,
-    int amount,
-    ) async {
+  BuildContext context,
+  int employeeEnrollId,
+  int employeeId,
+  String payrollType,
+  int amount,
+) async {
   try {
     var response = await Api(context).post(
       path: AllRegisterRepository.addEmpEnrollCompensation(),
@@ -295,12 +295,12 @@ Future<ApiData> addEmpEnrollAddCompensation(
 
 ///employee-enroll/addCities
 Future<ApiData> addEmpEnrollCities(
-    BuildContext context,
-    int employeeEnrollId,
-    int employeeEnrollCoverageId,
-    int employeeId,
-    List<String> Cities,
-    ) async {
+  BuildContext context,
+  int employeeEnrollId,
+  int employeeEnrollCoverageId,
+  int employeeId,
+  List<String> Cities,
+) async {
   try {
     var response = await Api(context).post(
       path: AllRegisterRepository.addEmpEnrollCities(),
@@ -335,13 +335,13 @@ Future<ApiData> addEmpEnrollCities(
 
 ///employee-enroll/addCoverage
 Future<ApiData> addEmpEnrollAddCoverage(
-    BuildContext context,
-    int employeeEnrollId,
-    int employeeId,
-    String city,
-    int countyId,
-    int zoneId,
-    ) async {
+  BuildContext context,
+  int employeeEnrollId,
+  int employeeId,
+  String city,
+  int countyId,
+  int zoneId,
+) async {
   try {
     var response = await Api(context).post(
       path: AllRegisterRepository.addEmpEnrolladdCoverage(),
