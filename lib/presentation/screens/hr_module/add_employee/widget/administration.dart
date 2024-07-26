@@ -297,13 +297,26 @@ class _AdministartionTabState extends State<AdministartionTab> {
                       .width / 1,
                   child: Center(
                     child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           GestureDetector(
                             onTap: getImage,
                             child: Container(
                               child: image == null && webImage == null
-                                  ? Center(child: Text('Pick Photo'))
+                                  ? Center(child: Container(
+                                width: 125,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                        color: ColorManager.primary,
+                                        style: BorderStyle.solid,
+                                        width: 1.0,)),
+                                  child: Center(child: Text('Pick Photo',
+                                    style: GoogleFonts.firaSans(
+                                        fontWeight: FontWeight.w700, fontSize: 12,color: ColorManager.primary
+                                    ),
+                                  ))))
                                   : Container(
                                 child: Center(
                                   child: kIsWeb
@@ -324,10 +337,11 @@ class _AdministartionTabState extends State<AdministartionTab> {
                             ),
                           ),
                           SizedBox(width: 5),
-                         CustomButton(
+                          CustomButton(
                            width: 125,
                            height: 30,
-                           onPressed: uploadImage, text: 'Upload Image' ,)
+                           onPressed: uploadImage, text: 'Upload Photo',
+                         )
                         ]),
                   ),
                 ),
