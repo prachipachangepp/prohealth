@@ -266,7 +266,6 @@ class _CiOrgDocumentState extends State<CiZone> {
                                         countyController.text,
                                         "37.0902°",
                                         "95.7129°",
-                                        widget.companyID,
                                         widget.officeId);
                                   },
                                   title1: 'State Name',

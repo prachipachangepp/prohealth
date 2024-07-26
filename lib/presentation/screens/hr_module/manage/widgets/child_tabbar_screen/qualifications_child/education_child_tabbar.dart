@@ -75,14 +75,16 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                             onpressedSave: () async {
                               await addEmployeeEducation(
                                   context,
-                                  widget.employeeId!,
+                                  widget.employeeId,
                                   expiryType.toString(),
                                   degreeController.text,
                                   majorSubjectController.text,
                                   cityController.text,
                                   collegeUniversityController.text,
                                   phoneController.text,
-                                  stateController.text);
+                                  stateController.text,
+                                  countryNameController.text,
+                                  calenderController.text);
                             },
                             radioButton: StatefulBuilder(
                               builder: (BuildContext context, void Function(void Function()) setState) {
@@ -257,7 +259,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                   Text(snapshot.data![index].state,
                                       style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 10,),
-                                  Text('Germany',
+                                  Text(snapshot.data![index].country,
                                       style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               ),
@@ -267,7 +269,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              IconButtonWidget(iconData: Icons.edit_outlined,
+                              BorderIconButton(iconData: Icons.edit_outlined,
                                   buttonText: 'Edit', onPressed: (){
                                 showDialog(context: context, builder: (BuildContext context){
                                   return FutureBuilder<EducationPrefillData>(
@@ -300,6 +302,12 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
 
                                       var graduate = snapshotPrefill.data!.graduate;
                                       expiryType = snapshotPrefill.data!.graduate.toString();
+
+                                      var country = snapshotPrefill.data!.country;
+                                      countryNameController = TextEditingController(text: snapshotPrefill.data!.country);
+
+                                      var startDate = snapshotPrefill.data!.startDate;
+                                      calenderController = TextEditingController(text: snapshotPrefill.data!.startDate);
                                       //countryNameController = TextEditingController(text: "")
 
                                       return StatefulBuilder(
@@ -320,12 +328,10 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                                   city == cityController.text ? city.toString() : cityController.text,
                                                   college == collegeUniversityController.text ? college.toString() : collegeUniversityController.text,
                                                   phone == phoneController.text ? phone.toString() : phoneController.text,
-                                                  state == stateController.text ? state.toString() : stateController.text);
-                                              getEmployeeEducation(context,2).then((data) {
-                                                educationStreamController.add(data);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
+                                                  state == stateController.text ? state.toString() : stateController.text,
+                                                  country == countryNameController.text ?  country.toString() : countryNameController.text,
+                                                  startDate == calenderController.text ? startDate : calenderController.text,
+                                                  );
                                               expiryType = '';
                                             },
                                             radioButton:Container(

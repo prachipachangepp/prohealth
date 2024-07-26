@@ -2,6 +2,11 @@ class AllRegisterRepository{
 
   static String empEnroll = "/employee-enroll";
   static String add = "/add";
+  static String offers = "/addOffers";
+  static String addZipCode = "/addZipCodes";
+  static String addCompensation = "/addCompensations";
+  static String cities = "/addCities";
+  static String addCoverage = "/addCoverage";
   static String filter = "/Filter";
 
   ///employee-enroll/Filter/{companyId}/{filter}
@@ -20,5 +25,24 @@ class AllRegisterRepository{
   static String addEmpEnrollAdd(){
     return "$empEnroll$add";
   }
-
+  ///employee-enroll/addOffers
+  static String addEmpEnrollOffers(){
+    return "$empEnroll$offers";
+  }
+  ///employee-enroll/addZipCodes
+  static String addEmpEnrollZipCodes(){
+    return "$empEnroll$addZipCode";
+  }
+  ///employee-enroll/addCompensations
+  static String addEmpEnrollCompensation(){
+    return "$empEnroll$addCompensation";
+  }
+  ///employee-enroll/addCities
+  static String addEmpEnrollCities(){
+    return "$empEnroll$cities";
+  }
+  ///employee-enroll/addCoverage
+  static String addEmpEnrolladdCoverage(){
+    return "$empEnroll$addCoverage";
+  }
 }

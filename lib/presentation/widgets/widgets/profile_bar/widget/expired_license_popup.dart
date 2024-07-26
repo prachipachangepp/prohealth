@@ -26,35 +26,37 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Column(
-          children: [
-            Container(
-              height: 60,
-              decoration: BoxDecoration(color: ColorManager.blueprime,borderRadius: const BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
-                    child: Text(widget.title,style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s16,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.white,
-                      decoration: TextDecoration.none,
-                    ),),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon:  Icon(Icons.close,color: ColorManager.white,),
-                  ),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 60,
+                decoration: BoxDecoration(color: ColorManager.blueprime,borderRadius: const BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
+                      child: Text(widget.title,style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s16,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon:  Icon(Icons.close,color: ColorManager.white,),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 20,),
-            widget.child,
-          ],
+              const SizedBox(height: 20,),
+              widget.child,
+            ],
+          ),
         ),
       ),
     );

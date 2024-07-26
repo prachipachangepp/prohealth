@@ -174,6 +174,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       setState(() {
                         isLoading = false;
                       });
+                      Navigator.pop(context);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {

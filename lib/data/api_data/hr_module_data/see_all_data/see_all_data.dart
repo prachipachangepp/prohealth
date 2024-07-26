@@ -6,7 +6,7 @@ class SeeAllData {
   final String? lastName;
   final int? deptId;
   final int? empTypeId;
-  final String? expertise;
+  //final String? expertise;
   final int? cityID;
   final int? countryId;
   final int? zoneId;
@@ -17,7 +17,7 @@ class SeeAllData {
   final String? regOfficId;
   final String? personalEmail;
   final String? workEmail;
-  final String? address;
+  //final String? address;
   final String? dateOfBirth;
   final String? emergencyContact;
   final String? covreage;
@@ -28,10 +28,9 @@ class SeeAllData {
   final String? imgurl;
   final String? resumeurl;
   final String? onboardingStatus;
-  final int? companyId;
-  final bool? terminationFlag;
+  //final int? companyId;
+  //final bool? terminationFlag;
   final String? driverLicenseNum;
-  final bool? approved;
   final String? dateofTermination;
   final String? dateofResignation;
   final String? dateofHire;
@@ -44,12 +43,23 @@ class SeeAllData {
   final String? checkDate;
   final int? grossPay;
   final int? netPay;
+  final String? createdAt;
   final String? methods;
   final String? materials;
   final String? race;
+  final bool? approved;
+  final String? signatureURL;
+  final String? city;
+  final String? employeeType;
+  final String? department;
+  final String? country;
+  final String? county;
+  final String? zone;
+  final double? profileScorePercentage;
 
 
-  SeeAllData({
+  SeeAllData(  {
+    this.createdAt,
     this.driverLicenseNum,
     this.dateofHire,
     this.position,
@@ -61,7 +71,6 @@ class SeeAllData {
     this.lastName,
     this.deptId,
     this.empTypeId,
-    this.expertise,
     this.cityID,
     this.countryId,
     this.zoneId,
@@ -72,7 +81,6 @@ class SeeAllData {
     this.regOfficId,
     this.personalEmail,
     this.workEmail,
-    this.address,
     this.dateOfBirth,
     this.emergencyContact,
     this.covreage,
@@ -83,8 +91,6 @@ class SeeAllData {
     this.imgurl,
     this.resumeurl,
     this.onboardingStatus,
-    this.companyId,
-    this.terminationFlag,
     this.approved,
     this.dateofTermination,
     this.dateofResignation,
@@ -98,5 +104,9 @@ class SeeAllData {
     this.netPay,
     this.methods,
     this.materials,
+    this.signatureURL, this.city,
+    this.employeeType, this.department,
+    this.country, this.county, this.zone,
+    this.profileScorePercentage,
   });
 }

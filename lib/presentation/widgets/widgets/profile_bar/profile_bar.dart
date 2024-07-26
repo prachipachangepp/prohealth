@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -13,11 +14,20 @@ import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../profile_bar/widget/profil_custom_widget.dart';
 
-class ProfileBar extends StatelessWidget {
+class ProfileBar extends StatefulWidget {
   const ProfileBar({super.key, this.searchByEmployeeIdProfileData});
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
 
+  @override
+  State<ProfileBar> createState() => _ProfileBarState();
+}
 
+class _ProfileBarState extends State<ProfileBar> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchData();
+  // }
   @override
   Widget build(BuildContext context) {
     int currentPage = 1;
@@ -33,7 +43,7 @@ class ProfileBar extends StatelessWidget {
                 color: ColorManager.greenF,
               ),
               child: FutureBuilder<ProfilePercentage>(
-                  future: getPercentage(context, searchByEmployeeIdProfileData!.employeeId!),
+                  future: getPercentage(context, widget.searchByEmployeeIdProfileData!.employeeId!),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return SizedBox();
@@ -86,7 +96,7 @@ class ProfileBar extends StatelessWidget {
                                 valueColor: AlwaysStoppedAnimation<Color>(
                                     ColorManager.greenF),
                                 strokeWidth: 3,
-                                value: searchByEmployeeIdProfileData!
+                                value: widget.searchByEmployeeIdProfileData!
                                     .profileScorePercentage,
                               ),
                             ),
@@ -94,7 +104,7 @@ class ProfileBar extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        searchByEmployeeIdProfileData!.status,
+                        widget.searchByEmployeeIdProfileData!.status.capitalizeFirst!,
                         style: ThemeManagerBlack.customTextStyle(context),
                       ),
                       Text(
@@ -109,7 +119,7 @@ class ProfileBar extends StatelessWidget {
                     children: [
                       ///text john scott
                       Text(
-                        "${searchByEmployeeIdProfileData!.firstName} ${searchByEmployeeIdProfileData!.lastName}",
+                        "${widget.searchByEmployeeIdProfileData!.firstName.capitalizeFirst} ${widget.searchByEmployeeIdProfileData!.lastName.capitalizeFirst}",
                         style: ThemeManagerBlack.customTextStyle(context),
                       ),
                       SizedBox(
@@ -120,7 +130,7 @@ class ProfileBar extends StatelessWidget {
                         width: MediaQuery.of(context).size.width / 10,
                         child: ElevatedButton(
                           child: Text(
-                            searchByEmployeeIdProfileData!.employment,
+                            widget.searchByEmployeeIdProfileData!.employment.capitalizeFirst!,
                             style: ThemeManagerWhite.customTextStyle(context),
                           ),
                           style: ElevatedButton.styleFrom(
@@ -135,7 +145,7 @@ class ProfileBar extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        searchByEmployeeIdProfileData!.employeeType,
+                        widget.searchByEmployeeIdProfileData!.employeeType,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       Text(
@@ -146,7 +156,7 @@ class ProfileBar extends StatelessWidget {
                         AppString.address,
                         style: ThemeManagerBlack.customTextStyle(context),
                       ),
-                      Text(searchByEmployeeIdProfileData!.finalAddress,
+                      Text(widget.searchByEmployeeIdProfileData!.finalAddress,
                           textAlign: TextAlign.start,
                           style: GoogleFonts.firaSans(
                             fontSize: AppSize.s10,
@@ -166,11 +176,11 @@ class ProfileBar extends StatelessWidget {
                     children: [
                       ///text john scott
                       Text(
-                        searchByEmployeeIdProfileData!.dateOfBirth,
+                        widget.searchByEmployeeIdProfileData!.dateOfBirth,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       Text(
-                        searchByEmployeeIdProfileData!.gender,
+                        widget.searchByEmployeeIdProfileData!.gender,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       Text(
@@ -180,14 +190,14 @@ class ProfileBar extends StatelessWidget {
 
                       ///phone, comment
                       ProfileBarPhoneCmtConst(
-                        phoneNo: searchByEmployeeIdProfileData!.primaryPhoneNbr,
+                        phoneNo: widget.searchByEmployeeIdProfileData!.primaryPhoneNbr,
                       ),
                       ProfileBarPhoneCmtConst(
                         phoneNo:
-                            searchByEmployeeIdProfileData!.secondryPhoneNbr,
+                            widget.searchByEmployeeIdProfileData!.secondryPhoneNbr,
                       ),
                       ProfileBarPhoneCmtConst(
-                        phoneNo: searchByEmployeeIdProfileData!.workPhoneNbr,
+                        phoneNo: widget.searchByEmployeeIdProfileData!.workPhoneNbr,
                       ),
                     ],
                   ),
@@ -200,14 +210,14 @@ class ProfileBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(searchByEmployeeIdProfileData!.workEmail,
+                      Text(widget.searchByEmployeeIdProfileData!.workEmail,
                           style: ProfileBarConst.profileTextStyle(context)),
-                      Text(searchByEmployeeIdProfileData!.personalEmail,
+                      Text(widget.searchByEmployeeIdProfileData!.personalEmail,
                           style: ProfileBarConst.profileTextStyle(context)),
                       Row(
                         children: [
                           Text(
-                            searchByEmployeeIdProfileData!.zone,
+                            widget.searchByEmployeeIdProfileData!.zone,
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
                           SizedBox(width: 10),
@@ -371,7 +381,7 @@ class ProfileBar extends StatelessWidget {
                               child: Text(
                                 AppString.viewzone,
                                 style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s7,
+                                    fontSize: FontSize.s9,
                                     fontWeight: FontWeightManager.bold,
                                     color: ColorManager.white,
                                     decoration: TextDecoration.underline,
@@ -392,11 +402,11 @@ class ProfileBar extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        searchByEmployeeIdProfileData!.employment,
+                        widget.searchByEmployeeIdProfileData!.employment,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       Text(
-                        searchByEmployeeIdProfileData!.service,
+                        widget.searchByEmployeeIdProfileData!.service,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       Text(

@@ -489,7 +489,7 @@ class AppBarWeb extends StatelessWidget {
                                 //   width: MediaQuery.of(context).size.width / 50,
                                 // ),
                                 Expanded(
-                                  flex: 3,
+                                  flex: 2,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

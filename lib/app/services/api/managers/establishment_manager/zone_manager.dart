@@ -3,6 +3,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/all_from_hr_repository.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 
@@ -38,12 +39,13 @@ Future<List<AllZoneData>> getAllZone(
 
 ///county get
 Future<List<AllCountyGet>> getZoneBYcompOffice(
-    BuildContext context, String officeId, int compId, pageNo, noOfRow) async {
+    BuildContext context, String officeId, pageNo, noOfRow) async {
   List<AllCountyGet> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: AllZoneRepository.countyGet(
-            companyId: compId,
+            companyId: companyId,
             officeId: officeId,
             pageNo: pageNo,
             noOfRow: noOfRow));
@@ -300,9 +302,9 @@ Future<ApiData> addCounty(
     String countryName,
     String lat,
     String long,
-    int companyId,
     String officeId) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response =
         await Api(context).post(path: AllZoneRepository.addCounty(), data: {
       "countyName": countyName,

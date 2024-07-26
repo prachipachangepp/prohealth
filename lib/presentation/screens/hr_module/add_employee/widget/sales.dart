@@ -274,13 +274,30 @@ class _SalesTabState extends State<SalesTab> {
                 child:
                 Center(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       GestureDetector(
                         onTap: getImage,
                         child: Container(
                           child: image == null && webImage == null
-                              ? Center(child: Text('Pick Image'))
+                              ? Center(child: Container(
+                              width: 125,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: ColorManager.primary,
+                                  style: BorderStyle.solid,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: Center(child: Text('Pick Photo', style: GoogleFonts.firaSans(
+                                fontWeight: FontWeight.w700, fontSize: 12,color: ColorManager.primary
+                              ),
+                              )
+                              )
+                          )
+                          )
                               : Container(
                             child: Center(
                               child: kIsWeb
@@ -310,7 +327,6 @@ class _SalesTabState extends State<SalesTab> {
                     ],
                   ),
                 ),
-
                 // Column(
                 //   children: [
                 //     GestureDetector(
@@ -861,6 +877,7 @@ class _SalesTabState extends State<SalesTab> {
                         children: [
                           McqWidget(
                             title: 'Employment',
+                            fontSize: 14.0,
                             items: [
                               'Full Time',
                               'Contract',

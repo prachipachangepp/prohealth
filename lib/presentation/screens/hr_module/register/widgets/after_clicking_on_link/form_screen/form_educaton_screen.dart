@@ -62,17 +62,17 @@ class _EducationScreenState extends State<EducationScreen> {
   }
 
   Future<void> posteducationscreen(
-    BuildContext context,
-    int employeeId,
-    String graduate,
-    String degree,
-    String major,
-    String city,
-    String college,
-    String phone,
-    String state,
-    String country,
-  ) async {}
+      BuildContext context,
+      int employeeId,
+      String graduate,
+      String degree,
+      String major,
+      String city,
+      String college,
+      String phone,
+      String state,
+      String country,
+      ) async {}
 
   @override
   Widget build(BuildContext context) {
@@ -270,15 +270,15 @@ class _EducationFormState extends State<EducationForm> {
                     children: [
                       Expanded(
                           child: CustomRadioListTile(
-                        title: 'Yes',
-                        value: 'Yes',
-                        groupValue: graduatetype,
-                        onChanged: (value) {
-                          setState(() {
-                            graduatetype = value;
-                          });
-                        },
-                      )),
+                            title: 'Yes',
+                            value: 'Yes',
+                            groupValue: graduatetype,
+                            onChanged: (value) {
+                              setState(() {
+                                graduatetype = value;
+                              });
+                            },
+                          )),
                       Expanded(
                         child: CustomRadioListTile(
                           title: 'No',
@@ -459,7 +459,7 @@ class _EducationFormState extends State<EducationForm> {
                 });
 
                 FilePickerResult? result =
-                    await FilePicker.platform.pickFiles(
+                await FilePicker.platform.pickFiles(
                   allowMultiple: true,
                 );
 
@@ -478,7 +478,7 @@ class _EducationFormState extends State<EducationForm> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xff50B5E5),
-    // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -499,31 +499,31 @@ class _EducationFormState extends State<EducationForm> {
         Row(
           children: [
             _loading
-            ? SizedBox(
-            width: 25,
-            height: 25,
-            child: CircularProgressIndicator(
-              color: ColorManager.blueprime, // Loader color
-            // Loader size
-            ),
-                      )
-            : _fileNames.isNotEmpty
-                  ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                    children: _fileNames
-            .map((fileName) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-            'File picked: $fileName',
-            style: GoogleFonts.firaSans(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w400,
-                color: Color(0xff686464)),
-                      ),
-                    ))
-            .toList(),
-                  )
-            : SizedBox(),
+                ? SizedBox(
+              width: 25,
+              height: 25,
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime, // Loader color
+                // Loader size
+              ),
+            )
+                : _fileNames.isNotEmpty
+                ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _fileNames
+                  .map((fileName) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'File picked: $fileName',
+                  style: GoogleFonts.firaSans(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff686464)),
+                ),
+              ))
+                  .toList(),
+            )
+                : SizedBox(),
           ],
         ),
         const Divider(color: Colors.grey,thickness: 2,)

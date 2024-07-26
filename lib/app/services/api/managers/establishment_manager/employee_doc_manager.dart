@@ -42,7 +42,41 @@ Future<List<EmployeeDocTabModal>> getEmployeeDocTab(BuildContext context,
   }
 }
 
-
+/// Get employee document setup drop down
+Future<List<EmployeeDocSetupModal>> getEmployeeDocSetupDropDown(BuildContext context,
+    ) async {
+  List<EmployeeDocSetupModal> itemsList = [];
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.getEmployeDocSetupDropdown(
+    ));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("1212");
+      for(var item in response.data){
+        itemsList.add(
+          EmployeeDocSetupModal(
+            employeeDocMetaDataId: item['EmployeeDocumentTypeMetaDataId']?? 0,
+            success: true,
+            message: response.statusMessage!,
+            employeeDocTypeSetupId: item['EmployeeDocumentTypeSetupId'],
+            documentName: item['DocumentName'],
+            expiry: item['Expiry'],
+            reminderThreshould: item['ReminderThreshold'],
+          ),
+        );
+      }
+    } else {
+      print('Employee Document Setup drop down');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
 /// GET employee-document-type-setup/{EmployeeDocumentTypeMetaDataId}/{pageNbr}/{NbrofRows}
 Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
     // int metaDocID

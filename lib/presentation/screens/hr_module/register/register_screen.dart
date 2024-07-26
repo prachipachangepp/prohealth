@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/main_register_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/register_data/register_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
@@ -16,6 +17,7 @@ import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import 'confirmation_constant.dart';
 
@@ -28,8 +30,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final StreamController<List<RegisterEnrollData>> registerController =
-      StreamController<List<RegisterEnrollData>>();
+  final StreamController<List<RegisterDataCompID>> registerController =
+      StreamController<List<RegisterDataCompID>>();
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
@@ -37,13 +39,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController positionController = TextEditingController();
   @override
   void initState() {
     super.initState();
     currentPage = 1;
     itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    RegisterGetData(context).then((data) {
+    GetRegisterByCompId(context).then((data) {
       registerController.add(data);
     }).catchError((error) {});
   }
@@ -69,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           SizedBox(
             height: AppSize.s20,
           ),
-          StreamBuilder<List<RegisterEnrollData>>(
+          StreamBuilder<List<RegisterDataCompID>>(
             stream: registerController.stream,
             builder: (context, snapshot) {
               print('1111111');
@@ -93,15 +96,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 );
               }
               if (snapshot.hasData) {
-              //  int totalItems = snapshot.data!.length;
-                // int totalPages = (totalItems / itemsPerPage).ceil();
-                // List<RegisterEnrollData> currentPageItems =
-                //     snapshot.data!.sublist(
-                //   (currentPage - 1) * itemsPerPage,
-                //   (currentPage * itemsPerPage) > totalItems
-                //       ? totalItems
-                //       : (currentPage * itemsPerPage),
-                // );
                 return Container(
                   height: double.maxFinite,
                   child: WrapWidget(
@@ -124,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
-                        height: 200,
+                        height: 156,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: MediaQuery.of(context).size.width / 80,
@@ -152,7 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  snapshot.data![index].status == 'NotOpened'
+                                  snapshot.data![index].status == 'Notopen'
                                       ? Text(
                                     'Not Opened',
                                     style: GoogleFonts.firaSans(
@@ -175,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     width:
                                         MediaQuery.of(context).size.width / 100,
                                   ),
-                                  snapshot.data![index].status == 'NotOpened'
+                                  snapshot.data![index].status == 'Notopen'
                                       ? SizedBox(
                                           width: 10,
                                         )
@@ -199,7 +193,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     width:
                                         MediaQuery.of(context).size.width / 100,
                                   ),
-                                  snapshot.data![index].status == 'NotOpened'
+                                  snapshot.data![index].status == 'Notopen'
                                       ? SizedBox(
                                           width: 10,
                                         )
@@ -224,21 +218,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    CustomRow(
-                                      icon: Icons.person_2_outlined,
-                                      text1: 'Code',
-                                      text2: snapshot.data![index].code,
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60,
-                                    ),
-                                    CustomRow(
-                                      icon: Icons.phone_outlined,
-                                      text1: 'Phone',
-                                      text2: snapshot.data![index].phoneNbr,
-                                    ),
+                                    // CustomRow(
+                                    //   icon: Icons.person_2_outlined,
+                                    //   text1: 'Code',
+                                    //   text2: snapshot.data![index].code,
+                                    // ),
+                                    // SizedBox(
+                                    //   height:
+                                    //       MediaQuery.of(context).size.height /
+                                    //           60,
+                                    // ),
+                                    // CustomRow(
+                                    //   icon: Icons.phone_outlined,
+                                    //   text1: 'Phone',
+                                    //   text2: snapshot.data![index].phoneNbr,
+                                    // ),
                                     SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
@@ -282,16 +276,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         OnBoardingWelcome()));
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(builder: (context) =>
-                                            //       OnBoardingWelcome()
-                                            //   ),
-                                            // );
                                           },
                                           child: Text(
                                             //'https://prohealth.symmetry.care/register',
-                                            snapshot.data![index].link,
+                                          snapshot.data![index].status == 'Notopen'
+                                              ? ''
+                                              : snapshot.data![index].role,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w400,
@@ -303,7 +293,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
 
                                     ///button
-                                    snapshot.data![index].status == 'NotOpened'
+                                    snapshot.data![index].status == 'Notopen'
                                         ? Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
@@ -314,16 +304,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           child: CustomIconButtonConst(
                                               text: AppString.enroll,
                                               onPressed: () {
-                                                showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return RegisterEnrollPopup();
-                                                    });
+                                                // showDialog(
+                                                //     context: context,
+                                                //     builder:
+                                                //         (BuildContext context) {
+                                                //       return RegisterEnrollPopup();
+                                                //     });
                                                // Navigator.pop(context);
                                                 // Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
-                                                //_controller.openDialog(context);
-                                                // showDialog(context: context, builder: (_) =>
+                                                // _controller.openDialog(context);
+                                                showDialog(context: context, builder: (_) =>
                                                 ///future builder
                                                 // FutureBuilder<RegisterDataPrefill>(
                                                 //   future: getRegisterEnrollPrefill(context, snapshot.data![index].empEnrollId!),
@@ -375,49 +365,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 //   },
                                                 // ),
                                                 ///prefill api
-                                                // FutureBuilder<RegisterDataPrefill>(
-                                                //   future: getRegisterEnrollPrefill(context, snapshot.data![index].empEnrollId!),
-                                                //   builder: (context, snapshotPrefill){
-                                                //     if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                //       return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                                //     }
-                                                //     var firstName = snapshotPrefill.data!.firstName.toString();
-                                                //     firstNameController = TextEditingController(text: firstName);
-                                                //
-                                                //     var lastName = snapshotPrefill.data!.lastName.toString();
-                                                //     lastNameController = TextEditingController(text: lastName);
-                                                //
-                                                //     var email = snapshotPrefill.data!.email.toString();
-                                                //     emailController = TextEditingController(text: email);
-                                                //
-                                                //     var phoneNum = snapshotPrefill.data!.phoneNbr.toString();
-                                                //     phoneNumberController = TextEditingController(text: phoneNum);
-                                                //
-                                                //     return RegisterEnrollPopup(firstName: firstNameController,
-                                                //      lastName: lastNameController,
-                                                //       email: emailController,
-                                                //       phone: phoneNumberController,
-                                                //       onPressed: () {
-                                                //       Navigator.pop(context);
-                                                //         showDialog(context: context, builder: (BuildContext context) {
-                                                //           return ConfirmationPopup(onConfirm: (){
-                                                //             Navigator.pop(context);
-                                                //             showDialog(context: context, builder: (BuildContext context) {
-                                                //               return SuccessPopup();
-                                                //             });
-                                                //           }, title: 'Confirm Enrollment',
-                                                //             onCancel: () {
-                                                //               Navigator.pop(context);
-                                                //             },
-                                                //           );
-                                                //           //OfferLetterScreen();
-                                                //         });
-                                                //       },);
-                                                //
-                                                //
-                                                //   },
-                                                // ),
-                                              }),
+                                                FutureBuilder<RegisterDataUserIDPrefill>(
+                                                  future: getRegisterEnrollPrefillUserId(context, snapshot.data![index].userId),
+                                                  builder: (context, snapshotPrefill){
+                                                    if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                      return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                    }
+                                                    var firstName = snapshotPrefill.data!.firstName.toString();
+                                                    firstNameController = TextEditingController(text: firstName);
+
+                                                    var lastName = snapshotPrefill.data!.lastName.toString();
+                                                    lastNameController = TextEditingController(text: lastName);
+
+                                                    var email = snapshotPrefill.data!.email.toString();
+                                                    emailController = TextEditingController(text: email);
+
+                                                    // var phoneNum = snapshotPrefill.data!.phoneNbr.toString();
+                                                    // phoneNumberController = TextEditingController(text: phoneNum);
+                                                    //
+                                                    // var position = snapshotPrefill.data!.position;
+                                                    // positionController = TextEditingController(text: position);
+
+                                                    return RegisterEnrollPopup(firstName: firstNameController,
+                                                     lastName: lastNameController,
+                                                      email: emailController,
+                                                        userId: snapshotPrefill.data!.userId,
+                                                        role: snapshotPrefill.data!.role, status:snapshotPrefill.data!.status,
+                                                      // phone: phoneNumberController,
+                                                      // position: positionController,
+                                                      onPressed: () {
+                                                      Navigator.pop(context);
+
+                                                      // showDialog(
+                                                      //     context: context,
+                                                      //     builder:
+                                                      //         (BuildContext context) {
+                                                      //       return OfferLetterScreen(
+                                                      //
+                                                      //       );
+                                                      //     });
+
+                                                      },);
+
+
+                                                  },
+                                                ),
+                                                );}),
                                         ),
                                       ],
                                     )
@@ -523,6 +516,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
   String _selectedValue = 'Select';
 
+  ///
   Widget buildDropdownButton(BuildContext context) {
     return FutureBuilder<List<RegisterEnrollData>>(
         future: RegisterGetData(context),
@@ -614,6 +608,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
         });
   }
 }
+
+
+
+//
+// showDialog(context: context, builder: (BuildContext context) {
+// return ConfirmationPopup(onConfirm: (){
+// Navigator.pop(context);
+// showDialog(context: context, builder: (BuildContext context) {
+// return SuccessPopup();
+// });
+// }, title: 'Confirm Enrollment',
+// onCancel: () {
+// Navigator.pop(context);
+// }, containerText: 'saloni',
+// );
+// //OfferLetterScreen();
+// });
+
 
 ///for link
 // class RegisterScreen extends StatefulWidget {
