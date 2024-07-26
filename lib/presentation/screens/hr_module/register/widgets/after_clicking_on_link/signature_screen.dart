@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/declination_form_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'dart:typed_data';
 
 import '../../../manage/widgets/top_row.dart';
@@ -53,7 +54,7 @@ class _SignaturePageState extends State<SignaturePage> {
                       Text(
                         AppString.upload_signature,
                         style: GoogleFonts.firaSans(
-                          fontSize: 18,
+                          fontSize: 16,
                           color: Color(0xFF50B5E5),
                           fontWeight: FontWeight.w500,
                         ),
@@ -87,7 +88,7 @@ class _SignaturePageState extends State<SignaturePage> {
                                   'Draw',
                                   style: GoogleFonts.firaSans(
                                     color: Color(0xFF50B5E5),
-                                    fontSize: 14,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w700
                                   ),
                                 ),
@@ -119,7 +120,7 @@ class _SignaturePageState extends State<SignaturePage> {
                                   'Upload',
                                   style: GoogleFonts.firaSans(
                                     color: Colors.grey,
-                                    fontSize: 14,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w700
                                   ),
                                 ),
@@ -148,7 +149,7 @@ class _SignaturePageState extends State<SignaturePage> {
                           style: GoogleFonts.firaSans(
                             color: Color(0xff68646480),
                             fontWeight: FontWeight.w500,
-                            fontSize: 18,
+                            fontSize: 16,
                           ),
                         ),
                       ),
@@ -256,8 +257,8 @@ class _SignaturePageState extends State<SignaturePage> {
                                     fontWeight: FontWeight.w700
                                 ),),
                               onPressed: () {
-                                // _showSaveConfirmationDialog();
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => DeclinationPageScreen()));
+                                _showSaveConfirmationDialog();
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => DeclinationPageScreen()));
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xff50B5E5),
@@ -378,7 +379,7 @@ class _SignaturePageState extends State<SignaturePage> {
                       ],
                     ),
                     onPressed: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => DeclinationPageScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff50B5E5),
