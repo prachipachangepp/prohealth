@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -362,7 +365,21 @@ class BankingContainerConst extends StatelessWidget {
                     width: 75,
                     iconData1: Icons.print_outlined,
                     buttonText: AppStringHr.print,
-                    onPressed:(){},
+                      onPressed: () async {
+                        final pdf = pw.Document();
+
+                        pdf.addPage(
+                          pw.Page(
+                            build: (pw.Context context) => pw.Center(
+                              child: pw.Text('Hello, this is a test print!'),
+                            ),
+                          ),
+                        );
+
+                        await Printing.layoutPdf(
+                          onLayout: (PdfPageFormat format) async => pdf.save(),
+                        );
+                      },
                   ),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width/180),
