@@ -48,7 +48,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
   }
 
 
-  Future<void> postreferencescreen(
+  Future<void> postreferencescreendata(
       BuildContext context,
       String association,
       String comment,
@@ -58,7 +58,11 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
       String mob,
       String name,
       String references,
-      String title) async {}
+      String title) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Reference data saved")),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -115,29 +119,32 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
           }).toList(),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ElevatedButton.icon(
-              onPressed: addEducationForm,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff50B5E5),
-                // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+        Padding(
+          padding: const EdgeInsets.only(left: 150),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ElevatedButton.icon(
+                onPressed: addEducationForm,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff50B5E5),
+                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                icon: Icon(Icons.add, color: Colors.white),
+                label: Text(
+                  'Add Reference',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              icon: Icon(Icons.add, color: Colors.white),
-              label: Text(
-                'Add Education',
-                style: GoogleFonts.firaSans(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
         Row(
@@ -161,12 +168,19 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                       "__",
                       st.companyorganization.text,
                       st.email.text,
-                      0,
+                      15,
                       st.mobilenumber.text,
                      st.name.text,
                       st.knowthisperson.text,
                       st.titleposition.text);
                 }
+                lengthofassociation.clear();
+                companyorganization.clear();
+                email.clear();
+                mobilenumber.clear();
+                name.clear();
+                knowthisperson.clear();
+                titleposition.clear();
               },
               child: Text(
                 'Save',

@@ -77,6 +77,8 @@ class _ClinicalTabState extends State<ClinicalTab> {
   late Future<List<HRAddEmployeeGet>> _futureData;
   String? _selectedDiscipline;
   late Future<List<AEClinicalCity>> _futureCities;
+  int _random = 0;
+  String _randomString = '';
   ///descipline
   Future<void> _loadDisciplineData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -87,6 +89,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
       _selectedDiscipline = savedDiscipline;
     });
   }
+  /////
   ///date
   _loadDate() async {
     final prefs = await SharedPreferences.getInstance();

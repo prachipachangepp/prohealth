@@ -376,6 +376,7 @@ class _generalFormState extends State<generalForm> {
                           return null;
                         },
                         height: 32,
+
                       ),
                     ],
                   ),
@@ -505,27 +506,86 @@ class _generalFormState extends State<generalForm> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomRadioListTile(
-                            title: 'Asian',
-                            value: 'Asian',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'Asian',
+                                value: 'Asian',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          // const SizedBox(
+                          //   width: 3,
+                          // ),
+
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'White',
+                                value: 'White',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          // const SizedBox(
+                          //   width: 5,
+                          // ),
+
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'Black or African American',
+                                value: 'Black or African American',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
 
-                          CustomRadioListTile(
-                            title: 'White',
-                            value: 'White',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'Other',
+                                value: 'Other',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
+                          // const SizedBox(
+                          //   width: 3,
+                          // ),
+
+
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                           CustomRadioListTile(
                             title: 'Hispanic or Latino',
                             value: 'Hispanic or Latino',
@@ -536,35 +596,12 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CustomRadioListTile(
-                            title: 'Black or African American',
-                            value: 'Black or African American',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
-                          ),
-                          CustomRadioListTile(
-                            title: 'Other',
-                            value: 'Other',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          const SizedBox(
+                            width: 5,
                           ),
                           const SizedBox(
                             width: 3,
                           ),
-
                         ],
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
@@ -697,10 +734,10 @@ class _generalFormState extends State<generalForm> {
                   ),
                 ),
                  onPressed: () async {
-                  await postgeneralscreen(
+                  await postgeneralscreendata(
                       context,
                       'G023',
-                      803,
+                      26,
                       firstname.text,
                       lastname.text,
                       1,
@@ -750,6 +787,18 @@ class _generalFormState extends State<generalForm> {
                       'rating',
                       'SignatureURL'
                   );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("General data saved")),
+                  );
+                  firstname.clear();
+                  lastname.clear();
+                  ssecuritynumber.clear();
+                  phonenumber.clear();
+                  personalemail.clear();
+                  driverlicensenumb.clear();
+                  address.clear();
+                  dobcontroller.clear();
+
                  },
                 child: Text(
                   'Save',
