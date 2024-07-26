@@ -389,11 +389,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     return RegisterEnrollPopup(firstName: firstNameController,
                                                      lastName: lastNameController,
                                                       email: emailController,
+                                                        userId: snapshotPrefill.data!.userId,
+                                                        role: snapshotPrefill.data!.role, status:snapshotPrefill.data!.status,
                                                       // phone: phoneNumberController,
                                                       // position: positionController,
                                                       onPressed: () {
                                                       Navigator.pop(context);
-                                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen()));
+
                                                       // showDialog(
                                                       //     context: context,
                                                       //     builder:
