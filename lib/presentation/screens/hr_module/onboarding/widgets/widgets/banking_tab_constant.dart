@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:printing/printing.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/pdf.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_banking_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_banking_data.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
@@ -195,12 +198,35 @@ class ActionButtons extends StatelessWidget {
           },
         ),
         SizedBox(width: 8.0),
+        // CustomElevatedButton(
+        //   icon: Icons.print_outlined,
+        //   label: 'Print',
+        //   iconPosition: IconPosition.right,
+        //   onPressed: () {
+        //
+        //   },
+        // ),
+
         CustomElevatedButton(
           icon: Icons.print_outlined,
           label: 'Print',
           iconPosition: IconPosition.right,
-          onPressed: () {
+          onPressed: () async {
+            final pdf = pw.Document();
 
+            pdf.addPage(
+              pw.Page(
+                build: (pw.Context context) => pw.Center(
+                  child: pw.Text('Hello, this is a test print!'),
+                ),
+              ),
+            );
+
+            // You can modify the content of the PDF as needed.
+
+            await Printing.layoutPdf(
+              onLayout: (PdfPageFormat format) async => pdf.save(),
+            );
           },
         ),
         SizedBox(width: 8.0),
