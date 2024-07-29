@@ -44,6 +44,7 @@ Future<List<QulificationLicensesData>> getEmployeeLicenses(
           sucess: true,
           message: response.statusMessage!,
         ));
+        itemsData.sort((a, b) => a.licenseId.compareTo(b.licenseId));
       }
     } else {
       print("Employee Licenses");

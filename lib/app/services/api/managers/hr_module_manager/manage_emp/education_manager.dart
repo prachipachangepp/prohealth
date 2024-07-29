@@ -44,6 +44,7 @@ Future<List<EducationData>> getEmployeeEducation(
             message: response.statusMessage!,
             country: item['country']??"--",
             startDate: item['startDate']??"--"));
+        itemsData.sort((a, b) => a.educationId.compareTo(b.educationId));
       }
     } else {
       print("Employee Education");

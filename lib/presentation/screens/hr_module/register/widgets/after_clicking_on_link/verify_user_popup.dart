@@ -225,7 +225,11 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         );
                       }
                           : null,
-                      child: const Text('Enter OTP'),
+                      child:  Text('Get OTP',style:GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          color: ColorManager.white,
+                          fontWeight: FontWeightManager.medium
+                      )),
                     ),
                     const SizedBox(height: 20),
                     CustomTextFieldRegister(
@@ -247,6 +251,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     ),
                     const SizedBox(height: 3),
                     otpEnabled ?
+                        _remainingTime > 0?
                       Align(
                         alignment: Alignment.centerRight,
                         child: Padding(
@@ -254,13 +259,16 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                           child: Text(
                             '00:$_remainingTime',
                             style:  GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
+                              fontSize: FontSize.s13,
                               color: ColorManager.mediumgrey,
                               fontWeight: FontWeightManager.semiBold
                             ),
                           ),
                         ),
                       ): _remainingTime == 0 ?InkWell(
+                          splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
                       onTap: ()async{
                        await postverifyuser(context, emailController.text);
                         _remainingTime = 59;
@@ -279,9 +287,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                             ),
                           ),
                         ),
-                                            ),
+                        ),
                       ):
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 20) : SizedBox(),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF50B5E5),
@@ -300,7 +308,11 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         }
                       }
                           : null,
-                      child: const Text('Submit'),
+                      child:  Text('Submit',style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          color: ColorManager.white,
+                          fontWeight: FontWeightManager.medium
+                      ),),
                     ),
                   ],
                 ),

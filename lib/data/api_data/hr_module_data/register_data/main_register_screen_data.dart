@@ -7,9 +7,40 @@ class RegisterDataCompID {
   final String email;
   final int company_id;
   final String status;
-
+  final String? phoneNbr;
+  final String? link;
+  final int? employeeEnrollId;
+  final int? employeeId;
+  final int? deptId;
+  final String? posotion;
+  final String? speciality;
+  final int? clinicalId;
+  final String? reportingOfficeId;
+  final int? cityId;
+  final int? countryId;
+  final int? countyId;
+  final int? zoneId;
+  final String? employeement;
+  final String? service;
+  final int? templateId;
 
   RegisterDataCompID({
+    this.phoneNbr,
+    this.link,
+    this.employeeEnrollId,
+    this.employeeId,
+    this.deptId,
+    this.posotion,
+    this.speciality,
+    this.clinicalId,
+    this.reportingOfficeId,
+    this.cityId,
+    this.countryId,
+    this.countyId,
+    this.zoneId,
+    this.employeement,
+    this.service,
+    this.templateId,
     required this.userId,
     required this.firstName,
     required this.lastName,
@@ -22,7 +53,6 @@ class RegisterDataCompID {
 
 ///by comp id by status
 class RegisterDataCompIDStatus {
-
   final int userId;
   final String firstName;
   final String lastName;
@@ -44,7 +74,6 @@ class RegisterDataCompIDStatus {
 
 ///users/{userId} prefill
 class RegisterDataUserIDPrefill {
-
   final int userId;
   final String firstName;
   final String lastName;
