@@ -20,8 +20,8 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s850,
-        height: AppSize.s600,
+        width: AppSize.s833,
+        height: AppSize.s492,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -30,15 +30,15 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
           child: Column(
             children: [
               Container(
-                height: 60,
+                height: 49,
                 decoration: BoxDecoration(color: ColorManager.blueprime,borderRadius: const BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8))),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
+                      padding:EdgeInsets.symmetric(vertical: 8,horizontal: 20),
                       child: Text(widget.title,style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s16,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
@@ -53,7 +53,7 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20,),
+               SizedBox(height: 20),
               widget.child,
             ],
           ),

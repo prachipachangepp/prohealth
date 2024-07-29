@@ -909,7 +909,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                       style: GoogleFonts.firaSans(
                                                                         fontSize: 10,
                                                                         fontWeight: FontWeight.w500,
-                                                                        color: const Color(0xff686464),
+                                                                        color:  Color(0xff686464),
                                                                         decoration: TextDecoration.none,
                                                                       ),
                                                                     ),
