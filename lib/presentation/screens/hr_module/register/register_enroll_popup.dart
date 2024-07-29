@@ -72,7 +72,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
       ),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height: MediaQuery.of(context).size.height * 0.66,
+          height:  500,
+          // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: ColorManager.white),
@@ -93,7 +94,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Text(
-                        'Enroll Popup',
+                        'Enroll',
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.semiBold,
@@ -325,7 +326,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     ),
 
 
-                    ////////////////////////////
+                    ///
                     Flexible(
                       child: Column(
                         children: [
@@ -512,7 +513,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         ],
                       ),
                     ),
-                    //////////////////////////
+                    ///
                     Flexible(
                       child: Column(
                         children: [
@@ -681,10 +682,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   ],
                 ),
               ),
-              ///////////////////////////////////////
-              // SizedBox(
-              //   height: AppSize.s5,
-              // ),
+              ///
               Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16),
                 child: Divider(
@@ -699,18 +697,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 child: Column(
                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // RegisterPopupMcq(
-                    //   title: AppString.employment,
-                    //   items: [
-                    //     AppString.fullTime,
-                    //     AppString.partTime,
-                    //     AppString.perDiem
-                    //   ],
-                    //   onChanged: (selectedIndex) {
-                    //     print(AppString.selectIndex + '$selectedIndex');
-                    //     _selectedItemIndex = selectedIndex;
-                    //   },
-                    // ),
+
                     Expanded(
                       flex: 1,
                       child: Padding(
@@ -730,15 +717,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         ),
                       ),
                     ),
-                    // RegisterPopupMcq(
-                    //   title: AppString.service,
-                    //   items: [
-                    //     AppString.homeHealth,
-                    //     AppString.hospice,
-                    //     AppString.homeCare,
-                    //     AppString.palliative
-                    //   ],
-                    // )
+
                     Expanded(
                       flex: 1,
                       child: FutureBuilder<

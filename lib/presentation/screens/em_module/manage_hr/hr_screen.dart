@@ -82,7 +82,7 @@ class _HrWidgetState extends State<HrWidget> {
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width / 2.99,
+                    width: MediaQuery.of(context).size.width / 3,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: ColorManager.blueprime,

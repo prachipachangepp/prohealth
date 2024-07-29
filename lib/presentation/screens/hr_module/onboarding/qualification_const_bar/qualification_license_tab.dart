@@ -9,6 +9,7 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/api_data/hr_module_data/onboarding_data/onboarding_qualification_data.dart';
 import '../../manage/const_wrap_widget.dart';
 
@@ -20,49 +21,61 @@ class QualificationLicense extends StatefulWidget {
 }
 
 class _QualificationLicenseState extends State<QualificationLicense> {
-  final StreamController<List<OnboardingQualificationLicenseData>> licenseStreamController = StreamController<List<OnboardingQualificationLicenseData>>.broadcast();
+  final StreamController<List<OnboardingQualificationLicenseData>>
+      licenseStreamController =
+      StreamController<List<OnboardingQualificationLicenseData>>.broadcast();
 
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationLicense(context, 2).then((data){
+    getOnboardingQualificationLicense(context, 2).then((data) {
       licenseStreamController.add(data);
-    }).catchError((error){});
+    }).catchError((error) {});
   }
+
   @override
   void dispose() {
     licenseStreamController.close();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
     return StreamBuilder<List<OnboardingQualificationLicenseData>>(
         stream: licenseStreamController.stream,
-        builder: (context,snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime,
+              child: SizedBox(width: 25,
+                height: 25,
+                child: CircularProgressIndicator(
+
+
+
+                  color: ColorManager.blueprime,
+                ),
               ),
             );
           }
           if (snapshot.data!.isEmpty) {
             return Center(
                 child: Text(
-                  AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey),
-                ));
+              AppString.dataNotFound,
+              style: CustomTextStylesCommon.commonStyle(
+                  fontWeight: FontWeightManager.medium,
+                  fontSize: FontSize.s12,
+                  color: ColorManager.mediumgrey),
+            ));
           }
-          if(snapshot.hasData){
-            return WrapWidget(childern: List.generate(snapshot.data!.length, (index){
+          if (snapshot.hasData) {
+            return WrapWidget(
+                childern: List.generate(snapshot.data!.length, (index) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Container(
-                  width: MediaQuery.of(context).size.width/2.3,
+                  width: MediaQuery.of(context).size.width / 2.3,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -81,7 +94,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                       horizontal: MediaQuery.of(context).size.width / 80,
                       vertical: MediaQuery.of(context).size.height / 120,
                     ),
-                    child:Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -118,13 +131,20 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                InfoText('Issue Date',),
-                                InfoText('End Date',),
-                                InfoText('',),
-                                InfoText('',),
+                                InfoText(
+                                  'Issue Date',
+                                ),
+                                InfoText(
+                                  'End Date',
+                                ),
+                                InfoText(
+                                  '',
+                                ),
+                                InfoText(
+                                  '',
+                                ),
                               ],
                             ),
-
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -140,124 +160,488 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             QualificationActionButtons(
-                                approve: snapshot.data![index].approve,
-                                onRejectPressed: () async {
-                                  await rejectOnboardQualifyLicensePatch(context, snapshot.data![index].licenseId);
-                                  getOnboardingQualificationLicense(context, 2).then((data){
-                                    licenseStreamController.add(data);
-                                  }).catchError((error){});
-                                },
-                                onApprovePressed: ()async{
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Dialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(12.0),
+                              approve: snapshot.data![index].approve,
+                              onRejectPressed: () async {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Dialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
                                         ),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(20.0),
-                                          ),
-                                          height: 200.0,
-                                          width: 300.0,
-                                          child: Stack(
-                                            children: <Widget>[
-                                              Container(
-                                                width: double.infinity,
-                                                height: 50,
-                                                alignment: Alignment.bottomCenter,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xff1696C8),
-                                                  borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(12),
-                                                    topRight: Radius.circular(12),
-                                                  ),
-                                                ),
-                                                child: Align(
-                                                  alignment: Alignment.topRight,
-                                                  child: IconButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                    icon: Icon(Icons.close, color: Colors.white),
-                                                  ),
+                                        height: 181.0,
+                                        width: 500.0,
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.bluebottom,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(8),
+                                                  topRight: Radius.circular(8),
                                                 ),
                                               ),
-                                              Align(
-                                                alignment: Alignment.center,
+                                              height: 35,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 10.0),
+                                                    child: Text(
+                                                      'Reject',
+                                                      style:
+                                                          GoogleFonts.firaSans(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight:
+                                                            FontWeightManager
+                                                                .semiBold,
+                                                        color:
+                                                            ColorManager.white,
+                                                        decoration:
+                                                            TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    icon: Icon(Icons.close,
+                                                        color:
+                                                            ColorManager.white),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 20.0),
                                                 child: Text(
-                                                  "Do you really want to,\napprove this?",
+                                                  "Do you really want to,reject this?",
                                                   textAlign: TextAlign.center,
                                                   style: GoogleFonts.firaSans(
                                                     fontSize: 14,
-                                                    fontWeight: FontWeightManager.regular,
-                                                    color: ColorManager.mediumgrey,
+                                                    fontWeight:
+                                                        FontWeightManager
+                                                            .regular,
+                                                    color:
+                                                        ColorManager.mediumgrey,
                                                   ),
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: const EdgeInsets.all(10),
-                                                child: Align(
-                                                  alignment: Alignment.bottomCenter,
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      ElevatedButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context).pop();
-                                                        },
-                                                        style: ElevatedButton.styleFrom(
-                                                          backgroundColor: Colors.white,
-                                                          foregroundColor: Color(0xff1696C8),
-                                                          side: BorderSide(color: Color(0xff1696C8)),
-                                                          shape: RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(8),
-                                                          ),
-                                                        ),
-                                                        child: Text(
-                                                          'Cancel',
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: 10.0,
-                                                            fontWeight: FontWeight.w700,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: MediaQuery.of(context).size.width / 75),
-                                                      ElevatedButton(
-                                                        onPressed: () async {
-                                                          await approveOnboardQualifyLicensePatch(context, snapshot.data![index].licenseId);
-                                                          getOnboardingQualificationLicense(context, 2).then((data){
-                                                            licenseStreamController.add(data);
-                                                          }).catchError((error){});
-                                                          Navigator.of(context).pop();
-                                                        },
-                                                        style: ElevatedButton.styleFrom(
-                                                          backgroundColor: Color(0xff1696C8),
-                                                          foregroundColor: Colors.white,
-                                                          shape: RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(8),
-                                                          ),
-                                                        ),
-                                                        child: Text(
-                                                          'Yes',
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: 10.0,
-                                                            fontWeight: FontWeight.w700,
-                                                          ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: AppPadding.p24,
+                                                  right: AppPadding.p10),
+                                              child: Align(
+                                                alignment:
+                                                    Alignment.bottomRight,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        elevation: 5,
+                                                        backgroundColor:
+                                                            Colors.white,
+                                                        foregroundColor:
+                                                            Color(0xff1696C8),
+                                                        side: BorderSide(
+                                                            color: Color(
+                                                                0xff1696C8)),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
+                                                      child: Text(
+                                                        'Cancel',
+                                                        style: GoogleFonts
+                                                            .firaSans(
+                                                          fontSize: 10.0,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            75),
+                                                    ElevatedButton(
+                                                      onPressed: () async {
+                                                        await rejectOnboardQualifyLicensePatch(
+                                                            context,
+                                                            snapshot
+                                                                .data![index]
+                                                                .licenseId);
+                                                        getOnboardingQualificationLicense(
+                                                                context, 2)
+                                                            .then((data) {
+                                                          licenseStreamController
+                                                              .add(data);
+                                                        }).catchError(
+                                                                (error) {});
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            Color(0xff1696C8),
+                                                        foregroundColor:
+                                                            Colors.white,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        'Yes',
+                                                        style: GoogleFonts
+                                                            .firaSans(
+                                                          fontSize: 10.0,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      );
-                                    },
-                                  );
-                                }),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              // onRejectPressed: () async {
+                              //   await rejectOnboardQualifyLicensePatch(context, snapshot.data![index].licenseId);
+                              //   getOnboardingQualificationLicense(context, 2).then((data){
+                              //     licenseStreamController.add(data);
+                              //   }).catchError((error){});
+                              // },
+
+                              onApprovePressed: () async {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Dialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        height: 181.0,
+                                        width: 500.0,
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.bluebottom,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(8),
+                                                  topRight: Radius.circular(8),
+                                                ),
+                                              ),
+                                              height: 35,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20.0),
+                                                    child: Text(
+                                                      'Approve',
+                                                      style:
+                                                          GoogleFonts.firaSans(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight:
+                                                            FontWeightManager
+                                                                .semiBold,
+                                                        color:
+                                                            ColorManager.white,
+                                                        decoration:
+                                                            TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    icon: Icon(Icons.close,
+                                                        color:
+                                                            ColorManager.white),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 20.0),
+                                                child: Text(
+                                                  "Do you really want to,approve this?",
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeightManager
+                                                            .regular,
+                                                    color:
+                                                        ColorManager.mediumgrey,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: AppPadding.p24,
+                                                  right: AppPadding.p10),
+                                              child: Align(
+                                                alignment:
+                                                    Alignment.bottomRight,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        elevation: 5,
+                                                        backgroundColor:
+                                                            Colors.white,
+                                                        foregroundColor:
+                                                            Color(0xff1696C8),
+                                                        side: BorderSide(
+                                                            color: Color(
+                                                                0xff1696C8)),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        'Cancel',
+                                                        style: GoogleFonts
+                                                            .firaSans(
+                                                          fontSize: 10.0,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            75),
+                                                    ElevatedButton(
+                                                      onPressed: () async {
+                                                        await approveOnboardQualifyLicensePatch(
+                                                            context,
+                                                            snapshot
+                                                                .data![index]
+                                                                .licenseId);
+                                                        getOnboardingQualificationLicense(
+                                                                context, 2)
+                                                            .then((data) {
+                                                          licenseStreamController
+                                                              .add(data);
+                                                        }).catchError(
+                                                                (error) {});
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            Color(0xff1696C8),
+                                                        foregroundColor:
+                                                            Colors.white,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        'Yes',
+                                                        style: GoogleFonts
+                                                            .firaSans(
+                                                          fontSize: 10.0,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              // onApprovePressed: ()async{
+                              //   showDialog(
+                              //     context: context,
+                              //     builder: (BuildContext context) {
+                              //       return Dialog(
+                              //         shape: RoundedRectangleBorder(
+                              //           borderRadius: BorderRadius.circular(12.0),
+                              //         ),
+                              //         child: Container(
+                              //           decoration: BoxDecoration(
+                              //             borderRadius: BorderRadius.circular(20.0),
+                              //           ),
+                              //           height: 200.0,
+                              //           width: 300.0,
+                              //           child: Stack(
+                              //             children: <Widget>[
+                              //               Container(
+                              //                 width: double.infinity,
+                              //                 height: 50,
+                              //                 alignment: Alignment.bottomCenter,
+                              //                 decoration: BoxDecoration(
+                              //                   color: Color(0xff1696C8),
+                              //                   borderRadius: BorderRadius.only(
+                              //                     topLeft: Radius.circular(12),
+                              //                     topRight: Radius.circular(12),
+                              //                   ),
+                              //                 ),
+                              //                 child: Align(
+                              //                   alignment: Alignment.topRight,
+                              //                   child: IconButton(
+                              //                     onPressed: () {
+                              //                       Navigator.of(context).pop();
+                              //                     },
+                              //                     icon: Icon(Icons.close, color: Colors.white),
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //               Align(
+                              //                 alignment: Alignment.center,
+                              //                 child: Text(
+                              //                   "Do you really want to,\napprove this?",
+                              //                   textAlign: TextAlign.center,
+                              //                   style: GoogleFonts.firaSans(
+                              //                     fontSize: 14,
+                              //                     fontWeight: FontWeightManager.regular,
+                              //                     color: ColorManager.mediumgrey,
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //               Padding(
+                              //                 padding: const EdgeInsets.all(10),
+                              //                 child: Align(
+                              //                   alignment: Alignment.bottomCenter,
+                              //                   child: Row(
+                              //                     mainAxisAlignment: MainAxisAlignment.center,
+                              //                     children: [
+                              //                       ElevatedButton(
+                              //                         onPressed: () {
+                              //                           Navigator.of(context).pop();
+                              //                         },
+                              //                         style: ElevatedButton.styleFrom(
+                              //                           backgroundColor: Colors.white,
+                              //                           foregroundColor: Color(0xff1696C8),
+                              //                           side: BorderSide(color: Color(0xff1696C8)),
+                              //                           shape: RoundedRectangleBorder(
+                              //                             borderRadius: BorderRadius.circular(8),
+                              //                           ),
+                              //                         ),
+                              //                         child: Text(
+                              //                           'Cancel',
+                              //                           style: GoogleFonts.firaSans(
+                              //                             fontSize: 10.0,
+                              //                             fontWeight: FontWeight.w700,
+                              //                           ),
+                              //                         ),
+                              //                       ),
+                              //                       SizedBox(width: MediaQuery.of(context).size.width / 75),
+                              //                       ElevatedButton(
+                              //                         onPressed: () async {
+                              //                           await approveOnboardQualifyLicensePatch(context, snapshot.data![index].licenseId);
+                              //                           getOnboardingQualificationLicense(context, 2).then((data){
+                              //                             licenseStreamController.add(data);
+                              //                           }).catchError((error){});
+                              //                           Navigator.of(context).pop();
+                              //                         },
+                              //                         style: ElevatedButton.styleFrom(
+                              //                           backgroundColor: Color(0xff1696C8),
+                              //                           foregroundColor: Colors.white,
+                              //                           shape: RoundedRectangleBorder(
+                              //                             borderRadius: BorderRadius.circular(8),
+                              //                           ),
+                              //                         ),
+                              //                         child: Text(
+                              //                           'Yes',
+                              //                           style: GoogleFonts.firaSans(
+                              //                             fontSize: 10.0,
+                              //                             fontWeight: FontWeight.w700,
+                              //                           ),
+                              //                         ),
+                              //                       ),
+                              //                     ],
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //         ),
+                              //       );
+                              //     },
+                              //   );
+                              // },
+                            ),
                           ],
                         )
                       ],
@@ -266,10 +650,9 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                 ),
               );
             }));
-          }else{
+          } else {
             return const SizedBox();
           }
-        }
-    );
+        });
   }
 }
