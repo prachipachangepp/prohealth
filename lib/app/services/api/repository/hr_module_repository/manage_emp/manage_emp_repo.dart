@@ -92,6 +92,15 @@ class ManageReposotory{
   static String updateBankingEmployee({required int empBankingId}){
     return "$banking/$empBankingId";
   }
+
+
+  static String approveBankingEmployee({required int empBankingId}){
+    return "/employee-bankings/approve/$empBankingId";
+  }
+
+  static String rejectBankingEmployee({required int empBankingId}){
+    return "/employee-bankings/reject/$empBankingId";
+  }
   /// Equipment
 
   static String addEquipement(){

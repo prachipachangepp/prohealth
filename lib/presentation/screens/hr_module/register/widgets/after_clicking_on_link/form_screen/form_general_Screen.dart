@@ -7,6 +7,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_f
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 import 'form_educaton_screen.dart';
 
@@ -376,6 +377,7 @@ class _generalFormState extends State<generalForm> {
                           return null;
                         },
                         height: 32,
+
                       ),
                     ],
                   ),
@@ -505,27 +507,86 @@ class _generalFormState extends State<generalForm> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomRadioListTile(
-                            title: 'Asian',
-                            value: 'Asian',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'Asian',
+                                value: 'Asian',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          // const SizedBox(
+                          //   width: 3,
+                          // ),
+
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'White',
+                                value: 'White',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          // const SizedBox(
+                          //   width: 5,
+                          // ),
+
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'Black or African American',
+                                value: 'Black or African American',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
 
-                          CustomRadioListTile(
-                            title: 'White',
-                            value: 'White',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          Column(
+                            children: [
+                              CustomRadioListTile(
+                                title: 'Other',
+                                value: 'Other',
+                                groupValue: racetype,
+                                onChanged: (value) {
+                                  setState(() {
+                                    racetype = value;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
+                          // const SizedBox(
+                          //   width: 3,
+                          // ),
+
+
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                           CustomRadioListTile(
                             title: 'Hispanic or Latino',
                             value: 'Hispanic or Latino',
@@ -536,35 +597,12 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CustomRadioListTile(
-                            title: 'Black or African American',
-                            value: 'Black or African American',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
-                          ),
-                          CustomRadioListTile(
-                            title: 'Other',
-                            value: 'Other',
-                            groupValue: racetype,
-                            onChanged: (value) {
-                              setState(() {
-                                racetype = value;
-                              });
-                            },
+                          const SizedBox(
+                            width: 5,
                           ),
                           const SizedBox(
                             width: 3,
                           ),
-
                         ],
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
@@ -687,79 +725,151 @@ class _generalFormState extends State<generalForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff1696C8),
-                  foregroundColor: Colors.white,
+              CustomButton(
+                width: 117,
+                height: 30,
+                text: 'Save',
+                style: TextStyle(
+                  fontFamily: 'FiraSans',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+                borderRadius: 12,
+                onPressed: () async {
+                                    await postgeneralscreendata(
+                                        context,
+                                        'G023',
+                                        26,
+                                        firstname.text,
+                                        lastname.text,
+                                        1,
+                                        1,
+                                        'Expertise',
+                                        1,
+                                        1,
+                                        1,
+                                        true,
+                                        false,
+                                        1,
+                                        'SSN123',
+                                        ssecuritynumber.text,
+                                        phonenumber.text,
+                                        '1234',
+                                        '12345',
+                                        '1245',
+                                        personalemail.text,
+                                        address.text,
+                                        dobcontroller.text,
+                                        '1245',
+                                        'Coverage',
+                                        'Employment',
+                                        gendertype.toString(),
+                                        'Active',
+                                        'Service',
+                                        'imgurl',
+                                        'resumeurl',
+                                        5,
+                                        'Onboarding',
+                                        driverlicensenumb.text,
+                                        '2024-01-01',
+                                        '2024-01-01',
+                                        '2024-01-01',
+                                        'Yes',
+                                        'Position',
+                                        '123 Final St',
+                                        'Type',
+                                        'Reason',
+                                        1,
+                                        '2024-01-01',
+                                        1,
+                                        1,
+                                        'Method',
+                                        'Material',
+                                        racetype.toString(),
+                                        'rating',
+                                        'SignatureURL'
+                                    );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text("General data saved")),
+                                    );
+                                    firstname.clear();
+                                    lastname.clear();
+                                    ssecuritynumber.clear();
+                                    phonenumber.clear();
+                                    personalemail.clear();
+                                    driverlicensenumb.clear();
+                                    address.clear();
+                                    dobcontroller.clear();
 
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                 onPressed: () async {
-                  await postgeneralscreen(
-                      context,
-                      'G023',
-                      803,
-                      firstname.text,
-                      lastname.text,
-                      1,
-                      1,
-                      'Expertise',
-                      1,
-                      1,
-                      1,
-                      true,
-                      false,
-                      1,
-                      'SSN123',
-                      ssecuritynumber.text,
-                      phonenumber.text,
-                      '1234',
-                      '12345',
-                      '1245',
-                      personalemail.text,
-                      address.text,
-                      dobcontroller.text,
-                      '1245',
-                      'Coverage',
-                      'Employment',
-                      gendertype.toString(),
-                      'Active',
-                      'Service',
-                      'imgurl',
-                      'resumeurl',
-                      5,
-                      'Onboarding',
-                      driverlicensenumb.text,
-                      '2024-01-01',
-                      '2024-01-01',
-                      '2024-01-01',
-                      'Yes',
-                      'Position',
-                      '123 Final St',
-                      'Type',
-                      'Reason',
-                      1,
-                      '2024-01-01',
-                      1,
-                      1,
-                      'Method',
-                      'Material',
-                      racetype.toString(),
-                      'rating',
-                      'SignatureURL'
-                  );
-                 },
-                child: Text(
-                  'Save',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
+                }
               ),
+            ///    onPressed: () async {
+              //                   await postgeneralscreendata(
+              //                       context,
+              //                       'G023',
+              //                       26,
+              //                       firstname.text,
+              //                       lastname.text,
+              //                       1,
+              //                       1,
+              //                       'Expertise',
+              //                       1,
+              //                       1,
+              //                       1,
+              //                       true,
+              //                       false,
+              //                       1,
+              //                       'SSN123',
+              //                       ssecuritynumber.text,
+              //                       phonenumber.text,
+              //                       '1234',
+              //                       '12345',
+              //                       '1245',
+              //                       personalemail.text,
+              //                       address.text,
+              //                       dobcontroller.text,
+              //                       '1245',
+              //                       'Coverage',
+              //                       'Employment',
+              //                       gendertype.toString(),
+              //                       'Active',
+              //                       'Service',
+              //                       'imgurl',
+              //                       'resumeurl',
+              //                       5,
+              //                       'Onboarding',
+              //                       driverlicensenumb.text,
+              //                       '2024-01-01',
+              //                       '2024-01-01',
+              //                       '2024-01-01',
+              //                       'Yes',
+              //                       'Position',
+              //                       '123 Final St',
+              //                       'Type',
+              //                       'Reason',
+              //                       1,
+              //                       '2024-01-01',
+              //                       1,
+              //                       1,
+              //                       'Method',
+              //                       'Material',
+              //                       racetype.toString(),
+              //                       'rating',
+              //                       'SignatureURL'
+              //                   );
+              //                   ScaffoldMessenger.of(context).showSnackBar(
+              //                     SnackBar(content: Text("General data saved")),
+              //                   );
+              //                   firstname.clear();
+              //                   lastname.clear();
+              //                   ssecuritynumber.clear();
+              //                   phonenumber.clear();
+              //                   personalemail.clear();
+              //                   driverlicensenumb.clear();
+              //                   address.clear();
+              //                   dobcontroller.clear();
+              //
+              //                  },
             ],
           )
         ],

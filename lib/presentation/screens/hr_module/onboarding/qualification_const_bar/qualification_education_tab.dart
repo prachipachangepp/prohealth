@@ -13,6 +13,7 @@ import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 import '../widgets/widgets/banking_tab_constant.dart';
 
 class QualificationEducation extends StatefulWidget {
@@ -45,8 +46,14 @@ class _QualificationEducationState extends State<QualificationEducation> {
         builder: (context,snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime,
+              child: SizedBox(width: 25,
+                height: 25,
+                child: CircularProgressIndicator(
+
+
+
+                  color: ColorManager.blueprime,
+                ),
               ),
             );
           }
@@ -139,15 +146,11 @@ class _QualificationEducationState extends State<QualificationEducation> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+
+
                             QualificationActionButtons(
                                 approve: snapshot.data![index].approved,
-                                onRejectPressed: ()async{
-                                  await rejectOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
-                                  getOnboardingQualificationEducation(context, 2).then((data){
-                                    educationStreamController.add(data);
-                                  }).catchError((error){});
-                                },
-                                onApprovePressed: ()async{
+                                onRejectPressed: () async {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -159,55 +162,71 @@ class _QualificationEducationState extends State<QualificationEducation> {
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(20.0),
                                           ),
-                                          height: 200.0,
-                                          width: 300.0,
+                                          height: 181.0,
+                                          width: 500.0,
                                           child: Stack(
                                             children: <Widget>[
                                               Container(
-                                                width: double.infinity,
-                                                height: 50,
-                                                alignment: Alignment.bottomCenter,
                                                 decoration: BoxDecoration(
-                                                  color: Color(0xff1696C8),
+                                                  color: ColorManager.bluebottom,
                                                   borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(12),
-                                                    topRight: Radius.circular(12),
+                                                    topLeft: Radius.circular(8),
+                                                    topRight: Radius.circular(8),
                                                   ),
                                                 ),
-                                                child: Align(
-                                                  alignment: Alignment.topRight,
-                                                  child: IconButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                    icon: Icon(Icons.close, color: Colors.white),
-                                                  ),
+                                                height: 35,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 10.0),
+                                                      child: Text(
+                                                        'Reject',
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: FontSize.s12,
+                                                          fontWeight: FontWeightManager.semiBold,
+                                                          color: ColorManager.white,
+                                                          decoration: TextDecoration.none,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      icon: Icon(Icons.close, color: ColorManager.white),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                               Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  "Do you really want to,\napprove this?",
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeightManager.regular,
-                                                    color: ColorManager.mediumgrey,
+                                                alignment: Alignment.centerLeft,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(left: 20.0),
+                                                  child: Text(
+                                                    "Do you really want to,reject this?",
+                                                    textAlign: TextAlign.center,
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeightManager.regular,
+                                                      color: ColorManager.mediumgrey,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.all(10),
+                                                padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
                                                 child: Align(
-                                                  alignment: Alignment.bottomCenter,
+                                                  alignment: Alignment.bottomRight,
                                                   child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.end,
                                                     children: [
                                                       ElevatedButton(
                                                         onPressed: () {
                                                           Navigator.of(context).pop();
                                                         },
                                                         style: ElevatedButton.styleFrom(
+                                                          elevation: 5,
                                                           backgroundColor: Colors.white,
                                                           foregroundColor: Color(0xff1696C8),
                                                           side: BorderSide(color: Color(0xff1696C8)),
@@ -226,7 +245,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                                                       SizedBox(width: MediaQuery.of(context).size.width / 75),
                                                       ElevatedButton(
                                                         onPressed: () async {
-                                                          await approveOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
+                                                          await rejectOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
                                                           getOnboardingQualificationEducation(context, 2).then((data){
                                                             educationStreamController.add(data);
                                                           }).catchError((error){});
@@ -257,7 +276,247 @@ class _QualificationEducationState extends State<QualificationEducation> {
                                       );
                                     },
                                   );
-                                }),
+                                },
+                              onApprovePressed: () async {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Dialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                      ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                        ),
+                                        height: 181.0,
+                                        width: 500.0,
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.bluebottom,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(8),
+                                                  topRight: Radius.circular(8),
+                                                ),
+                                              ),
+                                              height: 35,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 20.0),
+                                                    child: Text(
+                                                      'Approve',
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeightManager.semiBold,
+                                                        color: ColorManager.white,
+                                                        decoration: TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    icon: Icon(Icons.close, color: ColorManager.white),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(left: 20.0),
+                                                child: Text(
+                                                  "Do you really want to,approve this?",
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeightManager.regular,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
+                                              child: Align(
+                                                alignment: Alignment.bottomRight,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      style: ElevatedButton.styleFrom(
+                                                        elevation: 5,
+                                                        backgroundColor: Colors.white,
+                                                        foregroundColor: Color(0xff1696C8),
+                                                        side: BorderSide(color: Color(0xff1696C8)),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        'Cancel',
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 10.0,
+                                                          fontWeight: FontWeight.w700,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: MediaQuery.of(context).size.width / 75),
+                                                    ElevatedButton(
+                                                      onPressed: () async {
+                                                        await approveOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
+                                                        getOnboardingQualificationEducation(context, 2).then((data){
+                                                          educationStreamController.add(data);
+                                                        }).catchError((error){});
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor: Color(0xff1696C8),
+                                                        foregroundColor: Colors.white,
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        'Yes',
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 10.0,
+                                                          fontWeight: FontWeight.w700,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+
+                                // onApprovePressed: ()async{
+                                //   showDialog(
+                                //     context: context,
+                                //     builder: (BuildContext context) {
+                                //       return Dialog(
+                                //         shape: RoundedRectangleBorder(
+                                //           borderRadius: BorderRadius.circular(12.0),
+                                //         ),
+                                //         child: Container(
+                                //           decoration: BoxDecoration(
+                                //             borderRadius: BorderRadius.circular(20.0),
+                                //           ),
+                                //           height: 200.0,
+                                //           width: 300.0,
+                                //           child: Stack(
+                                //             children: <Widget>[
+                                //               Container(
+                                //                 width: double.infinity,
+                                //                 height: 50,
+                                //                 alignment: Alignment.bottomCenter,
+                                //                 decoration: BoxDecoration(
+                                //                   color: Color(0xff1696C8),
+                                //                   borderRadius: BorderRadius.only(
+                                //                     topLeft: Radius.circular(12),
+                                //                     topRight: Radius.circular(12),
+                                //                   ),
+                                //                 ),
+                                //                 child: Align(
+                                //                   alignment: Alignment.topRight,
+                                //                   child: IconButton(
+                                //                     onPressed: () {
+                                //                       Navigator.of(context).pop();
+                                //                     },
+                                //                     icon: Icon(Icons.close, color: Colors.white),
+                                //                   ),
+                                //                 ),
+                                //               ),
+                                //               Align(
+                                //                 alignment: Alignment.center,
+                                //                 child: Text(
+                                //                   "Do you really want to,\napprove this?",
+                                //                   textAlign: TextAlign.center,
+                                //                   style: GoogleFonts.firaSans(
+                                //                     fontSize: 14,
+                                //                     fontWeight: FontWeightManager.regular,
+                                //                     color: ColorManager.mediumgrey,
+                                //                   ),
+                                //                 ),
+                                //               ),
+                                //               Padding(
+                                //                 padding: const EdgeInsets.all(10),
+                                //                 child: Align(
+                                //                   alignment: Alignment.bottomCenter,
+                                //                   child: Row(
+                                //                     mainAxisAlignment: MainAxisAlignment.center,
+                                //                     children: [
+                                //                       ElevatedButton(
+                                //                         onPressed: () {
+                                //                           Navigator.of(context).pop();
+                                //                         },
+                                //                         style: ElevatedButton.styleFrom(
+                                //                           backgroundColor: Colors.white,
+                                //                           foregroundColor: Color(0xff1696C8),
+                                //                           side: BorderSide(color: Color(0xff1696C8)),
+                                //                           shape: RoundedRectangleBorder(
+                                //                             borderRadius: BorderRadius.circular(8),
+                                //                           ),
+                                //                         ),
+                                //                         child: Text(
+                                //                           'Cancel',
+                                //                           style: GoogleFonts.firaSans(
+                                //                             fontSize: 10.0,
+                                //                             fontWeight: FontWeight.w700,
+                                //                           ),
+                                //                         ),
+                                //                       ),
+                                //                       SizedBox(width: MediaQuery.of(context).size.width / 75),
+                                //                       ElevatedButton(
+                                //                         onPressed: () async {
+                                //                           await approveOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
+                                //                           getOnboardingQualificationEducation(context, 2).then((data){
+                                //                             educationStreamController.add(data);
+                                //                           }).catchError((error){});
+                                //                           Navigator.of(context).pop();
+                                //                         },
+                                //                         style: ElevatedButton.styleFrom(
+                                //                           backgroundColor: Color(0xff1696C8),
+                                //                           foregroundColor: Colors.white,
+                                //                           shape: RoundedRectangleBorder(
+                                //                             borderRadius: BorderRadius.circular(8),
+                                //                           ),
+                                //                         ),
+                                //                         child: Text(
+                                //                           'Yes',
+                                //                           style: GoogleFonts.firaSans(
+                                //                             fontSize: 10.0,
+                                //                             fontWeight: FontWeight.w700,
+                                //                           ),
+                                //                         ),
+                                //                       ),
+                                //                     ],
+                                //                   ),
+                                //                 ),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         ),
+                                //       );
+                                //     },
+                                //   );
+                                // },
+                            ),
                           ],
                         )
                       ],

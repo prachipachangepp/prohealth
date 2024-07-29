@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -138,7 +141,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
         StreamBuilder(
           stream: _controller.stream,
           builder: (context,snapshot) {
-            getAckHealthRecord(context, 1,1,20).then((data) {
+            getAckHealthRecord(context, 1,10,5).then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -164,7 +167,8 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
             }
             if(snapshot.hasData){
 
-              return Expanded(
+              return Container(
+                height: MediaQuery.of(context).size.height/1,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: snapshot.data!.length,
@@ -187,7 +191,8 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                           );
                         },
                       );
-                    } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                    }
+                    else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
                       fileWidget = Icon(
                         Icons.description,
                         size: 45,
@@ -232,7 +237,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                         borderRadius: BorderRadius.circular(4),
                                         border: Border.all(width: 2,color:ColorManager.faintGrey),
                                       ),
-                                      child: fileWidget),
+                                      child: Image.asset('images/Vector.png')),
                                   SizedBox(width: 10),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -241,7 +246,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                       Text('ID:${health.employeeDocumentId}',
                                           style:AknowledgementStyleConst.customTextStyle(context)),
                                       SizedBox(height: 5,),
-                                      Text(health.ReminderThreshold,
+                                      Text(health.DocumentName,
                                           style:TextStyle(
                                             fontFamily: 'FiraSans',
                                             fontSize: 10,
@@ -261,7 +266,20 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     icon: Icon(Icons.refresh_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
                                   IconButton(
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      final pdf = pw.Document();
+
+                                      pdf.addPage(
+                                        pw.Page(
+                                          build: (pw.Context context) => pw.Center(
+                                            child: pw.Text('Hello, this is a test print!'),
+                                          ),
+                                        ),
+                                      );
+
+                                      await Printing.layoutPdf(
+                                        onLayout: (PdfPageFormat format) async => pdf.save(),
+                                      );
                                     },
                                     icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),

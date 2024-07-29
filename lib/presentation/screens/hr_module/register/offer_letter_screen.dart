@@ -1260,12 +1260,38 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   String _salary = "";
   String generatedURL = '';
 
+  final List<Map<String, String>> data = [
+    {'zipCode': '10001', 'city': 'New York'},
+    {'zipCode': '20001', 'city': 'Washington, D.C.'},
+    {'zipCode': '30301', 'city': 'Atlanta'},
+    {'zipCode': '94101', 'city': 'San Francisco'},
+    // Add more data as needed
+  ];
+
+  final PageController _pageController = PageController();
+  int _currentPageIndex = 0;
+
+
+
+  void _goToPage(int pageIndex) {
+    _pageController.animateToPage(
+      pageIndex,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     _initAppLinks();
     checkboxStates = List.from(checkboxData);
     checkboxStatesCity = List.from(checkboxDataCity);
+    _pageController.addListener(() {
+      setState(() {
+        _currentPageIndex = _pageController.page!.toInt();
+      });
+    });
   }
 
   void handleDropdownChange(String? newValue) {
@@ -1674,8 +1700,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               ),
                             ),
                           ),
-
                           SizedBox(width: MediaQuery.of(context).size.width / 260),
+                          ///old code tabbar
                           Expanded(
                             child: DefaultTabController(
                               length: 2,
@@ -2026,6 +2052,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       phoneNbr: widget.phone, email: widget.email, link: generatedURL, status: widget.status, departmentId:
                                       1, position: widget.position, speciality: widget.soecalityName, clinicianTypeId: 1,
                                       reportingOfficeId: widget.reportingOffice, cityId: 1, countryId: 1, countyId: 9, zoneId: 18, employment: widget.employement, service: widget.services);
+
                                    Navigator.pop(context);
                                 },
                                 title: 'Confirm Enrollment',
@@ -2034,7 +2061,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             },
                           );
                         },
-
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xff1696C8),
                           foregroundColor: Colors.white,

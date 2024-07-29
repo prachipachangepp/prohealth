@@ -5,6 +5,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_education_manager.dart';
 
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
 class EducationScreen extends StatefulWidget {
@@ -61,18 +62,22 @@ class _EducationScreenState extends State<EducationScreen> {
     });
   }
 
-  Future<void> posteducationscreen(
-      BuildContext context,
-      int employeeId,
-      String graduate,
-      String degree,
-      String major,
-      String city,
-      String college,
-      String phone,
-      String state,
-      String country,
-      ) async {}
+  Future<void> posteducationscreendata(
+    BuildContext context,
+    int employeeId,
+    String graduate,
+    String degree,
+    String major,
+    String city,
+    String college,
+    String phone,
+    String state,
+    String country,
+  ) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Education data saved")),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,48 +122,53 @@ class _EducationScreenState extends State<EducationScreen> {
             }).toList(),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ElevatedButton.icon(
-                onPressed: addEducationForm,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff50B5E5),
-                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+          Padding(
+            padding: const EdgeInsets.only(left: 150),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: addEducationForm,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff50B5E5),
+                    // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  icon: Icon(Icons.add, color: Colors.white),
+                  label: Text(
+                    'Add Education',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-                icon: Icon(Icons.add, color: Colors.white),
-                label: Text(
-                  'Add Education',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff1696C8),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                onPressed: () async {
+            CustomButton(
+    width: 117,
+    height: 30,
+    text: 'Save',
+    style: TextStyle(
+    fontFamily: 'FiraSans',
+    fontSize: 12,
+    fontWeight: FontWeight.w700,
+    ),
+    borderRadius: 12,
+    onPressed: () async  {
                   // Loop through each form and extract data to post
                   for (var key in educationFormKeys) {
                     final st = key.currentState!;
                     await posteducationscreen(
                         context,
-                        0,
+                        5,
                         st.collegeuniversity.text,
                         st.majorsubject.text,
                         st.phone.text,
@@ -168,6 +178,13 @@ class _EducationScreenState extends State<EducationScreen> {
                         st.selectedDegree.toString(),
                         "county");
                   }
+                  collegeuniversity.clear();
+                  majorsubject.clear();
+                  phone.clear();
+                  city.clear();
+                  state.clear();
+
+
                 },
                 child: Text(
                   'Save',
@@ -270,15 +287,15 @@ class _EducationFormState extends State<EducationForm> {
                     children: [
                       Expanded(
                           child: CustomRadioListTile(
-                            title: 'Yes',
-                            value: 'Yes',
-                            groupValue: graduatetype,
-                            onChanged: (value) {
-                              setState(() {
-                                graduatetype = value;
-                              });
-                            },
-                          )),
+                        title: 'Yes',
+                        value: 'Yes',
+                        groupValue: graduatetype,
+                        onChanged: (value) {
+                          setState(() {
+                            graduatetype = value;
+                          });
+                        },
+                      )),
                       Expanded(
                         child: CustomRadioListTile(
                           title: 'No',
@@ -459,7 +476,7 @@ class _EducationFormState extends State<EducationForm> {
                 });
 
                 FilePickerResult? result =
-                await FilePicker.platform.pickFiles(
+                    await FilePicker.platform.pickFiles(
                   allowMultiple: true,
                 );
 
@@ -478,7 +495,7 @@ class _EducationFormState extends State<EducationForm> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xff50B5E5),
-                // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+    // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -499,31 +516,32 @@ class _EducationFormState extends State<EducationForm> {
         Row(
           children: [
             _loading
-                ? SizedBox(
-              width: 25,
-              height: 25,
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime, // Loader color
-                // Loader size
-              ),
-            )
-                : _fileNames.isNotEmpty
-                ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: _fileNames
-                  .map((fileName) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'File picked: $fileName',
-                  style: GoogleFonts.firaSans(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff686464)),
-                ),
-              ))
-                  .toList(),
-            )
-                : SizedBox(),
+            ? SizedBox(
+            width: 25,
+            height: 25,
+            child: CircularProgressIndicator(
+              color: ColorManager.blueprime, // Loader color
+            // Loader size
+            ),
+                      )
+            : _fileNames.isNotEmpty
+                  ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: _fileNames
+            .map((fileName) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+            'File picked: $fileName',
+            style: GoogleFonts.firaSans(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w400,
+                color: Color(0xff686464)),
+                      ),
+                    ))
+            .toList(),
+                  )
+            : SizedBox(),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
           ],
         ),
         const Divider(color: Colors.grey,thickness: 2,)

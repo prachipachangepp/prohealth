@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_reference_manager.dart';
 
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
 class ReferencesScreen extends StatefulWidget {
@@ -48,7 +49,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
   }
 
 
-  Future<void> postreferencescreen(
+  Future<void> postreferencescreendata(
       BuildContext context,
       String association,
       String comment,
@@ -58,7 +59,11 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
       String mob,
       String name,
       String references,
-      String title) async {}
+      String title) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Reference data saved")),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -115,42 +120,47 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
           }).toList(),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ElevatedButton.icon(
-              onPressed: addEducationForm,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff50B5E5),
-                // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+        Padding(
+          padding: const EdgeInsets.only(left: 150),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ElevatedButton.icon(
+                onPressed: addEducationForm,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff50B5E5),
+                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                icon: Icon(Icons.add, color: Colors.white),
+                label: Text(
+                  'Add Reference',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              icon: Icon(Icons.add, color: Colors.white),
-              label: Text(
-                'Add Education',
-                style: GoogleFonts.firaSans(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff1696C8),
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
+            CustomButton(
+              width: 117,
+              height: 30,
+              text: 'Save',
+              style: TextStyle(
+                fontFamily: 'FiraSans',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
               ),
+              borderRadius: 12,
               onPressed: () async {
                 // Loop through each form and extract data to post
                 for (var key in referenceFormKeys) {
@@ -161,12 +171,19 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                       "__",
                       st.companyorganization.text,
                       st.email.text,
-                      0,
+                      15,
                       st.mobilenumber.text,
                      st.name.text,
                       st.knowthisperson.text,
                       st.titleposition.text);
                 }
+                lengthofassociation.clear();
+                companyorganization.clear();
+                email.clear();
+                mobilenumber.clear();
+                name.clear();
+                knowthisperson.clear();
+                titleposition.clear();
               },
               child: Text(
                 'Save',

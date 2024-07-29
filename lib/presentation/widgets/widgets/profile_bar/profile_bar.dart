@@ -436,6 +436,26 @@ class _ProfileBarState extends State<ProfileBar> {
                                   context)),
                         ],
                       ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                              'PTA',
+                              style: ProfileBarConstText.profileTextStyle(
+                                  context)),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 35,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 70.0),
+                            child: Text(
+                                '1.2',
+                                style: ProfileBarConstText.profileTextStyle(
+                                    context)),
+                          ),
+                        ],
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
