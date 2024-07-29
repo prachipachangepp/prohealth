@@ -277,11 +277,7 @@ class _SignaturePageState extends State<SignaturePage> {
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height/6),
-            Row(
-              children: [
-                BottomBarRow()
-              ],
-            )
+           BottomBarRow()
           ],
         ),
       ),

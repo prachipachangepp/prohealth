@@ -215,18 +215,43 @@ class _ManageScreenState extends State<ManageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return
+
+      // Scaffold(
+      //   backgroundColor: Colors.white,
+      //   body: ListView(scrollDirection: Axis.vertical, children: [
+      //             /// green blue container
+      //             ProfileBar(searchByEmployeeIdProfileData: widget.searchByEmployeeIdProfileData!,),
+      //
+      //             ///TabBar
+      //             CenteredTabBar(),
+      //
+      //             /// bottom row
+      //             const BottomBarRow()
+      //           ]),
+      //        );
+
+
+      Scaffold(
         backgroundColor: Colors.white,
-        body: ListView(scrollDirection: Axis.vertical, children: [
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                children: [
                   /// green blue container
-                  ProfileBar(searchByEmployeeIdProfileData: widget.searchByEmployeeIdProfileData!,),
+                  ProfileBar(searchByEmployeeIdProfileData: widget.searchByEmployeeIdProfileData!),
 
                   ///TabBar
                   CenteredTabBar(),
-
-                  /// bottom row
-                  const BottomBarRow()
-                ]),
-             );
+                ],
+              ),
+            ),
+            /// bottom row
+            const BottomBarRow(),
+          ],
+        ),
+      );
   }
 }

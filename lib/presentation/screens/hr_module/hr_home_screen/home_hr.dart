@@ -406,10 +406,17 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   ],
                                 ),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return ProfilePatientPopUp();
+                                      },
+                                    );
+                                  },
+
                                   child: Center(
-                                    child: SvgPicture.asset(
-                                        'images/menuLines.svg'),
+                                    child: SvgPicture.asset('images/menuLines.svg'),
                                   ),
                                 ),
                               ),
