@@ -224,7 +224,11 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         );
                       }
                           : null,
-                      child: const Text('Enter OTP'),
+                      child:  Text('Get OTP',style:GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          color: ColorManager.white,
+                          fontWeight: FontWeightManager.medium
+                      )),
                     ),
                     const SizedBox(height: 20),
                     CustomTextFieldRegister(
@@ -282,7 +286,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                             ),
                           ),
                         ),
-                                            ),
+                        ),
                       ):
                     const SizedBox(height: 20) : SizedBox(),
                     ElevatedButton(
@@ -303,7 +307,11 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         }
                       }
                           : null,
-                      child: const Text('Submit'),
+                      child:  Text('Submit',style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          color: ColorManager.white,
+                          fontWeight: FontWeightManager.medium
+                      ),),
                     ),
                   ],
                 ),

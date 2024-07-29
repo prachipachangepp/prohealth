@@ -27,7 +27,7 @@ Future<List<RegisterEnrollData>> RegisterGetData(
           phoneNbr: item["phoneNbr"] ?? '--',
           email: item["email"] ?? '--',
           link: item["link"] ?? '--',
-          status: item["status"] ?? '--',
+          status: item["status"] ?? 'Notopen',
           departmentId: item["departmentId"] ?? 0,
           position: item["position"] ?? '--',
           speciality: item["speciality"] ?? '--',
@@ -44,7 +44,6 @@ Future<List<RegisterEnrollData>> RegisterGetData(
     } else {
       print('Api Error');
     }
-    print("Response:::::${response}");
     return itemsList;
   } catch (e) {
     print("Error $e");
@@ -159,6 +158,7 @@ Future<RegisterDataPrefill> getRegisterEnrollPrefill(
         employment: response.data['employment'] ?? "--",
         service: response.data['service'] ?? "--",
       );
+
     } else {
       return itemsList;
     }

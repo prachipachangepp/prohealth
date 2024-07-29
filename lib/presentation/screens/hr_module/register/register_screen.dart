@@ -9,9 +9,12 @@ import 'package:prohealth/data/api_data/hr_module_data/register_data/register_da
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/register_enroll_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/webView/WebViewScreen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
@@ -46,10 +49,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     currentPage = 1;
     itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    GetRegisterByCompId(context).then((data) {
-      registerController.add(data);
-    }).catchError((error) {});
-    RegisterGetData(context);
+
+    //RegisterGetData(context);
   }
   late RegisterEnrollData registerEnrollData;
 
@@ -77,22 +78,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
           StreamBuilder<List<RegisterDataCompID>>(
             stream: registerController.stream,
             builder: (context, snapshot) {
+              GetRegisterByCompId(context).then((data) {
+                registerController.add(data);
+              }).catchError((error) {});
               print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
+                return Padding(
+                  padding:  EdgeInsets.symmetric(vertical: 150),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
                   ),
                 );
               }
               if (snapshot.data!.isEmpty) {
-                return Center(
-                  child: Text(
-                    AppString.dataNotFound,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey,
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 150),
+                  child: Center(
+                    child: Text(
+                      AppString.dataNotFound,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey,
+                      ),
                     ),
                   ),
                 );
@@ -271,26 +281,83 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     .size
                                                     .width /
                                                 20),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.push(
+                                        ///launch url code
+                                        Link(uri: Uri.parse(snapshot.data![index].link!),
+                                          target: LinkTarget.blank,
+                                          builder: (BuildContext context,followLink) {
+                                         return
+                                          TextButton(
+                                            onPressed:
+                                                () {
+                                              final url = snapshot.data![index].link!;
+                                              // if (await canLaunch(url)) {
+                                              //   await launch(url);
+                                              // } else {
+                                              //   throw 'Could not launch $url';
+                                              // }
+
+                                              // Navigate to the WebViewScreen
+                                              // Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //     builder: (context) => WebViewScreen(url: url),
+                                              //   ),
+                                              // );
+
+                                              // Navigate to the OnBoardingWelcome screen after opening the WebView
+                                              Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        OnBoardingWelcome()));
-                                          },
-                                          child: Text(
-                                            //'https://prohealth.symmetry.care/register',
-                                              snapshot.data![index].status == 'Notopen'
-                                              ? ''
-                                              : snapshot.data![index].role,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                              color: ColorManager.blueprime,
+                                                  builder: (context) => OnBoardingWelcome(),
+                                                ),
+                                              );
+                                            },
+                                            child: Text(
+                                              snapshot.data![index].status == 'Notopen' ? '' : snapshot.data![index].link!,
+                                              style: GoogleFonts.firaSans(
+                                                //decoration: TextDecoration.underline,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorManager.blueprime,
+                                              ),
                                             ),
-                                          ),
-                                        )
+                                          );
+                                        },)
+                                        // TextButton(
+                                        //   onPressed: () async{
+                                        //     final url = snapshot.data![index].link!;
+                                        //     if (await canLaunch(url)) {
+                                        //       await launch(url);
+                                        //     } else {
+                                        //       throw 'Could not launch $url';
+                                        //     }
+                                        //
+                                        //     // Navigate to the WebViewScreen
+                                        //     Navigator.push(
+                                        //       context,
+                                        //       MaterialPageRoute(
+                                        //         builder: (context) => WebViewScreen(url: url),
+                                        //       ),
+                                        //     );
+                                        //
+                                        //     // Navigate to the OnBoardingWelcome screen after opening the WebView
+                                        //     Navigator.push(
+                                        //       context,
+                                        //       MaterialPageRoute(
+                                        //         builder: (context) => OnBoardingWelcome(),
+                                        //       ),
+                                        //     );
+                                        //   },
+                                        //   child: Text(
+                                        //     snapshot.data![index].status == 'Notopen' ? '' : snapshot.data![index].link!,
+                                        //     style: GoogleFonts.firaSans(
+                                        //       fontSize: 10,
+                                        //       fontWeight: FontWeight.w400,
+                                        //       color: ColorManager.blueprime,
+                                        //     ),
+                                        //   ),
+                                        // ),
+
                                       ],
                                     ),
 
@@ -388,7 +455,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     // var position = snapshotPrefill.data!.position;
                                                     // positionController = TextEditingController(text: position);
 
-                                                    return RegisterEnrollPopup(firstName: firstNameController,
+                                                    return RegisterEnrollPopup(
+                                                      employeeId: snapshot.data![index].employeeId!,
+                                                      firstName: firstNameController,
                                                      lastName: lastNameController,
                                                       email: emailController,
                                                         userId: snapshotPrefill.data!.userId,
@@ -397,16 +466,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       // position: positionController,
                                                       onPressed: () {
                                                       Navigator.pop(context);
-
-                                                      // showDialog(
-                                                      //     context: context,
-                                                      //     builder:
-                                                      //         (BuildContext context) {
-                                                      //       return OfferLetterScreen(
-                                                      //
-                                                      //       );
-                                                      //     });
-
                                                       },);
 
 
@@ -518,7 +577,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
   String _selectedValue = 'Select';
 
-  ///
   Widget buildDropdownButton(BuildContext context) {
     return FutureBuilder<List<RegisterEnrollData>>(
         future: RegisterGetData(context),
@@ -540,15 +598,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
             List<String> dropDownAbbreviation = [];
             for (var i in snapshot.data!) {
               dropDownList.add(
-                i.status!,
+                i.status,
               );
               //dropDownAbbreviation.add(i.abbrivation!);
             }
-            // for(var i in snapshot.data!){
-            //
-            // }
             print("::::::${dropDownList}");
-            //print("::::::${dropDownAbbreviation}");
             return Row(
               children: [
                 Container(

@@ -159,226 +159,229 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   ));
             }
             if(snapshot.hasData){
-              return WrapWidget(childern: List.generate(snapshot.data!.length, (index){
-                return Padding(
-                  padding:const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width/2.5,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          offset: Offset(0, 4),
-                        ),
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    height:  MediaQuery.of(context).size.height/3.3,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width / 120,
-                        vertical: MediaQuery.of(context).size.height / 120,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                           Row(children: [
-                            Text('Education #${snapshot.data![index].educationId}',
-                              style: TextStyle(
-                                fontFamily: 'FiraSans',
-                                fontSize: 13,
-                                color: Color(0xFF333333),
-                                fontWeight: FontWeight.w500,
-                              ),),
-                          ],),
-                          SizedBox(height: MediaQuery.of(context).size.height/50,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Degree',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('Graduate',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('Educational Institute',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('Major Subject',
-                                      style: ThemeManager.customTextStyle(context)),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(snapshot.data![index].degree,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
-                                  Text(snapshot.data![index].graduate,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
-                                  Text(snapshot.data![index].college,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
-                                  Text(snapshot.data![index].major,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text('Phone',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('City',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('State',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('Country',
-                                      style: ThemeManager.customTextStyle(context)),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(snapshot.data![index].phone,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
-                                  Text(snapshot.data![index].city,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
-                                  Text(snapshot.data![index].state,
-                                      style: ThemeManagerDark.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text(snapshot.data![index].country,
-                                      style: ThemeManagerDark.customTextStyle(context)),
-                                ],
-                              ),
-                            ],
+              return Container(
+                height: MediaQuery.of(context).size.height/1,
+                child: WrapWidget(childern: List.generate(snapshot.data!.length, (index){
+                  return Padding(
+                    padding:const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width/2.5,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height/40,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              BorderIconButton(iconData: Icons.edit_outlined,
-                                  buttonText: 'Edit', onPressed: (){
-                                showDialog(context: context, builder: (BuildContext context){
-                                  return FutureBuilder<EducationPrefillData>(
-                                    future: getPrefillEmployeeEducation(context,snapshot.data![index].educationId),
-                                    builder: (context, snapshotPrefill) {
-                                      if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            color: ColorManager.blueprime,
-                                          ),
+                        ],
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      height:  MediaQuery.of(context).size.height/3.3,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width / 120,
+                          vertical: MediaQuery.of(context).size.height / 120,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                             Row(children: [
+                              Text('Education #${snapshot.data![index].educationId}',
+                                style: TextStyle(
+                                  fontFamily: 'FiraSans',
+                                  fontSize: 13,
+                                  color: Color(0xFF333333),
+                                  fontWeight: FontWeight.w500,
+                                ),),
+                            ],),
+                            SizedBox(height: MediaQuery.of(context).size.height/50,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Degree',
+                                        style: ThemeManager.customTextStyle(context)),
+                                    const SizedBox(height: 10,),
+                                    Text('Graduate',
+                                        style: ThemeManager.customTextStyle(context)),
+                                    const SizedBox(height: 10,),
+                                    Text('Educational Institute',
+                                        style: ThemeManager.customTextStyle(context)),
+                                    const SizedBox(height: 10,),
+                                    Text('Major Subject',
+                                        style: ThemeManager.customTextStyle(context)),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(snapshot.data![index].degree,
+                                      style: ThemeManagerDark.customTextStyle(context),),
+                                    const SizedBox(height: 10,),
+                                    Text(snapshot.data![index].graduate,
+                                      style: ThemeManagerDark.customTextStyle(context),),
+                                    const SizedBox(height: 10,),
+                                    Text(snapshot.data![index].college,
+                                      style: ThemeManagerDark.customTextStyle(context),),
+                                    const SizedBox(height: 10,),
+                                    Text(snapshot.data![index].major,
+                                      style: ThemeManagerDark.customTextStyle(context),),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text('Phone',
+                                        style: ThemeManager.customTextStyle(context)),
+                                    const SizedBox(height: 10,),
+                                    Text('City',
+                                        style: ThemeManager.customTextStyle(context)),
+                                    const SizedBox(height: 10,),
+                                    Text('State',
+                                        style: ThemeManager.customTextStyle(context)),
+                                    const SizedBox(height: 10,),
+                                    Text('Country',
+                                        style: ThemeManager.customTextStyle(context)),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(snapshot.data![index].phone,
+                                      style: ThemeManagerDark.customTextStyle(context),),
+                                    const SizedBox(height: 10,),
+                                    Text(snapshot.data![index].city,
+                                      style: ThemeManagerDark.customTextStyle(context),),
+                                    const SizedBox(height: 10,),
+                                    Text(snapshot.data![index].state,
+                                        style: ThemeManagerDark.customTextStyle(context)),
+                                    const SizedBox(height: 10,),
+                                    Text(snapshot.data![index].country,
+                                        style: ThemeManagerDark.customTextStyle(context)),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: MediaQuery.of(context).size.height/40,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                BorderIconButton(iconData: Icons.edit_outlined,
+                                    buttonText: 'Edit', onPressed: (){
+                                  showDialog(context: context, builder: (BuildContext context){
+                                    return FutureBuilder<EducationPrefillData>(
+                                      future: getPrefillEmployeeEducation(context,snapshot.data![index].educationId),
+                                      builder: (context, snapshotPrefill) {
+                                        if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              color: ColorManager.blueprime,
+                                            ),
+                                          );
+                                        }
+                                        var college = snapshotPrefill.data!.college;
+                                        collegeUniversityController = TextEditingController(text: snapshotPrefill.data!.college);
+
+                                        var phone = snapshotPrefill.data!.phone;
+                                        phoneController = TextEditingController(text: snapshotPrefill.data!.phone);
+
+                                        var city = snapshotPrefill.data!.city;
+                                        cityController = TextEditingController(text: snapshotPrefill.data!.city);
+
+                                        var degree = snapshotPrefill.data!.degree;
+                                        degreeController = TextEditingController(text: snapshotPrefill.data!.degree);
+
+                                        var state = snapshotPrefill.data!.state;
+                                        stateController = TextEditingController(text: snapshotPrefill.data!.state);
+
+                                        var majorSubject = snapshotPrefill.data!.major;
+                                        majorSubjectController = TextEditingController(text: snapshotPrefill.data!.major);
+
+                                        var graduate = snapshotPrefill.data!.graduate;
+                                        expiryType = snapshotPrefill.data!.graduate.toString();
+
+                                        var country = snapshotPrefill.data!.country;
+                                        countryNameController = TextEditingController(text: snapshotPrefill.data!.country);
+
+                                        var startDate = snapshotPrefill.data!.startDate;
+                                        calenderController = TextEditingController(text: snapshotPrefill.data!.startDate);
+                                        //countryNameController = TextEditingController(text: "")
+
+                                        return StatefulBuilder(
+                                          builder: (BuildContext context, void Function(void Function()) setState) {
+                                            return  AddEducationPopup(collegeUniversityController: collegeUniversityController,
+                                              phoneController: phoneController,
+                                              calenderController: calenderController, cityController: cityController,
+                                              degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
+                                              countryNameController: countryNameController, onpressedClose: (){
+                                                Navigator.pop(context);
+                                              }, onpressedSave: () async{
+                                                await updateEmployeeEducation(context,
+                                                    snapshot.data![index].educationId,
+                                                    widget.employeeId,
+                                                   graduate == expiryType.toString() ? graduate.toString() : expiryType.toString(),
+                                                    degree == degreeController.text ? degree.toString() : degreeController.text,
+                                                   majorSubject == majorSubjectController.text ? majorSubject.toString() : majorSubjectController.text,
+                                                    city == cityController.text ? city.toString() : cityController.text,
+                                                    college == collegeUniversityController.text ? college.toString() : collegeUniversityController.text,
+                                                    phone == phoneController.text ? phone.toString() : phoneController.text,
+                                                    state == stateController.text ? state.toString() : stateController.text,
+                                                    country == countryNameController.text ?  country.toString() : countryNameController.text,
+                                                    startDate == calenderController.text ? startDate : calenderController.text,
+                                                    );
+                                                expiryType = '';
+                                              },
+                                              radioButton:Container(
+                                                width: 280,
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: CustomRadioListTile(
+                                                        value: "Yes",
+                                                        groupValue: expiryType.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            expiryType = value!;
+                                                          });
+                                                        },
+                                                        title: "Yes",
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: CustomRadioListTile(
+                                                        value: "No",
+                                                        groupValue: expiryType.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            expiryType = value!;
+                                                          });
+                                                        },
+                                                        title: "No",
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ), title: 'Edit Education',);
+                                          },
                                         );
                                       }
-                                      var college = snapshotPrefill.data!.college;
-                                      collegeUniversityController = TextEditingController(text: snapshotPrefill.data!.college);
-
-                                      var phone = snapshotPrefill.data!.phone;
-                                      phoneController = TextEditingController(text: snapshotPrefill.data!.phone);
-
-                                      var city = snapshotPrefill.data!.city;
-                                      cityController = TextEditingController(text: snapshotPrefill.data!.city);
-
-                                      var degree = snapshotPrefill.data!.degree;
-                                      degreeController = TextEditingController(text: snapshotPrefill.data!.degree);
-
-                                      var state = snapshotPrefill.data!.state;
-                                      stateController = TextEditingController(text: snapshotPrefill.data!.state);
-
-                                      var majorSubject = snapshotPrefill.data!.major;
-                                      majorSubjectController = TextEditingController(text: snapshotPrefill.data!.major);
-
-                                      var graduate = snapshotPrefill.data!.graduate;
-                                      expiryType = snapshotPrefill.data!.graduate.toString();
-
-                                      var country = snapshotPrefill.data!.country;
-                                      countryNameController = TextEditingController(text: snapshotPrefill.data!.country);
-
-                                      var startDate = snapshotPrefill.data!.startDate;
-                                      calenderController = TextEditingController(text: snapshotPrefill.data!.startDate);
-                                      //countryNameController = TextEditingController(text: "")
-
-                                      return StatefulBuilder(
-                                        builder: (BuildContext context, void Function(void Function()) setState) {
-                                          return  AddEducationPopup(collegeUniversityController: collegeUniversityController,
-                                            phoneController: phoneController,
-                                            calenderController: calenderController, cityController: cityController,
-                                            degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
-                                            countryNameController: countryNameController, onpressedClose: (){
-                                              Navigator.pop(context);
-                                            }, onpressedSave: () async{
-                                              await updateEmployeeEducation(context,
-                                                  snapshot.data![index].educationId,
-                                                  widget.employeeId,
-                                                 graduate == expiryType.toString() ? graduate.toString() : expiryType.toString(),
-                                                  degree == degreeController.text ? degree.toString() : degreeController.text,
-                                                 majorSubject == majorSubjectController.text ? majorSubject.toString() : majorSubjectController.text,
-                                                  city == cityController.text ? city.toString() : cityController.text,
-                                                  college == collegeUniversityController.text ? college.toString() : collegeUniversityController.text,
-                                                  phone == phoneController.text ? phone.toString() : phoneController.text,
-                                                  state == stateController.text ? state.toString() : stateController.text,
-                                                  country == countryNameController.text ?  country.toString() : countryNameController.text,
-                                                  startDate == calenderController.text ? startDate : calenderController.text,
-                                                  );
-                                              expiryType = '';
-                                            },
-                                            radioButton:Container(
-                                              width: 280,
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: CustomRadioListTile(
-                                                      value: "Yes",
-                                                      groupValue: expiryType.toString(),
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          expiryType = value!;
-                                                        });
-                                                      },
-                                                      title: "Yes",
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: CustomRadioListTile(
-                                                      value: "No",
-                                                      groupValue: expiryType.toString(),
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          expiryType = value!;
-                                                        });
-                                                      },
-                                                      title: "No",
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ), title: 'Edit Education',);
-                                        },
-                                      );
-                                    }
-                                  );
-                                });
-                                  })
-                            ],
-                          )
-                        ],
+                                    );
+                                  });
+                                    })
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }));
+                  );
+                })),
+              );
             }else{
               return SizedBox();
             }
