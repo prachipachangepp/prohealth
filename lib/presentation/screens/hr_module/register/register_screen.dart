@@ -67,12 +67,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               ///select dropdown
               buildDropdownButton(context),
-              SizedBox(
+              const SizedBox(
                 width: 50,
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: AppSize.s20,
           ),
           StreamBuilder<List<RegisterDataCompID>>(
@@ -84,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Padding(
-                  padding:  EdgeInsets.symmetric(vertical: 150),
+                  padding:  const EdgeInsets.symmetric(vertical: 150),
                   child: Center(
                     child: CircularProgressIndicator(
                       color: ColorManager.blueprime,
@@ -94,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               }
               if (snapshot.data!.isEmpty) {
                 return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 150),
+                  padding: const EdgeInsets.symmetric(vertical: 150),
                   child: Center(
                     child: Text(
                       AppString.dataNotFound,
@@ -122,15 +122,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         width: MediaQuery.of(context).size.width / 2.2,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Color(0xff51B5E6),
+                            color: const Color(0xff51B5E6),
                             width: 0.5,
                           ),
-
                           ///update here
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderRadius: const BorderRadius.all(Radius.circular(12)),
                         ),
-                        height: 156,
+                        height: 163,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: MediaQuery.of(context).size.width / 80,
@@ -148,7 +147,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     style: GoogleFonts.firaSans(
                                       fontWeight: FontWeightManager.medium,
                                       // color: ColorManager.mediumgrey,
-                                      color: Color(0xff333333),
+                                      color: const Color(0xff333333),
                                       fontSize: FontSize.s13,
                                     ),
                                   ),
@@ -164,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     style: GoogleFonts.firaSans(
                                       fontWeight: FontWeightManager.medium,
                                       // color: ColorManager.mediumgrey,
-                                      color: Color(0xff333333),
+                                      color: const Color(0xff333333),
                                       fontSize: FontSize.s12,
                                     ),
                                   )
@@ -173,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     style: GoogleFonts.firaSans(
                                       fontWeight: FontWeightManager.medium,
                                       // color: ColorManager.mediumgrey,
-                                      color: Color(0xff333333),
+                                      color: const Color(0xff333333),
                                       fontSize: FontSize.s12,
                                     ),
                                   ),
@@ -182,7 +181,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         MediaQuery.of(context).size.width / 100,
                                   ),
                                   snapshot.data![index].status == 'Notopen'
-                                      ? SizedBox(
+                                      ? const SizedBox(
                                           width: 10,
                                         )
                                       : Container(
@@ -192,12 +191,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             color:
                                                 snapshot.data![index].status ==
                                                         'Opened'
-                                                    ? Color(0xff51B5E6)
+                                                    ? const Color(0xff51B5E6)
                                                     : snapshot.data![index]
                                                                 .status ==
                                                             'Partial'
-                                                        ? Color(0xffCA8A04)
-                                                        : Color(0xffB4DB4C),
+                                                        ? const Color(0xffCA8A04)
+                                                        : const Color(0xffB4DB4C),
                                             shape: BoxShape.circle,
                                           ),
                                         ),
@@ -206,7 +205,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         MediaQuery.of(context).size.width / 100,
                                   ),
                                   snapshot.data![index].status == 'Notopen'
-                                      ? SizedBox(
+                                      ? const SizedBox(
                                           width: 10,
                                         )
                                       : Text(
@@ -214,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           style: GoogleFonts.firaSans(
                                             fontWeight:
                                                 FontWeightManager.medium,
-                                            color: Color(0xff333333),
+                                            color: const Color(0xff333333),
                                             fontSize: FontSize.s12,
                                           ),
                                         ),
@@ -282,6 +281,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     .width /
                                                 20),
                                         ///launch url code
+                                        snapshot.data![index].status == 'Notopen' ? const Text('') :
                                         Link(uri: Uri.parse(snapshot.data![index].link!),
                                           target: LinkTarget.blank,
                                           builder: (BuildContext context,followLink) {
@@ -308,12 +308,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) => OnBoardingWelcome(),
+                                                  builder: (context) => const OnBoardingWelcome(),
                                                 ),
                                               );
                                             },
                                             child: Text(
-                                              snapshot.data![index].status == 'Notopen' ? '' : snapshot.data![index].link!,
+                                              snapshot.data![index].link!,
                                               style: GoogleFonts.firaSans(
                                                 //decoration: TextDecoration.underline,
                                                 fontSize: 10,
@@ -357,7 +357,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         //     ),
                                         //   ),
                                         // ),
-
                                       ],
                                     ),
 
@@ -368,7 +367,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       children: [
                                         Container(
                                           width: AppSize.s110,
-                                          margin: EdgeInsets.only(
+                                          margin: const EdgeInsets.only(
                                               right: AppMargin.m30),
                                           child: CustomIconButtonConst(
                                               text: AppString.enroll,
@@ -475,7 +474,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         ),
                                       ],
                                     )
-                                        :SizedBox(
+                                        :const SizedBox(
                                       width: 10,
                                     )
                                   ],
@@ -568,7 +567,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   })),
                 );
               }
-              return Offstage();
+              return const Offstage();
             },
           ),
         ],
@@ -607,16 +606,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Container(
                   height: 31,
-                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    border: Border.all(color: Color(0xff50B5E5), width: 1.2),
+                    border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
                     borderRadius: BorderRadius.circular(12.0),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0xff000000).withOpacity(0.25),
+                        color: const Color(0xff000000).withOpacity(0.25),
                         blurRadius: 2,
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -625,15 +624,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeightManager.bold,
-                      color: Color(0xff50B5E5),
+                      color: const Color(0xff50B5E5),
                       decoration: TextDecoration.none,
                     ),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_drop_down,
                       color: Color(0xff50B5E5),
                     ),
                     iconSize: 20,
-                    underline: SizedBox(),
+                    underline: const SizedBox(),
                     onChanged: (String? newValue) {
                       setState(() {
                         _selectedValue = newValue!;
@@ -659,7 +658,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ],
             );
           } else {
-            return Offstage();
+            return const Offstage();
           }
         });
   }
