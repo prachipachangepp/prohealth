@@ -102,6 +102,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
   bool otpEnabled = false;
   bool emailEntered = false;
   bool isLoading = false;
+  bool isOtpLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -272,6 +273,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                        await postverifyuser(context, emailController.text);
                         _remainingTime = 59;
                         _startTimer();
+                        otpController.clear();
                       },
                         child: Align(
                         alignment: Alignment.centerRight,
@@ -289,6 +291,13 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         ),
                       ):
                     const SizedBox(height: 20) : SizedBox(),
+                    isOtpLoading ? SizedBox(
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ),
+                    ):
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF50B5E5),
@@ -301,7 +310,22 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         if (_formKey.currentState!.validate()) {
                           String email = emailController.text;
                           String otp = otpController.text;
+                          setState(() {
+                            isOtpLoading = true;
+                            // Start timer
+                          });
                           await _verifyOTPAndProcess(email, otp);
+                          Future.delayed(
+                            const Duration(seconds: 2),
+                                () {
+                              setState(() {
+                                isOtpLoading = false;
+                              });
+                            },
+                          );
+                          otpController.clear();
+                          emailController.clear();
+                          Navigator.pop(context);
                         } else {
                           return  print('OTP not valid');
                         }

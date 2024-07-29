@@ -51,7 +51,7 @@ class OnBoardingWelcome extends StatelessWidget {
                       Image.asset(
                         'images/doctors.png',
                         width: MediaQuery.of(context).size.width / 3,
-                        height: MediaQuery.of(context).size.height / 2,
+                        height: MediaQuery.of(context).size.height / 1.7,
                       ),
                     ],
                   ),
