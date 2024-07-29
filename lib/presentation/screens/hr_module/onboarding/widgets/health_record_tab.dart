@@ -22,6 +22,8 @@ class HealthRecordConstant extends StatefulWidget {
 class _HealthRecordConstantState extends State<HealthRecordConstant> {
   final StreamController<List<OnboardingAckHealthData>> _controller = StreamController<List<OnboardingAckHealthData>>();
   List<bool> _checked = [];
+  //List<bool> _checked = List.generate(snapshot.data!.length, (index) => false);
+
 
   @override
   void initState() {
@@ -70,365 +72,429 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
         }
         ////
         return Padding(
-          padding: const EdgeInsets.only(left: 150),
+          padding: const EdgeInsets.only(left: 160,),
           child: Column(
-            //crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(
+
+
+          //////////////////////////check bottom////////////////////////////////////////////////////
+            ////////////////////pp//////
+
+
+
+              Wrap(
                 children: [
-                  WrapWidget(
-                    childern: [
-                      ...List.generate(snapshot.data!.length, (index) {
-                        final data = snapshot.data![index];
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                              child: Container(
-                                /////
-                               // color: Colors.cyanAccent,
-                                width: mediaQuery.width / 3,
-                                child: Row(
-                                  children: [
-                                    Checkbox(
-                                      value: _checked[index],
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          _checked[index] = value!;
-                                        });
-                                      },
-                                    ),
-                                    SizedBox(width: mediaQuery.width / 140),
-                                    GestureDetector(
-                                      onTap: () => downloadFile(data.DocumentUrl),
-                                      child: Container(
-                                        width: mediaQuery.width / 8,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          border: Border.all(color: Color(0xffC6C6C6)),
-                                        ),
-                                        child: HealthRecordConstantWithContainer(
-                                          data.DocumentName,
-                                          data.ReminderThreshold,
-                                          Icons.description_outlined,
-                                          Color(0xff50B5E5),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                  ...List.generate(snapshot.data!.length, (index) {
+                    final data = snapshot.data![index];
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                          child: Container(
+                            width: mediaQuery.width / 3,
+                            child: Row(
+                              children: [
+                                Checkbox(
+                                  value: _checked[index],
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      _checked[index] = value!;
+                                    });
+                                  },
                                 ),
-                              ),
+                                SizedBox(width: mediaQuery.width / 140),
+                                GestureDetector(
+                                  onTap: () => downloadFile(data.DocumentUrl),
+                                  child: Container(
+                                    width: mediaQuery.width / 8,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      border: Border.all(color: Color(0xffC6C6C6)),
+                                    ),
+                                    child: HealthRecordConstantWithContainer(
+                                      data.DocumentName,
+                                      data.ReminderThreshold,
+                                      Icons.description_outlined,
+                                      Color(0xff50B5E5),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        );
-                      }),
-                    ],
-                  ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
                 ],
               ),
-              SizedBox(height: 50,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  /// Reject
-                  ElevatedButton(
-                    onPressed: () => showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Dialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
+
+
+
+
+              /////////////////////////////////////////////////////
+              ///////////////////////////////////sss
+              // SingleChildScrollView(
+              //   child:
+
+                // Container(
+
+                //   child: WrapWidget(
+                //     childern: [
+                //       ...List.generate(snapshot.data!.length, (index) {
+                //         final data = snapshot.data![index];
+                //         return Column(
+                //           children: [
+                //             Padding(
+                //               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                //               child: Container(
+                //                 /////
+                //                // color: Colors.cyanAccent,
+                //                 width: mediaQuery.width / 3,
+                //                 child: Row(
+                //                   children: [
+                //                     Checkbox(
+                //                       value: _checked[index],
+                //                       onChanged: (bool? value) {
+                //                         setState(() {
+                //                           _checked[index] = value!;
+                //                         });
+                //                       },
+                //                     ),
+                //                     SizedBox(width: mediaQuery.width / 140),
+                //                     GestureDetector(
+                //                       onTap: () => downloadFile(data.DocumentUrl),
+                //                       child: Container(
+                //                         width: mediaQuery.width / 8,
+                //                         decoration: BoxDecoration(
+                //                           borderRadius: BorderRadius.circular(8.0),
+                //                           border: Border.all(color: Color(0xffC6C6C6)),
+                //                         ),
+                //                         child: HealthRecordConstantWithContainer(
+                //                           data.DocumentName,
+                //                           data.ReminderThreshold,
+                //                           Icons.description_outlined,
+                //                           Color(0xff50B5E5),
+                //                         ),
+                //                       ),
+                //                     ),
+                //                   ],
+                //                 ),
+                //               ),
+                //             ),
+                //           ],
+                //         );
+                //       }),
+                //     ],
+                //   ),
+                // ),
+              //),
+              const SizedBox(height: 10,),
+              Padding(
+                padding:const EdgeInsets.only( right: 120),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    /// Reject
+                    ElevatedButton(
+                      onPressed: () => showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
-                            height: AppSize.s181,
-                            width: AppSize.s500,
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.bluebottom,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(8),
-                                      topRight: Radius.circular(8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              height: AppSize.s181,
+                              width: AppSize.s500,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: ColorManager.bluebottom,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        topRight: Radius.circular(8),
+                                      ),
+                                    ),
+                                    height: 35,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10.0),
+                                          child: Text(
+                                            'Reject',
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeightManager.semiBold,
+                                              color: ColorManager.white,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: Icon(Icons.close, color: ColorManager.white),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  height: 35,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 10.0),
-                                        child: Text(
-                                          'Reject',
+                                  SizedBox(height: AppSize.s20),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: AppPadding.p20,
+                                      horizontal: AppPadding.p20,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "Do you really want to reject this?",
                                           style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeightManager.semiBold,
-                                            color: ColorManager.white,
-                                            decoration: TextDecoration.none,
+                                            fontSize: 14,
+                                            fontWeight: FontWeightManager.regular,
+                                            color: ColorManager.mediumgrey,
                                           ),
+                                          textAlign: TextAlign.center,
                                         ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        icon: Icon(Icons.close, color: ColorManager.white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: AppSize.s20),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: AppPadding.p20,
-                                    horizontal: AppPadding.p20,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Do you really want to reject this?",
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 14,
-                                          fontWeight: FontWeightManager.regular,
-                                          color: ColorManager.mediumgrey,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: AppPadding.p20, right: AppPadding.p20),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      SizedBox(
-                                        width: 100,
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.white,
-                                            foregroundColor: Color(0xff1696C8),
-                                            side: BorderSide(color: Color(0xff1696C8)),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            'Cancel',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10.0,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: MediaQuery.of(context).size.width / 75),
-                                      SizedBox(
-                                        width: 100,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Color(0xff1696C8),
-                                            foregroundColor: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            'Yes',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10.0,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-
-                      },
-                    ),
-                    //_handleRejectSelected(snapshot.data!),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Color(0xff1696C8),
-                      side: BorderSide(color: Color(0xff1696C8)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      'Reject',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: mediaQuery.width / 75),
-                  /// Approve
-                  ElevatedButton(
-                    onPressed: () => showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Dialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            height: AppSize.s181,
-                            width: AppSize.s500,
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.bluebottom,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(8),
-                                      topRight: Radius.circular(8),
+                                      ],
                                     ),
                                   ),
-                                  height: 35,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 10.0),
-                                        child: Text(
-                                          'Approve',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeightManager.semiBold,
-                                            color: ColorManager.white,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        icon: Icon(Icons.close, color: ColorManager.white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: AppSize.s20),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: AppPadding.p20,
-                                    horizontal: AppPadding.p20,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Do you really want to approve this?",
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 14,
-                                          fontWeight: FontWeightManager.regular,
-                                          color: ColorManager.mediumgrey,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: AppPadding.p20, right: AppPadding.p20),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      SizedBox(
-                                        width: 100,
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.white,
-                                            foregroundColor: Color(0xff1696C8),
-                                            side: BorderSide(color: Color(0xff1696C8)),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
+                                  Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: AppPadding.p20, right: AppPadding.p20),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        SizedBox(
+                                          width: 100,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.white,
+                                              foregroundColor: Color(0xff1696C8),
+                                              side: BorderSide(color: Color(0xff1696C8)),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
                                             ),
-                                          ),
-                                          child: Text(
-                                            'Cancel',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10.0,
-                                              fontWeight: FontWeight.w700,
+                                            child: Text(
+                                              'Cancel',
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(width: MediaQuery.of(context).size.width / 75),
-                                      SizedBox(
-                                        width: 100,
-                                        child: ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Color(0xff1696C8),
-                                            foregroundColor: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
+                                        SizedBox(width: MediaQuery.of(context).size.width / 75),
+                                        SizedBox(
+                                          width: 100,
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Color(0xff1696C8),
+                                              foregroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
                                             ),
-                                          ),
-                                          child: Text(
-                                            'Yes',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10.0,
-                                              fontWeight: FontWeight.w700,
+                                            child: Text(
+                                              'Yes',
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
+                          );
 
-                      },
-                    ),
-                    //_handleApproveSelected(snapshot.data!),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff1696C8),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        },
+                      ),
+                      //_handleRejectSelected(snapshot.data!),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Color(0xff1696C8),
+                        side: BorderSide(color: Color(0xff1696C8)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        'Reject',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                    child: Text(
-                      'Approve',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w700,
+                    SizedBox(width: mediaQuery.width / 75),
+                    /// Approve
+                    ElevatedButton(
+                      onPressed: () => showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              height: AppSize.s181,
+                              width: AppSize.s500,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: ColorManager.bluebottom,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        topRight: Radius.circular(8),
+                                      ),
+                                    ),
+                                    height: 35,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10.0),
+                                          child: Text(
+                                            'Approve',
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeightManager.semiBold,
+                                              color: ColorManager.white,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: Icon(Icons.close, color: ColorManager.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: AppSize.s20),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: AppPadding.p20,
+                                      horizontal: AppPadding.p20,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "Do you really want to approve this?",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 14,
+                                            fontWeight: FontWeightManager.regular,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: AppPadding.p20, right: AppPadding.p20),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        SizedBox(
+                                          width: 100,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.white,
+                                              foregroundColor: Color(0xff1696C8),
+                                              side: BorderSide(color: Color(0xff1696C8)),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              'Cancel',
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: MediaQuery.of(context).size.width / 75),
+                                        SizedBox(
+                                          width: 100,
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Color(0xff1696C8),
+                                              foregroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              'Yes',
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+
+                        },
+                      ),
+                      //_handleApproveSelected(snapshot.data!),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff1696C8),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        'Approve',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
-
         );
       },
     );
@@ -489,3 +555,117 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
 //     ],
 //   ),
 // )
+
+
+
+///////////////////////
+////////////////
+////////////pppggggggggggggggggggggggg
+// Container(
+//   height: 500,
+//   color: Colors.orangeAccent,
+//   child: GridView.builder(
+//    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//       crossAxisCount: 2, // Number of columns
+//       crossAxisSpacing: 10.0,
+//       mainAxisSpacing: 10.0,
+//      childAspectRatio: (mediaQuery.width / 8) / (mediaQuery.width / 4),
+//     ),
+//     itemCount: snapshot.data!.length,
+//     itemBuilder: (context, index) {
+//       final data = snapshot.data![index];
+//       return Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: Container(
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(8.0),
+//             border: Border.all(color: Color(0xffC6C6C6)),
+//           ),
+//           child: Column(
+//             children: [
+//               Row(
+//                 children: [
+//                   Checkbox(
+//                     value: _checked[index],
+//                     onChanged: (bool? value) {
+//                       setState(() {
+//                         _checked[index] = value!;
+//                       });
+//                     },
+//                   ),
+//                   SizedBox(width: mediaQuery.width / 140),
+//                 ],
+//               ),
+//               GestureDetector(
+//                 onTap: () => downloadFile(data.DocumentUrl),
+//                 child: Container(
+//                   width: mediaQuery.width / 8,
+//                   child: HealthRecordConstantWithContainer(
+//                     data.DocumentName,
+//                     data.ReminderThreshold,
+//                     Icons.description_outlined,
+//                     Color(0xff50B5E5),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+//     },
+//   ),
+// ),
+
+
+
+
+
+////////////////////////////////////
+///////////////////////////////////
+/////////pppppplllllllllllllllllllll
+//
+// Container(
+//   height: 500,
+//   color: Colors.orange,
+//   child: ListView.builder(
+//     itemCount: snapshot.data!.length,
+//     itemBuilder: (context, index) {
+//       final data = snapshot.data![index];
+//       return Padding(
+//         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+//         child: Container(
+//           width: mediaQuery.width / 3,
+//           child: Row(
+//             children: [
+//               Checkbox(
+//                 value: _checked[index],
+//                 onChanged: (bool? value) {
+//                   setState(() {
+//                     _checked[index] = value!;
+//                   });
+//                 },
+//               ),
+//               SizedBox(width: mediaQuery.width / 140),
+//               GestureDetector(
+//                 onTap: () => downloadFile(data.DocumentUrl),
+//                 child: Container(
+//                   width: mediaQuery.width / 8,
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(8.0),
+//                     border: Border.all(color: Color(0xffC6C6C6)),
+//                   ),
+//                   child: HealthRecordConstantWithContainer(
+//                     data.DocumentName,
+//                     data.ReminderThreshold,
+//                     Icons.description_outlined,
+//                     Color(0xff50B5E5),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+//     },
+//   ),
+// ),
