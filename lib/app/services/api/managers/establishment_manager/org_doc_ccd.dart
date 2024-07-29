@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 ///get api new org doc
@@ -62,6 +63,7 @@ Future<List<CiOrgDocumentCC>> orgSubDocumentGet(BuildContext context,
     ) async {
   List<CiOrgDocumentCC> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.getCiOrgDLicense(
       companyId: companyId,

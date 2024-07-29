@@ -55,11 +55,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    payRatesDataGet(context,1,1,1,10).then((data) {
-      _payRatesController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
   }
  bool _isLoading = false;
   @override
@@ -378,8 +374,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   docAddVisitTypeId,
                                   docZoneId,
                               int.parse(payRatesController.text),
-                              1);
-                              payRatesDataGet(context,1,1,1,10).then((data) {
+                              );
+                              payRatesDataGet(context,1,1,30).then((data) {
                                 _payRatesController.add(data);
                               }).catchError((error) {
                                 // Handle error
@@ -419,6 +415,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
               StreamBuilder<List<PayRateFinanceData>>(
                 stream:_payRatesController.stream,
                 builder: (context, snapshot) {
+                  payRatesDataGet(context,1,1,30).then((data) {
+                    _payRatesController.add(data);
+                  }).catchError((error) {
+                    // Handle error
+                  });
                   print('1111111');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -642,10 +643,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                             visitTypeId!,
                                                             zoneTypeId == docZoneId ? zoneTypeId! : docZoneId,
                                                              payRates == int.parse(payRatesController.text) ? payRates! : int.parse(payRatesController.text),
-                                                            1,
                                                           snapshot.data![index].payRatesSetupId,);
                                                         print("ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
-                                                        payRatesDataGet(context,1,1,1,10).then((data) {
+                                                        payRatesDataGet(context,1,1,30).then((data) {
                                                           _payRatesController.add(data);
                                                         }).catchError((error) {
                                                           // Handle error
@@ -685,7 +685,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                         try {
                                                           await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
                                                           setState(() async {
-                                                            await payRatesDataGet(context,1,1,1,10).then((data) {
+                                                            await payRatesDataGet(context,1,1,30).then((data) {
                                                               _payRatesController.add(data);
                                                             }).catchError((error) {
                                                               // Handle error

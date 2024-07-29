@@ -282,20 +282,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 20),
                                         ///launch url code
                                         snapshot.data![index].status == 'Notopen' ? const Text('') :
-                                        Link(uri: Uri.parse(snapshot.data![index].link!),
-                                          target: LinkTarget.blank,
-                                          builder: (BuildContext context,followLink) {
-                                         return
                                           TextButton(
                                             onPressed:
-                                                () {
-                                              final url = snapshot.data![index].link!;
-                                              // if (await canLaunch(url)) {
-                                              //   await launch(url);
-                                              // } else {
-                                              //   throw 'Could not launch $url';
-                                              // }
-
+                                                () async{
+                                              const url = "https://staging.symmetry.care";
+                                              if (await canLaunch(url)) {
+                                                await launch(url);
+                                              } else {
+                                                throw 'Could not launch $url';
+                                              }
+                                              //
                                               // Navigate to the WebViewScreen
                                               // Navigator.push(
                                               //   context,
@@ -305,12 +301,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               // );
 
                                               // Navigate to the OnBoardingWelcome screen after opening the WebView
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) => const OnBoardingWelcome(),
-                                                ),
-                                              );
+                                              // Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //     builder: (context) => const OnBoardingWelcome(),
+                                              //   ),
+                                              // );
                                             },
                                             child: Text(
                                               snapshot.data![index].link!,
@@ -321,8 +317,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 color: ColorManager.blueprime,
                                               ),
                                             ),
-                                          );
-                                        },)
+                                          ),
+
                                         // TextButton(
                                         //   onPressed: () async{
                                         //     final url = snapshot.data![index].link!;
