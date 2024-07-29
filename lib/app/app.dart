@@ -7,7 +7,7 @@ class App extends StatelessWidget {
   //final String userName;
   final bool signedIn;
 
-  const App({super.key, required this.signedIn,});
+   App({super.key, required this.signedIn,});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: false,
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.lightBlue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
        // home:  HRHomeScreen(),

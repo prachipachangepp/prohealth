@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_reference_manager.dart';
 
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
 class ReferencesScreen extends StatefulWidget {
@@ -150,14 +151,16 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff1696C8),
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
+            CustomButton(
+              width: 117,
+              height: 30,
+              text: 'Save',
+              style: TextStyle(
+                fontFamily: 'FiraSans',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
               ),
+              borderRadius: 12,
               onPressed: () async {
                 // Loop through each form and extract data to post
                 for (var key in referenceFormKeys) {

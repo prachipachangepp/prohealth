@@ -1,4 +1,26 @@
 import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/main_register_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/register_data/register_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/register_enroll_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
+import 'package:shimmer/shimmer.dart';
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
+import '../../../../app/resources/font_manager.dart';
+import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
+import '../../../widgets/widgets/custom_icon_button_constant.dart';
+import 'confirmation_constant.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -189,8 +211,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   : data[index].status == 'Partial'
                                   ? Color(0xffCA8A04)
                                   : data[index].status == 'Completed'
-                                ? Color(0xffB4DB4C)
-                              :ColorManager.rednew,
+                                  ? Color(0xffB4DB4C)
+                                  :ColorManager.rednew,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -206,13 +228,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             data[index].status,
                             style: GoogleFonts.firaSans(
                               fontWeight: FontWeightManager.medium,
-                               color: data[index].status == 'Opened'
-                                ? Color(0xff51B5E6) : data[index].status == 'Partial'
-                                ? Color(0xffCA8A04) : data[index].status == 'Notopen'
-                              ? Color(0xff686464)
-                      : data[index].status == 'Completed'
-                  ? Color(0xffB4DB4C)
-                  :ColorManager.rednew,
+                              color: data[index].status == 'Opened'
+                                  ? Color(0xff51B5E6) : data[index].status == 'Partial'
+                                  ? Color(0xffCA8A04) : data[index].status == 'Notopen'
+                                  ? Color(0xff686464)
+                                  : data[index].status == 'Completed'
+                                  ? Color(0xffB4DB4C)
+                                  :ColorManager.rednew,
                               fontSize: FontSize.s12,
                             ),
                           ),
@@ -444,5 +466,312 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ],
     );
   }
-
 }
+
+
+//
+// showDialog(context: context, builder: (BuildContext context) {
+// return ConfirmationPopup(onConfirm: (){
+// Navigator.pop(context);
+// showDialog(context: context, builder: (BuildContext context) {
+// return SuccessPopup();
+// });
+// }, title: 'Confirm Enrollment',
+// onCancel: () {
+// Navigator.pop(context);
+// }, containerText: 'saloni',
+// );
+// //OfferLetterScreen();
+// });
+
+
+///for link
+// class RegisterScreen extends StatefulWidget {
+//   const RegisterScreen({Key? key}) : super(key: key);
+//
+//   @override
+//   State<RegisterScreen> createState() => _RegisterScreenState();
+// }
+//
+// class _RegisterScreenState extends State<RegisterScreen> {
+//   final StreamController<List<RegisterEnrollData>> registerController = StreamController<List<RegisterEnrollData>>();
+//   late int currentPage;
+//   late int itemsPerPage;
+//   late List<String> items;
+//   TextEditingController firstNameController = TextEditingController();
+//   TextEditingController lastNameController = TextEditingController();
+//   TextEditingController emailController = TextEditingController();
+//   TextEditingController phoneNumberController = TextEditingController();
+//
+//   String? generatedLink; // Add this variable to hold the generated link
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     currentPage = 1;
+//     itemsPerPage = 20;
+//     items = List.generate(20, (index) => 'Item ${index + 1}');
+//     RegisterGetData(context).then((data) {
+//       registerController.add(data);
+//     }).catchError((error) {});
+//   }
+//
+//   // Future<void> _navigateToNextScreen(BuildContext context, String employeeEnrollId) async {
+//   //   final String url = 'https://example.com/enroll/$employeeEnrollId';
+//   //   Navigator.push(
+//   //     context,
+//   //     MaterialPageRoute(
+//   //       builder: (context) => OnBoardingWelcome(url: url),
+//   //     ),
+//   //   );
+//   // }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             buildDropdownButton(context),
+//             SizedBox(width: 50),
+//           ],
+//         ),
+//         SizedBox(height: AppSize.s20),
+//         Expanded(
+//           child: StreamBuilder<List<RegisterEnrollData>>(
+//             stream: registerController.stream,
+//             builder: (context, snapshot) {
+//               if (snapshot.connectionState == ConnectionState.waiting) {
+//                 return Center(
+//                   child: CircularProgressIndicator(
+//                     color: ColorManager.blueprime,
+//                   ),
+//                 );
+//               }
+//               if (snapshot.data!.isEmpty) {
+//                 return Center(
+//                   child: Text(
+//                     AppString.dataNotFound,
+//                     style: CustomTextStylesCommon.commonStyle(
+//                       fontWeight: FontWeightManager.medium,
+//                       fontSize: FontSize.s12,
+//                       color: ColorManager.mediumgrey,
+//                     ),
+//                   ),
+//                 );
+//               }
+//               if (snapshot.hasData) {
+//                 int totalItems = snapshot.data!.length;
+//                 List<RegisterEnrollData> currentPageItems = snapshot.data!.sublist(
+//                   (currentPage - 1) * itemsPerPage,
+//                   (currentPage * itemsPerPage) > totalItems ? totalItems : (currentPage * itemsPerPage),
+//                 );
+//                 return SingleChildScrollView(
+//                   child: WrapWidget(
+//                     childern: List.generate(currentPageItems.length, (index) {
+//                       return Padding(
+//                         padding: const EdgeInsets.only(
+//                           left: AppPadding.p10,
+//                           right: AppPadding.p10,
+//                           top: AppPadding.p5,
+//                           bottom: AppPadding.p40,
+//                         ),
+//                         child: Container(
+//                           width: MediaQuery.of(context).size.width / 2.2,
+//                           decoration: BoxDecoration(
+//                             border: Border.all(
+//                               color: Color(0xff51B5E6),
+//                               width: 0.5,
+//                             ),
+//                             color: Colors.white,
+//                             borderRadius: BorderRadius.all(Radius.circular(12)),
+//                           ),
+//                           height: 200,
+//                           child: Padding(
+//                             padding: EdgeInsets.symmetric(
+//                               horizontal: MediaQuery.of(context).size.width / 80,
+//                               vertical: MediaQuery.of(context).size.height / 120,
+//                             ),
+//                             child: Column(
+//                               children: [
+//                                 Row(
+//                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                                   crossAxisAlignment: CrossAxisAlignment.end,
+//                                   children: [
+//                                     Text(
+//                                       currentPageItems[index].firstName,
+//                                       style: GoogleFonts.firaSans(
+//                                         fontWeight: FontWeightManager.medium,
+//                                         color: Color(0xff333333),
+//                                         fontSize: FontSize.s13,
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 Row(
+//                                   mainAxisAlignment: MainAxisAlignment.end,
+//                                   crossAxisAlignment: CrossAxisAlignment.end,
+//                                   children: [
+//
+//                                     snapshot.data![index].status == 'NotOpened'
+//                                         ? SizedBox(width: 5,):
+//                                     Text(
+//                                       'Status',
+//                                       style: GoogleFonts.firaSans(
+//                                         fontWeight: FontWeightManager.medium,
+//                                         color: Color(0xff333333),
+//                                         fontSize: FontSize.s12,
+//                                       ),
+//                                     ),
+//                                     SizedBox(
+//                                       width: MediaQuery.of(context).size.width / 100,
+//                                     ),
+//                                     snapshot.data![index].status == 'NotOpened'
+//                                         ? Text('Not Opened')
+//                                         : Container(
+//                                       width: 10.0,
+//                                       height: 15.0,
+//                                       decoration: BoxDecoration(
+//                                         color: currentPageItems[index].status == 'Opened'
+//                                             ? Color(0xff51B5E6)
+//                                             : currentPageItems[index].status == 'Partial'
+//                                             ? Color(0xffCA8A04)
+//                                             : Colors.green,
+//                                         shape: BoxShape.circle,
+//                                       ),
+//                                     ),
+//                                     SizedBox(
+//                                       width: MediaQuery.of(context).size.width / 100,
+//                                     ),
+//                                     currentPageItems[index].status == 'NotOpened'
+//                                         ? SizedBox(width: 10)
+//                                         : Text(
+//                                       currentPageItems[index].status,
+//                                       style: GoogleFonts.firaSans(
+//                                         fontWeight: FontWeightManager.medium,
+//                                         color: Color(0xff333333),
+//                                         fontSize: FontSize.s12,
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 Padding(
+//                                   padding: EdgeInsets.only(
+//                                     left: MediaQuery.of(context).size.width / 130,
+//                                     top: MediaQuery.of(context).size.height / 120,
+//                                   ),
+//                                   child: Column(
+//                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                                     crossAxisAlignment: CrossAxisAlignment.start,
+//                                     children: [
+//                                       CustomRow(
+//                                         icon: Icons.person_2_outlined,
+//                                         text1: 'Code',
+//                                         text2: currentPageItems[index].code,
+//                                       ),
+//                                       SizedBox(
+//                                         height: MediaQuery.of(context).size.height / 60,
+//                                       ),
+//                                       CustomRow(
+//                                         icon: Icons.phone_outlined,
+//                                         text1: 'Phone',
+//                                         text2: currentPageItems[index].phoneNbr,
+//                                       ),
+//                                       SizedBox(
+//                                         height: MediaQuery.of(context).size.height / 60,
+//                                       ),
+//                                       CustomRow(
+//                                         icon: Icons.email_outlined,
+//                                         text1: 'Email',
+//                                         text2: currentPageItems[index].email,
+//                                       ),
+//                                       SizedBox(
+//                                         height: MediaQuery.of(context).size.height / 60,
+//                                       ),
+//                                       Row(
+//                                         children: [
+//                                           Icon(Icons.link, size: 15, color: ColorManager.mediumgrey),
+//                                           SizedBox(width: MediaQuery.of(context).size.width / 40),
+//                                           Text(
+//                                             'Link',
+//                                             style: GoogleFonts.firaSans(
+//                                               fontSize: 10,
+//                                               fontWeight: FontWeight.w400,
+//                                               color: ColorManager.mediumgrey,
+//                                             ),
+//                                           ),
+//                                           SizedBox(width: MediaQuery.of(context).size.width / 20),
+//                                           TextButton(
+//                                             onPressed: generatedLink != null ? () {
+//                                               Navigator.push(
+//                                                 context,
+//                                                 MaterialPageRoute(
+//                                                   builder: (context) => OnBoardingWelcome(url: generatedLink!),
+//                                                 ),
+//                                               );
+//                                             } : null,
+//                                             child: Text(
+//                                               generatedLink ?? '',
+//                                               style: GoogleFonts.firaSans(
+//                                                 fontSize: 10,
+//                                                 fontWeight: FontWeight.w400,
+//                                                 color: ColorManager.blueprime,
+//                                               ),
+//                                             ),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                       Row(
+//                                         mainAxisAlignment: MainAxisAlignment.end,
+//                                         children: [
+//                                           Container(
+//                                             width: AppSize.s110,
+//                                             margin: EdgeInsets.only(right: AppMargin.m30),
+//                                             child: CustomIconButtonConst(
+//                                               text: AppString.enroll,
+//                                               onPressed: () {
+//                                                 showDialog(
+//                                                   context: context,
+//                                                   builder: (BuildContext context) {
+//                                                     return ConfirmationPopup(
+//                                                       onCancel: () {
+//                                                         Navigator.pop(context);
+//                                                       },
+//                                                       onConfirm: () {
+//                                                         Navigator.pop(context);
+//                                                         setState(() {
+//                                                           generatedLink = 'https://example.com/enroll/${snapshot.data![index].empEnrollId}';
+//                                                         });
+//                                                         // _navigateToNextScreen(context, snapshot.data![index].empEnrollId.toString());
+//                                                       },
+//                                                       title: 'Confirm Enrollment',
+//                                                       containerText: 'Do you really want to enroll?',
+//                                                     );
+//                                                   },
+//                                                 );
+//                                               },
+//                                             ),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ),
+//                       );
+//                     }),
+//                   ),
+//                 );
+//               }
+//               return Offstage();
+//             },
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

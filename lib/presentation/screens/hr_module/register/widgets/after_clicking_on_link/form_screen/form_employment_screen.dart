@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_employment_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../taxtfield_constant.dart';
@@ -159,14 +160,16 @@ class _Employment_screenState extends State<Employment_screen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff1696C8),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+              CustomButton(
+                width: 117,
+                height: 30,
+                text: 'Save',
+                style: TextStyle(
+                  fontFamily: 'FiraSans',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
                 ),
+                borderRadius: 12,
                 onPressed: () async {
                   // Loop through each form and extract data to post
                   for (var key in employmentFormKeys) {
@@ -203,8 +206,7 @@ class _Employment_screenState extends State<Employment_screen> {
   }
 }
 
-//////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///
 class EmploymentForm extends StatefulWidget {
   final VoidCallback onRemove;
   final int index;
@@ -597,392 +599,395 @@ class _EmploymentFormState extends State<EmploymentForm> {
       ),
     );
 
-    // Padding(
-    //   padding: const EdgeInsets.only(left: 100,right: 100),
-    //   child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [
-    //       Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //         children: [
-    //           Text(
-    //             'Employment #${widget.index}',
-    //             style: GoogleFonts.firaSans(
-    //               fontSize: 14.0,
-    //               fontWeight: FontWeight.w700,
-    //               color: Color(0xff686464),
-    //             ),
-    //           ),
-    //           IconButton(
-    //             icon: Icon(Icons.remove_circle, color: Colors.red),
-    //             onPressed: widget.onRemove,
-    //           ),
-    //         ],
-    //       ),
-    //       SizedBox(height: MediaQuery
-    //           .of(context)
-    //           .size
-    //           .height / 20),
-    //       Row(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           Expanded(
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   'Final Position Title',
-    //                   style: GoogleFonts.firaSans(
-    //                     fontSize: 10.0,
-    //                     fontWeight: FontWeight.w400,
-    //                     color: Color(0xff686464),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 60),
-    //                 TextField(
-    //                   controller: finalPositionController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 40),
-    //                 Text(
-    //                   'Start Date',
-    //                   style: GoogleFonts.firaSans(
-    //                     fontSize: 10.0,
-    //                     fontWeight: FontWeight.w400,
-    //                     color: Color(0xff686464),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 60),
-    //                 TextField(
-    //                   controller: startDateController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'dd-mm-yyyy',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                     suffixIcon: IconButton(
-    //                       icon: Icon(
-    //                         Icons.calendar_month_outlined,
-    //                         color: Color(0xff50B5E5),
-    //                         size: 16,
-    //                       ),
-    //                       onPressed: () async {
-    //                         DateTime? pickedDate = await showDatePicker(
-    //                           context: context,
-    //                           initialDate: DateTime.now(),
-    //                           firstDate: DateTime(2000),
-    //                           lastDate: DateTime(2101),
-    //                         );
-    //                         if (pickedDate != null) {
-    //                           startDateController.text =
-    //                           "${pickedDate.toLocal()}".split(' ')[0];
-    //                         }
-    //                       },
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 40),
-    //                 Text(
-    //                   'End Date',
-    //                   style: GoogleFonts.firaSans(
-    //                     fontSize: 10.0,
-    //                     fontWeight: FontWeight.w400,
-    //                     color: Color(0xff686464),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 60),
-    //                 TextField(
-    //                   controller: endDateController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'dd-mm-yyyy',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                     suffixIcon: IconButton(
-    //                       icon: const Icon(
-    //                         Icons.calendar_month_outlined,
-    //                         color: Color(0xff50B5E5),
-    //                         size: 16,
-    //                       ),
-    //                       onPressed: () async {
-    //                         DateTime? pickedDate = await showDatePicker(
-    //                           context: context,
-    //                           initialDate: DateTime.now(),
-    //                           firstDate: DateTime(2000),
-    //                           lastDate: DateTime(2101),
-    //                         );
-    //                         if (pickedDate != null) {
-    //                           endDateController.text =
-    //                           "${pickedDate.toLocal()}".split(' ')[0];
-    //                         }
-    //                       },
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //           SizedBox(width: MediaQuery
-    //               .of(context)
-    //               .size
-    //               .width / 20),
-    //           Expanded(
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   'Employer Name',
-    //                   style: GoogleFonts.firaSans(
-    //                     fontSize: 10.0,
-    //                     fontWeight: FontWeight.w400,
-    //                     color: Color(0xff686464),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 60),
-    //                 TextField(
-    //                   controller: employerController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 40),
-    //                 Text(
-    //                   'City/State',
-    //                   style: GoogleFonts.firaSans(
-    //                     fontSize: 10.0,
-    //                     fontWeight: FontWeight.w400,
-    //                     color: Color(0xff686464),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 60),
-    //                 TextField(
-    //                   controller: cityController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 40),
-    //                 Text(
-    //                   'Reason for Leaving',
-    //                   style: GoogleFonts.firaSans(
-    //                     fontSize: 10.0,
-    //                     fontWeight: FontWeight.w400,
-    //                     color: Color(0xff686464),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 60),
-    //                 TextField(
-    //                   controller: reasonForLeavingController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //       SizedBox(height: MediaQuery
-    //           .of(context)
-    //           .size
-    //           .height / 40),
-    //       Row(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           Expanded(
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   'Supervisor Name',
-    //                   style: GoogleFonts.firaSans(
-    //                     fontSize: 10.0,
-    //                     fontWeight: FontWeight.w400,
-    //                     color: Color(0xff686464),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 60),
-    //                 TextField(
-    //                   controller: supervisorNameController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //           SizedBox(width: MediaQuery
-    //               .of(context)
-    //               .size
-    //               .width / 20),
-    //           Expanded(
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   'Supervisor Mobile Number',
-    //                   style: GoogleFonts.firaSans(
-    //                     fontSize: 10.0,
-    //                     fontWeight: FontWeight.w400,
-    //                     color: Color(0xff686464),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height / 60),
-    //                 TextField(
-    //                   controller: supervisorMobileNumberController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //       SizedBox(height: MediaQuery
-    //           .of(context)
-    //           .size
-    //           .height / 40),
-    //       Row(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           Expanded(
-    //             child: Row(
-    //               children: [
-    //                 Checkbox(
-    //                   value: isChecked,
-    //                   onChanged: (bool? value) {
-    //                     setState(() {
-    //                       isChecked = value ?? false;
-    //                     });
-    //                   },
-    //                 ),
-    //                 Expanded(
-    //                   child: Text(
-    //                     'Please check this box if you do not want us to contact your employer.',
-    //                     style: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff686464),
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //       const Divider(color: Colors.grey,thickness: 2,)
-    //     ],
-    //   ),
-    // );
+
   }
 }
 
+
+
+// Padding(
+//   padding: const EdgeInsets.only(left: 100,right: 100),
+//   child: Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: [
+//           Text(
+//             'Employment #${widget.index}',
+//             style: GoogleFonts.firaSans(
+//               fontSize: 14.0,
+//               fontWeight: FontWeight.w700,
+//               color: Color(0xff686464),
+//             ),
+//           ),
+//           IconButton(
+//             icon: Icon(Icons.remove_circle, color: Colors.red),
+//             onPressed: widget.onRemove,
+//           ),
+//         ],
+//       ),
+//       SizedBox(height: MediaQuery
+//           .of(context)
+//           .size
+//           .height / 20),
+//       Row(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Expanded(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Final Position Title',
+//                   style: GoogleFonts.firaSans(
+//                     fontSize: 10.0,
+//                     fontWeight: FontWeight.w400,
+//                     color: Color(0xff686464),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 60),
+//                 TextField(
+//                   controller: finalPositionController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 40),
+//                 Text(
+//                   'Start Date',
+//                   style: GoogleFonts.firaSans(
+//                     fontSize: 10.0,
+//                     fontWeight: FontWeight.w400,
+//                     color: Color(0xff686464),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 60),
+//                 TextField(
+//                   controller: startDateController,
+//                   decoration: InputDecoration(
+//                     hintText: 'dd-mm-yyyy',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                     suffixIcon: IconButton(
+//                       icon: Icon(
+//                         Icons.calendar_month_outlined,
+//                         color: Color(0xff50B5E5),
+//                         size: 16,
+//                       ),
+//                       onPressed: () async {
+//                         DateTime? pickedDate = await showDatePicker(
+//                           context: context,
+//                           initialDate: DateTime.now(),
+//                           firstDate: DateTime(2000),
+//                           lastDate: DateTime(2101),
+//                         );
+//                         if (pickedDate != null) {
+//                           startDateController.text =
+//                           "${pickedDate.toLocal()}".split(' ')[0];
+//                         }
+//                       },
+//                     ),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 40),
+//                 Text(
+//                   'End Date',
+//                   style: GoogleFonts.firaSans(
+//                     fontSize: 10.0,
+//                     fontWeight: FontWeight.w400,
+//                     color: Color(0xff686464),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 60),
+//                 TextField(
+//                   controller: endDateController,
+//                   decoration: InputDecoration(
+//                     hintText: 'dd-mm-yyyy',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                     suffixIcon: IconButton(
+//                       icon: const Icon(
+//                         Icons.calendar_month_outlined,
+//                         color: Color(0xff50B5E5),
+//                         size: 16,
+//                       ),
+//                       onPressed: () async {
+//                         DateTime? pickedDate = await showDatePicker(
+//                           context: context,
+//                           initialDate: DateTime.now(),
+//                           firstDate: DateTime(2000),
+//                           lastDate: DateTime(2101),
+//                         );
+//                         if (pickedDate != null) {
+//                           endDateController.text =
+//                           "${pickedDate.toLocal()}".split(' ')[0];
+//                         }
+//                       },
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           SizedBox(width: MediaQuery
+//               .of(context)
+//               .size
+//               .width / 20),
+//           Expanded(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Employer Name',
+//                   style: GoogleFonts.firaSans(
+//                     fontSize: 10.0,
+//                     fontWeight: FontWeight.w400,
+//                     color: Color(0xff686464),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 60),
+//                 TextField(
+//                   controller: employerController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 40),
+//                 Text(
+//                   'City/State',
+//                   style: GoogleFonts.firaSans(
+//                     fontSize: 10.0,
+//                     fontWeight: FontWeight.w400,
+//                     color: Color(0xff686464),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 60),
+//                 TextField(
+//                   controller: cityController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 40),
+//                 Text(
+//                   'Reason for Leaving',
+//                   style: GoogleFonts.firaSans(
+//                     fontSize: 10.0,
+//                     fontWeight: FontWeight.w400,
+//                     color: Color(0xff686464),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 60),
+//                 TextField(
+//                   controller: reasonForLeavingController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//       SizedBox(height: MediaQuery
+//           .of(context)
+//           .size
+//           .height / 40),
+//       Row(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Expanded(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Supervisor Name',
+//                   style: GoogleFonts.firaSans(
+//                     fontSize: 10.0,
+//                     fontWeight: FontWeight.w400,
+//                     color: Color(0xff686464),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 60),
+//                 TextField(
+//                   controller: supervisorNameController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           SizedBox(width: MediaQuery
+//               .of(context)
+//               .size
+//               .width / 20),
+//           Expanded(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Supervisor Mobile Number',
+//                   style: GoogleFonts.firaSans(
+//                     fontSize: 10.0,
+//                     fontWeight: FontWeight.w400,
+//                     color: Color(0xff686464),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery
+//                     .of(context)
+//                     .size
+//                     .height / 60),
+//                 TextField(
+//                   controller: supervisorMobileNumberController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//       SizedBox(height: MediaQuery
+//           .of(context)
+//           .size
+//           .height / 40),
+//       Row(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Expanded(
+//             child: Row(
+//               children: [
+//                 Checkbox(
+//                   value: isChecked,
+//                   onChanged: (bool? value) {
+//                     setState(() {
+//                       isChecked = value ?? false;
+//                     });
+//                   },
+//                 ),
+//                 Expanded(
+//                   child: Text(
+//                     'Please check this box if you do not want us to contact your employer.',
+//                     style: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff686464),
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//       const Divider(color: Colors.grey,thickness: 2,)
+//     ],
+//   ),
+// );
 /////////////////////////////////////
 /////////////////////
 //////////
