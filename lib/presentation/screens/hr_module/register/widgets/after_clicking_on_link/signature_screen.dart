@@ -310,6 +310,7 @@ class _SignaturePageState extends State<SignaturePage> {
     }
   }
 
+  /////
   void _showSaveConfirmationDialog() {
     showDialog(
       context: context,
