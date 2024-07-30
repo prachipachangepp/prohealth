@@ -163,73 +163,98 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-
-                //   TextFormField(
-                //
-                //   controller: emailController,
-                //   decoration: new InputDecoration(
-                //       errorStyle: TextStyle(fontSize: 10),
-                //       labelText: 'Email',
-                //       filled: true,
-                //       fillColor: Colors.white,
-                //       enabledBorder: new OutlineInputBorder(
-                //         borderRadius: new BorderRadius.circular(15.0),
-                //         borderSide: new BorderSide(
-                //           color: Colors.grey,
-                //         ),
-                //       ),
-                //       focusedBorder: new OutlineInputBorder(
-                //           borderRadius: new BorderRadius.circular(15.0),
-                //           borderSide: new BorderSide(
-                //             color: Colors.blue,
-                //           )),
-                //       border: OutlineInputBorder(
-                //           borderRadius: new BorderRadius.circular(15.0),
-                //           borderSide: BorderSide(
-                //               color: Colors.black, width: 1.0))),
-                //   style: new TextStyle(color: Colors.black),
-                //     validator: (value) {
-                //       if (value == null || value.isEmpty) {
-                //         return 'Please enter an email address';
-                //       } else if (!RegExp(
-                //           r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                //           .hasMatch(value)) {
-                //         return 'Please enter a valid email address';
-                //       }
-                //       return null;
-                //     },
-                // ) ,
-
-
-                        CustomTextFieldRegister(
-                          width: MediaQuery.of(context).size.width / 5,
-                          height: MediaQuery.of(context).size.height / 22,
-                          focusNode: emailFocusNode,
-                          onFieldSubmitted: (String value) {
-                            FocusScope.of(context).requestFocus(otpFocusNode);
-                          },
-                          controller: emailController,
-                          labelText: 'Email',
-                          keyboardType: TextInputType.emailAddress,
-                          padding: const EdgeInsets.only(
-                              bottom: AppPadding.p5, left: AppPadding.p20),
-                          onChanged: (value) {
-                            setState(() {
-                              emailEntered = value.isNotEmpty;
-                            });
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter an email address';
-                            } else if (!RegExp(
-                                    r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                                .hasMatch(value)) {
-                              return 'Please enter a valid email address';
-                            }
-                            return null;
-                          },
+                    SizedBox(
+                      // padding: EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width / 5,
+                      //height:30,   // MediaQuery.of(context).size.height / 25,
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        cursorWidth: 1.5,
+                        controller: emailController,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
                         ),
+                        decoration: new InputDecoration(
+                          // contentPadding: EdgeInsets.only(
+                          //           bottom: AppPadding.p5, left: AppPadding.p20),
+                          isDense: true,
+                          labelText: 'Email',
 
+
+                          labelStyle: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                          ),
+
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xffB1B1B1),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xffB1B1B1),
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xffB1B1B1),
+                            ),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            emailEntered = value.isNotEmpty;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter an email address';
+                          } else if (!RegExp(
+                                  r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
+                              .hasMatch(value)) {
+                            return 'Please enter a valid email address';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+
+                    // Container(
+                    //   padding: const EdgeInsets.all(5),
+                    //   child: CustomTextFieldRegister(
+                    //
+                    //
+                    //     width: MediaQuery.of(context).size.width / 5,
+                    //     height: MediaQuery.of(context).size.height / 22,
+                    //     focusNode: emailFocusNode,
+                    //     onFieldSubmitted: (String value) {
+                    //       FocusScope.of(context).requestFocus(otpFocusNode);
+                    //     },
+                    //     controller: emailController,
+                    //     labelText: 'Email',
+                    //     keyboardType: TextInputType.emailAddress,
+                    //     padding: const EdgeInsets.only(
+                    //         bottom: AppPadding.p5, left: AppPadding.p20),
+                    //     onChanged: (value) {
+                    //       setState(() {
+                    //         emailEntered = value.isNotEmpty;
+                    //       });
+                    //     },
+                    //     validator: (value) {
+                    //       if (value == null || value.isEmpty) {
+                    //         return 'Please enter an email address';
+                    //       } else if (!RegExp(
+                    //               r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
+                    //           .hasMatch(value)) {
+                    //         return 'Please enter a valid email address';
+                    //       }
+                    //       return null;
+                    //     },
+                    //   ),
+                    // ),
 
                     // Container(
                     //   color:Colors.teal,
@@ -289,6 +314,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                       _remainingTime = 59; // Reset timer
                                       _startTimer(); // Start timer
                                     });
+                                    _formKey.currentState!.validate();
                                     await postverifyuser(
                                         context, emailController.text);
                                     Future.delayed(
@@ -308,23 +334,77 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                     fontWeight: FontWeightManager.medium)),
                           ),
                     const SizedBox(height: 20),
-                    CustomTextFieldRegister(
-                      height: 30,
-                      width: 300,
-                      controller: otpController,
-                      labelText: 'Enter OTP',
-                      enabled: otpEnabled,
-                      keyboardType: TextInputType.number,
-                      padding: const EdgeInsets.only(
-                          bottom: AppPadding.p5, left: AppPadding.p20),
-                      onChanged: (value) {},
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter OTP';
-                        }
-                        return null;
-                      },
+
+                    SizedBox(
+                      // padding: EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width / 5,
+                      //height:30,   // MediaQuery.of(context).size.height / 25,
+                      child: TextFormField(
+                        cursorColor: Colors.black,
+                        controller: otpController,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                        ),
+                        enabled: otpEnabled,
+                        cursorWidth: 1.5,
+                        decoration: new InputDecoration(
+                          // contentPadding: EdgeInsets.only(
+                          //           bottom: AppPadding.p5, left: AppPadding.p20),
+                          isDense: true,
+                          labelText: 'Enter OTP',
+
+                          labelStyle: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xffB1B1B1),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xffB1B1B1),
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xffB1B1B1),
+                            ),
+                          ),
+                        ),
+                        onChanged: (value) {},
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter OTP';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
+
+
+
+
+                    // CustomTextFieldRegister(
+                    //   height: 30,
+                    //   width: 300,
+                    //   controller: otpController,
+                    //   labelText: 'Enter OTP',
+                    //   enabled: otpEnabled,
+                    //   keyboardType: TextInputType.number,
+                    //   padding: const EdgeInsets.only(
+                    //       bottom: AppPadding.p5, left: AppPadding.p20),
+                    //   onChanged: (value) {},
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Please enter OTP';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
                     const SizedBox(height: 3),
                     otpEnabled
                         ? _remainingTime > 0
@@ -391,6 +471,8 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                     if (_formKey.currentState!.validate()) {
                                       String email = emailController.text;
                                       String otp = otpController.text;
+
+
                                       setState(() {
                                         isOtpLoading = true;
                                         // Start timer
@@ -406,8 +488,19 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                       );
                                       otpController.clear();
                                       emailController.clear();
-                                      Navigator.pop(context);
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Dialog(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(20.0),
+                                            ),
+                                            child: OnBoardingCongratulation(),
+                                          );
+                                        },
+                                      );
                                     } else {
+                                      Navigator.pop(context);
                                       return print(
                                         'OTP not valid',
                                       );
