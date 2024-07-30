@@ -11,6 +11,7 @@ import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/employee_doc_repository.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -20,6 +21,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 class AdditionalVaccinationsChildBar extends StatefulWidget {
@@ -36,6 +38,11 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
   TextEditingController healthRecordAddNameController = TextEditingController();
   final StreamController<List<OnboardingAckHealthData>> _controller = StreamController<List<OnboardingAckHealthData>>();
   String expiryType ='';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -267,19 +274,53 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     iconSize: 20,),
                                   IconButton(
                                     onPressed: () async {
-                                      final pdf = pw.Document();
+                                     // final pdf = health.DocumentUrl as pw.Document;
+                                      try{
+                                        final String token = await TokenManager.getAccessToken();
+                                        var response = await http.get(Uri.file(health.DocumentUrl),headers: {
+                                          'accept': 'application/json',
+                                          'Authorization': 'Bearer $token',
+                                          'Content-Type': 'application/json'
+                                        },);
 
-                                      pdf.addPage(
-                                        pw.Page(
-                                          build: (pw.Context context) => pw.Center(
-                                            child: pw.Text('Hello, this is a test print!'),
-                                          ),
-                                        ),
-                                      );
+                                        if (response.statusCode == 200) {
+                                          final String content = response.body;
 
-                                      await Printing.layoutPdf(
-                                        onLayout: (PdfPageFormat format) async => pdf.save(),
-                                      );
+                                          final pdf = pw.Document();
+
+                                          pdf.addPage(
+                                            pw.Page(
+                                              build: (pw.Context context) => pw.Center(
+                                                child: pw.Text(content),
+                                              ),
+                                            ),
+                                          );
+
+                                          await Printing.layoutPdf(
+                                            onLayout: (PdfPageFormat format) async => pdf.save(),
+                                          );
+                                        } else {
+                                          // Handle error
+                                          print('Failed to load document');
+                                        }
+
+                                      }catch(e){
+                                        print('Error ${e}');
+
+                                      }
+
+
+                                      // pdf.addPage(
+                                      //   pw.Page(
+                                      //     build: (pw.Context context) => pw.Center(
+                                      //       child: pw.Text('Hello, this is a test print!'),
+                                      //     ),
+                                      //   ),
+                                      // );
+                                      //
+                                      // await Printing.layoutPdf(
+                                      //   onLayout: (PdfPageFormat format) async => pdf.save(),
+                                      // );
                                     },
                                     icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
