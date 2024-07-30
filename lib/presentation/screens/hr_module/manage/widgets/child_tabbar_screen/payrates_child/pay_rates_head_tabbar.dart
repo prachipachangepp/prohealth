@@ -186,7 +186,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                               height: 40,
                               child: Stack(children: [
                                 Container(
-                                  width: 10,
+                                  width: 5, //10
                                   color: ColorManager.blueprime,
                                 ),
                                 Padding(
