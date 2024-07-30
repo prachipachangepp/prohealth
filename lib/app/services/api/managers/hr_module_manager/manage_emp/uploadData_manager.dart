@@ -1,8 +1,4 @@
-
-
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/constants/app_config.dart';
@@ -14,49 +10,49 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 
-Future<ApiData> uploadDocuments({
-  required BuildContext context,
-  required int employeeDocumentMetaId,
-  required int employeeDocumentTypeSetupId,
-  required int employeeId,
-  required XFile documentFile,
-  required String documentName
-}) async {
-  try {
-    File file = File(documentFile.path);
-    print("File ${file}");
-    // var fileDocuments = MultipartFile(
-    //   documentFile,
-    //   filename: documentName,
-    // );
-    // print("file Doc ${fileDocuments}");
-    var response = await Api(context).post(
-      path: UploadDocumentRepository.uploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId, employeeId: employeeId),
-      data: {
-        'file':file
-      },
-    );
-    print("Response ${response.toString()}");
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Documents uploded");
-      // orgDocumentGet(context);
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: true,
-          message: response.statusMessage!);
-    } else {
-      print("Error 1");
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: false,
-          message: response.data['message']);
-    }
-  } catch (e) {
-    print("Error $e");
-    return ApiData(
-        statusCode: 404, success: false, message: AppString.somethingWentWrong);
-  }
-}
+// Future<ApiData> uploadDocuments({
+//   required BuildContext context,
+//   required int employeeDocumentMetaId,
+//   required int employeeDocumentTypeSetupId,
+//   required int employeeId,
+//   required XFile documentFile,
+//   required String documentName
+// }) async {
+//   try {
+//     File file = File(documentFile.path);
+//     print("File ${file}");
+//     // var fileDocuments = MultipartFile(
+//     //   documentFile,
+//     //   filename: documentName,
+//     // );
+//     // print("file Doc ${fileDocuments}");
+//     var response = await Api(context).post(
+//       path: UploadDocumentRepository.uploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId, employeeId: employeeId),
+//       data: {
+//         'file':file
+//       },
+//     );
+//     print("Response ${response.toString()}");
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("Documents uploded");
+//       // orgDocumentGet(context);
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: true,
+//           message: response.statusMessage!);
+//     } else {
+//       print("Error 1");
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: false,
+//           message: response.data['message']);
+//     }
+//   } catch (e) {
+//     print("Error $e");
+//     return ApiData(
+//         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+//   }
+// }
 
 
 Future<void> uploadHttpDocuments({
