@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -188,13 +189,13 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                              Row(children: [
-                              Text('Education #${snapshot.data![index].educationId}',
-                                style: TextStyle(
-                                  fontFamily: 'FiraSans',
-                                  fontSize: 13,
-                                  color: Color(0xFF333333),
-                                  fontWeight: FontWeight.w500,
-                                ),),
+                               Text('Education #${snapshot.data![index].educationId}',
+                                 style: GoogleFonts.firaSans(
+                                   // fontFamily: 'FiraSans',
+                                   fontSize: 13,
+                                   color: Colors.black,
+                                   fontWeight: FontWeight.w500,
+                                 ),),
                             ],),
                             SizedBox(height: MediaQuery.of(context).size.height/50,),
                             Row(
