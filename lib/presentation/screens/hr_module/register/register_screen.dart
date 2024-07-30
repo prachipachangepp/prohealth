@@ -288,6 +288,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               const url = "https://staging.symmetry.care";
                                               if (await canLaunch(url)) {
                                                 await launch(url);
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => const OnBoardingWelcome(),
+                                                  ),
+                                                );
                                               } else {
                                                 throw 'Could not launch $url';
                                               }
@@ -300,13 +306,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               //   ),
                                               // );
 
-                                              // Navigate to the OnBoardingWelcome screen after opening the WebView
-                                              // Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (context) => const OnBoardingWelcome(),
-                                              //   ),
-                                              // );
+                                             // Navigate to the OnBoardingWelcome screen after opening the WebView
+
                                             },
                                             child: Text(
                                               snapshot.data![index].link!,
@@ -318,7 +319,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               ),
                                             ),
                                           ),
-
                                         // TextButton(
                                         //   onPressed: () async{
                                         //     final url = snapshot.data![index].link!;

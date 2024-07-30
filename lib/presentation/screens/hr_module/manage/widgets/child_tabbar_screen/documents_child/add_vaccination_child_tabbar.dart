@@ -267,7 +267,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     iconSize: 20,),
                                   IconButton(
                                     onPressed: () async {
-                                      final pdf = pw.Document();
+                                      final pdf = health.DocumentUrl as pw.Document;
 
                                       pdf.addPage(
                                         pw.Page(
