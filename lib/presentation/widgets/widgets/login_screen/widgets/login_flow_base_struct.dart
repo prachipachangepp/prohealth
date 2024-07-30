@@ -33,7 +33,9 @@ class LoginBaseConstant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body:
+
+      Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Stack(children: [
@@ -129,7 +131,7 @@ class LoginBaseConstant extends StatelessWidget {
                                 SizedBox(height: 20),
                                 child,
                                 SizedBox(height: 20),
-      
+
                                 ///bottom text
                                 Row(
                                   mainAxisAlignment:
@@ -160,7 +162,7 @@ class LoginBaseConstant extends StatelessWidget {
                               ],
                             ),
                           )),
-      
+
                       ///logo, amico image
                       Expanded(
                         flex: 1,
