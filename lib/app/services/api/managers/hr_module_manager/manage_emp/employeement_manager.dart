@@ -45,6 +45,7 @@ Future<List<EmployeementData>> getEmployeement(
             emgMobile: item['emgMobile'],
             country: item['country'],
             sucess: true, message: response.statusMessage!));
+        itemsData.sort((a, b) => a.employmentId.compareTo(b.employmentId));
       }
     } else {
       print("Employee Employeement");

@@ -1234,11 +1234,12 @@ class OfferLetterScreen extends StatefulWidget {
   final String employement;
   final String soecalityName;
   final String clinicalName;
+  final int employeeId;
 
   const OfferLetterScreen({super.key, required this.email, required this.userId,
     required this.role, required this.status, required this.firstName,
     required this.lastName, required this.position, required this.phone, required this.reportingOffice,
-    required this.services, required this.employement, required this.soecalityName, required this.clinicalName});
+    required this.services, required this.employement, required this.soecalityName, required this.clinicalName, required this.employeeId});
 
   @override
   State<OfferLetterScreen> createState() => _OfferLetterScreenState();
@@ -2041,18 +2042,18 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       ElevatedButton(
                         onPressed: () async{
                           await _generateUrlLink(widget.email,widget.userId.toString());
+                          Navigator.pop(context);
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return ConfirmationPopup(
                                 onCancel: () {Navigator.pop(context);},
                                 onConfirm: () async{
-                                  await addEmpEnroll(context: context, employeeId: 0, code: "", userId: widget.userId,
+                                  await addEmpEnroll(context: context, employeeId: widget.employeeId, code: "", userId: widget.userId,
                                       firstName: widget.firstName, lastName: widget.lastName,
                                       phoneNbr: widget.phone, email: widget.email, link: generatedURL, status: widget.status, departmentId:
                                       1, position: widget.position, speciality: widget.soecalityName, clinicianTypeId: 1,
                                       reportingOfficeId: widget.reportingOffice, cityId: 1, countryId: 1, countyId: 9, zoneId: 18, employment: widget.employement, service: widget.services);
-
                                    Navigator.pop(context);
                                 },
                                 title: 'Confirm Enrollment',

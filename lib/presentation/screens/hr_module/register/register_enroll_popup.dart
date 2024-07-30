@@ -28,6 +28,7 @@ class RegisterEnrollPopup extends StatefulWidget {
   final int userId;
   final String role;
   final String status;
+  final int employeeId;
 
   // final TextEditingController position;
   final VoidCallback onPressed;
@@ -36,7 +37,7 @@ class RegisterEnrollPopup extends StatefulWidget {
     //required this.phone,
     required this.email,
     //required this.position,
-    required this.onPressed, required this.userId, required this.role, required this.status,
+    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId,
   });
 
   @override
@@ -774,6 +775,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   onPressed: (){
                         Navigator.pop(context);
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
+                      employeeId: widget.employeeId,
                       email: widget.email.text,
                       userId: widget.userId,
                       status: widget.status,
@@ -789,18 +791,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                       soecalityName: specialityName,
                       )));
                   },
-                  //     onPressed: () {
-                  //   //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
-                  //   // Navigator.pop(context);
-                  //   // showDialog(
-                  //   //     context: context,
-                  //   //     builder:
-                  //   //         (BuildContext context) {
-                  //   //       return OfferLetterScreen(
-                  //   //       );
-                  //   //     });
-                  //   //Navigator.pop(context);
-                  // }
                   ),
                 ],
               ),

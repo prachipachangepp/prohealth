@@ -26,6 +26,7 @@ Future<List<ReferenceData>> getReferences(
             references: item['references'],
             title: item['title'],
             approve: item['approve']??false, sucess: true, message: response.statusMessage!));
+        itemsData.sort((a, b) => a.referenceId.compareTo(b.referenceId));
       }
     } else {
       print("References List");

@@ -501,7 +501,6 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
   return Offstage();
 },
 ),
-
         ),
         SizedBox(
           height: AppSize.s10,

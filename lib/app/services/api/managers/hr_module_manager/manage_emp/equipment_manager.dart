@@ -40,6 +40,7 @@ Future<List<EquipmentData>> getEquipement(
             inventoryTypeId: item['inventoryTypeId'],
             name: item['name'],
             createdAt: item['createdAt'] ?? "--"));
+        itemsData.sort((a, b) => a.empInventoryId.compareTo(b.empInventoryId));
       }
     } else {
       print("Equipment");
