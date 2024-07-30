@@ -96,6 +96,8 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
 
   FocusNode emailFocusNode = FocusNode();
   FocusNode otpFocusNode = FocusNode();
+  FocusNode getOtpButtonFocusNode = FocusNode();
+  FocusNode submitButtonFocusNode = FocusNode();
 
   bool otpEnabled = false;
   bool emailEntered = false;
@@ -174,12 +176,12 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
                         ),
+                        focusNode: emailFocusNode,
                         decoration: new InputDecoration(
                           // contentPadding: EdgeInsets.only(
                           //           bottom: AppPadding.p5, left: AppPadding.p20),
                           isDense: true,
                           labelText: 'Email',
-
 
                           labelStyle: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
@@ -219,6 +221,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                           }
                           return null;
                         },
+                        onFieldSubmitted: (value) {
+                          FocusScope.of(context).requestFocus(getOtpButtonFocusNode);
+                        },
                       ),
                     ),
 
@@ -256,40 +261,6 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     //   ),
                     // ),
 
-                    // Container(
-                    //   color:Colors.teal,
-                    //
-                    //   // height: MediaQuery.of(context).size.height / 20,
-                    //   // width: MediaQuery.of(context).size.width / 5,
-                    //   child: CustomTextFieldRegister(
-                    //     height: 30,
-                    //     width: 300,
-                    //     focusNode: emailFocusNode,
-                    //     onFieldSubmitted: (String value) {
-                    //       FocusScope.of(context).requestFocus(otpFocusNode);
-                    //     },
-                    //     controller: emailController,
-                    //     labelText: 'Email',
-                    //     keyboardType: TextInputType.text,
-                    //     padding: const EdgeInsets.only(
-                    //         bottom: AppPadding.p5, left: AppPadding.p20),
-                    //     onChanged: (value) {
-                    //       setState(() {
-                    //         emailEntered = value.isNotEmpty;
-                    //       });
-                    //     },
-                    //     validator: (value) {
-                    //       if (value == null || value.isEmpty) {
-                    //         return 'Please enter an email address';
-                    //       } else if (!RegExp(
-                    //               r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                    //           .hasMatch(value)) {
-                    //         return 'Please enter a valid email address';
-                    //       }
-                    //       return null;
-                    //     },
-                    //   ),
-                    // ),
                     const SizedBox(height: 20),
                     isLoading
                         ? SizedBox(
@@ -300,39 +271,41 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                             ),
                           )
                         : ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF50B5E5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6.0),
-                              ),
+                          focusNode: getOtpButtonFocusNode,
+                          autofocus: true,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF50B5E5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6.0),
                             ),
-                            onPressed: emailEntered
-                                ? () async {
-                                    setState(() {
-                                      isLoading = true;
-                                      otpEnabled = true;
-                                      _remainingTime = 59; // Reset timer
-                                      _startTimer(); // Start timer
-                                    });
-                                    _formKey.currentState!.validate();
-                                    await postverifyuser(
-                                        context, emailController.text);
-                                    Future.delayed(
-                                      const Duration(seconds: 2),
-                                      () {
-                                        setState(() {
-                                          isLoading = false;
-                                        });
-                                      },
-                                    );
-                                  }
-                                : null,
-                            child: Text('Get OTP',
-                                style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s14,
-                                    color: ColorManager.white,
-                                    fontWeight: FontWeightManager.medium)),
                           ),
+                          onPressed: emailEntered
+                              ? () async {
+                                  setState(() {
+                                    isLoading = true;
+                                    otpEnabled = true;
+                                    _remainingTime = 59; // Reset timer
+                                    _startTimer(); // Start timer
+                                  });
+                                  _formKey.currentState!.validate();
+                                  await postverifyuser(
+                                      context, emailController.text);
+                                  Future.delayed(
+                                    const Duration(seconds: 2),
+                                    () {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    },
+                                  );
+                                }
+                              : null,
+                          child: Text('Get OTP',
+                              style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s14,
+                                  color: ColorManager.white,
+                                  fontWeight: FontWeightManager.medium)),
+                        ),
                     const SizedBox(height: 20),
 
                     SizedBox(
@@ -347,6 +320,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         ),
                         enabled: otpEnabled,
                         cursorWidth: 1.5,
+                        focusNode: otpFocusNode,
                         decoration: new InputDecoration(
                           // contentPadding: EdgeInsets.only(
                           //           bottom: AppPadding.p5, left: AppPadding.p20),
@@ -382,11 +356,11 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                           }
                           return null;
                         },
+                        onFieldSubmitted: (value) {
+                          FocusScope.of(context).requestFocus(submitButtonFocusNode);
+                        },
                       ),
                     ),
-
-
-
 
                     // CustomTextFieldRegister(
                     //   height: 30,
@@ -460,6 +434,8 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                             ),
                           )
                         : ElevatedButton(
+                      autofocus: true,
+                            focusNode: submitButtonFocusNode,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF50B5E5),
                               shape: RoundedRectangleBorder(
@@ -471,7 +447,6 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                                     if (_formKey.currentState!.validate()) {
                                       String email = emailController.text;
                                       String otp = otpController.text;
-
 
                                       setState(() {
                                         isOtpLoading = true;
