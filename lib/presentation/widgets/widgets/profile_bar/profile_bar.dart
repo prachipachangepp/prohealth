@@ -10,6 +10,7 @@ import 'package:prohealth/data/api_data/hr_module_data/manage/licenses_data.dart
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/expired_license_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/profile_clipoval_const.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -361,9 +362,22 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                   ),
                                                                   Expanded(
                                                                     child: Center(
-                                                                      child: BorderIconButton(iconData: Icons.remove_red_eye_outlined, buttonText: 'View', onPressed: () {
+                                                                      child: BorderIconButton(
+                                                                        iconData:
+                                                                        Icons.remove_red_eye_outlined,
+                                                                        buttonText:
+                                                                        'View',
+                                                                        onPressed:
+                                                                            () async {
+                                                                          const String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=36.778259, -119.417931";
 
-                                                                      },)
+                                                                          if (await canLaunchUrlString(googleMapsUrl)) {
+                                                                            await launchUrlString(googleMapsUrl);
+                                                                          } else {
+                                                                            print('Could not open the map.');
+                                                                          }
+                                                                        },
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ],
