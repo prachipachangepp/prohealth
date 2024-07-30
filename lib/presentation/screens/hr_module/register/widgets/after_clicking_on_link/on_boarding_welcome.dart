@@ -15,7 +15,7 @@ class OnBoardingWelcome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
+      appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: TopRowConstant(),
       ),
@@ -25,21 +25,21 @@ class OnBoardingWelcome extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-              border: Border(
+              borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+              border: const Border(
                 bottom: BorderSide(color: Colors.grey, width: 2.0),
               ),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.2),
-                  offset: Offset(0, 5),
+                  offset: const Offset(0, 5),
                   blurRadius: 5,
                   spreadRadius: 1,
                 ),
               ],
             ),
-            constraints: BoxConstraints(maxWidth: 1202, maxHeight: 500),
-            padding: EdgeInsets.all(24),
+            constraints: const BoxConstraints(maxWidth: 1202, maxHeight: 500),
+            padding: const EdgeInsets.all(24),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -56,7 +56,7 @@ class OnBoardingWelcome extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 24),
+                const SizedBox(width: 24),
                 Expanded(
                   flex: 2,
                   child: Column(
@@ -68,19 +68,19 @@ class OnBoardingWelcome extends StatelessWidget {
                         style: GoogleFonts.firaSans(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xff686464),
+                          color: const Color(0xff686464),
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Text(
                         'Please go through each section and fill valid information',
                         style: GoogleFonts.firaSans(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff686464),
+                          color: const Color(0xff686464),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       ElevatedButton(
                         onPressed: () {
                           showDialog(
@@ -91,7 +91,7 @@ class OnBoardingWelcome extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
+                          backgroundColor: const Color(0xff50B5E5),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 32, vertical: 16),
                           shape: RoundedRectangleBorder(
@@ -114,7 +114,7 @@ class OnBoardingWelcome extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomBarRow(),
+      bottomNavigationBar: const BottomBarRow(),
     );
   }
 }
@@ -338,7 +338,7 @@ class VerifyUserPopup extends StatelessWidget {
           children: [
             Container(
               height: 60,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(13),
@@ -349,12 +349,12 @@ class VerifyUserPopup extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 16),
+                    padding: const EdgeInsets.only(left: 16),
                     child: Row(
                       children: [
-                        Icon(Icons.person_outline,
+                        const Icon(Icons.person_outline,
                             color: Colors.white, size: 20),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Text(
                           AppString.verify_user,
                           style: GoogleFonts.firaSans(
@@ -367,7 +367,7 @@ class VerifyUserPopup extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.close, color: Colors.white),
+                    icon: const Icon(Icons.close, color: Colors.white),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -376,10 +376,10 @@ class VerifyUserPopup extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(24),
+              padding: const EdgeInsets.all(24),
               child: Column(
                 children: [
-                  CustomTextField(
+                  const CustomTextField(
                     labelWidget: Row(
                       children: [
                         Icon(Icons.security, color: Color(0xFF50B5E5)),
@@ -393,8 +393,8 @@ class VerifyUserPopup extends StatelessWidget {
                     labelText: AppString.security_code,
                     icon: Icons.security,
                   ),
-                  SizedBox(height: 16),
-                  CustomTextField(
+                  const SizedBox(height: 16),
+                  const CustomTextField(
                     labelWidget: Row(
                       children: [
                         Icon(Icons.phone, color: Color(0xFF50B5E5)),
@@ -405,8 +405,8 @@ class VerifyUserPopup extends StatelessWidget {
                     labelText: AppString.phone_number,
                     icon: Icons.phone,
                   ),
-                  SizedBox(height: 16),
-                  CustomTextField(
+                  const SizedBox(height: 16),
+                  const CustomTextField(
                     labelWidget: Row(
                       children: [
                         Icon(Icons.email, color: Color(0xFF50B5E5)),
@@ -417,7 +417,7 @@ class VerifyUserPopup extends StatelessWidget {
                     labelText: AppString.email,
                     icon: Icons.email,
                   ),
-                  SizedBox(height: 35),
+                  const SizedBox(height: 35),
                   ElevatedButton(
                     onPressed: () {
                       showDialog(
@@ -433,7 +433,7 @@ class VerifyUserPopup extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff50B5E5),
+                      backgroundColor: const Color(0xff50B5E5),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
                       shape: RoundedRectangleBorder(
@@ -484,12 +484,12 @@ class CustomTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Color(0xffB1B1B1)),
+          borderSide: const BorderSide(color: Color(0xffB1B1B1)),
         ),
         filled: true,
         fillColor: Colors.white,
-        labelStyle: TextStyle(color: Colors.grey),
-        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        labelStyle: const TextStyle(color: Colors.grey),
+        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       ),
     );
   }
@@ -696,7 +696,7 @@ class OnBoardingCongratulation extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: Image.asset(
                     'images/single_doctor.png',
                     height: 277.0,
@@ -712,7 +712,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                 child: Text(
                   'Congratulations!',
                   style: GoogleFonts.firaSans(
-                    color: Color(0xFF686464),
+                    color: const Color(0xFF686464),
                     fontSize: 24.0,
                     fontWeight: FontWeight.w600,
                   ),
@@ -729,17 +729,17 @@ class OnBoardingCongratulation extends StatelessWidget {
                     Text(
                       'You are a part of ProHealth family',
                       style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
+                        color: const Color(0xFF686464),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     Text(
                       'Please fill the information and provide necessary documents for the upcoming sections',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
+                        color: const Color(0xFF686464),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                       ),
@@ -757,10 +757,10 @@ class OnBoardingCongratulation extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                OfferLetterDescriptionScreen()));
+                                const OfferLetterDescriptionScreen()));
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF50B5E5),
+                    backgroundColor: const Color(0xFF50B5E5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6.0),
                     ),
@@ -793,7 +793,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                     Text(
                       'For any assistance please call:',
                       style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
+                        color: const Color(0xFF686464),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                       ),
@@ -801,31 +801,31 @@ class OnBoardingCongratulation extends StatelessWidget {
                     Text(
                       '(4088) 555-1234',
                       style: GoogleFonts.firaSans(
-                        color: Color(0xFF50B5E5),
+                        color: const Color(0xFF50B5E5),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                         decoration: TextDecoration.underline,
-                        decorationColor: Color(0xFF50B5E5),
+                        decorationColor: const Color(0xFF50B5E5),
                       ),
                     ),
                     Text(
                       'or email:',
                       style: GoogleFonts.firaSans(
-                        color: Color(0xFF686464),
+                        color: const Color(0xFF686464),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                         decoration: TextDecoration.underline,
-                        decorationColor: Color(0xFF686464),
+                        decorationColor: const Color(0xFF686464),
                       ),
                     ),
                     Text(
                       'support@symmetry.com',
                       style: GoogleFonts.firaSans(
-                        color: Color(0xFF50B5E5),
+                        color: const Color(0xFF50B5E5),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                         decoration: TextDecoration.underline,
-                        decorationColor: Color(0xFF50B5E5),
+                        decorationColor: const Color(0xFF50B5E5),
                       ),
                     ),
                   ],

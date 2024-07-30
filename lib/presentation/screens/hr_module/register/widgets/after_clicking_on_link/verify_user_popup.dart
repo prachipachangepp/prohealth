@@ -1,3 +1,4 @@
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -14,14 +15,14 @@ import '../../../../../../app/services/api/managers/hr_module_manager/progress_f
 import '../../taxtfield_constant.dart';
 import 'on_boarding_welcome.dart';
 
+
 class VerifyUserpopup extends StatefulWidget {
   @override
   VerifyUserpopupState createState() => VerifyUserpopupState();
 }
-
 class VerifyUserpopupState extends State<VerifyUserpopup> {
   final List<TextEditingController> _otpControllers =
-      List.generate(6, (_) => TextEditingController());
+  List.generate(6, (_) => TextEditingController());
 
   bool _isVerifyingOTP = false;
   String? _errorMessage = "";
@@ -31,18 +32,20 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
       _isVerifyingOTP = true;
       _errorMessage = "";
     });
-    String enteredOTP = otp;
+    String enteredOTP =
+        otp;
     try {
       ApiDataRegister result = await AuthManager.verifyOTPAndRegister(
           email: email, otp: enteredOTP, context: context);
       if (result.success) {
         print('Success navigate');
-        showDialog(
+      return showDialog(
           context: context,
           builder: (BuildContext context) {
             return Dialog(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
+                borderRadius:
+                BorderRadius.circular(20.0),
               ),
               child: OnBoardingCongratulation(),
             );
@@ -60,7 +63,6 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
       print(e);
     }
   }
-
   Timer? _timer;
   int _remainingTime = 59;
   void _startTimer() {
@@ -146,8 +148,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     ),
                   ),
                   IconButton(
-                    icon:
-                        const Icon(Icons.close, color: Colors.white, size: 16),
+                    icon: const Icon(Icons.close, color: Colors.white,size: 16),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -163,154 +164,78 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-
-                //   TextFormField(
-                //
-                //   controller: emailController,
-                //   decoration: new InputDecoration(
-                //       errorStyle: TextStyle(fontSize: 10),
-                //       labelText: 'Email',
-                //       filled: true,
-                //       fillColor: Colors.white,
-                //       enabledBorder: new OutlineInputBorder(
-                //         borderRadius: new BorderRadius.circular(15.0),
-                //         borderSide: new BorderSide(
-                //           color: Colors.grey,
-                //         ),
-                //       ),
-                //       focusedBorder: new OutlineInputBorder(
-                //           borderRadius: new BorderRadius.circular(15.0),
-                //           borderSide: new BorderSide(
-                //             color: Colors.blue,
-                //           )),
-                //       border: OutlineInputBorder(
-                //           borderRadius: new BorderRadius.circular(15.0),
-                //           borderSide: BorderSide(
-                //               color: Colors.black, width: 1.0))),
-                //   style: new TextStyle(color: Colors.black),
-                //     validator: (value) {
-                //       if (value == null || value.isEmpty) {
-                //         return 'Please enter an email address';
-                //       } else if (!RegExp(
-                //           r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                //           .hasMatch(value)) {
-                //         return 'Please enter a valid email address';
-                //       }
-                //       return null;
-                //     },
-                // ) ,
-
-
-                        CustomTextFieldRegister(
-                          width: MediaQuery.of(context).size.width / 5,
-                          height: MediaQuery.of(context).size.height / 22,
-                          focusNode: emailFocusNode,
-                          onFieldSubmitted: (String value) {
-                            FocusScope.of(context).requestFocus(otpFocusNode);
-                          },
-                          controller: emailController,
-                          labelText: 'Email',
-                          keyboardType: TextInputType.emailAddress,
-                          padding: const EdgeInsets.only(
-                              bottom: AppPadding.p5, left: AppPadding.p20),
-                          onChanged: (value) {
-                            setState(() {
-                              emailEntered = value.isNotEmpty;
-                            });
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter an email address';
-                            } else if (!RegExp(
-                                    r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                                .hasMatch(value)) {
-                              return 'Please enter a valid email address';
-                            }
-                            return null;
-                          },
-                        ),
-
-
-                    // Container(
-                    //   color:Colors.teal,
-                    //
-                    //   // height: MediaQuery.of(context).size.height / 20,
-                    //   // width: MediaQuery.of(context).size.width / 5,
-                    //   child: CustomTextFieldRegister(
-                    //     height: 30,
-                    //     width: 300,
-                    //     focusNode: emailFocusNode,
-                    //     onFieldSubmitted: (String value) {
-                    //       FocusScope.of(context).requestFocus(otpFocusNode);
-                    //     },
-                    //     controller: emailController,
-                    //     labelText: 'Email',
-                    //     keyboardType: TextInputType.text,
-                    //     padding: const EdgeInsets.only(
-                    //         bottom: AppPadding.p5, left: AppPadding.p20),
-                    //     onChanged: (value) {
-                    //       setState(() {
-                    //         emailEntered = value.isNotEmpty;
-                    //       });
-                    //     },
-                    //     validator: (value) {
-                    //       if (value == null || value.isEmpty) {
-                    //         return 'Please enter an email address';
-                    //       } else if (!RegExp(
-                    //               r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                    //           .hasMatch(value)) {
-                    //         return 'Please enter a valid email address';
-                    //       }
-                    //       return null;
-                    //     },
-                    //   ),
-                    // ),
+                    CustomTextFieldRegister(
+                      focusNode: emailFocusNode,
+                      onFieldSubmitted: (String value) {
+                        FocusScope.of(context).requestFocus(otpFocusNode);
+                      },
+                      height: MediaQuery.of(context).size.height / 20,
+                      width: MediaQuery.of(context).size.width / 5,
+                      controller: emailController,
+                      labelText: 'Email',
+                      keyboardType: TextInputType.text,
+                      padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
+                      onChanged: (value) {
+                        setState(() {
+                          emailEntered = value.isNotEmpty;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter an email address';
+                        } else if (!RegExp(
+                            r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
+                            .hasMatch(value)) {
+                          return 'Please enter a valid email address';
+                        }
+                        return null;
+                      },
+                    ),
                     const SizedBox(height: 20),
                     isLoading
                         ? SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: CircularProgressIndicator(
-                              color: ColorManager.blueprime,
-                            ),
-                          )
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ),
+                    )
                         : ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF50B5E5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6.0),
-                              ),
-                            ),
-                            onPressed: emailEntered
-                                ? () async {
-                                    setState(() {
-                                      isLoading = true;
-                                      otpEnabled = true;
-                                      _remainingTime = 59; // Reset timer
-                                      _startTimer(); // Start timer
-                                    });
-                                    await postverifyuser(
-                                        context, emailController.text);
-                                    Future.delayed(
-                                      const Duration(seconds: 2),
-                                      () {
-                                        setState(() {
-                                          isLoading = false;
-                                        });
-                                      },
-                                    );
-                                  }
-                                : null,
-                            child: Text('Get OTP',
-                                style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s14,
-                                    color: ColorManager.white,
-                                    fontWeight: FontWeightManager.medium)),
-                          ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF50B5E5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                      ),
+                      onPressed: emailEntered
+                          ? () async {
+                        setState(() {
+                          isLoading = true;
+                          otpEnabled = true;
+                          _remainingTime = 59; // Reset timer
+                          _startTimer(); // Start timer
+                        });
+                        await postverifyuser(context, emailController.text);
+                        Future.delayed(
+                          const Duration(seconds: 2),
+                              () {
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
+                        );
+                      }
+                          : null,
+                      child:  Text('Get OTP',style:GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          color: ColorManager.white,
+                          fontWeight: FontWeightManager.medium
+                      )),
+                    ),
                     const SizedBox(height: 20),
                     CustomTextFieldRegister(
-                      height: 30,
-                      width: 300,
+                      height: MediaQuery.of(context).size.height / 20,
+                      width: MediaQuery.of(context).size.width / 5,
                       controller: otpController,
                       labelText: 'Enter OTP',
                       enabled: otpEnabled,
@@ -326,102 +251,93 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                       },
                     ),
                     const SizedBox(height: 3),
-                    otpEnabled
-                        ? _remainingTime > 0
-                            ? Align(
-                                alignment: Alignment.centerRight,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 55),
-                                  child: Text(
-                                    '00:$_remainingTime',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s13,
-                                        color: ColorManager.mediumgrey,
-                                        fontWeight: FontWeightManager.semiBold),
-                                  ),
-                                ),
-                              )
-                            : _remainingTime == 0
-                                ? InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    onTap: () async {
-                                      await postverifyuser(
-                                          context, emailController.text);
-                                      _remainingTime = 59;
-                                      _startTimer();
-                                      otpController.clear();
-                                    },
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 55),
-                                        child: Text(
-                                          'Resend Otp',
-                                          style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.blueprime,
-                                              fontWeight:
-                                                  FontWeightManager.medium),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox(height: 20)
-                        : const SizedBox(),
-                    isOtpLoading
-                        ? SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: CircularProgressIndicator(
-                              color: ColorManager.blueprime,
-                            ),
-                          )
-                        : ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF50B5E5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6.0),
-                              ),
-                            ),
-                            onPressed: otpEnabled
-                                ? () async {
-                                    if (_formKey.currentState!.validate()) {
-                                      String email = emailController.text;
-                                      String otp = otpController.text;
-                                      setState(() {
-                                        isOtpLoading = true;
-                                        // Start timer
-                                      });
-                                      await _verifyOTPAndProcess(email, otp);
-                                      Future.delayed(
-                                        const Duration(seconds: 2),
-                                        () {
-                                          setState(() {
-                                            isOtpLoading = false;
-                                          });
-                                        },
-                                      );
-                                      otpController.clear();
-                                      emailController.clear();
-                                      Navigator.pop(context);
-                                    } else {
-                                      return print(
-                                        'OTP not valid',
-                                      );
-                                    }
-                                  }
-                                : null,
-                            child: Text(
-                              'Submit',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s14,
-                                  color: ColorManager.white,
-                                  fontWeight: FontWeightManager.medium),
+                    otpEnabled ?
+                        _remainingTime > 0?
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 55),
+                          child: Text(
+                            '00:$_remainingTime',
+                            style:  GoogleFonts.firaSans(
+                              fontSize: FontSize.s13,
+                              color: ColorManager.mediumgrey,
+                              fontWeight: FontWeightManager.semiBold
                             ),
                           ),
+                        ),
+                      ): _remainingTime == 0 ?InkWell(
+                          splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      onTap: ()async{
+                       await postverifyuser(context, emailController.text);
+                        _remainingTime = 59;
+                        _startTimer();
+                        otpController.clear();
+                      },
+                        child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 55),
+                          child: Text(
+                            'Resend Otp',
+                            style:  GoogleFonts.firaSans(
+                                fontSize: FontSize.s12,
+                                color: ColorManager.blueprime,
+                                fontWeight: FontWeightManager.medium
+                            ),
+                          ),
+                        ),
+                        ),
+                      ):
+                    const SizedBox(height: 20) : SizedBox(),
+                    isOtpLoading ? SizedBox(
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ),
+                    ):
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF50B5E5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                      ),
+                      onPressed: otpEnabled
+                          ? () async {
+                        if (_formKey.currentState!.validate()) {
+                          String email = emailController.text;
+                          String otp = otpController.text;
+                          setState(() {
+                            isOtpLoading = true;
+                            // Start timer
+                          });
+                          await _verifyOTPAndProcess(email, otp);
+                          Future.delayed(
+                            const Duration(seconds: 2),
+                                () {
+                              setState(() {
+                                isOtpLoading = false;
+                              });
+                            },
+                          );
+                          otpController.clear();
+                          emailController.clear();
+                          //Navigator.pop(context);
+                        } else {
+                          return  print('OTP not valid');
+                        }
+                      }
+                          : null,
+                      child:  Text('Submit',style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          color: ColorManager.white,
+                          fontWeight: FontWeightManager.medium
+                      ),),
+                    ),
                   ],
                 ),
               ),
@@ -434,6 +350,8 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
 }
 //
 //
+
+
 
 //////////////////////////
 /////////////////
