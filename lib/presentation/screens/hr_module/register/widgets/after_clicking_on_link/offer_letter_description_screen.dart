@@ -170,14 +170,16 @@ class _OfferLetterDescriptionScreenState
             Padding(
               padding: const EdgeInsets.only(left: 230.0),
               child: Container(
-                height: 50,
+                height: 70,
+                width: 200,
+                // color: Colors.yellow,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     // SizedBox(width: 30),
                     signatureBytes != null
                         ? Image.memory(signatureBytes!)
-                        : Text('No signature provided'),
+                        : Text(''),
                   ],
                 ),
               ),
