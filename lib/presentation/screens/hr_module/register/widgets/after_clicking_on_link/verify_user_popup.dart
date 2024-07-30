@@ -104,6 +104,10 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
   bool isLoading = false;
   bool isOtpLoading = false;
 
+  bool _isEmailValid(String email) {
+    return RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(email);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -208,19 +212,19 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         ),
                         onChanged: (value) {
                           setState(() {
-                            emailEntered = value.isNotEmpty;
+                            emailEntered = _isEmailValid(value);
                           });
                         },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter an email address';
-                          } else if (!RegExp(
-                                  r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-                              .hasMatch(value)) {
-                            return 'Please enter a valid email address';
-                          }
-                          return null;
-                        },
+                        // validator: (value) {
+                        //   if (value == null || value.isEmpty) {
+                        //     return 'Please enter an email address';
+                        //   } else if (!RegExp(
+                        //           r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
+                        //       .hasMatch(value)) {
+                        //     return 'Please enter a valid email address';
+                        //   }
+                        //   return null;
+                        // },
                         onFieldSubmitted: (value) {
                           FocusScope.of(context).requestFocus(getOtpButtonFocusNode);
                         },
