@@ -157,8 +157,9 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
           );
         }
         return Padding(
-          padding: const EdgeInsets.only(left: 160),
+          padding: const EdgeInsets.only(left: 180),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Wrap(
                   children: [
