@@ -39,10 +39,10 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
           email: email, otp: enteredOTP, context: context);
       if (result.success) {
         print('Success navigate');
-        showDialog(
+      return showDialog(
           context: context,
           builder: (BuildContext context) {
-            return   Dialog(
+            return Dialog(
               shape: RoundedRectangleBorder(
                 borderRadius:
                 BorderRadius.circular(20.0),
@@ -326,7 +326,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                           );
                           otpController.clear();
                           emailController.clear();
-                          Navigator.pop(context);
+                          //Navigator.pop(context);
                         } else {
                           return  print('OTP not valid');
                         }
