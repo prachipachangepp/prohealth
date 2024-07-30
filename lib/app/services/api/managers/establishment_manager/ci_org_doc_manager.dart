@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:prohealth/app/services/api/api.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 
@@ -109,6 +110,7 @@ Future<ApiData> updateCorporateDocumentPost({
   required String officeId,
 }) async {
   try {
+    final companyId = TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.updateCorporateDocumentPost(
             docID: docId),

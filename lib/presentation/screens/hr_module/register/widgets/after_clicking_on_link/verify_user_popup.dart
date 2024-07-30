@@ -102,6 +102,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
   bool otpEnabled = false;
   bool emailEntered = false;
   bool isLoading = false;
+  bool isOtpLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -225,7 +226,11 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         );
                       }
                           : null,
-                      child: const Text('Enter OTP'),
+                      child:  Text('Get OTP',style:GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          color: ColorManager.white,
+                          fontWeight: FontWeightManager.medium
+                      )),
                     ),
                     const SizedBox(height: 20),
                     CustomTextFieldRegister(
@@ -247,6 +252,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     ),
                     const SizedBox(height: 3),
                     otpEnabled ?
+                        _remainingTime > 0?
                       Align(
                         alignment: Alignment.centerRight,
                         child: Padding(
@@ -254,17 +260,21 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                           child: Text(
                             '00:$_remainingTime',
                             style:  GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
+                              fontSize: FontSize.s13,
                               color: ColorManager.mediumgrey,
                               fontWeight: FontWeightManager.semiBold
                             ),
                           ),
                         ),
                       ): _remainingTime == 0 ?InkWell(
+                          splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
                       onTap: ()async{
                        await postverifyuser(context, emailController.text);
                         _remainingTime = 59;
                         _startTimer();
+                        otpController.clear();
                       },
                         child: Align(
                         alignment: Alignment.centerRight,
@@ -279,9 +289,16 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                             ),
                           ),
                         ),
-                                            ),
+                        ),
                       ):
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 20) : SizedBox(),
+                    isOtpLoading ? SizedBox(
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ),
+                    ):
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF50B5E5),
@@ -294,13 +311,32 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         if (_formKey.currentState!.validate()) {
                           String email = emailController.text;
                           String otp = otpController.text;
+                          setState(() {
+                            isOtpLoading = true;
+                            // Start timer
+                          });
                           await _verifyOTPAndProcess(email, otp);
+                          Future.delayed(
+                            const Duration(seconds: 2),
+                                () {
+                              setState(() {
+                                isOtpLoading = false;
+                              });
+                            },
+                          );
+                          otpController.clear();
+                          emailController.clear();
+                          Navigator.pop(context);
                         } else {
                           return  print('OTP not valid');
                         }
                       }
                           : null,
-                      child: const Text('Submit'),
+                      child:  Text('Submit',style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s14,
+                          color: ColorManager.white,
+                          fontWeight: FontWeightManager.medium
+                      ),),
                     ),
                   ],
                 ),

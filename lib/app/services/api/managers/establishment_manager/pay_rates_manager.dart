@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 
 Future<List<PayRateFinanceData>> payRatesDataGet(
-    BuildContext context,int companyId,int empTypeId,int pageNo,int noOfRows,  ) async {
+    BuildContext context,int empTypeId,int pageNo,int noOfRows,  ) async {
   List<PayRateFinanceData> itemsData = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.payRatesSetupGet(pageNo: pageNo, noOfRows: noOfRows, empTypeId: empTypeId, companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -43,6 +45,7 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
     BuildContext context,int payRatesId) async {
   var itemsData;
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.updatePayRatesSetup(payRatesId: payRatesId));
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -72,8 +75,9 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
 }
 /// Add pay rates setup POST
 Future<ApiData> addPayRatesSetupPost(
-    BuildContext context, int deptId, int empTypeId,int permile,int typeOfVisitId, int zoneId, int payRates, int companyId) async {
+    BuildContext context, int deptId, int empTypeId,int permile,int typeOfVisitId, int zoneId, int payRates,) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.
         payRatesSetupPost(),
@@ -108,8 +112,9 @@ Future<ApiData> addPayRatesSetupPost(
 }
 /// Update pay rates
 Future<ApiData> updatePayRatesSetupPost(
-    BuildContext context, int deptId, int empTypeId,int permile,int typeOfVisitId, int zoneId, int payRates, int companyId, int payRatesId) async {
+    BuildContext context, int deptId, int empTypeId,int permile,int typeOfVisitId, int zoneId, int payRates, int payRatesId) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.
         updatePayRatesSetup(payRatesId: payRatesId),
