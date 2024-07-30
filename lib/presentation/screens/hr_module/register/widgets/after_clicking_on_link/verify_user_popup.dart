@@ -52,9 +52,11 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
           },
         );
       } else {
+
         setState(() {
           _errorMessage = result.message;
         });
+        print('OTP not valid');
       }
       setState(() {
         _isVerifyingOTP = false;
