@@ -189,7 +189,7 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return PopUp();
+                      return ProfilePatientPopUp();
                     },
                   );
                 },
@@ -220,14 +220,14 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
   }
 }
 
-class PopUp extends StatefulWidget {
-  const PopUp({Key? key}) : super(key: key);
+class ProfilePatientPopUp extends StatefulWidget {
+  const ProfilePatientPopUp({Key? key}) : super(key: key);
 
   @override
-  State<PopUp> createState() => _PopUpState();
+  State<ProfilePatientPopUp> createState() => _PopUpState();
 }
 
-class _PopUpState extends State<PopUp> {
+class _PopUpState extends State<ProfilePatientPopUp> {
   String? dropdownValue;
   @override
   Widget build(BuildContext context) {

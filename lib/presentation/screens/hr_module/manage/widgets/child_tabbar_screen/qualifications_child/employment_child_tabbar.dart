@@ -44,8 +44,6 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
   @override
   void initState() {
     // TODO: implement initState
-
-
     super.initState();
   }
   @override
