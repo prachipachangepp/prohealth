@@ -109,7 +109,7 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              EmploymentContainerConstant(employeeId: widget.employeeId!,),
+              EmploymentContainerConstant(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
             ],
           ),
         ),
@@ -118,7 +118,7 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              EducationChildTabbar(employeeId: widget.employeeId!,),
+              EducationChildTabbar(employeeId:widget.searchByEmployeeIdProfileData!.employeeId!),
             ],
           ),
         ),
@@ -127,7 +127,7 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              ReferencesChildTabbar(employeeId: widget.employeeId!,),
+              ReferencesChildTabbar(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!),
             ],
           ),
         ),
@@ -136,7 +136,7 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              LicensesChildTabbar(employeeId: widget.employeeId!,),
+              LicensesChildTabbar(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!),
             ],
           ),
         ),
@@ -201,7 +201,7 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              InventoryHeadTabbar(employeeId: widget.employeeId!,),
+              InventoryHeadTabbar(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
             ],
           ),
         ),

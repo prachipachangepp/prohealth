@@ -16,6 +16,15 @@ class ManageReposotory{
 
   static String employeeTimeOff = "/employee-time-off";
 
+  static String licenseStatus = "/employee-licenses/LicenseDetailByemployeeId";
+
+
+  /// Licenses status wise
+
+  static String getLicenseStatus({required int employeeId}){
+    return "$licenseStatus/$employeeId";
+  }
+
   /// Employeement
   static String getEmployeement({required int employeeId}){
     return "$employement/$byemployeeId/$employeeId";

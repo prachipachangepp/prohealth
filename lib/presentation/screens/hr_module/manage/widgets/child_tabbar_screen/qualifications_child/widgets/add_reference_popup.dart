@@ -34,7 +34,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width/1.5,
-        height: MediaQuery.of(context).size.height/2,
+        height: MediaQuery.of(context).size.height/1.7,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
