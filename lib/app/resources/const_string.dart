@@ -78,7 +78,9 @@ class AppString {
   static const String upload ="Upload";
   static const String cancel ="Cancel";
   static const String reset ="Reset";
+  static const String enter_otp ="Enter OTP";
   static const String save ="Save";
+  static const String submit = "Submit";
 
   static const String references ="References";
   static const String add_education ="Add Education";
