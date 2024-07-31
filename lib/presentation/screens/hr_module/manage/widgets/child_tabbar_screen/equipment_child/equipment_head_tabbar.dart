@@ -67,6 +67,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
               ),
               margin: EdgeInsets.only(right: 10),
               child: CustomIconButtonConst(
+                width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
