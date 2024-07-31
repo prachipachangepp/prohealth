@@ -320,13 +320,12 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                             XFile xlfile = XFile(result.xFiles.first.path);
                             print("::::XFile ${xlfile.toString()}");
                             XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-                             WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-                             html.File file = webFile.file;
-                             print("XFILE ${xFile}");
+                            // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
+                            // html.File file = webFile.file;
+                             print("XFILE ${xFile.path}");
                              filePath = xlfile;
                              print("L::::::${filePath}");
                               fileName = result.files.first.name;
-
                             print('File picked: ${fileName}');
                             //print(String.fromCharCodes(file));
                             finalPath;
@@ -407,3 +406,5 @@ void dispose()
   print("File $file");
   html.Url.revokeObjectUrl(url);
 }}
+
+////

@@ -109,7 +109,7 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              EmploymentContainerConstant(employeeId: widget.employeeId!,),
+              EmploymentContainerConstant(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
             ],
           ),
         ),
@@ -118,7 +118,7 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              EducationChildTabbar(employeeId: widget.employeeId!,),
+              EducationChildTabbar(employeeId:widget.searchByEmployeeIdProfileData!.employeeId!),
             ],
           ),
         ),
@@ -127,7 +127,7 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              ReferencesChildTabbar(employeeId: widget.employeeId!,),
+              ReferencesChildTabbar(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!),
             ],
           ),
         ),
@@ -136,7 +136,7 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              LicensesChildTabbar(employeeId: widget.employeeId!,),
+              LicensesChildTabbar(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!),
             ],
           ),
         ),
@@ -201,7 +201,7 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              InventoryHeadTabbar(employeeId: widget.employeeId!,),
+              InventoryHeadTabbar(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
             ],
           ),
         ),
@@ -215,18 +215,43 @@ class _ManageScreenState extends State<ManageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return
+
+      // Scaffold(
+      //   backgroundColor: Colors.white,
+      //   body: ListView(scrollDirection: Axis.vertical, children: [
+      //             /// green blue container
+      //             ProfileBar(searchByEmployeeIdProfileData: widget.searchByEmployeeIdProfileData!,),
+      //
+      //             ///TabBar
+      //             CenteredTabBar(),
+      //
+      //             /// bottom row
+      //             const BottomBarRow()
+      //           ]),
+      //        );
+
+
+      Scaffold(
         backgroundColor: Colors.white,
-        body: ListView(scrollDirection: Axis.vertical, children: [
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                children: [
                   /// green blue container
-                  ProfileBar(searchByEmployeeIdProfileData: widget.searchByEmployeeIdProfileData!,),
+                  ProfileBar(searchByEmployeeIdProfileData: widget.searchByEmployeeIdProfileData!),
 
                   ///TabBar
                   CenteredTabBar(),
-
-                  /// bottom row
-                  const BottomBarRow()
-                ]),
-             );
+                ],
+              ),
+            ),
+            /// bottom row
+            const BottomBarRow(),
+          ],
+        ),
+      );
   }
 }

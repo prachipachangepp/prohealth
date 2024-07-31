@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -15,6 +19,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 class OtherChildTabbar extends StatefulWidget {
@@ -245,7 +250,40 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     icon: const Icon(Icons.refresh_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
                                   IconButton(
-                                    onPressed: () {
+                                    onPressed: () async{
+                                      try{
+                                        final String token = await TokenManager.getAccessToken();
+                                        var response = await http.get(Uri.file(others.DocumentUrl),headers: {
+                                          'accept': 'application/json',
+                                          'Authorization': 'Bearer $token',
+                                          'Content-Type': 'application/json'
+                                        },);
+
+                                        if (response.statusCode == 200) {
+                                          final String content = response.body;
+
+                                          final pdf = pw.Document();
+
+                                          pdf.addPage(
+                                            pw.Page(
+                                              build: (pw.Context context) => pw.Center(
+                                                child: pw.Text(content),
+                                              ),
+                                            ),
+                                          );
+
+                                          await Printing.layoutPdf(
+                                            onLayout: (PdfPageFormat format) async => pdf.save(),
+                                          );
+                                        } else {
+                                          // Handle error
+                                          print('Failed to load document');
+                                        }
+
+                                      }catch(e){
+                                        print('Error ${e}');
+
+                                      }
                                     },
                                     icon: const Icon(Icons.print_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
@@ -362,5 +400,6 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
         ),
       ],
     );
+
   }
 }

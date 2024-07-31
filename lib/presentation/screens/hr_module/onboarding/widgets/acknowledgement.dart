@@ -157,8 +157,9 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
           );
         }
         return Padding(
-          padding: const EdgeInsets.only(left: 150),
+          padding: const EdgeInsets.only(left: 180),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Wrap(
                   children: [
@@ -245,7 +246,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                       ],
                     );
                   }),

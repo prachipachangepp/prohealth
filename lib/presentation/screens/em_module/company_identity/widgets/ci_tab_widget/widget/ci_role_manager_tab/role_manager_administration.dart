@@ -18,7 +18,7 @@ import '../../../../../../../../app/services/api/managers/establishment_manager/
 import '../../../../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../../../hr_module/hr_home_screen/desk_dashboard_hrm.dart';
-import '../../../../../responsive_screen_sm.dart';
+import '../../../../../responsive_screen_em.dart';
 import '../../../../../widgets/button_constant.dart';
 
 class RoleManagerAdministration extends StatefulWidget {
@@ -42,7 +42,7 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
   @override
   void initState() {
     super.initState();
-    payRatesDataGet(context,11,1,1,10).then((data) {
+    payRatesDataGet(context,1,1,10).then((data) {
       _roleMDropDownController.add     (data);
     }).catchError((error) {
       // Handle error

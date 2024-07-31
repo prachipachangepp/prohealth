@@ -10,9 +10,20 @@ class ManageReposotory{
 
   static String equipement = "/employee-inventories";
 
+  static String payrates = "/employee-payrates/ByEmployeeId";
+
   static String gettermination = "/employees/allTerminatedEmployee";
 
   static String employeeTimeOff = "/employee-time-off";
+
+  static String licenseStatus = "/employee-licenses/LicenseDetailByemployeeId";
+
+
+  /// Licenses status wise
+
+  static String getLicenseStatus({required int employeeId}){
+    return "$licenseStatus/$employeeId";
+  }
 
   /// Employeement
   static String getEmployeement({required int employeeId}){
@@ -114,6 +125,16 @@ class ManageReposotory{
   }
   static String patchEquipement({required int empInventoryId}){
     return "$equipement/$empInventoryId";
+  }
+
+  /// Payrates
+
+  static String getEmployeePayrates({required int employeeID, required int pagNo, required int noOfRows}){
+    return "$payrates/$employeeID/$pagNo/$noOfRows";
+  }
+
+  static String deleteEmployeePayrates({required int employeePayratesId}){
+    return "$payrates/$employeePayratesId";
   }
 
   /// Termination

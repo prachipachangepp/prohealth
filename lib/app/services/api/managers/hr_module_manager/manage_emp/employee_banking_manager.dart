@@ -42,6 +42,7 @@ Future<List<EmployeeBankingData>> getEmployeeBanking(
             type: item['type'],
             approve: item['approved'] ?? false,
             ));
+        itemsData.sort((a, b) => a.empBankingId.compareTo(b.empBankingId));
       }
     } else {
       print("Employee Bancking");

@@ -406,10 +406,17 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   ],
                                 ),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return ProfilePatientPopUp();
+                                      },
+                                    );
+                                  },
+
                                   child: Center(
-                                    child: SvgPicture.asset(
-                                        'images/menuLines.svg'),
+                                    child: SvgPicture.asset('images/menuLines.svg'),
                                   ),
                                 ),
                               ),
@@ -503,6 +510,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   if (snapshot.hasData) {
                     SearchByEmployeeIdProfileData
                         searchByEmployeeIdProfileData = snapshot.data!;
+                    print("Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
                     return PageView(
                       controller: _pageController,
                       physics: NeverScrollableScrollPhysics(),

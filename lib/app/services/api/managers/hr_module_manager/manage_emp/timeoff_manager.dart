@@ -41,6 +41,7 @@ Future<List<TimeOfffData>> getEmployeeTimeOff(
             endTime: endFormattedDate,
             sickTime: item['sickTime'],
             hours: item['Hours'], employeeTimeOffId: item['employeeTimeOffId']));
+        itemsData.sort((a, b) => a.employeeName.compareTo(b.employeeName));
       }
     } else {
       print("TimeOff");

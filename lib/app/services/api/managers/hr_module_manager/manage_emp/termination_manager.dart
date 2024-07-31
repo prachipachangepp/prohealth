@@ -76,6 +76,7 @@ Future<List<TerminationData>> getTermination(BuildContext context) async {
           methods: item['methods'] ?? "--",
           materials: item['materials'] ?? "--",
         ));
+        itemsData.sort((a, b) => a.userId.compareTo(b.userId));
       }
     } else {
       print("Termination error");
