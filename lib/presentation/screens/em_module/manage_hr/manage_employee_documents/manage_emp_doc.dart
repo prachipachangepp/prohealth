@@ -131,7 +131,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomIconButtonConst(text: 'Add Document', onPressed: (){
+                CustomIconButtonConst(
+                  width: 170,
+                  text: 'Add Document', onPressed: (){
                   showDialog(context: context, builder: (BuildContext context){
                     return EmpDocEditPopup(
                       title:  'Add Document',
@@ -362,6 +364,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                     },
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
+
                        HealthEmpDoc(metaDocID: metaDocID),
                        HealthEmpDoc(metaDocID: metaDocID),
                        HealthEmpDoc(metaDocID: metaDocID),

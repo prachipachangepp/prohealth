@@ -77,13 +77,16 @@ class _DefineHolidaysState extends State<DefineHolidays> {
           alignment: Alignment.centerRight,
           // top: 20,
           child: CustomIconButtonConst(
+              width: 170,
               icon: Icons.add,
               text: "Add New Holiday", onPressed: (){
             showDialog(context: context, builder: (BuildContext context){
               return AddHolidayPopup(
                 title: 'Add New Holiday',
-                controller: holidayNameController, onPressed: () async{
-                await addHolidaysPost(context, holidayNameController.text, calenderController.text, 2024, 11);
+                controller: holidayNameController,
+                onPressed: () async{
+                await addHolidaysPost(context,
+                    holidayNameController.text, calenderController.text, 2024, 11);
                 holidaysListGet(context).then((data) {
                   _controller.add(data);
                 }).catchError((error) {

@@ -84,6 +84,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomIconButtonConst(
+            width: 170,
             text: AppString.addemployeetype,
             icon: Icons.add,
             onPressed: () {
