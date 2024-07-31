@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -117,7 +117,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
       backgroundColor: Colors.white,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.3,
-        height: MediaQuery.of(context).size.height * 0.5,
+        height: MediaQuery.of(context).size.height * 0.6,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -134,11 +134,17 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 16),
+                    padding: EdgeInsets.only(left: 16),
                     child: Row(
                       children: [
-                        const Icon(Icons.person_outline,
-                            color: Colors.white, size: 16),
+                      Icon(
+                      FontAwesomeIcons.userCheck,
+                        color: Colors.white,
+                      size: 12,
+                    ),
+                    //     const Icon(
+                    //         Icons.verified_user_outlined,
+                    //         color: Colors.white, size: 16),
                         const SizedBox(width: 8),
                         Text(
                           AppString.verify_user,
