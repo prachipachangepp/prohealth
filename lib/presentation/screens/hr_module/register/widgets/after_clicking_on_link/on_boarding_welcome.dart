@@ -757,7 +757,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const OfferLetterDescriptionScreen()));
+                                 OfferLetterDescriptionScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF50B5E5),

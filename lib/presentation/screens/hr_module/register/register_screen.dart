@@ -286,19 +286,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             onPressed:
                                                 () async{
                                               const url = "https://staging.symmetry.care";
-                                              // if (await canLaunch(url)) {
-                                              //   await launch(url);
-                                              //
-                                              // } else {
-                                              //   throw 'Could not launch $url';
-                                              // }
-
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>  OnBoardingWelcome(),
-                                                ),
-                                              );
+                                              if (await canLaunch(url)) {
+                                                await launch(url);
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>  OnBoardingWelcome(),
+                                                  ),
+                                                );
+                                              } else {
+                                                throw 'Could not launch $url';
+                                              }
                                               //
                                               // Navigate to the WebViewScreen
                                               // Navigator.push(
