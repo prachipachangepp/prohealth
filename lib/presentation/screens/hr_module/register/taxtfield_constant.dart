@@ -27,6 +27,7 @@ class CustomTextFieldRegister extends StatelessWidget {
   final String? prefixText;
   final double? cursorHeight;
 
+
    CustomTextFieldRegister({
     Key? key,
     this.controller,
@@ -71,19 +72,20 @@ class CustomTextFieldRegister extends StatelessWidget {
               prefixStyle: prefixStyle,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color(0xffB1B1B1),
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color(0xffB1B1B1),
                 ),
               ),
               border: OutlineInputBorder(
+
                 borderRadius: BorderRadius.circular(5.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Color(0xffB1B1B1),
                 ),
               ),
@@ -112,6 +114,7 @@ class CustomTextFieldRegister extends StatelessWidget {
           validator: validator,
           focusNode: focusNode,
           onFieldSubmitted: onFieldSubmitted,
+
         ),
       ),
     );

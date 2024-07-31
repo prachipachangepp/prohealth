@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/sm_desktop_screen.dart';
 
-import 'em_desktop_screen.dart';
+class ResponsiveScreenSM extends StatelessWidget {
+  const ResponsiveScreenSM({super.key});
 
-class ResponsiveScreenEM extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= 850) {
-          return SMDesktop();
+          return SMDesktopScreen();
         } else {
-          return SMTablet();
+          return const EMTabletScreen();
         }
       },
     );
   }
 }
 
-class SMTablet extends StatelessWidget {
+class EMTabletScreen extends StatelessWidget {
+  const EMTabletScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +29,8 @@ class SMTablet extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          'Tablet Screen Content',
-          style: TextStyle(fontSize: 24.0),
+          'Tablet Screen Scheduler & Intake',
+          style: TextStyle(fontSize: 20.0),
         ),
       ),
     );

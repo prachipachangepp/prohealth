@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../../../../app/resources/font_manager.dart';
+
 class PhysicalExamContainer extends StatefulWidget {
   const PhysicalExamContainer({Key? key}) : super(key: key);
 
@@ -119,8 +121,13 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
           height: 30,
           width: 242,
           child: TextField(
+
             controller: _dateController,
+            style: GoogleFonts.firaSans(
+              fontSize: FontSize.s12,
+            ),
             decoration: InputDecoration(
+
               hintText: 'dd-mm-yyyy',
               hintStyle: GoogleFonts.firaSans(
                 fontSize: 10.0,
@@ -318,6 +325,9 @@ class _VaccineContainerState extends State<VaccineContainer> {
           width: 242,
           child: TextField(
             controller: _dateController,
+            style: GoogleFonts.firaSans(
+              fontSize: FontSize.s12,
+            ),
             decoration: InputDecoration(
               hintText: 'dd-mm-yyyy',
               hintStyle: GoogleFonts.firaSans(

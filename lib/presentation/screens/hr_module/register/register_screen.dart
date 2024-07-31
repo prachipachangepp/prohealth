@@ -297,8 +297,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               } else {
                                                 throw 'Could not launch $url';
                                               }
-
-
                                               //
                                               // Navigate to the WebViewScreen
                                               // Navigator.push(
