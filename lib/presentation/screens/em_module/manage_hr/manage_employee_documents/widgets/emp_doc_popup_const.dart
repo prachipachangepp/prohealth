@@ -295,12 +295,13 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                     if (_idError == null && _nameError == null) {
                       setState(() {
                         _isLoading = true;
+                        Navigator.pop(context);
                       });
                       await widget.onSavePredded();
                       setState(() {
                         _isLoading = false;
                       });
-                      Navigator.pop(context);
+
                     }
                   },
                 ),

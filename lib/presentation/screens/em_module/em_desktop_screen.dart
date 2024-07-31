@@ -7,7 +7,6 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/manage_work_schedule.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
-
 import '../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../widgets/app_bar/app_bar.dart';
 import '../../widgets/widgets/const_appbar/controller.dart';
@@ -17,7 +16,7 @@ import 'company_identity/company_identity_screen.dart';
 import 'manage_hr/hr_screen.dart';
 import 'manage_hr/manage_pay_rates/finance_screen.dart';
 
-class SMDesktop extends StatelessWidget {
+class EMDesktopScreen extends StatelessWidget {
   final PageController _pageController = PageController();
   final SMController smController = Get.put(SMController());
   final String? dropdownValue;
@@ -29,7 +28,7 @@ class SMDesktop extends StatelessWidget {
   bool showSelectOption = true;
   final ButtonSelectionController myController =
       Get.put(ButtonSelectionController());
-  SMDesktop({
+  EMDesktopScreen({
     this.dropdownValue,
     this.onChanged,
     this.onItem2Selected,
@@ -299,6 +298,7 @@ class SMDesktop extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+
                       Obx(
                         () => CustomTitleButton(
                           height: 30,

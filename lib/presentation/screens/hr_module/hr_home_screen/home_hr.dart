@@ -457,7 +457,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         : SizedBox(width: 1),
                   ],
                 ),
-
+                SizedBox(
+                  height: 30,
+                        width: 140,
+                ),
                 ///see all
                 // Row(
                 //   crossAxisAlignment: CrossAxisAlignment.end,
@@ -536,3 +539,34 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
