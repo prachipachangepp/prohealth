@@ -146,39 +146,15 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width/25,
-                  bottom: MediaQuery.of(context).size.width/120,),
-                child: InkWell(
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>ManageScreen(),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Icon(Icons.arrow_back,size: 15,),
-                      Text('Go Back',style: GoogleFonts.firaSans(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              ///Create USer
-              Padding(
-                padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/25,
-                bottom: MediaQuery.of(context).size.width/120,
-                ),
-                child: Container(
+          Padding(
+            padding: EdgeInsets.only(
+              right: MediaQuery.of(context).size.width/25,
+            bottom: MediaQuery.of(context).size.width/120,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
                   height: 30,
                   width: 130,
                   child: CustomIconButton(
@@ -235,8 +211,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
 
                   ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
           Column(
             children: [
