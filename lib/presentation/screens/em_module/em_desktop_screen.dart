@@ -18,7 +18,7 @@ import 'manage_hr/manage_pay_rates/finance_screen.dart';
 
 class EMDesktopScreen extends StatelessWidget {
   final PageController _pageController = PageController();
-  final SMController smController = Get.put(SMController());
+  final EMController smController = Get.put(EMController());
   final String? dropdownValue;
   final ValueChanged<String?>? onChanged;
   final HRController hrController = Get.put(HRController());
@@ -347,7 +347,7 @@ class EMDesktopScreen extends StatelessWidget {
   }
 }
 
-class SMController extends GetxController {
+class EMController extends GetxController {
   var selectedItem = 'Admin'.obs;
   void changeSelectedItem(String newItem) {
     selectedItem.value = newItem;
