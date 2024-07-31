@@ -17,7 +17,7 @@ import 'company_identity/company_identity_screen.dart';
 import 'manage_hr/hr_screen.dart';
 import 'manage_hr/manage_pay_rates/finance_screen.dart';
 
-class SMDesktop extends StatelessWidget {
+class EMDesktopScreen extends StatelessWidget {
   final PageController _pageController = PageController();
   final SMController smController = Get.put(SMController());
   final String? dropdownValue;
@@ -29,7 +29,7 @@ class SMDesktop extends StatelessWidget {
   bool showSelectOption = true;
   final ButtonSelectionController myController =
       Get.put(ButtonSelectionController());
-  SMDesktop({
+  EMDesktopScreen({
     this.dropdownValue,
     this.onChanged,
     this.onItem2Selected,
