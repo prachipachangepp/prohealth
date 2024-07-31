@@ -300,6 +300,7 @@ class SMDesktopScreen extends StatelessWidget {
             //     ],
             //   ),
             // ),
+
             BottomBarRow()
           ],
         ),
@@ -307,3 +308,5 @@ class SMDesktopScreen extends StatelessWidget {
     );
   }
 }
+
+//
