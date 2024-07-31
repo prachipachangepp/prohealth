@@ -7,7 +7,6 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/manage_work_schedule.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
-
 import '../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../widgets/app_bar/app_bar.dart';
 import '../../widgets/widgets/const_appbar/controller.dart';
@@ -299,6 +298,7 @@ class EMDesktopScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+
                       Obx(
                         () => CustomTitleButton(
                           height: 30,
