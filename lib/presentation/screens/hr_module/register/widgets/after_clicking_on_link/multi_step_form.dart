@@ -207,9 +207,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   ),
                                 ),
                               ),
-                              onTap: () async {
-                                details.onStepCancel;
-                              },
+                              onTap:  details.onStepCancel,
                             )
                           ],
                           const SizedBox(
