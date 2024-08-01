@@ -753,6 +753,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                       employeeId: widget.employeeId, documentName: widget.AcknowledgementnameController.text,
                       documentFile: finalPath);
                       Navigator.pop(context);
+                      widget.AcknowledgementnameController.clear();
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
