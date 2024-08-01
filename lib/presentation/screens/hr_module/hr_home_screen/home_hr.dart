@@ -20,6 +20,8 @@ import 'package:prohealth/presentation/screens/hr_module/see_all_hr/see_all_hr_s
 import 'package:prohealth/presentation/widgets/app_bar/app_bar.dart';
 import 'package:prohealth/presentation/widgets/widgets/const_appbar/controller.dart';
 
+import '../../../../app/services/api/managers/hr_module_manager/manage_emp/search_byfilter.dart';
+
 class HomeHrScreen extends StatefulWidget {
   const HomeHrScreen({super.key});
 
@@ -38,6 +40,108 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   final ButtonSelectionController myController =
       Get.put(ButtonSelectionController());
   String selectedOption = 'Select';
+  // TextEditingController searchController = TextEditingController();
+  // Future<List<SearchEmployeeProfileData>>? _searchFuture;
+  //
+  // TextEditingController _controller = TextEditingController();
+  // OverlayEntry? _overlayEntry;
+  // List<String> _searchResults = [];
+  //
+  // final LayerLink _layerLink = LayerLink();
+  // List<SearchEmployeeProfileData> data = [];
+  //
+  // OverlayEntry _createOverlayEntry() {
+  //   RenderBox renderBox = context.findRenderObject() as RenderBox;
+  //
+  //   return OverlayEntry(
+  //     builder: (context) => Positioned(
+  //       width: 330,
+  //       child: CompositedTransformFollower(
+  //         link: _layerLink,
+  //         showWhenUnlinked: true,
+  //         offset: Offset(0.0, 40),
+  //         child: Material(
+  //           elevation: 4.0,
+  //           child: Column(
+  //             children: [
+  //               ..._searchResults.map((result) => ListTile(
+  //                     title: Text(
+  //                       result,
+  //                       style: GoogleFonts.firaSans(
+  //                         fontSize: FontSize.s12,
+  //                         fontWeight: FontWeightManager.regular,
+  //                         color: ColorManager.mediumgrey,
+  //                       ),
+  //                     ),
+  //                     onTap: () {
+  //                       _controller.text = result;
+  //                       int id = 0;
+  //                       for (var e in data) {
+  //                         if (result == e.firstName + " " + e.lastName) {
+  //                           id = e.employeeId;
+  //                         }
+  //                       }
+  //                       _removeOverlay();
+  //                       setState(() {
+  //                         employeeId = id;
+  //                         myController.selectButton(1);
+  //                         _pageController = PageController(initialPage: 1);
+  //                       });
+  //                     },
+  //                   )),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+  //
+  // void _search(String query) async {
+  //   if (query.isEmpty) {
+  //     setState(() {
+  //       _searchResults = [];
+  //       _removeOverlay();
+  //     });
+  //     return;
+  //   }
+  //
+  //   // Replace with your API endpoint
+  //   data = await getSearchProfileByText(context, query);
+  //
+  //   // Filter by starting alphabet
+  //   _searchResults = data
+  //       .where((e) => e.firstName.toLowerCase().startsWith(query.toLowerCase()))
+  //       .map((e) => e.firstName + " " + e.lastName)
+  //       .toList();
+  //   print(_searchResults);
+  //   _showOverlay();
+  // }
+  // //   data = await getSearchProfileByText(context, query);
+  // //
+  // //   _searchResults = data.map((e) => e.firstName + " " + e.lastName).toList();
+  // //   print(_searchResults);
+  // //   _showOverlay();
+  // // }
+  //
+  // void _showOverlay() {
+  //   if (_overlayEntry != null) {
+  //     _overlayEntry!.remove();
+  //   }
+  //
+  //   _overlayEntry = _createOverlayEntry();
+  //   Overlay.of(context)!.insert(_overlayEntry!);
+  // }
+  //
+  // void _removeOverlay() {
+  //   if (_overlayEntry != null) {
+  //     _overlayEntry!.remove();
+  //     _overlayEntry = null;
+  //   }
+  // }
+  //
+  // int employeeId = 0;
+  ///
   TextEditingController searchController = TextEditingController();
   Future<List<SearchEmployeeProfileData>>? _searchFuture;
 
@@ -63,30 +167,30 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
             child: Column(
               children: [
                 ..._searchResults.map((result) => ListTile(
-                      title: Text(
-                        result,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.regular,
-                          color: ColorManager.mediumgrey,
-                        ),
-                      ),
-                      onTap: () {
-                        _controller.text = result;
-                        int id = 0;
-                        for (var e in data) {
-                          if (result == e.firstName + " " + e.lastName) {
-                            id = e.employeeId;
-                          }
-                        }
-                        _removeOverlay();
-                        setState(() {
-                          employeeId = id;
-                          myController.selectButton(1);
-                          _pageController = PageController(initialPage: 1);
-                        });
-                      },
-                    )),
+                  title: Text(
+                    result,
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.regular,
+                      color: ColorManager.mediumgrey,
+                    ),
+                  ),
+                  onTap: () {
+                    _controller.text = result;
+                    int id = 0;
+                    for (var e in data) {
+                      if (result == e.firstName + " " + e.lastName) {
+                        id = e.employeeId;
+                      }
+                    }
+                    _removeOverlay();
+                    setState(() {
+                      employeeId = id;
+                      myController.selectButton(1);
+                      _pageController = PageController(initialPage: 1);
+                    });
+                  },
+                )),
               ],
             ),
           ),
@@ -104,23 +208,16 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
       return;
     }
 
-    // Replace with your API endpoint
     data = await getSearchProfileByText(context, query);
 
-    // Filter by starting alphabet
     _searchResults = data
-        .where((e) => e.firstName.toLowerCase().startsWith(query.toLowerCase()))
+        .where((e) => e.firstName.toLowerCase().contains(
+        query.toLowerCase()) || e.lastName.toLowerCase().contains(query.toLowerCase()))
         .map((e) => e.firstName + " " + e.lastName)
         .toList();
     print(_searchResults);
     _showOverlay();
   }
-  //   data = await getSearchProfileByText(context, query);
-  //
-  //   _searchResults = data.map((e) => e.firstName + " " + e.lastName).toList();
-  //   print(_searchResults);
-  //   _showOverlay();
-  // }
 
   void _showOverlay() {
     if (_overlayEntry != null) {
@@ -139,7 +236,29 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   }
 
   int employeeId = 0;
+  Future<void> _searchByFilter() async {
+    var result = await postSearchByFilter(
+      context,
+      true,
+      'John Doe',
+      true,
+      'San Joes',
+      true,
+      1,
+      true,
+      'Active',
+      true,
+      'Full-Time',
+    );
 
+    if (result.success) {
+      print('Search successful');
+
+    } else {
+      print('Search failed: ${result.message}');
+
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -332,7 +451,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     //       contentPadding: EdgeInsets.symmetric(
                     //           horizontal: 20, vertical: 5)),
                     // ),
-
                     /// using typeAheadField
                     // TypeAheadField(
                     //   controller: searchController,
@@ -419,7 +537,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return ProfilePatientPopUp();
+                                        return ProfilePatientPopUp(onSearch: _searchByFilter);
                                       },
                                     );
                                   },
