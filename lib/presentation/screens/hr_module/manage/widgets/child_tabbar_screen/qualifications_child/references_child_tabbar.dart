@@ -31,6 +31,8 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
   TextEditingController companyNameController = TextEditingController();
   TextEditingController associationLengthController = TextEditingController();
   TextEditingController mobileNumberController = TextEditingController();
+  TextEditingController referredBController = TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -67,6 +69,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                             associationLengthController,
                             mobileNumberController:
                             mobileNumberController,
+                            referredBy: referredBController,
                             onpressedClose: () {},
                             onpressedSave: () async {
                               await addReferencePost(
@@ -262,6 +265,10 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
 
                                       var association = snapshotPrefill.data!.association;
                                       associationLengthController = TextEditingController(text: snapshotPrefill.data!.association);
+                                      var referredby = snapshotPrefill.data!.references;
+                                      referredBController =TextEditingController(
+                                        text: snapshotPrefill.data!.references
+                                      );
 
                                       var references = snapshotPrefill.data!.references;
                                       var mobileNumber = snapshotPrefill.data!.mobNumber;
@@ -269,7 +276,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                       return StatefulBuilder(
                                         builder: (BuildContext context, void Function(void Function()) setState) {
                                           return AddReferencePopup(nameController: nameController, emailController: emailController, titlePositionController: titlePositionController, knowPersonController: knowPersonController, companyNameController: companyNameController,
-                                              associationLengthController: associationLengthController, mobileNumberController: mobileNumberController,
+                                              associationLengthController: associationLengthController, mobileNumberController: mobileNumberController, referredBy: referredBController,
                                               onpressedClose: (){
                                                 Navigator.pop(context);
                                               }, onpressedSave: () async{
@@ -282,14 +289,17 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                     widget.employeeId,
                                                     mobileNumber == mobileNumberController.text ? mobileNumber.toString() : mobileNumberController.text,
                                                     name == nameController.text ? name.toString() : nameController.text,
-                                                    references.toString(),
-                                                    title == titlePositionController.text ? title.toString() : titlePositionController.text);
+                                                    //references.toString(),
+                                                    referredby== referredBController.text? referredby.toString():referredBController.text,
+                                                    title == titlePositionController.text ? title.toString() : titlePositionController.text,
+                                                 );
+
                                                 getReferences(context,5).then((data) {
                                                   referenceStreamController.add(data);
                                                 }).catchError((error) {
                                                   // Handle error
                                                 });
-                                              }, title: 'Edit Reference');
+                                              }, title: 'Edit Reference',);
                                         },
                                       );
                                     }

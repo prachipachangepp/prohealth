@@ -130,7 +130,9 @@ class HrManageScreen extends StatelessWidget {
       ),
 
       /// bottom row
-       BottomBarRow(),
-    ]);
+       const BottomBarRow(),
+    ]
+
+    );
   }
 }

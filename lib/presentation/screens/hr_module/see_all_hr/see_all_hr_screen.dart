@@ -449,7 +449,10 @@ class _PopUpState extends State<ProfilePatientPopUp> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 25),
             ElevatedButton(
-              onPressed: widget.onSearch,
+              onPressed: (){
+                widget.onSearch();
+                Navigator.pop(context);
+              },
               child: Text('Search', style: GoogleFonts.firaSans(
                 fontSize: 10,
                 fontWeight: FontWeight.w700,

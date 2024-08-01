@@ -167,30 +167,30 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
             child: Column(
               children: [
                 ..._searchResults.map((result) => ListTile(
-                  title: Text(
-                    result,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.regular,
-                      color: ColorManager.mediumgrey,
-                    ),
-                  ),
-                  onTap: () {
-                    _controller.text = result;
-                    int id = 0;
-                    for (var e in data) {
-                      if (result == e.firstName + " " + e.lastName) {
-                        id = e.employeeId;
-                      }
-                    }
-                    _removeOverlay();
-                    setState(() {
-                      employeeId = id;
-                      myController.selectButton(1);
-                      _pageController = PageController(initialPage: 1);
-                    });
-                  },
-                )),
+                      title: Text(
+                        result,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.regular,
+                          color: ColorManager.mediumgrey,
+                        ),
+                      ),
+                      onTap: () {
+                        _controller.text = result;
+                        int id = 0;
+                        for (var e in data) {
+                          if (result == e.firstName + " " + e.lastName) {
+                            id = e.employeeId;
+                          }
+                        }
+                        _removeOverlay();
+                        setState(() {
+                          employeeId = id;
+                          myController.selectButton(1);
+                          _pageController = PageController(initialPage: 1);
+                        });
+                      },
+                    )),
               ],
             ),
           ),
@@ -211,8 +211,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     data = await getSearchProfileByText(context, query);
 
     _searchResults = data
-        .where((e) => e.firstName.toLowerCase().contains(
-        query.toLowerCase()) || e.lastName.toLowerCase().contains(query.toLowerCase()))
+        .where((e) =>
+            e.firstName.toLowerCase().contains(query.toLowerCase()) ||
+            e.lastName.toLowerCase().contains(query.toLowerCase()))
         .map((e) => e.firstName + " " + e.lastName)
         .toList();
     print(_searchResults);
@@ -253,11 +254,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
 
     if (result.success) {
       print('Search successful');
-
     } else {
       print('Search failed: ${result.message}');
-
     }
+  }
+  void _searchByFilterWrapper(Map<String, dynamic> params) {
+    _searchByFilter();
   }
   @override
   Widget build(BuildContext context) {
@@ -270,248 +272,285 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
 
           ///appbar titles
           Container(
-            // color: Colors.pink,
-            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ///heading bar
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+              // color: Colors.pink,
+              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Obx(
-                      () => CustomTitleButton(
-                        height: 30,
-                        width: 100,
-                        onPressed: () {
-                          //companyAll(context);
-                          myController.selectButton(0);
-                          _pageController.animateToPage(0,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                        },
-                        text: 'Dashboard',
-                        isSelected: myController.selectedIndex.value == 0,
-                      ),
+                    ///heading bar
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Obx(
+                          () => CustomTitleButton(
+                            height: 30,
+                            width: 100,
+                            onPressed: () {
+                              //companyAll(context);
+                              myController.selectButton(0);
+                              _pageController.animateToPage(0,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Dashboard',
+                            isSelected: myController.selectedIndex.value == 0,
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 55,
+                        ),
+                        Obx(
+                          () => CustomTitleButton(
+                            height: 30,
+                            width: 140,
+                            onPressed: () {
+                              myController.selectButton(1);
+                              _pageController.animateToPage(1,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Manage',
+                            isSelected: myController.selectedIndex.value == 1,
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 55,
+                        ),
+                        // Obx(
+                        //   () => CustomTitleButton(
+                        //       height: 30,
+                        //       width: 140,
+                        //       onPressed: () {
+                        //         myController.selectButton(2);
+                        //         _pageController.animateToPage(2,
+                        //             duration: Duration(milliseconds: 500),
+                        //             curve: Curves.ease);
+                        //       },
+                        //       text: 'Add Employee',
+                        //       isSelected: myController.selectedIndex.value == 2),
+                        // ),
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width / 55,
+                        // ),
+                        Obx(
+                          () => CustomTitleButton(
+                            height: 30,
+                            width: 140,
+                            onPressed: () {
+                              myController.selectButton(3);
+                              _pageController.animateToPage(3,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Register',
+                            isSelected: myController.selectedIndex.value == 3,
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 55,
+                        ),
+                        Obx(
+                          () => CustomTitleButton(
+                            height: 30,
+                            width: 140,
+                            onPressed: () {
+                              myController.selectButton(4);
+                              _pageController.animateToPage(4,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Onboarding',
+                            isSelected: myController.selectedIndex.value == 4,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 55,
-                    ),
-                    Obx(
-                      () => CustomTitleButton(
-                        height: 30,
-                        width: 140,
-                        onPressed: () {
-                          myController.selectButton(1);
-                          _pageController.animateToPage(1,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                        },
-                        text: 'Manage',
-                        isSelected: myController.selectedIndex.value == 1,
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 55,
-                    ),
-                    // Obx(
-                    //   () => CustomTitleButton(
-                    //       height: 30,
-                    //       width: 140,
-                    //       onPressed: () {
-                    //         myController.selectButton(2);
-                    //         _pageController.animateToPage(2,
-                    //             duration: Duration(milliseconds: 500),
-                    //             curve: Curves.ease);
-                    //       },
-                    //       text: 'Add Employee',
-                    //       isSelected: myController.selectedIndex.value == 2),
-                    // ),
-                    // SizedBox(
-                    //   width: MediaQuery.of(context).size.width / 55,
-                    // ),
-                    Obx(
-                      () => CustomTitleButton(
-                        height: 30,
-                        width: 140,
-                        onPressed: () {
-                          myController.selectButton(3);
-                          _pageController.animateToPage(3,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                        },
-                        text: 'Register',
-                        isSelected: myController.selectedIndex.value == 3,
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 55,
-                    ),
-                    Obx(
-                      () => CustomTitleButton(
-                        height: 30,
-                        width: 140,
-                        onPressed: () {
-                          myController.selectButton(4);
-                          _pageController.animateToPage(4,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                        },
-                        text: 'Onboarding',
-                        isSelected: myController.selectedIndex.value == 4,
-                      ),
-                    ),
-                  ],
-                ),
 
-                /// search text
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        padding: EdgeInsets.all(5),
-                        width: AppSize.s330,
-                        height: 40,
-                        child: CompositedTransformTarget(
-                          link: _layerLink,
-                          child: TextField(
-                            controller: _controller,
-                            style: GoogleFonts.firaSans(fontSize: 12),
-                            onChanged: _search,
-                            decoration: InputDecoration(
+                    /// search text
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          width: 330,
+                          height: 40,
+                          child: CompositedTransformTarget(
+                            link: _layerLink,
+                            child: TextField(
+                              controller: _controller,
+                              style: GoogleFonts.firaSans(fontSize: 12),
+                              onChanged: _search,
+                              decoration: InputDecoration(
                                 hintText: 'Search',
                                 alignLabelWithHint: true,
                                 hintStyle: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
+                                  fontSize: 12,
                                   fontWeight: FontWeightManager.regular,
                                   color: ColorManager.mediumgrey,
                                 ),
                                 border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
                                 suffixIcon: IconButton(
                                   icon: Center(
-                                    child: Icon(
-                                      Icons.search,
-                                      size: 18,
-                                    ),
+                                    child: Icon(Icons.search, size: 18),
                                   ),
                                   onPressed: () {},
                                 ),
                                 contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 5)),
+                                    horizontal: 20, vertical: 5),
+                              ),
+                            ),
                           ),
-                        )),
+                        ),
 
-                    /// formated text field
-                    //     TextFormField(
-                    //   controller: searchController,
-                    //   // focusNode: focusNode,
-                    //   // autofocus: true,
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       getSearchProfileByText(
-                    //           context, 5, searchController.text);
-                    //       employeeId =
-                    //           value == "" ? 0 : int.parse(value.toString());
-                    //       getSearchByEmployeeIdProfileByText(
-                    //           context, employeeId);
-                    //       employeeId = 2;
-                    //       getSearchByEmployeeIdProfileByText(
-                    //           context, employeeId);
-                    //     });
-                    //   },
-                    //   textAlign: TextAlign.start,
-                    //   cursorHeight: 14,
-                    //   cursorColor: ColorManager.black,
-                    //   style: GoogleFonts.firaSans(
-                    //     fontSize: 12,
-                    //   ),
-                    //   textAlignVertical: TextAlignVertical.center,
-                    //   decoration: InputDecoration(
-                    //       hintText: 'Search',
-                    //       alignLabelWithHint: true,
-                    //       hintStyle: GoogleFonts.firaSans(
-                    //         fontSize: FontSize.s12,
-                    //         fontWeight: FontWeightManager.regular,
-                    //         color: ColorManager.mediumgrey,
-                    //       ),
-                    //       border: OutlineInputBorder(
-                    //           borderRadius:
-                    //               BorderRadius.all(Radius.circular(20))),
-                    //       suffixIcon: IconButton(
-                    //         icon: Center(
-                    //           child: Icon(
-                    //             Icons.search,
-                    //             size: 18,
-                    //           ),
-                    //         ),
-                    //         onPressed: () {},
-                    //       ),
-                    //       contentPadding: EdgeInsets.symmetric(
-                    //           horizontal: 20, vertical: 5)),
-                    // ),
-                    /// using typeAheadField
-                    // TypeAheadField(
-                    //   controller: searchController,
-                    //   suggestionsCallback: (name){
-                    //     getSearchProfileByText(context, 5, name);
-                    //
-                    //   },
-                    //   builder:(context, controller, focusNode) {
-                    //     return TextFormField(
-                    //       controller: controller,
-                    //       focusNode: focusNode,
-                    //       autofocus: true,
-                    //       onChanged: (value) {
-                    //         setState(() {
-                    //           //getSearchProfileById(context, 5, int.parse(name.toString()));
-                    //           employeeId = value == "" ? 0 :int.parse(value.toString());
-                    //           getSearchByEmployeeIdProfileByText(context,employeeId);
-                    //           // employeeId = 2;
-                    //           // getSearchByEmployeeIdProfileByText(context,employeeId);
-                    //         });
-                    //       },
-                    //       textAlign: TextAlign.start,
-                    //       cursorHeight: 12,
-                    //       cursorColor: ColorManager.black,
-                    //       style: GoogleFonts.firaSans(
-                    //         fontSize: 12,
-                    //       ),
-                    //       textAlignVertical: TextAlignVertical.center,
-                    //       decoration: InputDecoration(
-                    //           hintText: 'Search',
-                    //           alignLabelWithHint: true,
-                    //           hintStyle: GoogleFonts.firaSans(
-                    //             fontSize: FontSize.s12,
-                    //             fontWeight: FontWeightManager.regular,
-                    //             color: ColorManager.mediumgrey,
-                    //           ),
-                    //           border: OutlineInputBorder(
-                    //               borderRadius: BorderRadius.all(
-                    //                   Radius.circular(20))),
-                    //           suffixIcon: IconButton(
-                    //             icon: Center(
-                    //               child: Icon(
-                    //                 Icons.search,
-                    //                 size: 18,
-                    //               ),
-                    //             ),
-                    //             onPressed: () {},
-                    //           ),
-                    //           contentPadding: EdgeInsets.symmetric(
-                    //               horizontal: 20, vertical: 5)),
-                    //     );
-                    //   },
-                    //     itemBuilder: (context, String value) {
-                    //     print("::::::${value}");
-                    //   return ListTile(
-                    //     title: Text(value),
-                    //   );
-                    // }, onSelected: (value) {
-                    //     searchController.text = value;
-                    // },
-                    // )
+                        ///
+                        // Container(
+                        //     padding: EdgeInsets.all(5),
+                        //     width: AppSize.s330,
+                        //     height: 40,
+                        //     child: CompositedTransformTarget(
+                        //       link: _layerLink,
+                        //       child: TextField(
+                        //         controller: _controller,
+                        //         style: GoogleFonts.firaSans(fontSize: 12),
+                        //         onChanged: _search,
+                        //         decoration: InputDecoration(
+                        //             hintText: 'Search',
+                        //             alignLabelWithHint: true,
+                        //             hintStyle: GoogleFonts.firaSans(
+                        //               fontSize: FontSize.s12,
+                        //               fontWeight: FontWeightManager.regular,
+                        //               color: ColorManager.mediumgrey,
+                        //             ),
+                        //             border: OutlineInputBorder(
+                        //                 borderRadius:
+                        //                     BorderRadius.all(Radius.circular(20))),
+                        //             suffixIcon: IconButton(
+                        //               icon: Center(
+                        //                 child: Icon(
+                        //                   Icons.search,
+                        //                   size: 18,
+                        //                 ),
+                        //               ),
+                        //               onPressed: () {},
+                        //             ),
+                        //             contentPadding: EdgeInsets.symmetric(
+                        //                 horizontal: 20, vertical: 5)),
+                        //       ),
+                        //     )),
+
+                        /// formated text field
+                        //     TextFormField(
+                        //   controller: searchController,
+                        //   // focusNode: focusNode,
+                        //   // autofocus: true,
+                        //   onChanged: (value) {
+                        //     setState(() {
+                        //       getSearchProfileByText(
+                        //           context, 5, searchController.text);
+                        //       employeeId =
+                        //           value == "" ? 0 : int.parse(value.toString());
+                        //       getSearchByEmployeeIdProfileByText(
+                        //           context, employeeId);
+                        //       employeeId = 2;
+                        //       getSearchByEmployeeIdProfileByText(
+                        //           context, employeeId);
+                        //     });
+                        //   },
+                        //   textAlign: TextAlign.start,
+                        //   cursorHeight: 14,
+                        //   cursorColor: ColorManager.black,
+                        //   style: GoogleFonts.firaSans(
+                        //     fontSize: 12,
+                        //   ),
+                        //   textAlignVertical: TextAlignVertical.center,
+                        //   decoration: InputDecoration(
+                        //       hintText: 'Search',
+                        //       alignLabelWithHint: true,
+                        //       hintStyle: GoogleFonts.firaSans(
+                        //         fontSize: FontSize.s12,
+                        //         fontWeight: FontWeightManager.regular,
+                        //         color: ColorManager.mediumgrey,
+                        //       ),
+                        //       border: OutlineInputBorder(
+                        //           borderRadius:
+                        //               BorderRadius.all(Radius.circular(20))),
+                        //       suffixIcon: IconButton(
+                        //         icon: Center(
+                        //           child: Icon(
+                        //             Icons.search,
+                        //             size: 18,
+                        //           ),
+                        //         ),
+                        //         onPressed: () {},
+                        //       ),
+                        //       contentPadding: EdgeInsets.symmetric(
+                        //           horizontal: 20, vertical: 5)),
+                        // ),
+                        /// using typeAheadField
+                        // TypeAheadField(
+                        //   controller: searchController,
+                        //   suggestionsCallback: (name){
+                        //     getSearchProfileByText(context, 5, name);
+                        //
+                        //   },
+                        //   builder:(context, controller, focusNode) {
+                        //     return TextFormField(
+                        //       controller: controller,
+                        //       focusNode: focusNode,
+                        //       autofocus: true,
+                        //       onChanged: (value) {
+                        //         setState(() {
+                        //           //getSearchProfileById(context, 5, int.parse(name.toString()));
+                        //           employeeId = value == "" ? 0 :int.parse(value.toString());
+                        //           getSearchByEmployeeIdProfileByText(context,employeeId);
+                        //           // employeeId = 2;
+                        //           // getSearchByEmployeeIdProfileByText(context,employeeId);
+                        //         });
+                        //       },
+                        //       textAlign: TextAlign.start,
+                        //       cursorHeight: 12,
+                        //       cursorColor: ColorManager.black,
+                        //       style: GoogleFonts.firaSans(
+                        //         fontSize: 12,
+                        //       ),
+                        //       textAlignVertical: TextAlignVertical.center,
+                        //       decoration: InputDecoration(
+                        //           hintText: 'Search',
+                        //           alignLabelWithHint: true,
+                        //           hintStyle: GoogleFonts.firaSans(
+                        //             fontSize: FontSize.s12,
+                        //             fontWeight: FontWeightManager.regular,
+                        //             color: ColorManager.mediumgrey,
+                        //           ),
+                        //           border: OutlineInputBorder(
+                        //               borderRadius: BorderRadius.all(
+                        //                   Radius.circular(20))),
+                        //           suffixIcon: IconButton(
+                        //             icon: Center(
+                        //               child: Icon(
+                        //                 Icons.search,
+                        //                 size: 18,
+                        //               ),
+                        //             ),
+                        //             onPressed: () {},
+                        //           ),
+                        //           contentPadding: EdgeInsets.symmetric(
+                        //               horizontal: 20, vertical: 5)),
+                        //     );
+                        //   },
+                        //     itemBuilder: (context, String value) {
+                        //     print("::::::${value}");
+                        //   return ListTile(
+                        //     title: Text(value),
+                        //   );
+                        // }, onSelected: (value) {
+                        //     searchController.text = value;
+                        // },
+                        // )
+                        ///old
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 70,
                     ),
@@ -589,27 +628,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         width: 140,
                 ),
                 ///see all
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.end,
-                //   mainAxisAlignment: MainAxisAlignment.end,
-                //   children: [
-                //     Obx(
-                //       () => CustomTitleButton(
-                //         height: 30,
-                //         width: 140,
-                //         onPressed: () {
-                //           //companyAll(context);
-                //           myController.selectButton(6);
-                //           _pageController.animateToPage(6,
-                //               duration: Duration(milliseconds: 500),
-                //               curve: Curves.ease);
-                //         },
-                //         text: 'See All',
-                //         isSelected: myController.selectedIndex.value == 6,
-                //       ),
-                //     ),
-                //   ],
-                // )
+
               ],
             ),
           ),
@@ -660,40 +679,154 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   return Container();
                 }),
           ),
-          // BottomAppBar()
+          BottomAppBar()
         ],
       ),
     );
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Row(
+//   crossAxisAlignment: CrossAxisAlignment.end,
+//   mainAxisAlignment: MainAxisAlignment.end,
+//   children: [
+//     Obx(
+//       () => CustomTitleButton(
+//         height: 30,
+//         width: 140,
+//         onPressed: () {
+//           //companyAll(context);
+//           myController.selectButton(6);
+//           _pageController.animateToPage(6,
+//               duration: Duration(milliseconds: 500),
+//               curve: Curves.ease);
+//         },
+//         text: 'See All',
+//         isSelected: myController.selectedIndex.value == 6,
+//       ),
+//     ),
+//   ],
+// )
+// ///new
+//                         if (MediaQuery.of(context).size.width >= 1100)
+//                           Row(
+//                             children: [
+//                               Container(
+//                                 width: 37,
+//                                 height: 25,
+//                                 decoration: BoxDecoration(
+//                                   color: ColorManager.white,
+//                                   borderRadius: BorderRadius.circular(9),
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Color(0x40000000),
+//                                       offset: Offset(0, 4),
+//                                       blurRadius: 4,
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 child: InkWell(
+//                                   onTap: () {
+//                                     showDialog(
+//                                       context: context,
+//                                       builder: (BuildContext context) {
+//                                         return ProfilePatientPopUp(
+//                                             onSearch: _searchByFilterWrapper);
+//                                       },
+//                                     );
+//                                   },
+//                                   child: Center(
+//                                     child: SvgPicture.asset(
+//                                         'images/menuLines.svg'),
+//                                   ),
+//                                 ),
+//                               ),
+//                               SizedBox(
+//                                   width:
+//                                       MediaQuery.of(context).size.width / 90),
+//                               Container(
+//                                 width: 32,
+//                                 height: 25,
+//                                 decoration: BoxDecoration(
+//                                   color: ColorManager.white,
+//                                   borderRadius: BorderRadius.circular(8),
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Color(0x40000000),
+//                                       offset: Offset(0, 4),
+//                                       blurRadius: 4,
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 child: InkWell(
+//                                   onTap: () {},
+//                                   child: Center(
+//                                     child: Text(
+//                                       'DZ',
+//                                       textAlign: TextAlign.center,
+//                                       style: GoogleFonts.firaSans(
+//                                         fontSize: 11,
+//                                         fontWeight: FontWeightManager.regular,
+//                                         color: ColorManager.black,
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                       ],
+//                     ),
+//                     SizedBox(height: 30, width: 140),
+//                     Expanded(
+//                       flex: 8,
+//                       child: FutureBuilder<SearchByEmployeeIdProfileData>(
+//                         future: getSearchByEmployeeIdProfileByText(
+//                             context, employeeId),
+//                         builder: (context, snapshot) {
+//                           if (snapshot.connectionState ==
+//                               ConnectionState.waiting) {
+//                             return Center(
+//                               child: CircularProgressIndicator(
+//                                 color: ColorManager.blueprime,
+//                               ),
+//                             );
+//                           }
+//                           if (employeeId == 0) {
+//                             return Center(
+//                               child: Text(
+//                                 AppString.dataNotFound,
+//                                 style: CustomTextStylesCommon.commonStyle(
+//                                   fontWeight: FontWeightManager.medium,
+//                                   fontSize: 12,
+//                                   color: ColorManager.mediumgrey,
+//                                 ),
+//                               ),
+//                             );
+//                           }
+//                           if (snapshot.hasData) {
+//                             SearchByEmployeeIdProfileData
+//                                 searchByEmployeeIdProfileData = snapshot.data!;
+//                             return PageView(
+//                               controller: _pageController,
+//                               physics: NeverScrollableScrollPhysics(),
+//                               children: [
+//                                 DashBoardScreen(),
+//                                 ManageScreen(
+//                                   searchByEmployeeIdProfileData:
+//                                       searchByEmployeeIdProfileData,
+//                                   employeeId:
+//                                       searchByEmployeeIdProfileData.employeeId!,
+//                                 ),
+//                                 AddEmployeeHomeScreen(),
+//                                 RegisterScreen(),
+//                                 NewOnboardScreen(),
+//                                 SeeAllHrScreen()
+//                               ],
+//                             );
+//                           }
+//                           return Container();
+//                         },
+//                       ),
+//                     ),
+//                   ]))

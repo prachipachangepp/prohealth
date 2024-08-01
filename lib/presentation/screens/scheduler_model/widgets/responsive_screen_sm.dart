@@ -9,30 +9,33 @@ class ResponsiveScreenSM extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= 850) {
-          return SMDesktopScreen();
+          return SMHomeScreen();
         } else {
-          return const EMTabletScreen();
+          return Container(
+            color: Colors.white,
+            height: 100,
+            width: 500,
+            child: Center(
+              child: Text('Tablet Screen Scheduler & Intake',style: TextStyle(fontSize: 20),
+              ),
+            ),
+          );
         }
       },
     );
   }
 }
 
-class EMTabletScreen extends StatelessWidget {
-  const EMTabletScreen({super.key});
+class SMHomeScreen extends StatefulWidget {
+  const SMHomeScreen({super.key});
 
   @override
+  State<SMHomeScreen> createState() => _EMHomeScreenState();
+}
+
+class _EMHomeScreenState extends State<SMHomeScreen> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Tablet Screen'),
-      ),
-      body: Center(
-        child: Text(
-          'Tablet Screen Scheduler & Intake',
-          style: TextStyle(fontSize: 20.0),
-        ),
-      ),
-    );
+    return SMDesktopScreen();
   }
 }

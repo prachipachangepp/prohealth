@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/intake_referral_home_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_dashboard/sm_dashboard_screen.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/value_manager.dart';
@@ -10,6 +12,7 @@ import '../../../widgets/app_bar/app_bar.dart';
 import '../../../widgets/widgets/const_appbar/controller.dart';
 import '../../hr_module/manage/widgets/bottom_row.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../sm_scheduler/sm_scheduler_screen.dart';
 
 class SMDesktopScreen extends StatelessWidget {
   final PageController _pageController = PageController();
@@ -148,9 +151,9 @@ class SMDesktopScreen extends StatelessWidget {
                 controller: _pageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  Container(color: ColorManager.white),
-                  Container(color: ColorManager.red),
-                  Container(color: ColorManager.cream),
+                  SMDashboardScreen(),
+                  SMIntakeScreen(),
+                 SMSchedulerScreen(),
                   Container(color: ColorManager.grey),
 
                   // WhitelabellingScreen()

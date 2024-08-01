@@ -17,6 +17,7 @@ import '../../../../app/resources/value_manager.dart';
 import '../../hr_module/hr_home_screen/desk_dashboard_hrm.dart';
 import '../../../widgets/widgets/login_screen/widgets/child_container_constant_login.dart';
 import '../../em_module/responsive_screen_em.dart';
+import '../../scheduler_model/widgets/responsive_screen_sm.dart';
 
 class HomeScreenWeb extends StatelessWidget {
   const HomeScreenWeb({super.key});
@@ -235,7 +236,7 @@ class HomeScreenWeb extends StatelessWidget {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          SMDesktopScreen()));
+                                                          ResponsiveScreenSM()));
                                             },
                                             child: const ResponsiveContainer(
                                               'Intake & Scheduler',
