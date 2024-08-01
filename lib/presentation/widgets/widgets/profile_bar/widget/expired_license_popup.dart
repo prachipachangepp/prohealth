@@ -66,7 +66,7 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
               ),
             ),
             const SizedBox(
-              height: 100,
+              height: 20,
             ),
             widget.child,
           ],
