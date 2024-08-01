@@ -47,9 +47,10 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-               width: 100,
-              margin: EdgeInsets.only(right: 20),
+
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
+                  width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
