@@ -46,6 +46,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
               // width: 100,
               margin: const EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
+                  width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
