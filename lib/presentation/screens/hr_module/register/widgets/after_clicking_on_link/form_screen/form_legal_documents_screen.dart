@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../form_nine_screen.dart';
 
 class LegalDocumentsScreen extends StatefulWidget {
   const LegalDocumentsScreen({
@@ -190,7 +191,11 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // fill info action
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const FormNineScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff50B5E5),

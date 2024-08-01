@@ -47,9 +47,10 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              // width: 100,
-              margin: EdgeInsets.only(right: 20),
+
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
+                  width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
@@ -185,23 +186,26 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Icon(
-                            Icons.broken_image,
-                            size: 45,
-                            color: ColorManager.faintGrey,
+                            Icons.file_copy_outlined,
+                            //Icons.broken_image,
+                            size: 25,
+                            color: ColorManager.blueprime,
                           );
                         },
                       );
                     } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
                       fileWidget = Icon(
-                        Icons.description,
-                        size: 45,
-                        color: ColorManager.faintGrey,
+                        Icons.file_copy_outlined,
+                        //Icons.description,
+                        size: 25,
+                        color: ColorManager.blueprime,
                       );
                     } else {
                       fileWidget = Icon(
-                        Icons.insert_drive_file,
-                        size: 45,
-                        color: ColorManager.faintGrey,
+                        Icons.file_copy_outlined,
+                        //Icons.insert_drive_file,
+                        size: 25,
+                        color: ColorManager.blueprime,
                       );
                     }
 
@@ -220,7 +224,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                   borderRadius: BorderRadius.circular(4),
                                   border: Border.all(width: 2, color: ColorManager.faintGrey),
                                 ),
-                                child: fileWidget,
+                                child: Image.asset('images/Vector.png')
                               ),
                             ),
                             SizedBox(width: 10),

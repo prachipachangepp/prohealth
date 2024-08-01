@@ -74,7 +74,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                   children: List.generate(snapshot.data!.length
                       , (index){
                     return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25,vertical: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 15),
                       child: Container(
                         width: MediaQuery.of(context).size.width/2.3,
                         child: Row(
@@ -151,7 +151,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
             ),
           );
         }
-        return SizedBox();
+        return const SizedBox();
       }
     );
   }
@@ -181,8 +181,12 @@ class BankingContainerConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
+
+    const SizedBox(height: 30,);
     return Expanded(
+
       child: Container(
+
         padding: const EdgeInsets.all(8),
         height: MediaQuery.of(context).size.height/3.3,
         decoration: BoxDecoration(
@@ -196,6 +200,7 @@ class BankingContainerConst extends StatelessWidget {
             ),
           ],
         ),
+
         child: Column(
           children: [
             Row(
@@ -204,10 +209,11 @@ class BankingContainerConst extends StatelessWidget {
                  Text("Bank #${bankId.toString()}",
                   style: GoogleFonts.firaSans(
                     fontSize: AppSize.s13,
-                    color: Color(0xFF333333),
+                    color: const Color(0xFF333333),
                     fontWeight: FontWeight.w500,
                   ),),
                 Container(
+                 // color: Colors.cyan,
                   decoration: const BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -304,7 +310,7 @@ class BankingContainerConst extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -344,7 +350,7 @@ class BankingContainerConst extends StatelessWidget {
                 Flexible(
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xff1696C8)),
+                      border: Border.all(color: const Color(0xff1696C8)),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: IconButtonWidget(
@@ -358,7 +364,7 @@ class BankingContainerConst extends StatelessWidget {
                 SizedBox(width: MediaQuery.of(context).size.width/180),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xff1696C8)),
+                    border: Border.all(color: const Color(0xff1696C8)),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: IconButtonWidget(
@@ -386,7 +392,7 @@ class BankingContainerConst extends StatelessWidget {
                 Flexible(
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xff1696C8)),
+                      border: Border.all(color: const Color(0xff1696C8)),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: IconButtonWidget(

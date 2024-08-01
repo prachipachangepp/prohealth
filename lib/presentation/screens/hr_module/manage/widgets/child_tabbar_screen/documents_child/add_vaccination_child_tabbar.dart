@@ -54,6 +54,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
               // width: 100,
               margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
+                  width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
