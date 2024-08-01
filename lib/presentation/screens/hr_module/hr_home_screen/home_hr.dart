@@ -187,18 +187,35 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 55,
                     ),
+                    // Obx(
+                    //   () => CustomTitleButton(
+                    //       height: 30,
+                    //       width: 140,
+                    //       onPressed: () {
+                    //         myController.selectButton(2);
+                    //         _pageController.animateToPage(2,
+                    //             duration: Duration(milliseconds: 500),
+                    //             curve: Curves.ease);
+                    //       },
+                    //       text: 'Add Employee',
+                    //       isSelected: myController.selectedIndex.value == 2),
+                    // ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 55,
+                    // ),
                     Obx(
                       () => CustomTitleButton(
-                          height: 30,
-                          width: 140,
-                          onPressed: () {
-                            myController.selectButton(2);
-                            _pageController.animateToPage(2,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Add Employee',
-                          isSelected: myController.selectedIndex.value == 2),
+                        height: 30,
+                        width: 140,
+                        onPressed: () {
+                          myController.selectButton(2);
+                          _pageController.animateToPage(2,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease);
+                        },
+                        text: 'Register',
+                        isSelected: myController.selectedIndex.value == 2,
+                      ),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 55,
@@ -213,32 +230,15 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
                         },
-                        text: 'Register',
-                        isSelected: myController.selectedIndex.value == 3,
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 55,
-                    ),
-                    Obx(
-                      () => CustomTitleButton(
-                        height: 30,
-                        width: 140,
-                        onPressed: () {
-                          myController.selectButton(4);
-                          _pageController.animateToPage(4,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                        },
                         text: 'Onboarding',
-                        isSelected: myController.selectedIndex.value == 4,
+                        isSelected: myController.selectedIndex.value == 3,
                       ),
                     ),
                   ],
                 ),
 
                 /// search text
-                Row(
+                  Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -458,6 +458,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         : SizedBox(width: 1),
                   ],
                 ),
+
                 SizedBox(
                   height: 30,
                         width: 140,
@@ -502,14 +503,25 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     );
                   }
                   if (employeeId == 0) {
-                    return Center(
-                        child: Text(
-                          AppString.dataNotFound,
-                          style: CustomTextStylesCommon.commonStyle(
-                              fontWeight: FontWeightManager.medium,
-                              fontSize: FontSize.s12,
-                              color: ColorManager.mediumgrey),
-                        ));
+                    return PageView(
+                      controller: _pageController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        DashBoardScreen(),
+                        Center(
+                            child: Text(
+                              AppString.dataNotFound,
+                              style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey),
+                            )),
+                        //AddEmployeeHomeScreen(),
+                        RegisterScreen(),
+                        NewOnboardScreen(),
+                        //SeeAllHrScreen()
+                      ],
+                    );
                   }
                   if (snapshot.hasData) {
                     SearchByEmployeeIdProfileData
@@ -520,15 +532,14 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                       physics: NeverScrollableScrollPhysics(),
                       children: [
                         DashBoardScreen(),
-
                         ManageScreen(
                           searchByEmployeeIdProfileData:
                           searchByEmployeeIdProfileData, employeeId: searchByEmployeeIdProfileData.employeeId!,
                         ),
-                        AddEmployeeHomeScreen(),
+                        //AddEmployeeHomeScreen(),
                         RegisterScreen(),
                         NewOnboardScreen(),
-                        SeeAllHrScreen()
+                      //  SeeAllHrScreen()
                       ],
                     );
                   }
