@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/hr_home_screen.dart';
 import 'package:prohealth/presentation/screens/login_module/login/login_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/sm_desktop_screen.dart';
@@ -16,6 +17,7 @@ import '../../../../app/resources/value_manager.dart';
 import '../../hr_module/hr_home_screen/desk_dashboard_hrm.dart';
 import '../../../widgets/widgets/login_screen/widgets/child_container_constant_login.dart';
 import '../../em_module/responsive_screen_em.dart';
+import '../../scheduler_model/widgets/responsive_screen_sm.dart';
 
 class HomeScreenWeb extends StatelessWidget {
   const HomeScreenWeb({super.key});
@@ -234,7 +236,7 @@ class HomeScreenWeb extends StatelessWidget {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          SMDesktopScreen()));
+                                                          ResponsiveScreenSM()));
                                             },
                                             child: const ResponsiveContainer(
                                               'Intake & Scheduler',

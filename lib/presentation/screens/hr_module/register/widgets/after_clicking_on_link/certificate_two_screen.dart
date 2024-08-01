@@ -278,7 +278,7 @@ class CertificateOfCompletionScreen extends StatelessWidget {
             SizedBox(width: 10),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => OnBoardingThankYou()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const OnBoardingThankYou()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF50B5E5),

@@ -17,7 +17,7 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-             // color: Colors.green,
+              // color: Colors.green,
               child: TabBar(
                 controller: controller.tabController,
                 tabs: controller.tabs,
@@ -27,26 +27,39 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
                 indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(width: 6, color: Color(0xFF50B5E5)),
                     borderRadius: BorderRadius.circular(13)),
-               indicatorSize: TabBarIndicatorSize.tab,
+                indicatorSize: TabBarIndicatorSize.tab,
                 labelColor: Color(0xFF50B5E5),
                 labelStyle: GoogleFonts.firaSans(
                   fontSize: 12,
-                  fontWeight:
-                  FontWeight.w700,
+                  fontWeight: FontWeight.w700,
                 ),
                 unselectedLabelColor: ColorManager.textPrimaryColor,
                 dividerColor: Colors.transparent,
               ),
             ),
+            // SizedBox(
+            //  // color: Colors.purpleAccent,
+            //   height: 700,//controller.tabBarViewHeight,
+            //   child: TabBarView(
+            //     physics: const NeverScrollableScrollPhysics(),
+            //     controller: controller.tabController,
+            //     children: controller.tabViews,
+            //   ),
+            // ),
+
             Container(
-            //  color: Colors.purpleAccent,
+             // color: Colors.purpleAccent,
               height: controller.tabBarViewHeight,
               child: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 controller: controller.tabController,
                 children: controller.tabViews,
               ),
             ),
+
+
+            // Container(height: 200,
+            //   color: Colors.pink,)
           ],
         ),
       ),
