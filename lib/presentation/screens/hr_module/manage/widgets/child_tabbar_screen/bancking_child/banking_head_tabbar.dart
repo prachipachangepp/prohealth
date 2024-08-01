@@ -86,6 +86,8 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                               value: snapshot.data![index].approve,
                               onChanged: (value) {
                                 setState(() {
+                                 // snapshot.data![index].approve == true ?
+                                    //  rejectBankPatch(context, snapshot.data![index].empBankingId):
                                   approveBankPatch(context,snapshot.data![index].empBankingId);
                                 });
                               },

@@ -24,7 +24,8 @@ import 'package:http/http.dart' as http;
 import '../../../../../../../../app/resources/theme_manager.dart';
 
 class CompensationChildTabbar extends StatefulWidget {
-  const CompensationChildTabbar({super.key});
+  final int employeeId;
+  const CompensationChildTabbar({super.key, required this.employeeId});
 
   @override
   State<CompensationChildTabbar> createState() =>
@@ -42,6 +43,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
   final StreamController<List<EmployeeDocumentModal>> _controller =
       StreamController<List<EmployeeDocumentModal>>();
   String expiryType = '';
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -67,6 +69,9 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                             labelName: 'Add Compensation',
                             AcknowledgementnameController:
                             compensitionAddNameController, onSavePressed: () {  },
+                            employeeId: widget.employeeId,
+                            documentMetaId: 11,
+                            documentSetupId: 36,
                             child: FutureBuilder<List<EmployeeDocSetupModal>>(
                                 future: getEmployeeDocSetupDropDown(context),
                                 builder: (context,snapshot) {
@@ -149,7 +154,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
         StreamBuilder(
             stream: _controllerCompensation.stream,
             builder: (context, snapshot) {
-              getAckHealthRecord(context, 11, 36, 36).then((data) {
+              getAckHealthRecord(context, 11, 36, widget.employeeId).then((data) {
                 _controllerCompensation.add(data);
               }).catchError((error) {
                 // Handle error
@@ -350,6 +355,9 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                                 labelName: 'Edit Compensation',
                                                 AcknowledgementnameController:
                                                 editCompensationNameController, onSavePressed: () {  },
+                                                employeeId: widget.employeeId,
+                                                documentMetaId: 11,
+                                                documentSetupId: 36,
                                                 child: FutureBuilder<List<EmployeeDocSetupModal>>(
                                                     future: getEmployeeDocSetupDropDown(context),
                                                     builder: (context,snapshot) {
