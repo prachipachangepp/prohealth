@@ -101,6 +101,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomIconButtonConst(
+            width: 170,
             text: AppString.addemployeetype,
             icon: Icons.add,
             onPressed: () {

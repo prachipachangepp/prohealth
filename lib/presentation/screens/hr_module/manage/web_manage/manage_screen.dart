@@ -248,10 +248,12 @@ class _ManageScreenState extends State<ManageScreen> {
                 ],
               ),
             ),
+
             /// bottom row
-            const BottomBarRow(),
+            // const BottomBarRow(),
           ],
         ),
+        bottomNavigationBar: const BottomBarRow(),
       );
   }
 }

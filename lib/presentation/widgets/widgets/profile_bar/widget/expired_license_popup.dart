@@ -8,7 +8,8 @@ import 'package:prohealth/app/resources/value_manager.dart';
 class ExpiredLicensePopup extends StatefulWidget {
   final String title;
   final Widget child;
-  const ExpiredLicensePopup({super.key, required this.title, required this.child});
+  const ExpiredLicensePopup(
+      {super.key, required this.title, required this.child});
 
   @override
   State<ExpiredLicensePopup> createState() => _ExpiredLicensePopupState();
@@ -20,8 +21,8 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s833,
-        height: AppSize.s492,
+        width: AppSize.s850,
+        height: AppSize.s600,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -30,30 +31,44 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
           child: Column(
             children: [
               Container(
-                height: 49,
-                decoration: BoxDecoration(color: ColorManager.blueprime,borderRadius: const BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8))),
+                height: 40,
+                decoration: BoxDecoration(
+                    color: ColorManager.blueprime,
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8))),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding:EdgeInsets.symmetric(vertical: 8,horizontal: 20),
-                      child: Text(widget.title,style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
-                      ),),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 20),
+                      child: Text(
+                        widget.title,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
                     ),
                     IconButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon:  Icon(Icons.close,color: ColorManager.white,),
+                      icon: Icon(
+                        Icons.close,
+                        color: ColorManager.white,
+                        size: 16,
+                      ),
                     ),
                   ],
                 ),
               ),
-               SizedBox(height: 20),
+              const SizedBox(
+                height: 20,
+              ),
               widget.child,
             ],
           ),

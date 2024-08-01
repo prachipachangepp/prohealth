@@ -165,23 +165,21 @@ class _OfferLetterDescriptionScreenState
                 }
               },
             ),
-
             SizedBox(height: MediaQuery.of(context).size.height / 100),
             Padding(
-              padding: const EdgeInsets.only(left: 230.0),
-              child: Container(
-                height: 70,
-                width: 200,
-                // color: Colors.yellow,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    // SizedBox(width: 30),
-                    signatureBytes != null
+              padding: const EdgeInsets.only(left: 180.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 70,
+                    width: 200,
+                    // color: Colors.yellow,
+                    child: signatureBytes != null
                         ? Image.memory(signatureBytes!)
                         : Text(''),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -343,7 +341,7 @@ class _OfferLetterDescriptionScreenState
                   ],
                 ),
               ),
-            Row(
+               Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(

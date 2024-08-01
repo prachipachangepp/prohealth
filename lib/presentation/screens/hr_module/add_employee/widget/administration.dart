@@ -341,6 +341,10 @@ class _AdministartionTabState extends State<AdministartionTab> {
                            width: 125,
                            height: 30,
                            onPressed: uploadImage, text: 'Upload Photo',
+                            style: GoogleFonts.firaSans(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w700
+                          ),
                          )
                         ]),
                   ),
