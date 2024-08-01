@@ -9,6 +9,7 @@ import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'dart:html' as html;
 import 'package:http/http.dart' as http;
+import 'package:universal_io/io.dart';
 
 // Future<ApiData> uploadDocuments({
 //   required BuildContext context,
@@ -60,7 +61,7 @@ Future<void> uploadHttpDocuments({
   required int employeeDocumentMetaId,
   required int employeeDocumentTypeSetupId,
   required int employeeId,
-  required XFile documentFile,
+  required File documentFile,
   required String documentName
 }) async {
   try {
@@ -91,26 +92,27 @@ Future<void> uploadHttpDocuments({
     // }
     // await convertHtmlFileToXFile(file as String);
     // print("::::${file}");
-    print("XFile :::${documentFile.path.toString()}" );
+    print("File :::${documentFile.path.toString()}" );
     print("Token :: $token");
 var request = http.MultipartRequest('POST',
     Uri.parse('${AppConfig.dev}/employee-documents/uploadDocument/$employeeDocumentMetaId/$employeeDocumentTypeSetupId/$employeeId'));
-request.files.add(http.MultipartFile.fromString('file',documentFile.path));
+request.files.add(await http.MultipartFile.fromPath('file', '/C:/Users/shubham/Downloads/file-document-black.png'));
+// request.files.add(http.MultipartFile.fromPath('file',documentFile.path) as http.MultipartFile);
 request.headers.addAll(headers);
 
-http.StreamedResponse response = await request.send();
-    var responseData = await http.Response.fromStream(response);
+// http.StreamedResponse response = await request.send();
+//     var responseData = await http.Response.fromStream(response);
 
-print("Response ::: ${responseData.body}");
-if (response.statusCode == 200 || response.statusCode == 201) {
-  print("Uploded");
-print(await response.stream.bytesToString());
-}
-else {
-  print("Faild");
-  print("${response.statusCode}");
-print(response.reasonPhrase);
-}
+print("Request ::: ${request}");
+// if (response.statusCode == 200 || response.statusCode == 201) {
+//   print("Uploded");
+// print(await response.stream.bytesToString());
+// }
+// else {
+//   print("Faild");
+//   print("${response.statusCode}");
+// print(response.reasonPhrase);
+// }
   } catch (e) {
     print("Error $e");
   }

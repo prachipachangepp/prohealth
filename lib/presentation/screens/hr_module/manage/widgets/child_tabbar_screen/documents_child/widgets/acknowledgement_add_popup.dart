@@ -185,6 +185,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   var fileName;
   var fileName1;
   XFile? filePath;
+  File? xfileToFile;
   var finalPath;
   // PlatformFile? fileName;
 
@@ -216,6 +217,16 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
 
     // Return the XFile created from the object URL
     return XFile(url);
+  }
+
+  Future<Uint8List> loadFileBytes() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/somefile.txt');
+    if (await file.exists()) {
+      return await file.readAsBytes();
+    } else {
+      throw Exception('File not found');
+    }
   }
 
 
@@ -311,32 +322,49 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                     SizedBox(height: AppSize.s20),
                     GestureDetector(
                       onTap: () async {
-                        FilePickerResult? result = await FilePicker.platform.pickFiles(
-                          allowMultiple: false,
-                        );
+                        // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                        //   allowMultiple: false,
+                        // );
+                        FilePickerResult? result = await FilePicker.platform.pickFiles();
+
                         if (result != null) {
                           try{
-                            Uint8List? bytes = result.files.first.bytes;
-                            XFile xlfile = XFile(result.xFiles.first.path);
-                            print("::::XFile ${xlfile.toString()}");
-                            XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-                            // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-                            // html.File file = webFile.file;
-                             print("XFILE ${xFile.path}");
-                             filePath = xlfile;
-                             print("L::::::${filePath}");
-                              fileName = result.files.first.name;
-                            print('File picked: ${fileName}');
-                            //print(String.fromCharCodes(file));
-                            finalPath;
-                            setState(() {
-                              widget.AcknowledgementnameController.text = fileName;
-                              _documentUploaded = true;
-                            });
+                            File file = File(result.files.single.path!);
+                            print("file path::::${file}");
                           }catch(e){
                             print(e);
                           }
+
+                        } else {
+                          // User canceled the picker
                         }
+                        // if (result != null) {
+                        //   print("Result::: ${result}");
+                        //
+                        //   try{
+                        //     Uint8List? bytes = result.files.first.bytes;
+                        //     XFile xlfile = XFile(result.xFiles.first.path);
+                        //     xfileToFile = File(xlfile.path);
+                        //
+                        //     print("::::XFile To File ${xfileToFile.toString()}");
+                        //     XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
+                        //     // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
+                        //     // html.File file = webFile.file;
+                        //     //  print("XFILE ${xFile.path}");
+                        //     //  //filePath = xfileToFile as XFile?;
+                        //     //  print("L::::::${filePath}");
+                        //       fileName = result.files.first.name;
+                        //     print('File picked: ${fileName}');
+                        //     //print(String.fromCharCodes(file));
+                        //     finalPath;
+                        //     setState(() {
+                        //       widget.AcknowledgementnameController.text = fileName;
+                        //       _documentUploaded = true;
+                        //     });
+                        //   }catch(e){
+                        //     print(e);
+                        //   }
+                        // }
                         // if(file != null ){
                         //
                         // }
@@ -359,6 +387,11 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                 ),
               ),
             ),
+            filePath == null ? Offstage():
+            Container(
+              height: 60,
+              width: 60,
+              child: Image(image: NetworkImage(filePath as String)),),
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
@@ -373,7 +406,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                         //File filePath = File(finalPath!);
                         await uploadHttpDocuments(context: context, employeeDocumentMetaId: 2, employeeDocumentTypeSetupId: 6,
                             employeeId: 8, documentName: widget.AcknowledgementnameController.text,
-                            documentFile: filePath!);
+                            documentFile: xfileToFile!);
                       }catch(e){
                         print(e);
                       }

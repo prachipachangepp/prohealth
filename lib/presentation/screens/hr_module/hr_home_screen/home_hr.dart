@@ -82,6 +82,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         _removeOverlay();
                         setState(() {
                           employeeId = id;
+                          getSearchByEmployeeIdProfileByText(context,employeeId);
                           myController.selectButton(1);
                           _pageController = PageController(initialPage: 1);
                         });
@@ -490,7 +491,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           ///page view
           Expanded(
             flex: 8,
-            child: FutureBuilder<SearchByEmployeeIdProfileData>(
+            child:FutureBuilder<SearchByEmployeeIdProfileData>(
                 future: getSearchByEmployeeIdProfileByText(context, employeeId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -503,25 +504,26 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   if (employeeId == 0) {
                     return Center(
                         child: Text(
-                      AppString.dataNotFound,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey),
-                    ));
+                          AppString.dataNotFound,
+                          style: CustomTextStylesCommon.commonStyle(
+                              fontWeight: FontWeightManager.medium,
+                              fontSize: FontSize.s12,
+                              color: ColorManager.mediumgrey),
+                        ));
                   }
                   if (snapshot.hasData) {
                     SearchByEmployeeIdProfileData
-                        searchByEmployeeIdProfileData = snapshot.data!;
+                    searchByEmployeeIdProfileData = snapshot.data!;
                     print("Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
                     return PageView(
                       controller: _pageController,
                       physics: NeverScrollableScrollPhysics(),
                       children: [
                         DashBoardScreen(),
+
                         ManageScreen(
                           searchByEmployeeIdProfileData:
-                              searchByEmployeeIdProfileData, employeeId: searchByEmployeeIdProfileData.employeeId!,
+                          searchByEmployeeIdProfileData, employeeId: searchByEmployeeIdProfileData.employeeId!,
                         ),
                         AddEmployeeHomeScreen(),
                         RegisterScreen(),
@@ -532,6 +534,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   }
                   return Container();
                 }),
+
           ),
           // BottomAppBar()
         ],

@@ -1348,7 +1348,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   Future<String> _generateUrlLink(String email, String Id) async {
     final String user = email;
     final String id = Id;
-    final String url = 'http://$user/$id';
+    final String url = 'https://staging.symmetry.care/$id';
     generatedURL = url;
     print('Generated URL: $generatedURL');
     return url;
