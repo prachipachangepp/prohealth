@@ -185,7 +185,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Icon(
-                            Icons.broken_image,
+                            Icons.file_copy_outlined,
+                            //Icons.broken_image,
                             size: 25,
                             color: ColorManager.blueprime,
                           );
@@ -193,13 +194,15 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                       );
                     } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
                       fileWidget = Icon(
-                        Icons.description,
+                        Icons.file_copy_outlined,
+                        //Icons.description,
                         size: 25,
                         color: ColorManager.blueprime,
                       );
                     } else {
                       fileWidget = Icon(
-                        Icons.insert_drive_file,
+                        Icons.file_copy_outlined,
+                        //Icons.insert_drive_file,
                         size: 25,
                         color: ColorManager.blueprime,
                       );
@@ -220,7 +223,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                   borderRadius: BorderRadius.circular(4),
                                   border: Border.all(width: 2, color: ColorManager.faintGrey),
                                 ),
-                                child: fileWidget,
+                                child: Image.asset('images/Vector.png')
                               ),
                             ),
                             SizedBox(width: 10),

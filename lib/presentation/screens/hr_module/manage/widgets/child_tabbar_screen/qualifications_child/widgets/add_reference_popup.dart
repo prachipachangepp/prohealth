@@ -17,10 +17,23 @@ class AddReferencePopup extends StatefulWidget {
   final TextEditingController companyNameController;
   final TextEditingController associationLengthController;
   final TextEditingController mobileNumberController;
+  final TextEditingController referredBy;
   final String title;
-   VoidCallback onpressedClose;
+  VoidCallback onpressedClose;
   Future<void> Function() onpressedSave;
-   AddReferencePopup({super.key, required this.nameController, required this.emailController, required this.titlePositionController, required this.knowPersonController, required this.companyNameController, required this.associationLengthController, required this.mobileNumberController, required this.onpressedClose, required this.onpressedSave, required this.title});
+  AddReferencePopup(
+      {super.key,
+      required this.nameController,
+      required this.emailController,
+      required this.titlePositionController,
+      required this.knowPersonController,
+      required this.companyNameController,
+      required this.associationLengthController,
+      required this.mobileNumberController,
+      required this.onpressedClose,
+      required this.onpressedSave,
+      required this.title,
+      required this.referredBy});
 
   @override
   State<AddReferencePopup> createState() => _AddReferencePopupState();
@@ -30,11 +43,11 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return  Dialog(
+    return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: MediaQuery.of(context).size.width/1.5,
-        height: MediaQuery.of(context).size.height/1.7,
+        width: MediaQuery.of(context).size.width / 1.5,
+        height: MediaQuery.of(context).size.height / 1.7,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -54,36 +67,43 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                    child: Text(widget.title,style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 15),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
                   ),
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: const Icon(Icons.close,color: Colors.white,),
+                    icon: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height:MediaQuery.of(context).size.height/20),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextFieldRegister(
                   height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
+                  width: MediaQuery.of(context).size.width / 6,
                   controller: widget.nameController,
                   labelText: "Name",
                   keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-                  },
+                  padding: const EdgeInsets.only(
+                      bottom: AppPadding.p5, left: AppPadding.p20),
+                  onChanged: (value) {},
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return AppString.enterText;
@@ -93,14 +113,13 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 ),
                 CustomTextFieldRegister(
                   height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
+                  width: MediaQuery.of(context).size.width / 6,
                   controller: widget.emailController,
                   labelText: "Email",
                   keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
+                  padding: const EdgeInsets.only(
+                      bottom: AppPadding.p5, left: AppPadding.p20),
+                  onChanged: (value) {},
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return AppString.enterText;
@@ -110,14 +129,13 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 ),
                 CustomTextFieldRegister(
                   height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
+                  width: MediaQuery.of(context).size.width / 6,
                   controller: widget.titlePositionController,
                   labelText: "Title/Position",
                   keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
+                  padding: const EdgeInsets.only(
+                      bottom: AppPadding.p5, left: AppPadding.p20),
+                  onChanged: (value) {},
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return AppString.enterText;
@@ -125,23 +143,21 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                     return null;
                   },
                 ),
-
               ],
             ),
-            SizedBox(height:MediaQuery.of(context).size.height/20),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextFieldRegister(
                   height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
+                  width: MediaQuery.of(context).size.width / 6,
                   controller: widget.knowPersonController,
                   labelText: "How do you know this person ?",
                   keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
+                  padding: const EdgeInsets.only(
+                      bottom: AppPadding.p5, left: AppPadding.p20),
+                  onChanged: (value) {},
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return AppString.enterText;
@@ -151,14 +167,13 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 ),
                 CustomTextFieldRegister(
                   height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
+                  width: MediaQuery.of(context).size.width / 6,
                   controller: widget.companyNameController,
                   labelText: "Company",
                   keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
+                  padding: const EdgeInsets.only(
+                      bottom: AppPadding.p5, left: AppPadding.p20),
+                  onChanged: (value) {},
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return AppString.enterText;
@@ -168,14 +183,13 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 ),
                 CustomTextFieldRegister(
                   height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
+                  width: MediaQuery.of(context).size.width / 6,
                   controller: widget.associationLengthController,
                   labelText: "Length of Association",
                   keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
+                  padding: const EdgeInsets.only(
+                      bottom: AppPadding.p5, left: AppPadding.p20),
+                  onChanged: (value) {},
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return AppString.enterText;
@@ -183,23 +197,21 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                     return null;
                   },
                 ),
-
               ],
             ),
-            SizedBox(height:MediaQuery.of(context).size.height/20),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextFieldRegister(
                   height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
+                  width: MediaQuery.of(context).size.width / 6,
                   controller: widget.mobileNumberController,
                   labelText: "Mobile Number",
                   keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
+                  padding: const EdgeInsets.only(
+                      bottom: AppPadding.p5, left: AppPadding.p20),
+                  onChanged: (value) {},
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return AppString.enterText;
@@ -207,55 +219,81 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                     return null;
                   },
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/6,),
-                SizedBox(width: MediaQuery.of(context).size.width/6,),
+                CustomTextFieldRegister(
+                  height: AppSize.s30,
+                  width: MediaQuery.of(context).size.width / 6,
+                  controller: widget.referredBy,
+                  labelText: "Referred By",
+                  keyboardType: TextInputType.text,
+                  padding: const EdgeInsets.only(
+                      bottom: AppPadding.p5, left: AppPadding.p20),
+                  onChanged: (value) {},
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return AppString.enterText;
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 6,
+                ),
               ],
             ),
-            SizedBox(height:MediaQuery.of(context).size.height/15),
+            SizedBox(height: MediaQuery.of(context).size.height / 15),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  CustomButtonTransparent(text: "Cancel", onPressed:(){}),
-                  const SizedBox(width: 10,),
-                 isLoading ? SizedBox(
-                   height: 25,
-                     width: 25,
-                     child: CircularProgressIndicator(color: ColorManager.blueprime,))
-                     : CustomElevatedButton(text: "Save",onPressed: () async{
-                   setState(() {
-                     isLoading = true;
-                   });
-                   try {
-                     await widget.onpressedSave();
-                   } finally {
-                     setState(() {
-                       isLoading = false;
-                     });
-                     Navigator.pop(context);
-                     showDialog(
-                       context: context,
-                       builder: (BuildContext context) {
-                         Future.delayed(Duration(seconds: 3), () {
-                           if (Navigator.of(context).canPop()) {
-                             Navigator.of(context).pop();
-                           }
-                         });
-                         return AddSuccessPopup(message: 'Added Successfully',);
-                       },
-                     );
-                     widget.nameController.clear();
-                     widget.emailController.clear();
-                     widget.companyNameController.clear();
-                     widget.titlePositionController.clear();
-                     widget.mobileNumberController.clear();
-                     widget.associationLengthController.clear();
-                     widget.knowPersonController.clear();
-                   }
-
-                  }),
-
+                  CustomButtonTransparent(text: "Cancel", onPressed: () {}),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  isLoading
+                      ? SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator(
+                            color: ColorManager.blueprime,
+                          ))
+                      : CustomElevatedButton(
+                    width: 100,
+                          text: "Save",
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            try {
+                              await widget.onpressedSave();
+                            } finally {
+                              setState(() {
+                                isLoading = false;
+                              });
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  Future.delayed(Duration(seconds: 3), () {
+                                    if (Navigator.of(context).canPop()) {
+                                      Navigator.of(context).pop();
+                                    }
+                                  });
+                                  return AddSuccessPopup(
+                                    message: 'Added Successfully',
+                                  );
+                                },
+                              );
+                              widget.nameController.clear();
+                              widget.emailController.clear();
+                              widget.companyNameController.clear();
+                              widget.titlePositionController.clear();
+                              widget.mobileNumberController.clear();
+                              widget.associationLengthController.clear();
+                              widget.knowPersonController.clear();
+                              widget.referredBy.clear();
+                            }
+                          }),
                 ],
               ),
             )
@@ -547,10 +585,6 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
 //     );
 //   }
 // }
-
-
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:flutter_html/flutter_html.dart';
