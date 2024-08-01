@@ -400,6 +400,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                       print("Code ${widget.AcknowledgementnameController.text}");
                       // widget.onSavePressed();
                       Navigator.pop(context);
+                      widget.AcknowledgementnameController.clear();
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
