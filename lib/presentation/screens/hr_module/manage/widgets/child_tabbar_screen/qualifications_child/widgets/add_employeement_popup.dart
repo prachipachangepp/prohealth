@@ -192,17 +192,21 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               ],
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
-            Padding(
-              padding: const EdgeInsets.only(left: 50),
-              child: Row(
-                children: [
-                  _buildTextField(
-                    controller: widget.countryController,
-                    labelText: "Country Name",
-                    errorKey: 'countryname',
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildTextField(
+                  controller: widget.countryController,
+                  labelText: "Country Name",
+                  errorKey: 'countryname',
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 6,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 6,
+                ),
+              ],
             ),
             Spacer(),
             Padding(
