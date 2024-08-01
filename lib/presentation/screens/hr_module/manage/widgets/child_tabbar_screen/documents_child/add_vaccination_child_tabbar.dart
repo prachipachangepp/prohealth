@@ -25,7 +25,8 @@ import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 class AdditionalVaccinationsChildBar extends StatefulWidget {
-  const AdditionalVaccinationsChildBar({super.key});
+  final int employeeId;
+  const AdditionalVaccinationsChildBar({super.key, required this.employeeId});
 
   @override
   State<AdditionalVaccinationsChildBar> createState() => _AdditionalVaccinationsChildBarState();
@@ -68,6 +69,9 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                             labelName: 'Add Health Record',
                             AcknowledgementnameController:
                             healthRecordAddNameController, onSavePressed: () {  },
+                            employeeId: widget.employeeId,
+                            documentMetaId: 1,
+                            documentSetupId: 10,
                             child: FutureBuilder<List<EmployeeDocSetupModal>>(
                                 future: getEmployeeDocSetupDropDown(context),
                                 builder: (context,snapshot) {
@@ -149,7 +153,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
         StreamBuilder(
           stream: _controller.stream,
           builder: (context,snapshot) {
-            getAckHealthRecord(context, 1,10,5).then((data) {
+            getAckHealthRecord(context, 1,10,widget.employeeId).then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -343,6 +347,9 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                               labelName: 'Edit Health Record',
                                               AcknowledgementnameController:
                                               nameIdController, onSavePressed: () {  },
+                                              employeeId: widget.employeeId,
+                                              documentMetaId: 1,
+                                              documentSetupId: 10,
                                               child: FutureBuilder<List<EmployeeDocSetupModal>>(
                                                   future: getEmployeeDocSetupDropDown(context),
                                                   builder: (context,snapshot) {

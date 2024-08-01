@@ -83,7 +83,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           StreamBuilder<List<RegisterDataCompID>>(
             stream: registerController.stream,
             builder: (context, snapshot) {
-              fetchData();
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 150),

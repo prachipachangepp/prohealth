@@ -583,7 +583,9 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
@@ -593,12 +595,15 @@ class CustomDocumedAddPopup extends StatefulWidget {
   final TextEditingController AcknowledgementnameController;
   final VoidCallback onSavePressed;
   final Widget child;
+  final int employeeId;
+  final int documentMetaId;
+  final int documentSetupId;
 
   const CustomDocumedAddPopup({
     Key? key,
     required this.labelName,
     required this.AcknowledgementnameController,
-    required this.onSavePressed, required this.child,
+    required this.onSavePressed, required this.child, required this.employeeId, required this.documentMetaId, required this.documentSetupId,
   }) : super(key: key);
 
   @override
@@ -609,6 +614,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
   final _formKey = GlobalKey<FormState>();
   String? _selectedDocumentType;
   bool _documentUploaded = true;
+  dynamic finalPath;
 
   @override
   Widget build(BuildContext context) {
@@ -707,6 +713,7 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                         );
                         if (result != null) {
                           PlatformFile file = result.files.first;
+                          finalPath = result.files.first.bytes;
                           print('File picked: ${file.name}');
                           setState(() {
                             widget.AcknowledgementnameController.text = file.name;
@@ -740,10 +747,23 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.submit,
-                  onPressed: () {
+                  onPressed: () async{
                     if (_formKey.currentState!.validate() && widget.AcknowledgementnameController.text.isNotEmpty) {
-                      widget.onSavePressed();
+                      await uploadDocuments(context: context, employeeDocumentMetaId: widget.documentMetaId, employeeDocumentTypeSetupId: widget.documentSetupId,
+                      employeeId: widget.employeeId, documentName: widget.AcknowledgementnameController.text,
+                      documentFile: finalPath);
                       Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          Future.delayed(Duration(seconds: 2), () {
+                            if (Navigator.of(context).canPop()) {
+                              Navigator.of(context).pop();
+                            }
+                          });
+                          return AddSuccessPopup(message: 'Document Uploded',);
+                        },
+                      );
                     } else {
                       setState(() {
                         _documentUploaded = widget.AcknowledgementnameController.text.isNotEmpty;

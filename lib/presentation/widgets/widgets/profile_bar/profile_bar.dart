@@ -491,7 +491,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                     style: ProfileBarConstText.profileTextStyle(
                                         context)),
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width / 17,
+                                  width: MediaQuery.of(context).size.width / 25,
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(right: 70.0),
