@@ -68,7 +68,6 @@ class _ManageWidgetState extends State<ManageWidget> {
     2,
     3
   ];
-
   final PageController _managePageController = PageController();
 
   int _selectedIndex = 0;

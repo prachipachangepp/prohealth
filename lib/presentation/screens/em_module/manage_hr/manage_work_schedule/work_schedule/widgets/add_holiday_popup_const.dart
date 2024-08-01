@@ -422,6 +422,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                     if (_formKey.currentState?.validate() ?? false) {
                       setState(() {
                         isLoading = true;
+                        Navigator.pop(context);
                       });
                       try {
                         await widget.onPressed();

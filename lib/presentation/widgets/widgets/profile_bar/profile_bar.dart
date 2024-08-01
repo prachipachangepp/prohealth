@@ -407,8 +407,8 @@ class _ProfileBarState extends State<ProfileBar> {
                               child: Text(
                                 AppString.viewzone,
                                 style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s9,
-                                    fontWeight: FontWeightManager.bold,
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeightManager.regular,
                                     color: ColorManager.white,
                                     decoration: TextDecoration.underline,
                                     decorationColor: ColorManager.white),

@@ -29,7 +29,7 @@ class HomeHrScreen extends StatefulWidget {
 
 class _HomeHrScreenState extends State<HomeHrScreen> {
   PageController _pageController = PageController();
-  final SMController smController = Get.put(SMController());
+  final EMController smController = Get.put(EMController());
   late final String? dropdownValue;
   late final ValueChanged<String?>? onChanged;
   final HRController hrController = Get.put(HRController());
@@ -457,7 +457,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         : SizedBox(width: 1),
                   ],
                 ),
-
+                SizedBox(
+                  height: 30,
+                        width: 140,
+                ),
                 ///see all
                 // Row(
                 //   crossAxisAlignment: CrossAxisAlignment.end,
@@ -536,3 +539,34 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

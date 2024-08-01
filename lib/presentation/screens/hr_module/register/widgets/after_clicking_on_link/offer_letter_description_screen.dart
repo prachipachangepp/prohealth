@@ -16,7 +16,10 @@ import 'multi_step_form.dart';
 
 
 class OfferLetterDescriptionScreen extends StatefulWidget {
-  const OfferLetterDescriptionScreen({super.key});
+  final Uint8List? signatureBytes;
+
+  OfferLetterDescriptionScreen({this.signatureBytes});
+
 
   @override
   State<OfferLetterDescriptionScreen> createState() =>
@@ -28,11 +31,19 @@ class _OfferLetterDescriptionScreenState
   PlatformFile? _selectedFile;
   Uint8List? _webImage;
   bool _isChecked = false;
+  Uint8List? signatureBytes;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the signatureBytes with the value passed from the previous screen
+    signatureBytes = widget.signatureBytes;
+  }
 
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
-      withData: kIsWeb, // for loading file on webb
+      withData: kIsWeb,
     );
 
     if (result != null) {
@@ -52,6 +63,7 @@ class _OfferLetterDescriptionScreenState
     }
   }
 
+
   void _clearSelectedFile() {
     setState(() {
       _selectedFile = null;
@@ -59,6 +71,38 @@ class _OfferLetterDescriptionScreenState
       _isChecked = false;
     });
   }
+
+  void _onSignatureSelected(Uint8List? image) {
+    setState(() {
+      _webImage = image;
+    });
+  }
+  // PlatformFile? _selectedFile;
+  // Uint8List? _webImage;
+  // bool _isChecked = false;
+  //
+  // Future<void> _pickFile() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //     type: FileType.image,
+  //     withData: kIsWeb, // for loading file on webb
+  //   );
+  //
+  //   if (result != null) {
+  //     setState(() {
+  //       _selectedFile = result.files.first;
+  //       if (kIsWeb) {
+  //         _webImage = _selectedFile!.bytes;
+  //       }
+  //       print("Selected file name: ${_selectedFile!.name}");
+  //       print("Selected file size: ${_selectedFile!.size} bytes");
+  //       if (!kIsWeb) {
+  //         print("Selected file path: ${_selectedFile!.path}");
+  //       }
+  //     });
+  //   } else {
+  //     print("File picking cancelled or failed.");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +132,9 @@ class _OfferLetterDescriptionScreenState
             FutureBuilder<OfferLetterData>(
               future:GetOfferLetter(context, 43, 1 ),
               builder: (context, snapshot) {
-                if(snapshot.connectionState == ConnectionState.waiting){
-                  return CircularProgressIndicator(color: Colors.blue,);
-                }
+                // if(snapshot.connectionState == ConnectionState.waiting){
+                //   return CircularProgressIndicator(color: Colors.blue,);
+                // }
                 if (snapshot.hasData) {
                   return Container(
                     color: Colors.white,
@@ -121,9 +165,23 @@ class _OfferLetterDescriptionScreenState
                 }
               },
             ),
-
             SizedBox(height: MediaQuery.of(context).size.height / 100),
-
+            Padding(
+              padding: const EdgeInsets.only(left: 180.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 70,
+                    width: 200,
+                    // color: Colors.yellow,
+                    child: signatureBytes != null
+                        ? Image.memory(signatureBytes!)
+                        : Text(''),
+                  ),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 230.0),
               child: Row(
@@ -132,48 +190,104 @@ class _OfferLetterDescriptionScreenState
                   Container(
                     width: MediaQuery.of(context).size.width / 10,
                     height: MediaQuery.of(context).size.height / 6,
-                    child: _selectedFile == null
+                    child: _webImage == null
                         ? Center(
-                            child: ElevatedButton(
-                              // onPressed: _pickFile,
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => SignaturePage()));
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff1696C8),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              child: Text(
-                                'Upload Sign',
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignaturePage(
+                                onSignatureSelected: (Uint8List? selectedSignature) {
+                                  setState(() {
+                                    signatureBytes = selectedSignature;
+                                  });
+                                },
                               ),
                             ),
-                          )
-                        : Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              if (kIsWeb && _webImage != null)
-                                Image.memory(
-                                  _webImage!,
-                                  fit: BoxFit.contain,
-                                )
-                              else if (!kIsWeb && _selectedFile != null)
-                                Image.file(
-                                  File(_selectedFile!.path!),
-                                  fit: BoxFit.contain,
-                                ),
-                            ],
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff1696C8),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
+                        ),
+                        child: Text(
+                          'Upload Sign',
+                          style: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    )
+                        : Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image.memory(
+                          _webImage!,
+                          fit: BoxFit.contain,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
+
+            ///
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 230.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [
+            //       Container(
+            //         width: MediaQuery.of(context).size.width / 10,
+            //         height: MediaQuery.of(context).size.height / 6,
+            //         child: _selectedFile == null
+            //             ? Center(
+            //                 child: ElevatedButton(
+            //                   // onPressed: _pickFile,
+            //                   onPressed: () {
+            //                     Navigator.push(context, MaterialPageRoute(builder: (context) => SignaturePage()));
+            //                   },
+            //                   style: ElevatedButton.styleFrom(
+            //                     backgroundColor: Color(0xff1696C8),
+            //                     foregroundColor: Colors.white,
+            //                     shape: RoundedRectangleBorder(
+            //                       borderRadius: BorderRadius.circular(8),
+            //                     ),
+            //                   ),
+            //                   child: Text(
+            //                     'Upload Sign',
+            //                     style: GoogleFonts.firaSans(
+            //                       fontSize: 10.0,
+            //                       fontWeight: FontWeight.w400,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               )
+            //             : Stack(
+            //                 fit: StackFit.expand,
+            //                 children: [
+            //                   if (kIsWeb && _webImage != null)
+            //                     Image.memory(
+            //                       _webImage!,
+            //                       fit: BoxFit.contain,
+            //                     )
+            //                   else if (!kIsWeb && _selectedFile != null)
+            //                     Image.file(
+            //                       File(_selectedFile!.path!),
+            //                       fit: BoxFit.contain,
+            //                     ),
+            //                 ],
+            //               ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             if (_selectedFile != null)
               Padding(
                 padding: const EdgeInsets.only(left: 230.0),
@@ -227,7 +341,7 @@ class _OfferLetterDescriptionScreenState
                   ],
                 ),
               ),
-            Row(
+               Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
