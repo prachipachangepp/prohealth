@@ -236,7 +236,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     ),
                   ],
                 ),
-
                 /// search text
                   Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
