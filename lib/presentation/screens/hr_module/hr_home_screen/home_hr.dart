@@ -105,13 +105,22 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     }
 
     // Replace with your API endpoint
-
     data = await getSearchProfileByText(context, query);
 
-    _searchResults = data.map((e) => e.firstName + " " + e.lastName).toList();
+    // Filter by starting alphabet
+    _searchResults = data
+        .where((e) => e.firstName.toLowerCase().startsWith(query.toLowerCase()))
+        .map((e) => e.firstName + " " + e.lastName)
+        .toList();
     print(_searchResults);
     _showOverlay();
   }
+  //   data = await getSearchProfileByText(context, query);
+  //
+  //   _searchResults = data.map((e) => e.firstName + " " + e.lastName).toList();
+  //   print(_searchResults);
+  //   _showOverlay();
+  // }
 
   void _showOverlay() {
     if (_overlayEntry != null) {
@@ -186,22 +195,22 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 55,
                     ),
-                    Obx(
-                      () => CustomTitleButton(
-                          height: 30,
-                          width: 140,
-                          onPressed: () {
-                            myController.selectButton(2);
-                            _pageController.animateToPage(2,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Add Employee',
-                          isSelected: myController.selectedIndex.value == 2),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 55,
-                    ),
+                    // Obx(
+                    //   () => CustomTitleButton(
+                    //       height: 30,
+                    //       width: 140,
+                    //       onPressed: () {
+                    //         myController.selectButton(2);
+                    //         _pageController.animateToPage(2,
+                    //             duration: Duration(milliseconds: 500),
+                    //             curve: Curves.ease);
+                    //       },
+                    //       text: 'Add Employee',
+                    //       isSelected: myController.selectedIndex.value == 2),
+                    // ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 55,
+                    // ),
                     Obx(
                       () => CustomTitleButton(
                         height: 30,
