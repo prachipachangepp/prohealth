@@ -47,7 +47,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              // width: 100,
+               width: 100,
               margin: EdgeInsets.only(right: 20),
               child: CustomIconButtonConst(
                   text: AppStringHr.addNew,
@@ -186,22 +186,22 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         errorBuilder: (context, error, stackTrace) {
                           return Icon(
                             Icons.broken_image,
-                            size: 45,
-                            color: ColorManager.faintGrey,
+                            size: 25,
+                            color: ColorManager.blueprime,
                           );
                         },
                       );
                     } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
                       fileWidget = Icon(
                         Icons.description,
-                        size: 45,
-                        color: ColorManager.faintGrey,
+                        size: 25,
+                        color: ColorManager.blueprime,
                       );
                     } else {
                       fileWidget = Icon(
                         Icons.insert_drive_file,
-                        size: 45,
-                        color: ColorManager.faintGrey,
+                        size: 25,
+                        color: ColorManager.blueprime,
                       );
                     }
 
