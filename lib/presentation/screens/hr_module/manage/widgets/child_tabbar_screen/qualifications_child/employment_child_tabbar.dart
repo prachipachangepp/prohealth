@@ -101,7 +101,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     startDateContoller.text,
                                     endDateController.text,
                                     emergencyMobileNumber.text,
-                                    'INDIA');
+                                    countryController.text);
                                 // if(apiData.statusCode == 200 && apiData.statusCode == 201){
                                 //   return showDialog(
                                 //     context: context,

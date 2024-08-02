@@ -2,12 +2,15 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employee_banking_manager.dart';
 
 import '../../../../../../em_module/widgets/button_constant.dart';
 import '../../../custom_icon_button_constant.dart';
 
 class EditBankingPopUp extends StatefulWidget {
+  final int banckId;
   String? selectedType;
   final TextEditingController effectiveDateController;
   final TextEditingController bankNameController;
@@ -26,7 +29,7 @@ class EditBankingPopUp extends StatefulWidget {
     required this.accountNumberController,
     required this.verifyAccountController,
     required this.routingNumberController,
-    required this.specificAmountController,
+    required this.specificAmountController, required this.banckId,
   });
 
   @override
@@ -37,6 +40,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final _typeFieldKey = GlobalKey<FormFieldState<String>>();
+  String? pickedFileName;
+  dynamic pickedFile;
 
   @override
   Widget build(BuildContext context) {
@@ -115,30 +120,45 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Bank #1',
+          'Bank #${widget.banckId}',
           style: GoogleFonts.firaSans(
             fontSize: 16.0,
             fontWeight: FontWeight.w500,
             color: Colors.black,
           ),
         ),
-        ElevatedButton.icon(
-          onPressed: _handleFileUpload,
-          icon: Icon(Icons.file_upload_outlined, color: Colors.white),
-          label: Text(
-            'Upload',
-            style: GoogleFonts.firaSans(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
+        Row(
+          children: [
+            SizedBox(height: 5,),
+            pickedFileName == null ? const Offstage():Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 60),
+                child: Text(pickedFileName!,style: GoogleFonts.firaSans(
+                    fontSize: FontSize.s10,
+                    color: ColorManager.mediumgrey
+                ),),
+              ),
             ),
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF27A3E0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
+            ElevatedButton.icon(
+              onPressed: _handleFileUpload,
+              icon: Icon(Icons.file_upload_outlined, color: Colors.white),
+              label: Text(
+                'Upload',
+                style: GoogleFonts.firaSans(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF27A3E0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ],
     );
@@ -149,8 +169,12 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       allowMultiple: false,
     );
     if (result != null) {
-      PlatformFile file = result.files.first;
-      print('File picked: ${file.name}');
+      setState(() {
+        pickedFileName = result.files.first.name;
+        pickedFile = result.files.first.bytes;
+      });
+      // PlatformFile file = result.files.first;
+      print('File picked: ${pickedFileName}');
     } else {
       // User canceled the picker
     }
@@ -433,6 +457,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                     });
                     try {
                       await widget.onPressed();
+                      await uploadBanckingDocument(context,widget.banckId,pickedFile);
                     } finally {
                       setState(() {
                         isLoading = false;

@@ -37,16 +37,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
         ? CircularProgressIndicator( color: ColorManager.blueprime,)
         :ElevatedButton.icon(
       onPressed: () async{
-        setState(() {
-          isLoading = true;
-        });
-        try {
           await widget.onPressed();
-        } finally {
-          setState(() {
-            isLoading = false;
-          });
-        }
       },
       icon: widget.icon != null
           ? Icon(widget.icon!, color: Colors.white, size: 20)

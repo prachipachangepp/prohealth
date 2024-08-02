@@ -88,7 +88,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                 setState(() {
                                  // snapshot.data![index].approve == true ?
                                     //  rejectBankPatch(context, snapshot.data![index].empBankingId):
-                                  approveBankPatch(context,snapshot.data![index].empBankingId);
+                                 // approveBankPatch(context,snapshot.data![index].empBankingId);
                                 });
                               },
                             ),
@@ -128,6 +128,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                    specificAmountController = TextEditingController(text: snapshotPrefill.data!.amountRequested.toString());
                                    return
                                      EditBankingPopUp(
+                                       banckId: snapshotPrefill.data!.empBankingId,
                                        effectiveDateController: effectiveDateController,
                                      bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
                                      routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () async{

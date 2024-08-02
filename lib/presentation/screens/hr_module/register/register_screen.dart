@@ -332,7 +332,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ? const Text('')
                           : TextButton(
                         onPressed: () async {
-                          const url = "http://localhost:60436/#/home";
+                          const url = "https://staging.symmetry.care/#/home";
                           if (await canLaunch(url)) {
                             await launch(url);
                             Navigator.push(
