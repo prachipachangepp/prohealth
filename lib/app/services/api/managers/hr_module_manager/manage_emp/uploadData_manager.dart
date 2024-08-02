@@ -22,7 +22,7 @@ Future<ApiData> uploadDocuments({
   required String documentName
 }) async {
   try {
-    String documents = await EncodeDecodeBase64.getEncodeBase64(bytes: documentFile);
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
     print("File :::${documents}" );
     var response = await Api(context).post(
       path: UploadDocumentRepository.uploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId, employeeId: employeeId),

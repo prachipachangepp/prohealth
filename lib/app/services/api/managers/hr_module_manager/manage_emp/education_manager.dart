@@ -24,7 +24,7 @@ Future<List<EducationData>> getEmployeeEducation(
   List<EducationData> itemsData = [];
   try {
     final response = await Api(context).get(
-        path: ManageReposotory.getEmployeeDucation(employeeId: employeeId));
+        path: ManageReposotory.getEmployeeDucation(employeeId: employeeId, approveOnly: 'no'));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         //String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);

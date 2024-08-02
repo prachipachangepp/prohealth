@@ -24,7 +24,7 @@ Future<List<EmployeementData>> getEmployeement(
   List<EmployeementData> itemsData = [];
   try {
     final response = await Api(context)
-        .get(path: ManageReposotory.getEmployeement(employeeId: employeeId));
+        .get(path: ManageReposotory.getEmployeement(employeeId: employeeId, approveOnly: 'no'));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         String joiningFormattedDate =

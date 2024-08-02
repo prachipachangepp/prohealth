@@ -262,6 +262,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                 suffixIcon: IconButton(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
                                   icon: Center(
                                     child: Icon(
                                       Icons.search,
