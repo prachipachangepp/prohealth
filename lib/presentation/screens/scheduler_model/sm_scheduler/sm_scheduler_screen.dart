@@ -181,7 +181,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
               children: [
                 Container(
                   height: 227.0,
-                  width: 563.0,
+                  width: MediaQuery.of(context).size.width / 3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                     color: Colors.white,
@@ -257,7 +257,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSize.s12,
+                                    fontSize: MediaQuery.of(context).size.width * 0.008,
                                     color: Color(0xff271E4A),
                                   ),
                                 ),
@@ -266,7 +266,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSize.s12,
+                                    fontSize: MediaQuery.of(context).size.width * 0.008,
                                     color: Color(0xff271E4A),
                                   ),
                                 ),
@@ -293,7 +293,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                         style: GoogleFonts.firaSans(
                                           decoration: TextDecoration.none,
                                           fontWeight: FontWeight.w500,
-                                          fontSize: AppSize.s12,
+                                          fontSize: MediaQuery.of(context).size.width * 0.008,
                                           color: Colors.white,
                                         ),
                                       ),
@@ -314,7 +314,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSize.s12,
+                                    fontSize: MediaQuery.of(context).size.width * 0.008,
                                     color: Color(0xff271E4A),
                                   ),
                                 ),
@@ -323,7 +323,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSize.s12,
+                                    fontSize: MediaQuery.of(context).size.width * 0.008,
                                     color: Color(0xff271E4A),
                                   ),
                                 ),
@@ -350,7 +350,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                         style: GoogleFonts.firaSans(
                                           decoration: TextDecoration.none,
                                           fontWeight: FontWeight.w500,
-                                          fontSize: AppSize.s12,
+                                          fontSize: MediaQuery.of(context).size.width * 0.008,
                                           color: Colors.white,
                                         ),
                                       ),
@@ -371,7 +371,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSize.s12,
+                                    fontSize: MediaQuery.of(context).size.width * 0.008,
                                     color: Color(0xff271E4A),
                                   ),
                                 ),
@@ -380,7 +380,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSize.s12,
+                                    fontSize: MediaQuery.of(context).size.width * 0.008,
                                     color: Color(0xff271E4A),
                                   ),
                                 ),
@@ -407,7 +407,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                         style: GoogleFonts.firaSans(
                                           decoration: TextDecoration.none,
                                           fontWeight: FontWeight.w500,
-                                          fontSize: AppSize.s12,
+                                          fontSize: MediaQuery.of(context).size.width * 0.008,
                                           color: Colors.white,
                                         ),
                                       ),
@@ -425,7 +425,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                 SizedBox(width: 30),
                 Container(
                   height: 227.0,
-                  width: 563.0,
+                  width: MediaQuery.of(context).size.width / 3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                     color: Colors.white,
@@ -484,7 +484,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSize.s12,
+                                    fontSize: MediaQuery.of(context).size.width * 0.008,
                                     color: Color(0xff271E4A),
                                   ),
                                 ),
@@ -502,7 +502,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSize.s12,
+                                    fontSize: MediaQuery.of(context).size.width * 0.008,
                                     color: Color(0xff271E4A),
                                   ),
                                 ),
@@ -520,7 +520,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: AppSize.s12,
+                                    fontSize: MediaQuery.of(context).size.width * 0.008,
                                     color: Color(0xff271E4A),
                                   ),
                                 ),
