@@ -11,7 +11,7 @@ Future<List<ReferenceData>> getReferences(
   try {
     final response = await Api(context).get(
         path:
-            ManageReposotory.referenceByemployeeIdGet(employeeId: employeeId));
+            ManageReposotory.referenceByemployeeIdGet(employeeId: employeeId, approveOnly: 'no'));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsData.add(ReferenceData(
