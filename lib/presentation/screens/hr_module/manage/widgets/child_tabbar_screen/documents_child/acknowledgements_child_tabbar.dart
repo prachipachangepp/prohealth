@@ -182,7 +182,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                     final fileUrl = data.DocumentUrl;
                     try{
                       var keyGenerate =  AppFilePickerBase64.mainFun(keyUrl:fileUrl);
-                      print("Generated file ::: ${keyGenerate}");
+                      print("Generated file ::: ${keyGenerate.toString()}");
                     }catch(e){
                       print(e);
                     }

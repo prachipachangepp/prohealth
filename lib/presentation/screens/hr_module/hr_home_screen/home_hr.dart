@@ -131,7 +131,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   }
 
   int employeeId = 0;
-
+  int pgeControllerId = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,7 +146,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
             // color: Colors.pink,
             margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ///heading bar
                 Row(
@@ -162,6 +162,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(0,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
+                            pgeControllerId = 0;
                         },
                         text: 'Dashboard',
                         isSelected: myController.selectedIndex.value == 0,
@@ -179,6 +180,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(1,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
+
+                            pgeControllerId = 1;
+
                         },
                         text: 'Manage',
                         isSelected: myController.selectedIndex.value == 1,
@@ -212,6 +216,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(2,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
+
+                            pgeControllerId = 2;
+
+
                         },
                         text: 'Register',
                         isSelected: myController.selectedIndex.value == 2,
@@ -229,6 +237,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(3,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
+
+                            pgeControllerId = 3;
+
                         },
                         text: 'Onboarding',
                         isSelected: myController.selectedIndex.value == 3,
@@ -236,8 +247,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     ),
                   ],
                 ),
+                SizedBox(width: MediaQuery.of(context).size.width/20,),
                 /// search text
-               _pageController == 2 || _pageController == 3 ?  SizedBox() :Row(
+                pgeControllerId == 2 || pgeControllerId == 3 ?  SizedBox() :Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -388,7 +401,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     //     searchController.text = value;
                     // },
                     // )
-                    SizedBox(
+                     SizedBox(
                       width: MediaQuery.of(context).size.width / 70,
                     ),
                     MediaQuery.of(context).size.width >= 1100
@@ -461,10 +474,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   ],
                 ),
 
-                SizedBox(
-                  height: 30,
-                        width: 140,
-                ),
+                // SizedBox(
+                //   height: 30,
+                //         width: 140,
+                // ),
                 ///see all
                 // Row(
                 //   crossAxisAlignment: CrossAxisAlignment.end,

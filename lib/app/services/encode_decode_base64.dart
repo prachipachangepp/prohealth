@@ -23,7 +23,7 @@ class AppFilePickerBase64 {
     return base64Documents;
   }
 
- static Future<String> mainFun({required String keyUrl}) async {
+ static Future<List<int>> mainFun({required String keyUrl}) async {
     String fileName =  keyUrl.split('/').last;
     final key = generateRandomKey(32);  // 32 bytes = 256 bits (for AES-256)
     final iv = generateRandomKey(16);
@@ -35,12 +35,16 @@ class AppFilePickerBase64 {
     print('Decrypted URL: $decryptedUrl');
     return decryptedUrl;
   }
-  static String dexryptUrl(String encryptedUrl, String key, String iv){
+  static List<int> dexryptUrl(String encryptedUrl, String key, String iv){
       final keyBytes = encrypt.Key.fromUtf8(key);
       final ivBytes = encrypt.IV.fromUtf8(iv);
 
+      // final encrypter = encrypt.Encrypter(encrypt.AES(keyBytes));
       final encrypter = encrypt.Encrypter(encrypt.AES(keyBytes));
-      final decrypted = encrypter.decrypt64(encryptedUrl, iv: ivBytes);
+
+      final encryptedText = 'e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O';
+      final encrypted = encrypt.Encrypted.fromBase64(encryptedText);
+      final decrypted = encrypter.decryptBytes(encrypted, iv: ivBytes);
       return decrypted;
   }
   // static Future<void> getDecodeBase64({required String fetchedUrl}) async {
