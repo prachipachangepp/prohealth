@@ -33,7 +33,8 @@ class McqWidget extends StatelessWidget {
           child: Text(
             title,
             style: GoogleFonts.firaSans(
-              fontSize: textFontSize,
+              // fontSize: textFontSize,
+              fontSize: fontSize,
               color: ColorManager.mediumgrey,
               fontWeight: FontWeight.w600
             ),
