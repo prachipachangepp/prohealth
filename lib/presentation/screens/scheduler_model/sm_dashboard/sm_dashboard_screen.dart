@@ -87,6 +87,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                     ],
                                   ),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
