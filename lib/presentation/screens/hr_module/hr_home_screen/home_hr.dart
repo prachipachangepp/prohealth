@@ -405,151 +405,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           ),
                         ),
 
-                        ///
-                        // Container(
-                        //     padding: EdgeInsets.all(5),
-                        //     width: AppSize.s330,
-                        //     height: 40,
-                        //     child: CompositedTransformTarget(
-                        //       link: _layerLink,
-                        //       child: TextField(
-                        //         controller: _controller,
-                        //         style: GoogleFonts.firaSans(fontSize: 12),
-                        //         onChanged: _search,
-                        //         decoration: InputDecoration(
-                        //             hintText: 'Search',
-                        //             alignLabelWithHint: true,
-                        //             hintStyle: GoogleFonts.firaSans(
-                        //               fontSize: FontSize.s12,
-                        //               fontWeight: FontWeightManager.regular,
-                        //               color: ColorManager.mediumgrey,
-                        //             ),
-                        //             border: OutlineInputBorder(
-                        //                 borderRadius:
-                        //                     BorderRadius.all(Radius.circular(20))),
-                        //             suffixIcon: IconButton(
-                        //               icon: Center(
-                        //                 child: Icon(
-                        //                   Icons.search,
-                        //                   size: 18,
-                        //                 ),
-                        //               ),
-                        //               onPressed: () {},
-                        //             ),
-                        //             contentPadding: EdgeInsets.symmetric(
-                        //                 horizontal: 20, vertical: 5)),
-                        //       ),
-                        //     )),
 
-                        /// formated text field
-                        //     TextFormField(
-                        //   controller: searchController,
-                        //   // focusNode: focusNode,
-                        //   // autofocus: true,
-                        //   onChanged: (value) {
-                        //     setState(() {
-                        //       getSearchProfileByText(
-                        //           context, 5, searchController.text);
-                        //       employeeId =
-                        //           value == "" ? 0 : int.parse(value.toString());
-                        //       getSearchByEmployeeIdProfileByText(
-                        //           context, employeeId);
-                        //       employeeId = 2;
-                        //       getSearchByEmployeeIdProfileByText(
-                        //           context, employeeId);
-                        //     });
-                        //   },
-                        //   textAlign: TextAlign.start,
-                        //   cursorHeight: 14,
-                        //   cursorColor: ColorManager.black,
-                        //   style: GoogleFonts.firaSans(
-                        //     fontSize: 12,
-                        //   ),
-                        //   textAlignVertical: TextAlignVertical.center,
-                        //   decoration: InputDecoration(
-                        //       hintText: 'Search',
-                        //       alignLabelWithHint: true,
-                        //       hintStyle: GoogleFonts.firaSans(
-                        //         fontSize: FontSize.s12,
-                        //         fontWeight: FontWeightManager.regular,
-                        //         color: ColorManager.mediumgrey,
-                        //       ),
-                        //       border: OutlineInputBorder(
-                        //           borderRadius:
-                        //               BorderRadius.all(Radius.circular(20))),
-                        //       suffixIcon: IconButton(
-                        //         icon: Center(
-                        //           child: Icon(
-                        //             Icons.search,
-                        //             size: 18,
-                        //           ),
-                        //         ),
-                        //         onPressed: () {},
-                        //       ),
-                        //       contentPadding: EdgeInsets.symmetric(
-                        //           horizontal: 20, vertical: 5)),
-                        // ),
-                        /// using typeAheadField
-                        // TypeAheadField(
-                        //   controller: searchController,
-                        //   suggestionsCallback: (name){
-                        //     getSearchProfileByText(context, 5, name);
-                        //
-                        //   },
-                        //   builder:(context, controller, focusNode) {
-                        //     return TextFormField(
-                        //       controller: controller,
-                        //       focusNode: focusNode,
-                        //       autofocus: true,
-                        //       onChanged: (value) {
-                        //         setState(() {
-                        //           //getSearchProfileById(context, 5, int.parse(name.toString()));
-                        //           employeeId = value == "" ? 0 :int.parse(value.toString());
-                        //           getSearchByEmployeeIdProfileByText(context,employeeId);
-                        //           // employeeId = 2;
-                        //           // getSearchByEmployeeIdProfileByText(context,employeeId);
-                        //         });
-                        //       },
-                        //       textAlign: TextAlign.start,
-                        //       cursorHeight: 12,
-                        //       cursorColor: ColorManager.black,
-                        //       style: GoogleFonts.firaSans(
-                        //         fontSize: 12,
-                        //       ),
-                        //       textAlignVertical: TextAlignVertical.center,
-                        //       decoration: InputDecoration(
-                        //           hintText: 'Search',
-                        //           alignLabelWithHint: true,
-                        //           hintStyle: GoogleFonts.firaSans(
-                        //             fontSize: FontSize.s12,
-                        //             fontWeight: FontWeightManager.regular,
-                        //             color: ColorManager.mediumgrey,
-                        //           ),
-                        //           border: OutlineInputBorder(
-                        //               borderRadius: BorderRadius.all(
-                        //                   Radius.circular(20))),
-                        //           suffixIcon: IconButton(
-                        //             icon: Center(
-                        //               child: Icon(
-                        //                 Icons.search,
-                        //                 size: 18,
-                        //               ),
-                        //             ),
-                        //             onPressed: () {},
-                        //           ),
-                        //           contentPadding: EdgeInsets.symmetric(
-                        //               horizontal: 20, vertical: 5)),
-                        //     );
-                        //   },
-                        //     itemBuilder: (context, String value) {
-                        //     print("::::::${value}");
-                        //   return ListTile(
-                        //     title: Text(value),
-                        //   );
-                        // }, onSelected: (value) {
-                        //     searchController.text = value;
-                        // },
-                        // )
                         ///old
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 70,
@@ -604,7 +460,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   ],
                                 ),
                                 child: InkWell(
-                                  onTap: () {},
+                                   onTap: () {},
                                   child: Center(
                                     child: Text(
                                       'DZ',
@@ -830,3 +686,148 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
 //                       ),
 //                     ),
 //                   ]))
+///
+// Container(
+//     padding: EdgeInsets.all(5),
+//     width: AppSize.s330,
+//     height: 40,
+//     child: CompositedTransformTarget(
+//       link: _layerLink,
+//       child: TextField(
+//         controller: _controller,
+//         style: GoogleFonts.firaSans(fontSize: 12),
+//         onChanged: _search,
+//         decoration: InputDecoration(
+//             hintText: 'Search',
+//             alignLabelWithHint: true,
+//             hintStyle: GoogleFonts.firaSans(
+//               fontSize: FontSize.s12,
+//               fontWeight: FontWeightManager.regular,
+//               color: ColorManager.mediumgrey,
+//             ),
+//             border: OutlineInputBorder(
+//                 borderRadius:
+//                     BorderRadius.all(Radius.circular(20))),
+//             suffixIcon: IconButton(
+//               icon: Center(
+//                 child: Icon(
+//                   Icons.search,
+//                   size: 18,
+//                 ),
+//               ),
+//               onPressed: () {},
+//             ),
+//             contentPadding: EdgeInsets.symmetric(
+//                 horizontal: 20, vertical: 5)),
+//       ),
+//     )),
+
+/// formated text field
+//     TextFormField(
+//   controller: searchController,
+//   // focusNode: focusNode,
+//   // autofocus: true,
+//   onChanged: (value) {
+//     setState(() {
+//       getSearchProfileByText(
+//           context, 5, searchController.text);
+//       employeeId =
+//           value == "" ? 0 : int.parse(value.toString());
+//       getSearchByEmployeeIdProfileByText(
+//           context, employeeId);
+//       employeeId = 2;
+//       getSearchByEmployeeIdProfileByText(
+//           context, employeeId);
+//     });
+//   },
+//   textAlign: TextAlign.start,
+//   cursorHeight: 14,
+//   cursorColor: ColorManager.black,
+//   style: GoogleFonts.firaSans(
+//     fontSize: 12,
+//   ),
+//   textAlignVertical: TextAlignVertical.center,
+//   decoration: InputDecoration(
+//       hintText: 'Search',
+//       alignLabelWithHint: true,
+//       hintStyle: GoogleFonts.firaSans(
+//         fontSize: FontSize.s12,
+//         fontWeight: FontWeightManager.regular,
+//         color: ColorManager.mediumgrey,
+//       ),
+//       border: OutlineInputBorder(
+//           borderRadius:
+//               BorderRadius.all(Radius.circular(20))),
+//       suffixIcon: IconButton(
+//         icon: Center(
+//           child: Icon(
+//             Icons.search,
+//             size: 18,
+//           ),
+//         ),
+//         onPressed: () {},
+//       ),
+//       contentPadding: EdgeInsets.symmetric(
+//           horizontal: 20, vertical: 5)),
+// ),
+/// using typeAheadField
+// TypeAheadField(
+//   controller: searchController,
+//   suggestionsCallback: (name){
+//     getSearchProfileByText(context, 5, name);
+//
+//   },
+//   builder:(context, controller, focusNode) {
+//     return TextFormField(
+//       controller: controller,
+//       focusNode: focusNode,
+//       autofocus: true,
+//       onChanged: (value) {
+//         setState(() {
+//           //getSearchProfileById(context, 5, int.parse(name.toString()));
+//           employeeId = value == "" ? 0 :int.parse(value.toString());
+//           getSearchByEmployeeIdProfileByText(context,employeeId);
+//           // employeeId = 2;
+//           // getSearchByEmployeeIdProfileByText(context,employeeId);
+//         });
+//       },
+//       textAlign: TextAlign.start,
+//       cursorHeight: 12,
+//       cursorColor: ColorManager.black,
+//       style: GoogleFonts.firaSans(
+//         fontSize: 12,
+//       ),
+//       textAlignVertical: TextAlignVertical.center,
+//       decoration: InputDecoration(
+//           hintText: 'Search',
+//           alignLabelWithHint: true,
+//           hintStyle: GoogleFonts.firaSans(
+//             fontSize: FontSize.s12,
+//             fontWeight: FontWeightManager.regular,
+//             color: ColorManager.mediumgrey,
+//           ),
+//           border: OutlineInputBorder(
+//               borderRadius: BorderRadius.all(
+//                   Radius.circular(20))),
+//           suffixIcon: IconButton(
+//             icon: Center(
+//               child: Icon(
+//                 Icons.search,
+//                 size: 18,
+//               ),
+//             ),
+//             onPressed: () {},
+//           ),
+//           contentPadding: EdgeInsets.symmetric(
+//               horizontal: 20, vertical: 5)),
+//     );
+//   },
+//     itemBuilder: (context, String value) {
+//     print("::::::${value}");
+//   return ListTile(
+//     title: Text(value),
+//   );
+// }, onSelected: (value) {
+//     searchController.text = value;
+// },
+// )

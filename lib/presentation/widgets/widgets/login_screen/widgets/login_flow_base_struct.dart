@@ -7,8 +7,9 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../../app/resources/color.dart';
+import 'package:get/get.dart';
 
-/// new code
+ /// new code
 class LoginBaseConstant extends StatelessWidget {
   LoginBaseConstant(
       {Key? key,
