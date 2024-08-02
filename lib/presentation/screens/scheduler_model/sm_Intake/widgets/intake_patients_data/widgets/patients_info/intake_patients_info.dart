@@ -493,6 +493,7 @@ class SchedularTextFieldWithButton extends StatelessWidget {
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
+                    decoration: TextDecoration.underline,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_phhysician_info/widget/physician_info_info/physician_info_info.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -169,7 +170,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                   controller: smIntakePageController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    Container(),
+                    PhysicianInfoInfoScreen(),
                     Container(),
                     Container(),
                     Container(),
