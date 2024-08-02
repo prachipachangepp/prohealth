@@ -53,7 +53,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   ),
                 ],
                 color: ColorManager.blueprime,
-                borderRadius: BorderRadius.circular(14)
+                borderRadius: BorderRadius.circular(20)
             ),
             child: Row(
               children: [
