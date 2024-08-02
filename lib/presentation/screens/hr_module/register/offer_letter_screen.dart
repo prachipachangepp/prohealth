@@ -1482,10 +1482,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     ),
                   ),
                   //SizedBox(width: MediaQuery.of(context).size.width / 10),
-                   SizedBox(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width / 5,
                   ),
-
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 50),
@@ -1542,8 +1541,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     );
                                   } else if (snapshot.hasData) {
                                     List<String> dropDownList = snapshot.data!
-                                        .map((county) =>
-                                            county.countyName ?? '')
+                                        .map(
+                                            (county) => county.countyName ?? '')
                                         .toList();
                                     print("County: ");
                                     return CustomDropdownTextField(
@@ -1576,8 +1575,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               ),
 
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height /
-                                      20),
+                                  height:
+                                      MediaQuery.of(context).size.height / 20),
 
                               ///zone api
 
@@ -1661,7 +1660,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       Expanded(
                         child: DefaultTabController(
                           length: 2,
-                          child: Column( 
+                          child: Column(
                             children: [
                               Padding(
                                 // padding: const EdgeInsets.symmetric(
@@ -1689,7 +1688,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding:  const EdgeInsets.only(left: 100.0, right: 100.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 100.0, right: 100.0),
                                   child: TabBarView(
                                     physics:
                                         const NeverScrollableScrollPhysics(),
@@ -1748,13 +1748,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     width: 300,
                     child: CustomDropdownFormField(
                         hintText: 'Salaried',
-
                         items: ['Salaried', 'Per Visit'],
                         value: dropdownValue,
                         onChanged: handleDropdownChange),
                   ),
                   Row(
-
                     children: [
                       if (_salary.isNotEmpty)
                         Text(
@@ -1765,7 +1763,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             color: Colors.black,
                           ),
                         ),
-                      SizedBox(width: 10,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       ElevatedButton(
                         onPressed: () {
                           showDialog(
@@ -1817,19 +1817,20 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                             vertical: 15.0, horizontal: 16.0),
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'Salary',
                                               style: GoogleFonts.firaSans(
                                                   fontSize: 16.0,
                                                   fontWeight: FontWeight.w400,
-                                                  color: const Color(0xff686464)),
+                                                  color:
+                                                      const Color(0xff686464)),
                                             ),
                                             SizedBox(
                                               height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
+                                                      .size
+                                                      .height /
                                                   30,
                                             ),
                                             TextFormField(
@@ -1839,18 +1840,23 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                 hintStyle: GoogleFonts.firaSans(
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w700,
-                                                    color: const Color(0xff686464)),
-                                                enabledBorder: OutlineInputBorder(
+                                                    color: const Color(
+                                                        0xff686464)),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                   borderSide: const BorderSide(
                                                     color: Color(0xff51B5E6),
                                                     width: 1.0,
                                                   ),
                                                 ),
-                                                focusedBorder: OutlineInputBorder(
+                                                focusedBorder:
+                                                    OutlineInputBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                   borderSide: const BorderSide(
                                                     color: Color(0xff51B5E6),
                                                     width: 1.0,
@@ -1858,18 +1864,20 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                 ),
                                                 border: OutlineInputBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                   borderSide: const BorderSide(
                                                     color: Color(0xff51B5E6),
                                                     width: 1.0,
                                                   ),
                                                 ),
                                                 contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 16.0,
-                                                    vertical: 12.0),
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 16.0,
+                                                        vertical: 12.0),
                                               ),
-                                              keyboardType: TextInputType.number,
+                                              keyboardType:
+                                                  TextInputType.number,
                                               onChanged: (value) {
                                                 setState(() {
                                                   _salary = value;
@@ -1878,8 +1886,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                             ),
                                             SizedBox(
                                                 height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
+                                                        .size
+                                                        .height /
                                                     20),
                                             Center(
                                               child: ElevatedButton(
@@ -1889,22 +1897,24 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                 },
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor:
-                                                  const Color(0xff1696C8),
+                                                      const Color(0xff1696C8),
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
-                                                    BorderRadius.circular(12),
+                                                        BorderRadius.circular(
+                                                            12),
                                                   ),
                                                 ),
                                                 child: Padding(
-                                                  padding:
-                                                  const EdgeInsets.symmetric(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
                                                       horizontal: 24.0,
                                                       vertical: 8.0),
                                                   child: Text(
                                                     'Submit',
                                                     style: GoogleFonts.firaSans(
                                                         fontSize: 12.0,
-                                                        fontWeight: FontWeight.w700,
+                                                        fontWeight:
+                                                            FontWeight.w700,
                                                         color: Colors.white),
                                                   ),
                                                 ),
@@ -2177,30 +2187,59 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
               // ),
               // SizedBox(height: MediaQuery.of(context).size.height / 80),
               Row(
-
                 children: [
-                  Container(
-                    // height: 40,
-                    // width: 300,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff1696C8),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await addEmpEnrollAddCompensation(
+                          context,
+                          0,
+                          0,
+                          dropdownValue.toString(),
+                          int.parse(_salary)
+                      );
+
+
+
+                      await addEmpEnrollOffers(
+                          context,
+                          1,
+                          0,
+                          issueDateController.text,
+                          lastDateController.text,
+                          startDateController.text,
+                          verbalAcceptanceController.text
+                      );
+                      // _salary.clear();
+                      issueDateController.clear();
+                      lastDateController.clear();
+                      startDateController.clear();
+                      verbalAcceptanceController.clear();
+                      patientsController.clear();
+
+                      // TextEditingController issueDateController = TextEditingController();
+                      // TextEditingController lastDateController = TextEditingController();
+                      // TextEditingController startDateController = TextEditingController();
+                      // TextEditingController verbalAcceptanceController = TextEditingController();
+                      // TextEditingController patientsController = TextEditingController();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xff1696C8),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text(
-                        'Compensation',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w800,
-                        ),
+                    ),
+                    child: Text(
+                      'Compensation',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                   ),
-                  SizedBox(width: 15,),
+                  SizedBox(
+                    width: 15,
+                  ),
                   Text(
                     'Not Defined',
                     style: GoogleFonts.firaSans(
@@ -2294,7 +2333,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   ),
                 ],
               ),
-
             ],
           ),
         ),
