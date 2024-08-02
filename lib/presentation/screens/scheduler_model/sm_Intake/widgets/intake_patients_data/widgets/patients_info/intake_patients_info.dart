@@ -264,12 +264,14 @@ class SchedularTextField extends StatelessWidget {
   final String labelText;
   final String? initialValue;
   final bool isDate;
+  final TextEditingController? controller;
 
   SchedularTextField({
     super.key,
     required this.labelText,
     this.initialValue,
     this.isDate = false,
+    this.controller
   });
 
   @override
@@ -277,7 +279,8 @@ class SchedularTextField extends StatelessWidget {
     return SizedBox(
       height: 25.38,
       child: TextFormField(
-        initialValue: initialValue,
+        controller: controller,
+        initialValue: controller == null ? initialValue : null,
         style: GoogleFonts.firaSans(
           fontSize: 12,
           fontWeight: FontWeight.w400,

@@ -37,7 +37,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
         children: [
           SizedBox(height: 15,),
           Container(
-            width: MediaQuery.of(context).size.width/2.4,
+            width: MediaQuery.of(context).size.width/2.4, //2.4
             height: 30,
             decoration: BoxDecoration(
                 boxShadow: [
