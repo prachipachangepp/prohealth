@@ -8,9 +8,15 @@ class OnboardingBankingData{
   final String effectiveDate;
   final String rountingNumber;
   final String type;
+  final String requestedPercentage;
   final bool approved;
 
-  OnboardingBankingData({required this.empBankId,required this.accNum,required this.empId,required this.bankName,required this.amtRequested,required this.checkUrl,required this.effectiveDate,required this.rountingNumber,required this.type,required this.approved});
+  OnboardingBankingData({required this.empBankId,
+    required this.accNum,required this.empId,required this.bankName,required this.amtRequested,required this.checkUrl,
+    required this.effectiveDate,required this.rountingNumber,
+    required this.type,
+    required this.requestedPercentage,
+    required this.approved});
 }
 
 // {

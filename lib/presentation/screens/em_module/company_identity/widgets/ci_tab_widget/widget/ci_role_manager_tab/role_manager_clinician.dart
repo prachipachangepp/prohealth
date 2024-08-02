@@ -16,6 +16,7 @@ import '../../../../../../../../data/api_data/establishment_data/all_from_hr/all
 import '../../../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../../../../../data/api_data/establishment_data/role_manager/role_manager_data.dart';
 import '../../../../../widgets/button_constant.dart';
+import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class RoleManagerClinician extends StatefulWidget {
   const RoleManagerClinician({super.key});
@@ -33,6 +34,8 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
       StreamController<List<PayRateFinanceData>>();
   final StreamController<List<ModuleMetaData>> roleMetaDataClinicalController =
       StreamController<List<ModuleMetaData>>();
+  final StreamController<List<RoleManagerData>> roleGetDeptId = StreamController<List<RoleManagerData>>();
+  final StreamController<List<RoleManagerDepartmentEmpType>> roleGetemptype = StreamController<List<RoleManagerDepartmentEmpType>>();
   // bool _officeSelected = false;
   Color _employeeTextColor = ColorManager.black.withOpacity(0.3);
   Color _employeeBorderColor = Colors.grey;
@@ -65,8 +68,12 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
     }).catchError((error) {
       // Handle error
     });
+    roleManagerDataGet(context).then((data){
+      roleGetDeptId.add(data);
+    }).catchError((error){});
   }
-
+  int deptId=1;
+  int docSubTypeMetaId =0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -93,98 +100,161 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    FutureBuilder<List<RoleManagerData>>(
-                      future: roleManagerDataGet(context),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor: Colors.grey[100]!,
-                            child: Container(
-                              width: 300,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: ColorManager.faintGrey,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          );
-                        }
-                        if (snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Text(
-                              AppString.dataNotFound,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontWeight: FontWeightManager.medium,
-                                fontSize: FontSize.s12,
-                                color: ColorManager.mediumgrey,
-                              ),
-                            ),
-                          );
-                        }
-                        if (snapshot.hasData) {
-                          List<String> dropDownList = [];
-                          List<String> dropDownAbbreviation = [];
-                          for (var i in snapshot.data!) {
-                            dropDownList.add(i.deptName);
-                            dropDownAbbreviation.add(i.description);
+                    StreamBuilder<List<RoleManagerData>>(
+                        stream: roleGetDeptId.stream,
+                        builder: (context,snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 350,
+                                  height: 30,
+                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                )
+                            );
                           }
-                          return Row(
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 354,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 3, horizontal: 15),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: Color(0xff686464).withOpacity(0.5),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: DropdownButtonFormField<String>(
-                                  focusColor: Colors.transparent,
-                                  icon: Icon(
-                                    Icons.arrow_drop_down_sharp,
-                                    color: Color(0xff686464),
-                                  ),
-                                  decoration:
-                                      InputDecoration.collapsed(hintText: ''),
-                                  value: _selectedValue,
-                                  items: dropDownList
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-
-                                      _selectedValue = newValue;
-                                      _employeeTextColor = Color(0xff686464);
-                                      _employeeBorderColor = Color(0xff686464);
-
-                                  },
-                                  //value: dropDownList[0],
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff686464),
-                                    decoration: TextDecoration.none,
-                                  ),
+                          if (snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
                                 ),
                               ),
-                            ],
-                          );
-                        } else {
-                          return Offstage();
+                            );
+                          }
+                          if(snapshot.hasData){
+                            List dropDown = [];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                            for(var i in snapshot.data!){
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  value: i.deptName,
+                                  child: Text(i.deptName),
+                                ),
+                              );
+                            }
+                            return CICCDropdown(
+                                initialValue: dropDownMenuItems[0].value,
+                                onChange: (val){
+                                  for(var a in snapshot.data!){
+                                    if(a.deptName == val){
+                                      docType = a.deptID;
+                                      docSubTypeMetaId = docType;
+                                    }
+                                  }
+                                  print(":::${docType}");
+                                  print(":::<>${docSubTypeMetaId}");
+                                },
+                                items:dropDownMenuItems
+                            );
+                          }else{
+                            return SizedBox(height:1,width: 1,);
+                          }
                         }
-                      },
                     ),
+                    // FutureBuilder<List<RoleManagerData>>(
+                    //   future: roleManagerDataGet(context),
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.connectionState ==
+                    //         ConnectionState.waiting) {
+                    //       return Shimmer.fromColors(
+                    //         baseColor: Colors.grey[300]!,
+                    //         highlightColor: Colors.grey[100]!,
+                    //         child: Container(
+                    //           width: 300,
+                    //           height: 30,
+                    //           decoration: BoxDecoration(
+                    //             color: ColorManager.faintGrey,
+                    //             borderRadius: BorderRadius.circular(10),
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    //     if (snapshot.data!.isEmpty) {
+                    //       return Center(
+                    //         child: Text(
+                    //           AppString.dataNotFound,
+                    //           style: CustomTextStylesCommon.commonStyle(
+                    //             fontWeight: FontWeightManager.medium,
+                    //             fontSize: FontSize.s12,
+                    //             color: ColorManager.mediumgrey,
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    //     if (snapshot.hasData) {
+                    //       List<String> dropDownList = [];
+                    //       int docType = 0;
+                    //       List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                    //       for(var i in snapshot.data!){
+                    //         dropDownMenuItems.add(
+                    //           DropdownMenuItem<String>(
+                    //             child: Text(i.deptName),
+                    //             value: i.deptName,
+                    //           ),
+                    //         );
+                    //       }
+                    //       return Row(
+                    //         children: [
+                    //           Container(
+                    //             height: 30,
+                    //             width: 354,
+                    //             padding: EdgeInsets.symmetric(
+                    //                 vertical: 3, horizontal: 15),
+                    //             decoration: BoxDecoration(
+                    //               color: Colors.white,
+                    //               border: Border.all(
+                    //                 color: Color(0xff686464).withOpacity(0.5),
+                    //                 width: 1,
+                    //               ),
+                    //               borderRadius: BorderRadius.circular(8),
+                    //             ),
+                    //             child: DropdownButtonFormField<String>(
+                    //               focusColor: Colors.transparent,
+                    //               icon: Icon(
+                    //                 Icons.arrow_drop_down_sharp,
+                    //                 color: Color(0xff686464),
+                    //               ),
+                    //               decoration:
+                    //                   InputDecoration.collapsed(hintText: ''),
+                    //               value: _selectedValue,
+                    //               items: dropDownMenuItems,
+                    //               onChanged: (val) {
+                    //                 for(var a in snapshot.data!){
+                    //                   if(a.deptName == val){
+                    //                     docType = a.deptID;
+                    //                     deptId = docType;
+                    //
+                    //                   }
+                    //                 }
+                    //                // roleGetDeptId.stream;
+                    //
+                    //                   // _selectedValue = newValue;
+                    //                   // _employeeTextColor = Color(0xff686464);
+                    //                   // _employeeBorderColor = Color(0xff686464);
+                    //
+                    //               },
+                    //               //value: dropDownList[0],
+                    //               style: GoogleFonts.firaSans(
+                    //                 fontSize: 12,
+                    //                 fontWeight: FontWeight.w600,
+                    //                 color: Color(0xff686464),
+                    //                 decoration: TextDecoration.none,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       );
+                    //     } else {
+                    //       return Offstage();
+                    //     }
+                    //   },
+                    // ),
                   ],
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 20),
@@ -202,91 +272,152 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                       ),
                     ),
                     SizedBox(height: 4),
-                    FutureBuilder<List<HRClinical>>(
-                      future: companyAllHrClinicApi(context),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor: Colors.grey[100]!,
-                            child: Container(
-                              width: 300,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: ColorManager.faintGrey,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          );
-                        }
-                        if (snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Text(
-                              AppString.dataNotFound,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontWeight: FontWeightManager.medium,
-                                fontSize: FontSize.s12,
-                                color: ColorManager.mediumgrey,
-                              ),
-                            ),
-                          );
-                        }
-                        if (snapshot.hasData) {
-                          List<String> dropDownList = [];
-                          List<String> dropDownAbbreviation = [];
-                          for (var i in snapshot.data!) {
-                            dropDownList.add(i.empType!);
-                            dropDownAbbreviation.add(i.abbrivation!);
+                    FutureBuilder<List<RoleManagerDepartmentEmpType>>(
+                        future: roleManagerGetByDepartmentID(context,deptId),
+                        builder: (context,snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 350,
+                                  height: 30,
+                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                )
+                            );
                           }
-                          return Row(
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 354,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 3, horizontal: 15),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: _employeeBorderColor,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: DropdownButtonFormField<String>(
-                                  focusColor: Colors.transparent,
-                                  icon: Icon(
-                                    Icons.arrow_drop_down_sharp,
-                                    color: Color(0xff686464),
-                                  ),
-                                  decoration:
-                                      InputDecoration.collapsed(hintText: ''),
-                                  items: dropDownList
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value == null ? "1" : value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {},
-                                  value: dropDownList[0],
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: _employeeTextColor,
-                                    decoration: TextDecoration.none,
-                                  ),
+                          if (snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
                                 ),
                               ),
-                            ],
-                          );
-                        } else {
-                          return Offstage();
+                            );
+                          }
+                          if(snapshot.hasData){
+                            List dropDown = [];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                            for(var i in snapshot.data!){
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.employeeType),
+                                  value: i.employeeType,
+                                ),
+                              );
+                            }
+                            return CICCDropdown(
+                                initialValue: dropDownMenuItems[0].value,
+                                onChange: (val){
+                                  for(var a in snapshot.data!){
+                                    if(a.employeeType == val){
+                                      docType = a.employeeTypeId;
+                                      deptId = docType;
+                                    }
+                                  }
+                                    roleManagerGetByDepartmentID(context,deptId).then((data){
+                                      roleGetemptype.add(data);
+                                    }).catchError((error){});
+                                  print(":::${docType}");
+                                  //print(":::<>${docMetaId}");
+                                },
+                                items:dropDownMenuItems
+
+                            );
+                          }else{
+                            return SizedBox();
+                          }
                         }
-                      },
                     ),
+                    // FutureBuilder<List<HRClinical>>(
+                    //   future: companyAllHrClinicApi(context),
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.connectionState ==
+                    //         ConnectionState.waiting) {
+                    //       return Shimmer.fromColors(
+                    //         baseColor: Colors.grey[300]!,
+                    //         highlightColor: Colors.grey[100]!,
+                    //         child: Container(
+                    //           width: 300,
+                    //           height: 30,
+                    //           decoration: BoxDecoration(
+                    //             color: ColorManager.faintGrey,
+                    //             borderRadius: BorderRadius.circular(10),
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    //     if (snapshot.data!.isEmpty) {
+                    //       return Center(
+                    //         child: Text(
+                    //           AppString.dataNotFound,
+                    //           style: CustomTextStylesCommon.commonStyle(
+                    //             fontWeight: FontWeightManager.medium,
+                    //             fontSize: FontSize.s12,
+                    //             color: ColorManager.mediumgrey,
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    //     if (snapshot.hasData) {
+                    //       List<String> dropDownList = [];
+                    //       List<String> dropDownAbbreviation = [];
+                    //       for (var i in snapshot.data!) {
+                    //         dropDownList.add(i.empType!);
+                    //         dropDownAbbreviation.add(i.abbrivation!);
+                    //       }
+                    //       return Row(
+                    //         children: [
+                    //           Container(
+                    //             height: 30,
+                    //             width: 354,
+                    //             padding: EdgeInsets.symmetric(
+                    //                 vertical: 3, horizontal: 15),
+                    //             decoration: BoxDecoration(
+                    //               color: Colors.white,
+                    //               border: Border.all(
+                    //                 color: _employeeBorderColor,
+                    //                 width: 1,
+                    //               ),
+                    //               borderRadius: BorderRadius.circular(8),
+                    //             ),
+                    //             child: DropdownButtonFormField<String>(
+                    //               focusColor: Colors.transparent,
+                    //               icon: Icon(
+                    //                 Icons.arrow_drop_down_sharp,
+                    //                 color: Color(0xff686464),
+                    //               ),
+                    //               decoration:
+                    //                   InputDecoration.collapsed(hintText: ''),
+                    //               items: dropDownList
+                    //                   .map<DropdownMenuItem<String>>(
+                    //                       (String value) {
+                    //                 return DropdownMenuItem<String>(
+                    //                   value: value == null ? "1" : value,
+                    //                   child: Text(value),
+                    //                 );
+                    //               }).toList(),
+                    //               onChanged: (String? newValue) {},
+                    //               value: dropDownList[0],
+                    //               style: GoogleFonts.firaSans(
+                    //                 fontSize: 12,
+                    //                 fontWeight: FontWeight.w600,
+                    //                 color: _employeeTextColor,
+                    //                 decoration: TextDecoration.none,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       );
+                    //     } else {
+                    //       return Offstage();
+                    //     }
+                    //   },
+                    // ),
                   ],
                 ),
               ],
@@ -361,8 +492,8 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                                     children: [
                                       CIRoleContainerConstant(
                                         metaModule.mainModule,
-                                        //NetworkImage(metaModule.iconUrl),
-                                        AssetImage('images/rehab.png'),
+                                        NetworkImage(metaModule.iconUrl),
+                                        //AssetImage('images/rehab.png'),
                                         borderColor: isSelected ? ColorManager.blueprime : Colors.white,
                                       ),
                                       if (isSelected)
