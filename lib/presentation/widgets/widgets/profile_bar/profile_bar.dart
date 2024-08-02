@@ -26,11 +26,29 @@ class ProfileBar extends StatefulWidget {
 }
 
 class _ProfileBarState extends State<ProfileBar> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchData();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+  int expiredCount = 0;
+  int upToDateCount = 0;
+  int aboutToCount = 0;
+  Future<void> fetchData() async {
+    try {
+      Map<String, List<LicensesData>> data = await getLicenseStatusWise(context, widget.searchByEmployeeIdProfileData!.employeeId!);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // Update the count after the current build phase
+        expiredCount = data['Expired']!.length;
+        upToDateCount = data['About to Expire']!.length;
+        aboutToCount = data['Upto date']!.length;
+        //print("EEE ${expiredCount}");
+      });
+    } catch (error) {
+      print("Error fetching data: $error");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     int currentPage = 1;
@@ -110,10 +128,21 @@ class _ProfileBarState extends State<ProfileBar> {
                         widget.searchByEmployeeIdProfileData!.status.capitalizeFirst!,
                         style: ThemeManagerBlack.customTextStyle(context),
                       ),
-                      Text(
-                        AppString.annualSkill,
-                        style: ThemeManager.customTextStyle(context),
-                      ),
+                      FutureBuilder<ProfilePercentage>(
+                          future: getPercentage(context, widget.searchByEmployeeIdProfileData!.employeeId!),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return SizedBox();
+                            }
+                            return Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Annual skills ${snapshot.data!.percentage}%",
+                                    style: ThemeManager.customTextStyle(context),
+                                  ),
+                                ]);
+                          })
                     ],
                   ),
                   Column(
@@ -370,7 +399,6 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                         onPressed:
                                                                             () async {
                                                                           const String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=36.778259, -119.417931";
-
                                                                           if (await canLaunchUrlString(googleMapsUrl)) {
                                                                             await launchUrlString(googleMapsUrl);
                                                                           } else {
@@ -435,49 +463,57 @@ class _ProfileBarState extends State<ProfileBar> {
                       ),
                     ],
                   ),
-                  Column(
+                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Row(
-                        children: [
-                          Text(AppString.hideDate,
-                              style: ProfileBarConstText.profileTextStyle(
-                                  context)),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 35,
+                      Column(
+                          children: [
+                            Row(
+                            children: [
+                              Text(AppString.hideDate,
+                                  style: ProfileBarConstText.profileTextStyle(
+                                      context)),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 35,
+                              ),
+                              Text(AppString.datetime,
+                                  style: ProfileBarConstText.profileTextStyle(
+                                      context)),
+                            ],
                           ),
-                          Text(AppString.datetime,
-                              style: ProfileBarConstText.profileTextStyle(
-                                  context)),
-                        ],
+                            SizedBox(height:10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                    'PTA',
+                                    style: ProfileBarConstText.profileTextStyle(
+                                        context)),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 25,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 70.0),
+                                  child: Text(
+                                      '1.2',
+                                      style: ProfileBarConstText.profileTextStyle(
+                                          context)),
+                                ),
+                              ],
+                            ),]
                       ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                              'PTA',
-                              style: ProfileBarConstText.profileTextStyle(
-                                  context)),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 35,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 70.0),
-                            child: Text(
-                                '1.2',
-                                style: ProfileBarConstText.profileTextStyle(
-                                    context)),
-                          ),
-                        ],
-                      ),
-                      Column(
+                      FutureBuilder(future: fetchData(), builder: (BuildContext context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return SizedBox(height:1,width:1);
+                        }
+                                           return Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ///"Expired License"
-                          ProfileBarClipConst(
+                         ProfileBarClipConst(
                             onTap: (){
                               showDialog(context: context, builder: (BuildContext context){
                                 return ExpiredLicensePopup(title: 'Expired License', child: Padding(
@@ -580,6 +616,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                                     scrollDirection: Axis.vertical,
                                                     itemCount: expiredLicenses.length,
                                                     itemBuilder: (context, index) {
+                                                      expiredCount = expiredLicenses.length;
+                                                      print("Expired count :: ${expiredCount}");
                                                       int serialNumber =
                                                           index + 1 + (currentPage - 1) * itemsPerPage;
                                                       String formattedSerialNumber =
@@ -673,8 +711,8 @@ class _ProfileBarState extends State<ProfileBar> {
                               text: AppString.expiredlicense,
                               // containerColor: Colors.deepOrangeAccent,
                               containerColor: Color(0xffD16D6A),
-                              textOval: AppString.zero),
-
+                              textOval: expiredCount.toString(),
+                              ),
                           SizedBox(
                               height: MediaQuery.of(context).size.height / 120),
 
@@ -875,8 +913,7 @@ class _ProfileBarState extends State<ProfileBar> {
                               text: AppString.abouttoexpire,
                               // containerColor: Colors.orange,
                               containerColor: Color(0xffFEBD4D),
-                              textOval: AppString.two),
-
+                              textOval: upToDateCount.toString()),
                           SizedBox(
                               height: MediaQuery.of(context).size.height / 120),
 
@@ -1077,9 +1114,9 @@ class _ProfileBarState extends State<ProfileBar> {
                               text: AppString.uptodate,
                               // containerColor: Colors.lightGreen,
                               containerColor: Color(0xffB4DB4C),
-                              textOval: AppString.four),
+                              textOval:aboutToCount.toString()),
                         ],
-                      ),
+                      );},),
                     ],
                   ),
                 ],

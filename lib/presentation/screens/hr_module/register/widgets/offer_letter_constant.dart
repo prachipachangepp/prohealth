@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../app/resources/color.dart';
 
 
-class CustomTextFieldOfferScreen extends StatelessWidget {
+class CustomTextFieldOfferScreen extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   final double? height;
@@ -12,13 +12,25 @@ class CustomTextFieldOfferScreen extends StatelessWidget {
   CustomTextFieldOfferScreen({required this.controller, required this.labelText, this.height});
 
   @override
+  State<CustomTextFieldOfferScreen> createState() => _CustomTextFieldOfferScreenState();
+}
+
+class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen> {
+  @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
+      height: 30,//widget.height,
+      width: MediaQuery.of(context).size.width / 5,
       child: TextFormField(
+        style: GoogleFonts.firaSans(
+            fontSize: 10.0,
+            fontWeight: FontWeight.w400,
+            color: Color(0xff575757)) ,
+
         cursorColor: Colors.black,
-        controller: controller,
+        controller: widget.controller,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left: 20,bottom: 5),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
@@ -28,13 +40,13 @@ class CustomTextFieldOfferScreen extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
-          labelText: labelText,
+          labelText: widget.labelText,
           labelStyle: GoogleFonts.firaSans(
               fontSize: 10.0,
               fontWeight: FontWeight.w400,
               color: Color(0xff575757)),
           suffixIcon: IconButton(
-            icon: Icon(Icons.calendar_month, color: Color(0xff686464)),
+            icon: Icon(Icons.calendar_month, color: Color(0xff686464),size: 16,),
             onPressed: () async {
               DateTime? pickedDate = await showDatePicker(
                 context: context,
@@ -43,7 +55,7 @@ class CustomTextFieldOfferScreen extends StatelessWidget {
                 lastDate: DateTime(2101),
               );
               if (pickedDate != null) {
-                controller.text = "${pickedDate.toLocal()}".split(' ')[0];
+                widget.controller.text = "${pickedDate.toLocal()}".split(' ')[0];
               }
             },
           ),
