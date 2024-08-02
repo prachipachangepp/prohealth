@@ -99,8 +99,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 38.0), //28
+                                        padding: const EdgeInsets.only(left: 38.0), //28
                                         child: Text(
                                           'Number of \n Patients',
                                           style: GoogleFonts.kanit(
@@ -1223,3 +1222,6 @@ class CustomContainer extends StatelessWidget {
     );
   }
 }
+
+
+////
