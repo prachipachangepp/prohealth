@@ -614,7 +614,7 @@ class _generalFormState extends State<generalForm> {
                         height: 32,
                         child: DropdownButtonFormField<String>(
                           decoration: InputDecoration(
-                            hintText: 'Select Clinician',
+                           // hintText: 'Select Clinician',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
                               fontWeight: FontWeight.w400,
@@ -666,39 +666,40 @@ class _generalFormState extends State<generalForm> {
                             color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      CustomDropdownTextField(
-                        height: 32,
-                        hintText: 'Select Speciality ',
-
-                        items: [
-                          'Speciality1',
-                          'Speciality2',
-                          'CSpeciality',
-                          'Speciality'
-                        ],
-                        value: _selectedSpeciality,
-                        // List of countries
-                        //     .map<DropdownMenuItem<String>>((String value) {
-                        //   return DropdownMenuItem<String>(
-                        //     value: value,
-                        //     child: Text(value),
-                        //   );
-                        // }).toList(),
-
-                        labelText: 'ergg',
-                        labelStyle: GoogleFonts.firaSans(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff9B9B9B),
-                        ),
-                      ),
+                      // CustomDropdownTextField(
+                      //   width: 600,
+                      //   height: 32,
+                      //  // hintText: 'Select Speciality ',
+                      //
+                      //   items: [
+                      //     'Speciality1',
+                      //     'Speciality2',
+                      //     'CSpeciality',
+                      //     'Speciality'
+                      //   ],
+                      //   value: _selectedSpeciality,
+                      //   // List of countries
+                      //   //     .map<DropdownMenuItem<String>>((String value) {
+                      //   //   return DropdownMenuItem<String>(
+                      //   //     value: value,
+                      //   //     child: Text(value),
+                      //   //   );
+                      //   // }).toList(),
+                      //
+                      //   labelText: 'Select Speciality',
+                      //   labelStyle: GoogleFonts.firaSans(
+                      //     fontSize: 10,
+                      //     fontWeight: FontWeight.w400,
+                      //     color: const Color(0xff9B9B9B),
+                      //   ),
+                      // ),
                       Container(
                         height: 32,
                         child: DropdownButtonFormField<String>(
                           // alignment: AlignmentDirectional.centerStart,
                           decoration: InputDecoration(
-                            hintText:
-                                'Select Speciality                                      ',
+                            //hintText:
+                                //'Select Speciality                                      ',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
