@@ -112,6 +112,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                         padding: const EdgeInsets.only(top: 18.0),
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'SCHEDULED TODAY',
@@ -147,6 +148,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                         padding: const EdgeInsets.only(top: 18.0),
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'TO BE SCHEDULED TODAY',
@@ -830,7 +832,8 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
-                                                Text('This Month',
+                                                Text(
+                                                  'This Month',
                                                   style: GoogleFonts.firaSans(
                                                       decoration: TextDecoration.none,
                                                       fontSize: 10.0,
@@ -1047,9 +1050,10 @@ class CustomContainer extends StatelessWidget {
             height: 52,
             width: 41,
           ),
-          SizedBox(width: MediaQuery.of(context).size.width / 35),
+          SizedBox(width: MediaQuery.of(context).size.width / 100),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 numberText,
