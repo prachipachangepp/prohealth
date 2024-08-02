@@ -235,7 +235,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
       _overlayEntry = null;
     }
   }
-
   int employeeId = 0;
   Future<void> _searchByFilter() async {
     var result = await postSearchByFilter(
