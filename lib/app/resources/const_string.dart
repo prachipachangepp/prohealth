@@ -78,7 +78,9 @@ class AppString {
   static const String upload ="Upload";
   static const String cancel ="Cancel";
   static const String reset ="Reset";
+  static const String enter_otp ="Enter OTP";
   static const String save ="Save";
+  static const String submit = "Submit";
 
   static const String references ="References";
   static const String add_education ="Add Education";
@@ -187,6 +189,20 @@ class AppString {
   static const String comment = "Comment";
   static const String aboutToExpireLicense = "About To Expire License";
   static const String expiredLicense = "Expired License";
+
+
+  //intake & schedular
+
+  static String state ="State";
+  static String zip_code ="Zip Code";
+  static String primary_phone_number="Primary Phone Number";
+  static String secondary_phone_number="Secondary Phone Number";
+  static String date_of_death ="Date of Death";
+  static String date_of_birth ="Date of Birth";
+  static String suffix ="Suffix";
+  static String comments ="Comments";
+
+
 
 
 

@@ -1729,6 +1729,7 @@ class _AdministartionTabState extends State<AdministartionTab> {
                           children: [
                             McqWidget(
                               title: 'Employment',
+                              fontSize: 14,
                               items: [
                                 'Full Time',
                                 'Contract',
@@ -1742,6 +1743,7 @@ class _AdministartionTabState extends State<AdministartionTab> {
                             ),
                             McqWidget(
                               title: 'Gender',
+                              fontSize: 14,
                               items: [
                                 'Male',
                                 'Female',
@@ -1751,6 +1753,7 @@ class _AdministartionTabState extends State<AdministartionTab> {
                             ),
                             McqWidget(
                               title: 'Status',
+                              fontSize: 14,
                               items: ['Active', 'Trainee', 'Inactive'],
                               onChanged: (int) {},
                             ),

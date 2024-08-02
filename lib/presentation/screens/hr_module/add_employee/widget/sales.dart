@@ -895,6 +895,7 @@ class _SalesTabState extends State<SalesTab> {
                           ),
                           McqWidget(
                             title: 'Gender',
+                            fontSize: 14.0,
                             items: [
                               'Male',
                               'Female',
@@ -904,6 +905,7 @@ class _SalesTabState extends State<SalesTab> {
                           ),
                           McqWidget(
                             title: 'Status',
+                            fontSize: 14.0,
                             items: ['Active', 'Trainee', 'Inactive'],
                             onChanged: (int) {},
                           ),
