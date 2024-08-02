@@ -336,13 +336,13 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                             height: 30,
                             width: 140,
                             onPressed: () {
-                              myController.selectButton(3);
-                              _pageController.animateToPage(3,
+                              myController.selectButton(2);
+                              _pageController.animateToPage(2,
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.ease);
                             },
                             text: 'Register',
-                            isSelected: myController.selectedIndex.value == 3,
+                            isSelected: myController.selectedIndex.value == 2,
                           ),
                         ),
                         SizedBox(
@@ -353,13 +353,13 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                             height: 30,
                             width: 140,
                             onPressed: () {
-                              myController.selectButton(4);
-                              _pageController.animateToPage(4,
+                              myController.selectButton(3);
+                              _pageController.animateToPage(3,
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.ease);
                             },
                             text: 'Onboarding',
-                            isSelected: myController.selectedIndex.value == 4,
+                            isSelected: myController.selectedIndex.value == 3,
                           ),
                         ),
                       ],
@@ -646,14 +646,32 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     );
                   }
                   if (employeeId == 0) {
-                    return Center(
-                        child: Text(
-                      AppString.dataNotFound,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey),
-                    ));
+                    return PageView(
+                      controller: _pageController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        Center(
+                            child: Text(
+                              AppString.dataNotFound,
+                              style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey),
+                            )),
+                        Center(
+                            child: Text(
+                              AppString.dataNotFound,
+                              style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey),
+                            )),
+                        //AddEmployeeHomeScreen(),
+                        RegisterScreen(),
+                        NewOnboardScreen(),
+                        //SeeAllHrScreen()
+                      ],
+                    );
                   }
                   if (snapshot.hasData) {
                     SearchByEmployeeIdProfileData
@@ -668,10 +686,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           searchByEmployeeIdProfileData:
                               searchByEmployeeIdProfileData, employeeId: searchByEmployeeIdProfileData.employeeId!,
                         ),
-                        AddEmployeeHomeScreen(),
+                        //AddEmployeeHomeScreen(),
                         RegisterScreen(),
                         NewOnboardScreen(),
-                        SeeAllHrScreen()
+                       // SeeAllHrScreen()
                       ],
                     );
                   }

@@ -4,14 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 
-class SMIntakeReferralScreen extends StatefulWidget {
-  const SMIntakeReferralScreen({super.key});
+class IntakePhysicianScreen extends StatefulWidget {
+  const IntakePhysicianScreen({super.key});
 
   @override
-  State<SMIntakeReferralScreen> createState() => _SMIntakeReferralScreenState();
+  State<IntakePhysicianScreen> createState() => _IntakePhysicianScreenState();
 }
 
-class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
+class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
   int selectedIndex = 0;
   final PageController smIntakePageController = PageController();
 
@@ -36,7 +36,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
         children: [
           SizedBox(height: 15,),
           Container(
-            width: MediaQuery.of(context).size.width/5,
+            width: MediaQuery.of(context).size.width/2.4,
             height: 30,
             decoration: BoxDecoration(
                 boxShadow: [
@@ -65,7 +65,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Referral Info',
+                      'Info',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -90,7 +90,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Agency Info',
+                      'Compliance',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -102,6 +102,56 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                     ),
                   ),
                   onTap: () => selectButton(1),
+                ),
+                InkWell(
+                  child: Container(
+                    height: 30,
+                    width: MediaQuery.of(context).size.width / 10,
+                    padding: EdgeInsets.symmetric(vertical: 6),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: selectedIndex == 2
+                          ? Colors.white
+                          : null,
+                    ),
+                    child: Text(
+                      'Plan of Care',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: selectedIndex == 2
+                            ? ColorManager.mediumgrey
+                            : Colors.white,
+                      ),
+                    ),
+                  ),
+                  onTap: () => selectButton(2),
+                ),
+                InkWell(
+                  child: Container(
+                    height: 30,
+                    width: MediaQuery.of(context).size.width / 9.5,
+                    padding: EdgeInsets.symmetric(vertical: 6),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: selectedIndex == 3
+                          ? Colors.white
+                          : null,
+                    ),
+                    child: Text(
+                      'Related Parties',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: selectedIndex == 3
+                            ? ColorManager.mediumgrey
+                            : Colors.white,
+                      ),
+                    ),
+                  ),
+                  onTap: () => selectButton(3),
                 ),
               ],
             ),
@@ -119,8 +169,10 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                   controller: smIntakePageController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    Container(color: Colors.red,),
-                    Container(color: Colors.grey,)
+                    Container(),
+                    Container(),
+                    Container(),
+                    Container(),
                   ]),
             ),
           ),
