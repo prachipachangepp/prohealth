@@ -180,9 +180,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(1,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
-
                             pgeControllerId = 1;
-
                         },
                         text: 'Manage',
                         isSelected: myController.selectedIndex.value == 1,
@@ -216,10 +214,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(2,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
-
                             pgeControllerId = 2;
-
-
                         },
                         text: 'Register',
                         isSelected: myController.selectedIndex.value == 2,
