@@ -12,6 +12,7 @@ import '../../../widgets/app_bar/app_bar.dart';
 import '../../../widgets/widgets/const_appbar/controller.dart';
 import '../../hr_module/manage/widgets/bottom_row.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../sm_Intake/sm_intake_screen.dart';
 import '../sm_scheduler/sm_scheduler_screen.dart';
 
 class SMDesktopScreen extends StatelessWidget {
