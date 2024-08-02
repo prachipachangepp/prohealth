@@ -75,6 +75,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -83,7 +84,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Pick Office',
+                      'Pick Department',
                       style: GoogleFonts.firaSans(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
@@ -360,6 +361,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                                     children: [
                                       CIRoleContainerConstant(
                                         metaModule.mainModule,
+                                        //NetworkImage(metaModule.iconUrl),
                                         AssetImage('images/rehab.png'),
                                         borderColor: isSelected ? ColorManager.blueprime : Colors.white,
                                       ),

@@ -20,6 +20,7 @@ class AddEmployeementPopup extends StatefulWidget {
   final TextEditingController cityNameController;
   final TextEditingController employeerController;
   final TextEditingController emergencyMobileNumber;
+  final TextEditingController countryController;
   final String tite;
   final VoidCallback onpressedClose;
   Future<void> Function() onpressedSave;
@@ -39,7 +40,7 @@ class AddEmployeementPopup extends StatefulWidget {
     required this.onpressedSave,
     required this.checkBoxTile,
     required this.tite,
-    required this.onpressedClose,
+    required this.onpressedClose, required this.countryController,
   });
 
   @override
@@ -62,6 +63,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     'cityName': false,
     'employer': false,
     'emergencyMobileNumber': false,
+    'countryname':false
+
   };
 
   @override
@@ -70,7 +73,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.5,
-        height: AppSize.s395, // Increased height
+        height:  MediaQuery.of(context).size.height / 1.5,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -188,6 +191,23 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ),
               ],
             ),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildTextField(
+                  controller: widget.countryController,
+                  labelText: "Country Name",
+                  errorKey: 'countryname',
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 6,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 6,
+                ),
+              ],
+            ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
@@ -208,6 +228,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     child: CircularProgressIndicator(color: ColorManager.blueprime),
                   )
                       : CustomElevatedButton(
+                    width: 100,
                     text: "Save",
                     onPressed: _handleSave,
                   ),
@@ -235,28 +256,18 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
           labelText: labelText,
-          keyboardType: (labelText == "Supervisor's Mobile Number" || labelText == "Emergency Mobile Number")
-              ? TextInputType.phone
-              : TextInputType.text,
+          keyboardType: TextInputType.text,
           padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
           suffixIcon: suffixIcon,
           onTap: onTap,
           onChanged: (value) {
             setState(() {
-              if (labelText == "Supervisor's Mobile Number" || labelText == "Emergency Mobile Number") {
-                errorStates[errorKey] = value.isEmpty || value.length != 10 || int.tryParse(value) == null;
-              } else {
-                errorStates[errorKey] = value.isEmpty;
-              }
+              errorStates[errorKey] = value.isEmpty;
             });
           },
           validator: (value) {
             if (value == null || value.isEmpty) {
               return AppString.enterText;
-            }
-            if ((labelText == "Supervisor's Mobile Number" || labelText == "Emergency Mobile Number") &&
-                (value.length != 10 || int.tryParse(value) == null)) {
-              return 'Please enter a valid 10-digit mobile number';
             }
             return null;
           },
@@ -265,9 +276,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
           Padding(
             padding: const EdgeInsets.only(top: 5),
             child: Text(
-              (labelText == "Supervisor's Mobile Number" || labelText == "Emergency Mobile Number")
-                  ? 'Please enter a valid 10-digit mobile number'
-                  : 'Please enter $labelText',
+              'Please enter $labelText',
               style: TextStyle(color: Colors.red, fontSize: 10),
             ),
           ),
@@ -299,14 +308,11 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       errorStates['startDate'] = widget.startDateContoller.text.isEmpty;
       errorStates['endDate'] = widget.endDateController.text.isEmpty;
       errorStates['lastSupervisorName'] = widget.lastSupervisorNameController.text.isEmpty;
-      errorStates['supervisorMobileNumber'] = widget.supervisorMobileNumber.text.isEmpty ||
-          widget.supervisorMobileNumber.text.length != 10 ||
-          int.tryParse(widget.supervisorMobileNumber.text) == null;
+      errorStates['supervisorMobileNumber'] = widget.supervisorMobileNumber.text.isEmpty;
       errorStates['cityName'] = widget.cityNameController.text.isEmpty;
       errorStates['employer'] = widget.employeerController.text.isEmpty;
-      errorStates['emergencyMobileNumber'] = widget.emergencyMobileNumber.text.isEmpty ||
-          widget.emergencyMobileNumber.text.length != 10 ||
-          int.tryParse(widget.emergencyMobileNumber.text) == null;
+      errorStates['emergencyMobileNumber'] = widget.emergencyMobileNumber.text.isEmpty;
+      errorStates['countryname']=widget.countryController.text.isEmpty;
     });
 
     if (!errorStates.values.contains(true)) {
@@ -347,7 +353,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     widget.employeerController.clear();
     widget.positionTitleController.clear();
     widget.emergencyMobileNumber.clear();
-
+    widget.countryController.clear();
   }
 }
 

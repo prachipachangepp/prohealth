@@ -67,7 +67,8 @@ Future<ApiData> addEmployeeEducation(
     String college,
     String phone,
     String state,
-    String country,String startDate) async {
+    String country,
+    String startDate) async {
   try {
     var response = await Api(context).post(
       path: ManageReposotory.addEmployeeDucation(),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 
 import '../../../../../data/api_data/establishment_data/user/user_modal.dart';
@@ -10,8 +11,9 @@ import '../../repository/establishment_manager/establishment_repository.dart';
 Future<List<UserModal>> getUser(BuildContext context,) async {
   List<UserModal> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.userGet());
+        path: EstablishmentManagerRepository.userGetByCompanyId(companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("user data");
       for (var item in response.data) {
@@ -82,6 +84,8 @@ Future<ApiData> createUserPost(
     String password
     ) async {
   try {
+    // final companyId = await TokenManager.getCompanyId();
+
     var response = await Api(context).post(path: EstablishmentManagerRepository.createUserPost(), data: {
       'firstName':firstName,
       'lastName':lastName,
