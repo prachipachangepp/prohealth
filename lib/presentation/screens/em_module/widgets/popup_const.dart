@@ -50,7 +50,7 @@ class _CustomDialogState extends State<CustomDialog> {
       child: Stack(
         children: <Widget>[
           Container(
-            height: 500,
+            height: 470,
             width: 400,
             decoration: BoxDecoration(
               color: Colors.white,
