@@ -189,19 +189,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             }).catchError((error) {
                             });
                             Navigator.pop(context);
-                            // print("::::::::${firstNameController.text}");
-                            //  print("::::::::${lastNameController.text}");
-                            //  print("::::::::${roleController.text}");
-                            //  print("::::::::${emailController.text}");
-                            //  print("::::::::${companyIdController.text}");
-                            //  print("::::::::${passwordController.text}");
                             firstNameController.clear();
                             lastNameController.clear();
                             roleController.clear();
                             emailController.clear();
                             companyIdController.clear();
                             passwordController.clear();
-                            print('Form validated and submitted!');
                           },
 
                         );

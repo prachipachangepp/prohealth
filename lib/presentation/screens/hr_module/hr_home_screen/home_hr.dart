@@ -237,7 +237,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   ],
                 ),
                 /// search text
-                  Row(
+               _pageController == 2 || _pageController == 3 ?  SizedBox() :Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
