@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_phhysician_info/widget/physician_info_face_to_face/physician_info_face_to_face.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -90,7 +91,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Compliance',
+                      'Referring Diagnosis',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -115,7 +116,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Plan of Care',
+                      'Physician Orders',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -140,7 +141,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Related Parties',
+                      'Face To Face',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -172,7 +173,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                     Container(),
                     Container(),
                     Container(),
-                    Container(),
+                    PhysicianFaceToFace(),
                   ]),
             ),
           ),
@@ -181,4 +182,3 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
     );
   }
 }
-/////
