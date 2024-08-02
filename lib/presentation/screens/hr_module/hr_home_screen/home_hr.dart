@@ -423,12 +423,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return ProfilePatientPopUp();
-                                      },
-                                    );
+                                    // showDialog(
+                                    //   context: context,
+                                    //   builder: (BuildContext context) {
+                                    //     return ProfilePatientPopUp();
+                                    //   },
+                                    // );
                                   },
 
                                   child: Center(
