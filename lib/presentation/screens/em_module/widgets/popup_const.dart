@@ -50,7 +50,7 @@ class _CustomDialogState extends State<CustomDialog> {
       child: Stack(
         children: <Widget>[
           Container(
-            height: 500,
+            height: 470,
             width: 400,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -106,19 +106,19 @@ class _CustomDialogState extends State<CustomDialog> {
                   ),
                 ),
                 SizedBox(height: 16.0),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextField(
-                    controller: widget.userIdController,
-                    keyboardType: TextInputType.phone,
-                    text: "User ID",
-                    cursorHeight: 12,
-                    labelText: "User ID",
-                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                    labelFontSize: 12,
-                    errorText: 'User ID is required',
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 8.0),
+                //   child: HRManageTextField(
+                //     controller: widget.userIdController,
+                //     keyboardType: TextInputType.phone,
+                //     text: "User ID",
+                //     cursorHeight: 12,
+                //     labelText: "User ID",
+                //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                //     labelFontSize: 12,
+                //     errorText: 'User ID is required',
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: HRManageTextField(
