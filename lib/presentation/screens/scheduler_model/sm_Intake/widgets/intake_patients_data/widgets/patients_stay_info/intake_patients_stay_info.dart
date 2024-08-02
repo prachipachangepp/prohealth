@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import '../../../../../../../../app/resources/value_manager.dart';
 import '../patients_info/intake_patients_info.dart';
-
 
 class IntakePatientsStayInfoScreen extends StatelessWidget {
   const IntakePatientsStayInfoScreen({Key? key}) : super(key: key);
@@ -13,44 +14,65 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
-          height: 423,
-          width: MediaQuery.of(context).size.width * 0.8,
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 0,
-                blurRadius: 10,
-                offset: Offset(0, 5),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 80.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text('Status Completed',
+                    style: GoogleFonts.firaSans(
+                        decoration: TextDecoration.none,
+                        fontSize: 12.0,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.greenDark
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Last Inpatient Stay Information',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xff686464),
-                      fontWeight: FontWeightManager.semiBold,)),
-                SizedBox(height: 20),
-                _buildInpatientStaySection(),
-                SizedBox(height: 30),
-                Text('Location of Care',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xff686464),
-                      fontWeight: FontWeightManager.semiBold,)),
-                SizedBox(height: 20),
-                _buildLocationOfCareSection(),
-              ],
             ),
-          ),
+            SizedBox(height: 19.5),
+            Container(
+              // height: 423,
+              width: MediaQuery.of(context).size.width * 0.95,
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: ColorManager.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 0,
+                    blurRadius: 10,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Last Inpatient Stay Information',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          color: Color(0xff686464),
+                          fontWeight: FontWeightManager.semiBold,)),
+                    SizedBox(height: 20),
+                    _buildInpatientStaySection(),
+                    SizedBox(height: 30),
+                    Text('Location of Care',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          color: Color(0xff686464),
+                          fontWeight: FontWeightManager.semiBold,)),
+                    SizedBox(height: 20),
+                    _buildLocationOfCareSection(),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -74,7 +96,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             SizedBox(width: 35),
             Flexible(
                 child: SchedularDropdown(
-                    labelText: 'Status',
+                    labelText: AppString.status,
                     initialValue: 'Scheduled')
             ),
             SizedBox(width: 35),
@@ -94,17 +116,17 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             SizedBox(width: 35),
             Flexible(
                 child: SchedularTextField(
-                    labelText: 'Address')
+                    labelText: AppString.address)
             ),
             SizedBox(width: 35),
             Flexible(
                 child: SchedularTextField(
-                    labelText: 'City')
+                    labelText:  AppString.city)
             ),
             SizedBox(width: 35),
             Flexible(
                 child: SchedularDropdown(
-                    labelText: 'State')
+                    labelText:  AppString.state)
             ),
           ],
         ),
@@ -142,22 +164,28 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularTextField(
                     labelText: 'Date of Surgery/ Procedure',
-                    isDate: true
+                    isDate: true)
+            ),
+            SizedBox(width: 35),
+            Flexible(
+                child: SchedularTextField(
+                    labelText: AppString.comments
                 )
             ),
             SizedBox(width: 35),
             Flexible(
-                flex: 3,
-                child: SchedularTextField(
-                    labelText: 'Comments'
-                )
-            ),
+                child: Container()), // Empty container for alignment
             SizedBox(width: 35),
+            Flexible(
+                child: Container()),
           ],
-        ),
+        )
       ],
     );
   }
+
+
+
 
   Widget _buildLocationOfCareSection() {
     return Column(
@@ -167,14 +195,14 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
 
             Flexible(
                 child: SchedularTextField(
-                    labelText: 'Start Date',
+                    labelText: AppString.startdate,
                     isDate: true
                 )
             ),
             SizedBox(width: 35),
             Flexible(
                 child: SchedularTextField(
-                    labelText: 'End Date',
+                    labelText: AppString.enddate,
                     isDate: true
                 )
             ),
@@ -197,13 +225,13 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
           children: [
             Flexible(
                 child: SchedularTextField(
-                    labelText: 'City'
+                    labelText: AppString.city
                 )
             ),
             SizedBox(width: 35),
             Flexible(
                 child: SchedularDropdown(
-                    labelText: 'State'
+                    labelText: AppString.state
                 )
             ),
             SizedBox(width: 35),
@@ -217,12 +245,12 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             SizedBox(width: 35),
             Flexible(
                 child: SchedularTextField(
-                    labelText: 'Phone'
+                    labelText: AppString.phone
                 )
             ),
           ],
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 16),
         Row(
           children: [
             Flexible(
@@ -230,10 +258,17 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                     labelText: 'Fax'
                 )
             ),
-            Flexible(child: SizedBox(width: 20)),
-            Flexible(child: SizedBox(width: 20)),
+            SizedBox(width: 35),
+            Flexible(
+                child: Container()),
+            SizedBox(width: 35),
+            Flexible(
+                child: Container()), // Empty container for alignment
+            SizedBox(width: 35),
+            Flexible(
+                child: Container()),
           ],
-        ),
+        )
       ],
     );
   }

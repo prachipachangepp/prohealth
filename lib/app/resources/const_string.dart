@@ -191,6 +191,20 @@ class AppString {
   static const String expiredLicense = "Expired License";
 
 
+  //intake & schedular
+
+  static String state ="State";
+  static String zip_code ="Zip Code";
+  static String primary_phone_number="Primary Phone Number";
+  static String secondary_phone_number="Secondary Phone Number";
+  static String date_of_death ="Date of Death";
+  static String date_of_birth ="Date of Birth";
+  static String suffix ="Suffix";
+  static String comments ="Comments";
+
+
+
+
 
 
 
