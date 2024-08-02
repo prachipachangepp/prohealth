@@ -8,7 +8,7 @@ class ResponsiveScreenSM extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth >= 850) {
+        if (constraints.maxWidth >= 800) {
           return SMHomeScreen();
         } else {
           return Container(

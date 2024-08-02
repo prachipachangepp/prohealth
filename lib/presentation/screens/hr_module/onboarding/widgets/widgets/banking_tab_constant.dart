@@ -25,7 +25,7 @@ class _BankingTabContainerConstantState
   @override
   void initState() {
     super.initState();
-    getOnboardingBanking(context, 2).then((data){
+    getOnboardingBanking(context, 2,'no').then((data){
       bankingStreamController.add(data);
     }).catchError((error){});
   }

@@ -27,7 +27,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationReference(context, 5).then((data){
+    getOnboardingQualificationReference(context, 5,'no').then((data){
       referenceStreamController.add(data);
     }).catchError((error){});
   }
@@ -90,7 +90,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                       vertical: MediaQuery.of(context).size.height / 120,
                     ),
                     child:Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -101,7 +101,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: 10),
+                       // SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -242,7 +242,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                       ElevatedButton(
                                                         onPressed: () async {
                                                           await rejectOnboardQualifyReferencePatch(context, snapshot.data![index].referenceId);
-                                                            getOnboardingQualificationReference(context, 5).then((data){
+                                                            getOnboardingQualificationReference(context, 5,'no').then((data){
                                                               referenceStreamController.add(data);
                                                             }).catchError((error){});
                                                           Navigator.of(context).pop();
@@ -376,7 +376,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         await approveOnboardQualifyReferencePatch(context, snapshot.data![index].referenceId);
-                                                        getOnboardingQualificationReference(context, 5).then((data){
+                                                        getOnboardingQualificationReference(context, 5,'no').then((data){
                                                           referenceStreamController.add(data);
                                                         }).catchError((error){});
                                                         Navigator.of(context).pop();
