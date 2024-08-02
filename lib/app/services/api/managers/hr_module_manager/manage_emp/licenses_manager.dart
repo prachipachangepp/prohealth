@@ -26,7 +26,7 @@ Future<Map<String, List<LicensesData>>> getLicenseStatusWise(
   List<LicensesData> upToDateLicenses = [];
   try {
     final response =
-    await Api(context).get(path: ManageReposotory.getLicenseStatus(employeeId: employeeId,));
+    await Api(context).get(path: ManageReposotory.getLicenseStatus(employeeId: employeeId, approvedOnly: 'no',));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         String formatedDate = convertIsoToDayMonthYear(item['issueDate']);

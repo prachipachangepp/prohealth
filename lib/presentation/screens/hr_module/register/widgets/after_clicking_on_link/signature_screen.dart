@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/offer_letter_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/declination_form_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
@@ -18,8 +19,8 @@ import 'form_nine_screen.dart';
 typedef ImageCallback = void Function(Uint8List? image);
 class SignaturePage extends StatefulWidget {
   final Function(Uint8List?) onSignatureSelected;
-
-  SignaturePage({required this.onSignatureSelected});
+  final int employeeId;
+  SignaturePage({required this.onSignatureSelected, required this.employeeId});
 
   @override
   _SignaturePageState createState() => _SignaturePageState();
@@ -181,7 +182,7 @@ class _SignaturePageState extends State<SignaturePage> {
                               onPanUpdate: (details) {
                                 setState(() {
                                   RenderBox renderBox = context.findRenderObject() as RenderBox;
-                                  Offset localPosition = renderBox.globalToLocal(details.globalPosition);
+                                  Offset localPosition = renderBox.globalToLocal(details.localPosition);
                                   print("Drawing at: $localPosition"); // Debugging
                                   _points.add(localPosition);
                                 });
@@ -388,8 +389,10 @@ class _SignaturePageState extends State<SignaturePage> {
                         ),
                       ],
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                    onPressed: () async{
+                      print("Signature ${_selectedImageBytes}");
+                     await uploadSignature(context,widget.employeeId,_selectedImageBytes);
+                     Navigator.of(context).pop();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -465,7 +468,7 @@ class SignaturePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
+    Paint paint = Paint()
       ..color = Colors.black
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
@@ -478,9 +481,7 @@ class SignaturePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
-  }
+  bool shouldRepaint(SignaturePainter oldDelegate) => true;
 }
 
 
