@@ -863,6 +863,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                           ),
                         ],
                       ),
+
                       SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -881,6 +882,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             ),
                           )
                               : CustomElevatedButton(
+                            width: 100,
                             text: "Save",
                             onPressed: _handleSave,
                           ),

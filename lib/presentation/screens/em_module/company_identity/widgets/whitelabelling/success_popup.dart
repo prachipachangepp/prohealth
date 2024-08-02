@@ -211,7 +211,7 @@ class AddSuccessPopup extends StatelessWidget {
                 height: AppSize.s50,
                 width: AppSize.s210,
                 child: Center(
-                  child: Text('Added Successfully \nThank You.',textAlign: TextAlign.center,
+                  child: Text(message == ""?'Added Successfully \nThank You.':message,textAlign: TextAlign.center,
                     style:GoogleFonts.firaSans(
                         fontWeight: FontWeightManager.regular,
                         fontSize: FontSize.s14,

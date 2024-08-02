@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -7,6 +9,7 @@ import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
+import 'package:prohealth/app/services/encode_decode_base64.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -19,7 +22,8 @@ import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../onboarding/download_doc_const.dart';
 ///download
 class AcknowledgementsChildBar extends StatefulWidget {
-  const AcknowledgementsChildBar({super.key});
+  final int employeeId;
+  const AcknowledgementsChildBar({super.key, required this.employeeId});
 
   @override
   State<AcknowledgementsChildBar> createState() => _AcknowledgementsChildBarState();
@@ -32,11 +36,6 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
   @override
   void initState() {
     super.initState();
-    getAckHealthRecord(context, 10, 48, 2).then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
   }
 
   @override
@@ -47,14 +46,15 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-               width: 100,
-              margin: EdgeInsets.only(right: 20),
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
+                  width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
                     showDialog(context: context, builder: (BuildContext context){
                       return AcknowledgementAddPopup(labelName: 'Add Acknowledgement',
+                        employeeId: widget.employeeId,
                         AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
                         },
                         child: FutureBuilder<List<EmployeeDocSetupModal>>(
@@ -126,7 +126,11 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (context, snapshot) {
-
+            getAckHealthRecord(context, 10, 48, widget.employeeId).then((data) {
+              _controller.add(data);
+            }).catchError((error) {
+              // Handle error
+            });
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(
@@ -175,6 +179,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                   children: List.generate(snapshot.data!.length, (index) {
                     final data = snapshot.data![index];
                     final fileUrl = data.DocumentUrl;
+                    //var decodeBse64 = EncodeDecodeBase64.getDecodeBase64(fetchedUrl: "e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O");
+                    // print("File:::>>${decodeBse64}");
                     final fileExtension = fileUrl.split('.').last.toLowerCase();
 
                     Widget fileWidget;
@@ -185,7 +191,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Icon(
-                            Icons.broken_image,
+                            Icons.file_copy_outlined,
+                            //Icons.broken_image,
                             size: 25,
                             color: ColorManager.blueprime,
                           );
@@ -193,13 +200,15 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                       );
                     } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
                       fileWidget = Icon(
-                        Icons.description,
+                        Icons.file_copy_outlined,
+                        //Icons.description,
                         size: 25,
                         color: ColorManager.blueprime,
                       );
                     } else {
                       fileWidget = Icon(
-                        Icons.insert_drive_file,
+                        Icons.file_copy_outlined,
+                        //Icons.insert_drive_file,
                         size: 25,
                         color: ColorManager.blueprime,
                       );
@@ -220,14 +229,31 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                   borderRadius: BorderRadius.circular(4),
                                   border: Border.all(width: 2, color: ColorManager.faintGrey),
                                 ),
-                                child: fileWidget,
+                                child: Image.asset('images/Vector.png')
                               ),
                             ),
                             SizedBox(width: 10),
                             Expanded(
-                              child: Text(
-                                data.ReminderThreshold,
-                                style: AknowledgementStyleConst.customTextStyle(context),
+                              child: Column(
+                                crossAxisAlignment:CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    data.DocumentName,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      color: ColorManager.black,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Text(
+                                    data.ReminderThreshold,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 7,
+                                      color: ColorManager.mediumgrey,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
