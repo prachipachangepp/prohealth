@@ -182,7 +182,7 @@ class _SignaturePageState extends State<SignaturePage> {
                               onPanUpdate: (details) {
                                 setState(() {
                                   RenderBox renderBox = context.findRenderObject() as RenderBox;
-                                  Offset localPosition = renderBox.globalToLocal(details.globalPosition);
+                                  Offset localPosition = renderBox.globalToLocal(details.localPosition);
                                   print("Drawing at: $localPosition"); // Debugging
                                   _points.add(localPosition);
                                 });
@@ -468,7 +468,7 @@ class SignaturePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
+    Paint paint = Paint()
       ..color = Colors.black
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
@@ -481,9 +481,7 @@ class SignaturePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
-  }
+  bool shouldRepaint(SignaturePainter oldDelegate) => true;
 }
 
 
