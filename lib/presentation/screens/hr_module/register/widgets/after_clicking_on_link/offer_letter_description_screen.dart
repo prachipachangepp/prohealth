@@ -202,7 +202,7 @@ class _OfferLetterDescriptionScreenState
                                   setState(() {
                                     signatureBytes = selectedSignature;
                                   });
-                                },
+                                }, employeeId: 1,
                               ),
                             ),
                           );

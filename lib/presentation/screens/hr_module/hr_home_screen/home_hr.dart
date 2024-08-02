@@ -232,9 +232,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(3,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
-
                             pgeControllerId = 3;
-
                         },
                         text: 'Onboarding',
                         isSelected: myController.selectedIndex.value == 3,
