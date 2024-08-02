@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
-import 'package:encrypt/encrypt.dart' as encrypt;
+// import 'package:encrypt/encrypt.dart' as encrypt;
 
 class AppFilePickerBase64 {
 
@@ -23,30 +23,30 @@ class AppFilePickerBase64 {
     return base64Documents;
   }
 
- static Future<List<int>> mainFun({required String keyUrl}) async {
-    String fileName =  keyUrl.split('/').last;
-    final key = generateRandomKey(32);  // 32 bytes = 256 bits (for AES-256)
-    final iv = generateRandomKey(16);
-    final encryptedUrl = fileName;
-    // final key = 'your-32-byte-key';  // Replace with your actual key
-    // final iv = 'your-16-byte-iv';    // Replace with your actual IV
-
-    final decryptedUrl = dexryptUrl(encryptedUrl, key, iv);
-    print('Decrypted URL: $decryptedUrl');
-    return decryptedUrl;
-  }
-  static List<int> dexryptUrl(String encryptedUrl, String key, String iv){
-      final keyBytes = encrypt.Key.fromUtf8(key);
-      final ivBytes = encrypt.IV.fromUtf8(iv);
-
-      // final encrypter = encrypt.Encrypter(encrypt.AES(keyBytes));
-      final encrypter = encrypt.Encrypter(encrypt.AES(keyBytes));
-
-      final encryptedText = 'e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O';
-      final encrypted = encrypt.Encrypted.fromBase64(encryptedText);
-      final decrypted = encrypter.decryptBytes(encrypted, iv: ivBytes);
-      return decrypted;
-  }
+ // static Future<List<int>> mainFun({required String keyUrl}) async {
+ //    String fileName =  keyUrl.split('/').last;
+ //    final key = generateRandomKey(32);  // 32 bytes = 256 bits (for AES-256)
+ //    final iv = generateRandomKey(16);
+ //    final encryptedUrl = fileName;
+ //    // final key = 'your-32-byte-key';  // Replace with your actual key
+ //    // final iv = 'your-16-byte-iv';    // Replace with your actual IV
+ //
+ //    // final decryptedUrl = dexryptUrl(encryptedUrl, key, iv);
+ //    // print('Decrypted URL: $decryptedUrl');
+ //    // return decryptedUrl;
+ //  }
+  // static List<int> dexryptUrl(String encryptedUrl, String key, String iv){
+  //     final keyBytes = encrypt.Key.fromUtf8(key);
+  //     final ivBytes = encrypt.IV.fromUtf8(iv);
+  //
+  //      // final encrypter = encrypt.Encrypter(encrypt.AES(keyBytes));
+  //      final encrypter = encrypt.Encrypter(encrypt.AES(keyBytes));
+  //
+  //     final encryptedText = 'e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O';
+  //     final encrypted = encrypt.Encrypted.fromBase64(encryptedText);
+  //     final decrypted = encrypter.decryptBytes(encrypted, iv: ivBytes);
+  //     return decrypted;
+  // }
   // static Future<void> getDecodeBase64({required String fetchedUrl}) async {
   //   String url = fetchedUrl;
   //   String fileUrl =

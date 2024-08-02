@@ -180,12 +180,12 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                   children: List.generate(snapshot.data!.length, (index) {
                     final data = snapshot.data![index];
                     final fileUrl = data.DocumentUrl;
-                    try{
-                      var keyGenerate =  AppFilePickerBase64.mainFun(keyUrl:fileUrl);
-                      print("Generated file ::: ${keyGenerate.toString()}");
-                    }catch(e){
-                      print(e);
-                    }
+                    // try{
+                    //   // var keyGenerate =  AppFilePickerBase64.mainFun(keyUrl:fileUrl);
+                    //   // print("Generated file ::: ${keyGenerate.toString()}");
+                    // }catch(e){
+                    //   print(e);
+                    // }
                     //var decodeBse64 = EncodeDecodeBase64.getDecodeBase64(fetchedUrl: "e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O");
                     // print("File:::>>${decodeBse64}");
                     final fileExtension = fileUrl.split('.').last.toLowerCase();
