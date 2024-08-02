@@ -19,20 +19,19 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
+      body: Center(
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.only(right: 160.0),
+                padding: const EdgeInsets.only(right: 40.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text('Status: Partially Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: 12.0,
+                          fontSize: AppSize.s12,
                           fontWeight: FontWeight.w700,
                           color: Color(0xffFFA500)
                       ),
@@ -73,8 +72,8 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
               ),
               SizedBox(height: 10),
               Container(
-                width: 1219,
-                height: 505,
+                width: MediaQuery.of(context).size.width * 0.95,
+                // height: 405,
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -88,205 +87,203 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                     ),
                   ],
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text('Emergency Contact Information',
-                            style: TextStyle(
-                                fontSize: AppSize.s12,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff686464)
-                            ),)
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Emergency Contact',)
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text('Emergency Contact Information',
+                          style: TextStyle(
+                              fontSize: AppSize.s12,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xff686464)
+                          ),)
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Emergency Contact',)
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Telephone Number', )
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularDropdown(
+                              labelText: 'Relationship',)
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Emergency Contact Address',)
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'City', )
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularDropdown(
+                              labelText: 'State', )
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextFieldWithButton(
+                                labelText: 'Zip Code',
+                                initialValue: '26586845121', buttonText: 'View Zone')
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularDropdown(
+                              labelText: 'Priority/ Disaster Code', )
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Flexible(child: SchedularTextField(
+                            labelText: 'Comments')
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: Container()), // Empty container for alignment
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: Container()),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: Container()),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Text('Primary Care Giver',
+                          style: TextStyle(
+                              fontSize: AppSize.s12,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xff686464)
+                          ),)
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Flexible(child: SchedularTextField(
+                            labelText: 'Prefix')
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'First Name', initialValue: 'Erica',)
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'M.I.', initialValue: 'A',)
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(child: SchedularTextField(
+                            labelText: 'Last Name')
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Suffix')
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                          child: Row(
+                            children: [
+                              Checkbox(
+                                // checkColor: Color(0xff50B5E5),
+                                value: isOptForCAHPSSurvey,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isOptForCAHPSSurvey = value!;
+                                  });
+                                },
+                              ),
+                              Expanded(child: SchedularTextField(labelText: 'Opt for CAHPS Survey')),
+                            ],
                           ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Telephone Number', )
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularDropdown(
-                                labelText: 'Relationship',)
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Emergency Contact Address',)
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'City', )
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularDropdown(
-                                labelText: 'State', )
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextFieldWithButton(
-                                  labelText: 'Zip Code',
-                                  initialValue: '26586845121', buttonText: 'View Zone')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularDropdown(
-                                labelText: 'Priority/ Disaster Code', )
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Flexible(child: SchedularTextField(
-                              labelText: 'Comments')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: Container()), // Empty container for alignment
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Text('Primary Care Giver',
-                            style: TextStyle(
-                                fontSize: AppSize.s12,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff686464)
-                            ),)
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Flexible(child: SchedularTextField(
-                              labelText: 'Prefix')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'First Name', initialValue: 'Erica',)
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'M.I.', initialValue: 'A',)
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(child: SchedularTextField(
-                              labelText: 'Last Name')
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Suffix')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                  // checkColor: Color(0xff50B5E5),
-                                  value: isOptForCAHPSSurvey,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      isOptForCAHPSSurvey = value!;
-                                    });
-                                  },
-                                ),
-                                Expanded(child: SchedularTextField(labelText: 'Opt for CAHPS Survey')),
-                              ],
-                            ),
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Address')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Suite/ Apt.')
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'City')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularDropdown(
-                                labelText: 'State',)
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextFieldWithButton(
-                                  labelText: 'Zip Code',
-                                  initialValue: '26586845121', buttonText: 'View Zone')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Phone')
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Cell')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Email')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularDropdown(
-                                labelText: 'Relationship',)
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Additional Information')
-                          ), // Empty container for alignment
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Address')
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Suite/ Apt.')
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'City')
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularDropdown(
+                              labelText: 'State',)
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextFieldWithButton(
+                                labelText: 'Zip Code',
+                                initialValue: '26586845121', buttonText: 'View Zone')
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Phone')
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Cell')
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Email')
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularDropdown(
+                              labelText: 'Relationship',)
+                        ),
+                        SizedBox(width: 35),
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Additional Information')
+                        ), // Empty container for alignment
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -296,6 +293,8 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
     );
   }
 }
+
+///////
 
 class SchedularTextField extends StatelessWidget {
   final String labelText;
