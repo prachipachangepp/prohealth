@@ -419,7 +419,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return ProfilePatientPopUp();
+                                        return ProfilePatientPopUp(onSearch: () {  },);
                                       },
                                     );
                                   },
