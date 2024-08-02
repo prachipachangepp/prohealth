@@ -230,12 +230,6 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen>
 
 
 
-
-
-
-
-
-
 ///enums
 enum OfficeLocation { sanJose, austin }
 enum Zone { zone1, zone2 }

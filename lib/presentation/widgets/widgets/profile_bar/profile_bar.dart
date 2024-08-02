@@ -1076,7 +1076,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                                                 color: const Color(0xff686464),
                                                                                 decoration: TextDecoration.none,
                                                                               ),
-                                                                            ),
+                                                                             ),
                                                                           ),
                                                                         ),
                                                                         Expanded(
