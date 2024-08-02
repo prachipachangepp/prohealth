@@ -323,7 +323,7 @@ class _EducationFormState extends State<EducationForm> {
                     height: 32,
                     child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
-                        hintText: 'Select Degree',
+                       // hintText: 'Select Degree',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,

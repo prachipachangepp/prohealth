@@ -1422,7 +1422,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     height: 30,
                     width: MediaQuery.of(context).size.width / 5,
                     child: TextField(
-
                       cursorColor: Colors.black,
                       controller: patientsController,
                       decoration: InputDecoration(
@@ -1470,9 +1469,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             }
                           },
                           underline: const SizedBox(),
-                          icon: const Icon(Icons.arrow_drop_down, color: Colors.blue),
+                          icon: const Icon(Icons.arrow_drop_down,
+                              color: Colors.blue),
                         ),
-                        contentPadding: const EdgeInsets.only(left: 20, bottom: 5),
+                        contentPadding:
+                            const EdgeInsets.only(left: 20, bottom: 5),
                       ),
                       style: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -1480,7 +1481,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           color: const Color(0xff575757)),
                     ),
                   ),
-                   SizedBox(width: MediaQuery.of(context).size.width / 10),
+                  SizedBox(width: MediaQuery.of(context).size.width / 10),
                   const SizedBox(
                     width: 50,
                   ),
@@ -1547,7 +1548,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                           .toList();
                                       print("County: ");
                                       return CustomDropdownTextField(
-                                       // width: MediaQuery.of(context).size.width / 5,
+                                        // width: MediaQuery.of(context).size.width / 5,
                                         labelText: 'County',
                                         labelStyle: GoogleFonts.firaSans(
                                           fontSize: 12,
@@ -1603,7 +1604,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                         ),
                                       );
                                     } else if (snapshot.hasError) {
-                                      return  const CustomDropdownTextField(
+                                      return const CustomDropdownTextField(
                                         //width: MediaQuery.of(context).size.width / 5,
 
                                         labelText: 'Zone',
@@ -1621,7 +1622,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                           .toList();
                                       print("Zone: ");
                                       return CustomDropdownTextField(
-                                       // width: MediaQuery.of(context).size.width / 5,
+                                        // width: MediaQuery.of(context).size.width / 5,
                                         labelText: 'Zone',
                                         labelStyle: GoogleFonts.firaSans(
                                           fontSize: 12,
@@ -1636,7 +1637,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       );
                                     } else {
                                       return CustomDropdownTextField(
-                                       // width: MediaQuery.of(context).size.width / 5,
+                                        // width: MediaQuery.of(context).size.width / 5,
                                         labelText: 'Zone',
                                         labelStyle: GoogleFonts.firaSans(
                                           fontSize: 12,
@@ -1662,12 +1663,14 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       Expanded(
                         child: DefaultTabController(
                           length: 2,
-                          child: Column(
+                          child: Column( 
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal:
-                                        180.0), // const EdgeInsets.only(left: 180.0, right: 180.0),
+                                // padding: const EdgeInsets.symmetric(
+                                //     horizontal:
+                                //         180.0),
+                                padding: const EdgeInsets.only(
+                                    left: 180.0, right: 180.0),
                                 child: TabBar(
                                   indicatorColor: const Color(0xff1696C8),
                                   labelColor: const Color(0xff686464),
@@ -2078,7 +2081,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 5,)
+              const SizedBox(
+                height: 5,
+              )
             ],
           ),
         ),

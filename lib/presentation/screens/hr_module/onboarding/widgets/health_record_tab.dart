@@ -79,7 +79,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
 
 
           //////////////////////////check bottom////////////////////////////////////////////////////
-            ////////////////////pp//////
+            ////////////////////lllllll//////
 
 
 
@@ -447,7 +447,13 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                                         SizedBox(
                                           width: 100,
                                           child: ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: () async{
+                                              // await batchApproveOnboardAckHealthPatch(context, snapshot.data![index]);
+                                              // getAckHealthRecord(context, 1, 10, 5).then((data) {
+                                              //   _controller.add(data);
+                                              // }).catchError((error) {});
+                                              Navigator.of(context).pop();
+                                            },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: Color(0xff1696C8),
                                               foregroundColor: Colors.white,
