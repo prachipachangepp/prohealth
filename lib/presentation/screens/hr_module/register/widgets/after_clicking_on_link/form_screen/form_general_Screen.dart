@@ -6,6 +6,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_f
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
@@ -58,7 +59,6 @@ class _generalFormState extends State<generalForm> {
 
   String? racetype;
 
-
   List<String> _fileNames = [];
   bool _loading = false;
 
@@ -85,8 +85,6 @@ class _generalFormState extends State<generalForm> {
       print('User canceled the picker');
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +158,7 @@ class _generalFormState extends State<generalForm> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed:_pickFiles,
+                        onPressed: _pickFiles,
                         // onPressed: () async {
                         //   FilePickerResult? result =
                         //       await FilePicker.platform.pickFiles(
@@ -184,30 +182,32 @@ class _generalFormState extends State<generalForm> {
                         icon: const Icon(Icons.file_upload_outlined),
                       ),
                       _loading
-                          ? SizedBox(width: 25,
-                        height: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime, // Loader color
-                          // Loader size
-                        ),
-                      )
+                          ? SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: CircularProgressIndicator(
+                                color: ColorManager.blueprime, // Loader color
+                                // Loader size
+                              ),
+                            )
                           : _fileNames.isNotEmpty
-                          ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: _fileNames
-                            .map((fileName) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'File picked: $fileName',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff686464)),
-                          ),
-                        ))
-                            .toList(),
-                      )
-                          : const SizedBox(), // Display file names if picked
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: _fileNames
+                                      .map((fileName) => Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'File picked: $fileName',
+                                              style: GoogleFonts.firaSans(
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                      const Color(0xff686464)),
+                                            ),
+                                          ))
+                                      .toList(),
+                                )
+                              : const SizedBox(), // Display file names if picked
 
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
@@ -377,7 +377,6 @@ class _generalFormState extends State<generalForm> {
                           return null;
                         },
                         height: 32,
-
                       ),
                     ],
                   ),
@@ -542,7 +541,6 @@ class _generalFormState extends State<generalForm> {
                           // const SizedBox(
                           //   width: 5,
                           // ),
-
                         ],
                       ),
                       Row(
@@ -580,8 +578,6 @@ class _generalFormState extends State<generalForm> {
                           // const SizedBox(
                           //   width: 3,
                           // ),
-
-
                         ],
                       ),
                       Row(
@@ -614,11 +610,11 @@ class _generalFormState extends State<generalForm> {
                             color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      Container(
+                      SizedBox(
                         height: 32,
                         child: DropdownButtonFormField<String>(
                           decoration: InputDecoration(
-                            hintText: 'Select Clinician',
+                           // hintText: 'Select Clinician',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
                               fontWeight: FontWeight.w400,
@@ -629,7 +625,8 @@ class _generalFormState extends State<generalForm> {
                               borderSide: const BorderSide(color: Colors.grey),
                             ),
                             contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
+                                //   //  vertical: 5,
+                                horizontal: 12),
                           ),
                           value: _selectedClinician,
                           icon: const Icon(Icons.arrow_drop_down,
@@ -669,13 +666,42 @@ class _generalFormState extends State<generalForm> {
                             color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
+                      // CustomDropdownTextField(
+                      //   width: 600,
+                      //   height: 32,
+                      //  // hintText: 'Select Speciality ',
+                      //
+                      //   items: [
+                      //     'Speciality1',
+                      //     'Speciality2',
+                      //     'CSpeciality',
+                      //     'Speciality'
+                      //   ],
+                      //   value: _selectedSpeciality,
+                      //   // List of countries
+                      //   //     .map<DropdownMenuItem<String>>((String value) {
+                      //   //   return DropdownMenuItem<String>(
+                      //   //     value: value,
+                      //   //     child: Text(value),
+                      //   //   );
+                      //   // }).toList(),
+                      //
+                      //   labelText: 'Select Speciality',
+                      //   labelStyle: GoogleFonts.firaSans(
+                      //     fontSize: 10,
+                      //     fontWeight: FontWeight.w400,
+                      //     color: const Color(0xff9B9B9B),
+                      //   ),
+                      // ),
                       Container(
                         height: 32,
                         child: DropdownButtonFormField<String>(
+                          // alignment: AlignmentDirectional.centerStart,
                           decoration: InputDecoration(
-                            hintText: 'Select Speciality',
+                            //hintText:
+                                //'Select Speciality                                      ',
                             hintStyle: GoogleFonts.firaSans(
-                              fontSize: 10.0,
+                              fontSize: 10,
                               fontWeight: FontWeight.w400,
                               color: const Color(0xff9B9B9B),
                             ),
@@ -683,8 +709,8 @@ class _generalFormState extends State<generalForm> {
                               borderRadius: BorderRadius.circular(4.0),
                               borderSide: const BorderSide(color: Colors.grey),
                             ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
+                            contentPadding: const EdgeInsets.only(
+                                bottom: AppPadding.p5, left: 12),
                           ),
                           value: _selectedSpeciality,
                           icon: const Icon(Icons.arrow_drop_down,
@@ -726,84 +752,82 @@ class _generalFormState extends State<generalForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButton(
-                width: 117,
-                height: 30,
-                text: 'Save',
-                style: TextStyle(
-                  fontFamily: 'FiraSans',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-                borderRadius: 12,
-                onPressed: () async {
-                                    await postgeneralscreendata(
-                                        context,
-                                        'G023',
-                                        26,
-                                        firstname.text,
-                                        lastname.text,
-                                        1,
-                                        1,
-                                        'Expertise',
-                                        1,
-                                        1,
-                                        1,
-                                        true,
-                                        false,
-                                        1,
-                                        'SSN123',
-                                        ssecuritynumber.text,
-                                        phonenumber.text,
-                                        '1234',
-                                        '12345',
-                                        '1245',
-                                        personalemail.text,
-                                        address.text,
-                                        dobcontroller.text,
-                                        '1245',
-                                        'Coverage',
-                                        'Employment',
-                                        gendertype.toString(),
-                                        'Active',
-                                        'Service',
-                                        'imgurl',
-                                        'resumeurl',
-                                        5,
-                                        'Onboarding',
-                                        driverlicensenumb.text,
-                                        '2024-01-01',
-                                        '2024-01-01',
-                                        '2024-01-01',
-                                        'Yes',
-                                        'Position',
-                                        '123 Final St',
-                                        'Type',
-                                        'Reason',
-                                        1,
-                                        '2024-01-01',
-                                        1,
-                                        1,
-                                        'Method',
-                                        'Material',
-                                        racetype.toString(),
-                                        'rating',
-                                        'SignatureURL'
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text("General data saved")),
-                                    );
-                                    firstname.clear();
-                                    lastname.clear();
-                                    ssecuritynumber.clear();
-                                    phonenumber.clear();
-                                    personalemail.clear();
-                                    driverlicensenumb.clear();
-                                    address.clear();
-                                    dobcontroller.clear();
+                  width: 117,
+                  height: 30,
+                  text: 'Save',
+                  style: TextStyle(
+                    fontFamily: 'FiraSans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  borderRadius: 12,
+                  onPressed: () async {
+                    await postgeneralscreendata(
+                        context,
+                        'G023',
+                        26,
+                        firstname.text,
+                        lastname.text,
+                        1,
+                        1,
+                        'Expertise',
+                        1,
+                        1,
+                        1,
+                        true,
+                        false,
+                        1,
+                        'SSN123',
+                        ssecuritynumber.text,
+                        phonenumber.text,
+                        '1234',
+                        '12345',
+                        '1245',
+                        personalemail.text,
+                        address.text,
+                        dobcontroller.text,
+                        '1245',
+                        'Coverage',
+                        'Employment',
+                        gendertype.toString(),
+                        'Active',
+                        'Service',
+                        'imgurl',
+                        'resumeurl',
+                        5,
+                        'Onboarding',
+                        driverlicensenumb.text,
+                        '2024-01-01',
+                        '2024-01-01',
+                        '2024-01-01',
+                        'Yes',
+                        'Position',
+                        '123 Final St',
+                        'Type',
+                        'Reason',
+                        1,
+                        '2024-01-01',
+                        1,
+                        1,
+                        'Method',
+                        'Material',
+                        racetype.toString(),
+                        'rating',
+                        'SignatureURL');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("General data saved")),
+                    );
+                    firstname.clear();
+                    lastname.clear();
+                    ssecuritynumber.clear();
+                    phonenumber.clear();
+                    personalemail.clear();
+                    driverlicensenumb.clear();
+                    address.clear();
+                    dobcontroller.clear();
+                  }),
 
-                }
-              ),
-            ///    onPressed: () async {
+              ///    onPressed: () async {
               //                   await postgeneralscreendata(
               //                       context,
               //                       'G023',
