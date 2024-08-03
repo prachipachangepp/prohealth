@@ -28,7 +28,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
   @override
   void initState() {
     super.initState();
-    getAckHealthRecord(context, 1, 10, 5).then((data) {
+    getAckHealthRecord(context, 1, 10, 5, 'No').then((data) {
       _controller.add(data);
       _checked = List.generate(data.length, (_) => false);
     }).catchError((error) {
