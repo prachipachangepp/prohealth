@@ -153,7 +153,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
         StreamBuilder(
           stream: _controller.stream,
           builder: (context,snapshot) {
-            getAckHealthRecord(context, 1,10,widget.employeeId).then((data) {
+            getAckHealthRecord(context, 1,10,widget.employeeId,'yes').then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -436,7 +436,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                               await employeedoctypeSetupIdDelete(
                                                   context,
                                                   snapshot.data![index].employeeDocumentId);
-                                              getAckHealthRecord(context, 1,1,20).then((data) {
+                                              getAckHealthRecord(context, 1,1,20,'yes').then((data) {
                                                 _controller.add(data);
                                               }).catchError((error) {
                                                 // Handle error

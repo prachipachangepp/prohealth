@@ -133,7 +133,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (BuildContext context, snapshot) {
-            getAckHealthRecord(context, 9,38,widget.employeeId).then((data) {
+            getAckHealthRecord(context, 9,38,widget.employeeId,'yes').then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
