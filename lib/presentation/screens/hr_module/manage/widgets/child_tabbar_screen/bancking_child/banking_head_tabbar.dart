@@ -95,14 +95,20 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                             const SizedBox(width: 8),
                              BankingContainerConst(
                                bankId: snapshot.data![index].empBankingId,
-                               typeName: snapshot.data![index].type, acNumber: snapshot.data![index].accountNumber,
+                               typeName: snapshot.data![index].type,
+                               acNumber: snapshot.data![index].accountNumber,
                                effectiveDate: snapshot.data![index].effectiveDate,
-                               requestPercentage: '30%', bankName: snapshot.data![index].bankName,
+                               requestPercentage: '30%',
+                               bankName: snapshot.data![index].bankName,
                                routinNo: snapshot.data![index].routinNumber,
                                selectedType: selectedType,
                                effectiveDateController: effectiveDateController,
-                               bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
-                               routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () {
+                               bankNameController: bankNameController,
+                               accountNumberController: accountNumberController,
+                               verifyAccountController: verifyAccountController,
+                               routingNumberController: routingNumberController,
+                               specificAmountController: specificAmountController,
+                               onPressed: () {
                                showDialog(context: context, builder: (_) =>
                                    FutureBuilder<EmployeeBankingPrefillData>(
                                  future: getPrefillEmployeeBancking(context,snapshot.data![index].empBankingId),
@@ -144,7 +150,70 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                      },);
                                  }
                                ));
-                               },),
+                               },
+                               onPressedPrint:  () async {
+                                 final pdf = pw.Document();
+                                 final bankingData = snapshot.data![index];
+                                 pdf.addPage(
+                                   pw.Page(
+                                     build: (pw.Context context) => pw.Center(
+                                       child: pw.Column(
+                                         mainAxisAlignment: pw.MainAxisAlignment.center,
+                                         children: [
+                                           pw.Text(
+                                             'Bank #${bankingData.empBankingId.toString()}',
+                                           ),
+                                           pw.SizedBox(height: 10),
+                                           pw.Row(
+                                             mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
+                                             children: [
+                                               pw.Column(
+                                                 crossAxisAlignment: pw.CrossAxisAlignment.start,
+                                                 children: [
+                                                   pw.Text('Type'),
+                                                   pw.SizedBox(height: 5),
+                                                   pw.Text('Effective Date'),
+                                                   pw.SizedBox(height: 5),
+                                                   pw.Text('Bank Name'),
+                                                   pw.SizedBox(height: 5),
+                                                   pw.Text('Routing/Transit No.'),
+                                                   pw.SizedBox(height: 5),
+                                                   pw.Text('Account No.'),
+                                                   pw.SizedBox(height: 5),
+                                                   pw.Text('Requested amount'),
+                                                   pw.SizedBox(height: 5),
+                                                 ],
+                                               ),
+                                               pw.Column(
+                                                 crossAxisAlignment: pw.CrossAxisAlignment.start,
+                                                 children: [
+                                                   pw.Text(bankingData.type),
+                                                   pw.SizedBox(height: 5),
+                                                   pw.Text(bankingData.effectiveDate),
+                                                   pw.SizedBox(height: 5),
+                                                   pw.Text(bankingData.bankName),
+                                                   pw.SizedBox(height: 5),
+                                                   pw.Text(bankingData.routinNumber),
+                                                   pw.SizedBox(height: 5),
+                                                   pw.Text(bankingData.accountNumber),
+                                                   pw.SizedBox(height: 5),
+                                                   pw.Text(bankingData.amountRequested.toString()),
+                                                   pw.SizedBox(height: 5),
+                                                 ],
+                                               ),
+                                             ],
+                                           ),
+                                         ],
+                                       ),
+                                     ),
+                                   ),
+                                 );
+
+                                 await Printing.layoutPdf(
+                                   onLayout: (PdfPageFormat format) async => pdf.save(),
+                                 );
+                               },
+                             ),
                           ],
                         ),
                       ),
@@ -171,6 +240,7 @@ class BankingContainerConst extends StatelessWidget {
    String routinNo;
    String? selectedType;
    final VoidCallback onPressed;
+   final VoidCallback onPressedPrint;
    final TextEditingController effectiveDateController;
    final TextEditingController bankNameController;
    final TextEditingController accountNumberController;
@@ -179,7 +249,7 @@ class BankingContainerConst extends StatelessWidget {
    final TextEditingController specificAmountController;
 
    BankingContainerConst({Key? key,required this.bankId, this.selectedType,required this.typeName, required this.acNumber, required this.effectiveDate, required this.requestPercentage, required this.bankName, required this.routinNo,
-     required this.effectiveDateController, required this.bankNameController, required this.accountNumberController, required this.verifyAccountController, required this.routingNumberController, required this.specificAmountController, required this.onPressed,}) : super(key: key);
+     required this.effectiveDateController, required this.bankNameController, required this.accountNumberController, required this.verifyAccountController, required this.routingNumberController, required this.specificAmountController, required this.onPressed, required this.onPressedPrint,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +257,6 @@ class BankingContainerConst extends StatelessWidget {
 
     const SizedBox(height: 30,);
     return Expanded(
-
       child: Container(
         padding: const EdgeInsets.all(8),
         height: MediaQuery.of(context).size.height/3.2,
@@ -371,21 +440,22 @@ class BankingContainerConst extends StatelessWidget {
                     width: 75,
                     iconData1: Icons.print_outlined,
                     buttonText: AppStringHr.print,
-                      onPressed: () async {
-                        final pdf = pw.Document();
-
-                        pdf.addPage(
-                          pw.Page(
-                            build: (pw.Context context) => pw.Center(
-                              child: pw.Text('Hello, this is a test print!'),
-                            ),
-                          ),
-                        );
-
-                        await Printing.layoutPdf(
-                          onLayout: (PdfPageFormat format) async => pdf.save(),
-                        );
-                      },
+                      onPressed: onPressedPrint,
+                      //     () async {
+                      //   final pdf = pw.Document();
+                      //
+                      //   pdf.addPage(
+                      //     pw.Page(
+                      //       build: (pw.Context context) => pw.Center(
+                      //         child: pw.Text('Hello, this is a test print!'),
+                      //       ),
+                      //     ),
+                      //   );
+                      //
+                      //   await Printing.layoutPdf(
+                      //     onLayout: (PdfPageFormat format) async => pdf.save(),
+                      //   );
+                      // },
                   ),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width/180),

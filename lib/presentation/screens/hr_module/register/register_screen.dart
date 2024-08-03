@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -106,20 +105,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 );
               }
-              return Container(
-                height: double.maxFinite,
-                child: WrapWidget(
-                  childern: List.generate(snapshot.data!.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          left: AppPadding.p10,
-                          right: AppPadding.p10,
-                          top: AppPadding.p5,
-                          bottom: AppPadding.p40),
-                      child: buildDataContainer(snapshot.data![index]),
-                    );
-                  }),
-                ),
+              return Wrap(
+                spacing: 10,
+               // runSpacing: 10,
+                children: List.generate(snapshot.data!.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p10,
+                        right: AppPadding.p10,
+                        top: AppPadding.p5,
+                        bottom: AppPadding.p40),
+                    child: buildDataContainer(snapshot.data![index]),
+                  );
+                }),
               );
             },
           ),
