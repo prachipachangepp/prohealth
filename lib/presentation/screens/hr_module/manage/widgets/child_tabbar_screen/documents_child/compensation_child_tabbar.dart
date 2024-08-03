@@ -154,7 +154,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
         StreamBuilder(
             stream: _controllerCompensation.stream,
             builder: (context, snapshot) {
-              getAckHealthRecord(context, 11, 36, widget.employeeId).then((data) {
+              getAckHealthRecord(context, 11, 36, widget.employeeId,'yes').then((data) {
                 _controllerCompensation.add(data);
               }).catchError((error) {
                 // Handle error

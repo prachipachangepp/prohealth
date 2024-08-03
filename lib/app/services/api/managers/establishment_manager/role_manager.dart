@@ -28,7 +28,32 @@ Future<List<RoleManagerData>> roleManagerDataGet(BuildContext context) async {
     return itemsData;
   }
 }
-
+///get emp type
+Future<List<RoleManagerDepartmentEmpType>> roleManagerGetByDepartmentID(BuildContext context,
+    int DepartmentId) async {
+  List<RoleManagerDepartmentEmpType> itemsData = [];
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.companyDepartmentById(DepartmentId: DepartmentId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(":::::LIST${response.data}");
+      for (var item in response.data) {
+        itemsData.add(RoleManagerDepartmentEmpType(
+            employeeTypeId: item['employeeTypeId'],
+            DepartmentId: item['DepartmentId'],
+            employeeType: item['employeeType'],
+            color: item['color'],
+            abbreviation: item['abbreviation'],));
+      }
+    } else {
+      print("Api Role Manager Data Error");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
 /// GET
 Future<List<ModuleMetaData>> roleMabagerMetaData(BuildContext context) async {
   List<ModuleMetaData> itemsData = [];
