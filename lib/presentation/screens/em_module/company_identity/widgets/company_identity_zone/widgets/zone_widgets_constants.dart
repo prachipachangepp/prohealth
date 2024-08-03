@@ -358,6 +358,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -666,7 +667,13 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                     Row(
                       children: [
                         TextButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            const String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=36.778259, -119.417931";
+                            if (await canLaunchUrlString(googleMapsUrl)) {
+                              await launchUrlString(googleMapsUrl);
+                            } else {
+                              print('Could not open the map.');
+                            }
                           },
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.transparent),
