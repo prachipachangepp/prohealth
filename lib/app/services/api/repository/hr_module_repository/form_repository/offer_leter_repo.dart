@@ -23,5 +23,9 @@ class OfferLetterHtmlRepo{
     return "$updateOfferLetter$offerId";
   }
 
+  /// upload signature
+  static String  uploadSignatureDocument({required int employeeId}){
+    return "/employees/upload-signaturebase64/$employeeId";
+  }
 
 }

@@ -91,7 +91,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'images/groups_2.png',
+                            'images/group_schedular.png',
                             height: 96.0,
                             width: 96.0,
                           ),
@@ -242,7 +242,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        child: Image.asset('images/image4.png'),
+                                        child: Image.asset('images/1.png'),
                                       ),
                                       SizedBox(width: 10),
                                       Text(
@@ -296,7 +296,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        child: Image.asset('images/image5.png'),
+                                        child: Image.asset('images/2.png'),
                                       ),
                                       SizedBox(width: 10),
                                       Text(
@@ -350,7 +350,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        child: Image.asset('images/image6.png'),
+                                        child: Image.asset('images/3.png'),
                                       ),
                                       SizedBox(width: 10),
                                       Text(
@@ -460,7 +460,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        child: Image.asset('images/image1.png'),
+                                        child: Image.asset('images/5.png'),
                                       ),
                                       SizedBox(width: 10),
                                       Text(
@@ -478,7 +478,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        child: Image.asset('images/image2.png'),
+                                        child: Image.asset('images/6.png'),
                                       ),
                                       SizedBox(width: 10),
                                       Text(
@@ -496,7 +496,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        child: Image.asset('images/image3.png'),
+                                        child: Image.asset('images/1.png'),
                                       ),
                                       SizedBox(width: 10),
                                       Text(

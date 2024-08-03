@@ -9,7 +9,7 @@ class OnboardingAckHealthData {
   final String DocumentUrl;
   final int employeeDocumentId;
   final int employeeId;
-  // final bool approved;
+  bool? approved;
 
   OnboardingAckHealthData({
     required this.DocumentName,
@@ -20,6 +20,7 @@ class OnboardingAckHealthData {
     required this.DocumentUrl,
     required this.ReminderThreshold,
     required this.Expiry, required this.DocumentType,
+    this.approved
    // required this.approved,
   });
 }

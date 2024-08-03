@@ -12,8 +12,8 @@ class OnboardingQualificationRepo {
   static String batchApprove = "/BatchApprove";
 
   /// /employee-employment-histories
-  static String getEmpEmploymentHistories({required int employeeid}) {
-    return "$emp_employment/ByemployeeId/$employeeid";
+  static String getEmpEmploymentHistories({required int employeeid, required String approveOnly}) {
+    return "$emp_employment/ByemployeeId/$employeeid/$approveOnly";
   }
 
   static String rejectEmpEmployment({required int employmentId}) {
@@ -25,8 +25,8 @@ class OnboardingQualificationRepo {
   }
 
   /// /employee-educations
-  static String getEmpEducation({required int employeeid}) {
-    return "$education/$byEmployeeId/$employeeid";
+  static String getEmpEducation({required int employeeid, required String approveOnly}) {
+    return "$education/$byEmployeeId/$employeeid/$approveOnly";
   }
 
   static String rejectEmpEducation({required int educationId}) {
@@ -38,8 +38,8 @@ class OnboardingQualificationRepo {
   }
 
   /// /reference
-  static String getEmpReference({required int employeeid}) {
-    return "$references/ByemployeeId/$employeeid";
+  static String getEmpReference({required int employeeid, required String approveOnly}) {
+    return "$references/ByemployeeId/$employeeid/$approveOnly";
   }
 
   static String rejectEmpReference({required int referenceId}) {
@@ -51,8 +51,8 @@ class OnboardingQualificationRepo {
   }
 
   /// /employee-licenses
-  static String getEmpLicense({required int employeeid}) {
-    return "$employee_licenses/ByemployeeId/$employeeid";
+  static String getEmpLicense({required int employeeid, required String approveOnly}) {
+    return "$employee_licenses/ByemployeeId/$employeeid/$approveOnly";
   }
 
   static String rejectEmpLicenses({required int licensedId}) {
@@ -64,8 +64,8 @@ class OnboardingQualificationRepo {
   }
 
   ///onboarding Banking
-  static String getOnboardBanking({required int employeeid}) {
-    return "$employee_banking/ByemployeeId/$employeeid";
+  static String getOnboardBanking({required int employeeid, required String approveOnly}) {
+    return "$employee_banking/ByemployeeId/$employeeid/$approveOnly";
   }
 
   static String rejectOnboardBank({required int empBankingId}) {
@@ -75,7 +75,7 @@ class OnboardingQualificationRepo {
 
   ///onboarding Acknowledment & health record
   //employee-documents/ByemployeeId/{EmployeeDocumentTypeMetaDataId}/{EmployeeDocumentTypeSetupId}/{employeeId}
-  static String getAckHealthRecord({required int EmpDocTypeMetaDataId,required int EmpDocTypeSetupId,required int employeeId,required String approveOnly}) {
+  static String getAckHealthRecord({required int EmpDocTypeMetaDataId,required int EmpDocTypeSetupId,required int employeeId, required String approveOnly}) {
     return "$employee_doc$byEmployeeId/$EmpDocTypeMetaDataId/$EmpDocTypeSetupId/$employeeId/$approveOnly";
   }
   //employee-documents/approve/{employeeDocumentId}

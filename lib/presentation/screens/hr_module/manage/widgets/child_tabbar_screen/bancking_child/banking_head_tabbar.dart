@@ -189,9 +189,8 @@ class BankingContainerConst extends StatelessWidget {
     return Expanded(
 
       child: Container(
-
         padding: const EdgeInsets.all(8),
-        height: MediaQuery.of(context).size.height/3.3,
+        height: MediaQuery.of(context).size.height/3.2,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -350,18 +349,16 @@ class BankingContainerConst extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Flexible(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xff1696C8)),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: IconButtonWidget(
-                      width: 100,
-                      iconData: Icons.remove_red_eye_outlined,
-                      buttonText: AppStringHr.voidcheck,
-                      onPressed:(){},
-                    ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: const Color(0xff1696C8)),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: IconButtonWidget(
+                    width: 100,
+                    iconData: Icons.remove_red_eye_outlined,
+                    buttonText: AppStringHr.voidcheck,
+                    onPressed:(){},
                   ),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width/180),

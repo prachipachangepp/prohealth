@@ -35,6 +35,7 @@ class EstablishmentManagerRepository {
   //static String zone = "/zone";
   static String signUp="/signUp";
   static String companyDept ="/company-department";
+  static String department ="/Department";
   static String roleMetaData ="/app-module-meta-data";
   static String addAppRoleModule ="/app-role-module";
   static String companyDetail ="/CompanyDetail";
@@ -280,6 +281,10 @@ class EstablishmentManagerRepository {
   ///Role Manager
   static String companyDepartment(){
     return "$companyDept";
+  }
+  ///employee-types/Department/{DepartmentId}
+  static String companyDepartmentById({required int DepartmentId}){
+    return "$employeeType$department/$DepartmentId";
   }
   static String getRoalMetaData(){
     return "$roleMetaData";
