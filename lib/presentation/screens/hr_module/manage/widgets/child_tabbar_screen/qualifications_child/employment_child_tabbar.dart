@@ -523,13 +523,14 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                         ),
                       ),
                     );
+
                   })
               );
             }else{
               return SizedBox();
-            }
 
-          }
+            }
+}
         ),
       ],
     );
