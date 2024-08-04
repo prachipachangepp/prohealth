@@ -180,9 +180,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(1,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
-
                             pgeControllerId = 1;
-
                         },
                         text: 'Manage',
                         isSelected: myController.selectedIndex.value == 1,
@@ -216,10 +214,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(2,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
-
                             pgeControllerId = 2;
-
-
                         },
                         text: 'Register',
                         isSelected: myController.selectedIndex.value == 2,
@@ -237,9 +232,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(3,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
-
                             pgeControllerId = 3;
-
                         },
                         text: 'Onboarding',
                         isSelected: myController.selectedIndex.value == 3,
@@ -413,7 +406,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 decoration: BoxDecoration(
                                   color: ColorManager.white,
                                   borderRadius: BorderRadius.circular(9),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: Color(0x40000000),
                                       offset: Offset(0, 4),
@@ -423,14 +416,13 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    // showDialog(
-                                    //   context: context,
-                                    //   builder: (BuildContext context) {
-                                    //     return ProfilePatientPopUp();
-                                    //   },
-                                    // );
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return ProfilePatientPopUp(onSearch: () {  },);
+                                      },
+                                    );
                                   },
-
                                   child: Center(
                                     child: SvgPicture.asset('images/menuLines.svg'),
                                   ),
@@ -445,7 +437,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 decoration: BoxDecoration(
                                   color: ColorManager.white,
                                   borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: Color(0x40000000),
                                       offset: Offset(0, 4),
@@ -473,7 +465,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         : SizedBox(width: 1),
                   ],
                 ),
-
                 // SizedBox(
                 //   height: 30,
                 //         width: 140,
@@ -503,7 +494,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
               ],
             ),
           ),
-
           ///page view
           Expanded(
             flex: 8,

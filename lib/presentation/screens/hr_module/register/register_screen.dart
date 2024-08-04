@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +22,7 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import 'confirmation_constant.dart';
+import 'dart:html' as html;
 
 ///saloni
 class RegisterScreen extends StatefulWidget {
@@ -106,20 +106,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 );
               }
-              return Container(
-                height: double.maxFinite,
-                child: WrapWidget(
-                  childern: List.generate(snapshot.data!.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          left: AppPadding.p10,
-                          right: AppPadding.p10,
-                          top: AppPadding.p5,
-                          bottom: AppPadding.p40),
-                      child: buildDataContainer(snapshot.data![index]),
-                    );
-                  }),
-                ),
+              return Wrap(
+                spacing: 10,
+               // runSpacing: 10,
+                children: List.generate(snapshot.data!.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p10,
+                        right: AppPadding.p10,
+                        top: AppPadding.p5,
+                        bottom: AppPadding.p40),
+                    child: buildDataContainer(snapshot.data![index]),
+                  );
+                }),
               );
             },
           ),
@@ -332,15 +331,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ? const Text('')
                           : TextButton(
                         onPressed: () async {
-                          const url = "https://staging.symmetry.care/#/home";
+                          //html.window.open('/onBordingWelcome',"_blank");
+                          const url = "http://localhost:58946/#/onBordingWelcome";//https://staging.symmetry.care/#/onBordingWelcome
                           if (await canLaunch(url)) {
                             await launch(url);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => OnBoardingWelcome(),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => OnBoardingWelcome(),
+                            //   ),
+                            // );
                           } else {
                             throw 'Could not launch $url';
                           }

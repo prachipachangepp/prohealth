@@ -71,6 +71,10 @@ class OnboardingQualificationRepo {
   static String rejectOnboardBank({required int empBankingId}) {
     return "$employee_banking/reject/$empBankingId";
   }
+  ///employee-bankings/{empBankingId}
+  static String  getBankBYBankId({required int empBankingId}){
+    return "$employee_banking/$empBankingId";
+  }
 
 
   ///onboarding Acknowledment & health record

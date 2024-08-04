@@ -87,64 +87,64 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ///dropdown
-            Container(
-              height: AppSize.s32,
-              width: AppSize.s103,
-              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
-              decoration: BoxDecoration(
-                color: ColorManager.blueprime,
-                borderRadius: BorderRadius.circular(12), // Rounded corners
-              ),
-              child: Obx(
-                () => Center(
-                  child: DropdownButton<String>(
-                    icon: Icon(
-                      Icons.arrow_drop_down,
-                      size: MediaQuery.of(context).size.width / 80,
-                      color: ColorManager.white,
-                    ),
-                    dropdownColor: ColorManager.white,
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 92,
-                      color: ColorManager.white,
-                    ),
-                    underline: Container(),
-                    value: hrClinController.selectedItem.value,
-                    onChanged: (String? newValue) {
-                      if (newValue != null) {
-                        hrClinController.changeSelectedItem(newValue);
-                      }
-                    },
-                    items: [
-                      'Sort By',
-                      'Available',
-                      'Unavailable',
-                    ]
-                        .map<DropdownMenuItem<String>>(
-                          (String value) => DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                color:
-                                    hrClinController.selectedItem.value == value
-                                        ? Colors.white
-                                        : Colors.black,
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-              ),
-            ),
+            // Container(
+            //   height: AppSize.s32,
+            //   width: AppSize.s103,
+            //   padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+            //   decoration: BoxDecoration(
+            //     color: ColorManager.blueprime,
+            //     borderRadius: BorderRadius.circular(12), // Rounded corners
+            //   ),
+            //   child: Obx(
+            //     () => Center(
+            //       child: DropdownButton<String>(
+            //         icon: Icon(
+            //           Icons.arrow_drop_down,
+            //           size: MediaQuery.of(context).size.width / 80,
+            //           color: ColorManager.white,
+            //         ),
+            //         dropdownColor: ColorManager.white,
+            //         style: TextStyle(
+            //           fontSize: MediaQuery.of(context).size.width / 92,
+            //           color: ColorManager.white,
+            //         ),
+            //         underline: Container(),
+            //         value: hrClinController.selectedItem.value,
+            //         onChanged: (String? newValue) {
+            //           if (newValue != null) {
+            //             hrClinController.changeSelectedItem(newValue);
+            //           }
+            //         },
+            //         items: [
+            //           'Sort By',
+            //           'Available',
+            //           'Unavailable',
+            //         ]
+            //             .map<DropdownMenuItem<String>>(
+            //               (String value) => DropdownMenuItem<String>(
+            //                 value: value,
+            //                 child: Text(
+            //                   value,
+            //                   textAlign: TextAlign.center,
+            //                   style: GoogleFonts.firaSans(
+            //                     color:
+            //                         hrClinController.selectedItem.value == value
+            //                             ? Colors.white
+            //                             : Colors.black,
+            //                     fontSize: FontSize.s12,
+            //                     fontWeight: FontWeightManager.bold,
+            //                   ),
+            //                 ),
+            //               ),
+            //             )
+            //             .toList(),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             ///button
             Container(
               width: AppSize.s172,
