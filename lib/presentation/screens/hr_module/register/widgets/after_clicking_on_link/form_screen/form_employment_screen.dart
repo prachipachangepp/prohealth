@@ -396,12 +396,12 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       //  print("XFILE ${xFile.path}");
                       //  //filePath = xfileToFile as XFile?;
                       //  print("L::::::${filePath}");
-                      fileName = result.files.first.name;
-                      print('File picked: ${fileName}');
+                      _fileNames.addAll(result.files.map((file) => file.name!));
+                      print('File picked: ${_fileNames}');
                       //print(String.fromCharCodes(file));
                       finalPath = result.files.first.bytes;
                       setState(() {
-                        fileName;
+                        _fileNames;
                         _documentUploaded = true;
                       });
                     }catch(e){

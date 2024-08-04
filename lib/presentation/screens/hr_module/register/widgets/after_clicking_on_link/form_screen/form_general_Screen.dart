@@ -221,7 +221,7 @@ class _generalFormState extends State<generalForm> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed:  ()async {
+                        onPressed:      ()async {
                           // FilePickerResult? result = await FilePicker.platform.pickFiles(
                           //   allowMultiple: false,
                           // );
@@ -241,19 +241,19 @@ class _generalFormState extends State<generalForm> {
                               //  print("XFILE ${xFile.path}");
                               //  //filePath = xfileToFile as XFile?;
                               //  print("L::::::${filePath}");
-                              fileName = result.files.first.name;
-                              print('File picked: ${fileName}');
+                              _fileNames.addAll(result.files.map((file) => file.name!));
+                              print('File picked: ${_fileNames}');
                               //print(String.fromCharCodes(file));
                               finalPath = result.files.first.bytes;
                               setState(() {
-                               fileName;
+                                _fileNames;
                                 _documentUploaded = true;
-                               });
+                              });
                             }catch(e){
                               print(e);
                             }
                           }
-                        },      //_pickFiles,
+                        },     //_pickFiles,
 
                         label: Text(
                           "Choose File",
@@ -901,14 +901,44 @@ class _generalFormState extends State<generalForm> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("General data saved")),
                     );
-                    try{
-                      //File filePath = File(finalPath!);
-                      await uploadDocuments(context: context, employeeDocumentMetaId: 10, employeeDocumentTypeSetupId: 48,
-                          employeeId: 2, //documentName: widget.AcknowledgementnameController.text,
-                          documentFile: finalPath, documentName: 'general ID');
-                    }catch(e){
-                      print(e);
-                    }
+
+                      if (finalPath == null || finalPath.isEmpty) {
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('No file selected. Please select a file to upload.'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      } else {
+                        try {
+                          await uploadDocuments(
+                              context: context,
+                              employeeDocumentMetaId: 10,
+                              employeeDocumentTypeSetupId: 48,
+                              employeeId: 2,
+                              documentFile: finalPath,
+                              documentName: 'Legal Document ID'
+                          );
+
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Document uploaded successfully!'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        } catch (e) {
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Failed to upload document: $e'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      }
+
                     firstname.clear();
                     lastname.clear();
                     ssecuritynumber.clear();
