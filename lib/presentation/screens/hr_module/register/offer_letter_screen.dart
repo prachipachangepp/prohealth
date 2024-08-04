@@ -1493,6 +1493,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 thickness: 4,
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 40),
+
+     ////////////////////////////////////////////////////////////////////////////////////////////////////////
               Container(
                 width: double.infinity, //1030
                 height: 330, //MediaQuery.of(context).size.height / 2,
@@ -1739,6 +1741,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   ),
                 ),
               ),
+    //////////////////////////////////////////////////////////////////////////////////////////////////
               SizedBox(height: MediaQuery.of(context).size.height / 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

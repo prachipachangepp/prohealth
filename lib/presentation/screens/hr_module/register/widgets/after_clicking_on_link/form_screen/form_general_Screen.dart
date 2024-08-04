@@ -221,7 +221,10 @@ class _generalFormState extends State<generalForm> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed:      ()async {
+                        onPressed:
+
+
+                            ()async {
                           // FilePickerResult? result = await FilePicker.platform.pickFiles(
                           //   allowMultiple: false,
                           // );
@@ -253,7 +256,7 @@ class _generalFormState extends State<generalForm> {
                               print(e);
                             }
                           }
-                        },     //_pickFiles,
+                        },      //_pickFiles,
 
                         label: Text(
                           "Choose File",
@@ -527,7 +530,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: dobcontroller,
-                        hintText: 'dd-mm-yyyy',
+                        hintText: 'yyyy-mm-dd',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,

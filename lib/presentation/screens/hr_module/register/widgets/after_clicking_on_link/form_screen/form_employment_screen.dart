@@ -45,6 +45,8 @@ class _Employment_screenState extends State<Employment_screen> {
 
   dynamic? filePath;
 
+  var finalPath;
+
   bool get isFirstStep => _currentStep == 0;
 
   bool isCompleted = false;
@@ -58,10 +60,11 @@ class _Employment_screenState extends State<Employment_screen> {
 
   List<GlobalKey<_EmploymentFormState>> employmentFormKeys = [];
 
-  get finalPath {
-    // TODO: implement finalPath
-    throw UnimplementedError();
-  }
+  // get finalPath {
+  //   // TODO: implement finalPath
+  //   throw UnimplementedError();
+  // }
+  // dynamic? filePath;
 
   @override
   void initState() {
@@ -209,13 +212,41 @@ class _Employment_screenState extends State<Employment_screen> {
 
                   }
 
-                  try{
-                    //File filePath = File(finalPath!);
-                    await uploadDocuments(context: context, employeeDocumentMetaId: 10, employeeDocumentTypeSetupId: 48,
-                        employeeId: 2, //documentName: widget.AcknowledgementnameController.text,
-                        documentFile: finalPath, documentName: 'Employment ID');
-                  }catch(e){
-                    print(e);
+                  if (finalPath == null || finalPath.isEmpty) {
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('No file selected. Please select a file to upload.'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    try {
+                      await uploadDocuments(
+                          context: context,
+                          employeeDocumentMetaId: 10,
+                          employeeDocumentTypeSetupId: 48,
+                          employeeId: 2,
+                          documentFile: finalPath,
+                          documentName: 'Legal Document ID'
+                      );
+
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Document uploaded successfully!'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    } catch (e) {
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Failed to upload document: $e'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
                   }
 
                   //employerController.clear();
