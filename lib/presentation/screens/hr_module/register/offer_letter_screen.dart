@@ -1741,7 +1741,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   ),
                 ),
               ),
-    //////////////////////////////////////////////////////////////////////////////////////////////////
               SizedBox(height: MediaQuery.of(context).size.height / 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
