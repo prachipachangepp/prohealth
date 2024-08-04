@@ -436,7 +436,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                               await employeedoctypeSetupIdDelete(
                                                   context,
                                                   snapshot.data![index].employeeDocumentId);
-                                              getAckHealthRecord(context, 1,1,20,'yes').then((data) {
+                                              getAckHealthRecord(context, 1,1,widget.employeeId,'no').then((data) {
                                                 _controller.add(data);
                                               }).catchError((error) {
                                                 // Handle error

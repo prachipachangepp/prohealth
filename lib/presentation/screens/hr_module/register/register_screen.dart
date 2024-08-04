@@ -22,6 +22,7 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import 'confirmation_constant.dart';
+import 'dart:html' as html;
 
 ///saloni
 class RegisterScreen extends StatefulWidget {
@@ -330,15 +331,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ? const Text('')
                           : TextButton(
                         onPressed: () async {
-                          const url = "https://staging.symmetry.care/#/home";
+                          //html.window.open('/onBordingWelcome',"_blank");
+                          const url = "http://localhost:52915/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                             await launch(url);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => OnBoardingWelcome(),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => OnBoardingWelcome(),
+                            //   ),
+                            // );
                           } else {
                             throw 'Could not launch $url';
                           }

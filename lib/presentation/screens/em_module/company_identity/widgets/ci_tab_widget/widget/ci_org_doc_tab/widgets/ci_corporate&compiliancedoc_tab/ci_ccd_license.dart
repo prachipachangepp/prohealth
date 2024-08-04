@@ -84,7 +84,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
       stream: _controller.stream,
       builder: (context, snapshot) {
         snapData.clear();
-        orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 15).then((data) {
+        orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 20).then((data) {
           _controller.add(data);
         }).catchError((error) {
           // Handle error

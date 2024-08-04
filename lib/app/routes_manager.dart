@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
 import 'package:prohealth/presentation/screens/login_module/forget_pass_verification/forget_pass_verification.dart';
 import 'package:prohealth/presentation/screens/login_module/forget_password/forget_password_screen.dart';
@@ -76,6 +77,7 @@ class RoutesManager {
           ? EmailVerification(email: getArgumentTitle(context))
           : const LoginScreen(),
       HomeScreen.routeName: (context) => const HomeScreen(),
+     OnBoardingWelcome.routeName :(context) => const OnBoardingWelcome(),
     };
   }
 }

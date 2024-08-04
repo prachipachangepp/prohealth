@@ -406,7 +406,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 decoration: BoxDecoration(
                                   color: ColorManager.white,
                                   borderRadius: BorderRadius.circular(9),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: Color(0x40000000),
                                       offset: Offset(0, 4),
@@ -423,7 +423,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                       },
                                     );
                                   },
-
                                   child: Center(
                                     child: SvgPicture.asset('images/menuLines.svg'),
                                   ),
@@ -438,7 +437,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 decoration: BoxDecoration(
                                   color: ColorManager.white,
                                   borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: Color(0x40000000),
                                       offset: Offset(0, 4),
@@ -466,7 +465,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         : SizedBox(width: 1),
                   ],
                 ),
-
                 // SizedBox(
                 //   height: 30,
                 //         width: 140,
@@ -496,7 +494,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
               ],
             ),
           ),
-
           ///page view
           Expanded(
             flex: 8,
