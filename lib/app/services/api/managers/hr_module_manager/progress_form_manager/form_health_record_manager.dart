@@ -6,7 +6,7 @@ import '../../../../../../data/api_data/hr_module_data/progress_form_data/form_h
 import '../../../api_offer.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-Future<List<HREmployeeDocumentModal>> getEmployeeDoc(
+Future<List<HREmployeeDocumentModal>> getHREmployeeDoc(
     BuildContext context,
     // int metaDocID
     int employeeDocTypeMetataId,
