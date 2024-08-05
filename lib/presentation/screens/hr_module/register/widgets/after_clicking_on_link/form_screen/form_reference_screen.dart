@@ -176,6 +176,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                      st.name.text,
                       st.knowthisperson.text,
                       st.titleposition.text);
+
                 }
                 lengthofassociation.clear();
                 companyorganization.clear();

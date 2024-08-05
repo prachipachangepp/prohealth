@@ -1,9 +1,14 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:html' as html;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_banking_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
@@ -154,6 +159,40 @@ class _BankingScreenState extends State<BankingScreen> {
                     st.selectedtype.toString(),
                     "requestedPercentage",
                   );
+
+                  if (st.finalPath == null || st.finalPath.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('No file selected. Please select a file to upload.'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    try {
+                      await uploadDocuments(
+                        context: context,
+                        employeeDocumentMetaId: 10,
+                        employeeDocumentTypeSetupId: 48,
+                        employeeId: 2,
+                        documentFile: st.finalPath,
+                        documentName: 'education data',
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Document uploaded successfully!'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Failed to upload document: $e'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  }
                 }
                // accountnumber.clear();
               },
@@ -219,6 +258,24 @@ class _BankingFormState extends State<BankingForm> {
       print('User canceled the picker');
     }
   }
+
+
+
+  Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
+    final blob = html.Blob([bytes]);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final file = html.File([blob], fileName);
+    return XFile(url);
+  }
+
+  bool _documentUploaded = true;
+  var fileName;
+  var fileName1;
+  dynamic? filePath;
+  File? xfileToFile;
+  var finalPath;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -454,62 +511,64 @@ class _BankingFormState extends State<BankingForm> {
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 5),
               ElevatedButton.icon(
-                onPressed: _pickFiles,
-// onPressed: () async {
-//   FilePickerResult? result =
-//   await FilePicker.platform.pickFiles(
-//     allowMultiple: false,
-//   );
-//   if (result != null) {
-//     PlatformFile file = result.files.first;
-//     print('File picked: ${file.name}');
-//   } else {
-//     // User canceled the picker
-//   }
-// },
+                onPressed: () async {
+                  FilePickerResult? result = await FilePicker.platform.pickFiles();
+                  if (result != null) {
+                    try {
+                      Uint8List? bytes = result.files.first.bytes;
+                      XFile xFile = await convertBytesToXFile(bytes!, result.files.first.name);
+                      finalPath = result.files.first.bytes;
+                      setState(() {
+                        _fileNames.addAll(result.files.map((file) => file.name!));
+                        _loading = false;
+                      });
+                    } catch (e) {
+                      print(e);
+                    }
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xff50B5E5),
-// padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                icon: Icon(Icons.file_upload_outlined, color: Colors.white),
+                icon: Icon(Icons.upload, color: Colors.white),
                 label: Text(
-                  'Upload Document',
+                  'Upload File',
                   style: GoogleFonts.firaSans(
                     fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: Colors.white,
                   ),
                 ),
               ),
               _loading
                   ? SizedBox(
-                      width: 25,
-                      height: 25,
-                      child: CircularProgressIndicator(
-                        color: ColorManager.blueprime, // Loader color
-// Loader size
-                      ),
-                    )
+                width: 25,
+                height: 25,
+                child: CircularProgressIndicator(
+                  color: ColorManager.blueprime, // Loader color
+                  // Loader size
+                ),
+              )
                   : _fileNames.isNotEmpty
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: _fileNames
-                              .map((fileName) => Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'File picked: $fileName',
-                                      style: GoogleFonts.firaSans(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff686464)),
-                                    ),
-                                  ))
-                              .toList(),
-                        )
-                      : SizedBox(),
+                  ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _fileNames
+                    .map((fileName) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'File picked: $fileName',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                ))
+                    .toList(),
+              )
+                  : SizedBox(),
               SizedBox(height: MediaQuery.of(context).size.height / 20),// Display file names if picked
             ],
 

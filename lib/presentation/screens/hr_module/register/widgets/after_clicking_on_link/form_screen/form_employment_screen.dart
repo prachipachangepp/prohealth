@@ -40,9 +40,9 @@ class _Employment_screenState extends State<Employment_screen> {
 
   bool isChecked = false;
 
-  dynamic? filePath;
-
-  var finalPath;
+  // dynamic? filePath;
+  //
+  // var finalPath;
 
   bool get isFirstStep => _currentStep == 0;
 
@@ -92,16 +92,7 @@ class _Employment_screenState extends State<Employment_screen> {
       SnackBar(content: Text("Employment data saved")),
     );
   }
-  Future<void> uploadDocuments({
-    required BuildContext context,
-    required int employeeDocumentMetaId,
-    required int employeeDocumentTypeSetupId,
-    required int employeeId,
-    required dynamic documentFile,
-    required String documentName,
-  }) async {
 
-  }
   @override
   Widget build(BuildContext context) {
     return Container(

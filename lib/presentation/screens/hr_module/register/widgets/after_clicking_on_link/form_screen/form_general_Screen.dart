@@ -215,7 +215,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff1696C8),
+                          backgroundColor: Color(0xff50B5E5),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
