@@ -183,7 +183,6 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                         Container(
                           width: 267,
                           child: SchedularTextField(
-                            controller: _dateController,
                               labelText: 'Date of face-to face encounter',
                               isDate: true,
                           ),
