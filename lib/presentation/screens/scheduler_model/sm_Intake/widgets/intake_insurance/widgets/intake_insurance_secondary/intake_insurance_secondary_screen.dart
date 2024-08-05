@@ -7,15 +7,15 @@ import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
-class IntakePharmacyVendorScreen extends StatefulWidget {
-  const IntakePharmacyVendorScreen({super.key});
+class IntakeInsuranceSecondaryScreen extends StatefulWidget {
+  const IntakeInsuranceSecondaryScreen({super.key});
 
   @override
-  State<IntakePharmacyVendorScreen> createState() => _IntakePharmacyVendorScreenState();
+  State<IntakeInsuranceSecondaryScreen> createState() => _IntakeInsuranceSecondaryScreenState();
 }
 
-class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen> {
-
+class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondaryScreen> {
+  String? status = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,18 +62,24 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularDropdown(
-                                  labelText: 'Supplies/ DME', )
+                              child: SchedularTextField(
+                                  labelText: 'Primary Insurance')
                           ),
                           SizedBox(width: 35),
                           Flexible(
-                              child: Container()),
+                              child: SchedularTextField(
+                                  labelText: 'Name')
+                          ),
                           SizedBox(width: 35),
                           Flexible(
-                              child: Container()),
+                              child: SchedularTextField(
+                                  labelText: 'Street')
+                          ),
                           SizedBox(width: 35),
                           Flexible(
-                              child: Container()),
+                              child: SchedularTextField(
+                                  labelText: 'Code')
+                          ),
                         ],
                       ),
                       SizedBox(height: 16),
@@ -81,88 +87,46 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                         children: [
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Contact')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText:'Phone')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Deliver by', isDate: true)
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText:'Fax')
-                          ),
-                      ],
-                      ),
-                      SizedBox(height: 32),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularDropdown(
-                                  labelText: 'Pharmacy',)
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
-                        ],
-                      ),
-                      SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Contact')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText:'Phone')
-                          ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Address')
+                                  labelText: 'Suite/Apt #')
                           ),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
                                   labelText:'City')
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 16),
-                      Row(
-                        children: [
+                          SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'State')
+                                labelText: 'State',)
                           ),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
                                   labelText:'Zip Code')
                           ),
-                          SizedBox(width: 35),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Deliver by', isDate: true)
+                                  labelText:'Type')
                           ),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'Fax')
+                                  labelText:'Phone')
+                          ),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: SchedularTextField(
+                                labelText:'Category', initialValue: 'Medicare',)
+                          ),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: SchedularTextField(
+                                  labelText:'Authorisation')
                           ),
                         ],
                       ),
@@ -170,47 +134,151 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                       Row(
                         children: [
                           Flexible(
-                              child: Container(
-                                height: 99,
-                                child: TextFormField(
-                                  maxLines: 3,
-                                  cursorColor: Colors.black,
-                                  decoration: InputDecoration(
-                                    labelText: 'Contact',
-                                    labelStyle: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.greylight,
+                              child: SchedularTextField(
+                                labelText: 'Effective from', isDate: true,)
+                          ),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: SchedularTextField(
+                                  labelText:'Group #')
+                          ),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: SchedularTextField(
+                                  labelText: 'Group Name')
+                          ),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: SchedularTextField(
+                                  labelText:'Policy/ HIC #')
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Flexible(
+                              child: SchedularDropdown(
+                                labelText: 'Eligibility Status', )
+                          ),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: Container()),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: Container()),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: Container()),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Insurance Verified',
+                                    style: GoogleFonts.firaSans(
+                                        color: Color(0xff575757),
+                                        fontSize: 10, fontWeight: FontWeight.w400)
+                                ),
+                                SizedBox(height: 1),
+                                Row(
+                                  children: [
+                                    Radio<String>(
+                                      value: 'Yes',
+                                      groupValue: status,
+                                      onChanged: (value) => setState(() => status = value),
                                     ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1.0,
+                                    Text('Yes',
+                                        style: GoogleFonts.firaSans(
+                                            fontSize: 12, fontWeight: FontWeight.w400)
+                                    ),
+                                    SizedBox(width: 35),
+                                    Radio<String>(
+                                      value: 'No',
+                                      groupValue: status,
+                                      onChanged: (value) => setState(() => status = value),
+                                    ),
+                                    Text('No',
+                                        style: GoogleFonts.firaSans(
+                                            fontSize: 12, fontWeight: FontWeight.w400)
+                                    ),
+                                    SizedBox(width: 20),
+                                    TextButton(
+                                      onPressed: () => setState(() => status = null), // Clear selection
+                                      child: Text(
+                                        'Clear',
+                                        style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xff575757)
+                                        ),
                                       ),
                                     ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1.0,
-                                      ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: Container()),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: Container()),
+                          SizedBox(width: 35),
+                          Flexible(
+                              child: Container()),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Container(
+                              height: 99,
+                              child: TextFormField(
+                                maxLines: 3,
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  labelText: 'Contact',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeightManager.regular,
+                                    color: ColorManager.greylight,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1.0,
-                                      ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
                                     ),
                                   ),
                                 ),
                               ),
+                            ),
                           ),
-          
+
                         ],
                       ),
-          
+
                     ],
                   ),
                 ),
@@ -239,16 +307,20 @@ class SchedularTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController _dateController = TextEditingController(text: initialValue);
 
-    Future<void> _selectDate(BuildContext context) async {
-      final DateTime? selectedDate = await showDatePicker(
+    Future<void> _selectDateRange(BuildContext context) async {
+      DateTimeRange? selectedDateRange = await showDateRangePicker(
         context: context,
-        initialDate: DateTime.now(),
         firstDate: DateTime(2000),
         lastDate: DateTime(2101),
+        initialDateRange: DateTimeRange(
+          start: DateTime.now(),
+          end: DateTime.now().add(Duration(days: 1)),
+        ),
       );
 
-      if (selectedDate != null) {
-        _dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+      if (selectedDateRange != null) {
+        _dateController.text =
+        "${DateFormat('yyyy-MM-dd').format(selectedDateRange.start)}    to   ${DateFormat('yyyy-MM-dd').format(selectedDateRange.end)}";
       }
     }
 
@@ -279,7 +351,7 @@ class SchedularTextField extends StatelessWidget {
         readOnly: isDate,
         onTap: isDate
             ? () async {
-          await _selectDate(context);
+          await _selectDateRange(context);
         }
             : null,
       ),
