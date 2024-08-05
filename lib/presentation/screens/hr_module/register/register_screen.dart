@@ -334,11 +334,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:59516/#/onBordingWelcome";
-                          int employee = data.employeeId!;
-                          final employeeIdData = EmployeeIdData(employeeId: employee);
-                          print("EmployeeId :::${employeeIdData}");
-                          //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          // const url = "http://localhost:49789/#/onBordingWelcome";
+                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                             await launch(url);
                             // Navigator.push(
@@ -420,8 +417,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-}
-class EmployeeIdData {
-  int employeeId;
-  EmployeeIdData({required this.employeeId});
 }

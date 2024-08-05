@@ -42,6 +42,29 @@ Future<OfferLetterData> GetOfferLetter(BuildContext context,
   }
 }
 
+/// Get employeeId
+Future<EmployeeIdByEmail> GetEmployeeIdByEmail(BuildContext context,
+    int companyId,
+    String emailId
+    ) async {
+  // List<OfferLetterData> itemsList = [];
+  var itemsList;
+  try {
+    final response = await Api(context)
+        .get(path: OfferLetterHtmlRepo.getOfferEmployeeIdbyEmail(companyId: companyId, email: emailId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      itemsList = EmployeeIdByEmail(employeeID: response.data);
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
 ///accept offer accept offer----PATCH/employee-offers/acceptOffer/{offerId}
 Future<ApiData> updateOfferLetter(
      BuildContext context,

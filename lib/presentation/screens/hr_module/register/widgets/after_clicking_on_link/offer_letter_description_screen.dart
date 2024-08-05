@@ -17,8 +17,9 @@ import 'multi_step_form.dart';
 
 class OfferLetterDescriptionScreen extends StatefulWidget {
   final Uint8List? signatureBytes;
+  final int? employeeId;
 
-  OfferLetterDescriptionScreen({this.signatureBytes});
+  OfferLetterDescriptionScreen({this.signatureBytes, this.employeeId});
 
 
   @override
