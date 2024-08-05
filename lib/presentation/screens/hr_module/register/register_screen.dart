@@ -334,7 +334,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:59516/#/onBordingWelcome";
+                          const url = "http://localhost:50244/#/onBordingWelcome";
                           int employee = data.employeeId!;
                           final employeeIdData = EmployeeIdData(employeeId: employee);
                           print("EmployeeId :::${employeeIdData}");

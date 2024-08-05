@@ -11,8 +11,10 @@ import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/top_row.dart';
 
 class OnBoardingWelcome extends StatelessWidget {
+  final int? employeeId;
+  final int? userId;
   static const String routeName = "/onBordingWelcome";
-  const OnBoardingWelcome({Key? key,}) : super(key: key);
+  const OnBoardingWelcome({Key? key, this.employeeId,this.userId,}) : super(key: key);
 
 
   @override
@@ -91,7 +93,10 @@ class OnBoardingWelcome extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return VerifyUserpopup();
+
+                              return VerifyUserpopup(
+                                // employeeId: employeeId!, userId: userId!,
+                              );
                             },
                           );
                         },
@@ -322,6 +327,10 @@ class OnBoardingWelcome extends StatelessWidget {
 ////////////////////////////////////////VerifyUserPopup////////////////////////
 
 class VerifyUserPopup extends StatelessWidget {
+  final int employeeId;
+  final int userId;
+
+  const VerifyUserPopup({super.key, required this.employeeId, required this.userId});
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -432,7 +441,9 @@ class VerifyUserPopup extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
-                            child: OnBoardingCongratulation(),
+                            child: OnBoardingCongratulation(
+                              // employeeId: employeeId, userId: userId,
+                            ),
                           );
                         },
                       );
@@ -677,6 +688,13 @@ class CustomTextField extends StatelessWidget {
 
 ////////////////////////////////////congratulation/////////////////////////////////////
 class OnBoardingCongratulation extends StatelessWidget {
+  // final int employeeId;
+  // final int userId;
+
+  const OnBoardingCongratulation({super.key,
+    // required this.employeeId, required this.userId
+  });
+
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
@@ -762,7 +780,10 @@ class OnBoardingCongratulation extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                 OfferLetterDescriptionScreen()));
+                                 OfferLetterDescriptionScreen(
+                                    // employeeId: employeeId,
+                                    // userId: userId
+                                 )));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF50B5E5),

@@ -1188,6 +1188,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/zone_m
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
 import 'package:shimmer/shimmer.dart';
@@ -2277,8 +2278,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   SizedBox(width: MediaQuery.of(context).size.width / 75),
                   ElevatedButton(
                     onPressed: () async {
-                      await _generateUrlLink(
-                          widget.email, widget.userId.toString());
+                      await _generateUrlLink(widget.email, widget.userId.toString());
                       Navigator.pop(context);
                       showDialog(
                         context: context,
@@ -2309,8 +2309,18 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   countyId: 9,
                                   zoneId: 18,
                                   employment: widget.employement,
-                                  service: widget.services);
+                                  service: widget.services
+                              );
                               Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => OfferLetterDescriptionScreen(
+                                    // employeeId: widget.employeeId,
+                                    // userId: widget.userId,
+                                  ),
+                                ),
+                              );
                             },
                             title: 'Confirm Enrollment',
                             containerText: 'Do you really want to enroll?',
@@ -2333,6 +2343,68 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       ),
                     ),
                   ),
+
+
+
+                  ///
+                  // ElevatedButton(
+                  //   onPressed: () async {
+                  //     await _generateUrlLink(
+                  //         widget.email, widget.userId.toString());
+                  //     Navigator.pop(context);
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (BuildContext context) {
+                  //         return ConfirmationPopup(
+                  //           onCancel: () {
+                  //             Navigator.pop(context);
+                  //           },
+                  //           onConfirm: () async {
+                  //             await addEmpEnroll(
+                  //                 context: context,
+                  //                 employeeId: widget.employeeId,
+                  //                 code: "",
+                  //                 userId: widget.userId,
+                  //                 firstName: widget.firstName,
+                  //                 lastName: widget.lastName,
+                  //                 phoneNbr: widget.phone,
+                  //                 email: widget.email,
+                  //                 link: generatedURL,
+                  //                 status: widget.status,
+                  //                 departmentId: 1,
+                  //                 position: widget.position,
+                  //                 speciality: widget.soecalityName,
+                  //                 clinicianTypeId: 1,
+                  //                 reportingOfficeId: widget.reportingOffice,
+                  //                 cityId: 1,
+                  //                 countryId: 1,
+                  //                 countyId: 9,
+                  //                 zoneId: 18,
+                  //                 employment: widget.employement,
+                  //                 service: widget.services);
+                  //             Navigator.pop(context);
+                  //           },
+                  //           title: 'Confirm Enrollment',
+                  //           containerText: 'Do you really want to enroll?',
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  //   style: ElevatedButton.styleFrom(
+                  //     backgroundColor: const Color(0xff1696C8),
+                  //     foregroundColor: Colors.white,
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(8),
+                  //     ),
+                  //   ),
+                  //   child: Text(
+                  //     'Enroll',
+                  //     style: GoogleFonts.firaSans(
+                  //       fontSize: 12.0,
+                  //       fontWeight: FontWeight.w700,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ],
