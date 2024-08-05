@@ -244,7 +244,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
 
     if (result != null) {
       setState(() {
-        _fileNames.addAll(result.files.map((file) => file.name!));
+        _fileNames.addAll(result.files.map((file) => file.name));
         _loading = false; // Hide loader
       });
       print('Files picked: $_fileNames');

@@ -302,7 +302,6 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
     AppString.healthRecord,
     AppString.acknowledgement
   ];
-
   @override
   Widget build(BuildContext context) {
     return Material(

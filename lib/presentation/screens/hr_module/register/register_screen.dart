@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/main_register_manager.dart';
@@ -55,7 +56,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     fetchData();
   }
-
+  void _copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text)).then((_) {
+      // Optionally show a snackbar or dialog to notify the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Copied to clipboard',style: GoogleFonts.firaSans(
+          fontWeight: FontWeightManager.medium,
+          color:  ColorManager.white,
+          fontSize: FontSize.s13,
+        ),)),
+      );
+    });
+  }
   Future<void> fetchData() async {
     try {
       List<RegisterDataCompID> data = await GetRegisterByCompId(context);
@@ -334,16 +346,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          // const url = "http://localhost:49789/#/onBordingWelcome";
-                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          const url = "http://localhost:63585/#/onBordingWelcome";
+                          //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                             await launch(url);
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => OnBoardingWelcome(),
-                            //   ),
-                            // );
+                          //   Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) => OnBoardingWelcome(),
+                          //     ),
+                          //   );
                           } else {
                             throw 'Could not launch $url';
                           }
@@ -357,6 +369,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
+                      data.status == 'Notopen'
+      ? const Text('') : InkWell(onTap: (){
+        _copyToClipboard(data.link!);
+                      },child: Icon(Icons.copy,size: 15,color: ColorManager.mediumgrey,)),
                     ],
                   ),
                   data.status == 'Notopen'

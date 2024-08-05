@@ -131,7 +131,7 @@ class _OfferLetterDescriptionScreenState
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 15),
             FutureBuilder<OfferLetterData>(
-              future:GetOfferLetter(context, 43, 1 ),
+              future:GetOfferLetter(context, widget.employeeId!, 1 ),
               builder: (context, snapshot) {
                 // if(snapshot.connectionState == ConnectionState.waiting){
                 //   return CircularProgressIndicator(color: Colors.blue,);

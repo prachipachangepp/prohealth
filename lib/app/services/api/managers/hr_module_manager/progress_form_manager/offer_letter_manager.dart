@@ -53,7 +53,7 @@ Future<EmployeeIdByEmail> GetEmployeeIdByEmail(BuildContext context,
     final response = await Api(context)
         .get(path: OfferLetterHtmlRepo.getOfferEmployeeIdbyEmail(companyId: companyId, email: emailId));
     if (response.statusCode == 200 || response.statusCode == 201) {
-      itemsList = EmployeeIdByEmail(employeeID: response.data);
+      itemsList = EmployeeIdByEmail(employeeID: int.parse(response.data));
     } else {
       print('Api Error');
     }

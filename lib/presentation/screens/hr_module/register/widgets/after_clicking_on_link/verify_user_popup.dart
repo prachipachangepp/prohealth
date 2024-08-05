@@ -43,17 +43,18 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
         int employeeIdRegister = 0;
         String email =  await TokenManager.getEmailIdRegister();
         int companyId = await TokenManager.getCompanyIdRegister();
+        EmployeeIdByEmail result = await GetEmployeeIdByEmail(context, companyId, email);
+        employeeIdRegister = result.employeeID;
         //EmployeeIdByEmail employeeIdByEmail;
-         FutureBuilder(future:GetEmployeeIdByEmail(context,companyId,email), builder:(context, snapshot){
-          if(snapshot.connectionState == ConnectionState.waiting){
-            return SizedBox();
-          }
-          if(snapshot.hasData){
-             employeeIdRegister = snapshot.data!.employeeID;
-          }
-          return SizedBox();
-          
-        });
+        //  FutureBuilder<EmployeeIdByEmail>(future:GetEmployeeIdByEmail(context,companyId,email), builder:(context, snapshot){
+        //   if(snapshot.connectionState == ConnectionState.waiting){
+        //     return SizedBox();
+        //   }
+        //   if(snapshot.hasData){
+        //      employeeIdRegister = snapshot.data!.employeeID;
+        //   }
+        //   return SizedBox();
+        // });
         // await GetEmployeeIdByEmail(context,companyId,email);
         print('EmployeeId :::: ${employeeIdRegister}');
         showDialog(
@@ -63,7 +64,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
               ),
-              child: OnBoardingCongratulation(employeeId: employeeIdRegister,),
+              child: OnBoardingCongratulation(employeeId: employeeIdRegister),
             );
           },
         );
