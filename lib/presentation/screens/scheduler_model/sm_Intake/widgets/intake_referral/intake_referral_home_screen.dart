@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_agency_info/intake_agency_info_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_referral_info/intake_referal_info_screen.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -119,8 +121,8 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                   controller: smIntakePageController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    Container(color: Colors.red,),
-                    Container(color: Colors.grey,)
+                    IntakeReferralInfoScreen(),
+                    IntakeAgencyInfoScreen(),
                   ]),
             ),
           ),
