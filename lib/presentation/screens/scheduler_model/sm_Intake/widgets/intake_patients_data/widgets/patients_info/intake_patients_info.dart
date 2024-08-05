@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -266,18 +267,33 @@ class SchedularTextField extends StatelessWidget {
   final bool isDate;
 
   SchedularTextField({
-    super.key,
+    Key? key,
     required this.labelText,
     this.initialValue,
     this.isDate = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _dateController = TextEditingController(text: initialValue);
+
+    Future<void> _selectDate(BuildContext context) async {
+      final DateTime? selectedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2101),
+      );
+
+      if (selectedDate != null) {
+        _dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+      }
+    }
+
     return SizedBox(
       height: 25.38,
       child: TextFormField(
-        initialValue: initialValue,
+        controller: isDate ? _dateController : TextEditingController(text: initialValue),
         style: GoogleFonts.firaSans(
           fontSize: 12,
           fontWeight: FontWeight.w400,
@@ -288,28 +304,20 @@ class SchedularTextField extends StatelessWidget {
           labelText: labelText,
           labelStyle: GoogleFonts.firaSans(
             fontSize: 10,
-
-            color: ColorManager.greylight,                          // label text color
+            color: ColorManager.greylight, // label text color
           ),
           border: const OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)), //  border color
+            borderSide: BorderSide(color: Color(0XFFB1B1B1)), // border color
           ),
-          suffixIcon: isDate ? Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime//calandercolour
-          ) : null,
+          suffixIcon: isDate
+              ? Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime) // calendar color
+              : null,
         ),
         readOnly: isDate,
         onTap: isDate
             ? () async {
-          final DateTime? picked = await showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(1900),
-            lastDate: DateTime(2100),
-          );
-          if (picked != null) {
-            // Handle the picked date
-          }
+          await _selectDate(context);
         }
             : null,
       ),
@@ -418,7 +426,7 @@ class SchedularDropdown extends StatelessWidget {
             size: 24,                                                              // size of icon
           ),
         ),
-        isDense: true, // Adjust the density of the dropdown
+        isDense: false, // Adjust the density of the dropdown
       ),
     );
   }
