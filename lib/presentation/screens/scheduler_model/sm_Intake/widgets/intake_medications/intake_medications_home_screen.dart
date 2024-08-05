@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/widgets/intake_medication_profile/intake_medication_profile_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/widgets/intake_pharmacy_vendor/intake_pharmacy_vendor_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_phhysician_info/widget/physician_info_face_to_face/physician_info_face_to_face.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_phhysician_info/widget/physician_info_info/physician_info_info.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_phhysician_info/widget/physician_info_referring_diagnosis/physician_info_referring_diagnosis.dart';
@@ -7,14 +9,14 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 
-class IntakePhysicianScreen extends StatefulWidget {
-  const IntakePhysicianScreen({super.key});
+class IntakeMedicationScreen extends StatefulWidget {
+  const IntakeMedicationScreen({super.key});
 
   @override
-  State<IntakePhysicianScreen> createState() => _IntakePhysicianScreenState();
+  State<IntakeMedicationScreen> createState() => _IntakeMedicationScreenState();
 }
 
-class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
+class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
   int selectedIndex = 0;
   final PageController smIntakePageController = PageController();
 
@@ -39,7 +41,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
         children: [
           SizedBox(height: 15,),
           Container(
-            width: MediaQuery.of(context).size.width/2.4, //2.4
+            width: MediaQuery.of(context).size.width/5, //4.8
             height: 30,
             decoration: BoxDecoration(
                 boxShadow: [
@@ -68,7 +70,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Info',
+                      'Pharmacy Vendor',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -93,7 +95,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Referring Diagnosis',
+                      'Medication Profile',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -106,56 +108,56 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                   ),
                   onTap: () => selectButton(1),
                 ),
-                InkWell(
-                  child: Container(
-                    height: 30,
-                    width: MediaQuery.of(context).size.width / 10,
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: selectedIndex == 2
-                          ? Colors.white
-                          : null,
-                    ),
-                    child: Text(
-                      'Physician Orders',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: selectedIndex == 2
-                            ? ColorManager.mediumgrey
-                            : Colors.white,
-                      ),
-                    ),
-                  ),
-                  onTap: () => selectButton(2),
-                ),
-                InkWell(
-                  child: Container(
-                    height: 30,
-                    width: MediaQuery.of(context).size.width / 9.5,
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: selectedIndex == 3
-                          ? Colors.white
-                          : null,
-                    ),
-                    child: Text(
-                      'Face To Face',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: selectedIndex == 3
-                            ? ColorManager.mediumgrey
-                            : Colors.white,
-                      ),
-                    ),
-                  ),
-                  onTap: () => selectButton(3),
-                ),
+                // InkWell(
+                //   child: Container(
+                //     height: 30,
+                //     width: MediaQuery.of(context).size.width / 10,
+                //     padding: EdgeInsets.symmetric(vertical: 6),
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(20),
+                //       color: selectedIndex == 2
+                //           ? Colors.white
+                //           : null,
+                //     ),
+                //     child: Text(
+                //       'Physician Orders',
+                //       textAlign: TextAlign.center,
+                //       style: GoogleFonts.firaSans(
+                //         fontSize: 12,
+                //         fontWeight: FontWeightManager.semiBold,
+                //         color: selectedIndex == 2
+                //             ? ColorManager.mediumgrey
+                //             : Colors.white,
+                //       ),
+                //     ),
+                //   ),
+                //   onTap: () => selectButton(2),
+                // ),
+                // InkWell(
+                //   child: Container(
+                //     height: 30,
+                //     width: MediaQuery.of(context).size.width / 9.5,
+                //     padding: EdgeInsets.symmetric(vertical: 6),
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(20),
+                //       color: selectedIndex == 3
+                //           ? Colors.white
+                //           : null,
+                //     ),
+                //     child: Text(
+                //       'Face To Face',
+                //       textAlign: TextAlign.center,
+                //       style: GoogleFonts.firaSans(
+                //         fontSize: 12,
+                //         fontWeight: FontWeightManager.semiBold,
+                //         color: selectedIndex == 3
+                //             ? ColorManager.mediumgrey
+                //             : Colors.white,
+                //       ),
+                //     ),
+                //   ),
+                //   onTap: () => selectButton(3),
+                // ),
               ],
             ),
           ),
@@ -172,10 +174,8 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                   controller: smIntakePageController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    PhysicianInfoInfoScreen(),
-                    ReferringDiagnososScreen(),
-                    Container(),
-                    PhysicianFaceToFace(),
+                    IntakePharmacyVendorScreen(),
+                    IntakeMedicationProfileScreen(),
                   ]),
             ),
           ),
