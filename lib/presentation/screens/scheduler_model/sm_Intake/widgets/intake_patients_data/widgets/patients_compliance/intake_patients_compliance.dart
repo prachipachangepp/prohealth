@@ -25,7 +25,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 32.0, top: 10),
+              padding: const EdgeInsets.only(right: 40.0, top: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -72,8 +72,8 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                   ),
                 ],
               ),
-              height: 403,
-              width: 1219,
+              height: MediaQuery.of(context).size.width * 0.3,
+              width: MediaQuery.of(context).size.width * 0.95,
               child: Padding(
                 padding: const EdgeInsets.only(top: 30.0),
                 child: Column(

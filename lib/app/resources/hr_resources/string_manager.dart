@@ -35,4 +35,7 @@ class AppStringHr{
   ///inventory
   static String inventoryid = "Id of the Inventory";
   static String docName = "Name of the Document";
+
+
+
 }

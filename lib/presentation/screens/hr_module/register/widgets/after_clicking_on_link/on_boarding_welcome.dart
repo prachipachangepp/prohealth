@@ -444,7 +444,7 @@ class VerifyUserPopup extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      'Continue',
+                      AppString.continuet,
                       style: GoogleFonts.firaSans(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -840,4 +840,5 @@ class OnBoardingCongratulation extends StatelessWidget {
       ),
     );
   }
+
 }
