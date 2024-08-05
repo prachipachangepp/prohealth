@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/register_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/verify_user_popup.dart';
 import '../../../manage/widgets/bottom_row.dart';
@@ -12,6 +13,7 @@ import '../../../manage/widgets/top_row.dart';
 class OnBoardingWelcome extends StatelessWidget {
   static const String routeName = "/onBordingWelcome";
   const OnBoardingWelcome({Key? key,}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
