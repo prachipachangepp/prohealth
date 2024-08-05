@@ -78,7 +78,16 @@ class _EducationScreenState extends State<EducationScreen> {
       SnackBar(content: Text("Education data saved")),
     );
   }
+  Future<void> uploadDocuments({
+    required BuildContext context,
+    required int employeeDocumentMetaId,
+    required int employeeDocumentTypeSetupId,
+    required int employeeId,
+    required dynamic documentFile,
+    required String documentName,
+  }) async {
 
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -163,7 +172,7 @@ class _EducationScreenState extends State<EducationScreen> {
     ),
     borderRadius: 12,
     onPressed: () async  {
-                  // Loop through each form and extract data to post
+
                   for (var key in educationFormKeys) {
                     final st = key.currentState!;
                     await posteducationscreen(

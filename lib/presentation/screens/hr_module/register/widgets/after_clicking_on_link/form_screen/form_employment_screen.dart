@@ -7,17 +7,14 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_employment_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
-import 'dart:typed_data';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'dart:html' as html;
 
-import '../../../../../../../app/resources/color.dart';
-import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../taxtfield_constant.dart';
 
 
@@ -97,16 +94,16 @@ class _Employment_screenState extends State<Employment_screen> {
       SnackBar(content: Text("Employment data saved")),
     );
   }
-  Future<void> uploadDocuments({
-    required BuildContext context,
-    required int employeeDocumentMetaId,
-    required int employeeDocumentTypeSetupId,
-    required int employeeId,
-    required dynamic documentFile,
-    required String documentName,
-  }) async {
-
-  }
+  // Future<void> uploadDocuments({
+  //   required BuildContext context,
+  //   required int employeeDocumentMetaId,
+  //   required int employeeDocumentTypeSetupId,
+  //   required int employeeId,
+  //   required dynamic documentFile,
+  //   required String documentName,
+  // }) async {
+  //
+  // }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -251,116 +248,7 @@ class _Employment_screenState extends State<Employment_screen> {
                   ),
                 ),
               ),
-              ///
 
-              // CustomButton(
-              //   width: 117,
-              //   height: 30,
-              //   text: 'Save',
-              //   style: TextStyle(
-              //     fontFamily: 'FiraSans',
-              //     fontSize: 12,
-              //     fontWeight: FontWeight.w700,
-              //   ),
-              //   borderRadius: 12,
-              //   onPressed: () async {
-              //     // Loop through each form and extract data to post
-              //     for (var key in employmentFormKeys) {
-              //       final state = key.currentState!;
-              //       await postemploymentscreen(
-              //           context,
-              //           15,
-              //           state.employerController.text,
-              //           state.cityController.text,
-              //           state.reasonForLeavingController.text,
-              //           state.supervisorNameController.text,
-              //           state.supervisorMobileNumberController.text,
-              //           state.finalPositionController.text,
-              //           state.startDateController.text,
-              //           isChecked ? 'Present' : state.endDateController.text);
-              //     }
-              //     for (var key in employmentFormKeys) {
-              //       final state = key.currentState!;
-              //       if (finalPath == null || finalPath.isEmpty) {
-              //         ScaffoldMessenger.of(context).showSnackBar(
-              //           SnackBar(
-              //             content: Text(
-              //                 'No file selected. Please select a file to upload.'),
-              //             backgroundColor: Colors.red,
-              //           ),
-              //         );
-              //       } else {
-              //         try {
-              //           await uploadDocuments(
-              //               context: context,
-              //               employeeDocumentMetaId: 10,
-              //               employeeDocumentTypeSetupId: 48,
-              //               employeeId: 2,
-              //               documentFile: finalPath,
-              //               documentName: 'Legal Document ID');
-              //
-              //           ScaffoldMessenger.of(context).showSnackBar(
-              //             SnackBar(
-              //               content: Text('Document uploaded successfully!'),
-              //               backgroundColor: Colors.green,
-              //             ),
-              //           );
-              //         } catch (e) {
-              //           ScaffoldMessenger.of(context).showSnackBar(
-              //             SnackBar(
-              //               content: Text('Failed to upload document: $e'),
-              //               backgroundColor: Colors.red,
-              //             ),
-              //           );
-              //         }
-              //       }
-              //     }
-              //
-              //     if (finalPath == null || finalPath.isEmpty) {
-              //       ScaffoldMessenger.of(context).showSnackBar(
-              //         SnackBar(
-              //           content: Text(
-              //               'No file selected. Please select a file to upload.'),
-              //           backgroundColor: Colors.red,
-              //         ),
-              //       );
-              //     } else {
-              //       try {
-              //         await uploadDocuments(
-              //             context: context,
-              //             employeeDocumentMetaId: 10,
-              //             employeeDocumentTypeSetupId: 48,
-              //             employeeId: 2,
-              //             documentFile: finalPath,
-              //             documentName: 'Legal Document ID');
-              //
-              //         ScaffoldMessenger.of(context).showSnackBar(
-              //           SnackBar(
-              //             content: Text('Document uploaded successfully!'),
-              //             backgroundColor: Colors.green,
-              //           ),
-              //         );
-              //       } catch (e) {
-              //         ScaffoldMessenger.of(context).showSnackBar(
-              //           SnackBar(
-              //             content: Text('Failed to upload document: $e'),
-              //             backgroundColor: Colors.red,
-              //           ),
-              //         );
-              //       }
-              //     }
-              //
-              //     //employerController.clear();
-              //   },
-              //   child: Text(
-              //     'Save',
-              //     style: GoogleFonts.firaSans(
-              //       fontSize: 12.0,
-              //       fontWeight: FontWeight.w700,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ],
@@ -628,6 +516,26 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     fontSize: 14.0,
                     fontWeight: FontWeight.w700,
                     color: Color(0xff686464)),
+              ),
+              SizedBox(height: 10,),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: _fileNames.map((fileName) => Text(fileName)).toList(),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.remove_circle, color: Colors.red),
+                    onPressed: () {
+                      setState(() {
+                        _fileNames.clear();
+                        finalPath = null;
+                      });
+                    },
+                  ),
+                ],
               ),
             ],
           ),
@@ -2096,7 +2004,6 @@ class _EmploymentFormState extends State<EmploymentForm> {
 //         ],
 //       ),
 //     );
-
 ///
 //   Padding(
 //   padding: const EdgeInsets.symmetric(vertical: 12.0),
