@@ -15,6 +15,7 @@ class ColorManager {
   ///static Color grey = Color(0xff8B8781);
   static Color grey = Color(0xff8B8781);
   static Color lightGrey = Color(0xffB7B7B7);
+  static Color containerBorderGrey = Color(0xffB1B1B1);
   static Color textPrimaryColor = Color(0xff686464);
   static Color fmediumgrey = Color(0xFF686464).withOpacity(0.46);
   static Color mediumgrey = Color(0xFF686464);
