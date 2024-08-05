@@ -211,6 +211,48 @@ class _Employment_screenState extends State<Employment_screen> {
 
 
                   }
+    for (var key in employmentFormKeys) {
+    final state = key.currentState!;
+    if (finalPath == null || finalPath.isEmpty) {
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('No file selected. Please select a file to upload.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else {
+      try {
+        await uploadDocuments(
+            context: context,
+            employeeDocumentMetaId: 10,
+            employeeDocumentTypeSetupId: 48,
+            employeeId: 2,
+            documentFile: finalPath,
+            documentName: 'Legal Document ID'
+        );
+
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Document uploaded successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } catch (e) {
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to upload document: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+
+
+    }
+
 
                   if (finalPath == null || finalPath.isEmpty) {
 
@@ -2243,3 +2285,75 @@ class _EmploymentFormState extends State<EmploymentForm> {
 //     ],
 //   ),
 // );
+
+
+
+//
+//
+// ElevatedButton(
+// onPressed: () async {
+// if (soConductFiles.isEmpty && harassmentFiles.isEmpty) {
+// ScaffoldMessenger.of(context).showSnackBar(
+// SnackBar(
+// content: Text('No files selected. Please select files to upload.'),
+// backgroundColor: Colors.red,
+// ),
+// );
+// return;
+// }
+//
+// try {
+// // Upload "Standards Of Conduct" documents
+// for (var file in soConductFiles) {
+// await uploadDocuments(
+// context: context,
+// employeeDocumentMetaId: 10,
+// employeeDocumentTypeSetupId: 48,
+// employeeId: 2,
+// documentFile: file,
+// documentName: 'Standards Of Conduct'
+// );
+// }
+//
+// // Upload "California Sexual Harassment Training" documents
+// for (var file in harassmentFiles) {
+// await uploadDocuments(
+// context: context,
+// employeeDocumentMetaId: 10,
+// employeeDocumentTypeSetupId: 48,
+// employeeId: 2,
+// documentFile: file,
+// documentName: 'California Sexual Harassment Training'
+// );
+// }
+//
+// ScaffoldMessenger.of(context).showSnackBar(
+// SnackBar(
+// content: Text('Documents uploaded successfully!'),
+// backgroundColor: Colors.green,
+// ),
+// );
+// } catch (e) {
+// ScaffoldMessenger.of(context).showSnackBar(
+// SnackBar(
+// content: Text('Failed to upload documents: $e'),
+// backgroundColor: Colors.red,
+// ),
+// );
+// }
+// },
+// style: ElevatedButton.styleFrom(
+// backgroundColor: Color(0xff50B5E5),
+// shape: RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(8.0),
+// ),
+// ),
+// child: Text(
+// 'Upload All',
+// style: GoogleFonts.firaSans(
+// fontSize: 14.0,
+// fontWeight: FontWeight.w700,
+// color: Colors.white,
+// ),
+// ),
+//),
