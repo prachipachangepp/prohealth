@@ -15,7 +15,8 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../manage/const_wrap_widget.dart';
 
 class QualificationReferance extends StatefulWidget {
-  const QualificationReferance({Key? key}) : super(key: key);
+  final int employeeId;
+  const QualificationReferance({Key? key, required this.employeeId}) : super(key: key);
 
   @override
   State<QualificationReferance> createState() => _QualificationReferanceState();
@@ -27,7 +28,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationReference(context, 5,'no').then((data){
+    getOnboardingQualificationReference(context, widget.employeeId,'no').then((data){
       referenceStreamController.add(data);
     }).catchError((error){});
   }
@@ -43,13 +44,10 @@ class _QualificationReferanceState extends State<QualificationReferance> {
         stream: referenceStreamController.stream,
         builder: (context,snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: SizedBox(width: 25,
-                height: 25,
+            return  Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150),
                 child: CircularProgressIndicator(
-
-
-
                   color: ColorManager.blueprime,
                 ),
               ),
@@ -57,12 +55,15 @@ class _QualificationReferanceState extends State<QualificationReferance> {
           }
           if (snapshot.data!.isEmpty) {
             return Center(
-                child: Text(
-                  AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 150),
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey),
+                  ),
                 ));
           }
           if(snapshot.hasData){

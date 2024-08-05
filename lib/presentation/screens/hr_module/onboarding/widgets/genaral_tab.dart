@@ -531,13 +531,12 @@ import '../../../../../app/services/api/managers/hr_module_manager/see_all/see_a
 import '../../../../../data/api_data/hr_module_data/see_all_data/see_all_data.dart';
 
 class OnboardingGeneral extends StatefulWidget {
-  final Function(int) selectButton;
+  final void Function(int,int) selectButton;
   const OnboardingGeneral({Key? key, required this.selectButton}) : super(key: key);
 
   @override
   State<OnboardingGeneral> createState() => _OnboardingGeneralState();
 }
-
 class _OnboardingGeneralState extends State<OnboardingGeneral> {
   final StreamController<List<SeeAllData>> generalController =
   StreamController<List<SeeAllData>>();
@@ -648,8 +647,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                         left:
                                         MediaQuery.of(context).size.width /
                                             60),
-                                    child: GestureDetector(
-                                      onTap: () => widget.selectButton(1), // Corrected reference
+                                    child: InkWell(
+                                      onTap: () => widget.selectButton(1,snapshot.data![index].empId!), // Corrected reference
                                       child: Container(
                                         color: Colors.white,
                                         child: Row(

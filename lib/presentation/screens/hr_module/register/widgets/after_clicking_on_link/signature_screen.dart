@@ -29,7 +29,7 @@ class SignaturePage extends StatefulWidget {
 class _SignaturePageState extends State<SignaturePage> {
   bool _isDrawing = true;
   List<Offset?> _points = [];
-  Uint8List? _selectedImageBytes;
+  dynamic? _selectedImageBytes;
 
   @override
   Widget build(BuildContext context) {
@@ -392,7 +392,7 @@ class _SignaturePageState extends State<SignaturePage> {
                     onPressed: () async{
                       print("Signature ${_selectedImageBytes}");
                      await uploadSignature(context,widget.employeeId,_selectedImageBytes);
-                     Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -401,6 +401,7 @@ class _SignaturePageState extends State<SignaturePage> {
                           ),
                         ),
                       );
+
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff50B5E5),

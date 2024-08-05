@@ -7,7 +7,8 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../qualification_education_tab.dart';
 
 class OnBoardingQualificationEmployment extends StatelessWidget {
-  const OnBoardingQualificationEmployment({super.key});
+  final int employeeId;
+  const OnBoardingQualificationEmployment({super.key, required this.employeeId});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class OnBoardingQualificationEmployment extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              QualificationEmployment(),
+              QualificationEmployment(employeeId: employeeId,),
               SizedBox(
                 height: AppSize.s8,
               )
@@ -29,7 +30,8 @@ class OnBoardingQualificationEmployment extends StatelessWidget {
 
 
 class OnBoardingQualificationEducation extends StatelessWidget {
-  const OnBoardingQualificationEducation({Key? key}) : super(key: key);
+  final int employeeId;
+  const OnBoardingQualificationEducation({Key? key, required this.employeeId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class OnBoardingQualificationEducation extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              QualificationEducation(),
+              QualificationEducation(employeeId: employeeId,),
               SizedBox(
                 height: AppSize.s8,
               )
@@ -50,7 +52,8 @@ class OnBoardingQualificationEducation extends StatelessWidget {
 }
 
 class OnBoardingQualificationReference extends StatelessWidget {
-  const OnBoardingQualificationReference({super.key});
+  final int employeeId;
+  const OnBoardingQualificationReference({super.key, required this.employeeId});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,7 @@ class OnBoardingQualificationReference extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              QualificationReferance(),
+              QualificationReferance(employeeId: employeeId,),
               SizedBox(
                 height: AppSize.s8,
               )
@@ -71,7 +74,8 @@ class OnBoardingQualificationReference extends StatelessWidget {
 }
 
 class OnBoardingQualificationLicense extends StatelessWidget {
-  const OnBoardingQualificationLicense({super.key});
+  final int employeeId;
+  const OnBoardingQualificationLicense({super.key, required this.employeeId});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +85,7 @@ class OnBoardingQualificationLicense extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              QualificationLicense(),
+              QualificationLicense(employeeId: employeeId,),
               SizedBox(
                 height: AppSize.s8,
               )
