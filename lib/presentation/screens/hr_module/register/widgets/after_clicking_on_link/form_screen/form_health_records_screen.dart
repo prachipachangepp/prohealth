@@ -95,14 +95,20 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
+          // FutureBuilder(future: future, builder: builder)
+          
+          
+          
+          
+          
           Expanded(
             child: Column(
               children: [
                 PhysicalExamContainer(),
                 SizedBox(
                     height: 16), // Add some spacing between containers
-                VaccineContainer(),
-                SizedBox(height: 16),
+                // VaccineContainer(),
+                // SizedBox(height: 16),
                 PhysicalExamContainer(),
                 SizedBox(height: 16),
                 Expanded(

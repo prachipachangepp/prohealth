@@ -110,6 +110,7 @@ class _ManageScreenState extends State<ManageScreen> {
           child: Column(
             children: [
               EmploymentContainerConstant(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
+              Container(height: 30,),
             ],
           ),
         ),

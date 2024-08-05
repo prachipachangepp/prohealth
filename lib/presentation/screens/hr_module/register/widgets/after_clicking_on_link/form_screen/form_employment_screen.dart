@@ -1,11 +1,19 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:html' as html;
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_employment_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../taxtfield_constant.dart';
 
 class Employment_screen extends StatefulWidget {
@@ -35,6 +43,10 @@ class _Employment_screenState extends State<Employment_screen> {
 
   bool isChecked = false;
 
+  dynamic? filePath;
+
+  var finalPath;
+
   bool get isFirstStep => _currentStep == 0;
 
   bool isCompleted = false;
@@ -47,6 +59,12 @@ class _Employment_screenState extends State<Employment_screen> {
   TextEditingController city = TextEditingController();
 
   List<GlobalKey<_EmploymentFormState>> employmentFormKeys = [];
+
+  // get finalPath {
+  //   // TODO: implement finalPath
+  //   throw UnimplementedError();
+  // }
+  // dynamic? filePath;
 
   @override
   void initState() {
@@ -84,6 +102,9 @@ class _Employment_screenState extends State<Employment_screen> {
       SnackBar(content: Text("Employment data saved")),
     );
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +205,90 @@ class _Employment_screenState extends State<Employment_screen> {
                         state.supervisorMobileNumberController.text,
                         state.finalPositionController.text,
                         state.startDateController.text,
+
                         isChecked ?'Present' :state.endDateController.text );
+
+
+
+                  }
+    for (var key in employmentFormKeys) {
+    final state = key.currentState!;
+    if (finalPath == null || finalPath.isEmpty) {
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('No file selected. Please select a file to upload.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else {
+      try {
+        await uploadDocuments(
+            context: context,
+            employeeDocumentMetaId: 10,
+            employeeDocumentTypeSetupId: 48,
+            employeeId: 2,
+            documentFile: finalPath,
+            documentName: 'Legal Document ID'
+        );
+
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Document uploaded successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } catch (e) {
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to upload document: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+
+
+    }
+
+
+                  if (finalPath == null || finalPath.isEmpty) {
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('No file selected. Please select a file to upload.'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    try {
+                      await uploadDocuments(
+                          context: context,
+                          employeeDocumentMetaId: 10,
+                          employeeDocumentTypeSetupId: 48,
+                          employeeId: 2,
+                          documentFile: finalPath,
+                          documentName: 'Legal Document ID'
+                      );
+
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Document uploaded successfully!'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    } catch (e) {
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Failed to upload document: $e'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
                   }
 
                   //employerController.clear();
@@ -256,6 +360,64 @@ class _EmploymentFormState extends State<EmploymentForm> {
     }
   }
 
+  ////////////////////////////////////
+
+  bool _documentUploaded = true;
+  var fileName;
+  var fileName1;
+  dynamic? filePath;
+  File? xfileToFile;
+  var finalPath;
+  // PlatformFile? fileName;
+
+  Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
+    // Get the directory to save the file.
+    final blob = html.Blob(bytes);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+
+
+    // Create the file.
+    //final anchor = html.AnchorElement(href: url)..setAttribute("download", fileName)..click();
+    final file = html.File([blob],fileName);
+    // Write the bytes to the file.
+    print(file.toString());
+    return WebFile(file, url);
+  }
+
+  Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
+    // Create a Blob from the bytes
+    final blob = html.Blob([bytes]);
+
+    // Create an object URL from the Blob
+    final url = html.Url.createObjectUrlFromBlob(blob);
+
+    // Create a File from the Blob
+    final file = html.File([blob], fileName);
+
+    print("XFILE ${url}");
+
+    // Return the XFile created from the object URL
+    return XFile(url);
+  }
+
+  Future<Uint8List> loadFileBytes() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/somefile.txt');
+    if (await file.exists()) {
+      return await file.readAsBytes();
+    } else {
+      throw Exception('File not found');
+    }
+  }
+
+
+
+  ////////////////////////////
+  ///////
+  //
+
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -287,7 +449,42 @@ class _EmploymentFormState extends State<EmploymentForm> {
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 20),
               ElevatedButton.icon(
-                onPressed: _pickFiles,
+                onPressed:()async {
+                  // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  //   allowMultiple: false,
+                  // );
+                  FilePickerResult? result = await FilePicker.platform.pickFiles();
+                  if (result != null) {
+                    print("Result::: ${result}");
+
+                    try{
+                      Uint8List? bytes = result.files.first.bytes;
+                      XFile xlfile = XFile(result.xFiles.first.path);
+                      xfileToFile = File(xlfile.path);
+
+                      print("::::XFile To File ${xfileToFile.toString()}");
+                      XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
+                      // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
+                      // html.File file = webFile.file;
+                      //  print("XFILE ${xFile.path}");
+                      //  //filePath = xfileToFile as XFile?;
+                      //  print("L::::::${filePath}");
+                      _fileNames.addAll(result.files.map((file) => file.name!));
+                      print('File picked: ${_fileNames}');
+                      //print(String.fromCharCodes(file));
+                      finalPath = result.files.first.bytes;
+                      setState(() {
+                        _fileNames;
+                        _documentUploaded = true;
+                      });
+                    }catch(e){
+                      print(e);
+                    }
+                  }
+                },
+
+
+                //_pickFiles,
                 // onPressed: () async {
                 //   FilePickerResult? result =
                 //       await FilePicker.platform.pickFiles(
@@ -2088,3 +2285,75 @@ class _EmploymentFormState extends State<EmploymentForm> {
 //     ],
 //   ),
 // );
+
+
+
+//
+//
+// ElevatedButton(
+// onPressed: () async {
+// if (soConductFiles.isEmpty && harassmentFiles.isEmpty) {
+// ScaffoldMessenger.of(context).showSnackBar(
+// SnackBar(
+// content: Text('No files selected. Please select files to upload.'),
+// backgroundColor: Colors.red,
+// ),
+// );
+// return;
+// }
+//
+// try {
+// // Upload "Standards Of Conduct" documents
+// for (var file in soConductFiles) {
+// await uploadDocuments(
+// context: context,
+// employeeDocumentMetaId: 10,
+// employeeDocumentTypeSetupId: 48,
+// employeeId: 2,
+// documentFile: file,
+// documentName: 'Standards Of Conduct'
+// );
+// }
+//
+// // Upload "California Sexual Harassment Training" documents
+// for (var file in harassmentFiles) {
+// await uploadDocuments(
+// context: context,
+// employeeDocumentMetaId: 10,
+// employeeDocumentTypeSetupId: 48,
+// employeeId: 2,
+// documentFile: file,
+// documentName: 'California Sexual Harassment Training'
+// );
+// }
+//
+// ScaffoldMessenger.of(context).showSnackBar(
+// SnackBar(
+// content: Text('Documents uploaded successfully!'),
+// backgroundColor: Colors.green,
+// ),
+// );
+// } catch (e) {
+// ScaffoldMessenger.of(context).showSnackBar(
+// SnackBar(
+// content: Text('Failed to upload documents: $e'),
+// backgroundColor: Colors.red,
+// ),
+// );
+// }
+// },
+// style: ElevatedButton.styleFrom(
+// backgroundColor: Color(0xff50B5E5),
+// shape: RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(8.0),
+// ),
+// ),
+// child: Text(
+// 'Upload All',
+// style: GoogleFonts.firaSans(
+// fontSize: 14.0,
+// fontWeight: FontWeight.w700,
+// color: Colors.white,
+// ),
+// ),
+//),

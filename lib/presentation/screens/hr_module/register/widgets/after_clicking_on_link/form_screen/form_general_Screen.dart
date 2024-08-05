@@ -1,13 +1,21 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:html' as html;
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 import 'form_educaton_screen.dart';
@@ -61,6 +69,61 @@ class _generalFormState extends State<generalForm> {
 
   List<String> _fileNames = [];
   bool _loading = false;
+  ////////////////////////////////////
+
+  bool _documentUploaded = true;
+  var fileName;
+  var fileName1;
+  dynamic? filePath;
+  File? xfileToFile;
+  var finalPath;
+  // PlatformFile? fileName;
+
+  Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
+    // Get the directory to save the file.
+    final blob = html.Blob(bytes);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+
+
+    // Create the file.
+    //final anchor = html.AnchorElement(href: url)..setAttribute("download", fileName)..click();
+    final file = html.File([blob],fileName);
+    // Write the bytes to the file.
+    print(file.toString());
+    return WebFile(file, url);
+  }
+
+  Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
+    // Create a Blob from the bytes
+    final blob = html.Blob([bytes]);
+
+    // Create an object URL from the Blob
+    final url = html.Url.createObjectUrlFromBlob(blob);
+
+    // Create a File from the Blob
+    final file = html.File([blob], fileName);
+
+    print("XFILE ${url}");
+
+    // Return the XFile created from the object URL
+    return XFile(url);
+  }
+
+  Future<Uint8List> loadFileBytes() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/somefile.txt');
+    if (await file.exists()) {
+      return await file.readAsBytes();
+    } else {
+      throw Exception('File not found');
+    }
+  }
+
+
+
+  ////////////////////////////
+  ///////
+  //
 
   void _pickFiles() async {
     setState(() {
@@ -158,19 +221,43 @@ class _generalFormState extends State<generalForm> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed: _pickFiles,
-                        // onPressed: () async {
-                        //   FilePickerResult? result =
-                        //       await FilePicker.platform.pickFiles(
-                        //     allowMultiple: false,
-                        //   );
-                        //   if (result != null) {
-                        //     PlatformFile file = result.files.first;
-                        //     print('File picked: ${file.name}');
-                        //   } else {
-                        //     // User canceled the picker
-                        //   }
-                        // },
+                        onPressed:
+
+
+                            ()async {
+                          // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                          //   allowMultiple: false,
+                          // );
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          if (result != null) {
+                            print("Result::: ${result}");
+
+                            try{
+                              Uint8List? bytes = result.files.first.bytes;
+                              XFile xlfile = XFile(result.xFiles.first.path);
+                              xfileToFile = File(xlfile.path);
+
+                              print("::::XFile To File ${xfileToFile.toString()}");
+                              XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
+                              // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
+                              // html.File file = webFile.file;
+                              //  print("XFILE ${xFile.path}");
+                              //  //filePath = xfileToFile as XFile?;
+                              //  print("L::::::${filePath}");
+                              _fileNames.addAll(result.files.map((file) => file.name!));
+                              print('File picked: ${_fileNames}');
+                              //print(String.fromCharCodes(file));
+                              finalPath = result.files.first.bytes;
+                              setState(() {
+                                _fileNames;
+                                _documentUploaded = true;
+                              });
+                            }catch(e){
+                              print(e);
+                            }
+                          }
+                        },      //_pickFiles,
+
                         label: Text(
                           "Choose File",
                           style: GoogleFonts.firaSans(
@@ -443,7 +530,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: dobcontroller,
-                        hintText: 'dd-mm-yyyy',
+                        hintText: 'yyyy-mm-dd',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
@@ -755,7 +842,7 @@ class _generalFormState extends State<generalForm> {
                   width: 117,
                   height: 30,
                   text: 'Save',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'FiraSans',
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -765,7 +852,7 @@ class _generalFormState extends State<generalForm> {
                     await postgeneralscreendata(
                         context,
                         'G023',
-                        26,
+                        35,
                         firstname.text,
                         lastname.text,
                         1,
@@ -817,6 +904,44 @@ class _generalFormState extends State<generalForm> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("General data saved")),
                     );
+
+                      if (finalPath == null || finalPath.isEmpty) {
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('No file selected. Please select a file to upload.'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      } else {
+                        try {
+                          await uploadDocuments(
+                              context: context,
+                              employeeDocumentMetaId: 10,
+                              employeeDocumentTypeSetupId: 48,
+                              employeeId: 2,
+                              documentFile: finalPath,
+                              documentName: 'Legal Document ID'
+                          );
+
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Document uploaded successfully!'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        } catch (e) {
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Failed to upload document: $e'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      }
+
                     firstname.clear();
                     lastname.clear();
                     ssecuritynumber.clear();

@@ -71,7 +71,14 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: _buildLeftColumn(),
+                    child:  Text(
+                      'Physical Exam',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xff686464),
+                      ),
+                    ),
                   ),
                   Expanded(
                     flex: 2,
@@ -157,15 +164,12 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 40.0),
-          child: Text(
-            'Upload Physical Exam records in pdf, jpg or png format',
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: const Color(0xff686464),
-            ),
+        Text(
+          'Upload Physical Exam records in pdf, jpg or png format',
+          style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xff686464),
           ),
         ),
         SizedBox(width: MediaQuery.of(context).size.width / 80),
