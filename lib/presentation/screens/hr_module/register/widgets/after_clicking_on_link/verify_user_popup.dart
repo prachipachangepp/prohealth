@@ -236,7 +236,6 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         },
                       ),
                     ),
-
                     // Container(
                     //   padding: const EdgeInsets.all(5),
                     //   child: CustomTextFieldRegister(
@@ -270,7 +269,6 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     //     },
                     //   ),
                     // ),
-
                     const SizedBox(height: 20),
                     isLoading
                         ? SizedBox(

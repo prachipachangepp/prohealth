@@ -29,7 +29,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationEducation(context, 2).then((data){
+    getOnboardingQualificationEducation(context, 2,'no').then((data){
       educationStreamController.add(data);
     }).catchError((error){});
   }
@@ -92,7 +92,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                       vertical: MediaQuery.of(context).size.height / 120,
                     ),
                     child:Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -103,7 +103,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        //SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -246,7 +246,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                                                       ElevatedButton(
                                                         onPressed: () async {
                                                           await rejectOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
-                                                          getOnboardingQualificationEducation(context, 2).then((data){
+                                                          getOnboardingQualificationEducation(context, 2,'no').then((data){
                                                             educationStreamController.add(data);
                                                           }).catchError((error){});
                                                           Navigator.of(context).pop();
@@ -373,7 +373,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         await approveOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
-                                                        getOnboardingQualificationEducation(context, 2).then((data){
+                                                        getOnboardingQualificationEducation(context, 2,'no').then((data){
                                                           educationStreamController.add(data);
                                                         }).catchError((error){});
                                                         Navigator.of(context).pop();

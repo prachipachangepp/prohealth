@@ -10,11 +10,11 @@ import '../../../../../resources/const_string.dart';
 
 ///get onboarding qualification employement
 Future<List<OnboardingQualificationEmploymentData>> getOnboardingQualificationEmp(
-BuildContext context, int employeeId) async{
+BuildContext context, int employeeId, String approveOnly) async{
   List<OnboardingQualificationEmploymentData> itemData = [];
   try{
     final response = await Api(context).get(path:
-    OnboardingQualificationRepo.getEmpEmploymentHistories(employeeid: employeeId));
+    OnboardingQualificationRepo.getEmpEmploymentHistories(employeeid: employeeId, approveOnly: approveOnly));
     if(response.statusCode == 200 || response.statusCode == 201){
       for(var item in response.data){
         itemData.add(OnboardingQualificationEmploymentData(
@@ -28,7 +28,10 @@ BuildContext context, int employeeId) async{
             title: item['title'],
             dateOfJoin: item['dateOfJoining'],
             endDate: item['endDate'],
-            approve: item['approved']));
+            approve: item['approved'] ?? false,
+            emgMobile: item['emgMobile'] ?? '--',
+            country: item['country'] ?? '--'),
+        );
       }
     }else {
       print("Employment List");
@@ -99,11 +102,11 @@ Future<ApiData> approveOnboardQualifyEmploymentPatch(BuildContext context, int e
 
 ///get onboarding qualification education
 Future<List<OnboardingQualificationEducationData>> getOnboardingQualificationEducation(
-    BuildContext context, int employeeId) async{
+    BuildContext context, int employeeId, String approveOnly) async{
   List<OnboardingQualificationEducationData> itemData = [];
   try{
     final response = await Api(context).get(path:
-    OnboardingQualificationRepo.getEmpEducation(employeeid: employeeId));
+    OnboardingQualificationRepo.getEmpEducation(employeeid: employeeId, approveOnly: approveOnly));
     if(response.statusCode == 200 || response.statusCode == 201){
       for(var item in response.data){
         itemData.add(OnboardingQualificationEducationData(
@@ -116,7 +119,10 @@ Future<List<OnboardingQualificationEducationData>> getOnboardingQualificationEdu
             college: item['college'],
             phone: item['phone'],
             state: item['state'],
-            approved: item['approved']));
+            approved: item['approved'] ?? false,
+          startDate: item['startDate'] ?? '--', country: item['country'] ?? '--',
+
+        ));
       }
     }else {
       print("Education List");
@@ -188,11 +194,11 @@ Future<ApiData> approveOnboardQualifyEducationPatch(BuildContext context, int ed
 
 ///get onboarding qualification referance
 Future<List<OnboardingQualificationReferanceData>> getOnboardingQualificationReference(
-    BuildContext context, int employeeId) async{
+    BuildContext context, int employeeId, String approveOnly) async{
   List<OnboardingQualificationReferanceData> itemData = [];
   try{
     final response = await Api(context).get(path:
-    OnboardingQualificationRepo.getEmpReference(employeeid: employeeId));
+    OnboardingQualificationRepo.getEmpReference(employeeid: employeeId, approveOnly: approveOnly));
     if(response.statusCode == 200 || response.statusCode == 201){
       for(var item in response.data){
         itemData.add(OnboardingQualificationReferanceData(
@@ -278,7 +284,7 @@ Future<ApiData> approveOnboardQualifyReferencePatch(BuildContext context, int re
 
 ///get onboarding qualification license
 Future<List<OnboardingQualificationLicenseData>> getOnboardingQualificationLicense(
-    BuildContext context, int employeeId) async{
+    BuildContext context, int employeeId, String approveOnly) async{
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -294,7 +300,7 @@ Future<List<OnboardingQualificationLicenseData>> getOnboardingQualificationLicen
   List<OnboardingQualificationLicenseData> itemData = [];
   try{
     final response = await Api(context).get(path:
-    OnboardingQualificationRepo.getEmpLicense(employeeid: employeeId));
+    OnboardingQualificationRepo.getEmpLicense(employeeid: employeeId, approveOnly: approveOnly));
     if(response.statusCode == 200 || response.statusCode == 201){
       for(var item in response.data){
         String expFormattedDate = convertIsoToDayMonthYear(item['expDate']);
@@ -310,8 +316,7 @@ Future<List<OnboardingQualificationLicenseData>> getOnboardingQualificationLicen
             licenseNumber: item['licenseNumber'],
             org: item['org'],
             documentType: item['documentType'],
-            approve: item['approved'],
-          sucess: true, message: response.statusMessage!,
+            approve: item['approved'] ?? false,
            ));
       }
     }else {

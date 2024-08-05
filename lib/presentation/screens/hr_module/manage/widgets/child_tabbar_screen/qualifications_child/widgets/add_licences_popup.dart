@@ -44,7 +44,8 @@ class AddLicencesPopup extends StatefulWidget {
 class _AddLicencesPopupState extends State<AddLicencesPopup> {
   final DateTime _selectedIssueDate = DateTime.now();
   final DateTime _selectedExpDate = DateTime.now();
-
+  dynamic pickedFile;
+  String? pickedFileName;
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
           children: [
             Container(
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
@@ -103,7 +104,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   widget.child,
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   CustomIconButton(
@@ -115,8 +116,13 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                         allowMultiple: false,
                       );
                       if (result != null) {
-                        PlatformFile file = result.files.first;
-                        print('File picked: ${file.name}');
+                        //PlatformFile file = result.files.first;
+                        setState(() {
+                          pickedFileName = result.files.first.name;
+                          pickedFile = result.files.first.bytes;
+                        });
+
+                        print('File picked: ${pickedFileName}');
                       } else {
                         // User canceled the picker
                       }
@@ -125,7 +131,18 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 ],
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20), //10
+            SizedBox(height: 5,),
+            pickedFileName == null ? const Offstage():Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 60),
+                child: Text(pickedFileName!,style: GoogleFonts.firaSans(
+                    fontSize: FontSize.s10,
+                    color: ColorManager.mediumgrey
+                ),),
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 22), //10
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -278,7 +295,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                       onPressed: () async {
                         widget.onpressedClose();
                       }),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   isLoading
@@ -310,12 +327,12 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  Future.delayed(Duration(seconds: 3), () {
+                                  Future.delayed(const Duration(seconds: 3), () {
                                     if (Navigator.of(context).canPop()) {
                                       Navigator.of(context).pop();
                                     }
                                   });
-                                  return AddSuccessPopup(
+                                  return const AddSuccessPopup(
                                     message: 'Added Successfully',
                                   );
                                 },

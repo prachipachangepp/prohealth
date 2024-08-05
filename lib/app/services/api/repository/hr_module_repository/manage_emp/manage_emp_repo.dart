@@ -21,13 +21,13 @@ class ManageReposotory{
 
   /// Licenses status wise
 
-  static String getLicenseStatus({required int employeeId}){
-    return "$licenseStatus/$employeeId";
+  static String getLicenseStatus({required int employeeId,required String approvedOnly}){
+    return "$licenseStatus/$employeeId/$approvedOnly";
   }
 
   /// Employeement
-  static String getEmployeement({required int employeeId}){
-    return "$employement/$byemployeeId/$employeeId";
+  static String getEmployeement({required int employeeId,required String approveOnly}){
+    return "$employement/$byemployeeId/$employeeId/$approveOnly";
   }
   static String addEmployeement(){
     return "$employement$add";
@@ -36,8 +36,8 @@ class ManageReposotory{
     return "$employement/$employeementId";
   }
   /// Education
-  static String getEmployeeDucation({required int employeeId}){
-    return "$education/$byemployeeId/$employeeId";
+  static String getEmployeeDucation({required int employeeId,required String approveOnly}){
+    return "$education/$byemployeeId/$employeeId/$approveOnly";
   }
   static String addEmployeeDucation(){
     return "$education$add";
@@ -46,14 +46,17 @@ class ManageReposotory{
     return "$education/$educationId";
   }
   /// Employee licences
-  static String getEmployeeLicenses({required int employeeid}){
-    return "$employee_licenses/ByemployeeId/$employeeid";
+  static String getEmployeeLicenses({required int employeeid,required String approveOnly}){
+    return "$employee_licenses/ByemployeeId/$employeeid/$approveOnly";
   }
   static String getselectDocuments(){
     return "$selectDocuments";
   }
   static String addEmployeeLicenses(){
     return "$employee_licenses$add";
+  }
+  static String attachLicenseDocument({required int licenseId}){
+    return "$employee_licenses/attach-licensebase64/$licenseId";
   }
   static String rejectEmployeeLicenses({required int licensedId}){
     return "$employee_licenses/reject/$licensedId";
@@ -71,8 +74,8 @@ class ManageReposotory{
 
 
   /// References
-  static String referenceByemployeeIdGet({required int employeeId}){
-    return "$references/ByemployeeId/$employeeId";
+  static String referenceByemployeeIdGet({required int employeeId,required String approveOnly}){
+    return "$references/ByemployeeId/$employeeId/$approveOnly";
   }
   static String addReferences(){
     return "$references$add";
@@ -88,8 +91,8 @@ class ManageReposotory{
   }
 
   /// Employee Banking
-  static String getBankingEmployee({required int employeeId}){
-    return "$banking/$byemployeeId/$employeeId";
+  static String getBankingEmployee({required int employeeId,required String approveOnly}){
+    return "$banking/$byemployeeId/$employeeId/$approveOnly";
   }
 
   static String getPrefillBankingEmployee({required int empBankingId}){
@@ -104,6 +107,9 @@ class ManageReposotory{
     return "$banking/$empBankingId";
   }
 
+  static String uploadBanckingDocuments({required int empBankingId}){
+    return "$banking/attach-checkbase64/$empBankingId";
+  }
 
   static String approveBankingEmployee({required int empBankingId}){
     return "/employee-bankings/approve/$empBankingId";

@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:prohealth/app/services/encode_decode_base64.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/offer_letter_html_data/offer_letter_html.dart';
@@ -79,6 +80,42 @@ Future<ApiData> updateOfferLetter(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Accept Offer Letter");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+/// Upload signiture
+Future<ApiData> uploadSignature(
+    BuildContext context,
+    int employeeId,
+    dynamic documentFile
+    ) async {
+  try {
+    String document = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    var response = await Api(context).post(
+      path: OfferLetterHtmlRepo.uploadSignatureDocument(employeeId: employeeId),
+      data: {
+        "base64":document
+      },
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Signature uploaded");
       // orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,

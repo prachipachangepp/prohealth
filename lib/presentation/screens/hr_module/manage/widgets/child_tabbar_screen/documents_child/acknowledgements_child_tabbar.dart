@@ -36,6 +36,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
   @override
   void initState() {
     super.initState();
+
   }
 
   @override
@@ -126,7 +127,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (context, snapshot) {
-            getAckHealthRecord(context, 10, 48, widget.employeeId).then((data) {
+            getAckHealthRecord(context, 10, 48, widget.employeeId,"no").then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -179,12 +180,17 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                   children: List.generate(snapshot.data!.length, (index) {
                     final data = snapshot.data![index];
                     final fileUrl = data.DocumentUrl;
+                    try{
+                      var keyGenerate =  AppFilePickerBase64.mainFun(keyUrl:fileUrl);
+                      print("Generated file ::: ${keyGenerate.toString()}");
+                    }catch(e){
+                      print(e);
+                    }
                     //var decodeBse64 = EncodeDecodeBase64.getDecodeBase64(fetchedUrl: "e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O");
                     // print("File:::>>${decodeBse64}");
                     final fileExtension = fileUrl.split('.').last.toLowerCase();
 
                     Widget fileWidget;
-
                     if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
                       fileWidget = Image.network(
                         fileUrl,

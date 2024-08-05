@@ -76,7 +76,10 @@ dependencies:
   printing: any
   pdf: ^3.11.0
   universal_io: any
+  encrypt: any
   cached_network_image: any
+
+
 
 
 

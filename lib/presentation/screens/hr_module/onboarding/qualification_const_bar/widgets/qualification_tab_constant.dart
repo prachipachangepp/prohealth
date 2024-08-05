@@ -23,7 +23,7 @@ class QualificationActionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        approve == null
+        approve == false
             ? ElevatedButton(
           onPressed: onRejectPressed,
           style: ElevatedButton.styleFrom(
@@ -44,7 +44,7 @@ class QualificationActionButtons extends StatelessWidget {
         )
             : approve == false
             ? Text(
-          'Rejected',
+          'Saloni',
           textAlign: TextAlign.center,
           style: CustomTextStylesCommon.commonStyle(
             fontSize: FontSize.s12,
@@ -54,7 +54,7 @@ class QualificationActionButtons extends StatelessWidget {
         )
             : Offstage(),
         SizedBox(width: MediaQuery.of(context).size.width / 75),
-        approve == null
+        approve == false
             ? ElevatedButton(
           onPressed: onApprovePressed,
           style: ElevatedButton.styleFrom(

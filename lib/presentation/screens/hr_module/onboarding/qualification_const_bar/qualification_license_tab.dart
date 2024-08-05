@@ -28,7 +28,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationLicense(context, 2).then((data) {
+    getOnboardingQualificationLicense(context, 2,'no').then((data) {
       licenseStreamController.add(data);
     }).catchError((error) {});
   }
@@ -95,7 +95,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                       vertical: MediaQuery.of(context).size.height / 120,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -106,7 +106,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        //SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -299,7 +299,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                                 .data![index]
                                                                 .licenseId);
                                                         getOnboardingQualificationLicense(
-                                                                context, 2)
+                                                                context, 2,'no')
                                                             .then((data) {
                                                           licenseStreamController
                                                               .add(data);
@@ -487,7 +487,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                                 .data![index]
                                                                 .licenseId);
                                                         getOnboardingQualificationLicense(
-                                                                context, 2)
+                                                                context, 2,'no')
                                                             .then((data) {
                                                           licenseStreamController
                                                               .add(data);
