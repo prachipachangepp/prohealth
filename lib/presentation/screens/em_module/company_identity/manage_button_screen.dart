@@ -591,7 +591,7 @@ int listIndex = 0 ;
                       //     nameList: ['County', 'Zone'],
                       //     screenList: [CIZoneCountry(), CIZoneZone()],
                       //     mediaQueryWidth: 3.5,),
-                      CiCorporateComplianceScreen(docId: AppConfig.docId8,),
+                      CiCorporateComplianceScreen(docId: AppConfig.docId8, officeId: widget.officeID,),
                       // CiPageview(
                       //     managePageController: _managePageController,
                       //     selectedIndex: _selectedIndex,

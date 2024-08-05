@@ -24,7 +24,8 @@ import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_consta
 class CIPoliciesProcedure extends StatefulWidget {
   final int docId;
   final int subDocId;
-  const CIPoliciesProcedure({super.key, required this.docId, required this.subDocId,});
+  final String officeId;
+  const CIPoliciesProcedure({super.key, required this.docId, required this.subDocId, required this.officeId,});
 
   @override
   State<CIPoliciesProcedure> createState() => _CIPoliciesProcedureState();
@@ -45,6 +46,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
   bool _isLoading = false;
   String? selectedValue;
   late List<Color> hrcontainerColors;
+
 
   @override
   void initState() {
@@ -76,8 +78,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
       StreamBuilder<List<CiOrgDocumentCC>>(
         stream: _policiesandprocedureController.stream,
         builder: (context, snapshot) {
-          orgSubDocumentGet(context,
-              11,widget.docId,widget.subDocId,1,15
+          orgSubDocumentGet(context,widget.docId,widget.subDocId,1,15
           ).then((data) {
             _policiesandprocedureController.add(data);
           }).catchError((error) {
@@ -327,11 +328,10 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                             expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                             expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                             expiryReminder: "Schedule",
-                                                            companyId: 11,
-                                                            officeId: "Office 1",
+                                                            officeId: widget.officeId,
                                                           );
                                                           setState(() async {
-                                                            await orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                                                            await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                                                               _policiesandprocedureController.add(data);
                                                             }).catchError((error) {
                                                               // Handle error
@@ -517,7 +517,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                             context,
                                                             snapshot.data![index].docId);
                                                         setState(() async {
-                                                          await orgSubDocumentGet(context, 11, widget.docId, 21, 1, 15).then((data) {
+                                                          await orgSubDocumentGet(context, widget.docId, 21, 1, 15).then((data) {
                                                             _policiesandprocedureController.add(data);
                                                           }).catchError((error) {
                                                             // Handle error

@@ -23,7 +23,8 @@ import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_
 class CICcdQuarteryBalanceReport extends StatefulWidget {
   final int docId;
   final int subDocID;
-  const CICcdQuarteryBalanceReport({super.key, required this.docId, required this.subDocID});
+  final String officeId;
+  const CICcdQuarteryBalanceReport({super.key, required this.docId, required this.subDocID, required this.officeId});
 
   @override
   State<CICcdQuarteryBalanceReport> createState() => _CICcdQuarteryBalanceReportState();
@@ -154,7 +155,7 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
           child: StreamBuilder<List<CiOrgDocumentCC>>(
             stream: _controller.stream,
             builder: (context, snapshot) {
-              orgSubDocumentGet(context, 11, widget.docId, widget.subDocID, 1, 15).then((data) {
+              orgSubDocumentGet(context,widget.docId, widget.subDocID, 1, 15).then((data) {
                 _controller.add(data);
               }).catchError((error) {
                 // Handle error
@@ -325,11 +326,10 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                                           expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                           expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                           expiryReminder: "Schedule",
-                                                          companyId: 11,
-                                                          officeId: "Office 1",
+                                                          officeId: widget.officeId,
                                                         );
                                                         setState(() async {
-                                                          await orgSubDocumentGet(context, 11, widget.docId, widget.subDocID, 1, 15).then((data) {
+                                                          await orgSubDocumentGet(context, widget.docId, widget.subDocID, 1, 15).then((data) {
                                                             _controller.add(data);
                                                           }).catchError((error) {
                                                             // Handle error
@@ -515,7 +515,7 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                                           context,
                                                           snapshot.data![index].docId);
                                                       setState(() async {
-                                                        await orgSubDocumentGet(context, 11, widget.docId, widget.subDocID, 1, 6).then((data) {
+                                                        await orgSubDocumentGet(context, widget.docId, widget.subDocID, 1, 6).then((data) {
                                                           _controller.add(data);
                                                         }).catchError((error) {
                                                           // Handle error

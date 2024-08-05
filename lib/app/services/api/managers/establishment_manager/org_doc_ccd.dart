@@ -55,7 +55,6 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 // }
 ///old
 Future<List<CiOrgDocumentCC>> orgSubDocumentGet(BuildContext context,
-    int companyId,
     int docTypeId,
     int docSubTypeID,
     int pageNo,
@@ -89,6 +88,7 @@ Future<List<CiOrgDocumentCC>> orgSubDocumentGet(BuildContext context,
           ),
         );
       }
+      print('${response.data['DocumentList']}');
        print("Org Sub Document response:::::${itemsList}");
     } else {
       print('Org Api Error');
@@ -97,7 +97,7 @@ Future<List<CiOrgDocumentCC>> orgSubDocumentGet(BuildContext context,
     // print("Org response:::::${response}");
     return itemsList;
   } catch (e) {
-    print("Error $e");
+    print("Error for add $e");
     return itemsList;
   }
 }
