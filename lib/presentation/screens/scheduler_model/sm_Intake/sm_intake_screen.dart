@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/intake_medications_home_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/intake_notes_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/intake_patiets_data_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_phhysician_info/intake_physician_home_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/intake_physician_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/intake_referral_home_screen.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../widgets/constant_widgets/page_view_menu_button_const.dart';
@@ -117,7 +118,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
             IntakeMedicationScreen(),
             Container(color: Colors.greenAccent,),
             Container(color: Colors.lightBlue,),
-            Container(color: Colors.greenAccent,),
+            SmIntakeNotesScreen()
           ],
         ),
       ),
