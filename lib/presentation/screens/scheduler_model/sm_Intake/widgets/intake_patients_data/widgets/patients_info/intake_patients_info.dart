@@ -308,8 +308,7 @@ class SchedularTextField extends StatelessWidget {
           ),
           border: const OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)), 
-            borderRadius: BorderRadius.circular(8)// border color
+            borderSide: BorderSide(color: Color(0XFFB1B1B1)), // border color
           ),
           suffixIcon: isDate
               ? Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime) // calendar color
@@ -325,7 +324,6 @@ class SchedularTextField extends StatelessWidget {
     );
   }
 }
-
 
 // class SchedularDropdown extends StatelessWidget {
 //   final String labelText;
@@ -428,7 +426,7 @@ class SchedularDropdown extends StatelessWidget {
             size: 24,                                                              // size of icon
           ),
         ),
-        isDense: true, // Adjust the density of the dropdown
+        isDense: false, // Adjust the density of the dropdown
       ),
     );
   }
