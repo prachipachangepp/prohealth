@@ -193,51 +193,61 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                   SizedBox(height: MediaQuery.of(context).size.height/15),
                   Padding(
                     padding: const EdgeInsets.only(left: AppPadding.p24),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 30,
-                          width: 267,
-                          child: TextFormField(
-                            controller: _dateController,
-                            decoration: InputDecoration(
-                              labelText: 'Date of face-to face encounter',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.regular,
-                                color: ColorManager.lightgreyheading
-                              ),
-                              suffixIcon: IconButton(
-                                icon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                                onPressed: () => _selectDate(context),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1.0,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1.0,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        width: 267,
+                        child: SchedularTextField(
+                            labelText: 'Date of face-to face encounter',
+                            isDate: true),
+                      ),
                     ),
+
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   children: [
+                    //     Container(
+                    //       height: 30,
+                    //       width: 267,
+                    //       child: TextFormField(
+                    //         controller: _dateController,
+                    //         decoration: InputDecoration(
+                    //           labelText: 'Date of face-to face encounter',
+                    //           labelStyle: GoogleFonts.firaSans(
+                    //             fontSize: FontSize.s10,
+                    //             fontWeight: FontWeightManager.regular,
+                    //             color: ColorManager.lightgreyheading
+                    //           ),
+                    //           suffixIcon: IconButton(
+                    //             icon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                    //             onPressed: () => _selectDate(context),
+                    //           ),
+                    //           border: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(8.0),
+                    //             borderSide: BorderSide(
+                    //               color: ColorManager.containerBorderGrey,
+                    //               width: 1.0,
+                    //             ),
+                    //           ),
+                    //           enabledBorder: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(8.0),
+                    //             borderSide: BorderSide(
+                    //               color: ColorManager.containerBorderGrey,
+                    //               width: 1.0,
+                    //             ),
+                    //           ),
+                    //           focusedBorder: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(8.0),
+                    //             borderSide: BorderSide(
+                    //               color: ColorManager.containerBorderGrey,
+                    //               width: 1.0,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ),
 
 
