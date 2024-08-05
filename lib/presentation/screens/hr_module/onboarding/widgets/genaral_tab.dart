@@ -615,6 +615,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                 ),
                               ),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -688,12 +690,12 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                 )
                                               ],
                                             ),
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                                  50,
-                                            ),
+                                            // SizedBox(
+                                            //   width: MediaQuery.of(context)
+                                            //       .size
+                                            //       .width /
+                                            //       50,
+                                            // ),
 
                                             ObGeneralHeadingConstant(
                                                 text1: 'Social Security Number',
@@ -704,16 +706,10 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                             Column(
                                               children: [
                                                 ObGeneralDataConstant(
-                                                  text1: snapshot
-                                                      .data![index].ssnnbr,
-                                                  text2:
-                                                  snapshot.data![index].type,
-                                                  text3: snapshot.data![index]
-                                                      .primaryPhoneNbr ??
-                                                      '-',
-                                                  text4: snapshot.data![index]
-                                                      .personalEmail ??
-                                                      '-',
+                                                  text1: snapshot.data![index].ssnnbr,
+                                                  text2: snapshot.data![index].type,
+                                                  text3: snapshot.data![index].primaryPhoneNbr ?? '-',
+                                                  text4: snapshot.data![index].personalEmail ?? '-',
                                                 )
                                               ],
                                             ),
@@ -728,16 +724,10 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                             Column(
                                               children: [
                                                 ObGeneralDataConstant(
-                                                  text1: snapshot.data![index]
-                                                      .driverLicenseNum,
-                                                  text2: snapshot
-                                                      .data![index].service,///experties
-                                                  text3: snapshot
-                                                      .data![index].cityID
-                                                      .toString(),
-                                                  text4: snapshot
-                                                      .data![index].zoneId
-                                                      .toString(),
+                                                  text1: snapshot.data![index].driverLicenseNum,
+                                                  text2: snapshot.data![index].rehirable,///experties
+                                                  text3: snapshot.data![index].cityID.toString(),
+                                                  text4: snapshot.data![index].zoneId.toString(),
                                                 )
                                               ],
                                             ),
@@ -751,15 +741,10 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                             Column(
                                               children: [
                                                 ObGeneralDataConstant(
-                                                  text1: snapshot
-                                                      .data![index].finalAddress,
-                                                  text2: snapshot
-                                                      .data![index].employment,
-                                                  text3: snapshot
-                                                      .data![index].cityID
-                                                      .toString(),
-                                                  text4: snapshot
-                                                      .data![index].dateOfBirth,
+                                                  text1: snapshot.data![index].finalAddress,
+                                                  text2: snapshot.data![index].employment,
+                                                  text3: snapshot.data![index].cityID.toString(),
+                                                  text4: snapshot.data![index].dateOfBirth,
                                                 )
                                               ],
                                             ),
@@ -774,20 +759,11 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                             Column(
                                               children: [
                                                 ObGeneralDataConstant(
-                                                  text1: snapshot
-                                                      .data![index].status,
-                                                  text2:
-                                                  snapshot.data![index].race,
-                                                  text3: snapshot
-                                                      .data![index].service,
+                                                  text1: snapshot.data![index].status,
+                                                  text2: snapshot.data![index].race,
+                                                  text3: snapshot.data![index].service,
                                                 )
                                               ],
-                                            ),
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                                  50,
                                             ),
                                           ],
                                         ),
