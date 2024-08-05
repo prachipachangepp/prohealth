@@ -14,65 +14,67 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 80.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text('Status Completed',
-                    style: GoogleFonts.firaSans(
-                        decoration: TextDecoration.none,
-                        fontSize: 12.0,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.greenDark
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 19.5),
-            Container(
-              // height: 423,
-              width: MediaQuery.of(context).size.width * 0.95,
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: ColorManager.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 80.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Last Inpatient Stay Information',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          color: Color(0xff686464),
-                          fontWeight: FontWeightManager.semiBold,)),
-                    SizedBox(height: 20),
-                    _buildInpatientStaySection(),
-                    SizedBox(height: 30),
-                    Text('Location of Care',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          color: Color(0xff686464),
-                          fontWeight: FontWeightManager.semiBold,)),
-                    SizedBox(height: 20),
-                    _buildLocationOfCareSection(),
+                    Text('Status Completed',
+                      style: GoogleFonts.firaSans(
+                          decoration: TextDecoration.none,
+                          fontSize: 12.0,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.greenDark
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 19.5),
+              Container(
+                // height: 423,
+                width: MediaQuery.of(context).size.width * 0.95,
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: ColorManager.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 0,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Last Inpatient Stay Information',
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            color: Color(0xff686464),
+                            fontWeight: FontWeightManager.semiBold,)),
+                      SizedBox(height: 20),
+                      _buildInpatientStaySection(),
+                      SizedBox(height: 30),
+                      Text('Location of Care',
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            color: Color(0xff686464),
+                            fontWeight: FontWeightManager.semiBold,)),
+                      SizedBox(height: 20),
+                      _buildLocationOfCareSection(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
