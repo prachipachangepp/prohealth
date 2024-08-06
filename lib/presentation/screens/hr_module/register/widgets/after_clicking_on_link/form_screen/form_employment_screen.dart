@@ -207,7 +207,7 @@ class _Employment_screenState extends State<Employment_screen> {
                           context: context,
                           employeeDocumentMetaId: 10,
                           employeeDocumentTypeSetupId: 48,
-                          employeeId: 2,
+                          employeeId: widget.employeeID,
                           documentFile: state.finalPath,
                           documentName: 'Legal Document ID',
                         );

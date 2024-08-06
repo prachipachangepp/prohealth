@@ -200,7 +200,7 @@ class _EducationScreenState extends State<EducationScreen> {
                           context: context,
                           employeeDocumentMetaId: 10,
                           employeeDocumentTypeSetupId: 48,
-                          employeeId: 2,
+                          employeeId: widget.employeeID,
                           documentFile: st.finalPath,
                           documentName: 'education data',
                         );

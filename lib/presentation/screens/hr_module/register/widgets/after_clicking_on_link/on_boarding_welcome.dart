@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,8 +12,9 @@ import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/top_row.dart';
 
 class OnBoardingWelcome extends StatelessWidget {
+
   static const String routeName = "/onBordingWelcome";
-  const OnBoardingWelcome({Key? key,}) : super(key: key);
+  const OnBoardingWelcome({Key? key, }) : super(key: key);
 
 
   @override
@@ -91,6 +93,7 @@ class OnBoardingWelcome extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
+
                               return VerifyUserpopup();
                             },
                           );
@@ -677,8 +680,9 @@ class CustomTextField extends StatelessWidget {
 
 ////////////////////////////////////congratulation/////////////////////////////////////
 class OnBoardingCongratulation extends StatelessWidget {
+
   final int employeeId;
-  const OnBoardingCongratulation({super.key, required this.employeeId,});
+  const OnBoardingCongratulation({super.key, required this.employeeId,  });
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(

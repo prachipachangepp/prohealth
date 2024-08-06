@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,9 +18,11 @@ import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/a
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 
 class AcknowledgementsScreen extends StatefulWidget {
+  final int employeeID;
   const AcknowledgementsScreen({
     super.key,
     required this.context,
+    required this.employeeID,
   });
 
   final BuildContext context;
@@ -28,6 +32,22 @@ class AcknowledgementsScreen extends StatefulWidget {
 }
 
 class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
+
+
+  final StreamController<List<HREmployeeDocumentModal>> acknowledgements = StreamController<List<HREmployeeDocumentModal>>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getHREmployeeDoc(
+      context,
+      AppConfig.employeeDocumentTypeMetaDataId,
+      1,
+      20,
+    ).then((data){acknowledgements.add(data);}).catchError((error){});
+  }
+
+
   bool _isButtonPressed = false;
 
   void _handleButtonPress() {
@@ -94,7 +114,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
   var fileName1;
   dynamic? filePath;
   File? xfileToFile;
-  var finalPath;
+
 
   // PlatformFile? fileName;
 
@@ -138,11 +158,15 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
   }
 
   // List<String> _fileNames = [];
-  List<PlatformFile> _pickedFiles = [];
+  List<Uint8List?> finalPaths = [];
+  List<Uint8List?> finalPath = [];
+  //var finalPath;
 
   ////////////////////////////
   ///////
   //
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -196,13 +220,9 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
           SingleChildScrollView(
             child: Container(
               height: 300,
-              child: FutureBuilder<List<HREmployeeDocumentModal>>(
-                future: getHREmployeeDoc(
-                  context,
-                  AppConfig.employeeDocumentTypeMetaDataId,
-                  1,
-                  20,
-                ),
+              child: StreamBuilder<List<HREmployeeDocumentModal>>(
+
+                stream:acknowledgements.stream ,
                 builder: (BuildContext context,
                     AsyncSnapshot<List<HREmployeeDocumentModal>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -222,6 +242,18 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                       );
                     }
 
+                    if (finalPath.length < documents.length) {
+                      finalPath.addAll(
+                        List.generate(documents.length - finalPath.length, (_) => null),
+                      );
+                    }
+                    // if (finalPaths.length < documents.length) {
+                    //   finalPaths.addAll(
+                    //     List.generate(documents.length - finalPaths.length, (_) => null),
+                    //   );
+                    // }
+
+
                     return ListView.builder(
                       itemCount: documents.length,
                       itemBuilder: (context, index) {
@@ -230,12 +262,13 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                             index < _fileNames.length ? _fileNames[index] : '';
                         // final document = documents[index];
                         // final fileName = index < _fileNames.length ? _fileNames[index] : '';
-                        final pickedFile = index < _pickedFiles.length
-                            ? _pickedFiles[index]
-                            : PlatformFile(
-                                name: '',
-                                bytes: null, size: 15,
-                              );
+                        // final pickedFile = index < _pickedFiles.length
+                        //     ? _pickedFiles[index]
+                        //     : PlatformFile(
+                        //         name: '',
+                        //         bytes: null,
+                        //         size: 15,
+                        //       );
 
                         return Column(
                           children: [
@@ -256,63 +289,69 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                                   Row(
                                     children: [
                                       ElevatedButton(
-
                                         onPressed: () async {
                                           FilePickerResult? result = await FilePicker.platform.pickFiles();
                                           if (result != null) {
                                             try {
                                               Uint8List? bytes = result.files.first.bytes;
-                                              XFile xlfile = XFile(result.xFiles.first.path);
-                                              File xfileToFile = File(xlfile.path);
-                                              XFile xFile = await convertBytesToXFile(
-                                                bytes!,
-                                                result.xFiles.first.name,
-                                              );
-                                              if (_fileNames.length <= index) {
-                                                _fileNames.add(result.files.first.name!);
-                                              } else {
-                                                _fileNames[index] = result.files.first.name!;
+                                              if (bytes != null) {
+                                                setState(() {
+                                                  if (_fileNames.length <= index) {
+                                                    _fileNames.add(result.files.first.name!);
+                                                  } else {
+                                                    _fileNames[index] = result.files.first.name!;
+                                                  }
+
+                                                  if (finalPaths.length <= index) {
+                                                    finalPaths.add(bytes);
+                                                  } else {
+                                                    finalPaths[index] = bytes;
+                                                  }
+                                                });
                                               }
-                                              finalPath = result.files.first.bytes;
-                                              // setState(() {
-                                              //   _documentUploaded = true;
-                                              // });
                                             } catch (e) {
                                               print(e);
                                             }
                                           }
+
+
+
+
+
+                                          ///no setstate
+                                          // FilePickerResult? result =
+                                          //     await FilePicker.platform
+                                          //         .pickFiles();
+                                          // if (result != null) {
+                                          //   try {
+                                          //     Uint8List? bytes =
+                                          //         result.files.first.bytes;
+                                          //     XFile xlfile = XFile(
+                                          //         result.xFiles.first.path);
+                                          //     File xfileToFile =
+                                          //         File(xlfile.path);
+                                          //     XFile xFile =
+                                          //         await convertBytesToXFile(
+                                          //       bytes!,
+                                          //       result.xFiles.first.name,
+                                          //     );
+                                          //     if (_fileNames.length <= index) {
+                                          //       _fileNames.add(
+                                          //           result.files.first.name!);
+                                          //     } else {
+                                          //       _fileNames[index] =
+                                          //           result.files.first.name!;
+                                          //     }
+                                          //     finalPath =
+                                          //         result.files.first.bytes;
+                                          //     // setState(() {
+                                          //     //   _documentUploaded = true;
+                                          //     // });
+                                          //   } catch (e) {
+                                          //     print(e);
+                                          //   }
+                                          // }
                                         },
-                                        // onPressed: () async {
-                                        //   FilePickerResult? result =
-                                        //       await FilePicker.platform
-                                        //           .pickFiles();
-                                        //   if (result != null) {
-                                        //     setState(() {
-                                        //       _pickedFiles[index] =
-                                        //           result.files.first;
-                                        //       _fileNames[index] =
-                                        //           result.files.first.name;
-                                        //     });
-                                        //   }
-                                        //
-                                        //   // FilePickerResult? result =
-                                        //   //     await FilePicker.platform
-                                        //   //         .pickFiles();
-                                        //   // if (result != null) {
-                                        //   //   try {
-                                        //   //     onCAllFiles.clear();
-                                        //   //     onCAllFiles.addAll(result.files
-                                        //   //         .map((file) => file.bytes!));
-                                        //   //     onCAll.addAll(result.files
-                                        //   //         .map((file) => file.name!));
-                                        //   //     // setState(() {
-                                        //   //     //   _documentUploaded = true;
-                                        //   //     // });
-                                        //   //   } catch (e) {
-                                        //   //     print(e);
-                                        //   //   }
-                                        //   // }
-                                        // },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Color(0xff50B5E5),
                                           shape: RoundedRectangleBorder(
@@ -388,90 +427,74 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                   fontWeight: FontWeight.w700,
                 ),
                 borderRadius: 12,
-
                 onPressed: () async {
-                  if (_pickedFiles.any((file) => file.bytes == null)) {
+                 if (finalPaths == null || finalPaths.isEmpty) {
+                 // if (finalPath == null || finalPath.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text(
-                            'Some files are not selected. Please select all files to upload.'),
+                            'No file selected. Please select a file to upload.'),
                         backgroundColor: Colors.red,
                       ),
                     );
                   } else {
                     try {
-                      setState(() {
-                        _loading = true;
-                      });
-
-                      // Implement your upload logic here
-                      for (var file in _pickedFiles) {
-                        await uploadDocuments(
-                          context: context,
-                          employeeDocumentMetaId: 10,
-                          employeeDocumentTypeSetupId: 48,
-                          employeeId: 2,
-                          documentFile: file.bytes!,
-                          documentName: file.name,
-                        );
+                      for (int i = 0; i < finalPaths.length; i++) {
+                        if (finalPaths[i] != null) {
+                          await uploadDocuments(
+                            context: context,
+                            employeeDocumentMetaId: 10,
+                            employeeDocumentTypeSetupId: 48,
+                            employeeId: widget.employeeID,
+                            documentFile: finalPaths[i]!,
+                            documentName: _fileNames[i],
+                          );
+                        }
                       }
 
+
+                      ////
+                      // for (int i = 0; i < finalPath.length; i++) {
+                      //   if (finalPath[i] != null) {
+                      //     await uploadDocuments(
+                      //       context: context,
+                      //       employeeDocumentMetaId: 10,
+                      //       employeeDocumentTypeSetupId: 48,
+                      //       employeeId: widget.employeeID,
+                      //       documentFile: finalPath[i]!,
+                      //       documentName: _fileNames[i],
+                      //     );
+                      //   }
+                      // }
+
+
+
+                      ///api
+                      // await uploadDocuments(
+                      //     context: context,
+                      //     employeeDocumentMetaId: 10,
+                      //     employeeDocumentTypeSetupId: 48,
+                      //     employeeId: widget.employeeID,
+                      //     documentFile: finalPath,
+                      //     documentName: 'Legal Document ID');
+
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Documents uploaded successfully!'),
+                        const SnackBar(
+                          content: Text('Document uploaded successfully!'),
                           backgroundColor: Colors.green,
                         ),
                       );
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Failed to upload documents: $e'),
+                          content: Text('Failed to upload document: $e'),
                           backgroundColor: Colors.red,
                         ),
                       );
-                    } finally {
-                      setState(() {
-                        _loading = false;
-                      });
                     }
                   }
+                  ;
                 },
-
-                // onPressed: () async {
-                //   if (finalPath == null || finalPath.isEmpty) {
-                //     ScaffoldMessenger.of(context).showSnackBar(
-                //       SnackBar(
-                //         content: Text(
-                //             'No file selected. Please select a file to upload.'),
-                //         backgroundColor: Colors.red,
-                //       ),
-                //     );
-                //   } else {
-                //     try {
-                //       await uploadDocuments(
-                //           context: context,
-                //           employeeDocumentMetaId: 10,
-                //           employeeDocumentTypeSetupId: 48,
-                //           employeeId: 2,
-                //           documentFile: finalPath,
-                //           documentName: 'Legal Document ID');
-                //
-                //       ScaffoldMessenger.of(context).showSnackBar(
-                //         SnackBar(
-                //           content: Text('Document uploaded successfully!'),
-                //           backgroundColor: Colors.green,
-                //         ),
-                //       );
-                //     } catch (e) {
-                //       ScaffoldMessenger.of(context).showSnackBar(
-                //         SnackBar(
-                //           content: Text('Failed to upload document: $e'),
-                //           backgroundColor: Colors.red,
-                //         ),
-                //       );
-                //     }
-                //   }
-                // },
               ),
             ],
           )
@@ -480,6 +503,88 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+//
+// FutureBuilder<List<HREmployeeDocumentModal>>(
+// future: getHREmployeeDoc(
+// context,
+// AppConfig.employeeDocumentTypeMetaDataId,
+// 1,
+// 20,
+// ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//   if (finalPath.isEmpty || finalPath.every((file) => file == null)) {
+//   ScaffoldMessenger.of(context).showSnackBar(
+//   SnackBar(
+//   content: Text('No file selected. Please select files to upload.'),
+//   backgroundColor: Colors.red,
+//   ),
+//   );
+//   return;
+//   }
+//
+//   try {
+//   setState(() {
+//   _loading = true;
+//   });
+//
+//   for (int i = 0; i < finalPath.length; i++) {
+//   if (finalPath[i] != null) {
+//   await uploadDocuments(
+//   context: context,
+//   employeeDocumentMetaId: 10,
+//   employeeDocumentTypeSetupId: 48,
+//   employeeId: widget.employeeID,
+//   documentFile: finalPath[i]!,
+//   documentName: _fileNames[i],
+//   );
+//   }
+//   }
+//
+//   ScaffoldMessenger.of(context).showSnackBar(
+//   SnackBar(
+//   content: Text('Documents uploaded successfully!'),
+//   backgroundColor: Colors.green,
+//   ),
+//   );
+//   } catch (e) {
+//   ScaffoldMessenger.of(context).showSnackBar(
+//   SnackBar(
+//   content: Text('Failed to upload documents: $e'),
+//   backgroundColor: Colors.red,
+//   ),
+//   );
+//   } finally {
+//   setState(() {
+//   _loading = false;
+//   });
+//   }
+// }
 
 //   @override
 //   Widget build(BuildContext context) {

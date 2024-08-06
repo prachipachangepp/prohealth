@@ -31,9 +31,10 @@ import 'form_screen/form_licenses_screen.dart';
 import 'form_screen/form_reference_screen.dart';
 
 class MultiStepForm extends StatefulWidget {
+  //final int userID;
   final int employeeID;
 
-  const MultiStepForm({super.key, required this.employeeID});
+  const MultiStepForm({super.key, required this.employeeID, });
   @override
   _MultiStepFormState createState() => _MultiStepFormState();
 }
@@ -268,7 +269,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-          content: generalForm(context: context, employeeID: widget.employeeID,),
+          content: generalForm(context: context, employeeID: widget.employeeID, ),
         ),
         Step(
           state: _currentStep <= 1 ? StepState.editing : StepState.complete,
@@ -388,7 +389,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-          content: HealthRecordsScreen(context: context),
+          content: HealthRecordsScreen(context: context, employeeID: widget.employeeID,),
         ),
         Step(
           state: _currentStep <= 7 ? StepState.editing : StepState.complete,
@@ -408,7 +409,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-          content: AcknowledgementsScreen(context: context),
+          content: AcknowledgementsScreen(context: context, employeeID: widget.employeeID,),
         ),
         Step(
           state: _currentStep <= 8 ? StepState.editing : StepState.complete,
@@ -428,7 +429,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-          content: LegalDocumentsScreen(context: context),
+          content: LegalDocumentsScreen(context: context, employeeID: widget.employeeID,),
         ),
       ];
 

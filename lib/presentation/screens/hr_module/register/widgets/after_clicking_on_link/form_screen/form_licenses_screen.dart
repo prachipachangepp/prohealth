@@ -235,7 +235,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   await postlicensesscreen(
                       context,
                       "--",
-                      15,
+                      widget.employeeID,
                       "__",
                       st.licensure.text,
                       st.licensurenumber.text,
@@ -256,7 +256,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                         context: context,
                         employeeDocumentMetaId: 10,
                         employeeDocumentTypeSetupId: 48,
-                        employeeId: 2,
+                        employeeId: widget.employeeID,
                         documentFile: st.finalPath,
                         documentName: 'education data',
                       );

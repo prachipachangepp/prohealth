@@ -18,6 +18,9 @@ import '../../taxtfield_constant.dart';
 import 'on_boarding_welcome.dart';
 
 class VerifyUserpopup extends StatefulWidget {
+
+
+  const VerifyUserpopup({super.key, });
   @override
   VerifyUserpopupState createState() => VerifyUserpopupState();
 }
@@ -38,7 +41,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
     try {
       ApiDataRegister result = await AuthManager.verifyOTPAndRegister(
           email: email, otp: enteredOTP, context: context);
+
       if (result.success) {
+
         print('Success navigate');
         int employeeIdRegister = 0;
         String email =  await TokenManager.getEmailIdRegister();
@@ -64,7 +69,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
               ),
-              child: OnBoardingCongratulation(employeeId: employeeIdRegister),
+              child: OnBoardingCongratulation(employeeId: employeeIdRegister, ),
             );
           },
         );

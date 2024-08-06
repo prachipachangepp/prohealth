@@ -151,7 +151,8 @@ class _BankingScreenState extends State<BankingScreen> {
                 for (var key in bankingFormKeys) {
                   final st = key.currentState!;
                   await postbankingscreen(
-                    context, 3,
+                    context,
+                    st.widget.employeeID,
                     st.accountnumber.text,
                     st.bankname.text,
                     int.parse(st.requestammount.text),
@@ -174,7 +175,7 @@ class _BankingScreenState extends State<BankingScreen> {
                         context: context,
                         employeeDocumentMetaId: 10,
                         employeeDocumentTypeSetupId: 48,
-                        employeeId: 2,
+                        employeeId: widget.employeeID,
                         documentFile: st.finalPath,
                         documentName: 'education data',
                       );

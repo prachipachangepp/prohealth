@@ -13,6 +13,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_f
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import '../../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
@@ -22,6 +23,7 @@ import 'form_educaton_screen.dart';
 
 class generalForm extends StatefulWidget {
   final int employeeID;
+ //final int userId;
   generalForm({
     super.key,
     required this.context, required this.employeeID,
@@ -152,6 +154,10 @@ class _generalFormState extends State<generalForm> {
 
   @override
   Widget build(BuildContext context) {
+
+
+    // Future<String> userid= TokenManager.getUserID();
+
     return Container(
       child: Column(
         children: [
@@ -853,7 +859,7 @@ class _generalFormState extends State<generalForm> {
                     await postgeneralscreendata(
                         context,
                         'G023',
-                        35,
+                        35, //widget.userId,
                         firstname.text,
                         lastname.text,
                         1,
@@ -915,7 +921,7 @@ class _generalFormState extends State<generalForm> {
                           ),
                         );
                       } else {
-                        try {
+                        try  {
                           await uploadDocuments(
                               context: context,
                               employeeDocumentMetaId: 10,

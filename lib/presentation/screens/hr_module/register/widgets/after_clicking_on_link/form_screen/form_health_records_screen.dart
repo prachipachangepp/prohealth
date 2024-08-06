@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,11 +26,12 @@ import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../widgets/container_constant.dart';
 
 class HealthRecordsScreen extends StatefulWidget {
+  final int employeeID;
 
   const HealthRecordsScreen({
-
     super.key,
     required this.context,
+    required this.employeeID,
   });
 
   final BuildContext context;
@@ -38,6 +41,23 @@ class HealthRecordsScreen extends StatefulWidget {
 }
 
 class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
+
+  final StreamController<List<HREmployeeDocumentModal>> healthrecord = StreamController<List<HREmployeeDocumentModal>>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getHREmployeeDoc(
+      context,
+      AppConfig.empdocumentTypeMetaDataId,
+      1,
+      20,
+    ).then((data){healthrecord.add(data);}).catchError((error){});
+  }
+
+
+
+
   List<String> _fileNames = [];
   bool _loading = false;
   ////////////////////////////////////
@@ -118,22 +138,15 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
     }
   }
 
-  // Future<void> HREmployeeDocumentModal(
-  //
-  //     BuildContext context,
-  //
-  //     ) async {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(content: Text("Employment data saved")),
-  //   );
-  // }
+
+
+  List<Uint8List?> finalPaths = [];
 
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
-
       child: Column(
         children: [
           Center(
@@ -207,20 +220,18 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
 
-
-
-
-
-
-
-
-
           SingleChildScrollView(
             child: Container(
               height: 500,
-              child: FutureBuilder<List<HREmployeeDocumentModal>>(
-                future: getHREmployeeDoc(context, AppConfig.empdocumentTypeMetaDataId, 1, 20),
-                builder: (BuildContext context, AsyncSnapshot<List<HREmployeeDocumentModal>> snapshot) {
+              child:
+              StreamBuilder<List<HREmployeeDocumentModal>>(
+                stream: healthrecord.stream,
+                // builder: getHREmployeeDoc(
+                //     context, AppConfig.empdocumentTypeMetaDataId, 1, 20),
+
+
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<HREmployeeDocumentModal>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
@@ -232,20 +243,27 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                     if (_fileNames.length < documents.length) {
                       _fileNames.addAll(List.generate(
                         documents.length - _fileNames.length,
-                            (index) => '',  // Or any default value
+                        (index) => '', // Or any default value
                       ));
                     }
 
+                    if (finalPaths.length < documents.length) {
+                      finalPaths.addAll(
+                        List.generate(documents.length - finalPaths.length, (_) => null),
+                      );
+                    }
                     return ListView.builder(
                       itemCount: documents.length,
                       itemBuilder: (context, index) {
                         final document = documents[index];
-                        final fileName = _fileNames.isNotEmpty && index < _fileNames.length
-                            ? _fileNames[index]
-                            : null;
+                        final fileName =
+                            _fileNames.isNotEmpty && index < _fileNames.length
+                                ? _fileNames[index]
+                                : null;
 
                         return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 150, vertical: 10),
                           child: Container(
                             height: 100,
                             decoration: BoxDecoration(
@@ -268,7 +286,8 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                 children: [
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           document.docName,
@@ -295,7 +314,8 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                   SizedBox(width: 20),
                                   Container(
                                     decoration: BoxDecoration(
-                                      border: Border.all(color: const Color(0xffB1B1B1)),
+                                      border: Border.all(
+                                          color: const Color(0xffB1B1B1)),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: ElevatedButton(
@@ -304,25 +324,57 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                         if (result != null) {
                                           try {
                                             Uint8List? bytes = result.files.first.bytes;
-                                            XFile xlfile = XFile(result.xFiles.first.path);
-                                            File xfileToFile = File(xlfile.path);
-                                            XFile xFile = await convertBytesToXFile(
-                                              bytes!,
-                                              result.xFiles.first.name,
-                                            );
-                                            if (_fileNames.length <= index) {
-                                              _fileNames.add(result.files.first.name!);
-                                            } else {
-                                              _fileNames[index] = result.files.first.name!;
+                                            if (bytes != null) {
+                                              setState(() {
+                                                if (_fileNames.length <= index) {
+                                                  _fileNames.add(result.files.first.name!);
+                                                } else {
+                                                  _fileNames[index] = result.files.first.name!;
+                                                }
+
+                                                if (finalPaths.length <= index) {
+                                                  finalPaths.add(bytes);
+                                                } else {
+                                                  finalPaths[index] = bytes;
+                                                }
+                                              });
                                             }
-                                            finalPath = result.files.first.bytes;
-                                            // setState(() {
-                                            //   _documentUploaded = true;
-                                            // });
                                           } catch (e) {
                                             print(e);
                                           }
                                         }
+                                        // FilePickerResult? result =
+                                        //     await FilePicker.platform
+                                        //         .pickFiles();
+                                        // if (result != null) {
+                                        //   try {
+                                        //     Uint8List? bytes =
+                                        //         result.files.first.bytes;
+                                        //     XFile xlfile =
+                                        //         XFile(result.xFiles.first.path);
+                                        //     File xfileToFile =
+                                        //         File(xlfile.path);
+                                        //     XFile xFile =
+                                        //         await convertBytesToXFile(
+                                        //       bytes!,
+                                        //       result.xFiles.first.name,
+                                        //     );
+                                        //     if (_fileNames.length <= index) {
+                                        //       _fileNames.add(
+                                        //           result.files.first.name!);
+                                        //     } else {
+                                        //       _fileNames[index] =
+                                        //           result.files.first.name!;
+                                        //     }
+                                        //     finalPath =
+                                        //         result.files.first.bytes;
+                                        //     // setState(() {
+                                        //     //   _documentUploaded = true;
+                                        //     // });
+                                        //   } catch (e) {
+                                        //     print(e);
+                                        //   }
+                                        // }
                                       },
                                       child: Text(
                                         "Upload file",
@@ -335,32 +387,34 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Color(0xff50B5E5),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8.0),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
                                         ),
                                       ),
                                     ),
                                   ),
                                   _loading
                                       ? SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: CircularProgressIndicator(
-                                      color: ColorManager.blueprime,
-                                    ),
-                                  )
+                                          width: 25,
+                                          height: 25,
+                                          child: CircularProgressIndicator(
+                                            color: ColorManager.blueprime,
+                                          ),
+                                        )
                                       : fileName != null
-                                      ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'File picked: $fileName',
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464),
-                                      ),
-                                    ),
-                                  )
-                                      : SizedBox(),
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'File picked: $fileName',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Color(0xff686464),
+                                                ),
+                                              ),
+                                            )
+                                          : SizedBox(),
                                 ],
                               ),
                             ),
@@ -388,9 +442,9 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 ),
                 borderRadius: 12,
                 onPressed: () async {
-                  if (finalPath == null || finalPath.isEmpty) {
+                  if (finalPaths == null || finalPaths.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text(
                             'No file selected. Please select a file to upload.'),
                         backgroundColor: Colors.red,
@@ -398,13 +452,25 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                     );
                   } else {
                     try {
-                      await uploadDocuments(
-                          context: context,
-                          employeeDocumentMetaId: 10,
-                          employeeDocumentTypeSetupId: 48,
-                          employeeId: 2,
-                          documentFile: finalPath,
-                          documentName: 'Legal Document ID');
+                      for (int i = 0; i < finalPaths.length; i++) {
+                        if (finalPaths[i] != null) {
+                          await uploadDocuments(
+                            context: context,
+                            employeeDocumentMetaId: 10,
+                            employeeDocumentTypeSetupId: 48,
+                            employeeId: widget.employeeID,
+                            documentFile: finalPaths[i]!,
+                            documentName: _fileNames[i],
+                          );
+                        }
+                      }
+                      // await uploadDocuments(
+                      //     context: context,
+                      //     employeeDocumentMetaId: 10,
+                      //     employeeDocumentTypeSetupId: 48,
+                      //     employeeId: widget.employeeID,
+                      //     documentFile: finalPath,
+                      //     documentName: 'Legal Document ID');
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -431,231 +497,166 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Expanded(
-          //   child: FutureBuilder<List<HREmployeeDocumentModal>>(
-          //     future: getHREmployeeDoc(context, 0, 1, 20),
-          //     builder: (BuildContext context,
-          //         AsyncSnapshot<List<HREmployeeDocumentModal>> snapshot) {
-          //       if (snapshot.connectionState == ConnectionState.waiting) {
-          //         return const Center(child: CircularProgressIndicator());
-          //       } else if (snapshot.hasError) {
-          //         return Text("Error :${snapshot.error}");
-          //       } else {
-          //         List<HREmployeeDocumentModal> documents = snapshot.data!;
-          //
-          //         return ListView.builder(
-          //           itemCount: documents.length,
-          //           itemBuilder: (context, index) {
-          //             final document = documents[index];
-          //             final fileName =
-          //                 _fileNames.isNotEmpty ? _fileNames[index] : null;
-          //
-          //             return Padding(
-          //               padding: const EdgeInsets.symmetric(
-          //                   horizontal: 150, vertical: 10),
-          //               child: Container(
-          //                 height: 100,
-          //                 decoration: BoxDecoration(
-          //                   color: ColorManager.white,
-          //                   borderRadius: BorderRadius.circular(4),
-          //                   boxShadow: [
-          //                     BoxShadow(
-          //                       color: ColorManager.grey.withOpacity(0.5),
-          //                       spreadRadius: 1,
-          //                       blurRadius: 4,
-          //                       offset: Offset(0, 2),
-          //                     ),
-          //                   ],
-          //                 ),
-          //                 child: Padding(
-          //                   padding: const EdgeInsets.all(15),
-          //                   child: Row(
-          //                     mainAxisAlignment: MainAxisAlignment.center,
-          //                     crossAxisAlignment: CrossAxisAlignment.center,
-          //                     children: [
-          //                       Expanded(
-          //                         child: Column(
-          //                           crossAxisAlignment:
-          //                               CrossAxisAlignment.start,
-          //                           children: [
-          //                             Text(
-          //                               document.docName,
-          //                               style: GoogleFonts.firaSans(
-          //                                 fontSize: 12,
-          //                                 fontWeight: FontWeight.w600,
-          //                                 color: const Color(0xff686464),
-          //                               ),
-          //                             ),
-          //                             SizedBox(height: 8),
-          //                             Text(
-          //                               'Upload Physical Exam records in pdf, jpg or png format',
-          //                               style: GoogleFonts.firaSans(
-          //                                 fontSize: 12,
-          //                                 fontWeight: FontWeight.w400,
-          //                                 color: const Color(0xff686464),
-          //                               ),
-          //                             ),
-          //                           ],
-          //                         ),
-          //                       ),
-          //                       SizedBox(width: 20),
-          //                       Container(
-          //                         decoration: BoxDecoration(
-          //                           border: Border.all(
-          //                               color: const Color(0xffB1B1B1)),
-          //                           borderRadius: BorderRadius.circular(8),
-          //                         ),
-          //                         child: ElevatedButton(
-          //                           onPressed: () async {
-          //                             FilePickerResult? result =
-          //                                 await FilePicker.platform.pickFiles();
-          //                             if (result != null) {
-          //                               print("Result::: ${result}");
-          //                               try {
-          //                                 Uint8List? bytes =
-          //                                     result.files.first.bytes;
-          //                                 XFile xlfile =
-          //                                     XFile(result.xFiles.first.path);
-          //                                 File xfileToFile = File(xlfile.path);
-          //                                 print(
-          //                                     "::::XFile To File ${xfileToFile.toString()}");
-          //                                 XFile xFile =
-          //                                     await convertBytesToXFile(
-          //                                   bytes!,
-          //                                   result.xFiles.first.name,
-          //                                 );
-          //                                 if (_fileNames.length <= index) {
-          //                                   _fileNames
-          //                                       .add(result.files.first.name!);
-          //                                 } else {
-          //                                   _fileNames[index] =
-          //                                       result.files.first.name!;
-          //                                 }
-          //                                 print('File picked: ${_fileNames}');
-          //                                 finalPath = result.files.first.bytes;
-          //                                 setState(() {
-          //                                   _documentUploaded = true;
-          //                                 });
-          //                               } catch (e) {
-          //                                 print(e);
-          //                               }
-          //                             }
-          //                           },
-          //                           child: Text(
-          //                             "Upload file",
-          //                             style: GoogleFonts.firaSans(
-          //                               fontSize: 14.0,
-          //                               fontWeight: FontWeight.w700,
-          //                               color: Colors.white,
-          //                             ),
-          //                           ),
-          //                           style: ElevatedButton.styleFrom(
-          //                             backgroundColor: Color(0xff50B5E5),
-          //                             shape: RoundedRectangleBorder(
-          //                               borderRadius:
-          //                                   BorderRadius.circular(8.0),
-          //                             ),
-          //                           ),
-          //                         ),
-          //                       ),
-          //                       // SizedBox(width: 10),
-          //                       _loading
-          //                           ? SizedBox(
-          //                               width: 25,
-          //                               height: 25,
-          //                               child: CircularProgressIndicator(
-          //                                 color: ColorManager.blueprime,
-          //                               ),
-          //                             )
-          //                           : fileName != null
-          //                               ? Padding(
-          //                                   padding: const EdgeInsets.all(8.0),
-          //                                   child: Text(
-          //                                     'File picked: $fileName',
-          //                                     style: GoogleFonts.firaSans(
-          //                                       fontSize: 12.0,
-          //                                       fontWeight: FontWeight.w400,
-          //                                       color: Color(0xff686464),
-          //                                     ),
-          //                                   ),
-          //                                 )
-          //                               : SizedBox(),
-          //                     ],
-          //                   ),
-          //                 ),
-          //               ),
-          //             );
-          //           },
-          //         );
-          //       }
-          //     },
-          //   ),
-          // ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//   child: FutureBuilder<List<HREmployeeDocumentModal>>(
+//     future: getHREmployeeDoc(context, 0, 1, 20),
+//     builder: (BuildContext context,
+//         AsyncSnapshot<List<HREmployeeDocumentModal>> snapshot) {
+//       if (snapshot.connectionState == ConnectionState.waiting) {
+//         return const Center(child: CircularProgressIndicator());
+//       } else if (snapshot.hasError) {
+//         return Text("Error :${snapshot.error}");
+//       } else {
+//         List<HREmployeeDocumentModal> documents = snapshot.data!;
+//
+//         return ListView.builder(
+//           itemCount: documents.length,
+//           itemBuilder: (context, index) {
+//             final document = documents[index];
+//             final fileName =
+//                 _fileNames.isNotEmpty ? _fileNames[index] : null;
+//
+//             return Padding(
+//               padding: const EdgeInsets.symmetric(
+//                   horizontal: 150, vertical: 10),
+//               child: Container(
+//                 height: 100,
+//                 decoration: BoxDecoration(
+//                   color: ColorManager.white,
+//                   borderRadius: BorderRadius.circular(4),
+//                   boxShadow: [
+//                     BoxShadow(
+//                       color: ColorManager.grey.withOpacity(0.5),
+//                       spreadRadius: 1,
+//                       blurRadius: 4,
+//                       offset: Offset(0, 2),
+//                     ),
+//                   ],
+//                 ),
+//                 child: Padding(
+//                   padding: const EdgeInsets.all(15),
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     children: [
+//                       Expanded(
+//                         child: Column(
+//                           crossAxisAlignment:
+//                               CrossAxisAlignment.start,
+//                           children: [
+//                             Text(
+//                               document.docName,
+//                               style: GoogleFonts.firaSans(
+//                                 fontSize: 12,
+//                                 fontWeight: FontWeight.w600,
+//                                 color: const Color(0xff686464),
+//                               ),
+//                             ),
+//                             SizedBox(height: 8),
+//                             Text(
+//                               'Upload Physical Exam records in pdf, jpg or png format',
+//                               style: GoogleFonts.firaSans(
+//                                 fontSize: 12,
+//                                 fontWeight: FontWeight.w400,
+//                                 color: const Color(0xff686464),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                       SizedBox(width: 20),
+//                       Container(
+//                         decoration: BoxDecoration(
+//                           border: Border.all(
+//                               color: const Color(0xffB1B1B1)),
+//                           borderRadius: BorderRadius.circular(8),
+//                         ),
+//                         child: ElevatedButton(
+//                           onPressed: () async {
+//                             FilePickerResult? result =
+//                                 await FilePicker.platform.pickFiles();
+//                             if (result != null) {
+//                               print("Result::: ${result}");
+//                               try {
+//                                 Uint8List? bytes =
+//                                     result.files.first.bytes;
+//                                 XFile xlfile =
+//                                     XFile(result.xFiles.first.path);
+//                                 File xfileToFile = File(xlfile.path);
+//                                 print(
+//                                     "::::XFile To File ${xfileToFile.toString()}");
+//                                 XFile xFile =
+//                                     await convertBytesToXFile(
+//                                   bytes!,
+//                                   result.xFiles.first.name,
+//                                 );
+//                                 if (_fileNames.length <= index) {
+//                                   _fileNames
+//                                       .add(result.files.first.name!);
+//                                 } else {
+//                                   _fileNames[index] =
+//                                       result.files.first.name!;
+//                                 }
+//                                 print('File picked: ${_fileNames}');
+//                                 finalPath = result.files.first.bytes;
+//                                 setState(() {
+//                                   _documentUploaded = true;
+//                                 });
+//                               } catch (e) {
+//                                 print(e);
+//                               }
+//                             }
+//                           },
+//                           child: Text(
+//                             "Upload file",
+//                             style: GoogleFonts.firaSans(
+//                               fontSize: 14.0,
+//                               fontWeight: FontWeight.w700,
+//                               color: Colors.white,
+//                             ),
+//                           ),
+//                           style: ElevatedButton.styleFrom(
+//                             backgroundColor: Color(0xff50B5E5),
+//                             shape: RoundedRectangleBorder(
+//                               borderRadius:
+//                                   BorderRadius.circular(8.0),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                       // SizedBox(width: 10),
+//                       _loading
+//                           ? SizedBox(
+//                               width: 25,
+//                               height: 25,
+//                               child: CircularProgressIndicator(
+//                                 color: ColorManager.blueprime,
+//                               ),
+//                             )
+//                           : fileName != null
+//                               ? Padding(
+//                                   padding: const EdgeInsets.all(8.0),
+//                                   child: Text(
+//                                     'File picked: $fileName',
+//                                     style: GoogleFonts.firaSans(
+//                                       fontSize: 12.0,
+//                                       fontWeight: FontWeight.w400,
+//                                       color: Color(0xff686464),
+//                                     ),
+//                                   ),
+//                                 )
+//                               : SizedBox(),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             );
+//           },
+//         );
+//       }
+//     },
+//   ),
+// ),
 
 // Expanded(
 //   child: FutureBuilder<List<HREmployeeDocumentModal>>(
