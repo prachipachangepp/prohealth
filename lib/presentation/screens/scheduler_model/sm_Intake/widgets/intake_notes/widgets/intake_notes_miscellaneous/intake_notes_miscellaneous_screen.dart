@@ -90,7 +90,7 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                               children: [
                                 Container(
                                   height: 65,
-                                  width: 1109,
+                                  width: 1109, //1109
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(8.0),
@@ -155,7 +155,7 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                         ),
                                       ),
 
-                                      SizedBox(width: MediaQuery.of(context).size.width/3.5),
+                                      SizedBox(width: MediaQuery.of(context).size.width/4.5), //3.5
                                       Row(
                                         children: [
                                           IconButton(

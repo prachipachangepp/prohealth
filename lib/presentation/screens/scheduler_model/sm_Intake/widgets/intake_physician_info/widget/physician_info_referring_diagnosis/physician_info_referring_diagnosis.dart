@@ -37,7 +37,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                 borderRadius: BorderRadius.circular(15.0),
                 color: Colors.white,
               ),
-              height: MediaQuery.of(context).size.height/1,
+              height: MediaQuery.of(context).size.height/0.9,
               child: Padding(
                 padding: EdgeInsets.only(left: 39.0, right: 40, top: 35.0),
                 child: Column(
@@ -745,7 +745,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width / 20),
+                        SizedBox(width: MediaQuery.of(context).size.width / 80),
                         Column(
                           children: [
                             Row(

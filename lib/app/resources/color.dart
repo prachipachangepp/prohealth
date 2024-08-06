@@ -30,6 +30,7 @@ class ColorManager {
   static Color orange = Color(0xffF2451C);
   static Color white = HexColor.fromHex('#FFFFFF');
   static Color black = Color(0xff000000);
+  static Color textBlack = Color(0xff2A2827);
   static Color blackForLoginTexts = Color(0xff000000).withOpacity(0.5);
   static Color blackfaint = Color(0xFF333333);
   static Color whitesheed = Color(0xffACA5BB);

@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
+import '../schedular_create/appointment_screen.dart';
+
 class SMSchedulerScreen extends StatefulWidget {
   const SMSchedulerScreen({super.key});
 
@@ -154,7 +156,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   width: 162.0,
                   height: 37.0,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SmProfileBar()));
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff51B5E6),
                       shadowColor: Color(0xff000000),
