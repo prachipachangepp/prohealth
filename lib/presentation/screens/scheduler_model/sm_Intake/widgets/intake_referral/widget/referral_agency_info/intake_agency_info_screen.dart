@@ -5,6 +5,8 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../../../../../../app/resources/font_manager.dart';
+
 class IntakeAgencyInfoScreen extends StatefulWidget {
   const IntakeAgencyInfoScreen({super.key});
 
@@ -29,9 +31,9 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                     Text('Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: AppSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff008000)
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.greenDark
                       ),
                     ),
                   ],
@@ -159,15 +161,15 @@ class SchedularTextField extends StatelessWidget {
       child: TextFormField(
         initialValue: initialValue,
         style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
+          fontSize: FontSize.s12,
+          fontWeight: FontWeightManager.regular,
           color: Colors.black,
         ),
         cursorColor: Colors.black,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
+            fontSize: FontSize.s10,
             color: ColorManager.greylight,                          // label text color
           ),
           border: const OutlineInputBorder(),
@@ -197,15 +199,15 @@ class SchedularDropdown extends StatelessWidget {
       child: DropdownButtonFormField<String>(
         value: initialValue,
         style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
+          fontSize: FontSize.s12,
+          fontWeight: FontWeightManager.regular,
           color: Colors.black,
         ),
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: GoogleFonts.firaSans(
             fontSize: 10,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeightManager.regular,
             color: ColorManager.greylight,                                           // text color in dropdown
           ),
           border:  OutlineInputBorder(),
@@ -223,7 +225,7 @@ class SchedularDropdown extends StatelessWidget {
           // Handle dropdown change
         },
         iconEnabledColor: ColorManager.blueprime, // dropdown icon color
-        iconSize: 24, // Adjust the size of the dropdown icon
+        iconSize: FontSize.s24, // Adjust the size of the dropdown icon
         isDense: true, // Adjust the density of the dropdown
       ),
     );
@@ -252,16 +254,16 @@ class SchedularTextFieldWithButton extends StatelessWidget {
           TextFormField(
             initialValue: initialValue,
             style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
+              fontSize: FontSize.s12,
+              fontWeight: FontWeightManager.regular,
               color: Colors.black,
             ),
             cursorColor: Colors.black,
             decoration: InputDecoration(
               labelText: labelText,
               labelStyle: GoogleFonts.firaSans(
-                fontSize: 10,
-                color: Color(0XFF575757),                                                      // text color
+                fontSize: FontSize.s10,
+                color: ColorManager.lightgreyheading,                                                      // text color
               ),
               border: const OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(
@@ -295,8 +297,8 @@ class SchedularTextFieldWithButton extends StatelessWidget {
                 child: Text(
                   buttonText,
                   style: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
+                    fontSize: FontSize.s10,
+                    fontWeight: FontWeightManager.regular,
                     color: Colors.white,
                   ),
                 ),
