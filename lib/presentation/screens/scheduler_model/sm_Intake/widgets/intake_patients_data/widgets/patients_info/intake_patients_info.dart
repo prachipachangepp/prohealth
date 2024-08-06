@@ -16,7 +16,7 @@ class IntakePatientsDatatInfo extends StatefulWidget {
 }
 
 class _PatientInfoState extends State<IntakePatientsDatatInfo> {
-  String? status = 'Active';
+  String? status = '';
 
   @override
   Widget build(BuildContext context) {
