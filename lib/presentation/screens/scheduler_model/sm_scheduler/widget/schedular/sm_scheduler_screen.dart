@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/search_clinician_pop_up.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/search_patient_pop_up.dart';
 
 import '../schedular_create/appointment_screen.dart';
@@ -91,7 +92,12 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                 SizedBox(width: 20),
                 GestureDetector(
                   onTap: (){
-
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SearchClinicianPopUp();
+                      },
+                    );
                   },
                   child: Container(
                     height: 152.0,
@@ -141,7 +147,11 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   width: 162.0,
                   height: 37.0,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+
+
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
