@@ -397,7 +397,7 @@ class _SignaturePageState extends State<SignaturePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => OfferLetterDescriptionScreen(
-                            signatureBytes: _selectedImageBytes,
+                            signatureBytes: _selectedImageBytes, employeeId: widget.employeeId,
                           ),
                         ),
                       );

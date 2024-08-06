@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
@@ -30,6 +31,7 @@ class RegisterEnrollPopup extends StatefulWidget {
   final String role;
   final String status;
   final int employeeId;
+  final int empId;
 
   // final TextEditingController position;
   final VoidCallback onPressed;
@@ -38,7 +40,7 @@ class RegisterEnrollPopup extends StatefulWidget {
     //required this.phone,
     required this.email,
     //required this.position,
-    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId,
+    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId, required this.empId,
   });
 
   @override
@@ -63,6 +65,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
    String cityName = '';
    String serviceVal ='';
    String generatedURL = '';
+   bool _isLoading = false;
 
    Future<String> _generateUrlLink(String email, String Id) async {
      final String user = email;
@@ -73,7 +76,86 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
      return url;
    }
 
-  @override
+   Future<void> performEnroll({
+     required BuildContext context,
+     required int employeeId,
+     required String code,
+     required int userId,
+     required String firstName,
+     required String lastName,
+     required String phoneNbr,
+     required String email,
+     required String link,
+     required String status,
+     required int departmentId,
+     required String position,
+     required String speciality,
+     required int clinicianTypeId,
+     required String reportingOfficeId,
+     required int cityId,
+     required int countryId,
+     required int countyId,
+     required int zoneId,
+     required String employment,
+     required String service
+   }) async {
+     setState(() {
+       _isLoading = true;
+     });
+     ApiData result = await addEmpEnroll(
+       context: context,
+       employeeId: employeeId,
+       code: code,
+       userId: userId,
+       firstName: firstName,
+       lastName: lastName,
+       phoneNbr: phoneNbr,
+       email: email,
+       link: link,
+       status: status,
+       departmentId: departmentId,
+       position: position,
+       speciality: speciality,
+       clinicianTypeId: clinicianTypeId,
+       reportingOfficeId: reportingOfficeId,
+       cityId: cityId,
+       countryId: countryId,
+       countyId: countyId,
+       zoneId: zoneId,
+       employment: employment,
+       service: service,
+     );
+     setState(() {
+       _isLoading = false;
+     });
+     if (result.success) {
+       Navigator.pop(context);
+       Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
+         apiData: result,
+         employeeId: widget.employeeId,
+         email: widget.email.text,
+         userId: widget.userId,
+         status: widget.status,
+         firstName: widget.firstName.text,
+         lastName: widget.lastName.text,
+         role: widget.role,
+         position: position,
+         phone: phone.text,
+         reportingOffice: reportingOfficeId,
+         services: serviceVal,
+         employement: 'Full Time',
+         clinicalName: clinicialName,
+         soecalityName: specialityName, empId: widget.empId,
+       )));
+     } else {
+       ScaffoldMessenger.of(context).showSnackBar(
+         SnackBar(content: Text('Error: ${result.message}')),
+       );
+     }
+   }
+
+
+   @override
   Widget build(BuildContext context) {
     double textFieldWidth = MediaQuery.of(context).size.width/10;
     double textFieldHeight = 38;
@@ -780,50 +862,43 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomIconButtonConst(
+                  _isLoading
+                      ? SizedBox(
+                    height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator(color: ColorManager.blueprime,))  // Show loader when _isLoading is true
+                      :  CustomIconButtonConst(
                       text: AppString.next,
                   onPressed: () async{
-                    // await _generateUrlLink(widget.email.text, widget.userId.toString());
-                    // await addEmpEnroll(
-                    // context: context,
-                    // employeeId: widget.employeeId,
-                    // code: "",
-                    // userId: widget.userId,
-                    // firstName: widget.firstName.text,
-                    // lastName: widget.lastName.text,
-                    // phoneNbr: phone.text,
-                    // email: widget.email.text,
-                    // link: generatedURL,
-                    // status: widget.status,
-                    // departmentId: 1,
-                    // position: position.text,
-                    // speciality: specialityName.toString(),
-                    // clinicianTypeId: 1,
-                    // reportingOfficeId: reportingOfficeId,
-                    // cityId: 1,
-                    // countryId: 1,
-                    // countyId: 9,
-                    // zoneId: 0,
-                    // employment: "Full Time",
-                    // service: serviceVal
-                    // );
-                        Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
-                      employeeId: widget.employeeId,
-                      email: widget.email.text,
-                      userId: widget.userId,
-                      status: widget.status,
-                      firstName: widget.firstName.text,
-                      lastName: widget.lastName.text,
-                      role: widget.role,
-                      position: position.text,
-                      phone: phone.text,
-                      reportingOffice: reportingOfficeId,
-                      services: serviceVal,
-                      employement: 'Full Time',
-                      clinicalName: clinicialName,
-                      soecalityName: specialityName,
-                      )));
+                    print("${widget.employeeId}");
+                    await _generateUrlLink(widget.email.text, widget.userId.toString());
+                    await performEnroll(
+                    context: context,
+                    employeeId: widget.employeeId,
+                    code: "",
+                    userId: widget.userId,
+                    firstName: widget.firstName.text,
+                    lastName: widget.lastName.text,
+                    phoneNbr: phone.text,
+                    email: widget.email.text,
+                    link: generatedURL,
+                    status: widget.status,
+                    departmentId: 1,
+                    position: position.text,
+                    speciality: specialityName.toString(),
+                    clinicianTypeId: 1,
+                    reportingOfficeId: reportingOfficeId,
+                    cityId: 1,
+                    countryId: 1,
+                    countyId: 9,
+                    zoneId: 18,
+                    employment: "Full Time",
+                    service: serviceVal
+                    );
+
+
+                        print("${widget.employeeId}");
+
                   },
                   ),
                 ],

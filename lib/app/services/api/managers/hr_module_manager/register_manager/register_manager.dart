@@ -106,10 +106,15 @@ Future<ApiData> addEmpEnroll(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Enroll added");
       // orgDocumentGet(context);
+      var data = response.data;
+      var employeeEnrollIdVar = data['employeeId'];
+
+      print("EmployeeEmrollId ::: ${employeeEnrollIdVar}");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,
+          employeeId:employeeEnrollIdVar);
     } else {
       print("Error 1");
       return ApiData(

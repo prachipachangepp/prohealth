@@ -17,9 +17,8 @@ import 'multi_step_form.dart';
 
 class OfferLetterDescriptionScreen extends StatefulWidget {
   final dynamic signatureBytes;
-  final int? employeeId;
-
-  OfferLetterDescriptionScreen({this.signatureBytes, this.employeeId});
+  final int employeeId;
+  OfferLetterDescriptionScreen({this.signatureBytes, required this.employeeId});
 
 
   @override
@@ -131,7 +130,7 @@ class _OfferLetterDescriptionScreenState
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 15),
             FutureBuilder<OfferLetterData>(
-              future:GetOfferLetter(context, 43!, 1 ),
+              future:GetOfferLetter(context, widget.employeeId, 1 ),
               builder: (context, snapshot) {
                 // if(snapshot.connectionState == ConnectionState.waiting){
                 //   return CircularProgressIndicator(color: Colors.blue,);
@@ -203,7 +202,7 @@ class _OfferLetterDescriptionScreenState
                                   setState(() {
                                     signatureBytes = selectedSignature;
                                   });
-                                }, employeeId: 2,
+                                }, employeeId: widget.employeeId,
                               ),
                             ),
                           );
