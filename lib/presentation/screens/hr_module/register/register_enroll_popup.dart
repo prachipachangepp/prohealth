@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
@@ -61,6 +62,16 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
    String clinicialName ='';
    String cityName = '';
    String serviceVal ='';
+   String generatedURL = '';
+
+   Future<String> _generateUrlLink(String email, String Id) async {
+     final String user = email;
+     final String id = Id;
+     final String url = 'https://staging.symmetry.care/$id';
+     generatedURL = url;
+     print('Generated URL: $generatedURL');
+     return url;
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -573,7 +584,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
                                 for (var i in snapshot.data!) {
-                                  dropDownList.add(i.officeName!);
+                                  dropDownList.add(i.officeName);
                                 }
                                 return CustomDropdownTextField(
                                   labelText: 'Reporting Office',
@@ -750,7 +761,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   title: 'Service',
                                   items: serviceName,
                                   onChanged: (val) {
-
                                     serviceVal =  serviceName[val].toString();
                                    print('Service data ${serviceVal}');
                                   },
@@ -772,7 +782,31 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 children: [
                   CustomIconButtonConst(
                       text: AppString.next,
-                  onPressed: (){
+                  onPressed: () async{
+                    // await _generateUrlLink(widget.email.text, widget.userId.toString());
+                    // await addEmpEnroll(
+                    // context: context,
+                    // employeeId: widget.employeeId,
+                    // code: "",
+                    // userId: widget.userId,
+                    // firstName: widget.firstName.text,
+                    // lastName: widget.lastName.text,
+                    // phoneNbr: phone.text,
+                    // email: widget.email.text,
+                    // link: generatedURL,
+                    // status: widget.status,
+                    // departmentId: 1,
+                    // position: position.text,
+                    // speciality: specialityName.toString(),
+                    // clinicianTypeId: 1,
+                    // reportingOfficeId: reportingOfficeId,
+                    // cityId: 1,
+                    // countryId: 1,
+                    // countyId: 9,
+                    // zoneId: 0,
+                    // employment: "Full Time",
+                    // service: serviceVal
+                    // );
                         Navigator.pop(context);
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
                       employeeId: widget.employeeId,
