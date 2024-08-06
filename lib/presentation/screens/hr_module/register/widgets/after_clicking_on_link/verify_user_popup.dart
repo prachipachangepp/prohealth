@@ -15,6 +15,12 @@ import '../../taxtfield_constant.dart';
 import 'on_boarding_welcome.dart';
 
 class VerifyUserpopup extends StatefulWidget {
+  // final int employeeId;
+  // final int userId;
+
+  const VerifyUserpopup({super.key,
+    // required this.employeeId, required this.userId
+  });
   @override
   VerifyUserpopupState createState() => VerifyUserpopupState();
 }
@@ -44,7 +50,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
               ),
-              child: OnBoardingCongratulation(),
+              child: OnBoardingCongratulation(
+                // employeeId: widget.employeeId, userId: widget.userId,
+              ),
             );
           },
         );
@@ -117,7 +125,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
       backgroundColor: Colors.white,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.3,
-        height: MediaQuery.of(context).size.height * 0.5,
+        height: MediaQuery.of(context).size.height * 0.6,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[

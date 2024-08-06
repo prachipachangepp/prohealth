@@ -17,8 +17,12 @@ import 'multi_step_form.dart';
 
 class OfferLetterDescriptionScreen extends StatefulWidget {
   final Uint8List? signatureBytes;
+  // final int employeeId;
+  // final int userId;
 
-  OfferLetterDescriptionScreen({this.signatureBytes});
+  OfferLetterDescriptionScreen({this.signatureBytes,
+    // required this.employeeId, required this.userId
+  });
 
 
   @override
@@ -202,7 +206,8 @@ class _OfferLetterDescriptionScreenState
                                   setState(() {
                                     signatureBytes = selectedSignature;
                                   });
-                                }, employeeId: 1,
+                                },
+                                // employeeId: widget.employeeId, userId: ,
                               ),
                             ),
                           );

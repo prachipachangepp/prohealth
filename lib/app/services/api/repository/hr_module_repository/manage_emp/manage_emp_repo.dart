@@ -7,8 +7,8 @@ class ManageReposotory{
   static String employement = "/employee-employment-histories";
   static String selectDocuments = "/corporate-document";
   static String banking = "/employee-bankings";
-
-  static String equipement = "/employee-inventories";
+  static String equipementGet = "/employee-inventories/ByemployeeId";
+  static String equipement1 = "/employee-inventories";
 
   static String payrates = "/employee-payrates/ByEmployeeId";
 
@@ -121,16 +121,16 @@ class ManageReposotory{
   /// Equipment
 
   static String addEquipement(){
-    return "$equipement$add";
+    return "$equipement1$add";
   }
-  static String getEquipement(){
-    return "$equipement";
+  static String getEquipement({required int employeeId}){
+    return "$equipementGet/$employeeId";
   }
   static String getPrefillEquipement({required int empInventoryId}){
-    return "$equipement/$empInventoryId";
+    return "$equipementGet/$empInventoryId";
   }
   static String patchEquipement({required int empInventoryId}){
-    return "$equipement/$empInventoryId";
+    return "$equipement1/$empInventoryId";
   }
 
   /// Payrates

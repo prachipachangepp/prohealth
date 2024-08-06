@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -106,19 +107,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 );
               }
-              return Wrap(
-                spacing: 10,
-               // runSpacing: 10,
-                children: List.generate(snapshot.data!.length, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                        left: AppPadding.p10,
-                        right: AppPadding.p10,
-                        top: AppPadding.p5,
-                        bottom: AppPadding.p40),
-                    child: buildDataContainer(snapshot.data![index]),
-                  );
-                }),
+              return Container(
+                height: double.maxFinite,
+                child: WrapWidget(
+                  childern: List.generate(snapshot.data!.length, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                          left: AppPadding.p10,
+                          right: AppPadding.p10,
+                          top: AppPadding.p5,
+                          bottom: AppPadding.p40),
+                      child: buildDataContainer(snapshot.data![index]),
+                    );
+                  }),
+                ),
               );
             },
           ),
@@ -332,7 +334,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:58946/#/onBordingWelcome";//https://staging.symmetry.care/#/onBordingWelcome
+                          const url = "http://localhost:50244/#/onBordingWelcome";
+                          int employee = data.employeeId!;
+                          final employeeIdData = EmployeeIdData(employeeId: employee);
+                          print("EmployeeId :::${employeeIdData}");
+                          //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                             await launch(url);
                             Navigator.push(
@@ -414,4 +420,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+}
+class EmployeeIdData {
+  int employeeId;
+  EmployeeIdData({required this.employeeId});
 }
