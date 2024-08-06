@@ -14,7 +14,8 @@ import '../../../../../data/api_data/hr_module_data/onboarding_data/onboarding_q
 import '../../manage/const_wrap_widget.dart';
 
 class QualificationLicense extends StatefulWidget {
-  const QualificationLicense({Key? key}) : super(key: key);
+  final int employeeId;
+  const QualificationLicense({Key? key, required this.employeeId}) : super(key: key);
 
   @override
   State<QualificationLicense> createState() => _QualificationLicenseState();
@@ -28,7 +29,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationLicense(context, 2,'no').then((data) {
+    getOnboardingQualificationLicense(context, widget.employeeId,'no').then((data) {
       licenseStreamController.add(data);
     }).catchError((error) {});
   }
@@ -46,13 +47,10 @@ class _QualificationLicenseState extends State<QualificationLicense> {
         stream: licenseStreamController.stream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: SizedBox(width: 25,
-                height: 25,
+            return  Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150),
                 child: CircularProgressIndicator(
-
-
-
                   color: ColorManager.blueprime,
                 ),
               ),
@@ -60,13 +58,16 @@ class _QualificationLicenseState extends State<QualificationLicense> {
           }
           if (snapshot.data!.isEmpty) {
             return Center(
-                child: Text(
-              AppString.dataNotFound,
-              style: CustomTextStylesCommon.commonStyle(
-                  fontWeight: FontWeightManager.medium,
-                  fontSize: FontSize.s12,
-                  color: ColorManager.mediumgrey),
-            ));
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 150),
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey),
+                  ),
+                ));
           }
           if (snapshot.hasData) {
             return WrapWidget(

@@ -7,8 +7,12 @@
 class OfferLetterHtmlRepo{
   ///get offer letter /employee-offers/GetEmployeeOffer/{EmployeeId}/{templateId}
   static String getOfferLetter = "/employee-offers/GetEmployeeOffer/";
+  static String getEmployeeIdbyEmail = "/employee-offers/GetEmployeeIdByEmail";
   static String getOfferLetterHtml({ required  int employeeId, required int templateId}){
     return "$getOfferLetter$employeeId/$templateId";
+  }
+  static String getOfferEmployeeIdbyEmail({required  int companyId, required String email}){
+    return "$getEmployeeIdbyEmail/$companyId/$email";
   }
 
   ///upload sign

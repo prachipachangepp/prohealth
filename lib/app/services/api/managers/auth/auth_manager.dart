@@ -197,7 +197,8 @@ class AuthManager {
         String accessToken = response.data["accessToken"] ?? "";
         String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
         int companyID = response.data['user']['company_id'];
-        TokenManager.setAccessRegisterToken(token: accessToken, username: userName, companyId: companyID);
+        String emailId = response.data['user']['email'];
+        TokenManager.setAccessRegisterToken(token: accessToken, username: userName, companyId: companyID, emailId: emailId);
         // Navigator.pushNamed(context, HomeScreen.routeName);
 
         return ApiDataRegister(

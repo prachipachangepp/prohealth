@@ -169,10 +169,12 @@ class NewOnboardScreen extends StatefulWidget {
 class _NewOnboardScreenState extends State<NewOnboardScreen> {
   final PageController _onboardPageController = PageController();
   int _selectedIndex = 0;
+  int employeeIdCheck = 0;
 
-  void _selectButton(int index) {
+  void _selectButton(int index,int employeeId) {
     setState(() {
       _selectedIndex = index;
+      employeeIdCheck = employeeId;
     });
     _onboardPageController.animateToPage(
       index,
@@ -184,15 +186,16 @@ class _NewOnboardScreenState extends State<NewOnboardScreen> {
   @override
   Widget build(BuildContext context) {
     return OnboardingTabManage(managePageController: _onboardPageController, selectedIndex: _selectedIndex,
-        selectButton: _selectButton);
+        selectButton: _selectButton, employeeId: employeeIdCheck,);
   }
 }
 
 class OnboardingTabManage extends StatefulWidget {
   final PageController managePageController;
   final int selectedIndex;
-  final Function(int) selectButton;
-  const OnboardingTabManage({super.key, required this.managePageController, required this.selectedIndex, required this.selectButton,
+  final int employeeId;
+  final void Function(int,int) selectButton;
+  const OnboardingTabManage({super.key, required this.managePageController, required this.selectedIndex, required this.selectButton, required this.employeeId,
   });
 
   @override
@@ -302,7 +305,6 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
     AppString.healthRecord,
     AppString.acknowledgement
   ];
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -372,7 +374,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                     ),
                                   ),
                                 ),
-                                onTap: () => widget.selectButton(entry.key + 1),  //onTap: () => widget.selectButton(entry.key),
+                                onTap: () => widget.selectButton(entry.key + 1,widget.employeeId),  //onTap: () => widget.selectButton(entry.key),
                               ),
                             )
                                 .toList(),
@@ -394,10 +396,10 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   OnboardingGeneral(selectButton: widget.selectButton),
-                  OnboardingQualification(),
-                  Banking(),
-                  HealthRecord(),
-                  Acknowledgement(),
+                  OnboardingQualification(employeeId: widget.employeeId,),
+                  Banking(employeeId: widget.employeeId,),
+                  HealthRecord(employeeId: widget.employeeId,),
+                  Acknowledgement(employeeId: widget.employeeId,),
                 ],
               ),
             ),

@@ -13,6 +13,8 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../manage/const_wrap_widget.dart';
 
 class BankingTabContainerConstant extends StatefulWidget {
+  final int employeeId;
+  BankingTabContainerConstant({required this.employeeId});
   @override
   State<BankingTabContainerConstant> createState() =>
       _BankingTabContainerConstantState();
@@ -25,7 +27,7 @@ class _BankingTabContainerConstantState
   @override
   void initState() {
     super.initState();
-    getOnboardingBanking(context, 2,'no').then((data){
+    getOnboardingBanking(context, widget.employeeId,'no').then((data){
       bankingStreamController.add(data);
     }).catchError((error){});
   }
@@ -39,19 +41,25 @@ class _BankingTabContainerConstantState
         builder: (context,snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return Center(
-          child: CircularProgressIndicator(
-            color: ColorManager.blueprime,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 150),
+            child: CircularProgressIndicator(
+              color: ColorManager.blueprime,
+            ),
           ),
         );
       }
       if (snapshot.data!.isEmpty) {
         return Center(
-            child: Text(
-              AppString.dataNotFound,
-              style: CustomTextStylesCommon.commonStyle(
-                  fontWeight: FontWeightManager.medium,
-                  fontSize: FontSize.s12,
-                  color: ColorManager.mediumgrey),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 150),
+              child: Text(
+                AppString.dataNotFound,
+                style: CustomTextStylesCommon.commonStyle(
+                    fontWeight: FontWeightManager.medium,
+                    fontSize: FontSize.s12,
+                    color: ColorManager.mediumgrey),
+              ),
             ));
       }
       if(snapshot.hasData){

@@ -11,6 +11,8 @@ import '../qualification_const_bar/widgets/onboarding_qualification.dart';
 /// to do saloni
 class OnboardingQualification extends StatefulWidget {
   late QualificationTabBarController controller;
+  final int employeeId;
+  OnboardingQualification({required this.employeeId});
   @override
   State<OnboardingQualification> createState() =>
       _OnboardingQualificationState();
@@ -117,7 +119,6 @@ class _OnboardingQualificationState extends State<OnboardingQualification> {
                   //                         ),
                   //                       )
                   //                     : SizedBox(width: 100,),
-
                             ],
                           ),
                         ),
@@ -132,11 +133,11 @@ class _OnboardingQualificationState extends State<OnboardingQualification> {
                   // documentTypeGet(context);
                 });
               },
-              children: const [
-                OnBoardingQualificationEmployment(),
-                              OnBoardingQualificationEducation(),
-                              OnBoardingQualificationReference(),
-                              OnBoardingQualificationLicense(),
+              children:  [
+                OnBoardingQualificationEmployment(employeeId: widget.employeeId,),
+                              OnBoardingQualificationEducation(employeeId: widget.employeeId,),
+                              OnBoardingQualificationReference(employeeId: widget.employeeId,),
+                              OnBoardingQualificationLicense(employeeId: widget.employeeId,),
               ],
             ),
           ),

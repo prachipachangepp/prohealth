@@ -5,7 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/offer_letter_manager.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/offer_letter_html_data/offer_letter_html.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -15,12 +18,6 @@ import '../../taxtfield_constant.dart';
 import 'on_boarding_welcome.dart';
 
 class VerifyUserpopup extends StatefulWidget {
-  // final int employeeId;
-  // final int userId;
-
-  const VerifyUserpopup({super.key,
-    // required this.employeeId, required this.userId
-  });
   @override
   VerifyUserpopupState createState() => VerifyUserpopupState();
 }
@@ -43,6 +40,23 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
           email: email, otp: enteredOTP, context: context);
       if (result.success) {
         print('Success navigate');
+        int employeeIdRegister = 0;
+        String email =  await TokenManager.getEmailIdRegister();
+        int companyId = await TokenManager.getCompanyIdRegister();
+        EmployeeIdByEmail result = await GetEmployeeIdByEmail(context, companyId, email);
+        employeeIdRegister = result.employeeID;
+        //EmployeeIdByEmail employeeIdByEmail;
+        //  FutureBuilder<EmployeeIdByEmail>(future:GetEmployeeIdByEmail(context,companyId,email), builder:(context, snapshot){
+        //   if(snapshot.connectionState == ConnectionState.waiting){
+        //     return SizedBox();
+        //   }
+        //   if(snapshot.hasData){
+        //      employeeIdRegister = snapshot.data!.employeeID;
+        //   }
+        //   return SizedBox();
+        // });
+        // await GetEmployeeIdByEmail(context,companyId,email);
+        print('EmployeeId :::: ${employeeIdRegister}');
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -50,9 +64,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
               ),
-              child: OnBoardingCongratulation(
-                // employeeId: widget.employeeId, userId: widget.userId,
-              ),
+              child: OnBoardingCongratulation(employeeId: employeeIdRegister),
             );
           },
         );

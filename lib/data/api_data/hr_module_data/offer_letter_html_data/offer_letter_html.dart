@@ -10,3 +10,10 @@ class OfferLetterData{
 
   });
 }
+
+class EmployeeIdByEmail{
+  final int employeeID;
+
+  EmployeeIdByEmail({required this.employeeID,
+  });
+}
