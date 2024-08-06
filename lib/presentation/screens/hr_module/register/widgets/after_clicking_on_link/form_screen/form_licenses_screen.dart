@@ -14,9 +14,10 @@ import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
 class LicensesScreen extends StatefulWidget {
+  final int employeeID;
   const LicensesScreen({
     super.key,
-    required this.context,
+    required this.context, required this.employeeID,
   });
 
   final BuildContext context;
@@ -182,7 +183,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
             return licensesForm(
               key: key,
               index: index + 1,
-              onRemove: () => removeEduacationForm(key),
+              onRemove: () => removeEduacationForm(key),employeeID:widget.employeeID,
             );
           }).toList(),
         ),
@@ -295,9 +296,10 @@ class _LicensesScreenState extends State<LicensesScreen> {
 }
 
 class licensesForm extends StatefulWidget {
+  final int employeeID;
   final VoidCallback onRemove;
   final int index;
-  const licensesForm({Key? key, required this.onRemove, required this.index})
+  const licensesForm({Key? key, required this.onRemove, required this.index, required this.employeeID})
       : super(key: key);
 
   @override

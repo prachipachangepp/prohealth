@@ -383,7 +383,7 @@ class _OfferLetterDescriptionScreenState
                                         onPressed: () {
                                           Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => MultiStepForm()),
+                                            MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId!,)),
                                           );
                                         },
                                         child: Text('OK', style: GoogleFonts.firaSans(

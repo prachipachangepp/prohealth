@@ -14,9 +14,10 @@ import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
 class BankingScreen extends StatefulWidget {
+  final int  employeeID;
   const BankingScreen({
     super.key,
-    required this.context,
+    required this.context, required this.employeeID,
   });
 
   final BuildContext context;
@@ -100,7 +101,7 @@ class _BankingScreenState extends State<BankingScreen> {
             return BankingForm(
               key: key,
               index: index + 1,
-              onRemove: () => removeEduacationForm(key),
+              onRemove: () => removeEduacationForm(key),employeeID:widget.employeeID,
             );
           }).toList(),
         ),
@@ -213,9 +214,10 @@ class _BankingScreenState extends State<BankingScreen> {
 }
 
 class BankingForm extends StatefulWidget {
+  final int employeeID;
   final VoidCallback onRemove;
   final int index;
-  const BankingForm({super.key, required this.onRemove, required this.index});
+  const BankingForm({super.key, required this.onRemove, required this.index, required this.employeeID});
 
   @override
   _BankingFormState createState() => _BankingFormState();

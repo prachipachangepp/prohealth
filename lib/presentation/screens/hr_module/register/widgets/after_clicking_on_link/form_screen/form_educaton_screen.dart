@@ -14,9 +14,10 @@ import 'dart:typed_data';
 import 'dart:html' as html;
 
 class EducationScreen extends StatefulWidget {
+  final int employeeID;
   const EducationScreen({
     super.key,
-    required this.context,
+    required this.context, required this.employeeID,
   });
 
   final BuildContext context;
@@ -125,7 +126,7 @@ class _EducationScreenState extends State<EducationScreen> {
               return EducationForm(
                 key: key,
                 index: index + 1,
-                onRemove: () => removeEduacationForm(key),
+                onRemove: () => removeEduacationForm(key), employeeID:widget.employeeID,
               );
             }).toList(),
           ),
@@ -176,7 +177,7 @@ class _EducationScreenState extends State<EducationScreen> {
                     final st = key.currentState!;
                     await posteducationscreen(
                         context,
-                        5,
+                        st.widget.employeeID,
                         st.collegeuniversity.text,
                         st.majorsubject.text,
                         st.phone.text,
@@ -244,9 +245,10 @@ class _EducationScreenState extends State<EducationScreen> {
 }
 
 class EducationForm extends StatefulWidget {
+  final int employeeID;
   final VoidCallback onRemove;
   final int index;
-  const EducationForm({Key? key, required this.onRemove, required this.index})
+  const EducationForm({Key? key, required this.onRemove, required this.index, required this.employeeID})
       : super(key: key);
 
   @override

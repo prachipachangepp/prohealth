@@ -21,9 +21,10 @@ import '../../../taxtfield_constant.dart';
 import 'form_educaton_screen.dart';
 
 class generalForm extends StatefulWidget {
+  final int employeeID;
   generalForm({
     super.key,
-    required this.context,
+    required this.context, required this.employeeID,
   });
 
   final BuildContext context;
@@ -919,7 +920,7 @@ class _generalFormState extends State<generalForm> {
                               context: context,
                               employeeDocumentMetaId: 10,
                               employeeDocumentTypeSetupId: 48,
-                              employeeId: 2,
+                              employeeId: widget.employeeID,
                               documentFile: finalPath,
                               documentName: 'Legal Document ID'
                           );

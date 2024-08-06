@@ -31,6 +31,9 @@ import 'form_screen/form_licenses_screen.dart';
 import 'form_screen/form_reference_screen.dart';
 
 class MultiStepForm extends StatefulWidget {
+  final int employeeID;
+
+  const MultiStepForm({super.key, required this.employeeID});
   @override
   _MultiStepFormState createState() => _MultiStepFormState();
 }
@@ -265,7 +268,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-          content: generalForm(context: context),
+          content: generalForm(context: context, employeeID: widget.employeeID,),
         ),
         Step(
           state: _currentStep <= 1 ? StepState.editing : StepState.complete,
@@ -285,7 +288,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-          content: Employment_screen(context: context),
+          content: Employment_screen(context: context, employeeID: widget.employeeID,),
         ),
         Step(
           state: _currentStep <= 2 ? StepState.editing : StepState.complete,
@@ -305,7 +308,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-          content: EducationScreen(context: context),
+          content: EducationScreen(context: context, employeeID: widget.employeeID),
         ),
         Step(
           state: _currentStep <= 3 ? StepState.editing : StepState.complete,
@@ -325,7 +328,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-          content: ReferencesScreen(context: context),
+          content: ReferencesScreen(context: context, employeeID: widget.employeeID),
         ),
         Step(
           state: _currentStep <= 4 ? StepState.editing : StepState.complete,
@@ -345,7 +348,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-          content: LicensesScreen(context: context),
+          content: LicensesScreen(context: context, employeeID: widget.employeeID),
         ),
         Step(
           state: _currentStep <= 5 ? StepState.editing : StepState.complete,
@@ -365,7 +368,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-          content: BankingScreen(context: context),
+          content: BankingScreen(context: context, employeeID: widget.employeeID),
         ),
         Step(
           state: _currentStep <= 6 ? StepState.editing : StepState.complete,
