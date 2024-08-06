@@ -31,7 +31,7 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                     Text('Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: 12.0,
+                          fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
                       ),

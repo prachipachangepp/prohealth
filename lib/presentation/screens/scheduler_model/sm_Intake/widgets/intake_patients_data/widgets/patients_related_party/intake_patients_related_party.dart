@@ -2,9 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../../../sm_scheduler/widget/schedular_create/widget/assign_visit_pop_up.dart';
+import '../../../../../sm_scheduler/widget/schedular_create/widget/edit_appointment_pop_up.dart';
 import '../../../intake_referral/widget/referral_agency_info/intake_referral_submit_popup.dart';
 
 class IntakeRelatedPartiesScreen extends StatefulWidget {
@@ -33,9 +36,9 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                     Text('Status: Partially Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: AppSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xffFFA500)
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.orangeheading
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width/60),
@@ -47,17 +50,17 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           // showDialog(
                           //   context: context,
                           //   builder: (BuildContext context) {
-                          //     return ReferralSubmitPopup();
+                          //     return AssignVisitPopUp();
                           //   },
                           // );
                         },
-                        icon: Icon(Icons.add,color: Colors.white, size: AppSize.s20),
+                        icon: Icon(Icons.add,color: Colors.white, size: FontSize.s20),
                         label: Text(
                           'Add Related Parties',
                           style: GoogleFonts.firaSans(
                             color: Colors.white,
-                            fontSize: AppSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.bold,
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
@@ -95,9 +98,9 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       children: [
                         Text('Emergency Contact Information',
                           style: TextStyle(
-                              fontSize: AppSize.s12,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff686464)
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: ColorManager.mediumgrey
                           ),)
                       ],
                     ),
@@ -172,9 +175,9 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       children: [
                         Text('Primary Care Giver',
                           style: TextStyle(
-                              fontSize: AppSize.s12,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff686464)
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: ColorManager.mediumgrey
                           ),)
                       ],
                     ),
@@ -317,15 +320,15 @@ class SchedularTextField extends StatelessWidget {
       child: TextFormField(
         initialValue: initialValue,
         style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
+          fontSize: FontSize.s12,
+          fontWeight: FontWeightManager.regular,
           color: Colors.black,
         ),
         cursorColor: Colors.black,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
+            fontSize: FontSize.s12,
             color: ColorManager.greylight,                          // label text color
           ),
           border: const OutlineInputBorder(),
@@ -355,15 +358,15 @@ class SchedularDropdown extends StatelessWidget {
       child: DropdownButtonFormField<String>(
         value: initialValue,
         style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
+          fontSize: FontSize.s12,
+          fontWeight: FontWeightManager.regular,
           color: Colors.black,
         ),
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
-            fontWeight: FontWeight.w400,
+            fontSize: FontSize.s10,
+            fontWeight: FontWeightManager.regular,
             color: ColorManager.greylight,                                           // text color in dropdown
           ),
           border:  OutlineInputBorder(),
@@ -410,15 +413,15 @@ class SchedularTextFieldWithButton extends StatelessWidget {
           TextFormField(
             initialValue: initialValue,
             style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
+              fontSize: FontSize.s12,
+              fontWeight: FontWeightManager.regular,
               color: Colors.black,
             ),
             cursorColor: Colors.black,
             decoration: InputDecoration(
               labelText: labelText,
               labelStyle: GoogleFonts.firaSans(
-                fontSize: 10,
+                fontSize: FontSize.s12,
                 color: Color(0XFF575757),                                                      // text color
               ),
               border: const OutlineInputBorder(),
@@ -453,8 +456,8 @@ class SchedularTextFieldWithButton extends StatelessWidget {
                 child: Text(
                   buttonText,
                   style: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
+                    fontSize: FontSize.s10,
+                    fontWeight: FontWeightManager.regular,
                     color: Colors.white,
                     decoration: TextDecoration.underline,
                   ),

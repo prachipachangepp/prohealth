@@ -31,7 +31,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                     Text('Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: 12.0,
+                          fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
                       ),
@@ -181,8 +181,8 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                               children: [
                                 Text('Insurance Verified',
                                     style: GoogleFonts.firaSans(
-                                        color: Color(0xff575757),
-                                        fontSize: 10, fontWeight: FontWeight.w400)
+                                        color: ColorManager.lightgreyheading,
+                                        fontSize: FontSize.s10, fontWeight: FontWeightManager.regular)
                                 ),
                                 SizedBox(height: 1),
                                 Row(
@@ -194,7 +194,8 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                     ),
                                     Text('Yes',
                                         style: GoogleFonts.firaSans(
-                                            fontSize: 12, fontWeight: FontWeight.w400)
+                                            fontSize: FontSize.s12
+                                            , fontWeight: FontWeightManager.regular)
                                     ),
                                     SizedBox(width: MediaQuery.of(context).size.width/100),
                                     Radio<String>(
@@ -204,7 +205,8 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                     ),
                                     Text('No',
                                         style: GoogleFonts.firaSans(
-                                            fontSize: 12, fontWeight: FontWeight.w400)
+                                            fontSize: FontSize.s12
+                                            , fontWeight: FontWeightManager.regular)
                                     ),
                                     SizedBox(width: MediaQuery.of(context).size.width/100),
                                     TextButton(
@@ -212,9 +214,9 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                       child: Text(
                                         'Clear',
                                         style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff575757)
+                                            fontSize: MediaQuery.of(context).size.width * 0.008,
+                                            fontWeight: FontWeightManager.regular,
+                                            color: ColorManager.lightgreyheading
                                         ),
                                       ),
                                     ),
@@ -327,15 +329,15 @@ class SchedularTextField extends StatelessWidget {
       child: TextFormField(
         controller: isDate ? _dateController : TextEditingController(text: initialValue),
         style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
+          fontSize: FontSize.s12,
+          fontWeight: FontWeightManager.regular,
           color: ColorManager.black,
         ),
         cursorColor: ColorManager.black,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
+            fontSize: FontSize.s10,
             color: ColorManager.greylight, // label text color
           ),
           border: const OutlineInputBorder(),
@@ -374,14 +376,14 @@ class SchedularDropdown extends StatelessWidget {
       child: DropdownButtonFormField<String>(
         value: initialValue,
         style: GoogleFonts.firaSans(
-          fontSize: 12,
+          fontSize: FontSize.s12,
           fontWeight: FontWeightManager.regular,
           color: ColorManager.black,
         ),
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
+            fontSize: FontSize.s10,
             fontWeight: FontWeightManager.regular,
             color: ColorManager.greylight, // text color in dropdown
           ),
@@ -402,7 +404,7 @@ class SchedularDropdown extends StatelessWidget {
         icon: Icon(
           Icons.arrow_drop_down,
           color: ColorManager.blueprime, // dropdown icon color
-          size: 24, // size of icon
+          size: FontSize.s24, // size of icon
         ),
         isDense: false, // Adjust the density of the dropdown
       ),

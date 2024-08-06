@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/search_patient_pop_up.dart';
 
 import '../schedular_create/appointment_screen.dart';
 
@@ -18,7 +21,6 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        // scrollDirection: Axis.horizontal,
         child: Column(
           children: [
             Row(
@@ -28,9 +30,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   'Create New Schedule',
                   style: GoogleFonts.firaSans(
                     decoration: TextDecoration.none,
-                    fontWeight: FontWeight.w700,
-                    fontSize: AppSize.s14,
-                    color: Color(0xff686464),
+                    fontWeight: FontWeightManager.bold,
+                    fontSize: FontSize.s14,
+                    color: ColorManager.textPrimaryColor,
                   ),
                 ),
               ],
@@ -41,7 +43,12 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
               children: [
                 GestureDetector(
                   onTap: (){
-
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SearchPatientPopUp();
+                      },
+                    );
                   },
                   child: Container(
                     height: 152.0,
@@ -70,8 +77,8 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                               'Select Patient',
                               style: GoogleFonts.firaSans(
                                 decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w700,
-                                fontSize: AppSize.s14,
+                                fontWeight: FontWeightManager.bold,
+                                fontSize: FontSize.s14,
                                 color: Colors.black,
                               ),
                             ),
@@ -113,8 +120,8 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                               'Select Clinician',
                               style: GoogleFonts.firaSans(
                                 decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w700,
-                                fontSize: AppSize.s14,
+                                fontWeight: FontWeightManager.bold,
+                                fontSize: FontSize.s14,
                                 color: Colors.black,
                               ),
                             ),
@@ -144,9 +151,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                     child: Text(
                       'Cancel',
                       style: TextStyle(
-                        fontSize: AppSize.s14,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff686464),
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.textPrimaryColor,
                       ),
                     ),
                   ),
@@ -170,8 +177,8 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                     child: Text(
                       'Create',
                       style: TextStyle(
-                        fontSize: AppSize.s14,
-                        fontWeight: FontWeight.w700,
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeightManager.bold,
                         color: Colors.white,
                       ),
                     ),
@@ -220,8 +227,8 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                     'Scheduled Patients',
                                     style: GoogleFonts.firaSans(
                                       decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: AppSize.s14,
+                                      fontWeight: FontWeightManager.bold,
+                                      fontSize: FontSize.s14,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -232,8 +239,8 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                     'This Month',
                                     style: GoogleFonts.firaSans(
                                       decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: AppSize.s14,
+                                      fontWeight: FontWeightManager.bold,
+                                      fontSize: FontSize.s14,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -260,18 +267,18 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   'Robert Langdon',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 Spacer(),
                                 Text('John Scott',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width/120,),
@@ -296,7 +303,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                       child: Text('PT',
                                         style: GoogleFonts.firaSans(
                                           decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeightManager.medium,
                                           fontSize: MediaQuery.of(context).size.width * 0.008,
                                           color: Colors.white,
                                         ),
@@ -317,9 +324,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   'James Smith',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 Spacer(),
@@ -328,7 +335,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width/120,),
@@ -353,7 +360,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                       child: Text('PT',
                                         style: GoogleFonts.firaSans(
                                           decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeightManager.medium,
                                           fontSize: MediaQuery.of(context).size.width * 0.008,
                                           color: Colors.white,
                                         ),
@@ -374,18 +381,18 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   'Mary Irish',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 Spacer(),
                                 Text('John Scott',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width/120,),
@@ -410,7 +417,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                       child: Text('PT',
                                         style: GoogleFonts.firaSans(
                                           decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeightManager.medium,
                                           fontSize: MediaQuery.of(context).size.width * 0.008,
                                           color: Colors.white,
                                         ),
@@ -462,8 +469,8 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 'Un-Scheduled Patients',
                                 style: GoogleFonts.firaSans(
                                   decoration: TextDecoration.none,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: AppSize.s14,
+                                  fontWeight: FontWeightManager.bold,
+                                  fontSize: FontSize.s14,
                                   color: Colors.white,
                                 ),
                               ),
@@ -487,9 +494,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   'James Smith',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                               ],
@@ -505,9 +512,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   'Michael Jackson',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                      color: ColorManager.darkblue,
                                   ),
                                 ),
                               ],
@@ -523,9 +530,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   'Ross Geller',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                               ],

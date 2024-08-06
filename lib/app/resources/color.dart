@@ -14,6 +14,9 @@ class ColorManager {
 
   ///static Color grey = Color(0xff8B8781);
   static Color grey = Color(0xff8B8781);
+  static Color charcoal = Color(0xff454545);
+  static Color darkblue = Color(0xff271E4A);
+  static Color orangeheading = Color(0xffFFA500);
   static Color lightGrey = Color(0xffB7B7B7);
   static Color containerBorderGrey = Color(0xffB1B1B1);
   static Color textPrimaryColor = Color(0xff686464);
