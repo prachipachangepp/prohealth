@@ -935,6 +935,7 @@ class RegisterEnrollAlertDialog {
                       child: CustomIconButtonConst(
                         width: AppSize.s100,
                           text: AppString.enroll, onPressed: () {
+
                             // showDialog(context: context, builder: (BuildContext context) {
                             //   return ConfirmationPopup(onConfirm: (){}, title: 'Confirm Enrollment',
                             //     onCancel: () {

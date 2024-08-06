@@ -61,7 +61,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
   // bool _passwordVisible = false;
   // String? _selectedType;
   // String? _selectedType1;
-
+// Navigator.push(context, MaterialPageRoute(builder: (context)=>MultiStepForm()));
   @override
   Widget build(BuildContext context) {
     return
