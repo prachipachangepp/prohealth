@@ -7,6 +7,7 @@ import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/mana
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../widgets/button_constant.dart';
 import 'checkbox_constant.dart';
 
 
@@ -415,6 +416,17 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment:MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                      CustomElevatedButton(
+                        width: AppSize.s105,
+                        height: AppSize.s30,
+                        text: AppStringEM.save, onPressed: () {  },
+                      )
+                    ],)
                   ],
                 ),
               );

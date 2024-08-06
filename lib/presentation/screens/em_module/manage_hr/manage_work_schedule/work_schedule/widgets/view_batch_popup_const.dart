@@ -302,7 +302,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                 controller2: endTimeController,
                                                                                 onPressed: () async{
                                                                                   await updateShiftBatch(context,
-                                                                                      widget.shiftName, widget.companyId, widget.officeId,widget.weekName,
+                                                                                      widget.shiftName, widget.officeId,widget.weekName,
                                                                                       startTime == startTimeController.text ? startTime.toString() : startTimeController.text,
                                                                                       endTime == endTimeController.text ? endTime.toString() : endTimeController.text,
                                                                                       snapshot.data![index].shiftBatchScheduleId);

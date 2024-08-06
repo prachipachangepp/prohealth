@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -23,7 +20,8 @@ import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_
 class CICcdADR extends StatefulWidget {
   final int subDocID;
   final int docID;
-   CICcdADR({super.key, required this.subDocID, required this.docID});
+  final String officeId;
+   CICcdADR({super.key, required this.subDocID, required this.docID, required this.officeId});
 
   @override
   State<CICcdADR> createState() => _CICcdADRState();
@@ -151,7 +149,7 @@ class _CICcdADRState extends State<CICcdADR> {
           child: StreamBuilder<List<CiOrgDocumentCC>>(
             stream: _controller.stream,
             builder: (context, snapshot) {
-              orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 15).then((data) {
+              orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 15).then((data) {
                 _controller.add(data);
               }).catchError((error) {
                 // Handle error
@@ -322,11 +320,10 @@ class _CICcdADRState extends State<CICcdADR> {
                                                           expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                           expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                           expiryReminder: "Schedule",
-                                                          companyId: 11,
-                                                          officeId: "Office 1",
+                                                          officeId: widget.officeId,
                                                         );
                                                         setState(() async {
-                                                          await orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 15).then((data) {
+                                                          await orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 15).then((data) {
                                                             _controller.add(data);
                                                           }).catchError((error) {
                                                             // Handle error
@@ -512,7 +509,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                                           context,
                                                           snapshot.data![index].docId!);
                                                       setState(() async {
-                                                        await orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+                                                        await orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 6).then((data) {
                                                           _controller.add(data);
                                                         }).catchError((error) {
                                                           // Handle error

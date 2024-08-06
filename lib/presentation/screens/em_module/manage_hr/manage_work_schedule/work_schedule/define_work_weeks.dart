@@ -492,9 +492,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                             controller2: endTimeController,
                                                                                             onPressed: () async{
                                                                                               await addShiftBatch(context, snapshotShift.data![index].shiftName,
-                                                                                                  snapshotShift.data![index].companyId, snapshotShift.data![index].officeId,
+                                                                                                  snapshotShift.data![index].officeId,
                                                                                                   snapshot.data![index].weekDays, startTimeController.text, endTimeController.text);
-                                                                                              Navigator.pop(context);
+                                                                                              //Navigator.pop(context);
                                                                                             },
                                                                                           );
                                                                                         });
