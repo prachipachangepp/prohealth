@@ -4,12 +4,13 @@ class ApiData {
   final int statusCode;
   final Object? data;
   final String? imageUrl;
+  final int? employeeId;
 
   ApiData(
       {required this.statusCode,
       required this.success,
       required this.message,
-      this.data, this.imageUrl, });
+      this.data, this.imageUrl, this.employeeId });
 }
 
 class ApiDataRegister{

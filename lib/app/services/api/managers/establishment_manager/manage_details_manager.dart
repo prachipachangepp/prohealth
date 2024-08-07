@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
@@ -9,9 +10,10 @@ import '../../repository/establishment_manager/establishment_repository.dart';
 
 ///get manage detail
 Future<ManageDetails> companyDetailGetAll(
-    BuildContext context, int companyID, String officeId) async {
+    BuildContext context, String officeId) async {
   var itemsData;
   try {
+    final companyID =await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getManageDetails(
             companyID: companyID, officeId: officeId));

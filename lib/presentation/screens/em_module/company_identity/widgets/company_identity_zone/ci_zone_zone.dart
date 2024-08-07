@@ -45,7 +45,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 20;
+    itemsPerPage = 30;
     items = List.generate(60, (index) => 'Item ${index + 1}');
   }
 
@@ -143,7 +143,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
             stream: _zoneController.stream,
             builder: (context, snapshot) {
               getZoneByCounty(
-                      context, widget.officeId, widget.companyID, 25, 1, 20)
+                      context, widget.officeId,widget.countyId, 1, 20)
                   .then((data) {
                 _zoneController.add(data);
               }).catchError((error) {});
@@ -343,8 +343,6 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                           context,
                                                                           widget
                                                                               .officeId,
-                                                                          widget
-                                                                              .companyID,
                                                                           25,
                                                                           1,
                                                                           20)
@@ -475,8 +473,6 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                     context,
                                                                     widget
                                                                         .officeId,
-                                                                    widget
-                                                                        .companyID,
                                                                     25,
                                                                     1,
                                                                     20)

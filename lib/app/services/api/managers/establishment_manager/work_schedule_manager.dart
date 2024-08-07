@@ -104,11 +104,11 @@ Future<ApiData> deleteWorkWeekSchedule(
 /// Work Week Shift GET
 Future<List<WorkWeekShiftScheduleData>> workWeekShiftScheduleGet(
     BuildContext context,
-    int companyId,
     String officeId,
     String weekDay) async {
   List<WorkWeekShiftScheduleData> itemsData = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.workWeekShiftScheduleGet(
             companyId: companyId, officeId: officeId.replaceAll("%20", ' '), weekDay: weekDay));
@@ -348,9 +348,10 @@ Future<ApiData> deleteHolidays(
 
 /// Get Shiftwise batches GET
 Future<List<ShiftBachesData>> shiftBatchesGet(
-    BuildContext context, String shiftName,int companyId, String officeId, String weekDay) async {
+    BuildContext context, String shiftName, String officeId, String weekDay) async {
   List<ShiftBachesData> itemsData = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getShiftBatches(
             shiftName: shiftName, companyId: companyId, officeId: officeId, weekDay: weekDay));

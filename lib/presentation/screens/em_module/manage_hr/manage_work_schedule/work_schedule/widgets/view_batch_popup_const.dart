@@ -16,8 +16,7 @@ class ViewBatchesPopup extends StatefulWidget {
   final String shiftName;
   final String weekName;
   final String officeId;
-  final int companyId;
-   ViewBatchesPopup({super.key, required this.shiftName, required this.weekName, required this.officeId, required this.companyId});
+   ViewBatchesPopup({super.key, required this.shiftName, required this.weekName, required this.officeId});
 
   @override
   State<ViewBatchesPopup> createState() => _ViewBatchesPopupState();
@@ -34,7 +33,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
   @override
   void initState() {
     super.initState();
-    shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
+    shiftBatchesGet(context,widget.shiftName,widget.officeId,widget.weekName).then((data) {
       workWeekShiftBatchesController.add(data);
     }).catchError((error) {
       // Handle error
@@ -306,7 +305,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                       startTime == startTimeController.text ? startTime.toString() : startTimeController.text,
                                                                                       endTime == endTimeController.text ? endTime.toString() : endTimeController.text,
                                                                                       snapshot.data![index].shiftBatchScheduleId);
-                                                                                  shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
+                                                                                  shiftBatchesGet(context,widget.shiftName,widget.officeId,widget.weekName).then((data) {
                                                                                     workWeekShiftBatchesController.add(data);
                                                                                   }).catchError((error) {
                                                                                     // Handle error
@@ -332,7 +331,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                 }, onDelete:
                                                                                 () async {
                                                                                   await deleteShiftBatch(context, snapshot.data![index].shiftBatchScheduleId);
-                                                                                  shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
+                                                                                  shiftBatchesGet(context,widget.shiftName,widget.officeId,widget.weekName).then((data) {
                                                                                     workWeekShiftBatchesController.add(data);
                                                                                   }).catchError((error) {
                                                                                     // Handle error
