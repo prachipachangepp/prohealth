@@ -12,6 +12,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_f
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../taxtfield_constant.dart';
@@ -203,13 +204,12 @@ class _Employment_screenState extends State<Employment_screen> {
                       );
                     } else {
                       try {
-                        await uploadDocuments(
+                        await uploadEmployeeResume(
                           context: context,
-                          employeeDocumentMetaId: 10,
-                          employeeDocumentTypeSetupId: 48,
-                          employeeId: widget.employeeID,
+
+                          employeementId: widget.employeeID,
                           documentFile: state.finalPath,
-                          documentName: 'Legal Document ID',
+                          documentName: state.fileName.toString(),
                         );
 
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -446,6 +446,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
   File? xfileToFile;
   var finalPath;
 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -484,6 +485,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       Uint8List? bytes = result.files.first.bytes;
                       XFile xFile = await convertBytesToXFile(bytes!, result.files.first.name);
                       finalPath = result.files.first.bytes;
+                      fileName= result.files.first.name;
                       setState(() {
                         _fileNames.addAll(result.files.map((file) => file.name!));
                         _loading = false;

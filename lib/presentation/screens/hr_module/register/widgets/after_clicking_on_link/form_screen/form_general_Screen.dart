@@ -12,6 +12,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_f
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
@@ -254,6 +255,7 @@ class _generalFormState extends State<generalForm> {
                               _fileNames.addAll(result.files.map((file) => file.name!));
                               print('File picked: ${_fileNames}');
                               //print(String.fromCharCodes(file));
+                              fileName= result.files.first.name;
                               finalPath = result.files.first.bytes;
                               setState(() {
                                 _fileNames;
@@ -922,13 +924,12 @@ class _generalFormState extends State<generalForm> {
                         );
                       } else {
                         try  {
-                          await uploadDocuments(
+                          await uploadphoto(
                               context: context,
-                              employeeDocumentMetaId: 10,
-                              employeeDocumentTypeSetupId: 48,
-                              employeeId: widget.employeeID,
+
+                              employeeid: widget.employeeID,
                               documentFile: finalPath,
-                              documentName: 'Legal Document ID'
+                              documentName: fileName,
                           );
 
 

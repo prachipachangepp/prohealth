@@ -36,7 +36,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
 
   Future<void> _fetchData() async {
     try {
-      var data = await getAckHealthRecord(context, 12, 37, widget.employeeId,'no');
+      var data = await getAckHealthRecord(context, 10, 48, widget.employeeId,'no');
       _fetchedData = data;
       _controller.add(data);
       _checked = List.generate(data.length, (_) => false);

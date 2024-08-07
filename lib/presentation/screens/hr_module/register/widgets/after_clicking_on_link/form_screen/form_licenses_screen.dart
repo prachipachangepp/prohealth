@@ -234,7 +234,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   final st = key.currentState!;
                   await postlicensesscreen(
                       context,
-                      "--",
+                      selectedCountry.toString(),
                       widget.employeeID,
                       "__",
                       st.licensure.text,
