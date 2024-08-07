@@ -14,9 +14,10 @@ import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../form_nine_screen.dart';
 
 class LegalDocumentsScreen extends StatefulWidget {
+  final int employeeID;
   const LegalDocumentsScreen({
     super.key,
-    required this.context,
+    required this.context, required this.employeeID,
   });
 
   final BuildContext context;
@@ -394,7 +395,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                           context: context,
                           employeeDocumentMetaId: 10,
                           employeeDocumentTypeSetupId: 48,
-                          employeeId: 2,
+                          employeeId: widget.employeeID,
                           documentFile: finalPath,
                           documentName: 'Legal Document ID'
                       );

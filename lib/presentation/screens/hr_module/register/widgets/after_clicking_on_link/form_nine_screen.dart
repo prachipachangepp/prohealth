@@ -111,412 +111,414 @@ class _FormNineScreenState extends State<FormNineScreen> {
         child: TopRowConstant(),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Text(
-                'Form i - 9',
-                style: GoogleFonts.firaSans(
-                  fontSize: 18,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w700,
+        padding: EdgeInsets.only(left: 40.0,right: 40),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  'Form i - 9',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 18,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "Last Name (Family Name)",
-                      lastName,
-                      "Ex-John",
-                      TextInputType.text),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "U.S. Social Security Number",
-                      ssn,
-                      "Enter Text",
-                      TextInputType.number),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "First Name (Given Name)",
-                      firstName,
-                      "Ex.Adams",
-                      TextInputType.text),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "Employee's Email",
-                      email,
-                      "Enter Text",
-                      TextInputType.emailAddress),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "Middle Initial",
-                      middleInitial,
-                      "Enter Text",
-                      TextInputType.text,
-                      isRequired: false),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "Employee's Phone Number",
-                      phoneNumber,
-                      "Enter Text",
-                      TextInputType.phone),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "Other Last Names Used (if any)",
-                      otherLastNames,
-                      "Enter Text",
-                      TextInputType.text,
-                      isRequired: false),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "City or Town",
-                      cityTown,
-                      "Enter Text",
-                      TextInputType.text),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "Address (Street Number & Name)",
-                      address,
-                      "Enter Text",
-                      TextInputType.streetAddress),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "State", state, "Enter Text", TextInputType.text),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "Apt. Number",
-                      aptNumber,
-                      "Enter Text",
-                      TextInputType.text,
-                      isRequired: false),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                      "Zip Code", zipCode, "Enter Text", TextInputType.number),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _buildLabeledTextField(
-                    "DOB",
-                    dob,
-                    "dd-mm-yyyy",
-                    TextInputType.datetime,
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.calendar_month_outlined, color: Color(0xff50B5E5), size: 16,),
-                      onPressed: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2101),
-                        );
-                        if (pickedDate != null) {
-                          String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
-                          _controller.text = formattedDate;
-                        }
-                      },
-                    ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Text(
-              'I attest, under penalty of perjury, that I am (Check one of the following boxes.):',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                color: Color(0xFF686464),
-                fontWeight: FontWeight.w400,
+              SizedBox(height: 20.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "Last Name (Family Name)",
+                        lastName,
+                        "Ex-John",
+                        TextInputType.text),
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "U.S. Social Security Number",
+                        ssn,
+                        "Enter Text",
+                        TextInputType.number),
+                  ),
+                ],
               ),
-            ),
-            _buildCheckboxItem('A citizen of the United States', 0),
-            _buildCheckboxItem('A noncitizen national of the United States', 1),
-            SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: _buildCheckboxItem(
-                      'A lawful permanent resident (Alien Registration Number/USCIS Number):', 2),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                    '',
-                    alienRegistrationNumber,
-                    'Enter Text',
-                    TextInputType.text,
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "First Name (Given Name)",
+                        firstName,
+                        "Ex.Adams",
+                        TextInputType.text),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: _buildCheckboxItem(
-                      'An alien authorized to work until (expiration date, if applicable, mm/dd/yyyy):', 3),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                    '',
-                    workAuthorizationExpirationDate,
-                    'Enter Text',
-                    TextInputType.text,
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "Employee's Email",
+                        email,
+                        "Enter Text",
+                        TextInputType.emailAddress),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Aliens authorized to work must provide only one of the following document numbers to complete Form I-9:',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                color: Color(0xFF686464),
-                fontWeight: FontWeight.w400,
+                ],
               ),
-            ),
-            SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Alien Registration Number or USCIS Number:',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xFF686464).withOpacity(0.50),
-                      fontWeight: FontWeight.w400,
-                    ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "Middle Initial",
+                        middleInitial,
+                        "Enter Text",
+                        TextInputType.text,
+                        isRequired: false),
                   ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                    '',
-                    uscisNumber,
-                    'Enter Text',
-                    TextInputType.text,
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "Employee's Phone Number",
+                        phoneNumber,
+                        "Enter Text",
+                        TextInputType.phone),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding:  EdgeInsets.only(left: 280),
-              child: Text(
-                'Or',
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  color: Color(0xFF686464).withOpacity(0.50),
-                  fontWeight: FontWeight.w400,
-                ),
+                ],
               ),
-            ),
-            SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Form I-94 Admission Number:',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xFF686464).withOpacity(0.50),
-                      fontWeight: FontWeight.w400,
-                    ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "Other Last Names Used (if any)",
+                        otherLastNames,
+                        "Enter Text",
+                        TextInputType.text,
+                        isRequired: false),
                   ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                    '',
-                    formI94AdmissionNumber,
-                    'Enter Text',
-                    TextInputType.text,
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "City or Town",
+                        cityTown,
+                        "Enter Text",
+                        TextInputType.text),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(left: 280),
-              child: Text(
-                'Or',
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  color: Color(0xFF686464).withOpacity(0.50),
-                  fontWeight: FontWeight.w400,
-                ),
+                ],
               ),
-            ),
-            SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Foreign Passport Number:',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xFF686464).withOpacity(0.50),
-                      fontWeight: FontWeight.w400,
-                    ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "Address (Street Number & Name)",
+                        address,
+                        "Enter Text",
+                        TextInputType.streetAddress),
                   ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                    '',
-                    foreignPassportNumber,
-                    'Enter Text',
-                    TextInputType.text,
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "State", state, "Enter Text", TextInputType.text),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Country of Issuance:',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xFF686464).withOpacity(0.50),
-                      fontWeight: FontWeight.w400,
-                    ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "Apt. Number",
+                        aptNumber,
+                        "Enter Text",
+                        TextInputType.text,
+                        isRequired: false),
                   ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: _buildLabeledTextField(
-                    '',
-                    countryOfIssuance,
-                    'Enter Text',
-                    TextInputType.text,
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                        "Zip Code", zipCode, "Enter Text", TextInputType.number),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.arrow_back,
-                        color: Color((0xFF50B5E5)),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _buildLabeledTextField(
+                      "DOB",
+                      dob,
+                      "dd-mm-yyyy",
+                      TextInputType.datetime,
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.calendar_month_outlined, color: Color(0xff50B5E5), size: 16,),
+                        onPressed: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2101),
+                          );
+                          if (pickedDate != null) {
+                            String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+                            _controller.text = formattedDate;
+                          }
+                        },
                       ),
-                      SizedBox(width: 5),
-                      Text(
-                        'Cancel',
-                        style: GoogleFonts.firaSans(
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                'I attest, under penalty of perjury, that I am (Check one of the following boxes.):',
+                style: GoogleFonts.firaSans(
+                  fontSize: 12,
+                  color: Color(0xFF686464),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              _buildCheckboxItem('A citizen of the United States', 0),
+              _buildCheckboxItem('A noncitizen national of the United States', 1),
+              SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildCheckboxItem(
+                        'A lawful permanent resident (Alien Registration Number/USCIS Number):', 2),
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      '',
+                      alienRegistrationNumber,
+                      'Enter Text',
+                      TextInputType.text,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildCheckboxItem(
+                        'An alien authorized to work until (expiration date, if applicable, mm/dd/yyyy):', 3),
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      '',
+                      workAuthorizationExpirationDate,
+                      'Enter Text',
+                      TextInputType.text,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Aliens authorized to work must provide only one of the following document numbers to complete Form I-9:',
+                style: GoogleFonts.firaSans(
+                  fontSize: 12,
+                  color: Color(0xFF686464),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Alien Registration Number or USCIS Number:',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        color: Color(0xFF686464).withOpacity(0.50),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      '',
+                      uscisNumber,
+                      'Enter Text',
+                      TextInputType.text,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding:  EdgeInsets.only(left: 280),
+                child: Text(
+                  'Or',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    color: Color(0xFF686464).withOpacity(0.50),
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Form I-94 Admission Number:',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        color: Color(0xFF686464).withOpacity(0.50),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      '',
+                      formI94AdmissionNumber,
+                      'Enter Text',
+                      TextInputType.text,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 280),
+                child: Text(
+                  'Or',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    color: Color(0xFF686464).withOpacity(0.50),
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Foreign Passport Number:',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        color: Color(0xFF686464).withOpacity(0.50),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      '',
+                      foreignPassportNumber,
+                      'Enter Text',
+                      TextInputType.text,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Country of Issuance:',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        color: Color(0xFF686464).withOpacity(0.50),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      '',
+                      countryOfIssuance,
+                      'Enter Text',
+                      TextInputType.text,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_back,
                           color: Color((0xFF50B5E5)),
-                          fontWeight: FontWeight.w600,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                   // Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF50B5E5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
+                        SizedBox(width: 5),
+                        Text(
+                          'Cancel',
+                          style: GoogleFonts.firaSans(
+                            color: Color((0xFF50B5E5)),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Continue',
-                        style: GoogleFonts.firaSans(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
+                  SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                     // Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF50B5E5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Continue',
+                          style: GoogleFonts.firaSans(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ],
+                        SizedBox(width: 5),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-            // SizedBox(height: 30),
-            // BottomBarRow()
-          ],
+                ],
+              ),
+              // SizedBox(height: 30),
+              // BottomBarRow()
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: const BottomBarRow(),

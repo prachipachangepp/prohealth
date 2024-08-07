@@ -32,6 +32,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   TextEditingController hcoNumController = TextEditingController();
   TextEditingController medicareController = TextEditingController();
   TextEditingController npiNumController = TextEditingController();
+  late Future<ManageDetails> _companyDetailsFuture;
 
   bool checkboxValue1 = false;
   bool checkboxValue2 = false;
@@ -41,15 +42,14 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   void initState() {
     super.initState();
     print(":::::OFFICE ID ${widget.officeId} + ${widget.companyId}");
-    companyDetailGetAll(context, 11, widget.officeId);
+    _companyDetailsFuture = companyDetailGetAll(context, widget.officeId);
   }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: FutureBuilder<ManageDetails>(
-          future: companyDetailGetAll(context, widget.companyId, widget.officeId),
+          future: _companyDetailsFuture,
           builder: (context, snapshot) {
-            //nameController = snapshot.data?.officeName as TextEditingController;
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: Padding(
@@ -70,15 +70,12 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: AppPadding.p20),
+                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
                       child: Row(
                         children: [
                           Text(
                             AppStringEM.details,
-                            style:
-                                CompanyIdentityManageHeadings.customTextStyle(
-                                    context),
+                            style: CompanyIdentityManageHeadings.customTextStyle(context),
                           ),
                         ],
                       ),
@@ -141,8 +138,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               const SizedBox(height: AppSize.s10),
                               SMTextFConst(
                                 controller: TextEditingController(
-                                    text: snapshot.data!.alternateNumber
-                                        .toString()),
+                                    text: snapshot.data!.alternateNumber.toString()),
                                 keyboardType: TextInputType.number,
                                 text: AppStringEM.alternatephone,
                               ),
@@ -161,15 +157,12 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
 
                     /// Office Services
                     Padding(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: AppPadding.p20),
+                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
                       child: Row(
                         children: [
                           Text(
                             AppStringEM.services,
-                            style:
-                                CompanyIdentityManageHeadings.customTextStyle(
-                                    context),
+                            style: CompanyIdentityManageHeadings.customTextStyle(context),
                           ),
                         ],
                       ),
@@ -223,12 +216,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                             child: Text('HCO Number  254612')),
                                         DropdownMenuItem(
                                             value: 'Medicare ID      MPID123',
-                                            child:
-                                                Text('Medicare ID  MPID123')),
+                                            child: Text('Medicare ID  MPID123')),
                                         DropdownMenuItem(
                                             value: 'NPI Number     1234567890',
-                                            child:
-                                                Text('NPI Number 1234567890')),
+                                            child: Text('NPI Number 1234567890')),
                                       ],
                                       onEditIconTap: () {
                                         showDialog(
@@ -236,12 +227,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           builder: (context) {
                                             return CIDetailsDropdownPopup(
                                                 onSavePressed: () {},
-                                                hcoNumController:
-                                                    hcoNumController,
-                                                medicareController:
-                                                    medicareController,
-                                                npiNumController:
-                                                    npiNumController);
+                                                hcoNumController: hcoNumController,
+                                                medicareController: medicareController,
+                                                npiNumController: npiNumController);
                                           },
                                         );
                                       })
@@ -272,12 +260,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                             child: Text('HCO Number  254612')),
                                         const DropdownMenuItem(
                                             value: 'Medicare ID      MPID123',
-                                            child:
-                                                Text('Medicare ID  MPID123')),
+                                            child: Text('Medicare ID  MPID123')),
                                         const DropdownMenuItem(
                                             value: 'NPI Number     1234567890',
-                                            child:
-                                                Text('NPI Number 1234567890')),
+                                            child: Text('NPI Number 1234567890')),
                                       ],
                                       onEditIconTap: () {
                                         showDialog(
@@ -285,24 +271,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           builder: (context) {
                                             return CIDetailsDropdownPopup(
                                                 onSavePressed: () {},
-                                                hcoNumController:
-                                                    hcoNumController,
-                                                medicareController:
-                                                    medicareController,
-                                                npiNumController:
-                                                    npiNumController);
-                                            //   AlertDialog(
-                                            //   title: Text('Edit Item'),
-                                            //   content: Text('Edit item functionality here'),
-                                            //   actions: [
-                                            //     TextButton(
-                                            //       onPressed: () {
-                                            //         Navigator.of(context).pop();
-                                            //       },
-                                            //       child: Text('Close'),
-                                            //     ),
-                                            //   ],
-                                            // );
+                                                hcoNumController: hcoNumController,
+                                                medicareController: medicareController,
+                                                npiNumController: npiNumController);
                                           },
                                         );
                                       })
@@ -338,12 +309,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                             child: Text('HCO Number  254612')),
                                         const DropdownMenuItem(
                                             value: 'Medicare ID      MPID123',
-                                            child:
-                                                Text('Medicare ID  MPID123')),
+                                            child: Text('Medicare ID  MPID123')),
                                         const DropdownMenuItem(
                                             value: 'NPI Number     1234567890',
-                                            child:
-                                                Text('NPI Number 1234567890')),
+                                            child: Text('NPI Number 1234567890')),
                                       ],
                                       onEditIconTap: () {
                                         showDialog(
@@ -351,12 +320,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           builder: (context) {
                                             return CIDetailsDropdownPopup(
                                                 onSavePressed: () {},
-                                                hcoNumController:
-                                                    hcoNumController,
-                                                medicareController:
-                                                    medicareController,
-                                                npiNumController:
-                                                    npiNumController);
+                                                hcoNumController: hcoNumController,
+                                                medicareController: medicareController,
+                                                npiNumController: npiNumController);
                                           },
                                         );
                                       })
@@ -387,12 +353,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                             child: Text('HCO Number  254612')),
                                         DropdownMenuItem(
                                             value: 'Medicare ID      MPID123',
-                                            child:
-                                                Text('Medicare ID  MPID123')),
+                                            child: Text('Medicare ID  MPID123')),
                                         DropdownMenuItem(
                                             value: 'NPI Number     1234567890',
-                                            child:
-                                                Text('NPI Number 1234567890')),
+                                            child: Text('NPI Number 1234567890')),
                                       ],
                                       onEditIconTap: () {
                                         showDialog(
@@ -400,12 +364,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           builder: (context) {
                                             return CIDetailsDropdownPopup(
                                                 onSavePressed: () {},
-                                                hcoNumController:
-                                                    hcoNumController,
-                                                medicareController:
-                                                    medicareController,
-                                                npiNumController:
-                                                    npiNumController);
+                                                hcoNumController: hcoNumController,
+                                                medicareController: medicareController,
+                                                npiNumController: npiNumController);
                                           },
                                         );
                                       })
@@ -418,22 +379,414 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     ),
                     SizedBox(height: 10,),
                     Row(
-                      mainAxisAlignment:MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                      CustomElevatedButton(
-                        width: AppSize.s105,
-                        height: AppSize.s30,
-                        text: AppStringEM.save, onPressed: () {  },
-                      )
-                    ],)
+                        CustomElevatedButton(
+                          width: AppSize.s105,
+                          height: AppSize.s30,
+                          text: AppStringEM.save, onPressed: () {},
+                        )
+                      ],
+                    )
                   ],
                 ),
               );
             } else {
               return const SizedBox();
             }
-          }),
+          }
+      ),
     );
+    //   SingleChildScrollView(
+    //   child: FutureBuilder<ManageDetails>(
+    //       future: companyDetailGetAll(context, widget.officeId),
+    //       builder: (context, snapshot) {
+    //         //nameController = snapshot.data?.officeName as TextEditingController;
+    //         if (snapshot.connectionState == ConnectionState.waiting) {
+    //           return Center(
+    //             child: Padding(
+    //               padding: const EdgeInsets.symmetric(vertical: 50),
+    //               child: CircularProgressIndicator(
+    //                 color: ColorManager.blueprime,
+    //               ),
+    //             ),
+    //           );
+    //         }
+    //         if (snapshot.hasData) {
+    //           return Padding(
+    //             padding: EdgeInsets.only(
+    //                 left: MediaQuery.of(context).size.width / 12.4,
+    //                 right: MediaQuery.of(context).size.width / 15),
+    //             child: Column(
+    //               crossAxisAlignment: CrossAxisAlignment.start,
+    //               mainAxisAlignment: MainAxisAlignment.center,
+    //               children: [
+    //                 Padding(
+    //                   padding:
+    //                       const EdgeInsets.symmetric(vertical: AppPadding.p20),
+    //                   child: Row(
+    //                     children: [
+    //                       Text(
+    //                         AppStringEM.details,
+    //                         style:
+    //                             CompanyIdentityManageHeadings.customTextStyle(
+    //                                 context),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //                 Container(
+    //                   height: AppSize.s250,
+    //                   decoration: BoxDecoration(
+    //                     borderRadius: BorderRadius.circular(16),
+    //                     border: Border.all(
+    //                       width: 2,
+    //                       color: ColorManager.black.withOpacity(0.2),
+    //                     ),
+    //                     boxShadow: [
+    //                       BoxShadow(
+    //                         color: ColorManager.black.withOpacity(0.15),
+    //                         offset: const Offset(0, 4),
+    //                         blurRadius: 4,
+    //                         spreadRadius: 0,
+    //                       ),
+    //                     ],
+    //                     color: ColorManager.white,
+    //                   ),
+    //                   child: Row(
+    //                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //                     children: [
+    //                       Column(
+    //                         mainAxisAlignment: MainAxisAlignment.center,
+    //                         children: [
+    //                           SMTextFConst(
+    //                             controller: TextEditingController(
+    //                                 text: snapshot.data!.officeName.toString()),
+    //                             keyboardType: TextInputType.text,
+    //                             text: AppStringEM.officename,
+    //                           ),
+    //                           const SizedBox(height: AppSize.s10),
+    //                           SMTextFConst(
+    //                             controller: TextEditingController(
+    //                                 text: snapshot.data!.secNumber.toString()),
+    //                             keyboardType: TextInputType.number,
+    //                             text: AppStringEM.secNum,
+    //                           ),
+    //                           const SizedBox(height: AppSize.s10),
+    //                           SMTextFConst(
+    //                             controller: TextEditingController(
+    //                                 text: snapshot.data!.address.toString()),
+    //                             keyboardType: TextInputType.text,
+    //                             text: AppStringEM.address,
+    //                           ),
+    //                         ],
+    //                       ),
+    //                       Column(
+    //                         mainAxisAlignment: MainAxisAlignment.center,
+    //                         children: [
+    //                           SMTextFConst(
+    //                             controller: TextEditingController(
+    //                                 text: snapshot.data!.priNumber.toString()),
+    //                             keyboardType: TextInputType.number,
+    //                             text: AppStringEM.primNum,
+    //                           ),
+    //                           const SizedBox(height: AppSize.s10),
+    //                           SMTextFConst(
+    //                             controller: TextEditingController(
+    //                                 text: snapshot.data!.alternateNumber
+    //                                     .toString()),
+    //                             keyboardType: TextInputType.number,
+    //                             text: AppStringEM.alternatephone,
+    //                           ),
+    //                           const SizedBox(height: AppSize.s10),
+    //                           SMTextFConst(
+    //                             controller: TextEditingController(
+    //                                 text: snapshot.data!.email.toString()),
+    //                             keyboardType: TextInputType.text,
+    //                             text: AppStringEM.primarymail,
+    //                           ),
+    //                         ],
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //
+    //                 /// Office Services
+    //                 Padding(
+    //                   padding:
+    //                       const EdgeInsets.symmetric(vertical: AppPadding.p20),
+    //                   child: Row(
+    //                     children: [
+    //                       Text(
+    //                         AppStringEM.services,
+    //                         style:
+    //                             CompanyIdentityManageHeadings.customTextStyle(
+    //                                 context),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //                 Container(
+    //                   height: AppSize.s181,
+    //                   decoration: BoxDecoration(
+    //                     borderRadius: BorderRadius.circular(16),
+    //                     border: Border.all(
+    //                       width: 2,
+    //                       color: ColorManager.black.withOpacity(0.2),
+    //                     ),
+    //                     boxShadow: [
+    //                       BoxShadow(
+    //                         color: ColorManager.black.withOpacity(0.15),
+    //                         offset: const Offset(0, 4),
+    //                         blurRadius: 4,
+    //                         spreadRadius: 0,
+    //                       ),
+    //                     ],
+    //                     color: ColorManager.white,
+    //                   ),
+    //                   child: Row(
+    //                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //                     children: [
+    //                       Column(
+    //                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //                         children: [
+    //                           Row(
+    //                             children: [
+    //                               CheckboxConstant(
+    //                                 value: checkboxValue1,
+    //                                 onChanged: (newValue) {
+    //                                   setState(() {
+    //                                     checkboxValue1 = newValue!;
+    //                                   });
+    //                                 },
+    //                                 text: '',
+    //                               ),
+    //                               const SizedBox(
+    //                                 width: 5,
+    //                               ),
+    //                               CIDetailsDropdown(
+    //                                   initialValue: 'Home Health',
+    //                                   items: const [
+    //                                     DropdownMenuItem(
+    //                                         value: 'Home Health',
+    //                                         child: Text('Home Health')),
+    //                                     DropdownMenuItem(
+    //                                         value: 'HCO Number      254612',
+    //                                         child: Text('HCO Number  254612')),
+    //                                     DropdownMenuItem(
+    //                                         value: 'Medicare ID      MPID123',
+    //                                         child:
+    //                                             Text('Medicare ID  MPID123')),
+    //                                     DropdownMenuItem(
+    //                                         value: 'NPI Number     1234567890',
+    //                                         child:
+    //                                             Text('NPI Number 1234567890')),
+    //                                   ],
+    //                                   onEditIconTap: () {
+    //                                     showDialog(
+    //                                       context: context,
+    //                                       builder: (context) {
+    //                                         return CIDetailsDropdownPopup(
+    //                                             onSavePressed: () {},
+    //                                             hcoNumController:
+    //                                                 hcoNumController,
+    //                                             medicareController:
+    //                                                 medicareController,
+    //                                             npiNumController:
+    //                                                 npiNumController);
+    //                                       },
+    //                                     );
+    //                                   })
+    //                             ],
+    //                           ),
+    //                           Row(
+    //                             children: [
+    //                               CheckboxConstant(
+    //                                 value: checkboxValue2,
+    //                                 onChanged: (newValue) {
+    //                                   setState(() {
+    //                                     checkboxValue2 = newValue!;
+    //                                   });
+    //                                 },
+    //                                 text: '',
+    //                               ),
+    //                               const SizedBox(
+    //                                 width: 5,
+    //                               ),
+    //                               CIDetailsDropdown(
+    //                                   initialValue: 'Home Care',
+    //                                   items: [
+    //                                     const DropdownMenuItem(
+    //                                         value: 'Home Care',
+    //                                         child: Text('Home Care')),
+    //                                     const DropdownMenuItem(
+    //                                         value: 'HCO Number      254612',
+    //                                         child: Text('HCO Number  254612')),
+    //                                     const DropdownMenuItem(
+    //                                         value: 'Medicare ID      MPID123',
+    //                                         child:
+    //                                             Text('Medicare ID  MPID123')),
+    //                                     const DropdownMenuItem(
+    //                                         value: 'NPI Number     1234567890',
+    //                                         child:
+    //                                             Text('NPI Number 1234567890')),
+    //                                   ],
+    //                                   onEditIconTap: () {
+    //                                     showDialog(
+    //                                       context: context,
+    //                                       builder: (context) {
+    //                                         return CIDetailsDropdownPopup(
+    //                                             onSavePressed: () {},
+    //                                             hcoNumController:
+    //                                                 hcoNumController,
+    //                                             medicareController:
+    //                                                 medicareController,
+    //                                             npiNumController:
+    //                                                 npiNumController);
+    //                                         //   AlertDialog(
+    //                                         //   title: Text('Edit Item'),
+    //                                         //   content: Text('Edit item functionality here'),
+    //                                         //   actions: [
+    //                                         //     TextButton(
+    //                                         //       onPressed: () {
+    //                                         //         Navigator.of(context).pop();
+    //                                         //       },
+    //                                         //       child: Text('Close'),
+    //                                         //     ),
+    //                                         //   ],
+    //                                         // );
+    //                                       },
+    //                                     );
+    //                                   })
+    //                             ],
+    //                           ),
+    //                         ],
+    //                       ),
+    //                       Column(
+    //                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //                         children: [
+    //                           Row(
+    //                             children: [
+    //                               CheckboxConstant(
+    //                                 value: checkboxValue3,
+    //                                 onChanged: (newValue) {
+    //                                   setState(() {
+    //                                     checkboxValue3 = newValue!;
+    //                                   });
+    //                                 },
+    //                                 text: '',
+    //                               ),
+    //                               const SizedBox(
+    //                                 width: 5,
+    //                               ),
+    //                               CIDetailsDropdown(
+    //                                   initialValue: 'Hospice',
+    //                                   items: [
+    //                                     const DropdownMenuItem(
+    //                                         value: 'Hospice',
+    //                                         child: Text('Hospice')),
+    //                                     const DropdownMenuItem(
+    //                                         value: 'HCO Number      254612',
+    //                                         child: Text('HCO Number  254612')),
+    //                                     const DropdownMenuItem(
+    //                                         value: 'Medicare ID      MPID123',
+    //                                         child:
+    //                                             Text('Medicare ID  MPID123')),
+    //                                     const DropdownMenuItem(
+    //                                         value: 'NPI Number     1234567890',
+    //                                         child:
+    //                                             Text('NPI Number 1234567890')),
+    //                                   ],
+    //                                   onEditIconTap: () {
+    //                                     showDialog(
+    //                                       context: context,
+    //                                       builder: (context) {
+    //                                         return CIDetailsDropdownPopup(
+    //                                             onSavePressed: () {},
+    //                                             hcoNumController:
+    //                                                 hcoNumController,
+    //                                             medicareController:
+    //                                                 medicareController,
+    //                                             npiNumController:
+    //                                                 npiNumController);
+    //                                       },
+    //                                     );
+    //                                   })
+    //                             ],
+    //                           ),
+    //                           Row(
+    //                             children: [
+    //                               CheckboxConstant(
+    //                                 value: checkboxValue4,
+    //                                 onChanged: (newValue) {
+    //                                   setState(() {
+    //                                     checkboxValue4 = newValue!;
+    //                                   });
+    //                                 },
+    //                                 text: '',
+    //                               ),
+    //                               const SizedBox(
+    //                                 width: 5,
+    //                               ),
+    //                               CIDetailsDropdown(
+    //                                   initialValue: 'Palliative Care',
+    //                                   items: const [
+    //                                     DropdownMenuItem(
+    //                                         value: 'Palliative Care',
+    //                                         child: Text('Palliative Care')),
+    //                                     DropdownMenuItem(
+    //                                         value: 'HCO Number      254612',
+    //                                         child: Text('HCO Number  254612')),
+    //                                     DropdownMenuItem(
+    //                                         value: 'Medicare ID      MPID123',
+    //                                         child:
+    //                                             Text('Medicare ID  MPID123')),
+    //                                     DropdownMenuItem(
+    //                                         value: 'NPI Number     1234567890',
+    //                                         child:
+    //                                             Text('NPI Number 1234567890')),
+    //                                   ],
+    //                                   onEditIconTap: () {
+    //                                     showDialog(
+    //                                       context: context,
+    //                                       builder: (context) {
+    //                                         return CIDetailsDropdownPopup(
+    //                                             onSavePressed: () {},
+    //                                             hcoNumController:
+    //                                                 hcoNumController,
+    //                                             medicareController:
+    //                                                 medicareController,
+    //                                             npiNumController:
+    //                                                 npiNumController);
+    //                                       },
+    //                                     );
+    //                                   })
+    //                             ],
+    //                           ),
+    //                         ],
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //                 SizedBox(height: 10,),
+    //                 Row(
+    //                   mainAxisAlignment:MainAxisAlignment.center,
+    //                   crossAxisAlignment: CrossAxisAlignment.center,
+    //                   children: [
+    //                   CustomElevatedButton(
+    //                     width: AppSize.s105,
+    //                     height: AppSize.s30,
+    //                     text: AppStringEM.save, onPressed: () {  },
+    //                   )
+    //                 ],)
+    //               ],
+    //             ),
+    //           );
+    //         } else {
+    //           return const SizedBox();
+    //         }
+    //       }),
+    // );
   }
 }

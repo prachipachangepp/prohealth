@@ -105,6 +105,8 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
             text: AppString.addemployeetype,
             icon: Icons.add,
             onPressed: () {
+              typeController.clear();
+              shorthandController.clear();
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
