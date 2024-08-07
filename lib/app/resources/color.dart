@@ -31,6 +31,7 @@ class ColorManager {
   static Color greenDark = Color(0xff008000);
   static Color greenF = Color(0xff52A889);
   static Color green = Color(0xffB4DB4C);
+  static Color tangerine = Color(0xffFEBD4D);
   static Color orange = Color(0xffF2451C);
   static Color white = HexColor.fromHex('#FFFFFF');
   static Color black = Color(0xff000000);

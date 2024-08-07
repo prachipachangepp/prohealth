@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/search_clinician_pop_up.dart';
@@ -38,7 +39,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: AppSize.s20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -70,7 +71,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                           height: 75.0,
                           width: 80.0,
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: AppSize.s20),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -80,7 +81,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 decoration: TextDecoration.none,
                                 fontWeight: FontWeightManager.bold,
                                 fontSize: FontSize.s14,
-                                color: Colors.black,
+                                color: ColorManager.black,
                               ),
                             ),
                           ],
@@ -89,7 +90,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: AppSize.s20),
                 GestureDetector(
                   onTap: (){
                     showDialog(
@@ -128,7 +129,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 decoration: TextDecoration.none,
                                 fontWeight: FontWeightManager.bold,
                                 fontSize: FontSize.s14,
-                                color: Colors.black,
+                                color: ColorManager.black,
                               ),
                             ),
                           ],
@@ -139,7 +140,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 30),
+            SizedBox(height:AppSize.s30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -149,17 +150,14 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   child: ElevatedButton(
                     onPressed: () {
 
-
-
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: ColorManager.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
-                    child: Text(
-                      'Cancel',
+                    child: Text(AppString.cancel,
                       style: TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
@@ -168,7 +166,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: AppSize.s20),
                 SizedBox(
                   width: 162.0,
                   height: 37.0,
@@ -177,26 +175,25 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => SmProfileBar()));
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff51B5E6),
-                      shadowColor: Color(0xff000000),
+                      backgroundColor: ColorManager.blueprime,
+                      shadowColor: ColorManager.black,
                       elevation: 5.0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
-                    child: Text(
-                      'Create',
+                    child: Text(AppString.create,
                       style: TextStyle(
                         fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
-                        color: Colors.white,
+                        color: ColorManager.white,
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 40),
+            SizedBox(height: AppSize.s40),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -205,7 +202,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   width: MediaQuery.of(context).size.width / 3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: Colors.white,
+                    color: ColorManager.white,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.25),
@@ -218,9 +215,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   child: Column(
                     children: [
                       Container(
-                        height: 37,
+                        height: AppSize.s37,
                         decoration: BoxDecoration(
-                          color: Color(0xff50B5E5),
+                          color: ColorManager.blueprime,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20.0),
                             topRight: Radius.circular(20.0),
@@ -239,7 +236,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                       decoration: TextDecoration.none,
                                       fontWeight: FontWeightManager.bold,
                                       fontSize: FontSize.s14,
-                                      color: Colors.white,
+                                      color: ColorManager.white,
                                     ),
                                   ),
                                 ),
@@ -251,7 +248,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                       decoration: TextDecoration.none,
                                       fontWeight: FontWeightManager.bold,
                                       fontSize: FontSize.s14,
-                                      color: Colors.white,
+                                      color: ColorManager.white,
                                     ),
                                   ),
                                 ),
@@ -261,7 +258,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: AppSize.s20),
                       Padding(
                         padding: const EdgeInsets.only(left: 20.0),
                         child: Column(
@@ -272,7 +269,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 CircleAvatar(
                                   child: Image.asset('images/1.png'),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: AppSize.s10),
                                 Text(
                                   'Robert Langdon',
                                   style: GoogleFonts.firaSans(
@@ -295,10 +292,10 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(right: 30.0),
                                   child: Container(
-                                    height: 24.0,
-                                    width: 26.0,
+                                    height: AppSize.s24,
+                                    width: AppSize.s26,
                                     decoration: BoxDecoration(
-                                      color: Color(0xffFEBD4D),
+                                      color: ColorManager.tangerine,
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black.withOpacity(0.25),
@@ -315,7 +312,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                           decoration: TextDecoration.none,
                                           fontWeight: FontWeightManager.medium,
                                           fontSize: MediaQuery.of(context).size.width * 0.008,
-                                          color: Colors.white,
+                                          color: ColorManager.white,
                                         ),
                                       ),
                                     ),
@@ -323,13 +320,13 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 )
                               ],
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height: AppSize.s15),
                             Row(
                               children: [
                                 CircleAvatar(
                                   child: Image.asset('images/2.png'),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: AppSize.s10),
                                 Text(
                                   'James Smith',
                                   style: GoogleFonts.firaSans(
@@ -355,7 +352,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                     height: 24.0,
                                     width: 26.0,
                                     decoration: BoxDecoration(
-                                      color: Color(0xffFEBD4D),
+                                      color: ColorManager.tangerine,
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black.withOpacity(0.25),
@@ -372,7 +369,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                           decoration: TextDecoration.none,
                                           fontWeight: FontWeightManager.medium,
                                           fontSize: MediaQuery.of(context).size.width * 0.008,
-                                          color: Colors.white,
+                                          color: ColorManager.white,
                                         ),
                                       ),
                                     ),
@@ -380,7 +377,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 )
                               ],
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height: AppSize.s15),
                             Row(
                               children: [
                                 CircleAvatar(
@@ -412,7 +409,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                     height: 24.0,
                                     width: 26.0,
                                     decoration: BoxDecoration(
-                                      color: Color(0xffFEBD4D),
+                                      color: ColorManager.tangerine,
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black.withOpacity(0.25),
@@ -429,7 +426,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                           decoration: TextDecoration.none,
                                           fontWeight: FontWeightManager.medium,
                                           fontSize: MediaQuery.of(context).size.width * 0.008,
-                                          color: Colors.white,
+                                          color: ColorManager.white,
                                         ),
                                       ),
                                     ),
@@ -443,13 +440,13 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                     ],
                   ),
                 ),
-                SizedBox(width: 30),
+                SizedBox(width: AppSize.s30),
                 Container(
                   height: 227.0,
                   width: MediaQuery.of(context).size.width / 3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: Colors.white,
+                    color: ColorManager.white,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.25),
@@ -463,9 +460,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
-                        height: 37,
+                        height: AppSize.s37,
                         decoration: BoxDecoration(
-                          color: Color(0xff50B5E5),
+                          color: ColorManager.blueprime,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20.0),
                             topRight: Radius.circular(20.0),
@@ -481,16 +478,16 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   decoration: TextDecoration.none,
                                   fontWeight: FontWeightManager.bold,
                                   fontSize: FontSize.s14,
-                                  color: Colors.white,
+                                  color: ColorManager.white,
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height:  AppSize.s20),
                       Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
+                        padding:  EdgeInsets.only(left: 20.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -499,7 +496,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 CircleAvatar(
                                   child: Image.asset('images/5.png'),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width:  AppSize.s10),
                                 Text(
                                   'James Smith',
                                   style: GoogleFonts.firaSans(
@@ -511,13 +508,13 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height:  AppSize.s15),
                             Row(
                               children: [
                                 CircleAvatar(
                                   child: Image.asset('images/6.png'),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width:  AppSize.s10),
                                 Text(
                                   'Michael Jackson',
                                   style: GoogleFonts.firaSans(
@@ -529,13 +526,13 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height: AppSize.s15),
                             Row(
                               children: [
                                 CircleAvatar(
                                   child: Image.asset('images/1.png'),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: AppSize.s10),
                                 Text(
                                   'Ross Geller',
                                   style: GoogleFonts.firaSans(
@@ -550,12 +547,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                           ],
                         ),
                       )
-
                     ],
                   ),
-
                 ),
-
               ],
             ),
           ],

@@ -253,13 +253,10 @@
 //   }
 // }
 
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
@@ -381,48 +378,46 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                 children: [
                   Row(
                     children: [
-                      Expanded(
-                        child: Container(
-                          height: 25,
-                          width: 598,
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Search for a clinician',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.regular,
-                                color: ColorManager.greylight,
+                      Container(
+                        height: 25,
+                        width: 598,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Search for a clinican',
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: FontSize.s10,
+                              fontWeight: FontWeightManager.regular,
+                              color: ColorManager.greylight,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(
+                                color: ColorManager.containerBorderGrey,
+                                width: 1.0,
                               ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                                borderSide: BorderSide(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1.0,
-                                ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(
+                                color: ColorManager.containerBorderGrey,
+                                width: 1.0,
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                                borderSide: BorderSide(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1.0,
-                                ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(
+                                color: ColorManager.containerBorderGrey,
+                                width: 1.0,
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                                borderSide: BorderSide(
-                                  color: ColorManager.containerBorderGrey,
-                                  width: 1.0,
-                                ),
-                              ),
-                              suffixIcon: Icon(
-                                Icons.search,
-                                color: Colors.grey,
-                              ),
+                            ),
+                            suffixIcon: Icon(
+                              Icons.search,
+                              color: Colors.grey,
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: AppSize.s23),
                       ElevatedButton(
                         onPressed: () {},
                         child: Text(
@@ -434,7 +429,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                             horizontal: 20,
                             vertical: 10,
                           ),
@@ -447,67 +442,105 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSize.s26),
                   Container(
                     height: 29,
-                    width: 1211,
                     decoration: BoxDecoration(
                       color: ColorManager.granitegray,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Flexible(
+                        Expanded(
                           flex: 1,
-                          child: Center(
-                            child: Text(
-                              'Sr.No.',
-                              style: AllHRTableHeading.customTextStyle(context),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Sr.No.',
+                                style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        Flexible(
+                        Expanded(
                           flex: 1,
-                          child: Center(
-                            child: Text(
-                              'Type',
-                              style: AllHRTableHeading.customTextStyle(context),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                AppString.type,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        Flexible(
+                        Expanded(
                           flex: 3,
-                          child: Center(
-                            child: Text(
-                              AppString.name,
-                              style: AllHRTableHeading.customTextStyle(context),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                AppString.name,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        Flexible(
+                        Expanded(
                           flex: 4,
-                          child: Center(
-                            child: Text(
-                              'Location',
-                              style: AllHRTableHeading.customTextStyle(context),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                AppString.location,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        Flexible(
+                        Expanded(
                           flex: 2,
-                          child: Center(
-                            child: Text(
-                              'Specialisation',
-                              style: AllHRTableHeading.customTextStyle(context),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                AppString.specialisation,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.white,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 9),
-                  Flexible(
+                  SizedBox(height: AppSize.s9),
+                  Expanded(
                     child: ListView.builder(
                       itemCount: clinicians.length,
                       itemBuilder: (context, index) {
@@ -520,65 +553,85 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                             children: [
                               Expanded(
                                 flex: 1,
-                                child: Center(
-                                  child: Text(
-                                    clinicians[index]['srNo']!,
-                                    style: TextStyle(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
-                                      color: ColorManager.darkgray,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      clinicians[index]['srNo']!,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s10,
+                                        fontWeight: FontWeightManager.medium,
+                                        color: ColorManager.darkgray,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Flexible(
+                              Expanded(
                                 flex: 1,
-                                child: Center(
-                                  child: Text(
-                                    clinicians[index]['type']!,
-                                    style: TextStyle(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
-                                      color: ColorManager.darkgray,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      clinicians[index]['type']!,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s10,
+                                        fontWeight: FontWeightManager.medium,
+                                        color: ColorManager.darkgray,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Flexible(
+                              Expanded(
                                 flex: 3,
-                                child: Center(
-                                  child: Text(
-                                    clinicians[index]['name']!,
-                                    style: TextStyle(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
-                                      color: ColorManager.darkgray,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      clinicians[index]['name']!,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s10,
+                                        fontWeight: FontWeightManager.medium,
+                                        color: ColorManager.darkgray,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Flexible(
+                              Expanded(
                                 flex: 4,
-                                child: Center(
-                                  child: Text(
-                                    clinicians[index]['location']!,
-                                    style: TextStyle(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
-                                      color: ColorManager.darkgray,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      clinicians[index]['location']!,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s10,
+                                        fontWeight: FontWeightManager.medium,
+                                        color: ColorManager.darkgray,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Flexible(
+                              Expanded(
                                 flex: 2,
-                                child: Center(
-                                  child: Text(
-                                    clinicians[index]['specialisation']!,
-                                    style: TextStyle(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
-                                      color: ColorManager.darkgray,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      clinicians[index]['specialisation']!,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s10,
+                                        fontWeight: FontWeightManager.medium,
+                                        color: ColorManager.darkgray,
+                                      ),
                                     ),
                                   ),
                                 ),
