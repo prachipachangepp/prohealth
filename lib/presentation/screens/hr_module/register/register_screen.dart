@@ -388,7 +388,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       data.status == 'Notopen'
       ? const Text('') : InkWell(onTap: (){
-        _copyToClipboard(data.link!);
+        _copyToClipboard("https://staging.symmetry.care/#/onBordingWelcome");
                       },child: Icon(Icons.copy,size: 15,color: ColorManager.mediumgrey,)),
                     ],
                   ),
