@@ -243,7 +243,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                       ElevatedButton(
                                                         onPressed: () async {
                                                           await rejectOnboardQualifyReferencePatch(context, snapshot.data![index].referenceId);
-                                                            getOnboardingQualificationReference(context, 5,'no').then((data){
+                                                            getOnboardingQualificationReference(context, widget.employeeId,'no').then((data){
                                                               referenceStreamController.add(data);
                                                             }).catchError((error){});
                                                           Navigator.of(context).pop();
@@ -377,7 +377,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         await approveOnboardQualifyReferencePatch(context, snapshot.data![index].referenceId);
-                                                        getOnboardingQualificationReference(context, 5,'no').then((data){
+                                                        getOnboardingQualificationReference(context, widget.employeeId,'no').then((data){
                                                           referenceStreamController.add(data);
                                                         }).catchError((error){});
                                                         Navigator.of(context).pop();

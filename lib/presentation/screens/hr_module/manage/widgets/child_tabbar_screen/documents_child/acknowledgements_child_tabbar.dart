@@ -36,7 +36,11 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
   @override
   void initState() {
     super.initState();
-
+    getAckHealthRecord(context, 10, 48, widget.employeeId,"no").then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
 
   @override
@@ -127,11 +131,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (context, snapshot) {
-            getAckHealthRecord(context, 10, 48, widget.employeeId,"no").then((data) {
-              _controller.add(data);
-            }).catchError((error) {
-              // Handle error
-            });
+
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(
@@ -180,6 +180,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                   children: List.generate(snapshot.data!.length, (index) {
                     final data = snapshot.data![index];
                     final fileUrl = data.DocumentUrl;
+                    // var decodedImage = AppFilePickerBase64.getDecodeBase64(fetchedUrl: fileUrl);
+                    // print("Decoded Doc ${decodedImage}");
                     // try{
                     //   // var keyGenerate =  AppFilePickerBase64.mainFun(keyUrl:fileUrl);
                     //   // print("Generated file ::: ${keyGenerate.toString()}");

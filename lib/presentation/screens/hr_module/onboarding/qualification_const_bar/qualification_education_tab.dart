@@ -247,7 +247,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                                                       ElevatedButton(
                                                         onPressed: () async {
                                                           await rejectOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
-                                                          getOnboardingQualificationEducation(context, 2,'no').then((data){
+                                                          getOnboardingQualificationEducation(context, widget.employeeId,'no').then((data){
                                                             educationStreamController.add(data);
                                                           }).catchError((error){});
                                                           Navigator.of(context).pop();
@@ -374,7 +374,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         await approveOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
-                                                        getOnboardingQualificationEducation(context, 2,'no').then((data){
+                                                        getOnboardingQualificationEducation(context, widget.employeeId,'no').then((data){
                                                           educationStreamController.add(data);
                                                         }).catchError((error){});
                                                         Navigator.of(context).pop();
