@@ -20,7 +20,7 @@ import '../../../taxtfield_constant.dart';
 ///
 class Employment_screen extends StatefulWidget {
   final int employeeID;
-   Employment_screen({
+   const Employment_screen({
     super.key,
     required this.context, required this.employeeID,
   });
@@ -76,23 +76,23 @@ class _Employment_screenState extends State<Employment_screen> {
       employmentFormKeys.remove(key);
     });
   }
-
-  Future<void> postEmploymentScreenData(
-      BuildContext context,
-      int id,
-      String employer,
-      String city,
-      String reasonForLeaving,
-      String supervisorName,
-      String supervisorMobileNumber,
-      String finalPosition,
-      String startDate,
-      String endDate,
-      ) async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Employment data saved")),
-    );
-  }
+  //
+  // Future<void> postEmploymentScreenData(
+  //     BuildContext context,
+  //     int employeeId,
+  //     String employer,
+  //     String city,
+  //     String reasonForLeaving,
+  //     String supervisorName,
+  //     String supervisorMobileNumber,
+  //     String finalPosition,
+  //     String startDate,
+  //     String endDate,
+  //     ) async {
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //      const SnackBar(content: Text("Employment data saved")),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +173,7 @@ class _Employment_screenState extends State<Employment_screen> {
                 width: 117,
                 height: 30,
                 text: 'Save',
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'FiraSans',
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
@@ -182,7 +182,7 @@ class _Employment_screenState extends State<Employment_screen> {
                 onPressed: () async {
                   for (var key in employmentFormKeys) {
                     final state = key.currentState!;
-                    await postEmploymentScreenData(
+                    await postemploymentscreen(
                       context,
                       state.widget.employeeID,
                       state.employerController.text,
