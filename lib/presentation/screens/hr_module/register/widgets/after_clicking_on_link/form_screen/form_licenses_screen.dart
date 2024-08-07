@@ -7,9 +7,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_licenses_manager.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
@@ -17,7 +21,8 @@ class LicensesScreen extends StatefulWidget {
   final int employeeID;
   const LicensesScreen({
     super.key,
-    required this.context, required this.employeeID,
+    required this.context,
+    required this.employeeID,
   });
 
   final BuildContext context;
@@ -183,7 +188,8 @@ class _LicensesScreenState extends State<LicensesScreen> {
             return licensesForm(
               key: key,
               index: index + 1,
-              onRemove: () => removeEduacationForm(key),employeeID:widget.employeeID,
+              onRemove: () => removeEduacationForm(key),
+              employeeID: widget.employeeID,
             );
           }).toList(),
         ),
@@ -242,11 +248,11 @@ class _LicensesScreenState extends State<LicensesScreen> {
                       st.org.text,
                       "__");
 
-
                   if (st.finalPath == null || st.finalPath.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('No file selected. Please select a file to upload.'),
+                        content: Text(
+                            'No file selected. Please select a file to upload.'),
                         backgroundColor: Colors.red,
                       ),
                     );
@@ -299,7 +305,11 @@ class licensesForm extends StatefulWidget {
   final int employeeID;
   final VoidCallback onRemove;
   final int index;
-  const licensesForm({Key? key, required this.onRemove, required this.index, required this.employeeID})
+  const licensesForm(
+      {Key? key,
+      required this.onRemove,
+      required this.index,
+      required this.employeeID})
       : super(key: key);
 
   @override
@@ -346,7 +356,6 @@ class _licensesFormState extends State<licensesForm> {
     }
   }
 
-
   Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
     final blob = html.Blob([bytes]);
     final url = html.Url.createObjectUrlFromBlob(blob);
@@ -361,333 +370,426 @@ class _licensesFormState extends State<licensesForm> {
   File? xfileToFile;
   var finalPath;
 
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 166.0, right: 166),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Licensure / Certification #${widget.index}',
-              style: GoogleFonts.firaSans(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xff686464)),
-            ),
-            IconButton(
-              icon: Icon(Icons.remove_circle, color: Colors.red),
-              onPressed: widget.onRemove,
-            ),
-          ],
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height / 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Licensure / Certification',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  CustomTextFieldRegister(
-                    controller: licensure,
-                    hintText: 'Enter Text',
-                    hintStyle: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff9B9B9B),
-                    ),
-                    height: 32,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 40),
-                  Text(
-                    'Issuing Organization',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  CustomTextFieldRegister(
-                    controller: org,
-                    hintText: 'Enter Text',
-                    hintStyle: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff9B9B9B),
-                    ),
-                    height: 32,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 30),
-                  Text(
-                    'Country',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff686464),
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  Container(
-                    height: 32,
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                        //hintText: 'Select Country',
-                        hintStyle: GoogleFonts.firaSans(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Licensure / Certification #${widget.index}',
+                style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff686464)),
+              ),
+              IconButton(
+                icon: Icon(Icons.remove_circle, color: Colors.red),
+                onPressed: widget.onRemove,
+              ),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Licensure / Certification',
+                      style: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          color: Color(0xff686464)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: licensure,
+                      hintText: 'Enter Text',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
                       ),
-                      value: selectedCountry,
-                      icon:
-                          Icon(Icons.arrow_drop_down, color: Color(0xff9B9B9B)),
-                      iconSize: 24,
-                      elevation: 16,
+                      height: 32,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 40),
+                    Text(
+                      'Issuing Organization',
+                      style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: org,
+                      hintText: 'Enter Text',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'Country',
                       style: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
                         color: Color(0xff686464),
                       ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedCountry = newValue;
-                        });
-                      },
-                      items: <String>[
-                        'Country1',
-                        'Country2',
-                        'Country3',
-                        'Country4'
-                      ] // List of countries
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
                     ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 30),
-                  Text(
-                    'Number / ID',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  CustomTextFieldRegister(
-                    controller: licensurenumber,
-                    hintText: 'Enter Text',
-                    hintStyle: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff9B9B9B),
-                    ),
-                    height: 32,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: MediaQuery.of(context).size.width / 15),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    FutureBuilder<List<AEClinicalReportingOffice>>(
+                      future: HrAddEmplyClinicalReportingOfficeApi(context, 11),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 7),
+                              child: Container(
+                                width: AppSize.s250,
+                                height: AppSize.s40,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.faintGrey),
+                              ),
+                            ),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          List<String> dropDownList = [];
+                          for (var i in snapshot.data!) {
+                            if (i.name != null) {
+                              dropDownList.add(i.name!);
+                              //print("Country: $ctlrCountry");
+                            }
+                          }
+                          return SizedBox(
+                            height: 32,
+                            child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                // hintText: 'Select Clinician',
+                                hintStyle: GoogleFonts.firaSans(
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff9B9B9B),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    //   //  vertical: 5,
+                                    horizontal: 12),
+                              ),
+                              // value: selectedCountry,
+                              icon: Icon(Icons.arrow_drop_down,
+                                  color: Color(0xff9B9B9B)),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xff686464),
+                              ),
 
-                children: [
-                  Text(
-                    'Issue Date',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 100),
-                  CustomTextFieldRegister(
-                    controller: _controllerIssueDate,
-                    hintText: 'dd-mm-yyyy',
-                    hintStyle: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff9B9B9B),
-                    ),
-                    height: 32,
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        Icons.calendar_month_outlined,
-                        color: Color(0xff50B5E5),
-                        size: 16,
-                      ),
-                      onPressed: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2101),
-                        );
-                        if (pickedDate != null) {
-                          String formattedDate =
-                              DateFormat('dd/MM/yyyy').format(pickedDate);
-                          _controllerIssueDate.text = formattedDate;
+                              onChanged: (newValue) {
+                                for (var a in snapshot.data!) {
+                                  if (a.name == newValue) {
+                                    selectedCountry =a.name!;
+                                    //country = a
+                                    // int? docType = a.companyOfficeID;
+                                  }
+                                }
+                              },
+                              items: dropDownList.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: Color(0xff575757),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        } else {
+                          return const Offstage();
                         }
                       },
                     ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 100),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'If the licensure / certification will be recieved in future, enter the expected issuing date',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff686464)),
+
+                    // Container(
+                    //   height: 32,
+                    //   child: DropdownButtonFormField<String>(
+                    //     decoration: InputDecoration(
+                    //       //hintText: 'Select Country',
+                    //       hintStyle: GoogleFonts.firaSans(
+                    //         fontSize: 10.0,
+                    //         fontWeight: FontWeight.w400,
+                    //         color: Color(0xff9B9B9B),
+                    //       ),
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(4.0),
+                    //         borderSide: BorderSide(color: Colors.grey),
+                    //       ),
+                    //       contentPadding:
+                    //           EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    //     ),
+                    //     value: selectedCountry,
+                    //     icon:
+                    //         Icon(Icons.arrow_drop_down, color: Color(0xff9B9B9B)),
+                    //     iconSize: 24,
+                    //     elevation: 16,
+                    //     style: GoogleFonts.firaSans(
+                    //       fontSize: 10.0,
+                    //       fontWeight: FontWeight.w400,
+                    //       color: Color(0xff686464),
+                    //     ),
+                    //     onChanged: (String? newValue) {
+                    //       setState(() {
+                    //         selectedCountry = newValue;
+                    //       });
+                    //     },
+                    //     items: <String>[
+                    //       'Country1',
+                    //       'Country2',
+                    //       'Country3',
+                    //       'Country4'
+                    //     ] // List of countries
+                    //         .map<DropdownMenuItem<String>>((String value) {
+                    //       return DropdownMenuItem<String>(
+                    //         value: value,
+                    //         child: Text(value),
+                    //       );
+                    //     }).toList(),
+                    //   ),
+                    // ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'Number / ID',
+                      style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: licensurenumber,
+                      hintText: 'Enter Text',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width / 15),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Issue Date',
+                      style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    CustomTextFieldRegister(
+                      controller: _controllerIssueDate,
+                      hintText: 'dd-mm-yyyy',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          Icons.calendar_month_outlined,
+                          color: Color(0xff50B5E5),
+                          size: 16,
                         ),
+                        onPressed: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2101),
+                          );
+                          if (pickedDate != null) {
+                            String formattedDate =
+                                DateFormat('dd/MM/yyyy').format(pickedDate);
+                            _controllerIssueDate.text = formattedDate;
+                          }
+                        },
                       ),
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 100),
-                  Text(
-                    'Expiration Date',
-                    style: GoogleFonts.firaSans(
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'If the licensure / certification will be recieved in future, enter the expected issuing date',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff686464)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    Text(
+                      'Expiration Date',
+                      style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    CustomTextFieldRegister(
+                      controller: _controllerExpirationDate,
+                      hintText: 'dd-mm-yyyy',
+                      hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 100),
-                  CustomTextFieldRegister(
-                    controller: _controllerExpirationDate,
-                    hintText: 'dd-mm-yyyy',
-                    hintStyle: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff9B9B9B),
-                    ),
-                    height: 32,
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        Icons.calendar_month_outlined,
-                        color: Color(0xff50B5E5),
-                        size: 16,
+                        color: Color(0xff9B9B9B),
                       ),
-                      onPressed: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2101),
-                        );
-                        if (pickedDate != null) {
-                          String formattedDate =
-                              DateFormat('dd/MM/yyyy').format(pickedDate);
-                          _controllerExpirationDate.text = formattedDate;
-                        }
-                      },
+                      height: 32,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          Icons.calendar_month_outlined,
+                          color: Color(0xff50B5E5),
+                          size: 16,
+                        ),
+                        onPressed: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2101),
+                          );
+                          if (pickedDate != null) {
+                            String formattedDate =
+                                DateFormat('dd/MM/yyyy').format(pickedDate);
+                            _controllerExpirationDate.text = formattedDate;
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 150)
-                ],
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height / 20),
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                'Upload your degree / certifications as a docx or pdf',
-                style: GoogleFonts.firaSans(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff686464)),
-              ),
-            ),
-            SizedBox(width: MediaQuery.of(context).size.width / 5),
-            ElevatedButton.icon(
-              onPressed: () async {
-                FilePickerResult? result = await FilePicker.platform.pickFiles();
-                if (result != null) {
-                  try {
-                    Uint8List? bytes = result.files.first.bytes;
-                    XFile xFile = await convertBytesToXFile(bytes!, result.files.first.name);
-                    finalPath = result.files.first.bytes;
-                    setState(() {
-                      _fileNames.addAll(result.files.map((file) => file.name!));
-                      _loading = false;
-                    });
-                  } catch (e) {
-                    print(e);
-                  }
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff50B5E5),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                    SizedBox(height: 150)
+                  ],
                 ),
               ),
-              icon: Icon(Icons.upload, color: Colors.white),
-              label: Text(
-                'Upload File',
-                style: GoogleFonts.firaSans(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            _loading
-                ? SizedBox(
-              width: 25,
-              height: 25,
-              child: CircularProgressIndicator(
-                color: ColorManager.blueprime, // Loader color
-                // Loader size
-              ),
-            )
-                : _fileNames.isNotEmpty
-                ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: _fileNames
-                  .map((fileName) => Padding(
-                padding: const EdgeInsets.all(8.0),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            children: [
+              Expanded(
                 child: Text(
-                  'File picked: $fileName',
+                  'Upload your degree / certifications as a docx or pdf',
                   style: GoogleFonts.firaSans(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500,
                       color: Color(0xff686464)),
                 ),
-              ))
-                  .toList(),
-            )
-                : SizedBox(),
-          ],
-        ),
-
-        const Divider(color: Colors.grey,thickness: 2,),
-      ],),
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width / 5),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  FilePickerResult? result =
+                      await FilePicker.platform.pickFiles();
+                  if (result != null) {
+                    try {
+                      Uint8List? bytes = result.files.first.bytes;
+                      XFile xFile = await convertBytesToXFile(
+                          bytes!, result.files.first.name);
+                      finalPath = result.files.first.bytes;
+                      setState(() {
+                        _fileNames
+                            .addAll(result.files.map((file) => file.name!));
+                        _loading = false;
+                      });
+                    } catch (e) {
+                      print(e);
+                    }
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff50B5E5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                icon: Icon(Icons.upload, color: Colors.white),
+                label: Text(
+                  'Upload File',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              _loading
+                  ? SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime, // Loader color
+                        // Loader size
+                      ),
+                    )
+                  : _fileNames.isNotEmpty
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: _fileNames
+                              .map((fileName) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'File picked: $fileName',
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                  ))
+                              .toList(),
+                        )
+                      : SizedBox(),
+            ],
+          ),
+          const Divider(
+            color: Colors.grey,
+            thickness: 2,
+          ),
+        ],
+      ),
     );
   }
 }
