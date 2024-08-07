@@ -171,8 +171,9 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                     ? totalItems
                     : (currentPage * itemsPerPage),
               );
-              return WrapWidget(
-                  childern:List.generate(snapshot.data!.length, (index){
+              return Wrap(
+                spacing: 10,
+                  children:List.generate(snapshot.data!.length, (index){
                     int serialNumber =
                         index + 1 + (currentPage - 1) * itemsPerPage;
                     String formattedSerialNumber =

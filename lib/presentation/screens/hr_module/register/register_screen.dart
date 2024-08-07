@@ -363,7 +363,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:50308/#/onBordingWelcome";
+                          const url = "http://localhost:60614/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                             await launch(url);
@@ -387,7 +387,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       data.status == 'Notopen'
-      ? const Text('') : InkWell(onTap: (){
+                          ? const Text('')
+                          : InkWell(onTap: (){
         _copyToClipboard(data.link!);
                       },child: Icon(Icons.copy,size: 15,color: ColorManager.mediumgrey,)),
                     ],
@@ -442,6 +443,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   )
                       : const SizedBox(width: 10),
+                  data.status == 'Completed'
+                      ? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [Container(
+                      width: AppSize.s100,
+                      margin: const EdgeInsets.only(right: AppMargin.m30),
+                      child: CustomIconButtonConst(
+                        text: 'Onboard',
+                        onPressed: () {  },),
+                    )],
+                  ) : const SizedBox(width: 10)
                 ],
               ),
             ),

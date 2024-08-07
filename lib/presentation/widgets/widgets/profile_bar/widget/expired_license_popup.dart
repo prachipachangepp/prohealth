@@ -22,7 +22,7 @@ class _ExpiredLicensePopupState extends State<ExpiredLicensePopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s650,
-        height: AppSize.s600,
+        height: AppSize.s480,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),

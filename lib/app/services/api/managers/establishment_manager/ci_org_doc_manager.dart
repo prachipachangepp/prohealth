@@ -125,7 +125,7 @@ Future<ApiData> updateCorporateDocumentPost({
           "expiry_date": expiryDate,
           "expiry_reminder": expiryReminder,
           "company_id": companyId,
-          "office_id": officeId
+          "office_id": officeId,
         });
     print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {

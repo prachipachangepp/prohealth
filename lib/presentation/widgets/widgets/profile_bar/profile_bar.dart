@@ -610,7 +610,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                               final expiredLicenses = snapshot.data!['Expired']!;
                                               //final inactiveLicenses = snapshot.data!['Inactive']!;
                                               return Container(
-                                                height: MediaQuery.of(context).size.height/1.6,
+                                                height: MediaQuery.of(context).size.height/2,
                                                 child:
                                                 ListView.builder(
                                                     scrollDirection: Axis.vertical,
@@ -627,7 +627,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                         children: [
                                                           // SizedBox(height: 5),
                                                           Padding(
-                                                            padding: const EdgeInsets.all(8.0),
+                                                            padding: const EdgeInsets.all(5),
                                                             child: Container(
                                                                 decoration: BoxDecoration(
                                                                   color: Colors.white,
@@ -814,7 +814,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                 final aboutToExpiredLicenses = snapshot.data!['About to Expire']!;
                                                 //final inactiveLicenses = snapshot.data!['Inactive']!;
                                                 return Container(
-                                                  height: MediaQuery.of(context).size.height/1.6,
+                                                  height: MediaQuery.of(context).size.height/2,
                                                   child:
                                                   ListView.builder(
                                                       scrollDirection: Axis.vertical,
@@ -829,7 +829,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                           children: [
                                                             // SizedBox(height: 5),
                                                             Padding(
-                                                              padding: const EdgeInsets.all(8.0),
+                                                              padding: const EdgeInsets.all(5.0),
                                                               child: Container(
                                                                   decoration: BoxDecoration(
                                                                     color: Colors.white,
@@ -1015,7 +1015,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                                 final upToDateLicenses = snapshot.data!['Upto date']!;
                                                 //final inactiveLicenses = snapshot.data!['Inactive']!;
                                                 return Container(
-                                                  height: MediaQuery.of(context).size.height/1.6,
+                                                  height: MediaQuery.of(context).size.height/2,
                                                   child:
                                                   ListView.builder(
                                                       scrollDirection: Axis.vertical,

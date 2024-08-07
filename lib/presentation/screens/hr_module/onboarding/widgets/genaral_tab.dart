@@ -207,9 +207,9 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                               children: [
                                                 ObGeneralDataConstant(
                                                   text1: snapshot.data![index].driverLicenseNum,
-                                                  text2: snapshot.data![index].rehirable,///experties
-                                                  text3: snapshot.data![index].cityID.toString(),
-                                                  text4: snapshot.data![index].zoneId.toString(),
+                                                  text2: '--',//snapshot.data![index].rehirable,///experties
+                                                  text3: snapshot.data![index].city,
+                                                  text4: snapshot.data![index].zone,
                                                 )
                                               ],
                                             ),
@@ -225,7 +225,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                 ObGeneralDataConstant(
                                                   text1: snapshot.data![index].finalAddress,
                                                   text2: snapshot.data![index].employment,
-                                                  text3: snapshot.data![index].cityID.toString(),
+                                                  text3: snapshot.data![index].city,
                                                   text4: snapshot.data![index].dateOfBirth,
                                                 )
                                               ],

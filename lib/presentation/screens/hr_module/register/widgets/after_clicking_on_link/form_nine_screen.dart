@@ -44,7 +44,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
 
   Widget _buildLabeledTextField(String label, TextEditingController controller,
       String hintText, TextInputType keyboardType,
-      {bool isRequired = true, Widget? suffixIcon}) {
+      {bool isRequired = true, Widget? suffixIcon,double? width,}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -60,7 +60,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
         SizedBox(height: 4),
         CustomTextFieldRegister(
           height: AppSize.s30,
-          width: MediaQuery.of(context).size.width / 2.5,
+          width: width ?? MediaQuery.of(context).size.width / 2.8,
           controller: controller,
           hintText: hintText,
           keyboardType: keyboardType,
@@ -111,7 +111,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
         child: TopRowConstant(),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.symmetric(horizontal: 150.0,vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -135,7 +135,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                       "Ex-John",
                       TextInputType.text),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
                       "U.S. Social Security Number",
@@ -155,7 +155,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                       "Ex.Adams",
                       TextInputType.text),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
                       "Employee's Email",
@@ -176,7 +176,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                       TextInputType.text,
                       isRequired: false),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
                       "Employee's Phone Number",
@@ -197,7 +197,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                       TextInputType.text,
                       isRequired: false),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
                       "City or Town",
@@ -217,7 +217,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                       "Enter Text",
                       TextInputType.streetAddress),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
                       "State", state, "Enter Text", TextInputType.text),
@@ -235,7 +235,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                       TextInputType.text,
                       isRequired: false),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
                       "Zip Code", zipCode, "Enter Text", TextInputType.number),
@@ -247,25 +247,25 @@ class _FormNineScreenState extends State<FormNineScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 _buildLabeledTextField(
-                    "DOB",
-                    dob,
-                    "dd-mm-yyyy",
-                    TextInputType.datetime,
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.calendar_month_outlined, color: Color(0xff50B5E5), size: 16,),
-                      onPressed: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2101),
-                        );
-                        if (pickedDate != null) {
-                          String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
-                          _controller.text = formattedDate;
-                        }
-                      },
-                    ),
+                  "DOB",
+                  dob,
+                  "dd-mm-yyyy",
+                  TextInputType.datetime,
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.calendar_month_outlined, color: Color(0xff50B5E5), size: 16,),
+                    onPressed: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2101),
+                      );
+                      if (pickedDate != null) {
+                        String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+                        _controller.text = formattedDate;
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
@@ -288,13 +288,14 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   child: _buildCheckboxItem(
                       'A lawful permanent resident (Alien Registration Number/USCIS Number):', 2),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
-                    '',
-                    alienRegistrationNumber,
-                    'Enter Text',
-                    TextInputType.text,
+                      '',
+                      alienRegistrationNumber,
+                      'Enter Text',
+                      TextInputType.text,
+                      width: MediaQuery.of(context).size.width/5
                   ),
                 ),
               ],
@@ -307,13 +308,14 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   child: _buildCheckboxItem(
                       'An alien authorized to work until (expiration date, if applicable, mm/dd/yyyy):', 3),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
-                    '',
-                    workAuthorizationExpirationDate,
-                    'Enter Text',
-                    TextInputType.text,
+                      '',
+                      workAuthorizationExpirationDate,
+                      'Enter Text',
+                      TextInputType.text,
+                      width: MediaQuery.of(context).size.width/5
                   ),
                 ),
               ],
@@ -341,13 +343,14 @@ class _FormNineScreenState extends State<FormNineScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
-                    '',
-                    uscisNumber,
-                    'Enter Text',
-                    TextInputType.text,
+                      '',
+                      uscisNumber,
+                      'Enter Text',
+                      TextInputType.text,
+                      width: MediaQuery.of(context).size.width/5
                   ),
                 ),
               ],
@@ -378,13 +381,14 @@ class _FormNineScreenState extends State<FormNineScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
-                    '',
-                    formI94AdmissionNumber,
-                    'Enter Text',
-                    TextInputType.text,
+                      '',
+                      formI94AdmissionNumber,
+                      'Enter Text',
+                      TextInputType.text,
+                      width: MediaQuery.of(context).size.width/5
                   ),
                 ),
               ],
@@ -415,13 +419,14 @@ class _FormNineScreenState extends State<FormNineScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
-                    '',
-                    foreignPassportNumber,
-                    'Enter Text',
-                    TextInputType.text,
+                      '',
+                      foreignPassportNumber,
+                      'Enter Text',
+                      TextInputType.text,
+                      width: MediaQuery.of(context).size.width/5
                   ),
                 ),
               ],
@@ -440,13 +445,14 @@ class _FormNineScreenState extends State<FormNineScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: 100),
                 Expanded(
                   child: _buildLabeledTextField(
-                    '',
-                    countryOfIssuance,
-                    'Enter Text',
-                    TextInputType.text,
+                      '',
+                      countryOfIssuance,
+                      'Enter Text',
+                      TextInputType.text,
+                      width: MediaQuery.of(context).size.width/5
                   ),
                 ),
               ],
@@ -487,7 +493,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
-                   // Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF50B5E5),
