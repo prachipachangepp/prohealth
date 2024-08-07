@@ -2196,7 +2196,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       await addEmpEnrollAddCompensation(
                           context,
                           0,
-                          0,
+                          widget.employeeId,
                           dropdownValue.toString(),
                           int.parse(_salary)
                       );
@@ -2206,7 +2206,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       await addEmpEnrollOffers(
                           context,
                           1,
-                          0,
+                          widget.employeeId,
                           issueDateController.text,
                           lastDateController.text,
                           startDateController.text,

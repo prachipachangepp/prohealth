@@ -94,6 +94,7 @@ class OnBoardingThankYou extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BottomBarRow(),
     );
   }
 }

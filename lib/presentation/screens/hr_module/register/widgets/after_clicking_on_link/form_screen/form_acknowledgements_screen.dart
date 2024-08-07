@@ -48,22 +48,22 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
   }
 
 
-  bool _isButtonPressed = false;
-
-  void _handleButtonPress() {
-    setState(() {
-      _isButtonPressed = true;
-    });
-
-    Future.delayed(Duration(seconds: 3), () {
-      if (mounted) {
-        // Check if the widget is still mounted
-        setState(() {
-          _isButtonPressed = true; // Update the state to show the icon
-        });
-      }
-    });
-  }
+  // bool _isButtonPressed = false;
+  //
+  // void _handleButtonPress() {
+  //   setState(() {
+  //     _isButtonPressed = true;
+  //   });
+  //
+  //   Future.delayed(Duration(seconds: 3), () {
+  //     if (mounted) {
+  //       // Check if the widget is still mounted
+  //       setState(() {
+  //         _isButtonPressed = true; // Update the state to show the icon
+  //       });
+  //     }
+  //   });
+  // }
 
   List<String> _fileNames = [];
   List<String> onCAll = [];
@@ -82,30 +82,30 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
   List<Uint8List?> propFiles = [];
 
   bool _loading = false;
-
-  void _pickFiles() async {
-    setState(() {
-      _loading = true; // Show loader
-      _fileNames.clear(); // Clear previous file names if any
-    });
-
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
-    );
-
-    if (result != null) {
-      setState(() {
-        _fileNames.addAll(result.files.map((file) => file.name!));
-        _loading = false; // Hide loader
-      });
-      print('Files picked: $_fileNames');
-    } else {
-      setState(() {
-        _loading = false; // Hide loader on cancel
-      });
-      print('User canceled the picker');
-    }
-  }
+  //
+  // void _pickFiles() async {
+  //   setState(() {
+  //     _loading = true; // Show loader
+  //     _fileNames.clear(); // Clear previous file names if any
+  //   });
+  //
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //     allowMultiple: true,
+  //   );
+  //
+  //   if (result != null) {
+  //     setState(() {
+  //       _fileNames.addAll(result.files.map((file) => file.name!));
+  //       _loading = false; // Hide loader
+  //     });
+  //     print('Files picked: $_fileNames');
+  //   } else {
+  //     setState(() {
+  //       _loading = false; // Hide loader on cancel
+  //     });
+  //     print('User canceled the picker');
+  //   }
+  // }
 
   ////////////////////////////////////
 
@@ -808,962 +808,365 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
 //   }
 // }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import 'dart:typed_data';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+// import 'package:file_picker/file_picker.dart';
+// import 'package:path_provider/path_provider.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+// import 'package:xfile/xfile.dart'; // For XFile
+// import 'dart:html' as html;
+
+// Ensure WebFile and other required imports are available
+
+// class DocumentUploader extends StatefulWidget {
+//   final String employeeID;
 //
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Text(
-//                     'Canditate Release Form (Background Check)',
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: 14.0,
-//                       fontWeight: FontWeight.w500,
-//                       color: Color(0xff686464),
-//                     ),
-//                   ),
-//                   Icon(
-//                     Icons.check,
-//                     color: Colors.green,
-//                     size: 24.0,
-//                   ),
-//                 ],
+//   DocumentUploader({required this.employeeID});
+//
+//   @override
+//   _DocumentUploaderState createState() => _DocumentUploaderState();
+// }
+//
+// class _DocumentUploaderState extends State<DocumentUploader> {
+//   List<String> _fileNames = [];
+//   List<Uint8List?> _fileBytes = [];
+//   bool _loading = false;
+//
+//   Future<void> _pickFile(int index) async {
+//     try {
+//       FilePickerResult? result = await FilePicker.platform.pickFiles();
+//       if (result != null) {
+//         Uint8List? bytes = result.files.first.bytes;
+//         if (bytes != null) {
+//           setState(() {
+//             if (_fileNames.length <= index) {
+//               _fileNames.add(result.files.first.name!);
+//             } else {
+//               _fileNames[index] = result.files.first.name!;
+//             }
+//
+//             if (_fileBytes.length <= index) {
+//               _fileBytes.add(bytes);
+//             } else {
+//               _fileBytes[index] = bytes;
+//             }
+//           });
+//         }
+//       }
+//     } catch (e) {
+//       print(e);
+//     }
+//   }
+//
+//   Future<void> _saveFiles() async {
+//     if (_fileBytes.isEmpty) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('No file selected. Please select a file to upload.'),
+//           backgroundColor: Colors.red,
+//         ),
+//       );
+//       return;
+//     }
+//
+//     setState(() {
+//       _loading = true;
+//     });
+//
+//     try {
+//       for (int i = 0; i < _fileBytes.length; i++) {
+//         if (_fileBytes[i] != null) {
+//           await uploadDocuments(
+//             context: context,
+//             employeeDocumentMetaId: 10,
+//             employeeDocumentTypeSetupId: 48,
+//             employeeId: widget.employeeID,
+//             documentFile: _fileBytes[i]!,
+//             documentName: _fileNames[i],
+//           );
+//         }
+//       }
+//
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Documents uploaded successfully!'),
+//           backgroundColor: Colors.green,
+//         ),
+//       );
+//     } catch (e) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Failed to upload documents: $e'),
+//           backgroundColor: Colors.red,
+//         ),
+//       );
+//     } finally {
+//       setState(() {
+//         _loading = false;
+//       });
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: EdgeInsets.symmetric(horizontal: 16),
+//       child: Column(
+//         children: [
+//           Center(
+//             child: Text(
+//               'Acknowledgements',
+//               style: GoogleFonts.firaSans(
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.w700,
+//                 color: Color(0xff50B5E5),
 //               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Divider(
-//                 height: 1,
-//                 color: Color(0xFFD1D1D1),
+//             ),
+//           ),
+//           SizedBox(height: MediaQuery.of(context).size.height / 60),
+//           Container(
+//             height: 50,
+//             width: double.infinity,
+//             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+//             decoration: BoxDecoration(
+//               color: Color(0xFFE6F7FF),
+//               borderRadius: BorderRadius.circular(12),
+//             ),
+//             child: Center(
+//               child: Text(
+//                 'Please sign the list of documents required for the recruitment process',
+//                 style: GoogleFonts.firaSans(
+//                   color: Color(0xFF686464),
+//                   fontSize: 12,
+//                   fontWeight: FontWeight.w500,
+//                 ),
 //               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Column(
-//                     children: [
-//                       Text(
-//                         'On - call',
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: 14.0,
-//                           fontWeight: FontWeight.w500,
-//                           color: Color(0xff686464),
-//                         ),
+//             ),
+//           ),
+//           SizedBox(height: MediaQuery.of(context).size.height / 20),
+//           Align(
+//             alignment: Alignment.centerLeft,
+//             child: Text(
+//               'List Of Documents',
+//               style: GoogleFonts.firaSans(
+//                 fontSize: 14.0,
+//                 fontWeight: FontWeight.w500,
+//                 color: Color(0xff686464),
+//               ),
+//             ),
+//           ),
+//           SizedBox(height: MediaQuery.of(context).size.height / 10),
+//           Expanded(
+//             child: StreamBuilder<List<HREmployeeDocumentModal>>(
+//               stream: acknowledgements.stream,
+//               builder: (BuildContext context,
+//                   AsyncSnapshot<List<HREmployeeDocumentModal>> snapshot) {
+//                 if (snapshot.connectionState == ConnectionState.waiting) {
+//                   return Center(child: CircularProgressIndicator());
+//                 } else if (snapshot.hasError) {
+//                   return Center(child: Text("Error: ${snapshot.error}"));
+//                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+//                   return Center(child: Text("No documents found"));
+//                 } else {
+//                   List<HREmployeeDocumentModal> documents = snapshot.data!;
+//
+//                   if (_fileNames.length < documents.length) {
+//                     _fileNames.addAll(
+//                       List.generate(
+//                         documents.length - _fileNames.length,
+//                             (_) => '',
 //                       ),
-//                     ],
-//                   ),
-//                   Column(
-//                     children: [
-//                       Row(
+//                     );
+//                   }
+//
+//                   if (_fileBytes.length < documents.length) {
+//                     _fileBytes.addAll(
+//                       List.generate(
+//                         documents.length - _fileBytes.length,
+//                             (_) => null,
+//                       ),
+//                     );
+//                   }
+//
+//                   return ListView.builder(
+//                     itemCount: documents.length,
+//                     itemBuilder: (context, index) {
+//                       final document = documents[index];
+//                       final fileName =
+//                       index < _fileNames.length ? _fileNames[index] : '';
+//
+//                       return Column(
 //                         children: [
-//                           ElevatedButton(
-//
-//                             onPressed: () async {
-//                               FilePickerResult? result =
-//                               await FilePicker.platform.pickFiles();
-//                               if (result != null) {
-//                                 try {
-//                                   onCAllFiles.clear();
-//                                   onCAllFiles.addAll(
-//                                       result.files.map((file) => file.bytes));
-//                                   onCAll.addAll(
-//                                       result.files.map((file) => file.name!));
-//                                   setState(() {
-//                                     _documentUploaded = true;
-//                                   });
-//                                 } catch (e) {
-//                                   print(e);
-//                                 }
-//                               }
-//                             },
-//
-//
-//                             // onPressed:()async {
-//                             //   // FilePickerResult? result = await FilePicker.platform.pickFiles(
-//                             //   //   allowMultiple: false,
-//                             //   // );
-//                             //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-//                             //   if (result != null) {
-//                             //     print("Result::: ${result}");
-//                             //
-//                             //     try{
-//                             //       Uint8List? bytes = result.files.first.bytes;
-//                             //       XFile xlfile = XFile(result.xFiles.first.path);
-//                             //       xfileToFile = File(xlfile.path);
-//                             //
-//                             //       print("::::XFile To File ${xfileToFile.toString()}");
-//                             //       XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-//                             //       // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-//                             //       // html.File file = webFile.file;
-//                             //       //  print("XFILE ${xFile.path}");
-//                             //       //  //filePath = xfileToFile as XFile?;
-//                             //       //  print("L::::::${filePath}");
-//                             //       onCAll.addAll(result.files.map((file) => file.name!));
-//                             //       print('File picked: ${onCAll}');
-//                             //       //print(String.fromCharCodes(file));
-//                             //       finalPath = result.files.first.bytes;
-//                             //       setState(() {
-//                             //         onCAll;
-//                             //         _documentUploaded = true;
-//                             //       });
-//                             //     }catch(e){
-//                             //       print(e);
-//                             //     }
-//                             //   }
-//                             // },
-//
-//                             style: ElevatedButton.styleFrom(
-//                               backgroundColor: Color(0xff50B5E5),
-//                               // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-//                               shape: RoundedRectangleBorder(
-//                                 borderRadius: BorderRadius.circular(8.0),
-//                               ),
-//                             ),
-//                             child: Text(
-//                               'Sign',
-//                               style: GoogleFonts.firaSans(
-//                                 fontSize: 14.0,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: Colors.white,
-//                               ),
+//                           SizedBox(
+//                             height: 50,
+//                             child: Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               children: [
+//                                 Text(
+//                                   document.docName,
+//                                   style: GoogleFonts.firaSans(
+//                                     fontSize: 14.0,
+//                                     fontWeight: FontWeight.w500,
+//                                     color: Color(0xff686464),
+//                                   ),
+//                                 ),
+//                                 Row(
+//                                   children: [
+//                                     ElevatedButton(
+//                                       onPressed: () => _pickFile(index),
+//                                       style: ElevatedButton.styleFrom(
+//                                         backgroundColor: Color(0xff50B5E5),
+//                                         shape: RoundedRectangleBorder(
+//                                           borderRadius: BorderRadius.circular(8.0),
+//                                         ),
+//                                       ),
+//                                       child: Text(
+//                                         'Sign',
+//                                         style: GoogleFonts.firaSans(
+//                                           fontSize: 14.0,
+//                                           fontWeight: FontWeight.w700,
+//                                           color: Colors.white,
+//                                         ),
+//                                       ),
+//                                     ),
+//                                     _loading
+//                                         ? SizedBox(
+//                                       width: 25,
+//                                       height: 25,
+//                                       child: CircularProgressIndicator(
+//                                         color: ColorManager.blueprime,
+//                                       ),
+//                                     )
+//                                         : fileName.isNotEmpty
+//                                         ? Padding(
+//                                       padding: const EdgeInsets.all(8.0),
+//                                       child: Text(
+//                                         'File picked: $fileName',
+//                                         style: GoogleFonts.firaSans(
+//                                           fontSize: 12.0,
+//                                           fontWeight: FontWeight.w400,
+//                                           color: Color(0xff686464),
+//                                         ),
+//                                       ),
+//                                     )
+//                                         : SizedBox(),
+//                                   ],
+//                                 ),
+//                               ],
 //                             ),
 //                           ),
-//                           _loading
-//                               ? SizedBox(
-//                                   width: 25,
-//                                   height: 25,
-//                                   child: CircularProgressIndicator(
-//                                     color:
-//                                         ColorManager.blueprime, // Loader color
-//                                     // Loader size
-//                                   ),
-//                                 )
-//                               : onCAll.isNotEmpty
-//                                   ? Column(
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.start,
-//                                       children: onCAll
-//                                           .map((fileName) => Padding(
-//                                                 padding:
-//                                                     const EdgeInsets.all(8.0),
-//                                                 child: Text(
-//                                                   'File picked: $fileName',
-//                                                   style: GoogleFonts.firaSans(
-//                                                       fontSize: 12.0,
-//                                                       fontWeight:
-//                                                           FontWeight.w400,
-//                                                       color: Color(0xff686464)),
-//                                                 ),
-//                                               ))
-//                                           .toList(),
-//                                     )
-//                                   : SizedBox(),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//               // Row(
-//               //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               //   children: [
-//               //     Text(
-//               //       'On - call',
-//               //       style: GoogleFonts.firaSans(
-//               //         fontSize: 14.0,
-//               //         fontWeight: FontWeight.w500,
-//               //         color: Color(0xff686464),
-//               //       ),
-//               //     ),
-//               //     _isButtonPressed
-//               //         ? Icon(
-//               //       Icons.check,
-//               //       color: Colors.green,
-//               //       size: 24.0,
-//               //     )
-//               //         : ElevatedButton(
-//               //
-//               //       onPressed: ()
-//               //       async {
-//               //         // FilePickerResult? result = await FilePicker.platform.pickFiles(
-//               //         //   allowMultiple: false,
-//               //         // );
-//               //         FilePickerResult? result = await FilePicker.platform.pickFiles();
-//               //         if (result != null) {
-//               //           print("Result::: ${result}");
-//               //
-//               //           try{
-//               //             Uint8List? bytes = result.files.first.bytes;
-//               //             XFile xlfile = XFile(result.xFiles.first.path);
-//               //             xfileToFile = File(xlfile.path);
-//               //
-//               //             print("::::XFile To File ${xfileToFile.toString()}");
-//               //             XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-//               //             // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-//               //             // html.File file = webFile.file;
-//               //             //  print("XFILE ${xFile.path}");
-//               //             //  //filePath = xfileToFile as XFile?;
-//               //             //  print("L::::::${filePath}");
-//               //             fileName = result.files.first.name;
-//               //             print('File picked: ${fileName}');
-//               //             //print(String.fromCharCodes(file));
-//               //             finalPath = result.files.first.bytes;
-//               //             setState(() {
-//               //               fileName;
-//               //               _documentUploaded = true;
-//               //               _handleButtonPress;
-//               //             });
-//               //           }catch(e){
-//               //             print(e);
-//               //           }
-//               //         }
-//               //
-//               //
-//               //       },
-//               //       style: ElevatedButton.styleFrom(
-//               //         backgroundColor: Color(0xff50B5E5),
-//               //         shape: RoundedRectangleBorder(
-//               //           borderRadius: BorderRadius.circular(8.0),
-//               //         ),
-//               //       ),
-//               //       child: Text(
-//               //         'Sign',
-//               //         style: GoogleFonts.firaSans(
-//               //           fontSize: 14.0,
-//               //           fontWeight: FontWeight.w700,
-//               //           color: Colors.white,
-//               //         ),
-//               //       ),
-//               //     ),
-//               //     _loading
-//               //         ? SizedBox(width: 25,
-//               //       height: 25,
-//               //       child: CircularProgressIndicator(
-//               //         color: ColorManager.blueprime, // Loader color
-//               //         // Loader size
-//               //       ),
-//               //     )
-//               //         : _fileNames.isNotEmpty
-//               //         ? Column(
-//               //       crossAxisAlignment: CrossAxisAlignment.start,
-//               //       children: _fileNames
-//               //           .map((fileName) => Padding(
-//               //         padding: const EdgeInsets.all(8.0),
-//               //         child: Text(
-//               //           'File picked: $fileName',
-//               //           style: GoogleFonts.firaSans(
-//               //               fontSize: 12.0,
-//               //               fontWeight: FontWeight.w400,
-//               //               color: Color(0xff686464)),
-//               //         ),
-//               //       ))
-//               //           .toList(),
-//               //     )
-//               //         : SizedBox(),
-//               //   ],
-//               // ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Divider(
-//                 height: 1,
-//                 color: Color(0xFFD1D1D1),
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Column(
-//                     children: [
-//                       Text(
-//                         'Confidentiality Statement HIPAA',
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: 14.0,
-//                           fontWeight: FontWeight.w500,
-//                           color: Color(0xff686464),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   Column(
-//                     children: [
-//                       Row(
-//                         children: [
-//                           ElevatedButton(
-//                             onPressed: () async {
-//                               FilePickerResult? result =
-//                                   await FilePicker.platform.pickFiles();
-//                               if (result != null) {
-//                                 try {
-//                                   hIPPAFiles.clear();
-//                                   hIPPAFiles.addAll(
-//                                       result.files.map((file) => file.bytes));
-//                                   hIPPA.addAll(
-//                                       result.files.map((file) => file.name!));
-//                                   setState(() {
-//                                     _documentUploaded = true;
-//                                   });
-//                                 } catch (e) {
-//                                   print(e);
-//                                 }
-//                               }
-//                             },
-//
-//                             // onPressed:()async {
-//                             //   // FilePickerResult? result = await FilePicker.platform.pickFiles(
-//                             //   //   allowMultiple: false,
-//                             //   // );
-//                             //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-//                             //   if (result != null) {
-//                             //     print("Result::: ${result}");
-//                             //
-//                             //     try{
-//                             //       Uint8List? bytes = result.files.first.bytes;
-//                             //       XFile xlfile = XFile(result.xFiles.first.path);
-//                             //       xfileToFile = File(xlfile.path);
-//                             //
-//                             //       print("::::XFile To File ${xfileToFile.toString()}");
-//                             //       XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-//                             //       // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-//                             //       // html.File file = webFile.file;
-//                             //       //  print("XFILE ${xFile.path}");
-//                             //       //  //filePath = xfileToFile as XFile?;
-//                             //       //  print("L::::::${filePath}");
-//                             //       hIPPA.addAll(result.files.map((file) => file.name!));
-//                             //       print('File picked: ${hIPPA}');
-//                             //       //print(String.fromCharCodes(file));
-//                             //       finalPath = result.files.first.bytes;
-//                             //       setState(() {
-//                             //         hIPPA;
-//                             //         _documentUploaded = true;
-//                             //       });
-//                             //     }catch(e){
-//                             //       print(e);
-//                             //     }
-//                             //   }
-//                             // },
-//                             style: ElevatedButton.styleFrom(
-//                               backgroundColor: Color(0xff50B5E5),
-//                               // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-//                               shape: RoundedRectangleBorder(
-//                                 borderRadius: BorderRadius.circular(8.0),
-//                               ),
-//                             ),
-//                             child: Text(
-//                               'Sign',
-//                               style: GoogleFonts.firaSans(
-//                                 fontSize: 14.0,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: Colors.white,
-//                               ),
-//                             ),
+//                           const Divider(
+//                             height: 1,
+//                             color: Color(0xFFD1D1D1),
 //                           ),
-//                           _loading
-//                               ? SizedBox(
-//                                   width: 25,
-//                                   height: 25,
-//                                   child: CircularProgressIndicator(
-//                                     color:
-//                                         ColorManager.blueprime, // Loader color
-//                                     // Loader size
-//                                   ),
-//                                 )
-//                               : hIPPA.isNotEmpty
-//                                   ? Column(
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.start,
-//                                       children: hIPPA
-//                                           .map((fileName) => Padding(
-//                                                 padding:
-//                                                     const EdgeInsets.all(8.0),
-//                                                 child: Text(
-//                                                   'File picked: $fileName',
-//                                                   style: GoogleFonts.firaSans(
-//                                                       fontSize: 12.0,
-//                                                       fontWeight:
-//                                                           FontWeight.w400,
-//                                                       color: Color(0xff686464)),
-//                                                 ),
-//                                               ))
-//                                           .toList(),
-//                                     )
-//                                   : SizedBox(),
 //                         ],
-//                       ),
-//                     ],
+//                       );
+//                     },
+//                   );
+//                 }
+//               },
+//             ),
+//           ),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               ElevatedButton(
+//                 onPressed: _saveFiles,
+//                 style: ElevatedButton.styleFrom(
+//                   primary: Color(0xff50B5E5),
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(12),
 //                   ),
-//                 ],
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Divider(
-//                 height: 1,
-//                 color: Color(0xFFD1D1D1),
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Column(
-//                     children: [
-//                       Text(
-//                         'Policy Concerning 3 RD Party',
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: 14.0,
-//                           fontWeight: FontWeight.w500,
-//                           color: Color(0xff686464),
-//                         ),
-//                       ),
-//                     ],
+//                 ),
+//                 child: Text(
+//                   'Save',
+//                   style: TextStyle(
+//                     fontFamily: 'FiraSans',
+//                     fontSize: 12,
+//                     fontWeight: FontWeight.w700,
+//                     color: Colors.white,
 //                   ),
-//                   Column(
-//                     children: [
-//                       Row(
-//                         children: [
-//                           ElevatedButton(
-//                             onPressed: () async {
-//                               FilePickerResult? result =
-//                                   await FilePicker.platform.pickFiles();
-//                               if (result != null) {
-//                                 try {
-//                                   rDpartyFiles.clear();
-//                                   rDpartyFiles.addAll(
-//                                       result.files.map((file) => file.bytes));
-//                                   rDparty.addAll(
-//                                       result.files.map((file) => file.name!));
-//                                   setState(() {
-//                                     _documentUploaded = true;
-//                                   });
-//                                 } catch (e) {
-//                                   print(e);
-//                                 }
-//                               }
-//                             },
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 //
-//                             // onPressed:()async {
-//                             //   // FilePickerResult? result = await FilePicker.platform.pickFiles(
-//                             //   //   allowMultiple: false,
-//                             //   // );
-//                             //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-//                             //   if (result != null) {
-//                             //     print("Result::: ${result}");
-//                             //
-//                             //     try{
-//                             //       Uint8List? bytes = result.files.first.bytes;
-//                             //       XFile xlfile = XFile(result.xFiles.first.path);
-//                             //       xfileToFile = File(xlfile.path);
-//                             //
-//                             //       print("::::XFile To File ${xfileToFile.toString()}");
-//                             //       XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-//                             //       // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-//                             //       // html.File file = webFile.file;
-//                             //       //  print("XFILE ${xFile.path}");
-//                             //       //  //filePath = xfileToFile as XFile?;
-//                             //       //  print("L::::::${filePath}");
-//                             //       rDparty.addAll(result.files.map((file) => file.name!));
-//                             //       print('File picked: ${rDparty}');
-//                             //       //print(String.fromCharCodes(file));
-//                             //       finalPath = result.files.first.bytes;
-//                             //       setState(() {
-//                             //         rDparty;
-//                             //         _documentUploaded = true;
-//                             //       });
-//                             //     }catch(e){
-//                             //       print(e);
-//                             //     }
-//                             //   }
-//                             // },
-//                             // onPressed: () async {
-//                             //   // FilePickerResult? result = await FilePicker.platform.pickFiles(
-//                             //   //   allowMultiple: false,
-//                             //   // );
-//                             //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-//                             //   if (result != null) {
-//                             //     print("Result::: ${result}");
-//                             //
-//                             //     try{
-//                             //       Uint8List? bytes = result.files.first.bytes;
-//                             //       XFile xlfile = XFile(result.xFiles.first.path);
-//                             //       xfileToFile = File(xlfile.path);
-//                             //
-//                             //       print("::::XFile To File ${xfileToFile.toString()}");
-//                             //       XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-//                             //       // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-//                             //       // html.File file = webFile.file;
-//                             //       //  print("XFILE ${xFile.path}");
-//                             //       //  //filePath = xfileToFile as XFile?;
-//                             //       //  print("L::::::${filePath}");
-//                             //       fileName = result.files.first.name;
-//                             //       print('File picked: ${fileName}');
-//                             //       //print(String.fromCharCodes(file));
-//                             //       finalPath = result.files.first.bytes;
-//                             //       setState(() {
-//                             //         fileName;
-//                             //         _documentUploaded = true;
-//                             //       });
-//                             //     }catch(e){
-//                             //       print(e);
-//                             //     }
-//                             //   }
-//                             // },
-//                             style: ElevatedButton.styleFrom(
-//                               backgroundColor: Color(0xff50B5E5),
-//                               // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-//                               shape: RoundedRectangleBorder(
-//                                 borderRadius: BorderRadius.circular(8.0),
-//                               ),
-//                             ),
-//                             child: Text(
-//                               'Sign',
-//                               style: GoogleFonts.firaSans(
-//                                 fontSize: 14.0,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: Colors.white,
-//                               ),
-//                             ),
-//                           ),
-//                           _loading
-//                               ? SizedBox(
-//                                   width: 25,
-//                                   height: 25,
-//                                   child: CircularProgressIndicator(
-//                                     color:
-//                                         ColorManager.blueprime, // Loader color
-//                                     // Loader size
-//                                   ),
-//                                 )
-//                               : rDparty.isNotEmpty
-//                                   ? Column(
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.start,
-//                                       children: rDparty
-//                                           .map((fileName) => Padding(
-//                                                 padding:
-//                                                     const EdgeInsets.all(8.0),
-//                                                 child: Text(
-//                                                   'File picked: $fileName',
-//                                                   style: GoogleFonts.firaSans(
-//                                                       fontSize: 12.0,
-//                                                       fontWeight:
-//                                                           FontWeight.w400,
-//                                                       color: Color(0xff686464)),
-//                                                 ),
-//                                               ))
-//                                           .toList(),
-//                                     )
-//                                   : SizedBox(),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Divider(
-//                 height: 1,
-//                 color: Color(0xFFD1D1D1),
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Column(
-//                     children: [
-//                       Text(
-//                         'Standards Of Conduct',
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: 14.0,
-//                           fontWeight: FontWeight.w500,
-//                           color: Color(0xff686464),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   Column(
-//                     children: [
-//                       Row(
-//                         children: [
-//                           ElevatedButton(
-//                             onPressed: () async {
-//                               FilePickerResult? result =
-//                                   await FilePicker.platform.pickFiles();
-//                               if (result != null) {
-//                                 try {
-//                                   soConductFiles.clear();
-//                                   soConductFiles.addAll(
-//                                       result.files.map((file) => file.bytes));
-//                                   soConduct.addAll(
-//                                       result.files.map((file) => file.name!));
-//                                   setState(() {
-//                                     _documentUploaded = true;
-//                                   });
-//                                 } catch (e) {
-//                                   print(e);
-//                                 }
-//                               }
-//                             },
-//                             // onPressed:()async {
-//                             //   // FilePickerResult? result = await FilePicker.platform.pickFiles(
-//                             //   //   allowMultiple: false,
-//                             //   // );
-//                             //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-//                             //   if (result != null) {
-//                             //     print("Result::: ${result}");
-//                             //
-//                             //     try{
-//                             //       Uint8List? bytes = result.files.first.bytes;
-//                             //       XFile xlfile = XFile(result.xFiles.first.path);
-//                             //       xfileToFile = File(xlfile.path);
-//                             //
-//                             //       print("::::XFile To File ${xfileToFile.toString()}");
-//                             //       XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-//                             //       // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-//                             //       // html.File file = webFile.file;
-//                             //       //  print("XFILE ${xFile.path}");
-//                             //       //  //filePath = xfileToFile as XFile?;
-//                             //       //  print("L::::::${filePath}");
-//                             //       soConduct.addAll(result.files.map((file) => file.name!));
-//                             //       print('File picked: ${soConduct}');
-//                             //       //print(String.fromCharCodes(file));
-//                             //       finalPath = result.files.first.bytes;
-//                             //       setState(() {
-//                             //         soConduct;
-//                             //         _documentUploaded = true;
-//                             //       });
-//                             //     }catch(e){
-//                             //       print(e);
-//                             //     }
-//                             //   }
-//                             // },
-//
-//                             style: ElevatedButton.styleFrom(
-//                               backgroundColor: Color(0xff50B5E5),
-//                               // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-//                               shape: RoundedRectangleBorder(
-//                                 borderRadius: BorderRadius.circular(8.0),
-//                               ),
-//                             ),
-//                             child: Text(
-//                               'Sign',
-//                               style: GoogleFonts.firaSans(
-//                                 fontSize: 14.0,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: Colors.white,
-//                               ),
-//                             ),
-//                           ),
-//                           _loading
-//                               ? SizedBox(
-//                                   width: 25,
-//                                   height: 25,
-//                                   child: CircularProgressIndicator(
-//                                     color:
-//                                         ColorManager.blueprime, // Loader color
-//                                     // Loader size
-//                                   ),
-//                                 )
-//                               : soConduct.isNotEmpty
-//                                   ? Column(
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.start,
-//                                       children: soConduct
-//                                           .map((fileName) => Padding(
-//                                                 padding:
-//                                                     const EdgeInsets.all(8.0),
-//                                                 child: Text(
-//                                                   'File picked: $fileName',
-//                                                   style: GoogleFonts.firaSans(
-//                                                       fontSize: 12.0,
-//                                                       fontWeight:
-//                                                           FontWeight.w400,
-//                                                       color: Color(0xff686464)),
-//                                                 ),
-//                                               ))
-//                                           .toList(),
-//                                     )
-//                                   : SizedBox(),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Divider(
-//                 height: 1,
-//                 color: Color(0xFFD1D1D1),
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Column(
-//                     children: [
-//                       Text(
-//                         'California Sexual Harassment Training',
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: 14.0,
-//                           fontWeight: FontWeight.w500,
-//                           color: Color(0xff686464),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   Column(
-//                     children: [
-//                       Row(
-//                         children: [
-//                           ElevatedButton(
-//                             onPressed: () async {
-//                               FilePickerResult? result =
-//                                   await FilePicker.platform.pickFiles();
-//                               if (result != null) {
-//                                 try {
-//                                   harassmentFiles.clear();
-//                                   harassmentFiles.addAll(
-//                                       result.files.map((file) => file.bytes));
-//                                   harassment.addAll(
-//                                       result.files.map((file) => file.name!));
-//                                   setState(() {
-//                                     _documentUploaded = true;
-//                                   });
-//                                 } catch (e) {
-//                                   print(e);
-//                                 }
-//                               }
-//                             },
-//
-//                             // onPressed:()async {
-//                             //   // FilePickerResult? result = await FilePicker.platform.pickFiles(
-//                             //   //   allowMultiple: false,
-//                             //   // );
-//                             //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-//                             //   if (result != null) {
-//                             //     print("Result::: ${result}");
-//                             //
-//                             //     try{
-//                             //       Uint8List? bytes = result.files.first.bytes;
-//                             //       XFile xlfile = XFile(result.xFiles.first.path);
-//                             //       xfileToFile = File(xlfile.path);
-//                             //
-//                             //       print("::::XFile To File ${xfileToFile.toString()}");
-//                             //       XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-//                             //       // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-//                             //       // html.File file = webFile.file;
-//                             //       //  print("XFILE ${xFile.path}");
-//                             //       //  //filePath = xfileToFile as XFile?;
-//                             //       //  print("L::::::${filePath}");
-//                             //       harassment.addAll(result.files.map((file) => file.name!));
-//                             //       print('File picked: ${harassment}');
-//                             //       //print(String.fromCharCodes(file));
-//                             //       finalPath = result.files.first.bytes;
-//                             //       setState(() {
-//                             //         harassment;
-//                             //         _documentUploaded = true;
-//                             //       });
-//                             //     }catch(e){
-//                             //       print(e);
-//                             //     }
-//                             //   }
-//                             // },
-//
-//                             style: ElevatedButton.styleFrom(
-//                               backgroundColor: Color(0xff50B5E5),
-//                               // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-//                               shape: RoundedRectangleBorder(
-//                                 borderRadius: BorderRadius.circular(8.0),
-//                               ),
-//                             ),
-//                             child: Text(
-//                               'Sign',
-//                               style: GoogleFonts.firaSans(
-//                                 fontSize: 14.0,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: Colors.white,
-//                               ),
-//                             ),
-//                           ),
-//                           _loading
-//                               ? SizedBox(
-//                                   width: 25,
-//                                   height: 25,
-//                                   child: CircularProgressIndicator(
-//                                     color:
-//                                         ColorManager.blueprime, // Loader color
-//                                     // Loader size
-//                                   ),
-//                                 )
-//                               : harassment.isNotEmpty
-//                                   ? Column(
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.start,
-//                                       children: harassment
-//                                           .map((fileName) => Padding(
-//                                                 padding:
-//                                                     const EdgeInsets.all(8.0),
-//                                                 child: Text(
-//                                                   'File picked: $fileName',
-//                                                   style: GoogleFonts.firaSans(
-//                                                       fontSize: 12.0,
-//                                                       fontWeight:
-//                                                           FontWeight.w400,
-//                                                       color: Color(0xff686464)),
-//                                                 ),
-//                                               ))
-//                                           .toList(),
-//                                     )
-//                                   : SizedBox(),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Divider(
-//                 height: 1,
-//                 color: Color(0xFFD1D1D1),
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Text(
-//                     'Prop65',
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: 14.0,
-//                       fontWeight: FontWeight.w500,
-//                       color: Color(0xff686464),
-//                     ),
-//                   ),
-//                   Column(
-//                     children: [
-//                       Row(
-//                         children: [
-//                           ElevatedButton(
-//                             onPressed: () async {
-//                               FilePickerResult? result =
-//                                   await FilePicker.platform.pickFiles();
-//                               if (result != null) {
-//                                 try {
-//                                   propFiles.clear();
-//                                   propFiles.addAll(
-//                                       result.files.map((file) => file.bytes));
-//                                   prop.addAll(
-//                                       result.files.map((file) => file.name!));
-//                                   setState(() {
-//                                     _documentUploaded = true;
-//                                   });
-//                                 } catch (e) {
-//                                   print(e);
-//                                 }
-//                               }
-//                             },
-//
-//                             //
-//                             // onPressed:()async {
-//                             //   // FilePickerResult? result = await FilePicker.platform.pickFiles(
-//                             //   //   allowMultiple: false,
-//                             //   // );
-//                             //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-//                             //   if (result != null) {
-//                             //     print("Result::: ${result}");
-//                             //
-//                             //     try{
-//                             //       Uint8List? bytes = result.files.first.bytes;
-//                             //       XFile xlfile = XFile(result.xFiles.first.path);
-//                             //       xfileToFile = File(xlfile.path);
-//                             //
-//                             //       print("::::XFile To File ${xfileToFile.toString()}");
-//                             //       XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-//                             //       // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-//                             //       // html.File file = webFile.file;
-//                             //       //  print("XFILE ${xFile.path}");
-//                             //       //  //filePath = xfileToFile as XFile?;
-//                             //       //  print("L::::::${filePath}");
-//                             //       prop.addAll(result.files.map((file) => file.name!));
-//                             //       print('File picked: ${prop}');
-//                             //       //print(String.fromCharCodes(file));
-//                             //       finalPath = result.files.first.bytes;
-//                             //       setState(() {
-//                             //         prop;
-//                             //         _documentUploaded = true;
-//                             //       });
-//                             //     }catch(e){
-//                             //       print(e);
-//                             //     }
-//                             //   }
-//                             // },
-//
-//                             style: ElevatedButton.styleFrom(
-//                               backgroundColor: Color(0xff50B5E5),
-//                               // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-//                               shape: RoundedRectangleBorder(
-//                                 borderRadius: BorderRadius.circular(8.0),
-//                               ),
-//                             ),
-//                             child: Text(
-//                               'Sign',
-//                               style: GoogleFonts.firaSans(
-//                                 fontSize: 14.0,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: Colors.white,
-//                               ),
-//                             ),
-//                           ),
-//                           _loading
-//                               ? SizedBox(
-//                                   width: 25,
-//                                   height: 25,
-//                                   child: CircularProgressIndicator(
-//                                     color:
-//                                         ColorManager.blueprime, // Loader color
-//                                     // Loader size
-//                                   ),
-//                                 )
-//                               : prop.isNotEmpty
-//                                   ? Column(
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.start,
-//                                       children: prop
-//                                           .map((fileName) => Padding(
-//                                                 padding:
-//                                                     const EdgeInsets.all(8.0),
-//                                                 child: Text(
-//                                                   'File picked: $fileName',
-//                                                   style: GoogleFonts.firaSans(
-//                                                       fontSize: 12.0,
-//                                                       fontWeight:
-//                                                           FontWeight.w400,
-//                                                       color: Color(0xff686464)),
-//                                                 ),
-//                                               ))
-//                                           .toList(),
-//                                     )
-//                                   : SizedBox(),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Divider(
-//                 height: 1,
-//                 color: Color(0xFFD1D1D1),
-//               ),
-//               SizedBox(height: MediaQuery.of(context).size.height / 100),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Text(
-//                     'Return Of Company Policy',
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: 14.0,
-//                       fontWeight: FontWeight.w500,
-//                       color: Color(0xff686464),
-//                     ),
-//                   ),
-//                   Icon(
-//                     Icons.check,
-//                     color: Colors.green,
-//                     size: 24.0,
-//                   ),
-//                 ],
-//               ),
+// Future<void> uploadDocuments({
+//   required BuildContext context,
+//   required int employeeDocumentMetaId,
+//   required int employeeDocumentTypeSetupId,
+//   required String employeeId,
+//   required Uint8List documentFile,
+//   required String documentName,
+// }) async {
+//   // Implement your document upload logic here
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //               SizedBox(height: MediaQuery.of(context).size.height / 100),
 //               Divider(
 //                 height: 1,
