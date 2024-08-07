@@ -2388,14 +2388,14 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 verbalAcceptanceController.clear();
 
                                 Navigator.pop(context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => OfferLetterDescriptionScreen(
-                                      employeeId: widget.apiData.employeeId!,
-                                    ),
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => OfferLetterDescriptionScreen(
+                                //       employeeId: widget.apiData.employeeId!,
+                                //     ),
+                                //   ),
+                                // );
                               } catch (e) {
                                 print("Error during enrollment: $e");
                                 ScaffoldMessenger.of(context).showSnackBar(
