@@ -338,7 +338,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                               officeId: widget.officeId,
                                                             );
                                                             setState(() async {
-                                                              await orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 6).then((data) {
+                                                              await orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 20).then((data) {
                                                                 _controller.add(data);
                                                               }).catchError((error) {
                                                                 // Handle error

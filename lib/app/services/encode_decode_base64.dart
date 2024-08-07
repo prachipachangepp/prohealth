@@ -48,8 +48,10 @@ class AppFilePickerBase64 {
  //      final decrypted = encrypter.decryptBytes(encrypted, iv: ivBytes);
  //      return decrypted;
  //  }
+
   static String getDecodeBase64({required String url}) {
     // Example Base64 string
+
     String fileUrl = url.split('/').last;
     String base64String = fileUrl; // "Hello world" in Base64
 
