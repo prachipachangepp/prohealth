@@ -48,39 +48,56 @@ class AppFilePickerBase64 {
  //      final decrypted = encrypter.decryptBytes(encrypted, iv: ivBytes);
  //      return decrypted;
  //  }
-  static Future<String> getDecodeBase64({required String fetchedUrl}) async {
-    try{
-      String url = fetchedUrl;
-      String fileUrl = url;
 
-      // Get the file name from the URL
-      String fileName = fileUrl.split('/').last;
+  static String getDecodeBase64({required String url}) {
+    // Example Base64 string
 
+    String fileUrl = url.split('/').last;
+    String base64String = fileUrl; // "Hello world" in Base64
 
-      // Send an HTTP GET request to download the file
-      var response = await http.get(Uri.parse(fileUrl));
+    // Decode the Base64 string
+    dynamic decodedBytes = base64Decode(base64String);
 
-      // Get the directory to save the file
-      Directory appDocDir = await getApplicationDocumentsDirectory();
-      String filePath = '${appDocDir.path}/$fileName';
+    // Convert the bytes to a string
+    String decodedString = utf8.decode(decodedBytes);
+    print(decodedString);
+    return decodedString;
 
-      // Write the file
-      File file = File(filePath);
-      await file.writeAsBytes(response.bodyBytes);
-
-      print("::: Response ${response}");
-
-      print('File saved at: $filePath');
-
-      // Encode the URL to base64
-      String base64EncodedUrl = base64.encode(utf8.encode(url));
-      return base64EncodedUrl;
-    }catch(e){
-      print(e);
-      return "";
-    }
-
-    //print("Encoded url ::${base64EncodedUrl}");
-    //return base64EncodedUrl;
+     // Output: Hello world
   }
+  // static Future<String> getDecodeBase64({required String fetchedUrl}) async {
+  //   try{
+  //     String url = fetchedUrl;
+  //     String fileUrl = url;
+  //
+  //     // Get the file name from the URL
+  //     String fileName = fileUrl.split('/').last;
+  //
+  //
+  //     // Send an HTTP GET request to download the file
+  //     var response = await http.get(Uri.parse(fileUrl));
+  //
+  //     // Get the directory to save the file
+  //     Directory appDocDir = await getApplicationDocumentsDirectory();
+  //     String filePath = '${appDocDir.path}/$fileName';
+  //
+  //     // Write the file
+  //     File file = File(filePath);
+  //     await file.writeAsBytes(response.bodyBytes);
+  //
+  //     print("::: Response ${response}");
+  //
+  //     print('File saved at: $filePath');
+  //
+  //     // Encode the URL to base64
+  //     String base64EncodedUrl = base64.encode(utf8.encode(url));
+  //     return base64EncodedUrl;
+  //   }catch(e){
+  //     print(e);
+  //     return "";
+  //   }
+  //
+  //   //print("Encoded url ::${base64EncodedUrl}");
+  //   //return base64EncodedUrl;
+  // }
 }
