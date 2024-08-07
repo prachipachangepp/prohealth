@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
+import '../../../../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 
 
@@ -335,7 +336,14 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SchedularSuccessPopup(title: 'Success',);
+                        },
+                      );
+                    },
                     child: Text(
                       'Submit',
                       style: GoogleFonts.firaSans(

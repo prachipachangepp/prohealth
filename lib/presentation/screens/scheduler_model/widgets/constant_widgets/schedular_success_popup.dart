@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/home_hr.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 
-class CCSuccessPopup extends StatelessWidget {
-  const CCSuccessPopup({super.key});
+class SchedularSuccessPopup extends StatelessWidget {
+  final String title;
+  const SchedularSuccessPopup({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class CCSuccessPopup extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
-                      "Success",
+                      title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
@@ -62,7 +61,7 @@ class CCSuccessPopup extends StatelessWidget {
               child: Container(
                 height: AppSize.s50,
                 width: AppSize.s210,
-                child: Text('Save Successfully \nThank You.',textAlign: TextAlign.center,
+                child: Text('Saved Successfully. \nThank You!',textAlign: TextAlign.center,
                   style:CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.regular,
                       fontSize: FontSize.s16,
