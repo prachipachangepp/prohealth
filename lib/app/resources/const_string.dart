@@ -200,7 +200,11 @@ class AppString {
   static String date_of_death ="Date of Death";
   static String date_of_birth ="Date of Birth";
   static String suffix ="Suffix";
+  static String location ="Location";
+  static String type ="Type";
+  static String create ="Create";
   static String comments ="Comments";
+  static String specialisation ="Specialisation";
 
 
 
