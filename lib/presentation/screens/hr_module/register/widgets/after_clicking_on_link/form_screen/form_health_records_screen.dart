@@ -456,8 +456,8 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         if (finalPaths[i] != null) {
                           await uploadDocuments(
                             context: context,
-                            employeeDocumentMetaId: 10,
-                            employeeDocumentTypeSetupId: 48,
+                            employeeDocumentMetaId: 1,
+                            employeeDocumentTypeSetupId: 10,
                             employeeId: widget.employeeID,
                             documentFile: finalPaths[i]!,
                             documentName: _fileNames[i],

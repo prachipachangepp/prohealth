@@ -17,6 +17,8 @@ class ManageReposotory{
   static String employeeTimeOff = "/employee-time-off";
 
   static String licenseStatus = "/employee-licenses/LicenseDetailByemployeeId";
+  static String resumeupload = "/employees/attach-resumebase64";
+  static String photoupload = "/employees/attach-photobase64";
 
 
   /// Licenses status wise
@@ -35,6 +37,16 @@ class ManageReposotory{
   static String updateEmployeement({required int employeementId}){
     return "$employement/$employeementId";
   }
+
+  static String updateEmployeementresume({required int employeementId}){
+    return "$resumeupload/$employeementId";
+  }
+
+
+
+
+
+
   /// Education
   static String getEmployeeDucation({required int employeeId,required String approveOnly}){
     return "$education/$byemployeeId/$employeeId/$approveOnly";
@@ -45,6 +57,14 @@ class ManageReposotory{
   static String patchEmployeeDucation({required int educationId}){
     return "$education/$educationId";
   }
+
+  static String uploadphoto({required int employeeid}){
+    return "$photoupload/$employeeid";
+  }
+
+
+
+
   /// Employee licences
   static String getEmployeeLicenses({required int employeeid,required String approveOnly}){
     return "$employee_licenses/ByemployeeId/$employeeid/$approveOnly";
