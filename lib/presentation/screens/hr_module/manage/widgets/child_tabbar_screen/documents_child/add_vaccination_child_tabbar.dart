@@ -25,7 +25,8 @@ import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 class AdditionalVaccinationsChildBar extends StatefulWidget {
-  const AdditionalVaccinationsChildBar({super.key});
+  final int employeeId;
+  const AdditionalVaccinationsChildBar({super.key, required this.employeeId});
 
   @override
   State<AdditionalVaccinationsChildBar> createState() => _AdditionalVaccinationsChildBarState();
@@ -54,6 +55,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
               // width: 100,
               margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
+                  width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
@@ -67,6 +69,9 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                             labelName: 'Add Health Record',
                             AcknowledgementnameController:
                             healthRecordAddNameController, onSavePressed: () {  },
+                            employeeId: widget.employeeId,
+                            documentMetaId: 1,
+                            documentSetupId: 10,
                             child: FutureBuilder<List<EmployeeDocSetupModal>>(
                                 future: getEmployeeDocSetupDropDown(context),
                                 builder: (context,snapshot) {
@@ -148,7 +153,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
         StreamBuilder(
           stream: _controller.stream,
           builder: (context,snapshot) {
-            getAckHealthRecord(context, 1,10,5).then((data) {
+            getAckHealthRecord(context, 1,10,widget.employeeId,'yes').then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -342,6 +347,9 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                               labelName: 'Edit Health Record',
                                               AcknowledgementnameController:
                                               nameIdController, onSavePressed: () {  },
+                                              employeeId: widget.employeeId,
+                                              documentMetaId: 1,
+                                              documentSetupId: 10,
                                               child: FutureBuilder<List<EmployeeDocSetupModal>>(
                                                   future: getEmployeeDocSetupDropDown(context),
                                                   builder: (context,snapshot) {
@@ -428,7 +436,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                               await employeedoctypeSetupIdDelete(
                                                   context,
                                                   snapshot.data![index].employeeDocumentId);
-                                              getAckHealthRecord(context, 1,1,20).then((data) {
+                                              getAckHealthRecord(context, 1,1,widget.employeeId,'no').then((data) {
                                                 _controller.add(data);
                                               }).catchError((error) {
                                                 // Handle error

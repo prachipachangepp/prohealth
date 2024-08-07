@@ -62,7 +62,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s550,
+        height: AppSize.s460,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -274,7 +274,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 ],
               ),
             ),
-            Spacer(),
+            SizedBox(height: 10),
             _isLoading
                 ? SizedBox(
               width: 25,
@@ -295,12 +295,13 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                     if (_idError == null && _nameError == null) {
                       setState(() {
                         _isLoading = true;
+                        Navigator.pop(context);
                       });
                       await widget.onSavePredded();
                       setState(() {
                         _isLoading = false;
                       });
-                      Navigator.pop(context);
+
                     }
                   },
                 ),

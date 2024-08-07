@@ -84,9 +84,12 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomIconButtonConst(
+            width: 170,
             text: AppString.addemployeetype,
             icon: Icons.add,
             onPressed: () {
+              typeController.clear();
+              shorthandController.clear();
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -117,7 +120,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     //   color = selectedColor.toString().substring(10,16);
                     // },
 
-                    title: 'Add Administrative',
+                    title: 'Add Administration',
                     child: FutureBuilder<List<HRHeadBar>>(
                         future: companyHRHeadApi(context,widget.deptId),
                         builder: (context,snapshot) {
@@ -308,7 +311,8 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            formattedSerialNumber,
+                            snapshot.data![index].employeeTypesId.toString(),
+                            //formattedSerialNumber,
                             textAlign: TextAlign.center,
                             style: AllHRTableData.customTextStyle(context)
                           ),
@@ -391,7 +395,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                                 color = seletedColor.toString().substring(10,16);
                                                 _saveColor(index, seletedColor);
                                               });
-                                            }, title: 'Edit Administrative',
+                                            }, title: 'Edit Administration',
                                             child:  FutureBuilder<List<HRHeadBar>>(
                                               future: companyHRHeadApi(context,widget.deptId),
                                               builder: (context,snapshot) {

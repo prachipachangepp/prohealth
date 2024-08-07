@@ -41,6 +41,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
   TextEditingController cityNameController = TextEditingController();
   TextEditingController employeerController = TextEditingController();
   TextEditingController emergencyMobileNumber = TextEditingController();
+  TextEditingController countryController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -83,6 +84,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                               employeerController: employeerController,
                               emergencyMobileNumber:
                               emergencyMobileNumber,
+                              countryController: countryController,
+
                               onpressedSave: () async {
                                 await addEmployeement(
                                     context,
@@ -96,7 +99,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                     startDateContoller.text,
                                     endDateController.text,
                                     emergencyMobileNumber.text,
-                                    'INDIA');
+                                    countryController.text);
                                 // if(apiData.statusCode == 200 && apiData.statusCode == 201){
                                 //   return showDialog(
                                 //     context: context,
@@ -394,12 +397,16 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
 
                                             var emgMobile = snapshotPrefill.data!.emgMobile;
                                             emergencyMobileNumber = TextEditingController(text: snapshotPrefill.data!.emgMobile);
+                                            var country = snapshotPrefill.data!.country;
+                                            countryController =TextEditingController(text: snapshotPrefill.data!.country);
+
 
 
                                             return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
                                               endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
                                               supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
                                               employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
+                                              countryController: countryController,
                                               onpressedSave: ()async{
                                                 await updateEmployeementPatch(context,
                                                     snapshot.data![index].employmentId,
@@ -413,7 +420,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                     startDate == startDateContoller.text ? startDate  : startDateContoller.text,
                                                     endDate == endDateController.text ? endDate : endDateController.text,
                                                     emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
-                                                    'USA'
+                                                    country== countryController.text ?country.toString():countryController.text
+                                                    // 'USA'
                                                     );
                                               }, checkBoxTile:  Padding(
                                                 padding:  EdgeInsets.only(left: 25.0),
@@ -513,13 +521,14 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                         ),
                       ),
                     );
+
                   })
               );
             }else{
               return SizedBox();
-            }
 
-          }
+            }
+}
         ),
       ],
     );

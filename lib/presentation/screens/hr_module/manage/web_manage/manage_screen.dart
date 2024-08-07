@@ -110,6 +110,7 @@ class _ManageScreenState extends State<ManageScreen> {
           child: Column(
             children: [
               EmploymentContainerConstant(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
+              Container(height: 30,),
             ],
           ),
         ),
@@ -150,33 +151,33 @@ class _ManageScreenState extends State<ManageScreen> {
     ],
         tabViews: [
       ///aknowledgment
-      const SingleChildScrollView(
+       SingleChildScrollView(
         child: Column(
           children: [
-            AcknowledgementsChildBar(),
+            AcknowledgementsChildBar(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
           ],
         ),
       ),
 
       ///compensation
-      const SingleChildScrollView(
+       SingleChildScrollView(
         child: Column(
           children: [
-            CompensationChildTabbar(),
+            CompensationChildTabbar(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
           ],
         ),
       ),
-      const SingleChildScrollView(
+       SingleChildScrollView(
         child: Column(
           children: [
-            AdditionalVaccinationsChildBar(),
+            AdditionalVaccinationsChildBar(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
           ],
         ),
       ),
-      const SingleChildScrollView(
+       SingleChildScrollView(
         child: Column(
           children: [
-            OtherChildTabbar(),
+            OtherChildTabbar(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
           ],
         ),
       ),
@@ -248,10 +249,12 @@ class _ManageScreenState extends State<ManageScreen> {
                 ],
               ),
             ),
+
             /// bottom row
-            const BottomBarRow(),
+            // const BottomBarRow(),
           ],
         ),
+        bottomNavigationBar: const BottomBarRow(),
       );
   }
 }

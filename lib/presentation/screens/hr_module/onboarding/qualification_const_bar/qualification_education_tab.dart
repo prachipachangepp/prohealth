@@ -17,7 +17,8 @@ import '../../../../../app/resources/value_manager.dart';
 import '../widgets/widgets/banking_tab_constant.dart';
 
 class QualificationEducation extends StatefulWidget {
-  const QualificationEducation({Key? key}) : super(key: key);
+  final int employeeId;
+  const QualificationEducation({Key? key, required this.employeeId}) : super(key: key);
 
   @override
   State<QualificationEducation> createState() => _QualificationEducationState();
@@ -29,7 +30,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationEducation(context, 2).then((data){
+    getOnboardingQualificationEducation(context, widget.employeeId,'no').then((data){
       educationStreamController.add(data);
     }).catchError((error){});
   }
@@ -46,12 +47,9 @@ class _QualificationEducationState extends State<QualificationEducation> {
         builder: (context,snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: SizedBox(width: 25,
-                height: 25,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150),
                 child: CircularProgressIndicator(
-
-
-
                   color: ColorManager.blueprime,
                 ),
               ),
@@ -59,12 +57,15 @@ class _QualificationEducationState extends State<QualificationEducation> {
           }
           if (snapshot.data!.isEmpty) {
             return Center(
-                child: Text(
-                  AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 150),
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey),
+                  ),
                 ));
           }
           if(snapshot.hasData){
@@ -92,7 +93,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                       vertical: MediaQuery.of(context).size.height / 120,
                     ),
                     child:Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -103,7 +104,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        //SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -246,7 +247,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                                                       ElevatedButton(
                                                         onPressed: () async {
                                                           await rejectOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
-                                                          getOnboardingQualificationEducation(context, 2).then((data){
+                                                          getOnboardingQualificationEducation(context, 2,'no').then((data){
                                                             educationStreamController.add(data);
                                                           }).catchError((error){});
                                                           Navigator.of(context).pop();
@@ -373,7 +374,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         await approveOnboardQualifyEducationPatch(context, snapshot.data![index].educationId);
-                                                        getOnboardingQualificationEducation(context, 2).then((data){
+                                                        getOnboardingQualificationEducation(context, 2,'no').then((data){
                                                           educationStreamController.add(data);
                                                         }).catchError((error){});
                                                         Navigator.of(context).pop();

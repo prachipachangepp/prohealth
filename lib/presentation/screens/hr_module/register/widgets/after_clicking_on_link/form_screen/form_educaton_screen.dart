@@ -1,12 +1,17 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_education_manager.dart';
 
+import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:html' as html;
 
 class EducationScreen extends StatefulWidget {
   const EducationScreen({
@@ -33,6 +38,9 @@ class _EducationScreenState extends State<EducationScreen> {
 
   String? _selectedDegree;
 
+  dynamic? filePath;
+  //
+  var finalPath;
   String? graduatetype;
   String? _selectedTypeN;
 
@@ -152,17 +160,17 @@ class _EducationScreenState extends State<EducationScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-            CustomButton(
-    width: 117,
-    height: 30,
-    text: 'Save',
-    style: TextStyle(
-    fontFamily: 'FiraSans',
-    fontSize: 12,
-    fontWeight: FontWeight.w700,
-    ),
-    borderRadius: 12,
-    onPressed: () async  {
+              CustomButton(
+                width: 117,
+                height: 30,
+                text: 'Save',
+                style: TextStyle(
+                  fontFamily: 'FiraSans',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+                borderRadius: 12,
+                onPressed: () async {
                   // Loop through each form and extract data to post
                   for (var key in educationFormKeys) {
                     final st = key.currentState!;
@@ -177,14 +185,46 @@ class _EducationScreenState extends State<EducationScreen> {
                         st.graduatetype.toString(),
                         st.selectedDegree.toString(),
                         "county");
+
+                    if (st.finalPath == null || st.finalPath.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('No file selected. Please select a file to upload.'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } else {
+                      try {
+                        await uploadDocuments(
+                          context: context,
+                          employeeDocumentMetaId: 10,
+                          employeeDocumentTypeSetupId: 48,
+                          employeeId: 2,
+                          documentFile: st.finalPath,
+                          documentName: 'education data',
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Document uploaded successfully!'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Failed to upload document: $e'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }
                   }
                   collegeuniversity.clear();
                   majorsubject.clear();
                   phone.clear();
                   city.clear();
                   state.clear();
-
-
                 },
                 child: Text(
                   'Save',
@@ -226,329 +266,335 @@ class _EducationFormState extends State<EducationForm> {
   String? graduatetype;
   String? selectedDegree;
 
+
+
+  Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
+    final blob = html.Blob([bytes]);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final file = html.File([blob], fileName);
+    return XFile(url);
+  }
+
+  bool _documentUploaded = true;
+  var fileName;
+  var fileName1;
+  dynamic? filePath;
+  File? xfileToFile;
+  var finalPath;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 160, right: 160),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Education #${widget.index}',
-              style: GoogleFonts.firaSans(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff686464),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Education #${widget.index}',
+                style: GoogleFonts.firaSans(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff686464),
+                ),
               ),
-
-            ),
-            IconButton(
-              icon: Icon(Icons.remove_circle, color: Colors.red),
-              onPressed: widget.onRemove,
-            ),
-          ],
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height / 20),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'College/University',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  CustomTextFieldRegister(
-                    controller: collegeuniversity,
-                    hintText: 'Enter Text',
-                    hintStyle: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff9B9B9B),
+              IconButton(
+                icon: Icon(Icons.remove_circle, color: Colors.red),
+                onPressed: widget.onRemove,
+              ),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'College/University',
+                      style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464)),
                     ),
-                    height: 32,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 30),
-                  Text(
-                    'Graduate',
-                    style: GoogleFonts.firaSans(
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: collegeuniversity,
+                      hintText: 'Enter Text',
+                      hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: CustomRadioListTile(
-                        title: 'Yes',
-                        value: 'Yes',
-                        groupValue: graduatetype,
-                        onChanged: (value) {
-                          setState(() {
-                            graduatetype = value;
-                          });
-                        },
-                      )),
-                      Expanded(
-                        child: CustomRadioListTile(
-                          title: 'No',
-                          value: 'No',
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'Graduate',
+                      style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464)),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: CustomRadioListTile(
+                          title: 'Yes',
+                          value: 'Yes',
                           groupValue: graduatetype,
                           onChanged: (value) {
                             setState(() {
                               graduatetype = value;
                             });
                           },
+                        )),
+                        Expanded(
+                          child: CustomRadioListTile(
+                            title: 'No',
+                            value: 'No',
+                            groupValue: graduatetype,
+                            onChanged: (value) {
+                              setState(() {
+                                graduatetype = value;
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 30),
-                  Text(
-                    'Degree',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  Container(
-                    height: 32,
-                    child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                        hintText: 'Select Degree',
-                        hintStyle: GoogleFonts.firaSans(
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'Degree',
+                      style: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
+                          color: Color(0xff686464)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    Container(
+                      height: 32,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          // hintText: 'Select Degree',
+                          hintStyle: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff9B9B9B),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(color: Colors.grey),
+                        value: selectedDegree,
+                        icon: Icon(Icons.arrow_drop_down,
+                            color: Color(0xff9B9B9B)),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464),
                         ),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 10),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedDegree = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'Degee',
+                          'Deree',
+                          'Dgree',
+                          'Degre'
+                        ] // List of countries
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
                       ),
-                      value: selectedDegree,
-                      icon: Icon(Icons.arrow_drop_down,
-                          color: Color(0xff9B9B9B)),
-                      iconSize: 24,
-                      elevation: 16,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'Major Subject',
                       style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: majorsubject,
+                      hintText: 'Enter Text',
+                      hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xff686464),
+                        color: Color(0xff9B9B9B),
                       ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedDegree = newValue;
-                        });
-                      },
-                      items: <String>[
-                        'Degee',
-                        'Deree',
-                        'Dgree',
-                        'Degre'
-                      ] // List of countries
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                      height: 32,
                     ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 30),
-                  Text(
-                    'Major Subject',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  CustomTextFieldRegister(
-                    controller: majorsubject,
-                    hintText: 'Enter Text',
-                    hintStyle: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff9B9B9B),
-                    ),
-                    height: 32,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: MediaQuery.of(context).size.width / 15),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Phone ',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  CustomTextFieldRegister(
-                    controller: phone,
-                    hintText: 'Enter Text',
-                    hintStyle: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff9B9B9B),
-                    ),
-                    height: 32,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 30),
-                  Text(
-                    'City',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  CustomTextFieldRegister(
-                    controller: city,
-                    hintText: 'Enter Text',
-                    hintStyle: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff9B9B9B),
-                    ),
-                    height: 32,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 30),
-                  Text(
-                    'State',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
-                  CustomTextFieldRegister(
-                    controller: state,
-                    hintText: 'Enter Text',
-                    hintStyle: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff9B9B9B),
-                    ),
-                    height: 32,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height / 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                'Upload your degree / certifications as a docx or pdf',
-                style: GoogleFonts.firaSans(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff686464),
+                  ],
                 ),
               ),
-            ),
-            SizedBox(width: MediaQuery.of(context).size.width / 20),
-            ElevatedButton.icon(
-              onPressed: () async {
-                setState(() {
-                  _loading = true; // Show loader
-                  _fileNames.clear(); // Clear previous file names if any
-                });
-
-                FilePickerResult? result =
-                    await FilePicker.platform.pickFiles(
-                  allowMultiple: true,
-                );
-
-                if (result != null) {
-                  setState(() {
-                    _fileNames.addAll(result.files.map((file) => file.name!));
-                    _loading = false; // Hide loader
-                  });
-                  print('Files picked: $_fileNames');
-                } else {
-                  setState(() {
-                    _loading = false; // Hide loader on cancel
-                  });
-                  print('User canceled the picker');
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff50B5E5),
-    // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              icon: Icon(Icons.file_upload_outlined, color: Colors.white),
-              label: Text(
-                'Upload Document',
-                style: GoogleFonts.firaSans(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-
-          ],
-        ),
-        Row(
-          children: [
-            _loading
-            ? SizedBox(
-            width: 25,
-            height: 25,
-            child: CircularProgressIndicator(
-              color: ColorManager.blueprime, // Loader color
-            // Loader size
-            ),
-                      )
-            : _fileNames.isNotEmpty
-                  ? Column(
+              SizedBox(width: MediaQuery.of(context).size.width / 15),
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                    children: _fileNames
-            .map((fileName) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-            'File picked: $fileName',
-            style: GoogleFonts.firaSans(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w400,
-                color: Color(0xff686464)),
+                  children: [
+                    Text(
+                      'Phone ',
+                      style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: phone,
+                      hintText: 'Enter Text',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
                       ),
-                    ))
-            .toList(),
-                  )
-            : SizedBox(),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
-          ],
-        ),
-        const Divider(color: Colors.grey,thickness: 2,)
+                      height: 32,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'City',
+                      style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: city,
+                      hintText: 'Enter Text',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'State',
+                      style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    CustomTextFieldRegister(
+                      controller: state,
+                      hintText: 'Enter Text',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  'Upload your degree / certifications as a docx or pdf',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xff686464),
+                  ),
+                ),
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width / 20),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  FilePickerResult? result = await FilePicker.platform.pickFiles();
+                  if (result != null) {
+                    try {
+                      Uint8List? bytes = result.files.first.bytes;
+                      XFile xFile = await convertBytesToXFile(bytes!, result.files.first.name);
+                      finalPath = result.files.first.bytes;
+                      setState(() {
+                        _fileNames.addAll(result.files.map((file) => file.name!));
+                        _loading = false;
+                      });
+                    } catch (e) {
+                      print(e);
+                    }
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff50B5E5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                icon: Icon(Icons.upload, color: Colors.white),
+                label: Text(
+                  'Upload File',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              _loading
+                  ? SizedBox(
+                width: 25,
+                height: 25,
+                child: CircularProgressIndicator(
+                  color: ColorManager.blueprime, // Loader color
+                  // Loader size
+                ),
+              )
+                  : _fileNames.isNotEmpty
+                  ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _fileNames
+                    .map((fileName) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'File picked: $fileName',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                ))
+                    .toList(),
+              )
+                  : SizedBox(),
+              SizedBox(height: MediaQuery.of(context).size.height / 20),
+            ],
+          ),
+          const Divider(
+            color: Colors.grey,
+            thickness: 2,
+          )
 
-        ///upload document/ Display file names if picked
-      ],),
-
+          ///upload document/ Display file names if picked
+        ],
+      ),
     );
   }
 }

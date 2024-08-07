@@ -185,10 +185,10 @@ Future<ApiData> addEmpEnrollOffers(
       data: {
         "employeeEnrollId": employeeEnrollId,
         "employeeId": employeeId,
-        "issueDate": issueDate,
-        "lastDate": lastDate,
-        "startDate": startDate,
-        "verbalDate": verbalDate,
+        "issueDate": "${issueDate}T00:00:00Z",  //issueDate,
+        "lastDate": "${lastDate}T00:00:00Z",//lastDate,
+        "startDate": "${startDate}T00:00:00Z",//startDate,
+        "verbalDate": "${verbalDate}T00:00:00Z",//verbalDate,
       },
     );
     print(response);

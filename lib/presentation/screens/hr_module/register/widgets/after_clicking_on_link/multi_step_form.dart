@@ -1,5 +1,3 @@
-
-
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
@@ -8,6 +6,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/thank_you_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/widgets/container_constant.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -65,371 +64,370 @@ class _MultiStepFormState extends State<MultiStepForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: TopRowConstant(),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("     "),
-                Text(
-                  "Details",
-                  style: GoogleFonts.firaSans(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.blueprime,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff50B5E5),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: () {
-
-                  },
-                  child: Text(
-                    "Save Progress",
-                    style: GoogleFonts.firaSans(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
+    return
+      // isCompleted
+      //   ? OnBoardingThankYou()
+      //   :
+    Scaffold(
+            backgroundColor: Colors.white,
+            appBar: const PreferredSize(
+              preferredSize: Size.fromHeight(kToolbarHeight),
+              child: TopRowConstant(),
             ),
-          ),
-          const SizedBox(
-            height: AppSize.s5,
-          ),
-          Container(
-            // height: MediaQuery.of(context).size.height / 4,
-            // width: MediaQuery.of(context).size.width / 1.1,
-            // color: Colors.yellow,
-            child: Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:Theme(
-                  data: Theme.of(context).copyWith(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("     "),
+                      Text(
+                        "Details",
+                        style: GoogleFonts.firaSans(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.blueprime,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff50B5E5),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          "Save Progress",
+                          style: GoogleFonts.firaSans(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  child: Stepper(
-                    physics: const ScrollPhysics(),
-                    type: StepperType.horizontal,
-                    steps: steps(),
-                    currentStep: _currentStep,
-                    onStepContinue: () {
-                      if (isLastStep) {
-                        setState(() => isCompleted = true);
-                      } else {
-                        setState(() => _currentStep += 1);
-                      }
-                    },
-                    onStepCancel: isFirstStep
-                        ? null
-                        : () => setState(() => _currentStep -= 1),
-                    controlsBuilder: (context, details) => Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (!isFirstStep) ...[
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            // ElevatedButton.icon(
-                            //   style: ElevatedButton.styleFrom(
-                            //     backgroundColor: Colors.white,
-                            //     foregroundColor: const Color(0xff1696C8),
-                            //     side: const BorderSide(color: Color(0xff1696C8)),
-                            //     shape: RoundedRectangleBorder(
-                            //       borderRadius: BorderRadius.circular(8),
-                            //     ),
-                            //   ),
-                            //   onPressed: details.onStepCancel,
-                            //   label: Text(
-                            //     "Back",
-                            //     style: GoogleFonts.firaSans(
-                            //       fontSize: 12.0,
-                            //       fontWeight: FontWeight.w700,
-                            //       //color: Colors.white,
-                            //     ),
-                            //   ),
-                            //   icon: const Icon(Icons.arrow_back,  size: 16,),
-                            // )
-                            InkWell(
-    splashColor: Colors.transparent,
-    highlightColor: Colors.transparent,
-                              child: Container(
-                                height: 30,
-                                width: 125,
-                               decoration: BoxDecoration(
-                                 borderRadius: BorderRadius.circular(12),
-                                 border: Border.all(
-                                   color: Color(0xFF50B5E5),
-                                   width: 1.0,
-                                 ),
-
-                               ),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Icons.arrow_back,
-                                        color: Color(0xFF50B5E5),
-                                        size: 16,
-                                      ),
-                                      SizedBox(width: 3),
-                                      Text(
-                                        'Back',
-                                        style: GoogleFonts.firaSans(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 12,
+                ),
+                const SizedBox(
+                  height: AppSize.s5,
+                ),
+                Container(
+                  // height: MediaQuery.of(context).size.height / 4,
+                  // width: MediaQuery.of(context).size.width / 1.1,
+                  // color: Colors.yellow,
+                  child: Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                        ),
+                        child: Stepper(
+                          physics: const ScrollPhysics(),
+                          type: StepperType.horizontal,
+                          steps: steps(),
+                          currentStep: _currentStep,
+                          onStepContinue: () {
+                            if (isLastStep) {
+                              setState(() => isCompleted = true);
+                            } else {
+                              setState(() => _currentStep += 1);
+                            }
+                          },
+                          onStepCancel: isFirstStep
+                              ? null
+                              : () => setState(() => _currentStep -= 1),
+                          controlsBuilder: (context, details) => Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (!isFirstStep) ...[
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  // ElevatedButton.icon(
+                                  //   style: ElevatedButton.styleFrom(
+                                  //     backgroundColor: Colors.white,
+                                  //     foregroundColor: const Color(0xff1696C8),
+                                  //     side: const BorderSide(color: Color(0xff1696C8)),
+                                  //     shape: RoundedRectangleBorder(
+                                  //       borderRadius: BorderRadius.circular(8),
+                                  //     ),
+                                  //   ),
+                                  //   onPressed: details.onStepCancel,
+                                  //   label: Text(
+                                  //     "Back",
+                                  //     style: GoogleFonts.firaSans(
+                                  //       fontSize: 12.0,
+                                  //       fontWeight: FontWeight.w700,
+                                  //       //color: Colors.white,
+                                  //     ),
+                                  //   ),
+                                  //   icon: const Icon(Icons.arrow_back,  size: 16,),
+                                  // )
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    child: Container(
+                                      height: 30,
+                                      width: 125,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
                                           color: Color(0xFF50B5E5),
+                                          width: 1.0,
                                         ),
                                       ),
-                                    ],
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(
+                                              Icons.arrow_back,
+                                              color: Color(0xFF50B5E5),
+                                              size: 16,
+                                            ),
+                                            SizedBox(width: 3),
+                                            Text(
+                                              'Back',
+                                              style: GoogleFonts.firaSans(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 12,
+                                                color: Color(0xFF50B5E5),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: details.onStepCancel,
+                                  )
+                                ],
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  height: 30,
+                                  width: 140,
+                                  child: CustomIconButton(
+                                    icon: Icons.arrow_forward_rounded,
+                                    text: isLastStep ? 'Confirm' : 'Continue',
+                                    onPressed: () async {
+                                      details.onStepContinue!();
+                                    },
                                   ),
                                 ),
-                              ),
-                              onTap: () async {
-                                details.onStepCancel;
-                              },
-                            )
-                          ],
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            height: 30,
-                            width: 140,
-                            child: CustomIconButton(
-                              icon: Icons.arrow_forward_rounded,
-                                text:  isLastStep ? 'Confirm' : 'Continue',
-                                onPressed:
-                                    () async {
-                                  details.onStepContinue!();
-                                },
+                                SizedBox(
+                                  width: 20,
+                                ),
+                              ],
                             ),
                           ),
-                        SizedBox(
-                          width: 20,
+                          onStepTapped: (step) =>
+                              setState(() => _currentStep = step),
                         ),
-
-                        ],
                       ),
                     ),
-                    onStepTapped: (step) => setState(() => _currentStep = step),
                   ),
                 ),
+                // const Row(
+                //   children: [BottomBarRow()],
+                // )
+              ],
+            ),
+            bottomNavigationBar: BottomBarRow(),
+          );
+  }
+
+  List<Step> steps() => [
+        Step(
+          state: _currentStep <= 0 ? StepState.editing : StepState.complete,
+          isActive: _currentStep >= 0,
+          title: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: Text(
+              'General',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.grey,
+                decoration: TextDecoration.none,
               ),
             ),
           ),
-          // const Row(
-          //   children: [BottomBarRow()],
-          // )
-        ],
-      ),
-      bottomNavigationBar: BottomBarRow(),
-    );
-  }
-  List<Step> steps() => [
-    Step(
-      state: _currentStep <= 0 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 0,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+          content: generalForm(context: context),
         ),
-        child: Text(
-          'General',
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: ColorManager.grey,
-            decoration: TextDecoration.none,
+        Step(
+          state: _currentStep <= 1 ? StepState.editing : StepState.complete,
+          isActive: _currentStep >= 1,
+          title: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: Text(
+              'Employment',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.grey,
+                decoration: TextDecoration.none,
+              ),
+            ),
           ),
+          content: Employment_screen(context: context),
         ),
-      ),
-      content: generalForm(context: context),
-    ),
-    Step(
-      state: _currentStep <= 1 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 1,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'Employment',
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: ColorManager.grey,
-            decoration: TextDecoration.none,
+        Step(
+          state: _currentStep <= 2 ? StepState.editing : StepState.complete,
+          isActive: _currentStep >= 2,
+          title: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: Text(
+              'Education',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.grey,
+                decoration: TextDecoration.none,
+              ),
+            ),
           ),
+          content: EducationScreen(context: context),
         ),
-      ),
-      content: Employment_screen(context: context),
-    ),
-    Step(
-      state: _currentStep <= 2 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 2,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'Education',
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: ColorManager.grey,
-            decoration: TextDecoration.none,
+        Step(
+          state: _currentStep <= 3 ? StepState.editing : StepState.complete,
+          isActive: _currentStep >= 3,
+          title: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: Text(
+              'References',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.grey,
+                decoration: TextDecoration.none,
+              ),
+            ),
           ),
+          content: ReferencesScreen(context: context),
         ),
-      ),
-      content: EducationScreen(context: context),
-    ),
-    Step(
-      state: _currentStep <= 3 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 3,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'References',
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: ColorManager.grey,
-            decoration: TextDecoration.none,
+        Step(
+          state: _currentStep <= 4 ? StepState.editing : StepState.complete,
+          isActive: _currentStep >= 4,
+          title: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: Text(
+              'Licenses',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.grey,
+                decoration: TextDecoration.none,
+              ),
+            ),
           ),
+          content: LicensesScreen(context: context),
         ),
-      ),
-      content: ReferencesScreen(context: context),
-    ),
-    Step(
-      state: _currentStep <= 4 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 4,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'Licenses',
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: ColorManager.grey,
-            decoration: TextDecoration.none,
+        Step(
+          state: _currentStep <= 5 ? StepState.editing : StepState.complete,
+          isActive: _currentStep >= 5,
+          title: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: Text(
+              'Banking',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.grey,
+                decoration: TextDecoration.none,
+              ),
+            ),
           ),
+          content: BankingScreen(context: context),
         ),
-      ),
-      content: LicensesScreen(context: context),
-    ),
-    Step(
-      state: _currentStep <= 5 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 5,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'Banking',
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: ColorManager.grey,
-            decoration: TextDecoration.none,
+        Step(
+          state: _currentStep <= 6 ? StepState.editing : StepState.complete,
+          isActive: _currentStep >= 6,
+          title: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: Text(
+              'Health \nRecords',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.grey,
+                decoration: TextDecoration.none,
+              ),
+            ),
           ),
+          content: HealthRecordsScreen(context: context),
         ),
-      ),
-      content: BankingScreen(context: context),
-    ),
-    Step(
-      state: _currentStep <= 6 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 6,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'Health \nRecords',
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: ColorManager.grey,
-            decoration: TextDecoration.none,
+        Step(
+          state: _currentStep <= 7 ? StepState.editing : StepState.complete,
+          isActive: _currentStep >= 7,
+          title: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: Text(
+              'Acknowledgements',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.grey,
+                decoration: TextDecoration.none,
+              ),
+            ),
           ),
+          content: AcknowledgementsScreen(context: context),
         ),
-      ),
-      content: HealthRecordsScreen(context: context),
-    ),
-    Step(
-      state: _currentStep <= 7 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 7,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'Acknowledgements',
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: ColorManager.grey,
-            decoration: TextDecoration.none,
+        Step(
+          state: _currentStep <= 8 ? StepState.editing : StepState.complete,
+          isActive: _currentStep >= 8,
+          title: Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: Text(
+              'Legal \nDocuments',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.grey,
+                decoration: TextDecoration.none,
+              ),
+            ),
           ),
+          content: LegalDocumentsScreen(context: context),
         ),
-      ),
-      content: AcknowledgementsScreen(context: context),
-    ),
-    Step(
-      state: _currentStep <= 8 ? StepState.editing : StepState.complete,
-      isActive: _currentStep >= 8,
-      title: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: Text(
-          'Legal \nDocuments',
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: ColorManager.grey,
-            decoration: TextDecoration.none,
-          ),
-        ),
-      ),
-      content: LegalDocumentsScreen(context: context),
-    ),
-  ];
+      ];
 
 // blueprime
 //   List<Step> steps() => [

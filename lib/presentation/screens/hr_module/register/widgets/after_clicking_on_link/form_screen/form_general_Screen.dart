@@ -1,12 +1,21 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:html' as html;
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 import 'form_educaton_screen.dart';
@@ -58,9 +67,63 @@ class _generalFormState extends State<generalForm> {
 
   String? racetype;
 
-
   List<String> _fileNames = [];
   bool _loading = false;
+  ////////////////////////////////////
+
+  bool _documentUploaded = true;
+  var fileName;
+  var fileName1;
+  dynamic? filePath;
+  File? xfileToFile;
+  var finalPath;
+  // PlatformFile? fileName;
+
+  Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
+    // Get the directory to save the file.
+    final blob = html.Blob(bytes);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+
+
+    // Create the file.
+    //final anchor = html.AnchorElement(href: url)..setAttribute("download", fileName)..click();
+    final file = html.File([blob],fileName);
+    // Write the bytes to the file.
+    print(file.toString());
+    return WebFile(file, url);
+  }
+
+  Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
+    // Create a Blob from the bytes
+    final blob = html.Blob([bytes]);
+
+    // Create an object URL from the Blob
+    final url = html.Url.createObjectUrlFromBlob(blob);
+
+    // Create a File from the Blob
+    final file = html.File([blob], fileName);
+
+    print("XFILE ${url}");
+
+    // Return the XFile created from the object URL
+    return XFile(url);
+  }
+
+  Future<Uint8List> loadFileBytes() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/somefile.txt');
+    if (await file.exists()) {
+      return await file.readAsBytes();
+    } else {
+      throw Exception('File not found');
+    }
+  }
+
+
+
+  ////////////////////////////
+  ///////
+  //
 
   void _pickFiles() async {
     setState(() {
@@ -85,8 +148,6 @@ class _generalFormState extends State<generalForm> {
       print('User canceled the picker');
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -154,25 +215,49 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff1696C8),
+                          backgroundColor: Color(0xff50B5E5),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed:_pickFiles,
-                        // onPressed: () async {
-                        //   FilePickerResult? result =
-                        //       await FilePicker.platform.pickFiles(
-                        //     allowMultiple: false,
-                        //   );
-                        //   if (result != null) {
-                        //     PlatformFile file = result.files.first;
-                        //     print('File picked: ${file.name}');
-                        //   } else {
-                        //     // User canceled the picker
-                        //   }
-                        // },
+                        onPressed:
+
+
+                            ()async {
+                          // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                          //   allowMultiple: false,
+                          // );
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          if (result != null) {
+                            print("Result::: ${result}");
+
+                            try{
+                              Uint8List? bytes = result.files.first.bytes;
+                              XFile xlfile = XFile(result.xFiles.first.path);
+                              xfileToFile = File(xlfile.path);
+
+                              print("::::XFile To File ${xfileToFile.toString()}");
+                              XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
+                              // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
+                              // html.File file = webFile.file;
+                              //  print("XFILE ${xFile.path}");
+                              //  //filePath = xfileToFile as XFile?;
+                              //  print("L::::::${filePath}");
+                              _fileNames.addAll(result.files.map((file) => file.name!));
+                              print('File picked: ${_fileNames}');
+                              //print(String.fromCharCodes(file));
+                              finalPath = result.files.first.bytes;
+                              setState(() {
+                                _fileNames;
+                                _documentUploaded = true;
+                              });
+                            }catch(e){
+                              print(e);
+                            }
+                          }
+                        },      //_pickFiles,
+
                         label: Text(
                           "Choose File",
                           style: GoogleFonts.firaSans(
@@ -184,30 +269,32 @@ class _generalFormState extends State<generalForm> {
                         icon: const Icon(Icons.file_upload_outlined),
                       ),
                       _loading
-                          ? SizedBox(width: 25,
-                        height: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime, // Loader color
-                          // Loader size
-                        ),
-                      )
+                          ? SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: CircularProgressIndicator(
+                                color: ColorManager.blueprime, // Loader color
+                                // Loader size
+                              ),
+                            )
                           : _fileNames.isNotEmpty
-                          ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: _fileNames
-                            .map((fileName) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'File picked: $fileName',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff686464)),
-                          ),
-                        ))
-                            .toList(),
-                      )
-                          : const SizedBox(), // Display file names if picked
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: _fileNames
+                                      .map((fileName) => Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'File picked: $fileName',
+                                              style: GoogleFonts.firaSans(
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                      const Color(0xff686464)),
+                                            ),
+                                          ))
+                                      .toList(),
+                                )
+                              : const SizedBox(), // Display file names if picked
 
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
@@ -377,7 +464,6 @@ class _generalFormState extends State<generalForm> {
                           return null;
                         },
                         height: 32,
-
                       ),
                     ],
                   ),
@@ -444,7 +530,7 @@ class _generalFormState extends State<generalForm> {
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: dobcontroller,
-                        hintText: 'dd-mm-yyyy',
+                        hintText: 'yyyy-mm-dd',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
@@ -542,7 +628,6 @@ class _generalFormState extends State<generalForm> {
                           // const SizedBox(
                           //   width: 5,
                           // ),
-
                         ],
                       ),
                       Row(
@@ -580,8 +665,6 @@ class _generalFormState extends State<generalForm> {
                           // const SizedBox(
                           //   width: 3,
                           // ),
-
-
                         ],
                       ),
                       Row(
@@ -614,11 +697,11 @@ class _generalFormState extends State<generalForm> {
                             color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      Container(
+                      SizedBox(
                         height: 32,
                         child: DropdownButtonFormField<String>(
                           decoration: InputDecoration(
-                            hintText: 'Select Clinician',
+                           // hintText: 'Select Clinician',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
                               fontWeight: FontWeight.w400,
@@ -629,7 +712,8 @@ class _generalFormState extends State<generalForm> {
                               borderSide: const BorderSide(color: Colors.grey),
                             ),
                             contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
+                                //   //  vertical: 5,
+                                horizontal: 12),
                           ),
                           value: _selectedClinician,
                           icon: const Icon(Icons.arrow_drop_down,
@@ -669,13 +753,42 @@ class _generalFormState extends State<generalForm> {
                             color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
+                      // CustomDropdownTextField(
+                      //   width: 600,
+                      //   height: 32,
+                      //  // hintText: 'Select Speciality ',
+                      //
+                      //   items: [
+                      //     'Speciality1',
+                      //     'Speciality2',
+                      //     'CSpeciality',
+                      //     'Speciality'
+                      //   ],
+                      //   value: _selectedSpeciality,
+                      //   // List of countries
+                      //   //     .map<DropdownMenuItem<String>>((String value) {
+                      //   //   return DropdownMenuItem<String>(
+                      //   //     value: value,
+                      //   //     child: Text(value),
+                      //   //   );
+                      //   // }).toList(),
+                      //
+                      //   labelText: 'Select Speciality',
+                      //   labelStyle: GoogleFonts.firaSans(
+                      //     fontSize: 10,
+                      //     fontWeight: FontWeight.w400,
+                      //     color: const Color(0xff9B9B9B),
+                      //   ),
+                      // ),
                       Container(
                         height: 32,
                         child: DropdownButtonFormField<String>(
+                          // alignment: AlignmentDirectional.centerStart,
                           decoration: InputDecoration(
-                            hintText: 'Select Speciality',
+                            //hintText:
+                                //'Select Speciality                                      ',
                             hintStyle: GoogleFonts.firaSans(
-                              fontSize: 10.0,
+                              fontSize: 10,
                               fontWeight: FontWeight.w400,
                               color: const Color(0xff9B9B9B),
                             ),
@@ -683,8 +796,8 @@ class _generalFormState extends State<generalForm> {
                               borderRadius: BorderRadius.circular(4.0),
                               borderSide: const BorderSide(color: Colors.grey),
                             ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
+                            contentPadding: const EdgeInsets.only(
+                                bottom: AppPadding.p5, left: 12),
                           ),
                           value: _selectedSpeciality,
                           icon: const Icon(Icons.arrow_drop_down,
@@ -726,84 +839,120 @@ class _generalFormState extends State<generalForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButton(
-                width: 117,
-                height: 30,
-                text: 'Save',
-                style: TextStyle(
-                  fontFamily: 'FiraSans',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-                borderRadius: 12,
-                onPressed: () async {
-                                    await postgeneralscreendata(
-                                        context,
-                                        'G023',
-                                        26,
-                                        firstname.text,
-                                        lastname.text,
-                                        1,
-                                        1,
-                                        'Expertise',
-                                        1,
-                                        1,
-                                        1,
-                                        true,
-                                        false,
-                                        1,
-                                        'SSN123',
-                                        ssecuritynumber.text,
-                                        phonenumber.text,
-                                        '1234',
-                                        '12345',
-                                        '1245',
-                                        personalemail.text,
-                                        address.text,
-                                        dobcontroller.text,
-                                        '1245',
-                                        'Coverage',
-                                        'Employment',
-                                        gendertype.toString(),
-                                        'Active',
-                                        'Service',
-                                        'imgurl',
-                                        'resumeurl',
-                                        5,
-                                        'Onboarding',
-                                        driverlicensenumb.text,
-                                        '2024-01-01',
-                                        '2024-01-01',
-                                        '2024-01-01',
-                                        'Yes',
-                                        'Position',
-                                        '123 Final St',
-                                        'Type',
-                                        'Reason',
-                                        1,
-                                        '2024-01-01',
-                                        1,
-                                        1,
-                                        'Method',
-                                        'Material',
-                                        racetype.toString(),
-                                        'rating',
-                                        'SignatureURL'
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text("General data saved")),
-                                    );
-                                    firstname.clear();
-                                    lastname.clear();
-                                    ssecuritynumber.clear();
-                                    phonenumber.clear();
-                                    personalemail.clear();
-                                    driverlicensenumb.clear();
-                                    address.clear();
-                                    dobcontroller.clear();
+                  width: 117,
+                  height: 30,
+                  text: 'Save',
+                  style: const TextStyle(
+                    fontFamily: 'FiraSans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  borderRadius: 12,
+                  onPressed: () async {
+                    await postgeneralscreendata(
+                        context,
+                        'G023',
+                        35,
+                        firstname.text,
+                        lastname.text,
+                        1,
+                        1,
+                        'Expertise',
+                        1,
+                        1,
+                        1,
+                        true,
+                        false,
+                        1,
+                        'SSN123',
+                        ssecuritynumber.text,
+                        phonenumber.text,
+                        '1234',
+                        '12345',
+                        '1245',
+                        personalemail.text,
+                        address.text,
+                        dobcontroller.text,
+                        '1245',
+                        'Coverage',
+                        'Employment',
+                        gendertype.toString(),
+                        'Active',
+                        'Service',
+                        'imgurl',
+                        'resumeurl',
+                        5,
+                        'Onboarding',
+                        driverlicensenumb.text,
+                        '2024-01-01',
+                        '2024-01-01',
+                        '2024-01-01',
+                        'Yes',
+                        'Position',
+                        '123 Final St',
+                        'Type',
+                        'Reason',
+                        1,
+                        '2024-01-01',
+                        1,
+                        1,
+                        'Method',
+                        'Material',
+                        racetype.toString(),
+                        'rating',
+                        'SignatureURL');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("General data saved")),
+                    );
 
-                }
-              ),
-            ///    onPressed: () async {
+                      if (finalPath == null || finalPath.isEmpty) {
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('No file selected. Please select a file to upload.'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      } else {
+                        try {
+                          await uploadDocuments(
+                              context: context,
+                              employeeDocumentMetaId: 10,
+                              employeeDocumentTypeSetupId: 48,
+                              employeeId: 2,
+                              documentFile: finalPath,
+                              documentName: 'Legal Document ID'
+                          );
+
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Document uploaded successfully!'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        } catch (e) {
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Failed to upload document: $e'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      }
+
+                    firstname.clear();
+                    lastname.clear();
+                    ssecuritynumber.clear();
+                    phonenumber.clear();
+                    personalemail.clear();
+                    driverlicensenumb.clear();
+                    address.clear();
+                    dobcontroller.clear();
+                  }),
+
+              ///    onPressed: () async {
               //                   await postgeneralscreendata(
               //                       context,
               //                       'G023',

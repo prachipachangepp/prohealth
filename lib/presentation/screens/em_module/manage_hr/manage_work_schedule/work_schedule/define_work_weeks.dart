@@ -362,7 +362,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                     future:
                                                         workWeekShiftScheduleGet(
                                                             context,
-                                                            snapshot.data![index].companyId,
+                                                            //snapshot.data![index].companyId,
                                                             snapshot.data![index].officeId,
                                                             data.weekDays),
                                                     builder: (context,
@@ -465,7 +465,8 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                     builder: (BuildContext context) {
                                                                                       return ViewBatchesPopup(shiftName: snapshotShift.data![index].shiftName,
                                                                                         weekName: snapshot.data![index].weekDays, officeId: snapshot.data![index].officeId,
-                                                                                        companyId: snapshot.data![index].companyId,);
+                                                                                        //companyId: snapshot.data![index].companyId,
+                                                                                          );
                                                                                     });
                                                                               },
                                                                               child: Text(
@@ -492,9 +493,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                             controller2: endTimeController,
                                                                                             onPressed: () async{
                                                                                               await addShiftBatch(context, snapshotShift.data![index].shiftName,
-                                                                                                  snapshotShift.data![index].companyId, snapshotShift.data![index].officeId,
+                                                                                                  snapshotShift.data![index].officeId,
                                                                                                   snapshot.data![index].weekDays, startTimeController.text, endTimeController.text);
-                                                                                              Navigator.pop(context);
+                                                                                              //Navigator.pop(context);
                                                                                             },
                                                                                           );
                                                                                         });
@@ -546,7 +547,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                 snapshot.data![index].companyId);
                                                             workWeekShiftScheduleGet(
                                                                 context,
-                                                                snapshot.data![index].companyId,
+                                                                //snapshot.data![index].companyId,
                                                                 snapshot.data![index].officeId,
                                                                 data.weekDays);
                                                             workWeekScheduleGet(context).then((data) {

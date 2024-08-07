@@ -20,6 +20,7 @@ class AddEmployeementPopup extends StatefulWidget {
   final TextEditingController cityNameController;
   final TextEditingController employeerController;
   final TextEditingController emergencyMobileNumber;
+  final TextEditingController countryController;
   final String tite;
   final VoidCallback onpressedClose;
   Future<void> Function() onpressedSave;
@@ -39,7 +40,7 @@ class AddEmployeementPopup extends StatefulWidget {
     required this.onpressedSave,
     required this.checkBoxTile,
     required this.tite,
-    required this.onpressedClose,
+    required this.onpressedClose, required this.countryController,
   });
 
   @override
@@ -62,6 +63,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     'cityName': false,
     'employer': false,
     'emergencyMobileNumber': false,
+    'countryname':false
+
   };
 
   @override
@@ -70,7 +73,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.5,
-        height: AppSize.s395, // Increased height
+        height:  MediaQuery.of(context).size.height / 1.6,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -113,7 +116,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ],
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -136,7 +139,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -188,6 +191,23 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ),
               ],
             ),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildTextField(
+                  controller: widget.countryController,
+                  labelText: "Country Name",
+                  errorKey: 'countryname',
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 6,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 6,
+                ),
+              ],
+            ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
@@ -208,6 +228,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     child: CircularProgressIndicator(color: ColorManager.blueprime),
                   )
                       : CustomElevatedButton(
+                    width: 100,
                     text: "Save",
                     onPressed: _handleSave,
                   ),
@@ -291,6 +312,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       errorStates['cityName'] = widget.cityNameController.text.isEmpty;
       errorStates['employer'] = widget.employeerController.text.isEmpty;
       errorStates['emergencyMobileNumber'] = widget.emergencyMobileNumber.text.isEmpty;
+      errorStates['countryname']=widget.countryController.text.isEmpty;
     });
 
     if (!errorStates.values.contains(true)) {
@@ -331,6 +353,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     widget.employeerController.clear();
     widget.positionTitleController.clear();
     widget.emergencyMobileNumber.clear();
+    widget.countryController.clear();
   }
 }
 

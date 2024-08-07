@@ -67,12 +67,13 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
               ),
               margin: EdgeInsets.only(right: 10),
               child: CustomIconButtonConst(
+                width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
                     showDialog(
                         context: context,
-                        builder: (_) => EquipmentAddPopup(employeeId: widget.employeeId,));
+                        builder: (_) => EquipmentAddPopup(employeeId: widget.employeeId));
                   }),
             ),
           ],
@@ -83,7 +84,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
         StreamBuilder(
           stream: equipementDataStreamController.stream,
           builder: (context,snapshot) {
-            getEquipement(context).then((data) {
+            getEquipement(context,widget.employeeId).then((data) {
               equipementDataStreamController.add(data);
             }).catchError((error) {
               // Handle error

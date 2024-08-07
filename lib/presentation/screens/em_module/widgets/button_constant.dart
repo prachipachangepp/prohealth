@@ -69,7 +69,7 @@ class CustomElevatedButton extends StatefulWidget {
     this.borderRadius = 12.0,
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 16.0,
-    this.width = 100,
+    this.width = 150,
     //this.width = double.infinity,
     this.height = 35.0,
     this.style = const TextStyle(color: Colors.white),

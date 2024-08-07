@@ -103,6 +103,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               Padding(
                 padding: const EdgeInsets.only(right: 50),
                 child: CustomIconButtonConst(
+                  width: 170,
                   text: 'Add New Office',
                   onPressed: () {
                     showDialog(

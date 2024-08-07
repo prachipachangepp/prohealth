@@ -23,7 +23,8 @@ import 'package:http/http.dart' as http;
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 class OtherChildTabbar extends StatefulWidget {
-  const OtherChildTabbar({super.key});
+  final int employeeId;
+  const OtherChildTabbar({super.key, required this.employeeId});
 
   @override
   State<OtherChildTabbar> createState() => _OtherChildTabbarState();
@@ -46,6 +47,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
               // width: 100,
               margin: const EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
+                  width: 100,
                   text: AppStringHr.addNew,
                   icon: Icons.add,
                   onPressed: () {
@@ -59,6 +61,9 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                             labelName: 'Add Other Document',
                             AcknowledgementnameController:
                             otherAddNameController, onSavePressed: () {  },
+                            employeeId: widget.employeeId,
+                            documentMetaId: 9,
+                            documentSetupId: 38,
                             child: FutureBuilder<List<EmployeeDocSetupModal>>(
                                 future: getEmployeeDocSetupDropDown(context),
                                 builder: (context,snapshot) {
@@ -128,7 +133,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (BuildContext context, snapshot) {
-            getAckHealthRecord(context, 9,38,36).then((data) {
+            getAckHealthRecord(context, 9,38,widget.employeeId,'no').then((data) {
               _controller.add(data);
             }).catchError((error) {
               // Handle error
@@ -305,6 +310,9 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                               labelName: 'Edit Other Document',
                                               AcknowledgementnameController:
                                               otherEditNameController, onSavePressed: () {  },
+                                              employeeId: widget.employeeId,
+                                              documentMetaId: 9,
+                                              documentSetupId: 38,
                                               child: FutureBuilder<List<EmployeeDocSetupModal>>(
                                                   future: getEmployeeDocSetupDropDown(context),
                                                   builder: (context,snapshot) {

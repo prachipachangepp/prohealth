@@ -321,7 +321,11 @@ class _SalesTabState extends State<SalesTab> {
                      CustomButton(
                        width: 125,
                        height: 30,
-                       onPressed: uploadImage, text: 'Upload Photo',),
+                       onPressed: uploadImage, text: 'Upload Photo',
+                       style: GoogleFonts.firaSans(
+                           fontSize: 12.0,
+                           fontWeight: FontWeight.w700
+                       ),),
                       SizedBox(height: 10),
                       showSpinner ? CircularProgressIndicator() : Text(uploadStatus),
                     ],
@@ -891,6 +895,7 @@ class _SalesTabState extends State<SalesTab> {
                           ),
                           McqWidget(
                             title: 'Gender',
+                            fontSize: 14.0,
                             items: [
                               'Male',
                               'Female',
@@ -900,6 +905,7 @@ class _SalesTabState extends State<SalesTab> {
                           ),
                           McqWidget(
                             title: 'Status',
+                            fontSize: 14.0,
                             items: ['Active', 'Trainee', 'Inactive'],
                             onChanged: (int) {},
                           ),

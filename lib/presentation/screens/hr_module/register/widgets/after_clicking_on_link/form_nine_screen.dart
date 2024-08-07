@@ -457,7 +457,8 @@ class _FormNineScreenState extends State<FormNineScreen> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
+                    Navigator.pop(context);
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -485,7 +486,8 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
+                    Navigator.pop(context);
+                   // Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF50B5E5),
@@ -512,15 +514,12 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 30),
-            Row(
-              children: [
-                BottomBarRow()
-              ],
-            )
+            // SizedBox(height: 30),
+            // BottomBarRow()
           ],
         ),
       ),
+      bottomNavigationBar: const BottomBarRow(),
     );
   }
 }

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'em_desktop_screen.dart';
 
 class ResponsiveScreenEM extends StatelessWidget {
+  const ResponsiveScreenEM({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= 850) {
-          return SMDesktop();
+          return EMDesktopScreen();
         } else {
           return SMTablet();
         }

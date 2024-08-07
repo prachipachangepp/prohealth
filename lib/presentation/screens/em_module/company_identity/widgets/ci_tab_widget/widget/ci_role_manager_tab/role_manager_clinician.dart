@@ -16,6 +16,7 @@ import '../../../../../../../../data/api_data/establishment_data/all_from_hr/all
 import '../../../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../../../../../data/api_data/establishment_data/role_manager/role_manager_data.dart';
 import '../../../../../widgets/button_constant.dart';
+import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class RoleManagerClinician extends StatefulWidget {
   const RoleManagerClinician({super.key});
@@ -26,17 +27,9 @@ class RoleManagerClinician extends StatefulWidget {
 
 class _RoleManagerClinicianState extends State<RoleManagerClinician> {
   List<bool> selectedContainers = List.generate(15, (_) => false);
-  String _selectedOffice = 'Pick Office';
-  // Color _employeeTextColor = Colors.grey;
-  // Color _employeeBorderColor = ColorManager.black.withOpacity(0.3);
-  final StreamController<List<PayRateFinanceData>> _roleMDropDownController =
-      StreamController<List<PayRateFinanceData>>();
-  final StreamController<List<ModuleMetaData>> roleMetaDataClinicalController =
-      StreamController<List<ModuleMetaData>>();
-  // bool _officeSelected = false;
-  Color _employeeTextColor = ColorManager.black.withOpacity(0.3);
-  Color _employeeBorderColor = Colors.grey;
-  String? _selectedValue;
+  final StreamController<List<PayRateFinanceData>> _roleMDropDownController = StreamController<List<PayRateFinanceData>>();
+  final StreamController<List<ModuleMetaData>> roleMetaDataClinicalController = StreamController<List<ModuleMetaData>>();
+  final StreamController<List<RoleManagerDepartmentEmpType>> empTypeController = StreamController<List<RoleManagerDepartmentEmpType>>();
 
   void toggleSelection(int index) {
     setState(() {
@@ -44,13 +37,11 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
     });
   }
 
-  void _onOfficeChanged(String? newValue) {
-    setState(() {
-      _selectedOffice = newValue!;
-      _employeeTextColor = Colors.red;
-      _employeeBorderColor = Colors.red.withOpacity(0.3);
-    });
-  }
+  int DepartmentId = 1;
+  int subEmpType = 0;
+  bool isDeptSelected = false;
+  String? selectedDept;
+  String? selectedEmpType;
 
   @override
   void initState() {
@@ -65,6 +56,9 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
     }).catchError((error) {
       // Handle error
     });
+    roleManagerGetByDepartmentID(context, DepartmentId).then((data){
+      empTypeController.add(data);
+    }).catchError((error){});
   }
 
   @override
@@ -75,6 +69,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -83,7 +78,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Pick Office',
+                      'Pick Department',
                       style: GoogleFonts.firaSans(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
@@ -93,100 +88,76 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                     ),
                     const SizedBox(height: 4),
                     FutureBuilder<List<RoleManagerData>>(
-                      future: roleManagerDataGet(context),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor: Colors.grey[100]!,
-                            child: Container(
-                              width: 300,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: ColorManager.faintGrey,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          );
-                        }
-                        if (snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Text(
-                              AppString.dataNotFound,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontWeight: FontWeightManager.medium,
-                                fontSize: FontSize.s12,
-                                color: ColorManager.mediumgrey,
-                              ),
-                            ),
-                          );
-                        }
-                        if (snapshot.hasData) {
-                          List<String> dropDownList = [];
-                          List<String> dropDownAbbreviation = [];
-                          for (var i in snapshot.data!) {
-                            dropDownList.add(i.deptName);
-                            dropDownAbbreviation.add(i.description);
+                        future: roleManagerDataGet(context),
+                        builder: (context,snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 350,
+                                  height: 30,
+                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                )
+                            );
                           }
-                          return Row(
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 354,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 3, horizontal: 15),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: Color(0xff686464).withOpacity(0.5),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: DropdownButtonFormField<String>(
-                                  focusColor: Colors.transparent,
-                                  icon: Icon(
-                                    Icons.arrow_drop_down_sharp,
-                                    color: Color(0xff686464),
-                                  ),
-                                  decoration:
-                                      InputDecoration.collapsed(hintText: ''),
-                                  value: _selectedValue,
-                                  items: dropDownList
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-
-                                      _selectedValue = newValue;
-                                      _employeeTextColor = Color(0xff686464);
-                                      _employeeBorderColor = Color(0xff686464);
-
-                                  },
-                                  //value: dropDownList[0],
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff686464),
-                                    decoration: TextDecoration.none,
-                                  ),
+                          if (snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
                                 ),
                               ),
-                            ],
-                          );
-                        } else {
-                          return Offstage();
+                            );
+                          }
+                          if(snapshot.hasData){
+                            List dropDown = [];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                            for(var i in snapshot.data!){
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.deptName),
+                                  value: i.deptName,
+                                ),
+                              );
+                            }
+                            return CICCDropdown(
+                                initialValue: selectedDept,
+                                onChange: (val){
+                                  for(var a in snapshot.data!){
+                                    if(a.deptName == val){
+                                      docType = a.deptID;
+                                      DepartmentId = docType;
+
+                                    }
+                                  }
+                                  roleManagerGetByDepartmentID(context, DepartmentId).then((data){
+                                    empTypeController.add(data);
+                                  }).catchError((error){});
+                                  setState(() {
+                                    selectedDept = val;
+                                    isDeptSelected = true;
+                                    selectedEmpType = null;
+                                  });
+
+                                  print(":::${docType}");
+                                  print(":::<>${DepartmentId}");
+                                },
+                                items:dropDownMenuItems
+                            );
+                          }else{
+                            return SizedBox();
+                          }
                         }
-                      },
                     ),
                   ],
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 20),
+                if(isDeptSelected)
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,102 +167,77 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                       style: GoogleFonts.firaSans(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
-                        color: _employeeTextColor,
+                        color: ColorManager.mediumgrey,
                         decoration: TextDecoration.none,
                       ),
                     ),
                     SizedBox(height: 4),
-                    FutureBuilder<List<HRClinical>>(
-                      future: companyAllHrClinicApi(context),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor: Colors.grey[100]!,
-                            child: Container(
-                              width: 300,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: ColorManager.faintGrey,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          );
-                        }
-                        if (snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Text(
-                              AppString.dataNotFound,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontWeight: FontWeightManager.medium,
-                                fontSize: FontSize.s12,
-                                color: ColorManager.mediumgrey,
-                              ),
-                            ),
-                          );
-                        }
-                        if (snapshot.hasData) {
-                          List<String> dropDownList = [];
-                          List<String> dropDownAbbreviation = [];
-                          for (var i in snapshot.data!) {
-                            dropDownList.add(i.empType!);
-                            dropDownAbbreviation.add(i.abbrivation!);
+                    StreamBuilder<List<RoleManagerDepartmentEmpType>>(
+                        stream: empTypeController.stream,
+                        builder: (context,snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 350,
+                                  height: 30,
+                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                )
+                            );
                           }
-                          return Row(
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 354,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 3, horizontal: 15),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: _employeeBorderColor,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: DropdownButtonFormField<String>(
-                                  focusColor: Colors.transparent,
-                                  icon: Icon(
-                                    Icons.arrow_drop_down_sharp,
-                                    color: Color(0xff686464),
-                                  ),
-                                  decoration:
-                                      InputDecoration.collapsed(hintText: ''),
-                                  items: dropDownList
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value == null ? "1" : value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {},
-                                  value: dropDownList[0],
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: _employeeTextColor,
-                                    decoration: TextDecoration.none,
-                                  ),
+                          if (snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
                                 ),
                               ),
-                            ],
-                          );
-                        } else {
-                          return Offstage();
+                            );
+                          }
+                          if(snapshot.hasData){
+                            List dropDown = [];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                            for(var i in snapshot.data!){
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  value: i.employeeType,
+                                  child: Text(i.employeeType),
+                                ),
+                              );
+                            }
+                            return CICCDropdown(
+                                initialValue: selectedEmpType,
+                                onChange: (val){
+                                  for(var a in snapshot.data!){
+                                    if(a.employeeType == val){
+                                      docType = a.DepartmentId;
+                                      subEmpType = docType;
+                                    }
+                                  }
+                                  setState(() {
+                                    selectedEmpType = val;
+                                  });
+                                  print(":::${docType}");
+                                  //print(":::<>${docSubTypeMetaId}");
+                                },
+                                items:dropDownMenuItems
+                            );
+                          }else{
+                            return SizedBox(height:1,width: 1,);
+                          }
                         }
-                      },
                     ),
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 20),
 
+            SizedBox(height: 20),
             /// row 1
             StreamBuilder<List<ModuleMetaData>>(
                 stream: roleMetaDataClinicalController.stream,
@@ -353,13 +299,21 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                               return Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                                 child: InkWell(
-                                  onTap: () {
+                                  onTap: selectedDept != null && selectedEmpType != null
+                                    ? () {
                                     toggleSelection(metaModule.appModuleMetaDataId);
-                                  },
+                                  }
+                                  : null,
                                   child: Stack(
                                     children: [
                                       CIRoleContainerConstant(
                                         metaModule.mainModule,
+                                        // CachedNetworkImage(
+                                        //   imageUrl: metaModule.iconUrl,
+                                        //   placeholder: (context, url) => CircularProgressIndicator(),
+                                        //   errorWidget: (context, url, error) => Icon(Icons.error),
+                                        // ) as ImageProvider<Object>,
+                                        //NetworkImage(metaModule.iconUrl),
                                         AssetImage('images/rehab.png'),
                                         borderColor: isSelected ? ColorManager.blueprime : Colors.white,
                                       ),

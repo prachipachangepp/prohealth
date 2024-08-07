@@ -13,7 +13,11 @@ class ProgressBarRepository{
 
  static String   bankingpage  = "/employee-bankings/add";
 
+
+  static String employeedocSetup = "/employee-document-type-setup";
+
 static String verifyuserpopup = "/auth/Otp";
+
 
 ///////
   static String postgeneralscreen(){
@@ -39,6 +43,18 @@ static String postlicensesscreen(){
     return "$bankingpage";
  }
 
+
+
+ ////
+  ///employee doc list
+  static String getEmployeeDocSetUpMetaIdHR({
+    /// required int metaDocId
+    required int pageNo, required int rowsNo,
+    required int employeeDocTypeMetaDataId
+  }){
+    /// return "$employeedocSetup/$metaDocId";
+    return "$employeedocSetup/$employeeDocTypeMetaDataId/$pageNo/$rowsNo";
+  }
 
 
  ///////

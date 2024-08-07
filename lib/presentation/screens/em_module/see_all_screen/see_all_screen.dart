@@ -146,45 +146,28 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width/25,
-                  bottom: MediaQuery.of(context).size.width/120,),
-                child: InkWell(
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>ManageScreen(),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Icon(Icons.arrow_back,size: 15,),
-                      Text('Go Back',style: GoogleFonts.firaSans(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              ///Create USer
-              Padding(
-                padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/25,
-                bottom: MediaQuery.of(context).size.width/120,
-                ),
-                child: Container(
+          Padding(
+            padding: EdgeInsets.only(
+              right: MediaQuery.of(context).size.width/25,
+            bottom: MediaQuery.of(context).size.width/120,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
                   height: 30,
                   width: 130,
                   child: CustomIconButton(
                     icon: Icons.add,
                     text: 'Create User',
                     onPressed: () async{
+                      userIdController.clear();
+                      firstNameController.clear();
+                      lastNameController.clear();
+                      roleController.clear();
+                      emailController.clear();
+                      companyIdController.clear();
+                      passwordController.clear();
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -213,19 +196,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             }).catchError((error) {
                             });
                             Navigator.pop(context);
-                            // print("::::::::${firstNameController.text}");
-                            //  print("::::::::${lastNameController.text}");
-                            //  print("::::::::${roleController.text}");
-                            //  print("::::::::${emailController.text}");
-                            //  print("::::::::${companyIdController.text}");
-                            //  print("::::::::${passwordController.text}");
                             firstNameController.clear();
                             lastNameController.clear();
                             roleController.clear();
                             emailController.clear();
                             companyIdController.clear();
                             passwordController.clear();
-                            print('Form validated and submitted!');
                           },
 
                         );
@@ -235,8 +211,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
 
                   ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
           Column(
             children: [
@@ -268,43 +244,55 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: Text(
-                          "User ID",
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            "User ID",
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.white),
+                          ),
                         ),
                       ),
                       Expanded(
                         flex: 2,
-                        child: Text(
-                          "First Name",
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            "First Name",
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.white),
+                          ),
                         ),
                       ),
                       Expanded(
                         flex: 2,
-                        child: Text(
-                          "Last Name",
-                          textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            "Last Name",
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.white),
+                          ),
                         ),
                       ),
                       Expanded(
                         flex: 2,
-                        child: Text(
-                          "Role",
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 30.0),
+                          child: Text(
+                            "Role",
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.white),
+                          ),
                         ),
                       ),
                       Expanded(
@@ -320,24 +308,30 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: Text(
-                          "Company ID",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 30.0),
+                          child: Text(
+                            "Company ID",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.white),
+                          ),
                         ),
                       ),
                       Expanded(
                         flex: 2,
-                        child: Text(
-                          "Actions",
-                          textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            "Actions",
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.white),
+                          ),
                         ),
                       ),
                     ],
@@ -480,16 +474,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    snapshot.data![index].email,
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff686464),
-                                    ),
+                                Text(
+                                  snapshot.data![index].email,
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xff686464),
                                   ),
                                 ),
                                 Expanded(
@@ -567,41 +558,18 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       await updateUserPatch(
                                                         context,
                                                         snapshot
-                                                            .data![
-                                                        index]
-                                                            .userId,
-                                                       firstName == firstNameController
-                                                            .text ? firstName.toString() : firstNameController.text,
-                                                       lastName == lastNameController
-                                                            .text ? lastName.toString() : lastNameController.text,
-                                                       role == roleController
-                                                            .text ? role.toString() : roleController.text,
-                                                       email == emailController
-                                                            .text ? email.toString():emailController.text,
-                                                       companyId == int.parse(
-                                                            companyIdController
-                                                                .text) ? companyId : int.parse(
-                                                           companyIdController
-                                                               .text),
+                                                            .data![index].userId,
+                                                       firstName == firstNameController.text ? firstName.toString() : firstNameController.text,
+                                                       lastName == lastNameController.text ? lastName.toString() : lastNameController.text,
+                                                       role == roleController.text ? role.toString() : roleController.text,
+                                                       email == emailController.text ? email.toString():emailController.text,
+                                                       companyId == int.parse(companyIdController.text) ? companyId : int.parse(companyIdController.text),
                                                       );
-                                                      getUser(context)
-                                                          .then((data) {
-                                                        _companyUsersList
-                                                            .add(data);
-                                                      }).catchError(
-                                                              (error) {
+                                                      getUser(context).then((data) {
+                                                        _companyUsersList.add(data);
+                                                      }).catchError((error) {
                                                             // Handle error
-                                                          });
-                                                      firstNameController
-                                                          .clear();
-                                                      lastNameController
-                                                          .clear();
-                                                      roleController
-                                                          .clear();
-                                                      emailController
-                                                          .clear();
-                                                      companyIdController
-                                                          .clear();
+                                                            });
                                                       Future.delayed(
                                                           Duration(
                                                               seconds:
@@ -612,6 +580,11 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                           });
                                                       Navigator.pop(
                                                           context);
+                                                      firstNameController.clear();
+                                                      lastNameController.clear();
+                                                      roleController.clear();
+                                                      emailController.clear();
+                                                      companyIdController.clear();
                                                     },
 
                                                   );

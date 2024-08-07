@@ -8,7 +8,7 @@ import '../../../repository/hr_module_repository/onboarding/onboarding_qualifica
 
 ///get ack health
 Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
-    int EmpDocTypeMetaDataId,int EmpDocTypeSetupId ,int employeeId
+    int EmpDocTypeMetaDataId,int EmpDocTypeSetupId ,int employeeId, String approveOnly
     ) async {
   List<OnboardingAckHealthData> itemsList = [];
   try {
@@ -16,7 +16,8 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
         .get(path: OnboardingQualificationRepo.getAckHealthRecord(
         EmpDocTypeMetaDataId: EmpDocTypeMetaDataId,
         EmpDocTypeSetupId: EmpDocTypeSetupId,
-        employeeId: employeeId
+        employeeId: employeeId,
+        approveOnly: approveOnly
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");

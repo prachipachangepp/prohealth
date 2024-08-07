@@ -11,6 +11,8 @@ class OnboardingQualificationEmploymentData {
   final String dateOfJoin;
   final String endDate;
   final bool? approve;
+  final String emgMobile;
+  final String country;
   OnboardingQualificationEmploymentData(
       {required this.employmentId,
       required this.empId,
@@ -22,7 +24,9 @@ class OnboardingQualificationEmploymentData {
       required this.title,
       required this.dateOfJoin,
       required this.endDate,
-      required this.approve});
+      required this.approve,
+      required this.emgMobile,
+        required this.country,});
 }
 
 ///onboarding-qualification-education
@@ -37,6 +41,8 @@ class OnboardingQualificationEducationData {
   final String phone;
   final String state;
   bool? approved;
+  final String country;
+  final String startDate;
   OnboardingQualificationEducationData(
       {required this.educationId,
         required this.empId,
@@ -47,7 +53,9 @@ class OnboardingQualificationEducationData {
         required this.college,
         required this.phone,
         required this.state,
-         this.approved});
+         this.approved,
+      required this.country,
+      required this.startDate});
 }
 
 ///onboarding-qualification-referance
@@ -91,8 +99,6 @@ class OnboardingQualificationLicenseData {
   final String org;
   final String documentType;
   final bool? approve;
-  final bool sucess;
-  final String message;
 
   OnboardingQualificationLicenseData(
       {required this.licenseId,
@@ -106,7 +112,5 @@ class OnboardingQualificationLicenseData {
         required this.org,
         required this.documentType,
         required this.approve,
-        required this.sucess,
-        required this.message
       });
 }

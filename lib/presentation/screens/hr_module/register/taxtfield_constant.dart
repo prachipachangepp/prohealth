@@ -83,7 +83,6 @@ class CustomTextFieldRegister extends StatelessWidget {
                 ),
               ),
               border: OutlineInputBorder(
-
                 borderRadius: BorderRadius.circular(5.0),
                 borderSide: const BorderSide(
                   color: Color(0xffB1B1B1),

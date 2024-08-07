@@ -18,25 +18,27 @@ Future<ApiData> addCorporateDocumentPost({
   required String expiryType,
   required String expiryDate,
   required String expiryReminder,
-  required int companyId,
   required String officeId,
 }) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
+    var data = {
+      "doc_name": name,
+      "document_type_id": docTypeID,
+      "document_subtype_id": docSubTypeID,
+      "doc_created_at": docCreated,
+      "url": url,
+      "expiry_type": expiryType,
+      "expiry_date": expiryDate,
+      "expiry_reminder": expiryReminder,
+      "company_id": companyId,
+      "office_id": officeId
+    };
+    print(' Post ORG Doc$data');
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.addCorporateDocumentPost(),
-        data: {
-          "doc_name": name,
-          "document_type_id": docTypeID,
-          "document_subtype_id": docSubTypeID,
-          "doc_created_at": docCreated,
-          "url": url,
-          "expiry_type": expiryType,
-          "expiry_date": expiryDate,
-          "expiry_reminder": expiryReminder,
-          "company_id": companyId,
-          "office_id": officeId
-        });
-    print('::::$response');
+        data: data);
+    print('ORG Doc Post::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Document addded ");
       return ApiData(
@@ -106,7 +108,6 @@ Future<ApiData> updateCorporateDocumentPost({
   required String expiryType,
   required String expiryDate,
   required String expiryReminder,
-  required int companyId,
   required String officeId,
 }) async {
   try {

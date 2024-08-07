@@ -101,9 +101,12 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomIconButtonConst(
+            width: 170,
             text: AppString.addemployeetype,
             icon: Icons.add,
             onPressed: () {
+              typeController.clear();
+              shorthandController.clear();
               showDialog(
                 context: context,
                 builder: (BuildContext context) {

@@ -29,7 +29,7 @@ class HomeHrScreen extends StatefulWidget {
 
 class _HomeHrScreenState extends State<HomeHrScreen> {
   PageController _pageController = PageController();
-  final SMController smController = Get.put(SMController());
+  final EMController smController = Get.put(EMController());
   late final String? dropdownValue;
   late final ValueChanged<String?>? onChanged;
   final HRController hrController = Get.put(HRController());
@@ -82,6 +82,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         _removeOverlay();
                         setState(() {
                           employeeId = id;
+                          getSearchByEmployeeIdProfileByText(context,employeeId);
                           myController.selectButton(1);
                           _pageController = PageController(initialPage: 1);
                         });
@@ -130,7 +131,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   }
 
   int employeeId = 0;
-
+  int pgeControllerId = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,7 +146,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
             // color: Colors.pink,
             margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ///heading bar
                 Row(
@@ -161,6 +162,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(0,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
+                            pgeControllerId = 0;
                         },
                         text: 'Dashboard',
                         isSelected: myController.selectedIndex.value == 0,
@@ -178,6 +180,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(1,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
+
+                            pgeControllerId = 1;
+
                         },
                         text: 'Manage',
                         isSelected: myController.selectedIndex.value == 1,
@@ -186,18 +191,39 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 55,
                     ),
+                    // Obx(
+                    //   () => CustomTitleButton(
+                    //       height: 30,
+                    //       width: 140,
+                    //       onPressed: () {
+                    //         myController.selectButton(2);
+                    //         _pageController.animateToPage(2,
+                    //             duration: Duration(milliseconds: 500),
+                    //             curve: Curves.ease);
+                    //       },
+                    //       text: 'Add Employee',
+                    //       isSelected: myController.selectedIndex.value == 2),
+                    // ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 55,
+                    // ),
                     Obx(
                       () => CustomTitleButton(
-                          height: 30,
-                          width: 140,
-                          onPressed: () {
-                            myController.selectButton(2);
-                            _pageController.animateToPage(2,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'Add Employee',
-                          isSelected: myController.selectedIndex.value == 2),
+                        height: 30,
+                        width: 140,
+                        onPressed: () {
+                          myController.selectButton(2);
+                          _pageController.animateToPage(2,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease);
+
+                            pgeControllerId = 2;
+
+
+                        },
+                        text: 'Register',
+                        isSelected: myController.selectedIndex.value == 2,
+                      ),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 55,
@@ -211,33 +237,20 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(3,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
-                        },
-                        text: 'Register',
-                        isSelected: myController.selectedIndex.value == 3,
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 55,
-                    ),
-                    Obx(
-                      () => CustomTitleButton(
-                        height: 30,
-                        width: 140,
-                        onPressed: () {
-                          myController.selectButton(4);
-                          _pageController.animateToPage(4,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
+
+                            pgeControllerId = 3;
+
                         },
                         text: 'Onboarding',
-                        isSelected: myController.selectedIndex.value == 4,
+                        isSelected: myController.selectedIndex.value == 3,
                       ),
                     ),
                   ],
                 ),
-
+                SizedBox(width: MediaQuery.of(context).size.width/20,),
                 /// search text
-                Row(
+                pgeControllerId == 2 || pgeControllerId == 3 ?  SizedBox() :Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -262,6 +275,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                 suffixIcon: IconButton(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
                                   icon: Center(
                                     child: Icon(
                                       Icons.search,
@@ -385,7 +401,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     //     searchController.text = value;
                     // },
                     // )
-                    SizedBox(
+                     SizedBox(
                       width: MediaQuery.of(context).size.width / 70,
                     ),
                     MediaQuery.of(context).size.width >= 1100
@@ -407,12 +423,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return ProfilePatientPopUp();
-                                      },
-                                    );
+                                    // showDialog(
+                                    //   context: context,
+                                    //   builder: (BuildContext context) {
+                                    //     return ProfilePatientPopUp();
+                                    //   },
+                                    // );
                                   },
 
                                   child: Center(
@@ -458,6 +474,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   ],
                 ),
 
+                // SizedBox(
+                //   height: 30,
+                //         width: 140,
+                // ),
                 ///see all
                 // Row(
                 //   crossAxisAlignment: CrossAxisAlignment.end,
@@ -487,7 +507,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           ///page view
           Expanded(
             flex: 8,
-            child: FutureBuilder<SearchByEmployeeIdProfileData>(
+            child:FutureBuilder<SearchByEmployeeIdProfileData>(
                 future: getSearchByEmployeeIdProfileByText(context, employeeId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -498,18 +518,29 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     );
                   }
                   if (employeeId == 0) {
-                    return Center(
-                        child: Text(
-                      AppString.dataNotFound,
-                      style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey),
-                    ));
+                    return PageView(
+                      controller: _pageController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        DashBoardScreen(),
+                        Center(
+                            child: Text(
+                              AppString.dataNotFound,
+                              style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey),
+                            )),
+                        //AddEmployeeHomeScreen(),
+                        RegisterScreen(),
+                        NewOnboardScreen(),
+                        //SeeAllHrScreen()
+                      ],
+                    );
                   }
                   if (snapshot.hasData) {
                     SearchByEmployeeIdProfileData
-                        searchByEmployeeIdProfileData = snapshot.data!;
+                    searchByEmployeeIdProfileData = snapshot.data!;
                     print("Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
                     return PageView(
                       controller: _pageController,
@@ -518,17 +549,18 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         DashBoardScreen(),
                         ManageScreen(
                           searchByEmployeeIdProfileData:
-                              searchByEmployeeIdProfileData, employeeId: searchByEmployeeIdProfileData.employeeId!,
+                          searchByEmployeeIdProfileData, employeeId: searchByEmployeeIdProfileData.employeeId!,
                         ),
-                        AddEmployeeHomeScreen(),
+                        //AddEmployeeHomeScreen(),
                         RegisterScreen(),
                         NewOnboardScreen(),
-                        SeeAllHrScreen()
+                      //  SeeAllHrScreen()
                       ],
                     );
                   }
                   return Container();
                 }),
+
           ),
           // BottomAppBar()
         ],
@@ -536,3 +568,34 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

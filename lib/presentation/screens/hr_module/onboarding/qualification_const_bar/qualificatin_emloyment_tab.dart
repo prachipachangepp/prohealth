@@ -407,6 +407,8 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../manage/const_wrap_widget.dart';
 
 class QualificationEmployment extends StatefulWidget {
+  final int employeeId;
+  QualificationEmployment({required this.employeeId});
   @override
   _BankingTabContainerConstantState createState() => _BankingTabContainerConstantState();
 }
@@ -418,7 +420,7 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationEmp(context, 1).then((data) {
+    getOnboardingQualificationEmp(context, widget.employeeId, "no").then((data) {
       qualificationempStreamController.add(data);
     }).catchError((error) {});
   }
@@ -437,12 +439,9 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: SizedBox(width: 25,
-              height: 25,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 150),
               child: CircularProgressIndicator(
-
-
-
                 color: ColorManager.blueprime,
               ),
             ),
@@ -463,8 +462,8 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
           );
         }
         if (snapshot.hasData) {
-          return WrapWidget(
-            childern: List.generate(snapshot.data!.length, (index) {
+          return Wrap(
+            children: List.generate(snapshot.data!.length, (index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Container(
@@ -488,18 +487,18 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                       vertical: MediaQuery.of(context).size.height / 120,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Employment #${snapshot.data![index].employmentId.toString()}',
+                          'Employment #${snapshot.data![index].employmentId}',
                           style: GoogleFonts.firaSans(
                             fontSize: 13,
                             color: Color(0xFF333333),
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        //SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -642,7 +641,7 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         await rejectOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
-                                                        getOnboardingQualificationEmp(context, 1).then((data) {
+                                                        getOnboardingQualificationEmp(context, 1,'no').then((data) {
                                                           qualificationempStreamController.add(data);
                                                         }).catchError((error) {});
                                                         Navigator.of(context).pop();
@@ -769,7 +768,7 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         await approveOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
-                                                        getOnboardingQualificationEmp(context, 1).then((data) {
+                                                        getOnboardingQualificationEmp(context, 1,'no').then((data) {
                                                           qualificationempStreamController.add(data);
                                                         }).catchError((error) {});
                                                         Navigator.of(context).pop();
@@ -801,139 +800,6 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                 );
                               },
                             ),
-
-                            // QualificationActionButtons(
-                            //   approve: snapshot.data![index].approve,
-                            //   onRejectPressed: () async {
-                            //     await rejectOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
-                            //     getOnboardingQualificationEmp(context, 10).then((data) {
-                            //       qualificationempStreamController.add(data);
-                            //     }).catchError((error) {});
-                            //   },
-                            //   onApprovePressed: () async {
-                            //     showDialog(
-                            //       context: context,
-                            //       builder: (BuildContext context) {
-                            //         return Dialog(
-                            //           shape: RoundedRectangleBorder(
-                            //             borderRadius: BorderRadius.circular(12.0),
-                            //           ),
-                            //           child: Container(
-                            //             decoration: BoxDecoration(
-                            //               borderRadius: BorderRadius.circular(20.0),
-                            //             ),
-                            //             height: 150.0,
-                            //             width: 300.0,
-                            //             child: Stack(
-                            //               children: <Widget>[
-                            //                 Container(
-                            //                   decoration: BoxDecoration(
-                            //                     color: ColorManager.bluebottom,
-                            //                     borderRadius: BorderRadius.only(
-                            //                       topLeft: Radius.circular(8),
-                            //                       topRight: Radius.circular(8),
-                            //                     ),
-                            //                   ),
-                            //                   height: 35,
-                            //                   child: Row(
-                            //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //                     children: [
-                            //                       Padding(
-                            //                         padding: const EdgeInsets.only(left: 10.0),
-                            //                         child: Text(
-                            //                           'Approve',
-                            //                           style: GoogleFonts.firaSans(
-                            //                             fontSize: FontSize.s12,
-                            //                             fontWeight: FontWeightManager.semiBold,
-                            //                             color: ColorManager.white,
-                            //                             decoration: TextDecoration.none,
-                            //                           ),
-                            //                         ),
-                            //                       ),
-                            //                       IconButton(
-                            //                         onPressed: () {
-                            //                           Navigator.pop(context);
-                            //                         },
-                            //                         icon: Icon(Icons.close,color: ColorManager.white,),
-                            //                       ),
-                            //                     ],
-                            //                   ),
-                            //                 ),
-                            //                 Align(
-                            //                   alignment: Alignment.center,
-                            //                   child: Text(
-                            //                     "Do you really want to,\napprove this?",
-                            //                     textAlign: TextAlign.center,
-                            //                     style: GoogleFonts.firaSans(
-                            //                       fontSize: 14,
-                            //                       fontWeight: FontWeightManager.regular,
-                            //                       color: ColorManager.mediumgrey,
-                            //                     ),
-                            //                   ),
-                            //                 ),
-                            //                 Padding(
-                            //                   padding: const EdgeInsets.all(10),
-                            //                   child: Align(
-                            //                     alignment: Alignment.bottomCenter,
-                            //                     child: Row(
-                            //                       mainAxisAlignment: MainAxisAlignment.center,
-                            //                       children: [
-                            //                         ElevatedButton(
-                            //                           onPressed: () {
-                            //                             Navigator.of(context).pop();
-                            //                           },
-                            //                           style: ElevatedButton.styleFrom(
-                            //                             backgroundColor: Colors.white,
-                            //                             foregroundColor: Color(0xff1696C8),
-                            //                             side: BorderSide(color: Color(0xff1696C8)),
-                            //                             shape: RoundedRectangleBorder(
-                            //                               borderRadius: BorderRadius.circular(8),
-                            //                             ),
-                            //                           ),
-                            //                           child: Text(
-                            //                             'Cancel',
-                            //                             style: GoogleFonts.firaSans(
-                            //                               fontSize: 10.0,
-                            //                               fontWeight: FontWeight.w700,
-                            //                             ),
-                            //                           ),
-                            //                         ),
-                            //                         SizedBox(width: MediaQuery.of(context).size.width / 75),
-                            //                         ElevatedButton(
-                            //                           onPressed: () async {
-                            //                             await approveOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
-                            //                             getOnboardingQualificationEmp(context, 10).then((data) {
-                            //                               qualificationempStreamController.add(data);
-                            //                             }).catchError((error) {});
-                            //                             Navigator.of(context).pop();
-                            //                           },
-                            //                           style: ElevatedButton.styleFrom(
-                            //                             backgroundColor: Color(0xff1696C8),
-                            //                             foregroundColor: Colors.white,
-                            //                             shape: RoundedRectangleBorder(
-                            //                               borderRadius: BorderRadius.circular(8),
-                            //                             ),
-                            //                           ),
-                            //                           child: Text(
-                            //                             'Yes',
-                            //                             style: GoogleFonts.firaSans(
-                            //                               fontSize: 10.0,
-                            //                               fontWeight: FontWeight.w700,
-                            //                             ),
-                            //                           ),
-                            //                         ),
-                            //                       ],
-                            //                     ),
-                            //                   ),
-                            //                 ),
-                            //               ],
-                            //             ),
-                            //           ),
-                            //         );
-                            //       },
-                            //     );
-                            //   },
-                            // ),
                           ],
                         ),
                       ],
@@ -962,7 +828,7 @@ class InfoText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text, style: ThemeManager.customTextStyle(context)),
+        Text(text, style: ThemeManager.customTextStyle(context),),
         const SizedBox(height: 10),
       ],
     );

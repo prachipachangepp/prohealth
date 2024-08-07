@@ -158,11 +158,13 @@ import 'package:prohealth/app/resources/establishment_resources/establishment_st
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 class AcknowledgementAddPopup extends StatefulWidget {
   final String labelName;
+  final int employeeId;
   final TextEditingController AcknowledgementnameController;
   final VoidCallback onSavePressed;
   final Widget child;
@@ -171,7 +173,7 @@ class AcknowledgementAddPopup extends StatefulWidget {
     Key? key,
     required this.labelName,
     required this.AcknowledgementnameController,
-    required this.onSavePressed, required this.child,
+    required this.onSavePressed, required this.child, required this.employeeId,
   }) : super(key: key);
 
   @override
@@ -184,7 +186,8 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   bool _documentUploaded = true;
   var fileName;
   var fileName1;
-  XFile? filePath;
+  dynamic? filePath;
+  File? xfileToFile;
   var finalPath;
   // PlatformFile? fileName;
 
@@ -218,6 +221,16 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
     return XFile(url);
   }
 
+  Future<Uint8List> loadFileBytes() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/somefile.txt');
+    if (await file.exists()) {
+      return await file.readAsBytes();
+    } else {
+      throw Exception('File not found');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -229,7 +242,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
-        ),
+        ),////////////////
         child: Column(
           children: [
             Container(
@@ -311,24 +324,29 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                     SizedBox(height: AppSize.s20),
                     GestureDetector(
                       onTap: () async {
-                        FilePickerResult? result = await FilePicker.platform.pickFiles(
-                          allowMultiple: false,
-                        );
+                        // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                        //   allowMultiple: false,
+                        // );
+                        FilePickerResult? result = await FilePicker.platform.pickFiles();
                         if (result != null) {
+                          print("Result::: ${result}");
+
                           try{
                             Uint8List? bytes = result.files.first.bytes;
                             XFile xlfile = XFile(result.xFiles.first.path);
-                            print("::::XFile ${xlfile.toString()}");
+                            xfileToFile = File(xlfile.path);
+
+                            print("::::XFile To File ${xfileToFile.toString()}");
                             XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
                             // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
                             // html.File file = webFile.file;
-                             print("XFILE ${xFile.path}");
-                             filePath = xlfile;
-                             print("L::::::${filePath}");
+                            //  print("XFILE ${xFile.path}");
+                            //  //filePath = xfileToFile as XFile?;
+                            //  print("L::::::${filePath}");
                               fileName = result.files.first.name;
                             print('File picked: ${fileName}');
                             //print(String.fromCharCodes(file));
-                            finalPath;
+                            finalPath = result.files.first.bytes;
                             setState(() {
                               widget.AcknowledgementnameController.text = fileName;
                               _documentUploaded = true;
@@ -337,9 +355,6 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                             print(e);
                           }
                         }
-                        // if(file != null ){
-                        //
-                        // }
                       },
                       child: AbsorbPointer(
                         child: SMTextFConst(
@@ -359,6 +374,11 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                 ),
               ),
             ),
+            filePath == null ? Offstage():
+            Container(
+              height: 60,
+              width: 60,
+              child: Image(image: NetworkImage(filePath as String)),),
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
@@ -371,15 +391,27 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                     if (_formKey.currentState!.validate() && widget.AcknowledgementnameController.text.isNotEmpty) {
                       try{
                         //File filePath = File(finalPath!);
-                        await uploadHttpDocuments(context: context, employeeDocumentMetaId: 2, employeeDocumentTypeSetupId: 6,
-                            employeeId: 8, documentName: widget.AcknowledgementnameController.text,
-                            documentFile: filePath!);
+                        await uploadDocuments(context: context, employeeDocumentMetaId: 10, employeeDocumentTypeSetupId: 48,
+                            employeeId: widget.employeeId, documentName: widget.AcknowledgementnameController.text,
+                            documentFile: finalPath);
                       }catch(e){
                         print(e);
                       }
                       print("Code ${widget.AcknowledgementnameController.text}");
                       // widget.onSavePressed();
                       Navigator.pop(context);
+                      widget.AcknowledgementnameController.clear();
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          Future.delayed(Duration(seconds: 2), () {
+                            if (Navigator.of(context).canPop()) {
+                              Navigator.of(context).pop();
+                            }
+                          });
+                          return AddSuccessPopup(message: 'Document Uploded',);
+                        },
+                      );
                     } else {
                       setState(() {
                         _documentUploaded = widget.AcknowledgementnameController.text.isNotEmpty;

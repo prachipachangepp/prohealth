@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
+import 'package:prohealth/app/services/encode_decode_base64.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/qualification_licenses.dart';
 
@@ -24,7 +25,7 @@ Future<List<QulificationLicensesData>> getEmployeeLicenses(
   List<QulificationLicensesData> itemsData = [];
   try {
     final response = await Api(context).get(
-        path: ManageReposotory.getEmployeeLicenses(employeeid: employeeId));
+        path: ManageReposotory.getEmployeeLicenses(employeeid: employeeId, approveOnly: 'no'));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         String expFormattedDate = convertIsoToDayMonthYear(item['expDate']);
@@ -57,7 +58,6 @@ Future<List<QulificationLicensesData>> getEmployeeLicenses(
 }
 
 /// Add License
-
 Future<ApiData> addLicensePost(
     BuildContext context,
     String country,
@@ -105,8 +105,40 @@ Future<ApiData> addLicensePost(
   }
 }
 
+/// Attach license document
+Future<ApiData> attachLicenseDocument(
+    BuildContext context,
+    int licenseId,
+    dynamic documentFile) async {
+  try {
+    String document = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    var response = await Api(context).post(
+      path: ManageReposotory.attachLicenseDocument(licenseId: licenseId),
+      data: {
+        "base64":document
+      },
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("License Added");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("License uploaded");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
 /// select document
-
 Future<List<SelectDocuments>> selectDocument(
   BuildContext context,
 ) async {

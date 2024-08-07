@@ -18,7 +18,8 @@ import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_
 class CiCcdCapReports extends StatefulWidget {
   final int docID;
   final int subDocId;
-  const CiCcdCapReports({super.key, required this.docID, required this.subDocId});
+  final String officeId;
+  const CiCcdCapReports({super.key, required this.docID, required this.subDocId, required this.officeId});
 
   @override
   State<CiCcdCapReports> createState() => _CiCcdCapReportsState();
@@ -149,7 +150,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
           child: StreamBuilder<List<CiOrgDocumentCC>>(
             stream: _controller.stream,
             builder: (context, snapshot) {
-              orgSubDocumentGet(context, 11, widget.docID, widget.subDocId, 1, 15).then((data) {
+              orgSubDocumentGet(context,widget.docID, widget.subDocId, 1, 15).then((data) {
                 _controller.add(data);
               }).catchError((error) {
                 // Handle error
@@ -320,11 +321,10 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                                           expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                           expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                           expiryReminder: "Schedule",
-                                                          companyId: 11,
-                                                          officeId: "Office 1",
+                                                          officeId: widget.officeId,
                                                         );
                                                         setState(() async {
-                                                          await orgSubDocumentGet(context, 11, widget.docID, widget.subDocId, 1, 15).then((data) {
+                                                          await orgSubDocumentGet(context, widget.docID, widget.subDocId, 1, 15).then((data) {
                                                             _controller.add(data);
                                                           }).catchError((error) {
                                                             // Handle error
@@ -510,7 +510,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                                           context,
                                                           snapshot.data![index].docId);
                                                       setState(() async {
-                                                        await orgSubDocumentGet(context, 11, widget.docID, widget.subDocId, 1, 6).then((data) {
+                                                        await orgSubDocumentGet(context, widget.docID, widget.subDocId, 1, 6).then((data) {
                                                           _controller.add(data);
                                                         }).catchError((error) {
                                                           // Handle error

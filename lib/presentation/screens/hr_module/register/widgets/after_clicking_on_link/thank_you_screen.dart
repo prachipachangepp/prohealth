@@ -12,10 +12,11 @@ class OnBoardingThankYou extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: TopRowConstant(),
-      ),
+      backgroundColor: Colors.transparent,
+      // appBar: PreferredSize(
+      //   preferredSize: Size.fromHeight(kToolbarHeight),
+      //   child: TopRowConstant(),
+      // ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -83,12 +84,12 @@ class OnBoardingThankYou extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20), // Add some spacing if needed
-              Row(
-                children: [
-                  BottomBarRow()
-                ],
-              ) // Add your BottomRow widget here
+              // SizedBox(height: 20), // Add some spacing if needed
+              // Row(
+              //   children: [
+              //     BottomBarRow()
+              //   ],
+              // ) // Add your BottomRow widget here
             ],
           ),
         ),

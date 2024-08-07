@@ -16,9 +16,10 @@ import 'multi_step_form.dart';
 
 
 class OfferLetterDescriptionScreen extends StatefulWidget {
-  final Uint8List? signatureBytes;
+  final dynamic signatureBytes;
+  final int? employeeId;
 
-  OfferLetterDescriptionScreen({this.signatureBytes});
+  OfferLetterDescriptionScreen({this.signatureBytes, this.employeeId});
 
 
   @override
@@ -130,7 +131,7 @@ class _OfferLetterDescriptionScreenState
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 15),
             FutureBuilder<OfferLetterData>(
-              future:GetOfferLetter(context, 43, 1 ),
+              future:GetOfferLetter(context, 43!, 1 ),
               builder: (context, snapshot) {
                 // if(snapshot.connectionState == ConnectionState.waiting){
                 //   return CircularProgressIndicator(color: Colors.blue,);
@@ -165,23 +166,21 @@ class _OfferLetterDescriptionScreenState
                 }
               },
             ),
-
             SizedBox(height: MediaQuery.of(context).size.height / 100),
             Padding(
-              padding: const EdgeInsets.only(left: 230.0),
-              child: Container(
-                height: 70,
-                width: 200,
-                // color: Colors.yellow,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    // SizedBox(width: 30),
-                    signatureBytes != null
+              padding: const EdgeInsets.only(left: 180.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 70,
+                    width: 200,
+                    // color: Colors.yellow,
+                    child: signatureBytes != null
                         ? Image.memory(signatureBytes!)
                         : Text(''),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -204,7 +203,7 @@ class _OfferLetterDescriptionScreenState
                                   setState(() {
                                     signatureBytes = selectedSignature;
                                   });
-                                },
+                                }, employeeId: 2,
                               ),
                             ),
                           );
@@ -343,7 +342,7 @@ class _OfferLetterDescriptionScreenState
                   ],
                 ),
               ),
-            Row(
+               Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
