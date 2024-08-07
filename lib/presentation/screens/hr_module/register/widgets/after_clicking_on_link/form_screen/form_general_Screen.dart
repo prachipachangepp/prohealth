@@ -9,12 +9,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../../../app/services/token/token_manager.dart';
+import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
@@ -58,6 +61,10 @@ class _generalFormState extends State<generalForm> {
   int _currentStep = 0;
 
   bool isChecked = false;
+
+  String ?specialityName;
+
+  String ?clinicialName;
 
   bool get isFirstStep => _currentStep == 0;
 
@@ -706,53 +713,103 @@ class _generalFormState extends State<generalForm> {
                             color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      SizedBox(
-                        height: 32,
-                        child: DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                           // hintText: 'Select Clinician',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff9B9B9B),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                //   //  vertical: 5,
-                                horizontal: 12),
-                          ),
-                          value: _selectedClinician,
-                          icon: const Icon(Icons.arrow_drop_down,
-                              color: Color(0xff9B9B9B)),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: const Color(0xff686464),
-                          ),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedClinician = newValue;
-                            });
-                          },
-                          items: <String>[
-                            'Clinician 1',
-                            'Clinicin ',
-                            'Clinican',
-                            'Cliniian'
-                          ] // List of countries
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
+                      ///clinician
+                      FutureBuilder<List<AEClinicalDiscipline>>(
+                        future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 7),
+                                child: Container(
+                                  width: AppSize.s250,
+                                  height: AppSize.s40,
+                                  decoration: BoxDecoration(
+                                      color: ColorManager.faintGrey),
+                                ),
+                              ),
                             );
-                          }).toList(),
-                        ),
+                          }
+                          if (snapshot.hasData) {
+                            List<String> dropDownList = [];
+                            for (var i in snapshot.data!) {
+                              dropDownList.add(i.empType!);
+                            }
+                            return CustomDropdownTextField(
+                              labelText: 'Clinician',
+                              labelStyle: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                color: Color(0xff575757),
+                                fontWeight: FontWeight.w400,
+                              ),
+                              labelFontSize: 12,
+                              items: dropDownList,
+                              onChanged: (newValue) {
+                                for (var a in snapshot.data!) {
+                                  if (a.empType == newValue) {
+                                    clinicialName = a.empType!;
+                                    // int docType = a.employeeTypesId;
+                                    // Do something with docType
+                                  }
+                                }
+                              },
+                            );
+                          } else {
+                            return const Offstage();
+                          }
+                        },
                       ),
+                      // SizedBox(
+                      //   height: 32,
+                      //   child: DropdownButtonFormField<String>(
+                      //     decoration: InputDecoration(
+                      //      // hintText: 'Select Clinician',
+                      //       hintStyle: GoogleFonts.firaSans(
+                      //         fontSize: 10.0,
+                      //         fontWeight: FontWeight.w400,
+                      //         color: const Color(0xff9B9B9B),
+                      //       ),
+                      //       border: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(4.0),
+                      //         borderSide: const BorderSide(color: Colors.grey),
+                      //       ),
+                      //       contentPadding: const EdgeInsets.symmetric(
+                      //           //   //  vertical: 5,
+                      //           horizontal: 12),
+                      //     ),
+                      //     value: _selectedClinician,
+                      //     icon: const Icon(Icons.arrow_drop_down,
+                      //         color: Color(0xff9B9B9B)),
+                      //     iconSize: 24,
+                      //     elevation: 16,
+                      //     style: GoogleFonts.firaSans(
+                      //       fontSize: 10.0,
+                      //       fontWeight: FontWeight.w400,
+                      //       color: const Color(0xff686464),
+                      //     ),
+                      //     onChanged: (String? newValue) {
+                      //       setState(() {
+                      //         _selectedClinician = newValue;
+                      //       });
+                      //     },
+                      //     items: <String>[
+                      //       'Clinician 1',
+                      //       'Clinicin ',
+                      //       'Clinican',
+                      //       'Cliniian'
+                      //     ] // List of countries
+                      //         .map<DropdownMenuItem<String>>((String value) {
+                      //       return DropdownMenuItem<String>(
+                      //         value: value,
+                      //         child: Text(value),
+                      //       );
+                      //     }).toList(),
+                      //   ),
+                      // ),
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Speciality',
@@ -762,6 +819,60 @@ class _generalFormState extends State<generalForm> {
                             color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
+
+                      FutureBuilder<List<AEClinicalDiscipline>>(
+                        future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 7),
+                                child: Container(
+                                  width: AppSize.s250,
+                                  height: AppSize.s40,
+                                  decoration: BoxDecoration(
+                                      color: ColorManager.faintGrey),
+                                ),
+                              ),
+                            );
+                          }
+                          if (snapshot.hasData) {
+                            List<String> dropDownList = [];
+
+                            for (var i in snapshot.data!) {
+                              dropDownList.add(i.empType!);
+                            }
+                            return CustomDropdownTextField(
+                              labelText: 'Speciality',
+                              labelStyle: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                color: Color(0xff575757),
+                                fontWeight: FontWeight.w400,
+                              ),
+                              labelFontSize: 12,
+                              items: dropDownList,
+                              onChanged: (newValue) {
+                                for (var a in snapshot.data!) {
+                                  if (a.empType == newValue) {
+                                    specialityName = a.empType!;
+                                  }
+                                }
+                              },
+                            );
+                          } else {
+                            return const Offstage();
+                          }
+                        },
+                      ),
+
+
+
+
+
                       // CustomDropdownTextField(
                       //   width: 600,
                       //   height: 32,
@@ -789,54 +900,86 @@ class _generalFormState extends State<generalForm> {
                       //     color: const Color(0xff9B9B9B),
                       //   ),
                       // ),
-                      Container(
-                        height: 32,
-                        child: DropdownButtonFormField<String>(
-                          // alignment: AlignmentDirectional.centerStart,
-                          decoration: InputDecoration(
-                            //hintText:
-                                //'Select Speciality                                      ',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff9B9B9B),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                            contentPadding: const EdgeInsets.only(
-                                bottom: AppPadding.p5, left: 12),
-                          ),
-                          value: _selectedSpeciality,
-                          icon: const Icon(Icons.arrow_drop_down,
-                              color: Color(0xff9B9B9B)),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: const Color(0xff686464),
-                          ),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedSpeciality = newValue;
-                            });
-                          },
-                          items: <String>[
-                            'Speciality1',
-                            'Speciality2',
-                            'CSpeciality',
-                            'Speciality'
-                          ] // List of countries
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      // Container(
+                      //   height: 32,
+                      //   child: DropdownButtonFormField<String>(
+                      //     // alignment: AlignmentDirectional.centerStart,
+                      //     decoration: InputDecoration(
+                      //       //hintText:
+                      //           //'Select Speciality                                      ',
+                      //       hintStyle: GoogleFonts.firaSans(
+                      //         fontSize: 10,
+                      //         fontWeight: FontWeight.w400,
+                      //         color: const Color(0xff9B9B9B),
+                      //       ),
+                      //       border: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(4.0),
+                      //         borderSide: const BorderSide(color: Colors.grey),
+                      //       ),
+                      //       contentPadding: const EdgeInsets.only(
+                      //           bottom: AppPadding.p5, left: 12),
+                      //     ),
+                      //     value: _selectedSpeciality,
+                      //     icon: const Icon(Icons.arrow_drop_down,
+                      //         color: Color(0xff9B9B9B)),
+                      //     iconSize: 24,
+                      //     elevation: 16,
+                      //     style: GoogleFonts.firaSans(
+                      //       fontSize: 10.0,
+                      //       fontWeight: FontWeight.w400,
+                      //       color: const Color(0xff686464),
+                      //     ),
+                      //     onChanged: (String? newValue) {
+                      //       setState(() {
+                      //         _selectedSpeciality = newValue;
+                      //       });
+                      //     },
+                      //     items: <String>[
+                      //       'Speciality1',
+                      //       'Speciality2',
+                      //       'CSpeciality',
+                      //       'Speciality'
+                      //     ] // List of countries
+                      //         .map<DropdownMenuItem<String>>((String value) {
+                      //       return DropdownMenuItem<String>(
+                      //         value: value,
+                      //         child: Text(value),
+                      //       );
+                      //     }).toList(),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
