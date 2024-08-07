@@ -62,8 +62,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         employeeId: widget.employeeId,
                         AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
                         },
-                        child: FutureBuilder<List<EmployeeDocSetupModal>>(
-                            future: getEmployeeDocSetupDropDown(context),
+                        child: FutureBuilder<List<EmployeeDocTabModal>>(
+                            future: getEmployeeDocTab(context),
                             builder: (context,snapshot) {
                               if(snapshot.connectionState == ConnectionState.waiting){
                                 return Shimmer.fromColors(
@@ -95,8 +95,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                 for(var i in snapshot.data!){
                                   dropDownMenuItems.add(
                                     DropdownMenuItem<String>(
-                                      child: Text(i.documentName),
-                                      value: i.documentName,
+                                      child: Text(i.employeeDocType),
+                                      value: i.employeeDocType,
                                     ),
                                   );
                                 }
@@ -104,7 +104,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                     initialValue: dropDownMenuItems[0].value,
                                     onChange: (val){
                                       for(var a in snapshot.data!){
-                                        if(a.documentName == val){
+                                        if(a.employeeDocType == val){
                                           docType = a.employeeDocMetaDataId;
                                           //docMetaId = docType;
                                         }
@@ -180,8 +180,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                   children: List.generate(snapshot.data!.length, (index) {
                     final data = snapshot.data![index];
                     final fileUrl = data.DocumentUrl;
-                    var decodedImage = AppFilePickerBase64.getDecodeBase64(url: 'fileUrl');
-                    print("Decoded Doc ${decodedImage}");
+                    // var decodedImage = AppFilePickerBase64.getDecodeBase64(url: fileUrl);
+                    // print("Decoded Doc ${decodedImage}");
                     // try{
                     //   // var keyGenerate =  AppFilePickerBase64.mainFun(keyUrl:fileUrl);
                     //   // print("Generated file ::: ${keyGenerate.toString()}");
