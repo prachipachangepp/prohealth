@@ -74,7 +74,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
       String org,
       String documentType) async {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Licenses data saved")),
+      const SnackBar(content: Text("Licenses data saved")),
     );
   }
 
@@ -223,7 +223,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
               width: 117,
               height: 30,
               text: 'Save',
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'FiraSans',
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
