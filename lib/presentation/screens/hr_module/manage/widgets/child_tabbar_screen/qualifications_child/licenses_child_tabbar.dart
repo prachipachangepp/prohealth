@@ -217,8 +217,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                   ));
             }
             if(snapshot.hasData){
-              return WrapWidget(
-                  childern:
+              return Wrap(
+                spacing: 10,
+                  children:
                   List.generate(snapshot.data!.length, (index){
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),

@@ -162,7 +162,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Container(
-                height: MediaQuery.of(context).size.height / 1,
+                height: MediaQuery.of(context).size.height/2,
                 padding: EdgeInsets.symmetric(vertical: 30),
                 decoration: BoxDecoration(
                   boxShadow: [

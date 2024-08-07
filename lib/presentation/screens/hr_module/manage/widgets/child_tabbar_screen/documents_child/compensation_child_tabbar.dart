@@ -180,7 +180,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
               }
               if (snapshot.hasData) {
                 return Container(
-                  height: MediaQuery.of(context).size.height/1,
+                  height: MediaQuery.of(context).size.height/2,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
