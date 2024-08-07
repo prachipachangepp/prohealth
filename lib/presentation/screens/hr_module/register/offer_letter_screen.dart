@@ -2056,6 +2056,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   ),
                 ],
               ),
+
               SizedBox(height: MediaQuery.of(context).size.height / 30),
               // SizedBox(
               //   height: 30,
