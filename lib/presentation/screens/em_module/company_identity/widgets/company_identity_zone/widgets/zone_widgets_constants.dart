@@ -858,6 +858,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                         isLoading = true;
                       });
                       await widget.onSavePressed();
+                      Navigator.pop(context);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
