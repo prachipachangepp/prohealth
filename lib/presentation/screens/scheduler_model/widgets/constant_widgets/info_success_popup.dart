@@ -54,8 +54,8 @@ class SchedularInfoSuccessPopup extends StatelessWidget {
                 child: Text(
                   'Continue',
                   style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeightManager.bold,
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeightManager.semiBold,
                     color: Colors.white,
                   ),
                 ),
