@@ -4,9 +4,23 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
+import '../../sm_Intake/widgets/intake_profile_bar.dart';
 
-class SchedularInfoSuccessPopup extends StatelessWidget {
+class SchedularInfoSuccessPopup extends StatefulWidget {
   const SchedularInfoSuccessPopup({super.key,});
+
+  @override
+  State<SchedularInfoSuccessPopup> createState() => _SchedularInfoSuccessPopupState();
+}
+
+class _SchedularInfoSuccessPopupState extends State<SchedularInfoSuccessPopup> {
+
+  bool showProfileBar = false;
+  void toggleProfileBar() {
+    setState(() {
+      showProfileBar = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +63,8 @@ class SchedularInfoSuccessPopup extends StatelessWidget {
               width: 282,
               child: ElevatedButton(
                 onPressed: () {
-                  // Add your onPressed functionality here
+                  // toggleProfileBar();
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Continue',

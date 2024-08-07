@@ -473,6 +473,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_related_party/intake_patients_related_party.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_stay_info/intake_patients_stay_info.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_profile_bar.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/info_success_popup.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/schedular_success_popup.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -670,7 +671,8 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return SchedularSuccessPopup(title: 'Success');
+                          // return SchedularSuccessPopup(title: 'Success');
+                          return SchedularInfoSuccessPopup();
                         },
                       );
                     },
