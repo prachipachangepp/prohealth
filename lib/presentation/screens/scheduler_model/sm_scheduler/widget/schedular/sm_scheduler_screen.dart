@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/search_patient_pop_up.dart';
 
+import '../../../sm_Intake/widgets/intake_profile_bar.dart';
 import '../schedular_create/appointment_screen.dart';
 
 class SMSchedulerScreen extends StatefulWidget {
@@ -164,7 +165,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   height: 37.0,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SmProfileBar()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => IntakeProfileBar()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff51B5E6),

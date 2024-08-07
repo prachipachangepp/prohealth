@@ -8,14 +8,14 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../app/resources/color.dart';
 
-class SmProfileBar extends StatefulWidget {
-  const SmProfileBar({super.key});
+class IntakeProfileBar extends StatefulWidget {
+  const IntakeProfileBar({super.key});
 
   @override
-  State<SmProfileBar> createState() => _SmProfileBarState();
+  State<IntakeProfileBar> createState() => _IntakeProfileBarState();
 }
 
-class _SmProfileBarState extends State<SmProfileBar> {
+class _IntakeProfileBarState extends State<IntakeProfileBar> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -39,64 +39,51 @@ class _SmProfileBarState extends State<SmProfileBar> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: AppPadding.p40),
+                  padding: const EdgeInsets.only(left: 0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
+                      Stack(
+                        alignment: Alignment.center,
                         children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(Icons.keyboard_arrow_left_rounded),
-                          ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width / 180),
-                          TextButton(
-                            onPressed: () {
-                             Navigator.pop(context);
-                            },
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              minimumSize: Size.zero,
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            width: 80,
+                            height: 80,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 4.0,
+                              value: 0.7,
+                              valueColor: AlwaysStoppedAnimation<Color>(ColorManager.greenDark),
+                              backgroundColor: Colors.grey[300],
                             ),
-                            child: Text(
-                              'Back',
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s14,
-                                fontWeight: FontWeightManager.medium,
-                                color: ColorManager.textBlack
-                              ),
-                            ),
-                          )
+                          ),
+                          CircleAvatar(
+                            radius: 40, // MediaQuery.of(context).size.width * 0.03
+                            backgroundImage: AssetImage('images/profile.png'),
+                          ),
                         ],
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height / 140),
-                      CircleAvatar(
-                        radius: 40, //MediaQuery.of(context).size.width * 0.03
-                        backgroundImage: AssetImage('images/profile.png'),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Text(
                         'JOHN SCOTT',
                         style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            // fontSize: MediaQuery.of(context).size.width * 0.006,
-                            fontWeight: FontWeightManager.medium),
+                          fontSize: FontSize.s10,
+                          // fontSize: MediaQuery.of(context).size.width * 0.006,
+                          fontWeight: FontWeightManager.medium,
+                        ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Active',
                         style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            // fontSize: MediaQuery.of(context).size.width * 0.006,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.textPrimaryColor),
-                      )
+                          fontSize: FontSize.s10,
+                          // fontSize: MediaQuery.of(context).size.width * 0.006,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.textPrimaryColor,
+                        ),
+                      ),
                     ],
                   ),
+
                 ),
                 // SizedBox(width: MediaQuery.of(context).size.width / 40),
                 Padding(
@@ -113,21 +100,21 @@ class _SmProfileBarState extends State<SmProfileBar> {
                             color: ColorManager.textPrimaryColor),
                       ),
                       Text(
-                        'Expertise',
+                        'DOB',
                         style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.regular,
                             color: ColorManager.textPrimaryColor),
                       ),
                       Text(
-                        'Current Location',
+                        'Phone',
                         style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.regular,
                             color: ColorManager.textPrimaryColor),
                       ),
                       Text(
-                        'Total patients',
+                        'Email',
                         style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.regular,
@@ -186,21 +173,21 @@ class _SmProfileBarState extends State<SmProfileBar> {
                       ],
                     ),
                     Text(
-                      'Alzeimer’s Care',
+                      '25-05-1999',
                       style: GoogleFonts.firaSans(
                           fontSize: FontSize.s10,
                           fontWeight: FontWeightManager.regular,
                           color: ColorManager.textBlack),
                     ),
                     Text(
-                      '8502 Preston Road, Inglewood.',
+                      '+49 5684654545',
                       style: GoogleFonts.firaSans(
                           fontSize: FontSize.s10,
                           fontWeight: FontWeightManager.regular,
                           color: ColorManager.textBlack),
                     ),
                     Text(
-                      '15',
+                      'john@gmail.com',
                       style: GoogleFonts.firaSans(
                           fontSize: FontSize.s10,
                           fontWeight: FontWeightManager.regular,
@@ -210,122 +197,102 @@ class _SmProfileBarState extends State<SmProfileBar> {
                 ),
 
                 // SizedBox(width: MediaQuery.of(context).size.width/120),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Address',
+                        style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeightManager.regular,
+                            color: ColorManager.textPrimaryColor),
+                      ),
+                      Text(
+                        'Patient Status',
+                        style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeightManager.regular,
+                            color: ColorManager.textPrimaryColor),
+                      ),
+                      Text(
+                        'Diagnosis',
+                        style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeightManager.regular,
+                            color: ColorManager.textPrimaryColor),
+                      ),
+                    ],
+                  ),
+                ),
+                // SizedBox(width: MediaQuery.of(context).size.width / 60),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 95,
+                          child: Text(
+                            '5445 Alvilde CT, Rio Linda CA 5645451516',
+                            style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.regular,
+                                color: ColorManager.textBlack),
+                          ),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width / 100),
+                        Container(
+                          height: AppSize.s18,
+                          width: AppSize.s72,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              String googleMapsUrl =
+                                  'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
+                              if (await canLaunchUrlString(googleMapsUrl)) {
+                                await launchUrlString(googleMapsUrl);
+                              } else {
+                                print('Could not open the map.');
+                              }
+                            },
+                            child: Text(
+                              'View Zone',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: ColorManager.blueprime,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              padding: EdgeInsets.zero,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Text(
-                      'Summary',
+                      'Lead',
                       style: GoogleFonts.firaSans(
                           fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.medium,
-                      ),
+                          fontWeight: FontWeightManager.regular,
+                          color: ColorManager.textBlack),
                     ),
-
-
-                    Container(
-                      height: AppSize.s144,
-                      width: MediaQuery.of(context).size.width/7,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
-                            spreadRadius: 0,
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(8.0)
-                      ),
-
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SummaryRowConst(
-                              title: 'Visits',
-                              count1: '4',
-                              count2: '20'
-                          ),
-                          SummaryRowConst(
-                              title: 'Travel',
-                              count1: '16 miles',
-                              count2: '50 miles'
-                          ),
-                          SummaryRowConst(
-                              title: 'Earning',
-                              count1: '\$600',
-                              count2: '\$1300'
-                          ),
-                          SummaryRowConst(
-                              title: 'Total OAISIS',
-                              count1: '2',
-                              count2: '2'
-                          ),
-                          SummaryRowConst(
-                              title: 'Rescheduled',
-                              count1: '1',
-                              count2: '4'
-                          ),
-                          SummaryRowConst(
-                              title: 'Reassigned',
-                              count1: '4',
-                              count2: '4'
-                          )
-                        ],
-                      ),
-
-                    )
-                  ],
-                ),
-
-
-
-                // SizedBox(width: MediaQuery.of(context).size.width/140),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
                     Text(
-                      'Compliance',
+                      'Alzeimer’s Care',
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.medium,
-                      ),
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeightManager.regular,
+                          color: ColorManager.textBlack),
                     ),
-
-                    // SizedBox(height: MediaQuery.of(context).size.height/160),
-                    Container(
-                      height: AppSize.s77,
-                      width: MediaQuery.of(context).size.width/10,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.25),
-                              spreadRadius: 0,
-                              blurRadius: 4,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(8.0)
-                      ),
-
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ComplianceRowConst(
-                              title: 'Missed Visits',
-                              count1: '4',
-                          ),
-                          ComplianceRowConst(
-                              title: 'OAISIS Forms License',
-                              count1: '2 Expiring',
-                          )
-                        ],
-                      ),
-
-                    )
                   ],
                 ),
 
@@ -336,15 +303,15 @@ class _SmProfileBarState extends State<SmProfileBar> {
                     Padding(
                       padding: const EdgeInsets.only(top: AppPadding.p15),
                       child: Container(
-                      height: AppSize.s166,
-                      width: MediaQuery.of(context).size.width/5,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('images/mapImage.png'),
-                          fit: BoxFit.cover,
+                        height: AppSize.s166,
+                        width: MediaQuery.of(context).size.width/5,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('images/mapImage.png'),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                                            ),
                     ),
                     Positioned.fill(
                       child: Center(
@@ -419,7 +386,7 @@ class SummaryRowConst extends StatelessWidget {
               child: Text(
                 title,
                 style: GoogleFonts.firaSans(
-                    // fontSize: FontSize.s10,
+                  // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
                     fontWeight: FontWeightManager.bold,
                     color: ColorManager.blueprime
@@ -433,7 +400,7 @@ class SummaryRowConst extends StatelessWidget {
               child: Text(
                 count1,
                 style: GoogleFonts.firaSans(
-                    // fontSize: FontSize.s10,
+                  // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
                     fontWeight: FontWeightManager.regular,
                     color: ColorManager.textBlack
@@ -447,7 +414,7 @@ class SummaryRowConst extends StatelessWidget {
               child: Text(
                 count2,
                 style: GoogleFonts.firaSans(
-                    // fontSize: FontSize.s10,
+                  // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
                     fontWeight: FontWeightManager.regular,
                     color: ColorManager.textBlack
@@ -486,7 +453,7 @@ class ComplianceRowConst extends StatelessWidget {
               child: Text(
                 title,
                 style: GoogleFonts.firaSans(
-                    // fontSize: FontSize.s10,
+                  // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
                     fontWeight: FontWeightManager.bold,
                     color: ColorManager.blueprime
@@ -500,7 +467,7 @@ class ComplianceRowConst extends StatelessWidget {
               child: Text(
                 count1,
                 style: GoogleFonts.firaSans(
-                    // fontSize: FontSize.s10,
+                  // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
                     fontWeight: FontWeightManager.regular,
                     color: ColorManager.textBlack
