@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
 import '../../../../../../../../../app/resources/color.dart';
+import '../../../../widgets/constant_widgets/schedular_success_popup.dart';
 import '../../../../widgets/constant_widgets/textfield_constant.dart';
 
 class EditAppointmentPopUp extends StatefulWidget {
@@ -245,8 +246,12 @@ class _EditAppointmentPopUpState extends State<EditAppointmentPopUp> {
                           ),
                         ),
                         onPressed: () {
-                          // Handle 'Yes' action
-                          Navigator.of(context).pop();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SchedularSuccessPopup(title: 'Success',);
+                            },
+                          );
                         },
                       ),
                     ),

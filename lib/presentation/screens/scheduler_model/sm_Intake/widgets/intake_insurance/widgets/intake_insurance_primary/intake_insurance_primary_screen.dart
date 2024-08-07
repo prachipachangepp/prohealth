@@ -225,15 +225,15 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                               ],
                             ),
                           ),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
-                          SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
+                          // SizedBox(width: MediaQuery.of(context).size.width/100),
+                          // Flexible(
+                          //     child: Container()),
+                          // SizedBox(width: 35),
+                          // Flexible(
+                          //     child: Container()),
+                          // SizedBox(width: 35),
+                          // Flexible(
+                          //     child: Container()),
                         ],
                       ),
                       SizedBox(height: 16),
