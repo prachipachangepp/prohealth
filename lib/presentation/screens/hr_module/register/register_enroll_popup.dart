@@ -31,7 +31,7 @@ class RegisterEnrollPopup extends StatefulWidget {
   final String role;
   final String status;
   final int employeeId;
-  final int empId;
+  //final int empId;
 
   // final TextEditingController position;
   final VoidCallback onPressed;
@@ -40,7 +40,8 @@ class RegisterEnrollPopup extends StatefulWidget {
     //required this.phone,
     required this.email,
     //required this.position,
-    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId, required this.empId,
+    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId,
+    //required this.empId,
   });
 
   @override
@@ -145,7 +146,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
          services: serviceVal,
          employement: 'Full Time',
          clinicalName: clinicialName,
-         soecalityName: specialityName, empId: widget.empId,
+         soecalityName: specialityName,
        )));
      } else {
        ScaffoldMessenger.of(context).showSnackBar(

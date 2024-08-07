@@ -1237,7 +1237,6 @@ class OfferLetterScreen extends StatefulWidget {
   final String soecalityName;
   final String clinicalName;
   final int employeeId;
-  final int empId;
   final ApiData apiData;
 
   const OfferLetterScreen(
@@ -1255,7 +1254,7 @@ class OfferLetterScreen extends StatefulWidget {
       required this.employement,
       required this.soecalityName,
       required this.clinicalName,
-      required this.employeeId, required this.empId, required this.apiData});
+      required this.employeeId, required this.apiData});
 
   @override
   State<OfferLetterScreen> createState() => _OfferLetterScreenState();
