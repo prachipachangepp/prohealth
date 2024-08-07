@@ -19,9 +19,10 @@ import '../../../taxtfield_constant.dart';
 
 ///
 class Employment_screen extends StatefulWidget {
-  const Employment_screen({
+  final int employeeID;
+   Employment_screen({
     super.key,
-    required this.context,
+    required this.context, required this.employeeID,
   });
 
   final BuildContext context;
@@ -133,7 +134,7 @@ class _Employment_screenState extends State<Employment_screen> {
               return EmploymentForm(
                 key: key,
                 index: index + 1,
-                onRemove: () => removeEmploymentForm(key),
+                onRemove: () => removeEmploymentForm(key), employeeID:widget.employeeID,
               );
             }).toList(),
           ),
@@ -183,7 +184,7 @@ class _Employment_screenState extends State<Employment_screen> {
                     final state = key.currentState!;
                     await postEmploymentScreenData(
                       context,
-                      15,
+                      state.widget.employeeID,
                       state.employerController.text,
                       state.cityController.text,
                       state.reasonForLeavingController.text,
@@ -206,7 +207,7 @@ class _Employment_screenState extends State<Employment_screen> {
                           context: context,
                           employeeDocumentMetaId: 10,
                           employeeDocumentTypeSetupId: 48,
-                          employeeId: 2,
+                          employeeId: widget.employeeID,
                           documentFile: state.finalPath,
                           documentName: 'Legal Document ID',
                         );
@@ -357,9 +358,10 @@ class _Employment_screenState extends State<Employment_screen> {
 
 /// Emp old
 class EmploymentForm extends StatefulWidget {
+  final int employeeID;
   final VoidCallback onRemove;
   final int index;
-  EmploymentForm({Key? key, required this.onRemove, required this.index})
+  EmploymentForm({Key? key, required this.onRemove, required this.index, required this.employeeID})
       : super(key: key);
 
   @override
