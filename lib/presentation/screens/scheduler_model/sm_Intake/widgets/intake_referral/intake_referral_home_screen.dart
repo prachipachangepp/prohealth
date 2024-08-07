@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_agency_info/intake_agency_info_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_agency_info/intake_referral_submit_popup.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_referral_info/intake_referal_info_screen.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -123,7 +124,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return SchedularSuccessPopup(title: 'Success',);
+                          return ReferralSubmitPopup();
                         },
                       );
                     },

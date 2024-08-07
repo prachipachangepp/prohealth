@@ -229,6 +229,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../widgets/constant_widgets/info_success_popup.dart';
 
 class SmIntakePatientsScreen extends StatefulWidget {
   SmIntakePatientsScreen({super.key});
@@ -410,7 +411,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return SchedularSuccessPopup(title: 'Success',);
+                          return SchedularInfoSuccessPopup();
                         },
                       );
                     },
