@@ -21,7 +21,8 @@ class EducationScreen extends StatefulWidget {
   final int employeeID;
   const EducationScreen({
     super.key,
-    required this.context, required this.employeeID,
+    required this.context,
+    required this.employeeID,
   });
 
   final BuildContext context;
@@ -130,7 +131,8 @@ class _EducationScreenState extends State<EducationScreen> {
               return EducationForm(
                 key: key,
                 index: index + 1,
-                onRemove: () => removeEduacationForm(key), employeeID:widget.employeeID,
+                onRemove: () => removeEduacationForm(key),
+                employeeID: widget.employeeID,
               );
             }).toList(),
           ),
@@ -182,19 +184,20 @@ class _EducationScreenState extends State<EducationScreen> {
                     await posteducationscreen(
                         context,
                         st.widget.employeeID,
-                        st.collegeuniversity.text,
-                        st.majorsubject.text,
-                        st.phone.text,
-                        st.city.text,
-                        st.state.text,
                         st.graduatetype.toString(),
                         st.selectedDegree.toString(),
+                        st.majorsubject.text,
+                        st.city.text,
+                        st.collegeuniversity.text,
+                        st.phone.text,
+                        st.state.text,
                         "county");
 
                     if (st.finalPath == null || st.finalPath.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('No file selected. Please select a file to upload.'),
+                          content: Text(
+                              'No file selected. Please select a file to upload.'),
                           backgroundColor: Colors.red,
                         ),
                       );
@@ -252,7 +255,11 @@ class EducationForm extends StatefulWidget {
   final int employeeID;
   final VoidCallback onRemove;
   final int index;
-  const EducationForm({Key? key, required this.onRemove, required this.index, required this.employeeID})
+  const EducationForm(
+      {Key? key,
+      required this.onRemove,
+      required this.index,
+      required this.employeeID})
       : super(key: key);
 
   @override
@@ -272,7 +279,19 @@ class _EducationFormState extends State<EducationForm> {
   String? graduatetype;
   String? selectedDegree;
 
-
+  Stream<List<AEClinicalDiscipline>> HrAddEmplyClinicalDisciplinApiAsStream(
+      BuildContext context, int id) async* {
+    // Replace with actual stream logic
+    try {
+      // Example of creating a stream from a future
+      List<AEClinicalDiscipline> data =
+          await HrAddEmplyClinicalDisciplinApi(context, id); // This is a future
+      yield data;
+    } catch (e) {
+      // Handle error
+      yield* Stream.error(e);
+    }
+  }
 
   Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
     final blob = html.Blob([bytes]);
@@ -382,8 +401,98 @@ class _EducationFormState extends State<EducationForm> {
                           color: Color(0xff686464)),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-                    FutureBuilder<List<AEClinicalDiscipline>>(
-                      future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                    // FutureBuilder<List<AEClinicalDiscipline>>(
+                    //   future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.connectionState ==
+                    //         ConnectionState.waiting) {
+                    //       return Shimmer.fromColors(
+                    //         baseColor: Colors.grey[300]!,
+                    //         highlightColor: Colors.grey[100]!,
+                    //         child: Padding(
+                    //           padding: const EdgeInsets.symmetric(
+                    //               horizontal: 7),
+                    //           child: Container(
+                    //             width: AppSize.s250,
+                    //             height: AppSize.s40,
+                    //             decoration: BoxDecoration(
+                    //                 color: ColorManager.faintGrey),
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    //     if (snapshot.hasData) {
+                    //       List<String> dropDownList = [];
+                    //
+                    //       for (var i in snapshot.data!) {
+                    //         if (i.empType != null) {
+                    //           dropDownList.add(i.empType!);
+                    //           //print("Country: $ctlrCountry");
+                    //         }
+                    //       }
+                    //       return SizedBox(
+                    //         height: 32,
+                    //         child: DropdownButtonFormField<String>(
+                    //           decoration: InputDecoration(
+                    //             // hintText: 'Select Clinician',
+                    //             hintStyle: GoogleFonts.firaSans(
+                    //               fontSize: 10.0,
+                    //               fontWeight: FontWeight.w400,
+                    //               color: const Color(0xff9B9B9B),
+                    //             ),
+                    //             border: OutlineInputBorder(
+                    //               borderRadius: BorderRadius.circular(4.0),
+                    //               borderSide:
+                    //               const BorderSide(color: Colors.grey),
+                    //             ),
+                    //             contentPadding: const EdgeInsets.symmetric(
+                    //               //   //  vertical: 5,
+                    //                 horizontal: 12),
+                    //           ),
+                    //           // value: selectedCountry,
+                    //           icon: Icon(Icons.arrow_drop_down,
+                    //               color: Color(0xff9B9B9B)),
+                    //           iconSize: 24,
+                    //           elevation: 16,
+                    //           style: GoogleFonts.firaSans(
+                    //             fontSize: 10.0,
+                    //             fontWeight: FontWeight.w400,
+                    //             color: const Color(0xff686464),
+                    //           ),
+                    //
+                    //           onChanged: (newValue) {
+                    //             for (var a in snapshot.data!) {
+                    //               if (a.empType == newValue) {
+                    //                 selectedDegree =a.empType!;
+                    //                 //country = a
+                    //                 // int? docType = a.companyOfficeID;
+                    //               }
+                    //             }
+                    //           },
+                    //           items: dropDownList.map((String value) {
+                    //             return DropdownMenuItem<String>(
+                    //               value: value,
+                    //               child: Text(
+                    //                 value,
+                    //                 style: GoogleFonts.firaSans(
+                    //                   fontSize: 12,
+                    //                   color: Color(0xff575757),
+                    //                   fontWeight: FontWeight.w400,
+                    //                 ),
+                    //               ),
+                    //             );
+                    //           }).toList(),
+                    //         ),
+                    //       );
+                    //     } else {
+                    //       return const Offstage();
+                    //     }
+                    //   },
+                    // ),
+
+                    StreamBuilder<List<AEClinicalDiscipline>>(
+                      stream: HrAddEmplyClinicalDisciplinApiAsStream(
+                          context, 1), // Change this to a stream method
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -391,31 +500,37 @@ class _EducationFormState extends State<EducationForm> {
                             baseColor: Colors.grey[300]!,
                             highlightColor: Colors.grey[100]!,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 7),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 7),
                               child: Container(
                                 width: AppSize.s250,
                                 height: AppSize.s40,
                                 decoration: BoxDecoration(
-                                    color: ColorManager.faintGrey),
+                                  color: ColorManager.faintGrey,
+                                ),
                               ),
                             ),
                           );
                         }
+
+                        if (snapshot.hasError) {
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
+                        }
+
                         if (snapshot.hasData) {
                           List<String> dropDownList = [];
 
                           for (var i in snapshot.data!) {
                             if (i.empType != null) {
                               dropDownList.add(i.empType!);
-                              //print("Country: $ctlrCountry");
                             }
                           }
+
                           return SizedBox(
                             height: 32,
                             child: DropdownButtonFormField<String>(
                               decoration: InputDecoration(
-                                // hintText: 'Select Clinician',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
                                   fontWeight: FontWeight.w400,
@@ -424,13 +539,11 @@ class _EducationFormState extends State<EducationForm> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4.0),
                                   borderSide:
-                                  const BorderSide(color: Colors.grey),
+                                      const BorderSide(color: Colors.grey),
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  //   //  vertical: 5,
-                                    horizontal: 12),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
                               ),
-                              // value: selectedCountry,
                               icon: Icon(Icons.arrow_drop_down,
                                   color: Color(0xff9B9B9B)),
                               iconSize: 24,
@@ -440,13 +553,10 @@ class _EducationFormState extends State<EducationForm> {
                                 fontWeight: FontWeight.w400,
                                 color: const Color(0xff686464),
                               ),
-
                               onChanged: (newValue) {
                                 for (var a in snapshot.data!) {
                                   if (a.empType == newValue) {
-                                    selectedDegree =a.empType!;
-                                    //country = a
-                                    // int? docType = a.companyOfficeID;
+                                    selectedDegree = a.empType!;
                                   }
                                 }
                               },
@@ -470,6 +580,7 @@ class _EducationFormState extends State<EducationForm> {
                         }
                       },
                     ),
+
                     // Container(
                     //   height: 32,
                     //   child: DropdownButtonFormField<String>(
@@ -621,14 +732,17 @@ class _EducationFormState extends State<EducationForm> {
               SizedBox(width: MediaQuery.of(context).size.width / 20),
               ElevatedButton.icon(
                 onPressed: () async {
-                  FilePickerResult? result = await FilePicker.platform.pickFiles();
+                  FilePickerResult? result =
+                      await FilePicker.platform.pickFiles();
                   if (result != null) {
                     try {
                       Uint8List? bytes = result.files.first.bytes;
-                      XFile xFile = await convertBytesToXFile(bytes!, result.files.first.name);
+                      XFile xFile = await convertBytesToXFile(
+                          bytes!, result.files.first.name);
                       finalPath = result.files.first.bytes;
                       setState(() {
-                        _fileNames.addAll(result.files.map((file) => file.name!));
+                        _fileNames
+                            .addAll(result.files.map((file) => file.name!));
                         _loading = false;
                       });
                     } catch (e) {
@@ -654,30 +768,30 @@ class _EducationFormState extends State<EducationForm> {
               ),
               _loading
                   ? SizedBox(
-                width: 25,
-                height: 25,
-                child: CircularProgressIndicator(
-                  color: ColorManager.blueprime, // Loader color
-                  // Loader size
-                ),
-              )
+                      width: 25,
+                      height: 25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime, // Loader color
+                        // Loader size
+                      ),
+                    )
                   : _fileNames.isNotEmpty
-                  ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _fileNames
-                    .map((fileName) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'File picked: $fileName',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                ))
-                    .toList(),
-              )
-                  : SizedBox(),
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: _fileNames
+                              .map((fileName) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'File picked: $fileName',
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                  ))
+                              .toList(),
+                        )
+                      : SizedBox(),
               SizedBox(height: MediaQuery.of(context).size.height / 20),
             ],
           ),

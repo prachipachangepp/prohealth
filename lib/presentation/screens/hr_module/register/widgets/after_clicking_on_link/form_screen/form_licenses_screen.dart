@@ -34,7 +34,6 @@ class LicensesScreen extends StatefulWidget {
 }
 
 class _LicensesScreenState extends State<LicensesScreen> {
-
   Future<void> perfFormLinsence({
     required BuildContext context,
     required String country,
@@ -86,7 +85,6 @@ class _LicensesScreenState extends State<LicensesScreen> {
   bool get isFirstStep => _currentStep == 0;
 
   bool isCompleted = false;
-  String? selectedCountry;
 
   List<GlobalKey<_licensesFormState>> licensesFormKeys = [];
 
@@ -280,7 +278,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   await perfFormLinsence(
                       context: context,
                       licenseNumber: st.licensurenumber.text,
-                      country: selectedCountry.toString(),
+                      country: st.selectedCountry.toString(),
                       employeeId: widget.employeeID,
                       licenseUrl: '',
                       licensure: st.licensure.text,

@@ -17,10 +17,11 @@ import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
 class BankingScreen extends StatefulWidget {
-  final int  employeeID;
+  final int employeeID;
   const BankingScreen({
     super.key,
-    required this.context, required this.employeeID,
+    required this.context,
+    required this.employeeID,
   });
 
   final BuildContext context;
@@ -67,15 +68,27 @@ class _BankingScreenState extends State<BankingScreen> {
     required dynamic documentFile,
     required String documentName,
   }) async {
-    ApiDataRegister result = await postbankingscreen(context,employeeId,accountNumber,bankName,
-        amountRequested,checkUrl,routingNumber,type,requestedPercentage);
+    ApiDataRegister result = await postbankingscreen(
+        context,
+        employeeId,
+        accountNumber,
+        bankName,
+        amountRequested,
+        checkUrl,
+        routingNumber,
+        type,
+        requestedPercentage);
 
     // setState(() {
     //   _isLoading = false;
     // });
     print('BanckingId :: ${result.banckingId!}');
-    await uploadcheck(context: context, employeeid: employeeId,
-        empBankingId: result.banckingId!, documentFile: documentFile, documentName: documentName);
+    await uploadcheck(
+        context: context,
+        employeeid: employeeId,
+        empBankingId: result.banckingId!,
+        documentFile: documentFile,
+        documentName: documentName);
 
     if (result.success) {
     } else {
@@ -84,20 +97,21 @@ class _BankingScreenState extends State<BankingScreen> {
       );
     }
   }
-  Future<void> postbankingscreendata(
-      BuildContext context,
-      int employeeId,
-      String accountNumber,
-      String bankName,
-      int amountRequested,
-      String checkUrl,
-      String routingNumber,
-      String type,
-      String requestedPercentage) async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Banking data saved")),
-    );
-  }
+  //
+  // Future<void> postbankingscreendata(
+  //     BuildContext context,
+  //     int employeeId,
+  //     String accountNumber,
+  //     String bankName,
+  //     int amountRequested,
+  //     String checkUrl,
+  //     String routingNumber,
+  //     String type,
+  //     String requestedPercentage) async {
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(content: Text("Banking data saved")),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +150,8 @@ class _BankingScreenState extends State<BankingScreen> {
             return BankingForm(
               key: key,
               index: index + 1,
-              onRemove: () => removeEduacationForm(key),employeeID:widget.employeeID,
+              onRemove: () => removeEduacationForm(key),
+              employeeID: widget.employeeID,
             );
           }).toList(),
         ),
@@ -188,19 +203,22 @@ class _BankingScreenState extends State<BankingScreen> {
                   await perfFormBanckingData(
                     context: context,
                     employeeId: st.widget.employeeID,
-                    accountNumber:st.accountnumber.text,
-                    bankName:st.bankname.text,
-                    amountRequested:int.parse(st.requestammount.text),
-                    checkUrl:"",
-                    routingNumber:st.routingnumber.text,
-                    type:st.selectedtype.toString(),
-                    requestedPercentage:"", documentFile: st.finalPath, documentName: st.fileName,
+                    accountNumber: st.accountnumber.text,
+                    bankName: st.bankname.text,
+                    amountRequested: int.parse(st.requestammount.text),
+                    checkUrl: "",
+                    routingNumber: st.routingnumber.text,
+                    type: st.selectedtype.toString(),
+                    requestedPercentage: "",
+                    documentFile: st.finalPath,
+                    documentName: st.fileName,
                   );
 
                   if (st.finalPath == null || st.finalPath.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('No file selected. Please select a file to upload.'),
+                        content: Text(
+                            'No file selected. Please select a file to upload.'),
                         backgroundColor: Colors.red,
                       ),
                     );
@@ -222,7 +240,7 @@ class _BankingScreenState extends State<BankingScreen> {
                     }
                   }
                 }
-               // accountnumber.clear();
+                // accountnumber.clear();
               },
               child: Text(
                 'Save',
@@ -244,7 +262,11 @@ class BankingForm extends StatefulWidget {
   final int employeeID;
   final VoidCallback onRemove;
   final int index;
-  const BankingForm({super.key, required this.onRemove, required this.index, required this.employeeID});
+  const BankingForm(
+      {super.key,
+      required this.onRemove,
+      required this.index,
+      required this.employeeID});
 
   @override
   _BankingFormState createState() => _BankingFormState();
@@ -288,8 +310,6 @@ class _BankingFormState extends State<BankingForm> {
     }
   }
 
-
-
   Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
     final blob = html.Blob([bytes]);
     final url = html.Url.createObjectUrlFromBlob(blob);
@@ -303,8 +323,6 @@ class _BankingFormState extends State<BankingForm> {
   dynamic filePath;
   File? xfileToFile;
   var finalPath;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -541,15 +559,18 @@ class _BankingFormState extends State<BankingForm> {
               SizedBox(width: MediaQuery.of(context).size.width / 5),
               ElevatedButton.icon(
                 onPressed: () async {
-                  FilePickerResult? result = await FilePicker.platform.pickFiles();
+                  FilePickerResult? result =
+                      await FilePicker.platform.pickFiles();
                   if (result != null) {
                     try {
                       Uint8List? bytes = result.files.first.bytes;
-                      XFile xFile = await convertBytesToXFile(bytes!, result.files.first.name);
+                      XFile xFile = await convertBytesToXFile(
+                          bytes!, result.files.first.name);
                       finalPath = result.files.first.bytes;
                       fileName = result.files.first.name;
                       setState(() {
-                        _fileNames.addAll(result.files.map((file) => file.name));
+                        _fileNames
+                            .addAll(result.files.map((file) => file.name));
                         _loading = false;
                       });
                     } catch (e) {
@@ -575,35 +596,39 @@ class _BankingFormState extends State<BankingForm> {
               ),
               _loading
                   ? SizedBox(
-                width: 25,
-                height: 25,
-                child: CircularProgressIndicator(
-                  color: ColorManager.blueprime, // Loader color
-                  // Loader size
-                ),
-              )
+                      width: 25,
+                      height: 25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime, // Loader color
+                        // Loader size
+                      ),
+                    )
                   : _fileNames.isNotEmpty
-                  ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _fileNames
-                    .map((fileName) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'File picked: $fileName',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                ))
-                    .toList(),
-              )
-                  : SizedBox(),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),// Display file names if picked
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: _fileNames
+                              .map((fileName) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'File picked: $fileName',
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                  ))
+                              .toList(),
+                        )
+                      : SizedBox(),
+              SizedBox(
+                  height: MediaQuery.of(context).size.height /
+                      20), // Display file names if picked
             ],
-
           ),
-         const Divider(color: Colors.grey,thickness: 2,)
+          const Divider(
+            color: Colors.grey,
+            thickness: 2,
+          )
         ],
       ),
     );
