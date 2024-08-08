@@ -18,8 +18,10 @@ class ApiDataRegister{
   final String message;
   final int statusCode;
   final Object? data;
+  final int ?licenses;
 
-  ApiDataRegister({
+  ApiDataRegister( {
+    this.licenses,
     required this.success,
     required this.statusCode,
     required this.message,

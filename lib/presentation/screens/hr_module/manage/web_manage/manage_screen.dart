@@ -197,7 +197,7 @@ class _ManageScreenState extends State<ManageScreen> {
       tabViews: [
         CenteredTabBarChild(childController),
         CenteredTabBarChild(childControlleOne),
-        BankingHeadTabbar(),
+        BankingHeadTabbar(employeeID: widget.searchByEmployeeIdProfileData!.employeeId!,),
         // HealthRecordsHeadTabbar(),
         SingleChildScrollView(
           child: Column(
