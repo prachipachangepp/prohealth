@@ -18,6 +18,7 @@ import '../../../taxtfield_constant.dart';
 
 class BankingScreen extends StatefulWidget {
   final int employeeID;
+
   const BankingScreen({
     super.key,
     required this.context,
@@ -34,6 +35,10 @@ class _BankingScreenState extends State<BankingScreen> {
   /////
 
   List<GlobalKey<_BankingFormState>> bankingFormKeys = [];
+
+  var validateAccounts;
+
+  var errorMessage;
 
   @override
   void initState() {
@@ -202,7 +207,7 @@ class _BankingScreenState extends State<BankingScreen> {
                   final st = key.currentState!;
                   await perfFormBanckingData(
                     context: context,
-                    employeeId: st.widget.employeeID,
+                    employeeId: widget.employeeID,
                     accountNumber: st.accountnumber.text,
                     bankName: st.bankname.text,
                     amountRequested: int.parse(st.requestammount.text),
@@ -214,34 +219,36 @@ class _BankingScreenState extends State<BankingScreen> {
                     documentName: st.fileName,
                   );
 
-                  if (st.finalPath == null || st.finalPath.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                            'No file selected. Please select a file to upload.'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  } else {
-                    try {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Document uploaded successfully!'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Failed to upload document: $e'),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
+                  validateAccounts;
+
+                  // if (st.finalPath == null || st.finalPath.isEmpty) {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     SnackBar(
+                  //       content: Text(
+                  //           'No file selected. Please select a file to upload.'),
+                  //       backgroundColor: Colors.red,
+                  //     ),
+                  //   );
+                  // } else {
+                  //   try {
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //       SnackBar(
+                  //         content: Text('Document uploaded successfully!'),
+                  //         backgroundColor: Colors.green,
+                  //       ),
+                  //     );
+                  //   } catch (e) {
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //       SnackBar(
+                  //         content: Text('Failed to upload document: $e'),
+                  //         backgroundColor: Colors.red,
+                  //       ),
+                  //     );
+                  //   }
                   }
-                }
+                },
                 // accountnumber.clear();
-              },
+
               child: Text(
                 'Save',
                 style: GoogleFonts.firaSans(
@@ -251,6 +258,14 @@ class _BankingScreenState extends State<BankingScreen> {
                 ),
               ),
             ),
+            if (errorMessage != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Text(
+                  errorMessage!,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
           ],
         ),
       ],
@@ -273,11 +288,34 @@ class BankingForm extends StatefulWidget {
 }
 
 class _BankingFormState extends State<BankingForm> {
+
+
+  @override
+  void initState() {
+    super.initState();
+    // Add listeners to controllers
+    accountnumber.addListener(validateAccounts);
+    verifyaccountnumber.addListener(validateAccounts);
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers when widget is removed
+    accountnumber.dispose();
+    verifyaccountnumber.dispose();
+    super.dispose();
+  }
+
+
+
+
+
   TextEditingController controller = TextEditingController();
   TextEditingController requestammount = TextEditingController();
   TextEditingController accountnumber = TextEditingController();
   TextEditingController routingnumber = TextEditingController();
   TextEditingController bankname = TextEditingController();
+  TextEditingController verifyaccountnumber = TextEditingController();
 
   String? selectedtype;
 
@@ -323,6 +361,19 @@ class _BankingFormState extends State<BankingForm> {
   dynamic filePath;
   File? xfileToFile;
   var finalPath;
+
+  String? errorMessage;
+
+  void validateAccounts() {
+    setState(() {
+      if (accountnumber.text != verifyaccountnumber.text) {
+        errorMessage = 'Account numbers do not match';
+      } else {
+        errorMessage = null;
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -501,6 +552,7 @@ class _BankingFormState extends State<BankingForm> {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 60),
                     CustomTextFieldRegister(
+                      controller: verifyaccountnumber,
 // controller: ,
                       hintText: 'Enter Text',
                       hintStyle: GoogleFonts.firaSans(
@@ -510,6 +562,14 @@ class _BankingFormState extends State<BankingForm> {
                       ),
                       height: 32,
                     ),
+                    if (errorMessage != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          errorMessage!,
+                          style: TextStyle(color: Colors.red,fontSize: 10),
+                        ),
+                      ),
                     SizedBox(height: MediaQuery.of(context).size.height / 25),
                     Text(
                       'Requested amount for this account (select one)',

@@ -440,7 +440,7 @@ class _generalFormState extends State<generalForm> {
                             color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
+                      CustomTextFieldForEmail(
                         controller: personalemail,
                         hintText: 'Enter Text',
                         hintStyle: GoogleFonts.firaSans(

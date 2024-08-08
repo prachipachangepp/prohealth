@@ -390,6 +390,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
               }
               return null;
             },
+
           ),
         ),
         SizedBox(height: 5),

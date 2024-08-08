@@ -362,7 +362,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                     SizedBox(
                         height:
                         MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
+                    CustomTextFieldForEmail(
                       controller: email,
                       hintText: 'Enter Text',
                       hintStyle: GoogleFonts.firaSans(

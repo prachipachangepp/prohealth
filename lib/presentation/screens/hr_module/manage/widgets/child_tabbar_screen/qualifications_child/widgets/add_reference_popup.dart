@@ -111,7 +111,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                     return null;
                   },
                 ),
-                CustomTextFieldRegister(
+                CustomTextFieldForEmail(
                   height: AppSize.s30,
                   width: MediaQuery.of(context).size.width / 6,
                   controller: widget.emailController,
