@@ -136,9 +136,11 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        contentPadding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                         suffixIcon: PopupMenuButton<String>(
-                          icon: Icon(Icons.arrow_drop_down, color: Colors.black,),
+                          icon: Align(
+                            alignment: Alignment.center,
+                              child: Icon(Icons.arrow_drop_down, color: Colors.black, size: 18)),
                           onSelected: (String value) {
                             setState(() {
                               _typeDocumentSelectedOption = value;

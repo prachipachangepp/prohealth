@@ -135,9 +135,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                         suffixIcon: PopupMenuButton<String>(
-                          icon: Icon(Icons.arrow_drop_down, color: Colors.black,),
+                          icon: Align(
+                              alignment: Alignment.center,
+                              child: Icon(Icons.arrow_drop_down, color: Colors.black)),
                           onSelected: (String value) {
                             setState(() {
                               _typeDocumentSelectedOption = value;
@@ -158,6 +160,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                             }).toList();
                           },
                         ),
+                        isDense: true
                       ),
                     ),
                   ),
