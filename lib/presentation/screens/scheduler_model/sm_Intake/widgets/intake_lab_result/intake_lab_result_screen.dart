@@ -57,169 +57,183 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height/30),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              height: MediaQuery.of(context).size.width * 0.3,
-              width: MediaQuery.of(context).size.width * 0.95,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 30.0),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: 20,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 65,
-                                  width: 1109,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 1,
-                                        blurRadius: 5,
-                                        offset: Offset(0, 4),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 10.0),
-                                        child: Container(
-                                          color: Color(0xff50B5E5),
-                                          height: 45,
-                                          width: 62,
-                                          child: Icon(Icons.remove_red_eye_outlined, color: Colors.white, size: 24,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                height: MediaQuery.of(context).size.width * 0.3,
+                // width: MediaQuery.of(context).size.width * 0.95,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: 20,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 65,
+                                    // width: 1109, //1109
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 4),
                                         ),
-                                      ),
-
-                                      SizedBox(width: MediaQuery.of(context).size.width/120),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 11.5),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Row(
                                           children: [
-                                            Text(
-                                              'ID: 248d1eb1-9020-4d8d-8168-43a3ef90a261',
-                                              style: GoogleFonts.firaSans(
-                                                  decoration: TextDecoration.none,
-                                                  fontSize: 10.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464)
-                                              ),
-                                            ),
-                                            SizedBox(height: 3.5),
-                                            Text(
-                                              'Compliance 1',
-                                              style: GoogleFonts.firaSans(
-                                                  decoration: TextDecoration.none,
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff686464)
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 10.0),
+                                              child: Container(
+                                                color: Color(0xff50B5E5),
+                                                height: 45,
+                                                width: 62,
+                                                child: Icon(Icons.remove_red_eye_outlined, color: Colors.white, size: 24,),
                                               ),
                                             ),
 
-                                            SizedBox(height: 1),
-                                            Text(
-                                              'Expiry 10 months',
-                                              style: GoogleFonts.firaSans(
-                                                  decoration: TextDecoration.none,
-                                                  fontSize: 10.0,
-                                                  fontWeight: FontWeight.w300,
-                                                  color: Color(0xff686464)
+                                            SizedBox(width: MediaQuery.of(context).size.width/120),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 11.5),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'ID: 248d1eb1-9020-4d8d-8168-43a3ef90a261',
+                                                    style: GoogleFonts.firaSans(
+                                                        decoration: TextDecoration.none,
+                                                        fontSize: 10.0,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xff686464)
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 3.5),
+                                                  Text(
+                                                    'Compliance 1',
+                                                    style: GoogleFonts.firaSans(
+                                                        decoration: TextDecoration.none,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: Color(0xff686464)
+                                                    ),
+                                                  ),
+
+                                                  SizedBox(height: 1),
+                                                  Text(
+                                                    'Expiry 10 months',
+                                                    style: GoogleFonts.firaSans(
+                                                        decoration: TextDecoration.none,
+                                                        fontSize: 10.0,
+                                                        fontWeight: FontWeight.w300,
+                                                        color: Color(0xff686464)
+                                                    ),
+                                                  )
+                                                ],
                                               ),
-                                            )
+                                            ),
                                           ],
                                         ),
-                                      ),
 
-                                      SizedBox(width: MediaQuery.of(context).size.width/2.7),
-                                      Row(
-                                        children: [
-                                          IconButton(
-                                            icon: Icon(
-                                              Icons.history,
-                                              color: Color(0xff686464),
-                                            ),
-                                            onPressed: () {
-
-                                            },
-                                          ),
-
-                                          SizedBox(width: MediaQuery.of(context).size.width/120),
-                                          IconButton(
-                                            icon: Icon(
-                                              Icons.print_outlined,
-                                              color: Color(0xff686464),
-                                            ),
-                                            onPressed: () async {
-                                              final pdf = pw.Document();
-
-                                              pdf.addPage(
-                                                pw.Page(
-                                                  build: (pw.Context context) => pw.Center(
-                                                    child: pw.Text('Hello, this is a test print!'),
-                                                  ),
+                                        // SizedBox(width: MediaQuery.of(context).size.width/4.5), //3.5
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 50.0),
+                                          child: Row(
+                                            children: [
+                                              IconButton(
+                                                icon: Icon(
+                                                  Icons.history,
+                                                  color: Color(0xff686464),
                                                 ),
-                                              );
+                                                onPressed: () {
 
-                                              await Printing.layoutPdf(
-                                                onLayout: (PdfPageFormat format) async => pdf.save(),
-                                              );
-                                            },
+                                                },
+                                              ),
+
+                                              SizedBox(width: MediaQuery.of(context).size.width/120),
+                                              IconButton(
+                                                icon: Icon(
+                                                  Icons.print_outlined,
+                                                  color: Color(0xff686464),
+                                                ),
+                                                onPressed: () async {
+                                                  final pdf = pw.Document();
+
+                                                  pdf.addPage(
+                                                    pw.Page(
+                                                      build: (pw.Context context) => pw.Center(
+                                                        child: pw.Text('Hello, this is a test print!'),
+                                                      ),
+                                                    ),
+                                                  );
+
+                                                  await Printing.layoutPdf(
+                                                    onLayout: (PdfPageFormat format) async => pdf.save(),
+                                                  );
+                                                },
+                                              ),
+
+                                              SizedBox(width: MediaQuery.of(context).size.width/120),
+                                              IconButton(
+                                                icon: Icon(
+                                                  Icons.file_download_outlined,
+                                                  color: Color(0xff686464),
+                                                ),
+                                                onPressed: () {
+
+                                                },
+                                              ),
+
+                                              SizedBox(width: MediaQuery.of(context).size.width/120),
+                                              IconButton(
+                                                icon: Icon(
+                                                  Icons.delete_outline,
+                                                  color: Color(0xff686464),
+                                                ),
+                                                onPressed: () {
+
+                                                },
+                                              ),
+                                            ],
                                           ),
+                                        ),
 
-                                          SizedBox(width: MediaQuery.of(context).size.width/120),
-                                          IconButton(
-                                            icon: Icon(
-                                              Icons.file_download_outlined,
-                                              color: Color(0xff686464),
-                                            ),
-                                            onPressed: () {
 
-                                            },
-                                          ),
-
-                                          SizedBox(width: MediaQuery.of(context).size.width/120),
-                                          IconButton(
-                                            icon: Icon(
-                                              Icons.delete_outline,
-                                              color: Color(0xff686464),
-                                            ),
-                                            onPressed: () {
-
-                                            },
-                                          ),
-                                        ],
-                                      )
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    )
-                  ],
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -227,5 +241,6 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
         ),
       ),
     );
+
   }
 }

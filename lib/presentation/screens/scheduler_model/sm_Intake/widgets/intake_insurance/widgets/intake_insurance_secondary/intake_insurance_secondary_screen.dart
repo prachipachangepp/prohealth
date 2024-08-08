@@ -19,6 +19,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: Center(
         child: SingleChildScrollView(
           child: Column(

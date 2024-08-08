@@ -3,7 +3,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_lab_result/intake_lab_result_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/intake_medications_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/intake_notes_home_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/intake_patiets_data_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/intake_patients_data_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/intake_physician_home_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/intake_referral_home_screen.dart';
 import '../../../../../../app/resources/value_manager.dart';

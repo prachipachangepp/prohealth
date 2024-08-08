@@ -19,6 +19,7 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: Center(
         child: SingleChildScrollView(
           child: Column(

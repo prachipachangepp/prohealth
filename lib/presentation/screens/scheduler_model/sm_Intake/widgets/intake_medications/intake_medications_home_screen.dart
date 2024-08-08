@@ -32,6 +32,7 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
   @override
   Widget build(BuildContext context) {
     return  Material(
+      color: ColorManager.white,
       elevation: 4,
       borderRadius: BorderRadius.circular(14),
       child: Column(

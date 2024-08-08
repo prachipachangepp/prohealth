@@ -20,6 +20,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: Center(
         child: SingleChildScrollView(
           child: Container(

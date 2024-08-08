@@ -15,6 +15,7 @@ class _IntakePlanCareScreenState extends State<IntakePlanCareScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: SingleChildScrollView(
         child: Column(
           children: [

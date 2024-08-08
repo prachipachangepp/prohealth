@@ -512,6 +512,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: ColorManager.white,
       elevation: 4,
       borderRadius: BorderRadius.circular(14),
       child: Column(
@@ -722,4 +723,4 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
     );
   }
 }
-////////
+///////

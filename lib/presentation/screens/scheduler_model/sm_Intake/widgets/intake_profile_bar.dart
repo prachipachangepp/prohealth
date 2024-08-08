@@ -19,19 +19,20 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      elevation: 4,
       child: Column(
         children: [
           Container(
             decoration: BoxDecoration(
-              color: ColorManager.whitebluecolor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.25),
-                  spreadRadius: 0,
-                  blurRadius: 4,
-                  offset: Offset(0, 4),
-                ),
-              ],
+              color: Color(0xffB1D6F4).withOpacity(0.25),
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Colors.black.withOpacity(0.25),
+              //     spreadRadius: 0,
+              //     blurRadius: 4,
+              //     offset: Offset(0, 4),
+              //   ),
+              // ],
             ),
             height: AppSize.s200,
             child: Row(

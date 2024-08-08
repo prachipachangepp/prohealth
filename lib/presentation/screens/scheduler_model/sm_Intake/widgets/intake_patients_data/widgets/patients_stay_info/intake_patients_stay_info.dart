@@ -13,6 +13,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: Center(
         child: SingleChildScrollView(
           child: Column(

@@ -34,6 +34,7 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
   @override
   Widget build(BuildContext context) {
     return  Material(
+      color: ColorManager.white,
       elevation: 4,
       borderRadius: BorderRadius.circular(14),
       child: Column(
