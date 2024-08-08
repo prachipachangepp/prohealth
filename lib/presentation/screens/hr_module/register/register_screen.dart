@@ -363,16 +363,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:63436/#/onBordingWelcome";
-                          //const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          // const url = "http://localhost:62231/#/onBordingWelcome";
+                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                             await launch(url);
-                             // Navigator.push(
-                             //   context,
-                             //   MaterialPageRoute(
-                             //    builder: (context) => OnBoardingWelcome(),
-                             //  ),
-                             // );
+                          //   Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) => OnBoardingWelcome(),
+                          //     ),
+                          //   );
                           } else {
                             throw 'Could not launch $url';
                           }
@@ -389,7 +389,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       data.status == 'Notopen'
                           ? const Text('')
                           : InkWell(onTap: (){
-                            _copyToClipboard("https://staging.symmetry.care/#/onBordingWelcome");
+        _copyToClipboard(data.link!);
                       },child: Icon(Icons.copy,size: 15,color: ColorManager.mediumgrey,)),
                     ],
                   ),
