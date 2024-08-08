@@ -326,7 +326,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                           try {
                                                             await updateCorporateDocumentPost(
                                                               context: context,
-                                                              docId: documentPreId,
+                                                              docId: snapshot.data![index].docId,
                                                               name: name == docNameController.text ? name.toString() : docNameController.text,
                                                               docTypeID: documentTypePreId == docTypeMetaId ? documentTypePreId : docTypeMetaId,
                                                               docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId ,
@@ -334,7 +334,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                               url: "url",
                                                               expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                               expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                              expiryReminder: "Schedule",
+                                                              expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                               officeId: widget.officeId,
                                                             );
                                                             setState(() async {
