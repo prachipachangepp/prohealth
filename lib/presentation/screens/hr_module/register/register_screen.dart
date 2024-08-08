@@ -11,7 +11,6 @@ import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widge
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/register_enroll_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/webView/WebViewScreen.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -364,7 +363,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:62767/#/onBordingWelcome";
+                          const url = "http://localhost:60614/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                             await launch(url);
@@ -388,7 +387,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       data.status == 'Notopen'
-      ? const Text('') : InkWell(onTap: (){
+                          ? const Text('')
+                          : InkWell(onTap: (){
         _copyToClipboard(data.link!);
                       },child: Icon(Icons.copy,size: 15,color: ColorManager.mediumgrey,)),
                     ],
@@ -433,7 +433,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                   );
+                                  );
                                 },
                               ),
                             );
@@ -443,6 +443,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   )
                       : const SizedBox(width: 10),
+                  data.status == 'Completed'
+                      ? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [Container(
+                      width: AppSize.s100,
+                      margin: const EdgeInsets.only(right: AppMargin.m30),
+                      child: CustomIconButtonConst(
+                        text: 'Onboard',
+                        onPressed: () {  },),
+                    )],
+                  ) : const SizedBox(width: 10)
                 ],
               ),
             ),

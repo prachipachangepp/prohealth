@@ -300,7 +300,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                                 .data![index]
                                                                 .licenseId);
                                                         getOnboardingQualificationLicense(
-                                                                context, 2,'no')
+                                                                context, widget.employeeId,'no')
                                                             .then((data) {
                                                           licenseStreamController
                                                               .add(data);
@@ -488,7 +488,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                                                 .data![index]
                                                                 .licenseId);
                                                         getOnboardingQualificationLicense(
-                                                                context, 2,'no')
+                                                                context, widget.employeeId,'no')
                                                             .then((data) {
                                                           licenseStreamController
                                                               .add(data);

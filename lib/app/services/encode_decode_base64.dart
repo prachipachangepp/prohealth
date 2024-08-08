@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-// import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:path_provider/path_provider.dart';
+import 'package:universal_io/io.dart';
 
 class AppFilePickerBase64 {
-
-
   static String generateRandomKey(int length) {
     final random = Random.secure();
     final key = List<int>.generate(length, (_) => random.nextInt(256));
@@ -35,42 +36,68 @@ class AppFilePickerBase64 {
  //    // print('Decrypted URL: $decryptedUrl');
  //    // return decryptedUrl;
  //  }
-  // static List<int> dexryptUrl(String encryptedUrl, String key, String iv){
-  //     final keyBytes = encrypt.Key.fromUtf8(key);
-  //     final ivBytes = encrypt.IV.fromUtf8(iv);
+ //  static List<int> dexryptUrl(String encryptedUrl, String key, String iv){
+ //      final keyBytes = encrypt.Key.fromUtf8(key);
+ //      final ivBytes = encrypt.IV.fromUtf8(iv);
+ //
+ //       // final encrypter = encrypt.Encrypter(encrypt.AES(keyBytes));
+ //       final encrypter = encrypt.Encrypter(encrypt.AES(keyBytes));
+ //
+ //      final encryptedText = 'e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O';
+ //      final encrypted = encrypt.Encrypted.fromBase64(encryptedText);
+ //      final decrypted = encrypter.decryptBytes(encrypted, iv: ivBytes);
+ //      return decrypted;
+ //  }
+
+  static String getDecodeBase64({required String url}) {
+    // Example Base64 string
+
+    String fileUrl = url.split('/').last;
+    String base64String = fileUrl; // "Hello world" in Base64
+
+    // Decode the Base64 string
+    dynamic decodedBytes = base64Decode(base64String);
+
+    // Convert the bytes to a string
+    String decodedString = utf8.decode(decodedBytes);
+    print(decodedString);
+    return decodedString;
+
+     // Output: Hello world
+  }
+  // static Future<String> getDecodeBase64({required String fetchedUrl}) async {
+  //   try{
+  //     String url = fetchedUrl;
+  //     String fileUrl = url;
   //
-  //      // final encrypter = encrypt.Encrypter(encrypt.AES(keyBytes));
-  //      final encrypter = encrypt.Encrypter(encrypt.AES(keyBytes));
+  //     // Get the file name from the URL
+  //     String fileName = fileUrl.split('/').last;
   //
-  //     final encryptedText = 'e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O';
-  //     final encrypted = encrypt.Encrypted.fromBase64(encryptedText);
-  //     final decrypted = encrypter.decryptBytes(encrypted, iv: ivBytes);
-  //     return decrypted;
-  // }
-  // static Future<void> getDecodeBase64({required String fetchedUrl}) async {
-  //   String url = fetchedUrl;
-  //   String fileUrl =
-  //       "https://symmetry-office-document.s3.us-west-2.amazonaws.com/documents/e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O";
   //
-  //   // Get the file name from the URL
-  //   String fileName = fileUrl.split('/').last;
+  //     // Send an HTTP GET request to download the file
+  //     var response = await http.get(Uri.parse(fileUrl));
   //
-  //   // Send an HTTP GET request to download the file
-  //   var response = await http.get(Uri.parse(fileUrl));
+  //     // Get the directory to save the file
+  //     Directory appDocDir = await getApplicationDocumentsDirectory();
+  //     String filePath = '${appDocDir.path}/$fileName';
   //
-  //   // Get the directory to save the file
-  //   Directory appDocDir = await getApplicationDocumentsDirectory();
-  //   String filePath = '${appDocDir.path}/$fileName';
+  //     // Write the file
+  //     File file = File(filePath);
+  //     await file.writeAsBytes(response.bodyBytes);
   //
-  //   // Write the file
-  //   File file = File(filePath);
-  //   await file.writeAsBytes(response.bodyBytes);
+  //     print("::: Response ${response}");
   //
-  //   print('File saved at: $filePath');
+  //     print('File saved at: $filePath');
   //
-  //   // Encode the URL to base64
-  //   String base64EncodedUrl = base64.encode(utf8.encode(url));
-  //   print("Encoded url ::${base64EncodedUrl}");
+  //     // Encode the URL to base64
+  //     String base64EncodedUrl = base64.encode(utf8.encode(url));
+  //     return base64EncodedUrl;
+  //   }catch(e){
+  //     print(e);
+  //     return "";
+  //   }
+  //
+  //   //print("Encoded url ::${base64EncodedUrl}");
   //   //return base64EncodedUrl;
   // }
 }

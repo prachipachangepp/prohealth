@@ -337,17 +337,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                           child: Text(doc.docType),
                                         ))
                                             .toList();
-                                        // List dropDown = [];
-                                        // int docType = 0;
-                                        // List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                        // for(var i in snapshot.data!){
-                                        //   dropDownMenuItems.add(
-                                        //     DropdownMenuItem<String>(
-                                        //       child: Text(i.docType),
-                                        //       value: i.docType,
-                                        //     ),
-                                        //   );
-                                        // }
+
                                         return CICCDropdown(
                                             initialValue: selectedSubDocType ?? dropDownMenuItems[0].value,
                                             onChange: (val){
@@ -364,8 +354,6 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                                 // Handle error
                                               });
 
-                                              // print(":::${docType}");
-                                              // print(":::<>${docTypeMetaId}");
                                             },
                                             items:dropDownMenuItems
                                         );
