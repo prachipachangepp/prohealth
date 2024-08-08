@@ -20,7 +20,7 @@ class ManageReposotory{
   static String resumeupload = "/employees/attach-resumebase64";
   static String photoupload = "/employees/attach-photobase64";
   static String licensesupload = "/employee-licenses/attach-licensebase64";
-  static String Bankcheckupload = "/employee-bankings/attach-checkbase64/{empBankingId}";
+  static String Bankcheckupload = "/employee-bankings/attach-checkbase64";
 
 
   /// Licenses status wise
@@ -98,7 +98,7 @@ class ManageReposotory{
   }
 ///
   static String uploadlinceses({required int licensedId}){
-    return "$licensesupload/attach-license/$licensedId";
+    return "$licensesupload/$licensedId";
 
   }
 
@@ -151,7 +151,7 @@ class ManageReposotory{
 ////////
 
   static String uploadcheck({required int empBankingId}){
-    return "$Bankcheckupload/empBankingId";
+    return "$Bankcheckupload/$empBankingId";
   }
 
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/api_offer.dart';
+import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
+import 'package:prohealth/app/services/encode_decode_base64.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../resources/const_string.dart';
@@ -37,10 +39,13 @@ Future<ApiDataRegister> postbankingscreen(
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Banking data saved")),
       );
+      var bankResponse = response.data;
+      var banckingId = bankResponse['empBankingId'];
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,
           success: true,
+          banckingId: banckingId,
           message: response.statusMessage!);
     } else {
       print("Error 1");
@@ -52,6 +57,44 @@ Future<ApiDataRegister> postbankingscreen(
   } catch (e) {
     print("Error $e");
     return ApiDataRegister(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+Future<ApiData> uploadcheck({
+  required BuildContext context,
+  required int employeeid,
+  required int empBankingId,
+  required dynamic documentFile,
+  required String documentName
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path:ManageReposotory.uploadcheck(empBankingId: empBankingId),
+      data: {
+        'base64':documents
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(" Employee Check uploded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
