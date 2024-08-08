@@ -1,6 +1,8 @@
 
 
 import 'package:flutter/cupertino.dart';
+import 'package:prohealth/app/services/encode_decode_base64.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/whitelabelling_modal/whitelabelling_modal_.dart';
@@ -13,34 +15,75 @@ import 'org_doc_ccd.dart';
 ///post
 Future<ApiData> postWhitelabellingAdd(
     BuildContext context,
-    int companyId,
     String officeId,
     String primaryNo,
     String secondaryNo,
     String primFax,
     String secondaryFax,
+    String alternativeNo,
     String email,
     String name,
     String address,
 
     ) async{
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.
         postCompanyOffice(),
         data: {
-          "company_id": 0,
+          "company_id": companyId,
           "office_id": officeId,
           "primary_phone": primaryNo,
           "secondary_phone": secondaryNo,
           "primary_fax": primFax,
           "secondary_fax": secondaryFax,
+          "alternative_phone":alternativeNo,
           "email": email,
           "name": name,
           "address": address,
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Updated request");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+/// Upload Logo
+Future<ApiData> uploadWebAndAppLogo({
+  required BuildContext context,
+  required String type,
+  required dynamic documentFile,
+  required String documentName,
+}
+    ) async{
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var logoDoc = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    var response = await Api(context).post(
+        path: EstablishmentManagerRepository.
+        uploadCompanyLogo(companyId: companyId, type: type),
+        data: {
+          "base64":logoDoc
+        });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Logo Uploaded");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
@@ -119,11 +162,11 @@ Future<ApiData> postWhitelabellingAdd(
 
 Future<WhiteLabellingCompanyDetailModal> getWhiteLabellingData(
     BuildContext context,
-    int companyId,
     ) async {
   late WhiteLabellingCompanyDetailModal itemsData;
   try {
-    final url = EstablishmentManagerRepository.getWhitelabellingDetail(
+    final companyId = await TokenManager.getCompanyId();
+    final url = await EstablishmentManagerRepository.getWhitelabellingDetail(
         companyId: companyId
     );
     print("Fetching data from URL: $url");

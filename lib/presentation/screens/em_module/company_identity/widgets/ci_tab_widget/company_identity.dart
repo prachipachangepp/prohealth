@@ -55,7 +55,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   // bool _isSubmitting = false;
 
   void showManageScreenFunction(
-      {required String officeId, officeName, required int compId}) {
+      {required String officeId, officeName, required int compId,}) {
     setState(() {
       selectedOfficeID = officeId;
       selectedOfficeName = officeName;
@@ -154,56 +154,52 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(flex: 4, child: Container()),
-                SizedBox(width: 16),
                 Expanded(
-                  flex: 1,
-                  child: Text(
-                    "   Sr No.",
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white,
+                  child: Center(
+                    child: Text(
+                      "Sr No.",
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.white,
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
-                Expanded(flex: 2, child: Container()),
                 Expanded(
-                  flex: 2,
-                  child: Text(
-                    "Office Name",
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white,
+                  child: Center(
+                    child: Text(
+                      "Office Name",
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.white,
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
-                Expanded(flex: 1, child: Container()),
                 Expanded(
-                  flex: 3,
-                  child: Text(
-                    "    Address",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white,
+                  child: Center(
+                    child: Text(
+                      "Address",
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.white,
+                      ),
                     ),
                   ),
                 ),
-                Expanded(flex: 2, child: Container()),
+
                 Expanded(
-                  flex: 2,
-                  child: Text(
-                    " Actions",
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white,
+                  child: Center(
+                    child: Text(
+                      "Actions",
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.white,
+                      ),
                     ),
                   ),
                 ),
@@ -282,83 +278,74 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                         height: 56,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceAround,
                                           children: [
                                             Expanded(
-                                              flex: 2,
-                                              child: IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(
-                                                  Icons.menu_sharp,
-                                                  color: Color(0xff686464),
+                                              child: Center(
+                                                child: Text(
+                                                  formattedSerialNumber,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                        const Color(0xff686464),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                             Expanded(
-                                                flex: 2, child: Container()),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                formattedSerialNumber,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color:
-                                                      const Color(0xff686464),
-                                                ),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                snapshot.data![index].officeName
-                                                    .toString(),
-                                                textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color:
-                                                      const Color(0xff686464),
+                                              child: Center(
+                                                child: Text(
+                                                  snapshot.data![index].officeName
+                                                      .toString(),
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                        const Color(0xff686464),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                             Expanded(
-                                                flex: 2, child: Container()),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                snapshot.data![index].address
-                                                    .toString(),
-                                                textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color:
-                                                      const Color(0xff686464),
+                                              child: Center(
+                                                child: Text(
+                                                  snapshot.data![index].address
+                                                      .toString(),
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                        const Color(0xff686464),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                             Expanded(
-                                                flex: 2, child: Container()),
-                                            CustomButtonTransparentSM(
-                                              text: 'Manage',
-                                              onPressed: () {
-                                                print(snapshot
-                                                    .data![index].officeId);
-                                                print("Is office id");
-                                                showManageScreenFunction(
-                                                  officeId: snapshot
-                                                      .data![index].officeId,
-                                                  officeName: snapshot
-                                                      .data![index].officeName,
-                                                  compId: snapshot
-                                                      .data![index].companyId,
-                                                );
-                                              },
+                                              child: Center(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    CustomButtonTransparentSM(
+                                                      text: 'Manage',
+                                                      onPressed: () {
+                                                        print(snapshot
+                                                            .data![index].officeId);
+                                                        print("Is office id");
+                                                        showManageScreenFunction(
+                                                          officeId: snapshot
+                                                              .data![index].officeId,
+                                                          officeName: snapshot
+                                                              .data![index].officeName,
+                                                          compId: snapshot
+                                                              .data![index].companyId,
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ),
-                                            Expanded(
-                                                flex: 1, child: Container())
                                           ],
                                         ),
                                       ),
@@ -380,7 +367,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     controller: _pageController,
                     children: [
                       Container(
-                        child: WhitelabellingScreen(),
+                        child: WhitelabellingScreen(officeId: selectedOfficeID,),
                       ),
                     ],
                   ),
@@ -408,7 +395,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         /// Render whitelabelling screen if showWhitelabellingScreen is true
         if (showWhitelabellingScreen)
           Expanded(
-            child: WhitelabellingScreen(),
+            child: WhitelabellingScreen(officeId: selectedOfficeID,),
           ),
       ],
     );

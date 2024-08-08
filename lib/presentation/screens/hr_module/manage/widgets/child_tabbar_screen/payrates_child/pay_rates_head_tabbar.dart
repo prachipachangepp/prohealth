@@ -36,7 +36,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 5;
+    itemsPerPage = 10;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
     // companyAllApi(context);
@@ -323,58 +323,58 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                 return const SizedBox();
               }
             ),
-            // RadioListTile<String>(
-            //   title: Text('Per zone',
-            //     style: GoogleFonts.firaSans(
-            //       fontSize: FontSize.s10,
-            //       fontWeight: FontWeightManager.medium,
-            //       color: ColorManager.mediumgrey,
-            //       decoration: TextDecoration.none,
-            //     ),),
-            //   value: 'Per zone',
-            //   groupValue: _expiryType,
-            //   onChanged: (value) {
-            //     setState(() {
-            //       _expiryType = value;
-            //     });
-            //   },
-            // ),
-            // Row(
-            //   children: [
-            //     RadioListTile<String>(
-            //       title: Text('Per zone',
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: FontSize.s10,
-            //           fontWeight: FontWeightManager.medium,
-            //           color: ColorManager.mediumgrey,
-            //           decoration: TextDecoration.none,
-            //         ),),
-            //       value: 'Per zone',
-            //       groupValue: _expiryType,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           _expiryType = value;
-            //         });
-            //       },
-            //     ),
-            //     RadioListTile<String>(
-            //       title: Text('Per milege',
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: FontSize.s10,
-            //           fontWeight: FontWeightManager.medium,
-            //           color: ColorManager.mediumgrey,
-            //           decoration: TextDecoration.none,
-            //         ),),
-            //       value: 'type2',
-            //       groupValue: _expiryType,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           _expiryType = value;
-            //         });
-            //       },
-            //     ),
-            //   ],
-            // )
+            RadioListTile<String>(
+              title: Text('Per zone',
+                style: GoogleFonts.firaSans(
+                  fontSize: FontSize.s10,
+                  fontWeight: FontWeightManager.medium,
+                  color: ColorManager.mediumgrey,
+                  decoration: TextDecoration.none,
+                ),),
+              value: 'Per zone',
+              groupValue: _expiryType,
+              onChanged: (value) {
+                setState(() {
+                  _expiryType = value;
+                });
+              },
+            ),
+            Row(
+              children: [
+                RadioListTile<String>(
+                  title: Text('Per zone',
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s10,
+                      fontWeight: FontWeightManager.medium,
+                      color: ColorManager.mediumgrey,
+                      decoration: TextDecoration.none,
+                    ),),
+                  value: 'Per zone',
+                  groupValue: _expiryType,
+                  onChanged: (value) {
+                    setState(() {
+                      _expiryType = value;
+                    });
+                  },
+                ),
+                RadioListTile<String>(
+                  title: Text('Per milege',
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s10,
+                      fontWeight: FontWeightManager.medium,
+                      color: ColorManager.mediumgrey,
+                      decoration: TextDecoration.none,
+                    ),),
+                  value: 'type2',
+                  groupValue: _expiryType,
+                  onChanged: (value) {
+                    setState(() {
+                      _expiryType = value;
+                    });
+                  },
+                ),
+              ],
+            )
           ],
         ),
       ),

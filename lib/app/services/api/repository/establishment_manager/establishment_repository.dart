@@ -5,7 +5,7 @@ class EstablishmentManagerRepository {
   static String company = "/Company";
   static String details = "Details";
   static String companyLogo = "/company-logo";
-  static String uploadLogo = "uploadLogo";
+  static String uploadLogo = "uploadLogoBase64";
   static String companyOffice = "/company-office";
   static String add = "/add";
   static String document = "/document";
