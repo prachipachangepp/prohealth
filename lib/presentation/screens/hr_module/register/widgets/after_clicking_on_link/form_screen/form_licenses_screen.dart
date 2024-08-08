@@ -34,6 +34,7 @@ class LicensesScreen extends StatefulWidget {
 }
 
 class _LicensesScreenState extends State<LicensesScreen> {
+
   Future<void> perfFormLinsence({
     required BuildContext context,
     required String country,
@@ -53,6 +54,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
     // setState(() {
     //   _isLoading = false;
     // });
+    print('LicenseId :: ${result.licenses!}');
     await uploadlinceses(
       context: context,
       employeeid: employeeId,

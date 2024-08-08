@@ -325,41 +325,4 @@ Future<ApiData> uploadlinceses({
 
 
 
-Future<ApiData> uploadcheck({
-  required BuildContext context,
 
-  required int employeeid,
-  required int empBankingId,
-  required dynamic documentFile,
-  required String documentName
-}) async {
-  try {
-    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
-    print("File :::${documents}" );
-    var response = await Api(context).post(
-      path:ManageReposotory.uploadcheck(empBankingId: empBankingId),
-      data: {
-        'base64':documents
-      },
-    );
-    print("Response ${response.toString()}");
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print(" Employee Check uploded");
-      // orgDocumentGet(context);
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: true,
-          message: response.statusMessage!);
-    } else {
-      print("Error 1");
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: false,
-          message: response.data['message']);
-    }
-  } catch (e) {
-    print("Error $e");
-    return ApiData(
-        statusCode: 404, success: false, message: AppString.somethingWentWrong);
-  }
-}
