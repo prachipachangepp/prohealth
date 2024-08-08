@@ -8,6 +8,8 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
+import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
+
 class PhysicianFaceToFace extends StatefulWidget {
   const PhysicianFaceToFace({super.key});
 

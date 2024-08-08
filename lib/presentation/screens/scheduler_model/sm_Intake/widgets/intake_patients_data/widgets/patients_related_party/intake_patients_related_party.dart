@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../sm_scheduler/widget/schedular_create/widget/assign_visit_pop_up.dart';
 import '../../../../../sm_scheduler/widget/schedular_create/widget/edit_appointment_pop_up.dart';
+import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
+import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
+import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
+import '../../../intake_physician_info/widget/physician_info_info/physician_info_info.dart';
 import '../../../intake_referral/widget/referral_agency_info/intake_referral_submit_popup.dart';
 
 class IntakeRelatedPartiesScreen extends StatefulWidget {
@@ -43,8 +48,8 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width/60),
                     Container(
-                      height: 32,
-                      width: 165,
+                      height: AppSize.s32,
+                      width: AppSize.s165,
                       child: ElevatedButton.icon(
                         onPressed: () {
                           // showDialog(
@@ -54,17 +59,19 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           //   },
                           // );
                         },
-                        icon: Icon(Icons.add,color: Colors.white, size: FontSize.s20),
+                        icon: Icon(Icons.add,
+                            color: ColorManager.white,
+                            size: FontSize.s20),
                         label: Text(
                           'Add Related Parties',
                           style: GoogleFonts.firaSans(
-                            color: Colors.white,
+                            color: ColorManager.white,
                             fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF50B5E5),
+                          backgroundColor: ColorManager.blueprime,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -75,13 +82,13 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: AppSize.s10),
               Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 // height: 405,
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: ColorManager.white,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
@@ -104,73 +111,77 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           ),)
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                              labelText: 'Emergency Contact',)
+                              labelText: 'Emergency Contact')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
-                              labelText: 'Telephone Number', )
+                              labelText: 'Telephone Number' )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
-                              labelText: 'Relationship',)
+                              labelText: 'Relationship',
+                                items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                               labelText: 'Emergency Contact Address',)
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                              labelText: 'City', )
+                              labelText: AppString.city)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
-                              labelText: 'State', )
+                              labelText: AppString.state,
+                                items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextFieldWithButton(
-                                labelText: 'Zip Code',
-                                initialValue: '26586845121', buttonText: 'View Zone')
+                                labelText: AppString.zip_code,
+                                initialValue: '26586845121',
+                                buttonText: 'View Zone')
                         ),
                         SizedBox(width: 35),
                         Flexible(
                             child: SchedularDropdown(
-                              labelText: 'Priority/ Disaster Code', )
+                              labelText: 'Priority/ Disaster Code',
+                                items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(child: SchedularTextField(
-                            labelText: 'Comments')
+                            labelText: AppString.comments)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: Container()), // Empty container for alignment
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: Container()),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: Container()),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Text('Primary Care Giver',
@@ -181,36 +192,36 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           ),)
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(child: SchedularTextField(
                             labelText: 'Prefix')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                               labelText: 'First Name', initialValue: 'Erica',)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                               labelText: 'M.I.', initialValue: 'A',)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(child: SchedularTextField(
                             labelText: 'Last Name')
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
                                 labelText: 'Suffix')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                           child: Row(
                             children: [
@@ -227,10 +238,10 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
-                                labelText: 'Address')
+                                labelText: AppString.address)
                         ),
                         SizedBox(width: 35),
                         Flexible(
@@ -239,22 +250,23 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                                labelText: 'City')
+                                labelText: AppString.city)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
-                              labelText: 'State',)
+                              labelText: AppString.state,
+                                items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextFieldWithButton(
-                                labelText: 'Zip Code',
+                                labelText: AppString.zip_code,
                                 initialValue: '26586845121', buttonText: 'View Zone')
                         ),
                         SizedBox(width: 35),
@@ -264,24 +276,26 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
                                 labelText: 'Cell')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
-                                labelText: 'Email')
+                                labelText: AppString.email)
                         ),
                         SizedBox(width: 35),
                         Flexible(
                             child: SchedularDropdown(
-                              labelText: 'Relationship',)
+                              labelText: 'Relationship',
+                                items: ['Option 1', 'Option 2', 'Option 3']
+                            )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                                 labelText: 'Additional Information')
@@ -299,180 +313,4 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
   }
 }
 
-///////
 
-class SchedularTextField extends StatelessWidget {
-  final String labelText;
-  final String? initialValue;
-  final bool isDate;
-
-  SchedularTextField({
-    super.key,
-    required this.labelText,
-    this.initialValue,
-    this.isDate = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 25.38,
-      child: TextFormField(
-        initialValue: initialValue,
-        style: GoogleFonts.firaSans(
-          fontSize: FontSize.s12,
-          fontWeight: FontWeightManager.regular,
-          color: Colors.black,
-        ),
-        cursorColor: Colors.black,
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: GoogleFonts.firaSans(
-            fontSize: FontSize.s12,
-            color: ColorManager.greylight,                          // label text color
-          ),
-          border: const OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)), //  border color
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SchedularDropdown extends StatelessWidget {
-  final String labelText;
-  final String? initialValue;
-
-  const SchedularDropdown({
-    super.key,
-    required this.labelText,
-    this.initialValue,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 25.38,
-      child: DropdownButtonFormField<String>(
-        value: initialValue,
-        style: GoogleFonts.firaSans(
-          fontSize: FontSize.s12,
-          fontWeight: FontWeightManager.regular,
-          color: Colors.black,
-        ),
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: GoogleFonts.firaSans(
-            fontSize: FontSize.s10,
-            fontWeight: FontWeightManager.regular,
-            color: ColorManager.greylight,                                           // text color in dropdown
-          ),
-          border:  OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)),                         // border color
-          ),
-        ),
-        items: [initialValue ?? '']
-            .map((value) => DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        ))
-            .toList(),
-        onChanged: (value) {
-          // Handle dropdown change
-        },
-        iconEnabledColor: ColorManager.blueprime, // dropdown icon color
-        iconSize: 24, // Adjust the size of the dropdown icon
-        isDense: true, // Adjust the density of the dropdown
-      ),
-    );
-  }
-}
-
-class SchedularTextFieldWithButton extends StatelessWidget {
-  final String labelText;
-  final String? initialValue;
-  final String buttonText;
-
-  SchedularTextFieldWithButton({
-    super.key,
-    required this.labelText,
-    this.initialValue,
-    required this.buttonText,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 25.38,
-      child: Stack(
-        alignment: Alignment.centerRight,
-        children: [
-          TextFormField(
-            initialValue: initialValue,
-            style: GoogleFonts.firaSans(
-              fontSize: FontSize.s12,
-              fontWeight: FontWeightManager.regular,
-              color: Colors.black,
-            ),
-            cursorColor: Colors.black,
-            decoration: InputDecoration(
-              labelText: labelText,
-              labelStyle: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
-                color: Color(0XFF575757),                                                      // text color
-              ),
-              border: const OutlineInputBorder(),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0XFFB1B1B1)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0XFFB1B1B1)),
-              ),
-              contentPadding: EdgeInsets.only(
-                top: 10,
-                bottom: 10,
-                left: 10,
-                right: 90, // padding to make space for the button
-              ),
-            ),
-          ),
-          Positioned(
-            right: 0,
-            child: Container(
-              height: 18,                                  //  view zone height button
-              width: 72,
-              child: ElevatedButton(
-                onPressed: () async {
-                  String googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
-                  if (await canLaunchUrlString(googleMapsUrl)) {
-                    await launchUrlString(googleMapsUrl);
-                  } else {
-                    print('Could not open the map.');
-                  }
-                },
-                child: Text(
-                  buttonText,
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s10,
-                    fontWeight: FontWeightManager.regular,
-                    color: Colors.white,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  padding: EdgeInsets.zero,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

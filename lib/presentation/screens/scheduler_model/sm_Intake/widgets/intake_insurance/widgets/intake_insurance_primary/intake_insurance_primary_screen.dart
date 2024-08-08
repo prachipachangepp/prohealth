@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
+import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakeInsurancePrimaryScreen extends StatefulWidget {
@@ -122,7 +124,9 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularDropdown(
-                                labelText: 'Category', )
+                                labelText: 'Category',
+                                  items: ['Option 1', 'Option 2', 'Option 3']
+                              )
                           ),
                           SizedBox(width: 35),
                           Flexible(
@@ -160,7 +164,8 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                         children: [
                           Flexible(
                               child: SchedularDropdown(
-                                labelText: 'Eligibility Status', )
+                                labelText: 'Eligibility Status',
+                                  items: ['Option 1', 'Option 2', 'Option 3'])
                           ),
                           SizedBox(width: 35),
                           Flexible(
@@ -292,6 +297,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
   }
 }
 
+
 class SchedularTextField extends StatelessWidget {
   final String labelText;
   final String? initialValue;
@@ -330,15 +336,15 @@ class SchedularTextField extends StatelessWidget {
       child: TextFormField(
         controller: isDate ? _dateController : TextEditingController(text: initialValue),
         style: GoogleFonts.firaSans(
-          fontSize: FontSize.s12,
-          fontWeight: FontWeightManager.regular,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
           color: ColorManager.black,
         ),
         cursorColor: ColorManager.black,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: GoogleFonts.firaSans(
-            fontSize: FontSize.s10,
+            fontSize: 10,
             color: ColorManager.greylight, // label text color
           ),
           border: const OutlineInputBorder(),
@@ -360,55 +366,3 @@ class SchedularTextField extends StatelessWidget {
   }
 }
 
-class SchedularDropdown extends StatelessWidget {
-  final String labelText;
-  final String? initialValue;
-
-  const SchedularDropdown({
-    super.key,
-    required this.labelText,
-    this.initialValue,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 25.38, // DROPDOWN CONTAINER HEIGHT
-      child: DropdownButtonFormField<String>(
-        value: initialValue,
-        style: GoogleFonts.firaSans(
-          fontSize: FontSize.s12,
-          fontWeight: FontWeightManager.regular,
-          color: ColorManager.black,
-        ),
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: GoogleFonts.firaSans(
-            fontSize: FontSize.s10,
-            fontWeight: FontWeightManager.regular,
-            color: ColorManager.greylight, // text color in dropdown
-          ),
-          border: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)), // border color
-          ),
-        ),
-        items: [initialValue ?? '']
-            .map((value) => DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        ))
-            .toList(),
-        onChanged: (value) {
-          // Handle dropdown change
-        },
-        icon: Icon(
-          Icons.arrow_drop_down,
-          color: ColorManager.blueprime, // dropdown icon color
-          size: FontSize.s24, // size of icon
-        ),
-        isDense: false, // Adjust the density of the dropdown
-      ),
-    );
-  }
-}

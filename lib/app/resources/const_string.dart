@@ -202,7 +202,10 @@ class AppString {
   static String suffix ="Suffix";
   static String location ="Location";
   static String type ="Type";
+  static String fax ="Fax";
+  static String Street ="street";
   static String create ="Create";
+  static String suite_Apt ="Suite/ Apt.";
   static String comments ="Comments";
   static String specialisation ="Specialisation";
 
