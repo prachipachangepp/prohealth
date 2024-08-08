@@ -474,13 +474,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  snapshot.data![index].email,
-                                  textAlign: TextAlign.start,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    snapshot.data![index].email,
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xff686464),
+                                    ),
                                   ),
                                 ),
                                 Expanded(

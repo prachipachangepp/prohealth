@@ -52,14 +52,16 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   String selectedOfficeID = '';
   String selectedOfficeName = '';
   int selectedCompId = 0;
+  int selectedCompOfficeId = 0;
   // bool _isSubmitting = false;
 
   void showManageScreenFunction(
-      {required String officeId, officeName, required int compId}) {
+      {required String officeId, officeName, required int compId, required int companyOfficeId}) {
     setState(() {
       selectedOfficeID = officeId;
       selectedOfficeName = officeName;
       selectedCompId = compId;
+      selectedCompOfficeId = companyOfficeId;
       showManageScreen = true;
       showStreamBuilder = false;
       showWhitelabellingScreen = false;
@@ -354,6 +356,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                       .data![index].officeName,
                                                   compId: snapshot
                                                       .data![index].companyId,
+                                                  companyOfficeId: snapshot.data![index].companyOfficeId,
                                                 );
                                               },
                                             ),
@@ -401,7 +404,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     showStreamBuilder = true;
                   });
                 }
-              },
+              }, companyOfficeId: selectedCompOfficeId,
             ),
           ),
 

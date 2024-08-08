@@ -419,7 +419,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                   title: 'Delete Policies Procedure',
                                                   onCancel: (){
                                                 Navigator.pop(context);
-                                              }, onDelete: (){ setState(() async{
+                                              }, onDelete: (){
+                                                Navigator.pop(context);
+                                                    setState(() async{
                                                 await deleteDocument(
                                                     context,
                                                     snapshot.data![index].docId!);
@@ -428,7 +430,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                 }).catchError((error) {
                                                   // Handle error
                                                 });
-                                              });}));
+                                              });
+                                                  }));
                                             }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                           ],
                                         )
