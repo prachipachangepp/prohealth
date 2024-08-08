@@ -249,7 +249,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width/20,),
                 /// search text
-                pgeControllerId == 2 || pgeControllerId == 3 ?  SizedBox() :Row(
+                // pgeControllerId == 2 || pgeControllerId == 3 ?  SizedBox() :
+                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

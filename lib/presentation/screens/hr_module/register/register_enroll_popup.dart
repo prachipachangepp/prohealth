@@ -1009,7 +1009,7 @@ class RegisterEnrollAlertDialog {
                         return null;
                       },
                     ),
-                    CustomTextFieldRegister(
+                    CustomTextFieldForEmail(
                       height: AppSize.s35,
                       width: MediaQuery.of(context).size.width / 6,
                       controller: email,

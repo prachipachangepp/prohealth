@@ -440,7 +440,7 @@ class _generalFormState extends State<generalForm> {
                             color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
+                      CustomTextFieldForEmail(
                         controller: personalemail,
                         hintText: 'Enter Text',
                         hintStyle: GoogleFonts.firaSans(
@@ -739,24 +739,59 @@ class _generalFormState extends State<generalForm> {
                             for (var i in snapshot.data!) {
                               dropDownList.add(i.empType!);
                             }
-                            return CustomDropdownTextField(
-                              labelText: 'Clinician',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelFontSize: 12,
-                              items: dropDownList,
-                              onChanged: (newValue) {
-                                for (var a in snapshot.data!) {
-                                  if (a.empType == newValue) {
-                                    clinicialName = a.empType!;
-                                    // int docType = a.employeeTypesId;
-                                    // Do something with docType
+                            return SizedBox(
+                              height: 32,
+                              child: DropdownButtonFormField<String>(
+                                decoration: InputDecoration(
+                                  // hintText: 'Select Clinician',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xff9B9B9B),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderSide:
+                                    const BorderSide(color: Colors.grey),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    //   //  vertical: 5,
+                                      horizontal: 12),
+                                ),
+                                // value: selectedCountry,
+                                icon: Icon(Icons.arrow_drop_down,
+                                    color: Color(0xff9B9B9B)),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff686464),
+                                ),
+
+                                onChanged: (newValue) {
+                                  for (var a in snapshot.data!) {
+                                    if (a.empType == newValue) {
+                                      _selectedClinician =a.empType!;
+                                      //country = a
+                                      // int? docType = a.companyOfficeID;
+                                    }
                                   }
-                                }
-                              },
+                                },
+                                items: dropDownList.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
                             );
                           } else {
                             return const Offstage();
@@ -846,22 +881,59 @@ class _generalFormState extends State<generalForm> {
                             for (var i in snapshot.data!) {
                               dropDownList.add(i.empType!);
                             }
-                            return CustomDropdownTextField(
-                              labelText: 'Speciality',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelFontSize: 12,
-                              items: dropDownList,
-                              onChanged: (newValue) {
-                                for (var a in snapshot.data!) {
-                                  if (a.empType == newValue) {
-                                    specialityName = a.empType!;
+                            return SizedBox(
+                              height: 32,
+                              child: DropdownButtonFormField<String>(
+                                decoration: InputDecoration(
+                                  // hintText: 'Select Clinician',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xff9B9B9B),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderSide:
+                                    const BorderSide(color: Colors.grey),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    //   //  vertical: 5,
+                                      horizontal: 12),
+                                ),
+                                // value: selectedCountry,
+                                icon: Icon(Icons.arrow_drop_down,
+                                    color: Color(0xff9B9B9B)),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff686464),
+                                ),
+
+                                onChanged: (newValue) {
+                                  for (var a in snapshot.data!) {
+                                    if (a.empType == newValue) {
+                                      _selectedSpeciality =a.empType!;
+                                      //country = a
+                                      // int? docType = a.companyOfficeID;
+                                    }
                                   }
-                                }
-                              },
+                                },
+                                items: dropDownList.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
                             );
                           } else {
                             return const Offstage();

@@ -18,7 +18,8 @@ import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/string_manager.dart';
 
 class BankingHeadTabbar extends StatefulWidget {
-  BankingHeadTabbar({super.key,});
+  final int employeeID;
+  BankingHeadTabbar({super.key, required this.employeeID,});
   @override
   _BankingHeadTabbarState createState() => _BankingHeadTabbarState();
 }
@@ -47,7 +48,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
     return StreamBuilder<List<EmployeeBankingData>>(
       stream: bankingStreamController.stream,
       builder: (context,snapshot) {
-        getEmployeeBanking(context, 2).then((data) {
+        getEmployeeBanking(context, widget.employeeID).then((data) {
           bankingStreamController.add(data);
         }).catchError((error) {
           // Handle error
