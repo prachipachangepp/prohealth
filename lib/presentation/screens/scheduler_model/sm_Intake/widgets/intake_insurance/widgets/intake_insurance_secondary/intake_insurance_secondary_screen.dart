@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakeInsuranceSecondaryScreen extends StatefulWidget {
@@ -359,55 +360,3 @@ class SchedularTextField extends StatelessWidget {
   }
 }
 
-class SchedularDropdown extends StatelessWidget {
-  final String labelText;
-  final String? initialValue;
-
-  const SchedularDropdown({
-    super.key,
-    required this.labelText,
-    this.initialValue,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 25.38, // DROPDOWN CONTAINER HEIGHT
-      child: DropdownButtonFormField<String>(
-        value: initialValue,
-        style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeightManager.regular,
-          color: ColorManager.black,
-        ),
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
-            fontWeight: FontWeightManager.regular,
-            color: ColorManager.greylight, // text color in dropdown
-          ),
-          border: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)), // border color
-          ),
-        ),
-        items: [initialValue ?? '']
-            .map((value) => DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        ))
-            .toList(),
-        onChanged: (value) {
-          // Handle dropdown change
-        },
-        icon: Icon(
-          Icons.arrow_drop_down,
-          color: ColorManager.blueprime, // dropdown icon color
-          size: 24, // size of icon
-        ),
-        isDense: false, // Adjust the density of the dropdown
-      ),
-    );
-  }
-}

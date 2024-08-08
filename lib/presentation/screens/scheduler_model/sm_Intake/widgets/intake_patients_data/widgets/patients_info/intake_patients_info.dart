@@ -4,9 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
+import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
+import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 
 class IntakePatientsDatatInfo extends StatefulWidget {
   const IntakePatientsDatatInfo({super.key});
@@ -32,7 +36,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                   Text('Status Completed',
                     style: GoogleFonts.firaSans(
                         decoration: TextDecoration.none,
-                        fontSize: 12.0,
+                        fontSize: AppSize.s12,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.greenDark
                     ),
@@ -65,48 +69,53 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                             child: SchedularTextField(
                                 labelText: 'SOC Date', isDate: true)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
-                                labelText: 'Medical Record', initialValue: '#632654')
+                                labelText: 'Medical Record',
+                                initialValue: '#632654')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
-                                labelText: AppString.status, initialValue: 'Scheduled')
+                                labelText: AppString.status,
+                              items: ['Option 1', 'Option 2', 'Option 3']
+                              )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
-                                labelText: AppString.fname, initialValue: 'Erica')
+                                labelText: AppString.fname,
+                                initialValue: 'Erica')
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
                                 labelText: 'M.I.', initialValue: 'A')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                                 labelText: AppString.lname)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                                 labelText: AppString.suffix)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Status:',
                                   style: GoogleFonts.firaSans(
-                                      fontSize: 10, fontWeight: FontWeight.w400)
+                                      fontSize: AppSize.s10,
+                                      fontWeight: FontWeightManager.regular)
                               ),
                               SizedBox(height: 1),
                               Row(
@@ -118,9 +127,10 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                   ),
                                   Text('Active',
                                       style: GoogleFonts.firaSans(
-                                          fontSize: 12, fontWeight: FontWeight.w400)
+                                          fontSize: AppSize.s12,
+                                          fontWeight: FontWeightManager.regular)
                                   ),
-                                  SizedBox(width: 10),
+                                  SizedBox(width: AppSize.s10),
                                   Radio<String>(
                                     value: 'Trainee',
                                     groupValue: status,
@@ -128,7 +138,8 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                   ),
                                   Text('Trainee',
                                       style: GoogleFonts.firaSans(
-                                          fontSize: 12, fontWeight: FontWeight.w400)
+                                          fontSize: FontSize.s12,
+                                          fontWeight: FontWeightManager.regular)
                                   ),
                                 ],
                               ),
@@ -137,7 +148,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
@@ -146,106 +157,126 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                 initialValue: '25-05-1999',
                                 isDate: true)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                                 labelText: 'Street',
                                 initialValue: '290,'' Farewell Ave')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
-                                labelText: AppString.state, initialValue: 'CA')
+                                labelText: AppString.state,
+                                items: ['Option 1', 'Option 2', 'Option 3']
+                                )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextFieldWithButton(
                                 labelText: AppString.zip_code,
-                                initialValue: '26586845121', buttonText: 'View Zone')
+                                initialValue: '26586845121',
+                                buttonText: 'View Zone')
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(child: SchedularTextField(
                             labelText: 'Suite/ Apt.')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                                 labelText: AppString.city)
                         ),
                         SizedBox(width: 35),
                         Flexible(
-                            child: SchedularDropdown(labelText: AppString.country)
+                            child: SchedularDropdown(
+                                labelText: AppString.country,
+                                items: ['Option 1', 'Option 2', 'Option 3'],
+                            )
                         ),
-                        SizedBox(width: 35),
-                        Flexible(child: SchedularTextField(labelText: 'Major Cross Street')),
+                        SizedBox(width: AppSize.s35),
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Major Cross Street')
+                        ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
                                 labelText:AppString.primary_phone_number)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
-                            child: SchedularTextField(labelText: AppString.secondary_phone_number)
+                            child: SchedularTextField(
+                                labelText: AppString.secondary_phone_number)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
-                            child: SchedularTextField(labelText: AppString.email)
+                            child: SchedularTextField(
+                                labelText: AppString.email)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width:AppSize.s35),
                         Flexible(
-                            child: SchedularTextField(labelText: 'Soc. sec#')
+                            child: SchedularTextField(
+                                labelText: 'Soc. sec#')
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularDropdown(
                                 labelText: 'Language Spoken',
-                                initialValue: 'English')
+                                items: ['Option 1', 'Option 2', 'Option 3'],
+                                )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                                 labelText: 'Discharge Reason')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
                                 labelText: 'Race / Ethnicity',
-                                initialValue: 'English')
+                              items: ['Option 1', 'Option 2', 'Option 3'],
+                              )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
-                            child: SchedularDropdown(labelText: 'Religion')
+                            child: SchedularDropdown(
+                              labelText: 'Religion',
+                                items: ['Option 1', 'Option 2', 'Option 3'],
+                            )
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularDropdown(
-                                labelText: 'Marital Status')
+                                labelText: 'Marital Status',
+                              items: ['Option 1', 'Option 2', 'Option 3']
+                            )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
-                                labelText: AppString.date_of_death, isDate: true)
+                                labelText: AppString.date_of_death,
+                                isDate: true)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: Container()), // Empty container for alignment
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: Container()), // Empty container for alignment
                       ],
@@ -261,260 +292,5 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
   }
 }
 
-class SchedularTextField extends StatelessWidget {
-  final String labelText;
-  final String? initialValue;
-  final bool isDate;
-
-  SchedularTextField({
-    Key? key,
-    required this.labelText,
-    this.initialValue,
-    this.isDate = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final TextEditingController _dateController = TextEditingController(text: initialValue);
-
-    Future<void> _selectDate(BuildContext context) async {
-      final DateTime? selectedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2101),
-      );
-
-      if (selectedDate != null) {
-        _dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
-      }
-    }
-
-    return SizedBox(
-      height: 25.38,
-      child: TextFormField(
-        controller: isDate ? _dateController : TextEditingController(text: initialValue),
-        style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          color: ColorManager.black,
-        ),
-        cursorColor: ColorManager.black,
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
-            color: ColorManager.greylight, // label text color
-          ),
-          border: const OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)), // border color
-          ),
-          suffixIcon: isDate
-              ? Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime) // calendar color
-              : null,
-        ),
-        readOnly: isDate,
-        onTap: isDate
-            ? () async {
-          await _selectDate(context);
-        }
-            : null,
-      ),
-    );
-  }
-}
-
-// class SchedularDropdown extends StatelessWidget {
-//   final String labelText;
-//   final String? initialValue;
-//
-//   const SchedularDropdown({
-//     super.key,
-//     required this.labelText,
-//     this.initialValue,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 25.38,                                                          //DROPDOWN CONTAINER HEIGHT
-//       child: DropdownButtonFormField<String>(
-//         value: initialValue,
-//         style: GoogleFonts.firaSans(
-//           fontSize: 12,
-//           fontWeight: FontWeightManager.regular,
-//           color: ColorManager.black,
-//         ),
-//         decoration: InputDecoration(
-//           labelText: labelText,
-//           labelStyle: GoogleFonts.firaSans(
-//             fontSize: 10,
-//             fontWeight: FontWeightManager.regular,
-//             color: ColorManager.greylight,                                           // text color in dropdown
-//           ),
-//           border:  OutlineInputBorder(),
-//           focusedBorder: OutlineInputBorder(
-//             borderSide: BorderSide(color: Color(0XFFB1B1B1)),                         // border color
-//           ),
-//         ),
-//         items: [initialValue ?? '']
-//             .map((value) => DropdownMenuItem<String>(
-//           value: value,
-//           child: Text(value),
-//         ))
-//             .toList(),
-//         onChanged: (value) {
-//           // Handle dropdown change
-//         },
-//         iconEnabledColor: ColorManager.blueprime, // dropdown icon color
-//         iconSize: 24, // Adjust the size of the dropdown icon
-//         isDense: true, // Adjust the density of the dropdown
-//       ),
-//     );
-//   }
-// }
 
 
-class SchedularDropdown extends StatelessWidget {
-  final String labelText;
-  final String? initialValue;
-
-  const SchedularDropdown({
-    super.key,
-    required this.labelText,
-    this.initialValue,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 25.38, // DROPDOWN CONTAINER HEIGHT
-      child: DropdownButtonFormField<String>(
-        value: initialValue,
-        style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeightManager.regular,
-          color: ColorManager.black,
-        ),
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
-            fontWeight: FontWeightManager.regular,
-            color: ColorManager.greylight, // text color in dropdown
-          ),
-          border: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)), // border color
-          ),
-        ),
-        items: [initialValue ?? '']
-            .map((value) => DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        ))
-            .toList(),
-        onChanged: (value) {
-          // Handle dropdown change
-        },
-        icon: Padding(
-          padding: const EdgeInsets.only(right: 2,bottom: 500), // Add your desired padding here
-          child: Icon(
-            Icons.arrow_drop_down,
-            color: ColorManager.blueprime,                                         // dropdown icon color
-            size: 24,                                                              // size of icon
-          ),
-        ),
-        isDense: false, // Adjust the density of the dropdown
-      ),
-    );
-  }
-}
-
-
-class SchedularTextFieldWithButton extends StatelessWidget {
-  final String labelText;
-  final String? initialValue;
-  final String buttonText;
-
-  SchedularTextFieldWithButton({
-    super.key,
-    required this.labelText,
-    this.initialValue,
-    required this.buttonText,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 25.38,
-      child: Stack(
-        alignment: Alignment.centerRight,
-        children: [
-          TextFormField(
-            initialValue: initialValue,
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: Colors.black,
-            ),
-            cursorColor: Colors.black,
-            decoration: InputDecoration(
-              labelText: labelText,
-              labelStyle: GoogleFonts.firaSans(
-                fontSize: 10,
-                color: Color(0XFF575757),                                                      // text color
-              ),
-              border: const OutlineInputBorder(),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0XFFB1B1B1)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0XFFB1B1B1)),
-              ),
-              contentPadding: EdgeInsets.only(
-                top: 10,
-                bottom: 10,
-                left: 10,
-                right: 90, // padding to make space for the button
-              ),
-            ),
-          ),
-          Positioned(
-            right: 0,
-            child: Container(
-              height: 18,                                  //  view zone height button
-              width: 72,
-              child: ElevatedButton(
-                onPressed: () async {
-                  String googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
-                  if (await canLaunchUrlString(googleMapsUrl)) {
-                    await launchUrlString(googleMapsUrl);
-                  } else {
-                    print('Could not open the map.');
-                  }
-                },
-                child: Text(
-                  buttonText,
-                  style: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  padding: EdgeInsets.zero,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

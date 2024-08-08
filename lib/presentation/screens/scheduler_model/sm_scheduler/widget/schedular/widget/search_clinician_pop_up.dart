@@ -379,6 +379,8 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                   Row(
                     children: [
                       Container(
+                        // height: MediaQuery.of(context).size.height/20,
+                        // width: MediaQuery.of(context).size.width/50,
                         height: 25,
                         width: 598,
                         child: TextField(
