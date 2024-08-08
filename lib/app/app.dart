@@ -42,7 +42,7 @@ class _App extends State<App> {
         primarySwatch: Colors.lightBlue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: _hasShownSplash ? '/' : null,
+      initialRoute: _hasShownSplash ? '/' : HomeScreen.routeName,
       routes: RoutesManager().getRoutes(token: widget.signedIn),
       onGenerateRoute: (settings) {
         switch (settings.name) {

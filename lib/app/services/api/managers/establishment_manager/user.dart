@@ -28,6 +28,7 @@ Future<List<UserModal>> getUser(BuildContext context,) async {
              sucess: true,
              message: response.statusMessage!)
         );
+        itemsList.sort((a, b) => a.userId.compareTo(b.userId));
       }
       // print("Org Document response:::::${itemsList}");
     } else {
