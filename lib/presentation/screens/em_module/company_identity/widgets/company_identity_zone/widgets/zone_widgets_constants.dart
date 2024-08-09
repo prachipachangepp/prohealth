@@ -395,6 +395,7 @@ class CIZoneAddPopup extends StatefulWidget {
     this.title4,
     this.title5,
     this.title6,
+
     required this.countynameController,
     required this.zipcodeController,
     this.mapController,
@@ -419,7 +420,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
       child: SingleChildScrollView(
         child: Container(
           width: AppSize.s407,
-          height: AppSize.s511,
+          height: AppSize.s350,
           decoration: BoxDecoration(
             color: ColorManager.white,
             borderRadius: BorderRadius.circular(8),
@@ -502,13 +503,14 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   ],
                 ),
               ),
-              SizedBox(height: AppSize.s30,),
+              SizedBox(height: AppSize.s5),
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: 25,width: 25,
+                    height: AppSize.s25,
+                    width: AppSize.s25,
                     child: CircularProgressIndicator( color: ColorManager.blueprime,))
                     : Center(
                   child: CustomElevatedButton(

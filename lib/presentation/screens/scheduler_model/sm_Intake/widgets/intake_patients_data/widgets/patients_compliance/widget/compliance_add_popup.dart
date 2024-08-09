@@ -7,8 +7,6 @@ import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
 
-
-
 class ComplianceAddPopUp extends StatefulWidget {
   const ComplianceAddPopUp({super.key});
 
