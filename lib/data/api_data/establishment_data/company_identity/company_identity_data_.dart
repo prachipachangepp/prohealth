@@ -38,14 +38,16 @@ class CompanyIdentityModel {
   final String address;
   final String officeName;
   final int companyId;
+  final int companyOfficeId;
   final int pageNo;
   final int rowsNo;
   //final OfficeList officeList;
   final bool sucess;
   final String message;
   final String officeId;
-  CompanyIdentityModel({
+  CompanyIdentityModel( {
     required this.officeId,
+    required this.companyOfficeId,
     this.name,
     required this.address,
     required this.officeName,

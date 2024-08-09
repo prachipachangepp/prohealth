@@ -38,6 +38,7 @@ class ManageWidget extends StatefulWidget {
   // final Function(int) selectButton;
   final String officeID;
   final int companyID;
+  final int companyOfficeId;
   final String officeName;
   final BackButtonCallBack backButtonCallBack;
   ManageWidget({
@@ -45,7 +46,7 @@ class ManageWidget extends StatefulWidget {
     required this.officeID,
     required this.officeName,
     required this.backButtonCallBack,
-    required this.companyID,
+    required this.companyID, required this.companyOfficeId,
     // required this.managePageController,
     // required this.selectedIndex,
     // required this.selectButton,
@@ -235,7 +236,7 @@ int listIndex = 0 ;
                                   : null,
                             ),
                             child: Text(
-                              'Corporate & Compliance Documents',
+                              'Corporate & Compliance',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,
@@ -579,7 +580,7 @@ int listIndex = 0 ;
                       CIDetailsScreen(
                         companyID: widget.companyID,
                         officeId: widget.officeID, docTD: docID,
-                        companyId: widget.companyID,
+                        companyId: widget.companyID, companyOfficeid: widget.companyOfficeId,
                       ),
                       CiZone(companyID: widget.companyID, officeId: widget.officeID, docId: docID,),
                       // CiPageview(
@@ -591,7 +592,7 @@ int listIndex = 0 ;
                       //     nameList: ['County', 'Zone'],
                       //     screenList: [CIZoneCountry(), CIZoneZone()],
                       //     mediaQueryWidth: 3.5,),
-                      CiCorporateComplianceScreen(docId: AppConfig.docId8,),
+                      CiCorporateComplianceScreen(docId: AppConfig.docId8, officeId: widget.officeID,),
                       // CiPageview(
                       //     managePageController: _managePageController,
                       //     selectedIndex: _selectedIndex,

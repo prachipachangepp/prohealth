@@ -5,6 +5,8 @@ import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_week_data.dart';
+
+import '../../../token/token_manager.dart';
 /// Work Week GET
 Future<List<WorkWeekScheduleData>> workWeekScheduleGet(
     BuildContext context) async {
@@ -102,11 +104,11 @@ Future<ApiData> deleteWorkWeekSchedule(
 /// Work Week Shift GET
 Future<List<WorkWeekShiftScheduleData>> workWeekShiftScheduleGet(
     BuildContext context,
-    int companyId,
     String officeId,
     String weekDay) async {
   List<WorkWeekShiftScheduleData> itemsData = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.workWeekShiftScheduleGet(
             companyId: companyId, officeId: officeId.replaceAll("%20", ' '), weekDay: weekDay));
@@ -346,9 +348,10 @@ Future<ApiData> deleteHolidays(
 
 /// Get Shiftwise batches GET
 Future<List<ShiftBachesData>> shiftBatchesGet(
-    BuildContext context, String shiftName,int companyId, String officeId, String weekDay) async {
+    BuildContext context, String shiftName, String officeId, String weekDay) async {
   List<ShiftBachesData> itemsData = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getShiftBatches(
             shiftName: shiftName, companyId: companyId, officeId: officeId, weekDay: weekDay));
@@ -412,8 +415,9 @@ Future<ShiftBachesData> shiftPrefillBatchesGet(
 
 /// Add shift batches POST
 Future<ApiData> addShiftBatch(BuildContext context,
-    String shiftName,int companyId, String officeId, String weekDay,String batchStartTime,String batchEndTime) async {
+    String shiftName, String officeId, String weekDay,String batchStartTime,String batchEndTime) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.addShiftBatches(),
         data: {
@@ -446,8 +450,9 @@ Future<ApiData> addShiftBatch(BuildContext context,
 
 /// update batch
 Future<ApiData> updateShiftBatch(BuildContext context,
-    String shiftName,int companyId, String officeId, String weekDay,String batchStartTime,String batchEndTime,int shiftBatchScheduleId) async {
+    String shiftName,String officeId, String weekDay,String batchStartTime,String batchEndTime,int shiftBatchScheduleId) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.modifyShiftBatches(shiftBatchScheduleId: shiftBatchScheduleId),
         data: {

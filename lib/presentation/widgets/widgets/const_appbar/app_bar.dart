@@ -15,6 +15,7 @@ class MyAppBar extends StatelessWidget {
   final HRController hrController = Get.put(HRController());
   final CustomButtonController customController =
       Get.put(CustomButtonController());
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(MyAppTabBarController(

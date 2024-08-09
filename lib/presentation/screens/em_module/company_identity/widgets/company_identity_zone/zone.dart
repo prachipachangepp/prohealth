@@ -124,6 +124,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                     docType = a.countyId;
                                     print("County id :: ${a.companyId}");
                                     countySortId = docType;
+                                    _selectButton(1);
                                   }
                                 }
                                 print(":::${docType}");
@@ -294,9 +295,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       await addZoneCountyData(
                                           context,
                                           zoneNumberController.text,
-                                          25,
-                                          widget.officeId,
-                                          widget.companyID);
+                                          countyId,
+                                          widget.officeId);
                                     },
                                     child: FutureBuilder<
                                             List<AllCountyGetList>>(
@@ -452,6 +452,20 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           }
                                           return const SizedBox();
                                         }),
+                                    onSavePressed: () async {
+                                      await addZipCodeSetup(
+                                          context,
+                                          docZoneId,
+                                          countyId,
+                                          widget.officeId,
+                                          cityController.text,
+                                          zipcodeController.text,
+                                          "37.0902°",
+                                          "95.7129°",
+                                          landmarkController.text);
+                                    },
+                                    mapController: mapController,
+                                    landmarkController: landmarkController,
                                     child: FutureBuilder<List<AllZoneData>>(
                                         future: getAllZone(context),
                                         builder: (context, snapshotZone) {
@@ -520,21 +534,6 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           }
                                           return const SizedBox();
                                         }),
-                                    onSavePressed: () async {
-                                      await addZipCodeSetup(
-                                          context,
-                                          docZoneId,
-                                          countyId,
-                                          widget.companyID,
-                                          widget.officeId,
-                                          cityController.text,
-                                          zipcodeController.text,
-                                          "37.0902°",
-                                          "95.7129°",
-                                          landmarkController.text);
-                                    },
-                                    mapController: mapController,
-                                    landmarkController: landmarkController,
                                   );
                                 });
                           })

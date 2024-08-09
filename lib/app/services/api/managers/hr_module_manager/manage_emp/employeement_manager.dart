@@ -6,6 +6,8 @@ import 'package:prohealth/app/services/api/repository/hr_module_repository/manag
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employeement_data.dart';
 
+import '../../../../encode_decode_base64.dart';
+
 Future<List<EmployeementData>> getEmployeement(
     BuildContext context, int employeeId) async {
   String convertIsoToDayMonthYear(String isoDate) {
@@ -186,3 +188,141 @@ Future<EmployeementPrefillData> getPrefillEmployeement(
     return itemsData;
   }
 }
+
+
+///upload resume
+
+
+Future<ApiData> uploadEmployeeResume({
+  required BuildContext context,
+
+  required int employeementId,
+  required dynamic documentFile,
+  required String documentName
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path:ManageReposotory.updateEmployeementresume(employeementId: employeementId),
+      data: {
+        'base64':documents
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(" Employee Resume uploded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+///upload photo general form screen
+///
+Future<ApiData> uploadphoto({
+  required BuildContext context,
+
+  required int employeeid,
+  required dynamic documentFile,
+  required String documentName
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path:ManageReposotory.uploadphoto(employeeid: employeeid),
+      data: {
+        'base64':documents
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(" Employee Resume uploded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+
+
+/// linceses uploaded
+///
+
+Future<ApiData> uploadlinceses({
+  required BuildContext context,
+
+
+  required int employeeid,
+  required int licensedId,
+  required dynamic documentFile,
+  required String documentName
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path:ManageReposotory.uploadlinceses(licensedId:licensedId),
+      data: {
+        'base64':documents
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(" license uploded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///////
+////////
+//////
+///upload check
+
+
+
+

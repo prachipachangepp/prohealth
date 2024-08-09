@@ -41,7 +41,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 20;
+    itemsPerPage = 30;
     items = List.generate(60, (index) => 'Item ${index + 1}');
 
   }
@@ -143,7 +143,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
           StreamBuilder<List<AllZipCodeGet>>(
             stream: _zipcodeController.stream,
             builder: (context, snapshot) {
-              getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 20).then((data){
+              getZipcodeSetup(context, widget.officeId, 1, 20).then((data){
                 _zipcodeController.add(data);
               }).catchError((error){
               });
@@ -408,14 +408,13 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     snapshot.data![index].zipcodeSetupId!,
                                                     zoinId == docZoneId ? zoinId : docZoneId,
                                                     countyPreId == countyId ? countyPreId : countyId,
-                                                    widget.companyID,
                                                     widget.officeId,
                                                    cityName ==  cityController.text ? cityName.toString() :cityController.text,
                                                    zipCode == zipcodeController.text ? zipCode.toString() : zipcodeController.text,
                                                     "37.0902°",
                                                     "95.7129°",
                                                     landmark == landmarkController.text ? landmark.toString() :landmarkController.text);
-                                                getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 20).then((data){
+                                                getZipcodeSetup(context, widget.officeId,1, 20).then((data){
                                                   _zipcodeController.add(data);
                                                 }).catchError((error){
 
@@ -432,7 +431,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                           Navigator.pop(context);
                                         }, onDelete: () async{
                                           await deleteZipCodeSetup(context, snapshot.data![index].zipcodeSetupId!);
-                                          getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 20).then((data){
+                                          getZipcodeSetup(context, widget.officeId, 1, 20).then((data){
                                             _zipcodeController.add(data);
                                           }).catchError((error){
                                           });

@@ -1185,9 +1185,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
 import 'package:shimmer/shimmer.dart';
@@ -1235,6 +1237,7 @@ class OfferLetterScreen extends StatefulWidget {
   final String soecalityName;
   final String clinicalName;
   final int employeeId;
+  final ApiData apiData;
 
   const OfferLetterScreen(
       {super.key,
@@ -1251,7 +1254,7 @@ class OfferLetterScreen extends StatefulWidget {
       required this.employement,
       required this.soecalityName,
       required this.clinicalName,
-      required this.employeeId});
+      required this.employeeId, required this.apiData});
 
   @override
   State<OfferLetterScreen> createState() => _OfferLetterScreenState();
@@ -1360,13 +1363,17 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
     print('Generated URL: $generatedURL');
     return url;
   }
+  int selectedZoneId = 0;
+  int selectedCountyId = 0;
+  int selectedCityId = 0;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(100),
+        padding: const EdgeInsets.symmetric(horizontal: 100),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -1422,7 +1429,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     height: 30,
                     width: MediaQuery.of(context).size.width / 5,
                     child: TextField(
-
                       cursorColor: Colors.black,
                       controller: patientsController,
                       decoration: InputDecoration(
@@ -1470,9 +1476,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             }
                           },
                           underline: const SizedBox(),
-                          icon: const Icon(Icons.arrow_drop_down, color: Colors.blue),
+                          icon: const Icon(Icons.arrow_drop_down,
+                              color: Colors.blue),
                         ),
-                        contentPadding: const EdgeInsets.only(left: 20, bottom: 5),
+                        contentPadding:
+                            const EdgeInsets.only(left: 20, bottom: 5),
                       ),
                       style: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -1480,9 +1488,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           color: const Color(0xff575757)),
                     ),
                   ),
-                   SizedBox(width: MediaQuery.of(context).size.width / 10),
-                  const SizedBox(
-                    width: 50,
+                  //SizedBox(width: MediaQuery.of(context).size.width / 10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 5,
                   ),
                 ],
               ),
@@ -1492,6 +1500,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 thickness: 4,
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 40),
+
               Container(
                 width: double.infinity, //1030
                 height: 330, //MediaQuery.of(context).size.height / 2,
@@ -1504,159 +1513,237 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 71.0, top: 50),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                ///county
-                                FutureBuilder<List<AllCountyGetList>>(
-                                  future: getCountyZoneList(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return Shimmer.fromColors(
-                                        baseColor: Colors.grey[300]!,
-                                        highlightColor: Colors.grey[100]!,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 7),
-                                          child: Container(
-                                            // width: AppSize.s250,
-                                            height: AppSize.s40,
-                                            decoration: BoxDecoration(
-                                                color: Colors.grey[300]),
-                                          ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ///county
+                              FutureBuilder<List<AllCountyGetList>>(
+                                future: getCountyZoneList(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: 31,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[300]),
                                         ),
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return const CustomDropdownTextField(
-                                        labelText: 'County',
-                                        labelStyle: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
+                                      ),
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return const CustomDropdownTextField(
+                                      labelText: 'County',
+                                      labelStyle: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelFontSize: 12,
+                                      items: ['Error'],
+                                    );
+                                  } else if (snapshot.hasData) {
+                                    List<DropdownMenuItem<String>> dropDownList = [];
+                                    int countyId = 0;
+                                    for(var i in snapshot.data!){
+                                      dropDownList.add(DropdownMenuItem<String>(
+                                        child: Text(i.countyName),
+                                        value: i.countyName,
+                                      ));
+                                    }
+                                    // List<String> dropDownList = snapshot.data!
+                                    //     .map(
+                                    //         (county) => county.countyName ?? '')
+                                    //     .toList();
+                                    print("County: ");
+                                     return Container(
+                                      height: 31,
+                                      width: 250,
+                                      // margin: EdgeInsets.symmetric(horizontal: 20),
+                                      padding:
+                                      const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: const Color(0xff686464).withOpacity(0.5),
+                                            width: 1), // Black border
+                                        borderRadius:
+                                        BorderRadius.circular(6), // Rounded corners
+                                      ),
+                                      child: DropdownButtonFormField<String>(
+                                        focusColor: Colors.transparent,
+                                        icon: const Icon(
+                                          Icons.arrow_drop_down_sharp,
+                                          color: Color(0xff686464),
                                         ),
-                                        labelFontSize: 12,
-                                        items: ['Error'],
-                                      );
-                                    } else if (snapshot.hasData) {
-                                      List<String> dropDownList = snapshot.data!
-                                          .map((county) =>
-                                              county.countyName ?? '')
-                                          .toList();
-                                      print("County: ");
-                                      return CustomDropdownTextField(
-                                       // width: MediaQuery.of(context).size.width / 5,
-                                        labelText: 'County',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: const Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        labelFontSize: 12,
+                                        decoration: const InputDecoration.collapsed(hintText: ''),
                                         items: dropDownList,
                                         onChanged: (newValue) {
-                                          // Handle onChanged here if needed
+                                          for(var a in snapshot.data!){
+                                            if(a.countyName == newValue){
+                                              countyId = a.countyId;
+                                              selectedCountyId = countyId;
+                                              print("County Id :: ${selectedCountyId}");
+                                              //empTypeId = docType;
+                                            }
+                                          }
                                         },
-                                      );
-                                    } else {
-                                      return CustomDropdownTextField(
-                                        labelText: 'County',
-                                        labelStyle: GoogleFonts.firaSans(
+                                        value: dropDownList[0].value,
+                                        style: GoogleFonts.firaSans(
                                           fontSize: 12,
-                                          color: const Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
+                                          fontWeight: FontWeight.w600,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
                                         ),
-                                        labelFontSize: 12,
-                                        items: ['No Data'],
-                                      );
-                                    }
-                                  },
+                                      ),
+                                    );
+                                  } else {
+                                    return CustomDropdownTextField(
+                                      labelText: 'County',
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        color: const Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelFontSize: 12,
+                                      items: ['No Data'],
+                                    );
+                                  }
+                                },
+                              ),
+
+                              SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 20),
+
+                              ///zone api
+
+                              FutureBuilder<List<AEClinicalZone>>(
+                                future: HrAddEmplyClinicalZoneApi(
+                                  context,
                                 ),
-
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        20),
-
-                                ///zone api
-
-                                FutureBuilder<List<AEClinicalZone>>(
-                                  future: HrAddEmplyClinicalZoneApi(
-                                    context,
-                                  ),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return Shimmer.fromColors(
-                                        baseColor: Colors.grey[300]!,
-                                        highlightColor: Colors.grey[100]!,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 7),
-                                          child: Container(
-                                            width: AppSize.s250,
-                                            height: AppSize.s40,
-                                            decoration: BoxDecoration(
-                                                color: Colors.grey[300]),
-                                          ),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: 31,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[300]),
                                         ),
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return  const CustomDropdownTextField(
-                                        //width: MediaQuery.of(context).size.width / 5,
-
-                                        labelText: 'Zone',
-                                        labelStyle: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
+                                      ),
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return const CustomDropdownTextField(
+                                      //width: MediaQuery.of(context).size.width / 5,
+                                      labelText: 'Zone',
+                                      labelStyle: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelFontSize: 12,
+                                      items: ['Error'],
+                                    );
+                                  } else if (snapshot.hasData) {
+                                    List<DropdownMenuItem<String>> dropDownList = [];
+                                    int zoneId = 0;
+                                    for(var i in snapshot.data!){
+                                      dropDownList.add(DropdownMenuItem<String>(
+                                        child: Text(i.zoneName!),
+                                        value: i.zoneName,
+                                      ));
+                                    }
+                                    // snapshot.data!
+                                    //     .map((zone) => zone.zoneName ?? '')
+                                    //     .toList();
+                                    print("Zone: ");
+                                    return Container(
+                                      height: 31,
+                                      width: 250,
+                                      // margin: EdgeInsets.symmetric(horizontal: 20),
+                                      padding:
+                                      const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: const Color(0xff686464).withOpacity(0.5),
+                                            width: 1), // Black border
+                                        borderRadius:
+                                        BorderRadius.circular(6), // Rounded corners
+                                      ),
+                                      child: DropdownButtonFormField<String>(
+                                        focusColor: Colors.transparent,
+                                        icon: const Icon(
+                                          Icons.arrow_drop_down_sharp,
+                                          color: Color(0xff686464),
                                         ),
-                                        labelFontSize: 12,
-                                        items: ['Error'],
-                                      );
-                                    } else if (snapshot.hasData) {
-                                      List<String> dropDownList = snapshot.data!
-                                          .map((zone) => zone.zoneName ?? '')
-                                          .toList();
-                                      print("Zone: ");
-                                      return CustomDropdownTextField(
-                                       // width: MediaQuery.of(context).size.width / 5,
-                                        labelText: 'Zone',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: const Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        labelFontSize: 12,
+                                        decoration: const InputDecoration.collapsed(hintText: ''),
                                         items: dropDownList,
                                         onChanged: (newValue) {
-                                          // Handle onChanged here if needed
+                                          for(var a in snapshot.data!){
+                                            if(a.zoneName == newValue){
+                                              zoneId = a.zoneID!;
+                                              selectedCountyId = zoneId;
+                                              print("Zone Id :: ${selectedCountyId}");
+                                              //empTypeId = docType;
+                                            }
+                                          }
                                         },
-                                      );
-                                    } else {
-                                      return CustomDropdownTextField(
-                                       // width: MediaQuery.of(context).size.width / 5,
-                                        labelText: 'Zone',
-                                        labelStyle: GoogleFonts.firaSans(
+                                        value: dropDownList[0].value,
+                                        style: GoogleFonts.firaSans(
                                           fontSize: 12,
-                                          color: const Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
+                                          fontWeight: FontWeight.w600,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
                                         ),
-                                        labelFontSize: 12,
-                                        items: ['No Data'],
-                                      );
-                                    }
-                                  },
-                                ),
-
-                                ///
-                              ],
-                            ),
+                                      ),
+                                    );
+                                    //   CustomDropdownTextField(
+                                    //   // width: MediaQuery.of(context).size.width / 5,
+                                    //   labelText: 'Zone',
+                                    //   labelStyle: GoogleFonts.firaSans(
+                                    //     fontSize: 12,
+                                    //     color: const Color(0xff575757),
+                                    //     fontWeight: FontWeight.w400,
+                                    //   ),
+                                    //   labelFontSize: 12,
+                                    //   items: dropDownList,
+                                    //   onChanged: (newValue) {
+                                    //     // Handle onChanged here if needed
+                                    //   },
+                                    // );
+                                  } else {
+                                    return CustomDropdownTextField(
+                                      // width: MediaQuery.of(context).size.width / 5,
+                                      labelText: 'Zone',
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        color: const Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelFontSize: 12,
+                                      items: ['No Data'],
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 260),
+                      //SizedBox(width: MediaQuery.of(context).size.width / 260),
 
                       ///old code tabbar
                       Expanded(
@@ -1665,9 +1752,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal:
-                                        180.0), // const EdgeInsets.only(left: 180.0, right: 180.0),
+                                // padding: const EdgeInsets.symmetric(
+                                //     horizontal:
+                                //         180.0),
+                                padding: const EdgeInsets.only(
+                                    left: 180.0, right: 180.0),
                                 child: TabBar(
                                   indicatorColor: const Color(0xff1696C8),
                                   labelColor: const Color(0xff686464),
@@ -1688,9 +1777,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal:
-                                          100.0), //const EdgeInsets.only(left: 100.0, right: 100.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 100.0, right: 100.0),
                                   child: TabBarView(
                                     physics:
                                         const NeverScrollableScrollPhysics(),
@@ -1742,249 +1830,480 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 40),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff1696C8),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                  SizedBox(
+                    height: 30,
+                    width: 300,
+                    child: CustomDropdownFormField(
+                        hintText: 'Salaried',
+                        items: ['Salaried', 'Per Visit'],
+                        value: dropdownValue,
+                        onChanged: handleDropdownChange),
+                  ),
+                  Row(
+                    children: [
+                      if (_salary.isNotEmpty)
+                        Text(
+                          _salary,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
+                        ),
+                      SizedBox(
+                        width: 10,
                       ),
-                    ),
-                    child: Text(
-                      'Add New Coverage',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w500,
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                titlePadding: EdgeInsets.zero,
+                                title: Container(
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(12.0),
+                                      topRight: Radius.circular(12.0),
+                                    ),
+                                  ),
+                                  width: 302,
+                                  height: 246,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        //height: 35,
+                                        width: double.infinity,
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xff1696C8),
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(12.0),
+                                            topRight: Radius.circular(12.0),
+                                          ),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 6.0, horizontal: 6.0),
+                                        child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: IconButton(
+                                            icon: const Icon(Icons.close,
+                                                color: Colors.white),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 15.0, horizontal: 16.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Salary',
+                                              style: GoogleFonts.firaSans(
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                      const Color(0xff686464)),
+                                            ),
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  30,
+                                            ),
+                                            TextFormField(
+                                              cursorColor: Colors.black,
+                                              decoration: InputDecoration(
+                                                hintText: '0.00',
+                                                hintStyle: GoogleFonts.firaSans(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: const Color(
+                                                        0xff686464)),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  borderSide: const BorderSide(
+                                                    color: Color(0xff51B5E6),
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  borderSide: const BorderSide(
+                                                    color: Color(0xff51B5E6),
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  borderSide: const BorderSide(
+                                                    color: Color(0xff51B5E6),
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                                contentPadding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 16.0,
+                                                        vertical: 12.0),
+                                              ),
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _salary = value;
+                                                });
+                                              },
+                                            ),
+                                            SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    20),
+                                            Center(
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                  // Handle the submit action
+                                                  Navigator.of(context).pop();
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      const Color(0xff1696C8),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12),
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 24.0,
+                                                      vertical: 8.0),
+                                                  child: Text(
+                                                    'Submit',
+                                                    style: GoogleFonts.firaSans(
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff1696C8),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Add',
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(width: 15),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff1696C8),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Add New Coverage',
+                          style: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
+
               SizedBox(height: MediaQuery.of(context).size.height / 30),
-              SizedBox(
-                height: 50,
-                width: double.infinity,
-                child: CustomDropdownFormField(
-                    hintText: 'Salaried',
-                    items: ['Salaried', 'Per Visit'],
-                    value: dropdownValue,
-                    onChanged: handleDropdownChange),
-              ),
+              // SizedBox(
+              //   height: 30,
+              //   width: 250,
+              //   child: CustomDropdownFormField(
+              //       hintText: 'Salaried',
+              //
+              //       items: ['Salaried', 'Per Visit'],
+              //       value: dropdownValue,
+              //       onChanged: handleDropdownChange),
+              // ),
               SizedBox(height: MediaQuery.of(context).size.height / 30),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     if (_salary.isNotEmpty)
+              //       Text(
+              //         _salary,
+              //         style: GoogleFonts.firaSans(
+              //           fontSize: 14.0,
+              //           fontWeight: FontWeight.w400,
+              //           color: Colors.black,
+              //         ),
+              //       ),
+              //     SizedBox(width: MediaQuery.of(context).size.width / 120),
+              //     // ElevatedButton(
+              //     //   onPressed: () {
+              //     //     showDialog(
+              //     //       context: context,
+              //     //       builder: (BuildContext context) {
+              //     //         return AlertDialog(
+              //     //           shape: RoundedRectangleBorder(
+              //     //             borderRadius: BorderRadius.circular(12.0),
+              //     //           ),
+              //     //           titlePadding: EdgeInsets.zero,
+              //     //           title: Container(
+              //     //             decoration: const BoxDecoration(
+              //     //               color: Colors.white,
+              //     //               borderRadius: BorderRadius.only(
+              //     //                 topLeft: Radius.circular(12.0),
+              //     //                 topRight: Radius.circular(12.0),
+              //     //               ),
+              //     //             ),
+              //     //             width: 302,
+              //     //             height: 246,
+              //     //             child: Column(
+              //     //               mainAxisSize: MainAxisSize.min,
+              //     //               children: [
+              //     //                 Container(
+              //     //                   //height: 35,
+              //     //                   width: double.infinity,
+              //     //                   decoration: const BoxDecoration(
+              //     //                     color: Color(0xff1696C8),
+              //     //                     borderRadius: BorderRadius.only(
+              //     //                       topLeft: Radius.circular(12.0),
+              //     //                       topRight: Radius.circular(12.0),
+              //     //                     ),
+              //     //                   ),
+              //     //                   padding: const EdgeInsets.symmetric(
+              //     //                       vertical: 6.0, horizontal: 6.0),
+              //     //                   child: Align(
+              //     //                     alignment: Alignment.topRight,
+              //     //                     child: IconButton(
+              //     //                       icon: const Icon(Icons.close,
+              //     //                           color: Colors.white),
+              //     //                       onPressed: () {
+              //     //                         Navigator.of(context).pop();
+              //     //                       },
+              //     //                     ),
+              //     //                   ),
+              //     //                 ),
+              //     //                 Padding(
+              //     //                   padding: const EdgeInsets.symmetric(
+              //     //                       vertical: 15.0, horizontal: 16.0),
+              //     //                   child: Column(
+              //     //                     crossAxisAlignment:
+              //     //                         CrossAxisAlignment.start,
+              //     //                     children: [
+              //     //                       Text(
+              //     //                         'Salary',
+              //     //                         style: GoogleFonts.firaSans(
+              //     //                             fontSize: 16.0,
+              //     //                             fontWeight: FontWeight.w400,
+              //     //                             color: const Color(0xff686464)),
+              //     //                       ),
+              //     //                       SizedBox(
+              //     //                         height: MediaQuery.of(context)
+              //     //                                 .size
+              //     //                                 .height /
+              //     //                             30,
+              //     //                       ),
+              //     //                       TextFormField(
+              //     //                         cursorColor: Colors.black,
+              //     //                         decoration: InputDecoration(
+              //     //                           hintText: '0.00',
+              //     //                           hintStyle: GoogleFonts.firaSans(
+              //     //                               fontSize: 12,
+              //     //                               fontWeight: FontWeight.w700,
+              //     //                               color: const Color(0xff686464)),
+              //     //                           enabledBorder: OutlineInputBorder(
+              //     //                             borderRadius:
+              //     //                                 BorderRadius.circular(8.0),
+              //     //                             borderSide: const BorderSide(
+              //     //                               color: Color(0xff51B5E6),
+              //     //                               width: 1.0,
+              //     //                             ),
+              //     //                           ),
+              //     //                           focusedBorder: OutlineInputBorder(
+              //     //                             borderRadius:
+              //     //                                 BorderRadius.circular(8.0),
+              //     //                             borderSide: const BorderSide(
+              //     //                               color: Color(0xff51B5E6),
+              //     //                               width: 1.0,
+              //     //                             ),
+              //     //                           ),
+              //     //                           border: OutlineInputBorder(
+              //     //                             borderRadius:
+              //     //                                 BorderRadius.circular(8.0),
+              //     //                             borderSide: const BorderSide(
+              //     //                               color: Color(0xff51B5E6),
+              //     //                               width: 1.0,
+              //     //                             ),
+              //     //                           ),
+              //     //                           contentPadding:
+              //     //                               const EdgeInsets.symmetric(
+              //     //                                   horizontal: 16.0,
+              //     //                                   vertical: 12.0),
+              //     //                         ),
+              //     //                         keyboardType: TextInputType.number,
+              //     //                         onChanged: (value) {
+              //     //                           setState(() {
+              //     //                             _salary = value;
+              //     //                           });
+              //     //                         },
+              //     //                       ),
+              //     //                       SizedBox(
+              //     //                           height: MediaQuery.of(context)
+              //     //                                   .size
+              //     //                                   .height /
+              //     //                               20),
+              //     //                       Center(
+              //     //                         child: ElevatedButton(
+              //     //                           onPressed: () {
+              //     //                             // Handle the submit action
+              //     //                             Navigator.of(context).pop();
+              //     //                           },
+              //     //                           style: ElevatedButton.styleFrom(
+              //     //                             backgroundColor:
+              //     //                                 const Color(0xff1696C8),
+              //     //                             shape: RoundedRectangleBorder(
+              //     //                               borderRadius:
+              //     //                                   BorderRadius.circular(12),
+              //     //                             ),
+              //     //                           ),
+              //     //                           child: Padding(
+              //     //                             padding:
+              //     //                                 const EdgeInsets.symmetric(
+              //     //                                     horizontal: 24.0,
+              //     //                                     vertical: 8.0),
+              //     //                             child: Text(
+              //     //                               'Submit',
+              //     //                               style: GoogleFonts.firaSans(
+              //     //                                   fontSize: 12.0,
+              //     //                                   fontWeight: FontWeight.w700,
+              //     //                                   color: Colors.white),
+              //     //                             ),
+              //     //                           ),
+              //     //                         ),
+              //     //                       ),
+              //     //                     ],
+              //     //                   ),
+              //     //                 ),
+              //     //               ],
+              //     //             ),
+              //     //           ),
+              //     //         );
+              //     //       },
+              //     //     );
+              //     //   },
+              //     //   style: ElevatedButton.styleFrom(
+              //     //     backgroundColor: const Color(0xff1696C8),
+              //     //     foregroundColor: Colors.white,
+              //     //     shape: RoundedRectangleBorder(
+              //     //       borderRadius: BorderRadius.circular(12),
+              //     //     ),
+              //     //   ),
+              //     //   child: Text(
+              //     //     'Add',
+              //     //     style: GoogleFonts.firaSans(
+              //     //       fontSize: 12.0,
+              //     //       fontWeight: FontWeight.w700,
+              //     //     ),
+              //     //   ),
+              //     // ),
+              //   ],
+              // ),
+              SizedBox(height: MediaQuery.of(context).size.height / 30),
+              // Container(
+              //   height: 40,
+              //   width: 300,
+              //   child: ElevatedButton(
+              //     onPressed: () {},
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: const Color(0xff1696C8),
+              //       foregroundColor: Colors.white,
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(8),
+              //       ),
+              //     ),
+              //     child: Text(
+              //       'Compensation',
+              //       style: GoogleFonts.firaSans(
+              //         fontSize: 12.0,
+              //         fontWeight: FontWeight.w800,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: MediaQuery.of(context).size.height / 80),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  if (_salary.isNotEmpty)
-                    Text(
-                      _salary,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
-                    ),
-                  SizedBox(width: MediaQuery.of(context).size.width / 120),
                   ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            titlePadding: EdgeInsets.zero,
-                            title: Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(12.0),
-                                  topRight: Radius.circular(12.0),
-                                ),
-                              ),
-                              width: 302,
-                              height: 246,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    //height: 35,
-                                    width: double.infinity,
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xff1696C8),
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(12.0),
-                                        topRight: Radius.circular(12.0),
-                                      ),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 6.0, horizontal: 6.0),
-                                    child: Align(
-                                      alignment: Alignment.topRight,
-                                      child: IconButton(
-                                        icon: const Icon(Icons.close,
-                                            color: Colors.white),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15.0, horizontal: 16.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Salary',
-                                          style: GoogleFonts.firaSans(
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xff686464)),
-                                        ),
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              30,
-                                        ),
-                                        TextFormField(
-                                          cursorColor: Colors.black,
-                                          decoration: InputDecoration(
-                                            hintText: '0.00',
-                                            hintStyle: GoogleFonts.firaSans(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w700,
-                                                color: const Color(0xff686464)),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              borderSide: const BorderSide(
-                                                color: Color(0xff51B5E6),
-                                                width: 1.0,
-                                              ),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              borderSide: const BorderSide(
-                                                color: Color(0xff51B5E6),
-                                                width: 1.0,
-                                              ),
-                                            ),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              borderSide: const BorderSide(
-                                                color: Color(0xff51B5E6),
-                                                width: 1.0,
-                                              ),
-                                            ),
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 16.0,
-                                                    vertical: 12.0),
-                                          ),
-                                          keyboardType: TextInputType.number,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _salary = value;
-                                            });
-                                          },
-                                        ),
-                                        SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                20),
-                                        Center(
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              // Handle the submit action
-                                              Navigator.of(context).pop();
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  const Color(0xff1696C8),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 24.0,
-                                                      vertical: 8.0),
-                                              child: Text(
-                                                'Submit',
-                                                style: GoogleFonts.firaSans(
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
+                    onPressed: ()  {
+                      // TextEditingController issueDateController = TextEditingController();
+                      // TextEditingController lastDateController = TextEditingController();
+                      // TextEditingController startDateController = TextEditingController();
+                      // TextEditingController verbalAcceptanceController = TextEditingController();
+                      // TextEditingController patientsController = TextEditingController();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xff1696C8),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                     child: Text(
-                      'Add',
+                      'Compensation',
                       style: GoogleFonts.firaSans(
                         fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 30),
-              Container(
-                height: 50,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff1696C8),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                  SizedBox(
+                    width: 15,
                   ),
-                  child: Text(
-                    'Compensation',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 80),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
                   Text(
                     'Not Defined',
                     style: GoogleFonts.firaSans(
@@ -2019,41 +2338,75 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width / 75),
                   ElevatedButton(
-                    onPressed: () async {
-                      await _generateUrlLink(
-                          widget.email, widget.userId.toString());
-                      Navigator.pop(context);
+                    onPressed: ()  {
+                      // await _generateUrlLink(widget.email, widget.userId.toString());
+                      print("Widget employeeId ${widget.apiData.employeeId!}");
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return ConfirmationPopup(
+                            loadingDuration: _isLoading,
                             onCancel: () {
                               Navigator.pop(context);
                             },
                             onConfirm: () async {
-                              await addEmpEnroll(
-                                  context: context,
-                                  employeeId: widget.employeeId,
-                                  code: "",
-                                  userId: widget.userId,
-                                  firstName: widget.firstName,
-                                  lastName: widget.lastName,
-                                  phoneNbr: widget.phone,
-                                  email: widget.email,
-                                  link: generatedURL,
-                                  status: widget.status,
-                                  departmentId: 1,
-                                  position: widget.position,
-                                  speciality: widget.soecalityName,
-                                  clinicianTypeId: 1,
-                                  reportingOfficeId: widget.reportingOffice,
-                                  cityId: 1,
-                                  countryId: 1,
-                                  countyId: 9,
-                                  zoneId: 18,
-                                  employment: widget.employement,
-                                  service: widget.services);
-                              Navigator.pop(context);
+                              setState(() {
+                                _isLoading = true;
+                              });
+
+                              try {
+                                await addEmpEnrollOffers(
+                                  context,
+                                  0,
+                                  widget.apiData.employeeId!,
+                                  issueDateController.text,
+                                lastDateController.text,
+                                 startDateController.text,
+                                 verbalAcceptanceController.text,
+                                );
+
+                                await addEmpEnrollAddCoverage(
+                                  context,
+                                  0,
+                                  widget.apiData.employeeId!,
+                                  'Dallas',
+                                  9,
+                                  18,
+                                );
+
+                                await addEmpEnrollAddCompensation(
+                                  context,
+                                  0,
+                                  widget.apiData.employeeId!,
+                                  dropdownValue.toString(),
+                                  int.parse(_salary),
+                                );
+
+                                // Clear controllers
+                              issueDateController.clear();
+                               lastDateController.clear();
+                                startDateController.clear();
+                                verbalAcceptanceController.clear();
+
+                                Navigator.pop(context);
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => OfferLetterDescriptionScreen(
+                                //       employeeId: widget.apiData.employeeId!,
+                                //     ),
+                                //   ),
+                                // );
+                              } catch (e) {
+                                print("Error during enrollment: $e");
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Enrollment failed: $e')),
+                                );
+                              } finally {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                              }
                             },
                             title: 'Confirm Enrollment',
                             containerText: 'Do you really want to enroll?',
@@ -2076,9 +2429,66 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       ),
                     ),
                   ),
+                  // ElevatedButton(
+                  //   onPressed: () async {
+                  //     await _generateUrlLink(
+                  //         widget.email, widget.userId.toString());
+                  //     Navigator.pop(context);
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (BuildContext context) {
+                  //         return ConfirmationPopup(
+                  //           onCancel: () {
+                  //             Navigator.pop(context);
+                  //           },
+                  //           onConfirm: () async {
+                  //             await addEmpEnroll(
+                  //                 context: context,
+                  //                 employeeId: widget.employeeId,
+                  //                 code: "",
+                  //                 userId: widget.userId,
+                  //                 firstName: widget.firstName,
+                  //                 lastName: widget.lastName,
+                  //                 phoneNbr: widget.phone,
+                  //                 email: widget.email,
+                  //                 link: generatedURL,
+                  //                 status: widget.status,
+                  //                 departmentId: 1,
+                  //                 position: widget.position,
+                  //                 speciality: widget.soecalityName,
+                  //                 clinicianTypeId: 1,
+                  //                 reportingOfficeId: widget.reportingOffice,
+                  //                 cityId: 1,
+                  //                 countryId: 1,
+                  //                 countyId: 9,
+                  //                 zoneId: 18,
+                  //                 employment: widget.employement,
+                  //                 service: widget.services);
+                  //             Navigator.pop(context);
+                  //           },
+                  //           title: 'Confirm Enrollment',
+                  //           containerText: 'Do you really want to enroll?',
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  //   style: ElevatedButton.styleFrom(
+                  //     backgroundColor: const Color(0xff1696C8),
+                  //     foregroundColor: Colors.white,
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(8),
+                  //     ),
+                  //   ),
+                  //   child: Text(
+                  //     'Enroll',
+                  //     style: GoogleFonts.firaSans(
+                  //       fontSize: 12.0,
+                  //       fontWeight: FontWeight.w700,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
-              const SizedBox(height: 5,)
             ],
           ),
         ),

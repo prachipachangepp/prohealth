@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/main_register_manager.dart';
@@ -54,7 +56,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     fetchData();
   }
-
+  void _copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text)).then((_) {
+      // Optionally show a snackbar or dialog to notify the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Copied to clipboard',style: GoogleFonts.firaSans(
+          fontWeight: FontWeightManager.medium,
+          color:  ColorManager.white,
+          fontSize: FontSize.s13,
+        ),)),
+      );
+    });
+  }
   Future<void> fetchData() async {
     try {
       List<RegisterDataCompID> data = await GetRegisterByCompId(context);
@@ -106,20 +119,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 );
               }
-              return Wrap(
-                spacing: 10,
-               // runSpacing: 10,
-                children: List.generate(snapshot.data!.length, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                        left: AppPadding.p10,
-                        right: AppPadding.p10,
-                        top: AppPadding.p5,
-                        bottom: AppPadding.p40),
-                    child: buildDataContainer(snapshot.data![index]),
-                  );
-                }),
-              );
+              return
+                Wrap(
+                  spacing: 10,
+                  // runSpacing: 10,
+                  children: List.generate(snapshot.data!.length, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                          left: AppPadding.p10,
+                          right: AppPadding.p10,
+                          top: AppPadding.p5,
+                          bottom: AppPadding.p40),
+                      child: buildDataContainer(snapshot.data![index]),
+                    );
+                  }),
+                );
+              //////////////////////////////////////////////
+              /////////////////
+              //   Container(
+              //   height: double.maxFinite,
+              //   child: WrapWidget(
+              //     childern: List.generate(snapshot.data!.length, (index) {
+              //       return Padding(
+              //         padding: const EdgeInsets.only(
+              //             left: AppPadding.p10,
+              //             right: AppPadding.p10,
+              //             top: AppPadding.p5,
+              //             bottom: AppPadding.p40),
+              //         child: buildDataContainer(snapshot.data![index]),
+              //       );
+              //     }),
+              //   ),
+              // );
             },
           ),
         ],
@@ -332,15 +363,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:58946/#/onBordingWelcome";//https://staging.symmetry.care/#/onBordingWelcome
+                          const url = "http://localhost:61701/#/onBordingWelcome";
+                          //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                             await launch(url);
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => OnBoardingWelcome(),
-                            //   ),
-                            // );
+                             // Navigator.push(
+                             //   context,
+                             //   MaterialPageRoute(
+                             //    builder: (context) => OnBoardingWelcome(),
+                             //  ),
+                             // );
                           } else {
                             throw 'Could not launch $url';
                           }
@@ -354,6 +386,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
+                      data.status == 'Notopen'
+                          ? const Text('')
+                          : InkWell(onTap: (){
+                            _copyToClipboard("https://staging.symmetry.care/#/onBordingWelcome");
+                      },child: Icon(Icons.copy,size: 15,color: ColorManager.mediumgrey,)),
                     ],
                   ),
                   data.status == 'Notopen'
@@ -406,6 +443,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   )
                       : const SizedBox(width: 10),
+                  data.status == 'Completed'
+                      ? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [Container(
+                      width: AppSize.s100,
+                      margin: const EdgeInsets.only(right: AppMargin.m30),
+                      child: CustomIconButtonConst(
+                        text: 'Onboard',
+                        onPressed: () {  },),
+                    )],
+                  ) : const SizedBox(width: 10)
                 ],
               ),
             ),

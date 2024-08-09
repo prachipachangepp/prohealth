@@ -236,6 +236,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                 ),
               ],
             ),
+
             SizedBox(height: 20),
             /// row 1
             StreamBuilder<List<ModuleMetaData>>(

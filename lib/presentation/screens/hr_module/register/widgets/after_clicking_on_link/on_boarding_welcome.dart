@@ -1,17 +1,21 @@
 import 'dart:ui';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/register_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/verify_user_popup.dart';
 import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/top_row.dart';
 
 class OnBoardingWelcome extends StatelessWidget {
+
   static const String routeName = "/onBordingWelcome";
-  const OnBoardingWelcome({Key? key,}) : super(key: key);
+  const OnBoardingWelcome({Key? key, }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +93,7 @@ class OnBoardingWelcome extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
+
                               return VerifyUserpopup();
                             },
                           );
@@ -319,147 +324,147 @@ class OnBoardingWelcome extends StatelessWidget {
 
 ////////////////////////////////////////VerifyUserPopup////////////////////////
 
-class VerifyUserPopup extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      backgroundColor: Colors.white,
-      titlePadding: EdgeInsets.zero,
-      // shape: RoundedRectangleBorder(
-      // ),
-      title: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(0),
-          //color: Colors.white, //background colour pf screen
-        ),
-        width: 500,
-        height: 450,
-        child: Column(
-          children: [
-            Container(
-              height: 60,
-              decoration: const BoxDecoration(
-                color: Color(0xff50B5E5),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(13),
-                  topRight: Radius.circular(13),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.person_outline,
-                            color: Colors.white, size: 20),
-                        const SizedBox(width: 8),
-                        Text(
-                          AppString.verify_user,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close, color: Colors.white),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  const CustomTextField(
-                    labelWidget: Row(
-                      children: [
-                        Icon(Icons.security, color: Color(0xFF50B5E5)),
-                        SizedBox(width: 8),
-                        Text(
-                          AppString.security_code,  style: TextStyle(fontSize: 14),
-
-                        ),
-                      ],
-                    ),
-                    labelText: AppString.security_code,
-                    icon: Icons.security,
-                  ),
-                  const SizedBox(height: 16),
-                  const CustomTextField(
-                    labelWidget: Row(
-                      children: [
-                        Icon(Icons.phone, color: Color(0xFF50B5E5)),
-                        SizedBox(width: 8),
-                        Text(AppString.phone_number, style: TextStyle(fontSize: 14),),
-                      ],
-                    ),
-                    labelText: AppString.phone_number,
-                    icon: Icons.phone,
-                  ),
-                  const SizedBox(height: 16),
-                  const CustomTextField(
-                    labelWidget: Row(
-                      children: [
-                        Icon(Icons.email, color: Color(0xFF50B5E5)),
-                        SizedBox(width: 8),
-                        Text(AppString.email, style: TextStyle(fontSize: 14),),
-                      ],
-                    ),
-                    labelText: AppString.email,
-                    icon: Icons.email,
-                  ),
-                  const SizedBox(height: 35),
-                  ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Dialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: OnBoardingCongratulation(),
-                          );
-                        },
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff50B5E5),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32, vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      AppString.continuet,
-                      style: GoogleFonts.firaSans(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// class VerifyUserPopup extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(15.0),
+//       ),
+//       backgroundColor: Colors.white,
+//       titlePadding: EdgeInsets.zero,
+//       // shape: RoundedRectangleBorder(
+//       // ),
+//       title: Container(
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(0),
+//           //color: Colors.white, //background colour pf screen
+//         ),
+//         width: 500,
+//         height: 450,
+//         child: Column(
+//           children: [
+//             Container(
+//               height: 60,
+//               decoration: const BoxDecoration(
+//                 color: Color(0xff50B5E5),
+//                 borderRadius: BorderRadius.only(
+//                   topLeft: Radius.circular(13),
+//                   topRight: Radius.circular(13),
+//                 ),
+//               ),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Padding(
+//                     padding: const EdgeInsets.only(left: 16),
+//                     child: Row(
+//                       children: [
+//                         const Icon(Icons.person_outline,
+//                             color: Colors.white, size: 20),
+//                         const SizedBox(width: 8),
+//                         Text(
+//                           AppString.verify_user,
+//                           style: GoogleFonts.firaSans(
+//                             fontSize: 20,
+//                             fontWeight: FontWeight.w600,
+//                             color: Colors.white,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   IconButton(
+//                     icon: const Icon(Icons.close, color: Colors.white),
+//                     onPressed: () {
+//                       Navigator.of(context).pop();
+//                     },
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.all(24),
+//               child: Column(
+//                 children: [
+//                   const CustomTextField(
+//                     labelWidget: Row(
+//                       children: [
+//                         Icon(Icons.security, color: Color(0xFF50B5E5)),
+//                         SizedBox(width: 8),
+//                         Text(
+//                           AppString.security_code,  style: TextStyle(fontSize: 14),
+//
+//                         ),
+//                       ],
+//                     ),
+//                     labelText: AppString.security_code,
+//                     icon: Icons.security,
+//                   ),
+//                   const SizedBox(height: 16),
+//                   const CustomTextField(
+//                     labelWidget: Row(
+//                       children: [
+//                         Icon(Icons.phone, color: Color(0xFF50B5E5)),
+//                         SizedBox(width: 8),
+//                         Text(AppString.phone_number, style: TextStyle(fontSize: 14),),
+//                       ],
+//                     ),
+//                     labelText: AppString.phone_number,
+//                     icon: Icons.phone,
+//                   ),
+//                   const SizedBox(height: 16),
+//                   const CustomTextField(
+//                     labelWidget: Row(
+//                       children: [
+//                         Icon(Icons.email, color: Color(0xFF50B5E5)),
+//                         SizedBox(width: 8),
+//                         Text(AppString.email, style: TextStyle(fontSize: 14),),
+//                       ],
+//                     ),
+//                     labelText: AppString.email,
+//                     icon: Icons.email,
+//                   ),
+//                   const SizedBox(height: 35),
+//                   ElevatedButton(
+//                     onPressed: () {
+//                       showDialog(
+//                         context: context,
+//                         builder: (BuildContext context) {
+//                           return Dialog(
+//                             shape: RoundedRectangleBorder(
+//                               borderRadius: BorderRadius.circular(20.0),
+//                             ),
+//                             child: OnBoardingCongratulation(),
+//                           );
+//                         },
+//                       );
+//                     },
+//                     style: ElevatedButton.styleFrom(
+//                       backgroundColor: const Color(0xff50B5E5),
+//                       padding: const EdgeInsets.symmetric(
+//                           horizontal: 32, vertical: 16),
+//                       shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(8),
+//                       ),
+//                     ),
+//                     child: Text(
+//                       'Continue',
+//                       style: GoogleFonts.firaSans(
+//                           fontSize: 18,
+//                           fontWeight: FontWeight.w500,
+//                           color: Colors.white),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class CustomTextField extends StatelessWidget {
   final String labelText;
@@ -675,6 +680,9 @@ class CustomTextField extends StatelessWidget {
 
 ////////////////////////////////////congratulation/////////////////////////////////////
 class OnBoardingCongratulation extends StatelessWidget {
+
+  final int employeeId;
+  const OnBoardingCongratulation({super.key, required this.employeeId,  });
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
@@ -760,7 +768,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                 OfferLetterDescriptionScreen()));
+                                 OfferLetterDescriptionScreen(employeeId: employeeId)));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF50B5E5),
@@ -840,5 +848,4 @@ class OnBoardingCongratulation extends StatelessWidget {
       ),
     );
   }
-
 }

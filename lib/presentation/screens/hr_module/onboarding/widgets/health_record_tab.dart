@@ -14,7 +14,8 @@ import '../approve_reject_dialog_constant.dart';
 import '../download_doc_const.dart';
 
 class HealthRecordConstant extends StatefulWidget {
-  const HealthRecordConstant({super.key});
+  final int employeeId;
+  const HealthRecordConstant({super.key, required this.employeeId});
 
   @override
   State<HealthRecordConstant> createState() => _HealthRecordConstantState();
@@ -509,7 +510,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
 
   Future<void> _fetchData() async {
     try {
-      var data = await getAckHealthRecord(context, 1, 10, 5, 'no');
+      var data = await getAckHealthRecord(context, 1, 10, widget.employeeId, 'no');
       _fetchedData = data;
       _controller.add(data);
       _checked = List.generate(data.length, (_) => false);
@@ -546,30 +547,39 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(
-              color: ColorManager.blueprime,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 150),
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
             ),
           );
         }
         if (snapshot.hasError) {
           return Center(
-            child: Text(
-              'Error: ${snapshot.error}',
-              style: TextStyle(color: Colors.red),
-            ),
-          );
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150),
+                child: Text(
+                  AppString.dataNotFound,
+                  style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey),
+                ),
+              ));
         }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return Center(
-            child: Text(
-              AppString.dataNotFound,
-              style: CustomTextStylesCommon.commonStyle(
-                fontWeight: FontWeightManager.medium,
-                fontSize: FontSize.s12,
-                color: ColorManager.mediumgrey,
-              ),
-            ),
-          );
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150),
+                child: Text(
+                  AppString.dataNotFound,
+                  style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey),
+                ),
+              ));
         }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,

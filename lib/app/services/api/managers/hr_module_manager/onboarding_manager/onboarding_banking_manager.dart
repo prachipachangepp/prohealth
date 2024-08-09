@@ -23,6 +23,7 @@ BuildContext context, int employeeId, String approveOnly) async{
             type:  item['type'],
             approved:  item['approved'] ?? false,
         requestedPercentage: item['requestedPercentage']));
+        itemsData.sort((a, b) => a.empBankId.compareTo(b.empBankId));
       }
     }else {
       print("Employment List");

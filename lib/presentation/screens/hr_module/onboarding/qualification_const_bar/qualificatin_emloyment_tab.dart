@@ -407,6 +407,8 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../manage/const_wrap_widget.dart';
 
 class QualificationEmployment extends StatefulWidget {
+  final int employeeId;
+  QualificationEmployment({required this.employeeId});
   @override
   _BankingTabContainerConstantState createState() => _BankingTabContainerConstantState();
 }
@@ -418,7 +420,7 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationEmp(context, 1, "no").then((data) {
+    getOnboardingQualificationEmp(context, widget.employeeId, "no").then((data) {
       qualificationempStreamController.add(data);
     }).catchError((error) {});
   }
@@ -437,8 +439,8 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: SizedBox(width: 25,
-              height: 25,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 150),
               child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
               ),
@@ -639,7 +641,7 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         await rejectOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
-                                                        getOnboardingQualificationEmp(context, 1,'no').then((data) {
+                                                        getOnboardingQualificationEmp(context, widget.employeeId,'no').then((data) {
                                                           qualificationempStreamController.add(data);
                                                         }).catchError((error) {});
                                                         Navigator.of(context).pop();
@@ -766,7 +768,7 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         await approveOnboardQualifyEmploymentPatch(context, snapshot.data![index].employmentId);
-                                                        getOnboardingQualificationEmp(context, 1,'no').then((data) {
+                                                        getOnboardingQualificationEmp(context, widget.employeeId,'no').then((data) {
                                                           qualificationempStreamController.add(data);
                                                         }).catchError((error) {});
                                                         Navigator.of(context).pop();

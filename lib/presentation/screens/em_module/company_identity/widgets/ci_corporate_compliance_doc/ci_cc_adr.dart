@@ -25,7 +25,8 @@ import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_pop
 class CICCADR extends StatefulWidget {
   final int docId;
   final int subDocId;
-  const CICCADR({super.key, required this.docId, required this.subDocId});
+  final String officeId;
+  const CICCADR({super.key, required this.docId, required this.subDocId, required this.officeId});
 
   @override
   State<CICCADR> createState() => _CICCADRState();
@@ -102,7 +103,7 @@ class _CICCADRState extends State<CICCADR> {
             StreamBuilder<List<CiOrgDocumentCC>>(
                 stream : _ccAdrController.stream,
                 builder: (context, snapshot) {
-                  orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                  orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                     _ccAdrController.add(data);
                   }).catchError((error) {
                     // Handle error
@@ -267,11 +268,10 @@ class _CICCADRState extends State<CICCADR> {
                                                                     expiryType: expiry.toString(),
                                                                     expiryDate: calender.toString(),
                                                                     expiryReminder: "Schedule",
-                                                                    companyId: 11,
-                                                                    officeId: "Office 1",
+                                                                    officeId: widget.officeId,
                                                                   );
                                                                   setState(() async {
-                                                                    await orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                                                                    await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                                                                       _ccAdrController.add(data);
                                                                     }).catchError((error) {
                                                                       // Handle error
@@ -420,7 +420,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                     context,
                                                                     snapshot.data![index].docId!);
                                                                 setState(() async {
-                                                                  await orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                                                                  await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                                                                     _ccAdrController.add(data);
                                                                   }).catchError((error) {
                                                                     // Handle error
