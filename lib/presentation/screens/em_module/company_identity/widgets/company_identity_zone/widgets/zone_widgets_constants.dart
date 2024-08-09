@@ -358,6 +358,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -584,7 +585,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                     topRight: Radius.circular(8),
                   ),
                 ),
-                height: 40,
+                height: AppSize.s40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -624,15 +625,15 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Zone',
+                          AppString.zone,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             color: ColorManager.mediumgrey,
                             //decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: AppSize.s5),
                         widget.child!
                       ],
                     ),
@@ -644,12 +645,12 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                           'County Name',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             color: ColorManager.mediumgrey,
                             //decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: AppSize.s5),
                         widget.child1!
                       ],
                     ),
@@ -683,16 +684,16 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             'Pick Location',
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xff579EBA),
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.bluelight,
                               //decoration: TextDecoration.none,
                             ),
                           ),
                         ),
                         Icon(
                           Icons.location_on_outlined,
-                          color: Color(0xff686464),
-                          size: 18,
+                          color: ColorManager.granitegray,
+                          size: AppSize.s18,
                         ),
                       ],
                     ),
@@ -827,15 +828,15 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('County',
+                        Text(AppString.country,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             color: ColorManager.mediumgrey,
                             //decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: AppSize.s5),
                         widget.child!
                       ],
                     ),
@@ -848,8 +849,10 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: 25,width: 25,
-                    child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                    height: AppSize.s25,
+                    width: AppSize.s25,
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,))
                     : Center(
                   child: CustomElevatedButton(
                     width: AppSize.s105,
