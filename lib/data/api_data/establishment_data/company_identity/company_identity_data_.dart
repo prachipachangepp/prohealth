@@ -45,9 +45,9 @@ class CompanyIdentityModel {
   final bool sucess;
   final String message;
   final String officeId;
-  CompanyIdentityModel({
-    required this.companyOfficeId,
+  CompanyIdentityModel( {
     required this.officeId,
+    required this.companyOfficeId,
     this.name,
     required this.address,
     required this.officeName,

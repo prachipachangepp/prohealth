@@ -563,7 +563,7 @@ class _generalFormState extends State<generalForm> {
                             DateTime? pickedDate = await showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
-                              firstDate: DateTime(2000),
+                              firstDate: DateTime(1901),
                               lastDate: DateTime(2101),
                             );
                             if (pickedDate != null) {
@@ -1073,10 +1073,12 @@ class _generalFormState extends State<generalForm> {
                   ),
                   borderRadius: 12,
                   onPressed: () async {
+                    final companyId = await TokenManager.getCompanyId();
+                    final userId = await TokenManager.getUserID();
                     await postgeneralscreendata(
                         context,
                         'G023',
-                        35, //widget.userId,
+                        userId, //widget.userId,
                         firstname.text,
                         lastname.text,
                         1,
@@ -1105,7 +1107,7 @@ class _generalFormState extends State<generalForm> {
                         'Service',
                         'imgurl',
                         'resumeurl',
-                        5,
+                        companyId,
                         'Onboarding',
                         driverlicensenumb.text,
                         '2024-01-01',
@@ -1141,7 +1143,6 @@ class _generalFormState extends State<generalForm> {
                         try  {
                           await uploadphoto(
                               context: context,
-
                               employeeid: widget.employeeID,
                               documentFile: finalPath,
                               documentName: fileName,

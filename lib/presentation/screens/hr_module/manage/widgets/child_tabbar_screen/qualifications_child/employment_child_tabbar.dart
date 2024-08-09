@@ -45,6 +45,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
   @override
   void initState() {
     // TODO: implement initState
+    print("Employee id in EmployeeMent screen :: ${widget.employeeId}");
     super.initState();
   }
   @override

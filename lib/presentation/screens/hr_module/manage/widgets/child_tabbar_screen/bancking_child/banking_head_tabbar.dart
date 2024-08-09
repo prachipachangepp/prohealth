@@ -80,7 +80,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                         width: MediaQuery.of(context).size.width/2.3,
                         child: Row(
                           children: [
-                            Checkbox(
+                            snapshot.data![index].approve == true ?  Checkbox(
                               activeColor: ColorManager.blueprime,
                               hoverColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -92,7 +92,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                  // approveBankPatch(context,snapshot.data![index].empBankingId);
                                 });
                               },
-                            ),
+                            ) : Offstage(),
                             const SizedBox(width: 8),
                              BankingContainerConst(
                                bankId: snapshot.data![index].empBankingId,
