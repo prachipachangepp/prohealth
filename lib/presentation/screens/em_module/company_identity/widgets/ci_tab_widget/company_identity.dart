@@ -324,24 +324,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                               ),
                                             ),
                                             Expanded(
-                                                flex: 2, child: Container()),
-                                            CustomButtonTransparentSM(
-                                              text: 'Manage',
-                                              onPressed: () {
-                                                print(snapshot
-                                                    .data![index].officeId);
-                                                print("Is office id");
-                                                showManageScreenFunction(
-                                                  officeId: snapshot
-                                                      .data![index].officeId,
-                                                  officeName: snapshot
-                                                      .data![index].officeName,
-                                                  compId: snapshot
-                                                      .data![index].companyId,
-                                                  companyOfficeId: snapshot.data![index].companyOfficeId,
-                                                );
-                                              },
-                                              child: Center(
+                                              child:
+                                              Center(
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
@@ -358,6 +342,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                               .data![index].officeName,
                                                           compId: snapshot
                                                               .data![index].companyId,
+                                                          companyOfficeId: snapshot.data![index].companyOfficeId,
                                                         );
                                                       },
                                                     ),
