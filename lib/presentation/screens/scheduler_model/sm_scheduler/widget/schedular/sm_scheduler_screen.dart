@@ -173,7 +173,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   height: 37.0,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => IntakeProfileBar()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SmProfileBar()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: ColorManager.blueprime,
