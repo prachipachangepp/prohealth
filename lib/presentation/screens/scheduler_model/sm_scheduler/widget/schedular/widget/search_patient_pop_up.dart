@@ -641,8 +641,6 @@
 // }
 
 
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -745,7 +743,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
         child: Column(
           children: [
             Container(
-              width: 1280,
+              width: MediaQuery.of(context).size.width,
               height: 300,
               child: Column(
                 children: [
@@ -957,7 +955,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['srNo']!,
-                                      style: TextStyle(
+                                      style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s10,
                                         fontWeight: FontWeightManager.medium,
                                         color: ColorManager.darkgray,
@@ -974,7 +972,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['type']!,
-                                      style: TextStyle(
+                                      style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s10,
                                         fontWeight: FontWeightManager.medium,
                                         color: ColorManager.darkgray,
@@ -991,7 +989,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['name']!,
-                                      style: TextStyle(
+                                      style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s10,
                                         fontWeight: FontWeightManager.medium,
                                         color: ColorManager.darkgray,
@@ -1008,7 +1006,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['location']!,
-                                      style: TextStyle(
+                                      style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s10,
                                         fontWeight: FontWeightManager.medium,
                                         color: ColorManager.darkgray,
@@ -1025,7 +1023,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['case']!,
-                                      style: TextStyle(
+                                      style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s10,
                                         fontWeight: FontWeightManager.medium,
                                         color: ColorManager.darkgray,
@@ -1042,7 +1040,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       patient['status']!,
-                                      style: TextStyle(
+                                      style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s10,
                                         fontWeight: FontWeightManager.medium,
                                         color: statusColor,
