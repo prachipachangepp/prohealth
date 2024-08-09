@@ -404,13 +404,6 @@ class _SmProfileBarState extends State<SmProfileBar> {
 
 
 
-
-
-
-
-
-
-
 class SummaryRowConst extends StatelessWidget {
   final String title;
   final String count1;
