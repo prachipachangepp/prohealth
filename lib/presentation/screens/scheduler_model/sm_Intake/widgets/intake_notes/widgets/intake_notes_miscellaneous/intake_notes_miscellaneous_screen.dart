@@ -1,26 +1,24 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-import 'package:prohealth/app/app.dart';
-import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_compliance/widget/compliance_add_popup.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/widgets/intake_notes_miscellaneous/widget/miscellaneous_add_pop_up.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/widgets/intake_notes_miscellaneous/widget/miscellaneous_edit_pop_up.dart';
 
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../widgets/constant_widgets/button_constant.dart';
 
-class IntakePComplianceScreen extends StatefulWidget {
-  const IntakePComplianceScreen({super.key});
+
+class IntakeNotesMiscellaneousScreen extends StatefulWidget {
+  const IntakeNotesMiscellaneousScreen({super.key});
 
   @override
-  State<IntakePComplianceScreen> createState() => _IntakePComplianceScreenState();
+  State<IntakeNotesMiscellaneousScreen> createState() => _IntakeNotesMiscellaneousScreenState();
 }
 
-class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
+class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneousScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -36,23 +34,23 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                   Text('Status: Not Completed',
                     style: GoogleFonts.firaSans(
                         decoration: TextDecoration.none,
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.burnt_red
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xffDE0909)
                     ),
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width/60),
                   Container(
-                    height: AppSize.s32,
-                    width: AppSize.s105,
+                    height: 32,
+                    width: 105,
                     child: SchedularIconButtonConst(
-                        text: AppString.add_new,
+                        text: 'Add New',
                         icon: Icons.add,
                         onPressed: (){
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return ComplianceAddPopUp();
+                              return MiscellaneousAddPopUp();
                             },
                           );
 
@@ -67,7 +65,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: ColorManager.white,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
@@ -93,10 +91,10 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                               child: Column(
                                 children: [
                                   Container(
-                                    height: AppSize.s65,
+                                    height: 65,
                                     // width: 1109, //1109
                                     decoration: BoxDecoration(
-                                      color: ColorManager.white,
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.circular(8.0),
                                       boxShadow: [
                                         BoxShadow(
@@ -117,12 +115,9 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                               padding: const EdgeInsets.only(left: 10.0),
                                               child: Container(
                                                 color: Color(0xff50B5E5),
-                                                height: AppSize.s45,
-                                                width: AppSize.s62,
-                                                child: Icon(
-                                                  Icons.remove_red_eye_outlined,
-                                                  color: ColorManager.white,
-                                                  size: AppSize.s24,),
+                                                height: 45,
+                                                width: 62,
+                                                child: Icon(Icons.remove_red_eye_outlined, color: Colors.white, size: 24,),
                                               ),
                                             ),
 
@@ -136,9 +131,9 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                     'ID: 248d1eb1-9020-4d8d-8168-43a3ef90a261',
                                                     style: GoogleFonts.firaSans(
                                                         decoration: TextDecoration.none,
-                                                        fontSize: FontSize.s10,
-                                                        fontWeight: FontWeightManager.medium,
-                                                        color: ColorManager.textPrimaryColor
+                                                        fontSize: 10.0,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xff686464)
                                                     ),
                                                   ),
                                                   SizedBox(height: 3.5),
@@ -146,9 +141,9 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                     'Compliance 1',
                                                     style: GoogleFonts.firaSans(
                                                         decoration: TextDecoration.none,
-                                                        fontSize: AppSize.s12,
-                                                        fontWeight: FontWeightManager.bold,
-                                                        color: ColorManager.textPrimaryColor
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: Color(0xff686464)
                                                     ),
                                                   ),
 
@@ -157,9 +152,9 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                     'Expiry 10 months',
                                                     style: GoogleFonts.firaSans(
                                                         decoration: TextDecoration.none,
-                                                        fontSize: FontSize.s10,
-                                                        fontWeight: FontWeightManager.lightbold,
-                                                        color: ColorManager.textPrimaryColor
+                                                        fontSize: 10.0,
+                                                        fontWeight: FontWeight.w300,
+                                                        color: Color(0xff686464)
                                                     ),
                                                   )
                                                 ],
@@ -176,7 +171,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                               IconButton(
                                                 icon: Icon(
                                                   Icons.history,
-                                                    color: ColorManager.textPrimaryColor
+                                                  color: Color(0xff686464),
                                                 ),
                                                 onPressed: () {
 
@@ -187,7 +182,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                               IconButton(
                                                 icon: Icon(
                                                   Icons.print_outlined,
-                                                    color: ColorManager.textPrimaryColor
+                                                  color: Color(0xff686464),
                                                 ),
                                                 onPressed: () async {
                                                   final pdf = pw.Document();
@@ -210,7 +205,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                               IconButton(
                                                 icon: Icon(
                                                   Icons.file_download_outlined,
-                                                    color: ColorManager.textPrimaryColor
+                                                  color: Color(0xff686464),
                                                 ),
                                                 onPressed: () {
 
@@ -221,11 +216,44 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                               IconButton(
                                                 icon: Icon(
                                                   Icons.delete_outline,
-                                                    color: ColorManager.textPrimaryColor
+                                                  color: Color(0xff686464),
                                                 ),
                                                 onPressed: () {
 
                                                 },
+                                              ),
+                                              SizedBox(width: MediaQuery.of(context).size.width/100),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return MiscellaneousEditPopUp();
+                                                    },
+                                                  );
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    Icon(Icons.mode_edit_outlined, color: ColorManager.white),
+                                                    SizedBox(width: MediaQuery.of(context).size.width/160),
+                                                    Text(
+                                                      'Edit',
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorManager.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                                                  backgroundColor: ColorManager.blueprime,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    // side: BorderSide(color: Color(0xFFF6928A)),
+                                                  ),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -252,7 +280,3 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
     );
   }
 }
-
-
-
-

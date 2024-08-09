@@ -2,7 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/search_clinician_pop_up.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular/widget/search_patient_pop_up.dart';
+
+import '../../../sm_Intake/widgets/intake_profile_bar.dart';
+import '../schedular_create/appointment_screen.dart';
 
 class SMSchedulerScreen extends StatefulWidget {
   const SMSchedulerScreen({super.key});
@@ -16,7 +24,6 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        // scrollDirection: Axis.horizontal,
         child: Column(
           children: [
             Row(
@@ -26,20 +33,25 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   'Create New Schedule',
                   style: GoogleFonts.firaSans(
                     decoration: TextDecoration.none,
-                    fontWeight: FontWeight.w700,
-                    fontSize: AppSize.s14,
-                    color: Color(0xff686464),
+                    fontWeight: FontWeightManager.bold,
+                    fontSize: FontSize.s14,
+                    color: ColorManager.textPrimaryColor,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: AppSize.s20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
                   onTap: (){
-
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SearchPatientPopUp();
+                      },
+                    );
                   },
                   child: Container(
                     height: 152.0,
@@ -60,7 +72,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                           height: 75.0,
                           width: 80.0,
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: AppSize.s20),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -68,9 +80,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                               'Select Patient',
                               style: GoogleFonts.firaSans(
                                 decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w700,
-                                fontSize: AppSize.s14,
-                                color: Colors.black,
+                                fontWeight: FontWeightManager.bold,
+                                fontSize: FontSize.s14,
+                                color: ColorManager.black,
                               ),
                             ),
                           ],
@@ -79,10 +91,15 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: AppSize.s20),
                 GestureDetector(
                   onTap: (){
-
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SearchClinicianPopUp();
+                      },
+                    );
                   },
                   child: Container(
                     height: 152.0,
@@ -111,9 +128,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                               'Select Clinician',
                               style: GoogleFonts.firaSans(
                                 decoration: TextDecoration.none,
-                                fontWeight: FontWeight.w700,
-                                fontSize: AppSize.s14,
-                                color: Colors.black,
+                                fontWeight: FontWeightManager.bold,
+                                fontSize: FontSize.s14,
+                                color: ColorManager.black,
                               ),
                             ),
                           ],
@@ -124,7 +141,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 30),
+            SizedBox(height:AppSize.s30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -132,50 +149,52 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   width: 162.0,
                   height: 37.0,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: ColorManager.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
-                    child: Text(
-                      'Cancel',
+                    child: Text(AppString.cancel,
                       style: TextStyle(
-                        fontSize: AppSize.s14,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff686464),
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.textPrimaryColor,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: AppSize.s20),
                 SizedBox(
                   width: 162.0,
                   height: 37.0,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SmProfileBar()));
+                    },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff51B5E6),
-                      shadowColor: Color(0xff000000),
+                      backgroundColor: ColorManager.blueprime,
+                      shadowColor: ColorManager.black,
                       elevation: 5.0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
-                    child: Text(
-                      'Create',
+                    child: Text(AppString.create,
                       style: TextStyle(
-                        fontSize: AppSize.s14,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.white,
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 40),
+            SizedBox(height: AppSize.s40),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -184,7 +203,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   width: MediaQuery.of(context).size.width / 3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: Colors.white,
+                    color: ColorManager.white,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.25),
@@ -197,9 +216,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                   child: Column(
                     children: [
                       Container(
-                        height: 37,
+                        height: AppSize.s37,
                         decoration: BoxDecoration(
-                          color: Color(0xff50B5E5),
+                          color: ColorManager.blueprime,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20.0),
                             topRight: Radius.circular(20.0),
@@ -216,9 +235,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                     'Scheduled Patients',
                                     style: GoogleFonts.firaSans(
                                       decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: AppSize.s14,
-                                      color: Colors.white,
+                                      fontWeight: FontWeightManager.bold,
+                                      fontSize: FontSize.s14,
+                                      color: ColorManager.white,
                                     ),
                                   ),
                                 ),
@@ -228,9 +247,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                     'This Month',
                                     style: GoogleFonts.firaSans(
                                       decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: AppSize.s14,
-                                      color: Colors.white,
+                                      fontWeight: FontWeightManager.bold,
+                                      fontSize: FontSize.s14,
+                                      color: ColorManager.white,
                                     ),
                                   ),
                                 ),
@@ -240,7 +259,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: AppSize.s20),
                       Padding(
                         padding: const EdgeInsets.only(left: 20.0),
                         child: Column(
@@ -251,33 +270,33 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 CircleAvatar(
                                   child: Image.asset('images/1.png'),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: AppSize.s10),
                                 Text(
                                   'Robert Langdon',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 Spacer(),
                                 Text('John Scott',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width/120,),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 30.0),
                                   child: Container(
-                                    height: 24.0,
-                                    width: 26.0,
+                                    height: AppSize.s24,
+                                    width: AppSize.s26,
                                     decoration: BoxDecoration(
-                                      color: Color(0xffFEBD4D),
+                                      color: ColorManager.tangerine,
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black.withOpacity(0.25),
@@ -292,9 +311,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                       child: Text('PT',
                                         style: GoogleFonts.firaSans(
                                           decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeightManager.medium,
                                           fontSize: MediaQuery.of(context).size.width * 0.008,
-                                          color: Colors.white,
+                                          color: ColorManager.white,
                                         ),
                                       ),
                                     ),
@@ -302,20 +321,20 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 )
                               ],
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height: AppSize.s15),
                             Row(
                               children: [
                                 CircleAvatar(
                                   child: Image.asset('images/2.png'),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: AppSize.s10),
                                 Text(
                                   'James Smith',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 Spacer(),
@@ -324,7 +343,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.w500,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width/120,),
@@ -334,7 +353,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                     height: 24.0,
                                     width: 26.0,
                                     decoration: BoxDecoration(
-                                      color: Color(0xffFEBD4D),
+                                      color: ColorManager.tangerine,
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black.withOpacity(0.25),
@@ -349,9 +368,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                       child: Text('PT',
                                         style: GoogleFonts.firaSans(
                                           decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeightManager.medium,
                                           fontSize: MediaQuery.of(context).size.width * 0.008,
-                                          color: Colors.white,
+                                          color: ColorManager.white,
                                         ),
                                       ),
                                     ),
@@ -359,7 +378,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 )
                               ],
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height: AppSize.s15),
                             Row(
                               children: [
                                 CircleAvatar(
@@ -370,18 +389,18 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                   'Mary Irish',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 Spacer(),
                                 Text('John Scott',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                                 SizedBox(width: MediaQuery.of(context).size.width/120,),
@@ -391,7 +410,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                     height: 24.0,
                                     width: 26.0,
                                     decoration: BoxDecoration(
-                                      color: Color(0xffFEBD4D),
+                                      color: ColorManager.tangerine,
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black.withOpacity(0.25),
@@ -406,9 +425,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                       child: Text('PT',
                                         style: GoogleFonts.firaSans(
                                           decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeightManager.medium,
                                           fontSize: MediaQuery.of(context).size.width * 0.008,
-                                          color: Colors.white,
+                                          color: ColorManager.white,
                                         ),
                                       ),
                                     ),
@@ -422,13 +441,13 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                     ],
                   ),
                 ),
-                SizedBox(width: 30),
+                SizedBox(width: AppSize.s30),
                 Container(
                   height: 227.0,
                   width: MediaQuery.of(context).size.width / 3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: Colors.white,
+                    color: ColorManager.white,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.25),
@@ -442,9 +461,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
-                        height: 37,
+                        height: AppSize.s37,
                         decoration: BoxDecoration(
-                          color: Color(0xff50B5E5),
+                          color: ColorManager.blueprime,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20.0),
                             topRight: Radius.circular(20.0),
@@ -458,18 +477,18 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 'Un-Scheduled Patients',
                                 style: GoogleFonts.firaSans(
                                   decoration: TextDecoration.none,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: AppSize.s14,
-                                  color: Colors.white,
+                                  fontWeight: FontWeightManager.bold,
+                                  fontSize: FontSize.s14,
+                                  color: ColorManager.white,
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height:  AppSize.s20),
                       Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
+                        padding:  EdgeInsets.only(left: 20.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -478,50 +497,50 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                 CircleAvatar(
                                   child: Image.asset('images/5.png'),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width:  AppSize.s10),
                                 Text(
                                   'James Smith',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height:  AppSize.s15),
                             Row(
                               children: [
                                 CircleAvatar(
                                   child: Image.asset('images/6.png'),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width:  AppSize.s10),
                                 Text(
                                   'Michael Jackson',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                      color: ColorManager.darkblue,
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height: AppSize.s15),
                             Row(
                               children: [
                                 CircleAvatar(
                                   child: Image.asset('images/1.png'),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: AppSize.s10),
                                 Text(
                                   'Ross Geller',
                                   style: GoogleFonts.firaSans(
                                     decoration: TextDecoration.none,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeightManager.medium,
                                     fontSize: MediaQuery.of(context).size.width * 0.008,
-                                    color: Color(0xff271E4A),
+                                    color: ColorManager.darkblue,
                                   ),
                                 ),
                               ],
@@ -529,12 +548,9 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                           ],
                         ),
                       )
-
                     ],
                   ),
-
                 ),
-
               ],
             ),
           ],

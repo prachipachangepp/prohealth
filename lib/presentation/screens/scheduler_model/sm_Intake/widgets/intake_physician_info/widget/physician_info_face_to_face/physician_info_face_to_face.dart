@@ -2,10 +2,13 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
+
+import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 
 class PhysicianFaceToFace extends StatefulWidget {
   const PhysicianFaceToFace({super.key});
@@ -19,8 +22,23 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
   String? statusA = '';
   String? statusB = '';
 
-  TextEditingController _dateController = TextEditingController();
+  // TextEditingController _dateController = TextEditingController();
 
+
+  final TextEditingController _dateController = TextEditingController();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (selectedDate != null) {
+      _dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -177,18 +195,61 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                   SizedBox(height: MediaQuery.of(context).size.height/15),
                   Padding(
                     padding: const EdgeInsets.only(left: AppPadding.p24),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 267,
-                          child: SchedularTextField(
-                              labelText: 'Date of face-to face encounter',
-                              isDate: true,
-                          ),
-                        ),
-                      ],
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        width: 267,
+                        child: SchedularTextField(
+                            labelText: 'Date of face-to face encounter',
+                            isDate: true),
+                      ),
                     ),
+
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   children: [
+                    //     Container(
+                    //       height: 30,
+                    //       width: 267,
+                    //       child: TextFormField(
+                    //         controller: _dateController,
+                    //         decoration: InputDecoration(
+                    //           labelText: 'Date of face-to face encounter',
+                    //           labelStyle: GoogleFonts.firaSans(
+                    //             fontSize: FontSize.s10,
+                    //             fontWeight: FontWeightManager.regular,
+                    //             color: ColorManager.lightgreyheading
+                    //           ),
+                    //           suffixIcon: IconButton(
+                    //             icon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                    //             onPressed: () => _selectDate(context),
+                    //           ),
+                    //           border: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(8.0),
+                    //             borderSide: BorderSide(
+                    //               color: ColorManager.containerBorderGrey,
+                    //               width: 1.0,
+                    //             ),
+                    //           ),
+                    //           enabledBorder: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(8.0),
+                    //             borderSide: BorderSide(
+                    //               color: ColorManager.containerBorderGrey,
+                    //               width: 1.0,
+                    //             ),
+                    //           ),
+                    //           focusedBorder: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(8.0),
+                    //             borderSide: BorderSide(
+                    //               color: ColorManager.containerBorderGrey,
+                    //               width: 1.0,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ),
 
 

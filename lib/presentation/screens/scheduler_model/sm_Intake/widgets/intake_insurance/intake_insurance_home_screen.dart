@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_agency_info/intake_agency_info_screen.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_agency_info/intake_referral_submit_popup.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_referral_info/intake_referal_info_screen.dart';
-
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_secondary/intake_insurance_secondary_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/widgets/intake_medication_profile/intake_medication_profile_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_medications/widgets/intake_pharmacy_vendor/intake_pharmacy_vendor_screen.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
-class SMIntakeReferralScreen extends StatefulWidget {
-  const SMIntakeReferralScreen({super.key});
+class SMIntakeInsuranceScreen extends StatefulWidget {
+  const SMIntakeInsuranceScreen({super.key});
 
   @override
-  State<SMIntakeReferralScreen> createState() => _SMIntakeReferralScreenState();
+  State<SMIntakeInsuranceScreen> createState() => _SMIntakeInsuranceScreenState();
 }
 
-class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
+class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
   int selectedIndex = 0;
   final PageController smIntakePageController = PageController();
 
@@ -44,7 +44,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width/5,
+                width: MediaQuery.of(context).size.width/5, //4.8
                 height: 30,
                 decoration: BoxDecoration(
                     boxShadow: [
@@ -73,7 +73,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                               : null,
                         ),
                         child: Text(
-                          'Referral Info',
+                          'Primary',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
@@ -98,7 +98,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                               : null,
                         ),
                         child: Text(
-                          'Agency Info',
+                          'Secondary',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
@@ -111,6 +111,56 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                       ),
                       onTap: () => selectButton(1),
                     ),
+                    // InkWell(
+                    //   child: Container(
+                    //     height: 30,
+                    //     width: MediaQuery.of(context).size.width / 10,
+                    //     padding: EdgeInsets.symmetric(vertical: 6),
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(20),
+                    //       color: selectedIndex == 2
+                    //           ? Colors.white
+                    //           : null,
+                    //     ),
+                    //     child: Text(
+                    //       'Physician Orders',
+                    //       textAlign: TextAlign.center,
+                    //       style: GoogleFonts.firaSans(
+                    //         fontSize: 12,
+                    //         fontWeight: FontWeightManager.semiBold,
+                    //         color: selectedIndex == 2
+                    //             ? ColorManager.mediumgrey
+                    //             : Colors.white,
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   onTap: () => selectButton(2),
+                    // ),
+                    // InkWell(
+                    //   child: Container(
+                    //     height: 30,
+                    //     width: MediaQuery.of(context).size.width / 9.5,
+                    //     padding: EdgeInsets.symmetric(vertical: 6),
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(20),
+                    //       color: selectedIndex == 3
+                    //           ? Colors.white
+                    //           : null,
+                    //     ),
+                    //     child: Text(
+                    //       'Face To Face',
+                    //       textAlign: TextAlign.center,
+                    //       style: GoogleFonts.firaSans(
+                    //         fontSize: 12,
+                    //         fontWeight: FontWeightManager.semiBold,
+                    //         color: selectedIndex == 3
+                    //             ? ColorManager.mediumgrey
+                    //             : Colors.white,
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   onTap: () => selectButton(3),
+                    // ),
                   ],
                 ),
               ),
@@ -125,7 +175,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return ReferralSubmitPopup();
+                          return SchedularSuccessPopup(title: 'Success',);
                         },
                       );
                     },
@@ -165,8 +215,8 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                   controller: smIntakePageController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    IntakeReferralInfoScreen(),
-                    IntakeAgencyInfoScreen(),
+                    IntakeInsurancePrimaryScreen(),
+                    IntakeInsuranceSecondaryScreen(),
                   ]),
             ),
           ),

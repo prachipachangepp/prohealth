@@ -300,3 +300,5 @@ class InfoTextWidget extends StatelessWidget {
     );
   }
 }
+
+
