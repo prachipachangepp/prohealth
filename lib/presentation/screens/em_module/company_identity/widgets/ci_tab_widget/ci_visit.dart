@@ -109,7 +109,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       min(currentPage * itemsPerPage, items.length),
     );
     final RegisterController _controller = Get.put(RegisterController());
-    return Column(children: [
+    return Column(
+        children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -352,7 +353,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             print('1111111');
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 150),
+                padding: const EdgeInsets.symmetric(vertical: 50),
                 child: Center(
                   child: CircularProgressIndicator(
                     color: ColorManager.blueprime,
@@ -362,7 +363,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             }
             if (snapshot.data!.isEmpty) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 150),
+                padding: const EdgeInsets.symmetric(vertical: 50),
                 child: Center(
                   child: Text(
                     AppString.dataNotFound,

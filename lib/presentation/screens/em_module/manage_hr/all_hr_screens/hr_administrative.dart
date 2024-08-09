@@ -16,6 +16,7 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
@@ -509,31 +510,31 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
         SizedBox(
           height: AppSize.s10,
         ),
-        // PaginationControlsWidget(
-        //   currentPage: currentPage,
-        //   items: items,
-        //   itemsPerPage: itemsPerPage,
-        //   onPreviousPagePressed: () {
-        //     /// Handle previous page button press
-        //     setState(() {
-        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-        //     });
-        //   },
-        //   onPageNumberPressed: (pageNumber) {
-        //     /// Handle page number tap
-        //     setState(() {
-        //       currentPage = pageNumber;
-        //     });
-        //   },
-        //   onNextPagePressed: () {
-        //     /// Handle next page button press
-        //     setState(() {
-        //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
-        //           ? currentPage + 1
-        //           : (items.length / itemsPerPage).ceil();
-        //     });
-        //   },
-        // ),
+        PaginationControlsWidget(
+          currentPage: currentPage,
+          items: items,
+          itemsPerPage: itemsPerPage,
+          onPreviousPagePressed: () {
+            /// Handle previous page button press
+            setState(() {
+              currentPage = currentPage > 1 ? currentPage - 1 : 1;
+            });
+          },
+          onPageNumberPressed: (pageNumber) {
+            /// Handle page number tap
+            setState(() {
+              currentPage = pageNumber;
+            });
+          },
+          onNextPagePressed: () {
+            /// Handle next page button press
+            setState(() {
+              currentPage = currentPage < (items.length / itemsPerPage).ceil()
+                  ? currentPage + 1
+                  : (items.length / itemsPerPage).ceil();
+            });
+          },
+        ),
       ],
     );
   }
