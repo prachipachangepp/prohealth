@@ -8,6 +8,7 @@ import 'dart:html' as html;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_banking_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
@@ -51,6 +52,38 @@ class _BankingScreenState extends State<BankingScreen> {
     });
   }
 
+  Future<void> perfFormBanckingData({
+    required BuildContext context,
+    required int employeeId,
+    required String accountNumber,
+    required String bankName,
+    required int amountRequested,
+    required String checkUrl,
+    required String routingNumber,
+    required String type,
+    required String requestedPercentage,
+    //required String documentType,
+    //required String employeeId,
+    required dynamic documentFile,
+    required String documentName,
+  }) async {
+    ApiDataRegister result = await postbankingscreen(context,employeeId,accountNumber,bankName,
+        amountRequested,checkUrl,routingNumber,type,requestedPercentage);
+
+    // setState(() {
+    //   _isLoading = false;
+    // });
+    print('BanckingId :: ${result.banckingId!}');
+    await uploadcheck(context: context, employeeid: employeeId,
+        empBankingId: result.banckingId!, documentFile: documentFile, documentName: documentName);
+
+    if (result.success) {
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${result.message}')),
+      );
+    }
+  }
   Future<void> postbankingscreendata(
       BuildContext context,
       int employeeId,
@@ -152,16 +185,16 @@ class _BankingScreenState extends State<BankingScreen> {
               onPressed: () async {
                 for (var key in bankingFormKeys) {
                   final st = key.currentState!;
-                  await postbankingscreen(
-                    context,
-                    st.widget.employeeID,
-                    st.accountnumber.text,
-                    st.bankname.text,
-                    int.parse(st.requestammount.text),
-                    "checkUrl",
-                    st.routingnumber.text,
-                    st.selectedtype.toString(),
-                    "requestedPercentage",
+                  await perfFormBanckingData(
+                    context: context,
+                    employeeId: st.widget.employeeID,
+                    accountNumber:st.accountnumber.text,
+                    bankName:st.bankname.text,
+                    amountRequested:int.parse(st.requestammount.text),
+                    checkUrl:"",
+                    routingNumber:st.routingnumber.text,
+                    type:st.selectedtype.toString(),
+                    requestedPercentage:"", documentFile: st.finalPath, documentName: st.fileName,
                   );
 
                   if (st.finalPath == null || st.finalPath.isEmpty) {
@@ -173,15 +206,6 @@ class _BankingScreenState extends State<BankingScreen> {
                     );
                   } else {
                     try {
-                      await uploadDocuments(
-                        context: context,
-                        employeeDocumentMetaId: 10,
-                        employeeDocumentTypeSetupId: 48,
-                        employeeId: widget.employeeID,
-                        documentFile: st.finalPath,
-                        documentName: 'education data',
-                      );
-
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Document uploaded successfully!'),
@@ -252,7 +276,7 @@ class _BankingFormState extends State<BankingForm> {
 
     if (result != null) {
       setState(() {
-        _fileNames.addAll(result.files.map((file) => file.name!));
+        _fileNames.addAll(result.files.map((file) => file.name));
         _loading = false; // Hide loader
       });
       print('Files picked: $_fileNames');
@@ -276,7 +300,7 @@ class _BankingFormState extends State<BankingForm> {
   bool _documentUploaded = true;
   var fileName;
   var fileName1;
-  dynamic? filePath;
+  dynamic filePath;
   File? xfileToFile;
   var finalPath;
 
@@ -523,8 +547,9 @@ class _BankingFormState extends State<BankingForm> {
                       Uint8List? bytes = result.files.first.bytes;
                       XFile xFile = await convertBytesToXFile(bytes!, result.files.first.name);
                       finalPath = result.files.first.bytes;
+                      fileName = result.files.first.name;
                       setState(() {
-                        _fileNames.addAll(result.files.map((file) => file.name!));
+                        _fileNames.addAll(result.files.map((file) => file.name));
                         _loading = false;
                       });
                     } catch (e) {

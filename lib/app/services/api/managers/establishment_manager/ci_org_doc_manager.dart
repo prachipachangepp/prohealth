@@ -111,7 +111,7 @@ Future<ApiData> updateCorporateDocumentPost({
   required String officeId,
 }) async {
   try {
-    final companyId = TokenManager.getCompanyId();
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.updateCorporateDocumentPost(
             docID: docId),

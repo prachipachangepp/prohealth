@@ -271,3 +271,58 @@ Future<ApiData> uploadphoto({
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+
+
+
+/// linceses uploaded
+///
+
+Future<ApiData> uploadlinceses({
+  required BuildContext context,
+
+
+  required int employeeid,
+  required int licensedId,
+  required dynamic documentFile,
+  required String documentName
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path:ManageReposotory.uploadlinceses(licensedId:licensedId),
+      data: {
+        'base64':documents
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(" license uploded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///////
+////////
+//////
+///upload check
+
+
+
+

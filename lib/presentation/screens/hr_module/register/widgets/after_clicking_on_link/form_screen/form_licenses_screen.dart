@@ -12,7 +12,9 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import '../../../../../../../data/api_data/api_data.dart';
 import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
@@ -32,6 +34,43 @@ class LicensesScreen extends StatefulWidget {
 }
 
 class _LicensesScreenState extends State<LicensesScreen> {
+
+  Future<void> perfFormLinsence({
+    required BuildContext context,
+    required String country,
+    required int employeeId,
+    required String licenseUrl,
+    required String licensure,
+    required String licenseNumber,
+    required String org,
+    required String documentType,
+    //required String documentType,
+    //required String employeeId,
+    required dynamic documentFile,
+    required String documentName,
+  }) async {
+    ApiDataRegister result = await postlicensesscreen(context, country,
+        employeeId, licenseUrl, licensure, licenseNumber, org, documentType);
+    // setState(() {
+    //   _isLoading = false;
+    // });
+    print('LicenseId :: ${result.licenses!}');
+    await uploadlinceses(
+      context: context,
+      employeeid: employeeId,
+      documentFile: documentFile,
+      documentName: documentName,
+      licensedId: result.licenses!,
+    );
+
+    if (result.success) {
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${result.message}')),
+      );
+    }
+  }
+
   double textFieldWidth = 430;
   double textFieldHeight = 38;
 
@@ -238,50 +277,68 @@ class _LicensesScreenState extends State<LicensesScreen> {
               onPressed: () async {
                 for (var key in licensesFormKeys) {
                   final st = key.currentState!;
-                  await postlicensesscreen(
-                      context,
-                      selectedCountry.toString(),
-                      widget.employeeID,
-                      "__",
-                      st.licensure.text,
-                      st.licensurenumber.text,
-                      st.org.text,
-                      "__");
+                  await perfFormLinsence(
+                      context: context,
+                      licenseNumber: st.licensurenumber.text,
+                      country: selectedCountry.toString(),
+                      employeeId: widget.employeeID,
+                      licenseUrl: '',
+                      licensure: st.licensure.text,
+                      org: st.org.text,
+                      documentType: '',
+                      documentFile: st.finalPath,
+                      documentName: st.fileName);
+                  // await postlicensesscreen(
+                  //     context,
+                  //     selectedCountry.toString(),
+                  //     widget.employeeID,
+                  //     "__",
+                  //     st.licensure.text,
+                  //     st.licensurenumber.text,
+                  //     st.org.text,
+                  //     "__");
 
-                  if (st.finalPath == null || st.finalPath.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                            'No file selected. Please select a file to upload.'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  } else {
-                    try {
-                      await uploadDocuments(
-                        context: context,
-                        employeeDocumentMetaId: 10,
-                        employeeDocumentTypeSetupId: 48,
-                        employeeId: widget.employeeID,
-                        documentFile: st.finalPath,
-                        documentName: 'education data',
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Document uploaded successfully!'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Failed to upload document: $e'),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
-                  }
+                  // if (st.finalPath == null || st.finalPath.isEmpty) {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     SnackBar(
+                  //       content: Text(
+                  //           'No file selected. Please select a file to upload.'),
+                  //       backgroundColor: Colors.red,
+                  //     ),
+                  //   );
+                  // }
+                  // else {
+                  //   try {
+                  //     // uploadlinceses(
+                  //     //   context: context,
+                  //     //   employeeid: widget.employeeID,
+                  //     //   documentFile: st.finalPath,
+                  //     //   documentName: "fileName",
+                  //     // );
+                  //     // await uploadDocuments(
+                  //     //   context: context,
+                  //     //   employeeDocumentMetaId: 10,
+                  //     //   employeeDocumentTypeSetupId: 48,
+                  //     //   employeeId: widget.employeeID,
+                  //     //   documentFile: st.finalPath,
+                  //     //   documentName: 'education data',
+                  //     // );
+                  //
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //       SnackBar(
+                  //         content: Text('Document uploaded successfully!'),
+                  //         backgroundColor: Colors.green,
+                  //       ),
+                  //     );
+                  //   } catch (e) {
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //       SnackBar(
+                  //         content: Text('Failed to upload document: $e'),
+                  //         backgroundColor: Colors.red,
+                  //       ),
+                  //     );
+                  //   }
+                  // }
                 }
                 //licensure.clear();
               },
@@ -509,7 +566,7 @@ class _licensesFormState extends State<licensesForm> {
                               onChanged: (newValue) {
                                 for (var a in snapshot.data!) {
                                   if (a.name == newValue) {
-                                    selectedCountry =a.name!;
+                                    selectedCountry = a.name!;
                                     //country = a
                                     // int? docType = a.companyOfficeID;
                                   }
@@ -730,6 +787,7 @@ class _licensesFormState extends State<licensesForm> {
                       XFile xFile = await convertBytesToXFile(
                           bytes!, result.files.first.name);
                       finalPath = result.files.first.bytes;
+                      fileName = result.files.first.name;
                       setState(() {
                         _fileNames
                             .addAll(result.files.map((file) => file.name!));
