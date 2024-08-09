@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,22 +78,6 @@ class _EducationScreenState extends State<EducationScreen> {
     });
   }
 
-  Future<void> posteducationscreendata(
-    BuildContext context,
-    int employeeId,
-    String graduate,
-    String degree,
-    String major,
-    String city,
-    String college,
-    String phone,
-    String state,
-    String country,
-  ) async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Education data saved")),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +177,10 @@ class _EducationScreenState extends State<EducationScreen> {
                         st.collegeuniversity.text,
                         st.phone.text,
                         st.state.text,
-                        "county");
+                        "Country",
+                        "startDate"
+
+                    );
 
                     if (st.finalPath == null || st.finalPath.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -279,19 +268,26 @@ class _EducationFormState extends State<EducationForm> {
   String? graduatetype;
   String? selectedDegree;
 
-  Stream<List<AEClinicalDiscipline>> HrAddEmplyClinicalDisciplinApiAsStream(
-      BuildContext context, int id) async* {
-    // Replace with actual stream logic
-    try {
-      // Example of creating a stream from a future
-      List<AEClinicalDiscipline> data =
-          await HrAddEmplyClinicalDisciplinApi(context, id); // This is a future
-      yield data;
-    } catch (e) {
-      // Handle error
-      yield* Stream.error(e);
-    }
-  }
+
+  final StreamController<List<AEClinicalDiscipline>>Degreestream = StreamController<List<AEClinicalDiscipline>>();
+   void  initState(){
+     super.initState();
+     HrAddEmplyClinicalDisciplinApi(
+         context, 1).then((data){Degreestream.add(data);}).catchError((error){});
+   }
+  // Stream<List<AEClinicalDiscipline>> HrAddEmplyClinicalDisciplinApiAsStream(
+  //     BuildContext context, int id) async* {
+  //   // Replace with actual stream logic
+  //   try {
+  //     // Example of creating a stream from a future
+  //     List<AEClinicalDiscipline> data =
+  //         await HrAddEmplyClinicalDisciplinApi(context, id); // This is a future
+  //     yield data;
+  //   } catch (e) {
+  //     // Handle error
+  //     yield* Stream.error(e);
+  //   }
+  // }
 
   Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
     final blob = html.Blob([bytes]);
@@ -490,95 +486,96 @@ class _EducationFormState extends State<EducationForm> {
                     //   },
                     // ),
 
-                    StreamBuilder<List<AEClinicalDiscipline>>(
-                      stream: HrAddEmplyClinicalDisciplinApiAsStream(
-                          context, 1), // Change this to a stream method
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor: Colors.grey[100]!,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 7),
-                              child: Container(
-                                width: AppSize.s250,
-                                height: AppSize.s40,
-                                decoration: BoxDecoration(
-                                  color: ColorManager.faintGrey,
+                    Container(
+                      child: StreamBuilder<List<AEClinicalDiscipline>>(
+                        stream: Degreestream.stream, // Change this to a stream method
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 7),
+                                child: Container(
+                                  width: AppSize.s250,
+                                  height: AppSize.s40,
+                                  decoration: BoxDecoration(
+                                    color: ColorManager.faintGrey,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }
-
-                        if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Error: ${snapshot.error}'));
-                        }
-
-                        if (snapshot.hasData) {
-                          List<String> dropDownList = [];
-
-                          for (var i in snapshot.data!) {
-                            if (i.empType != null) {
-                              dropDownList.add(i.empType!);
-                            }
+                            );
                           }
 
-                          return SizedBox(
-                            height: 32,
-                            child: DropdownButtonFormField<String>(
-                              decoration: InputDecoration(
-                                hintStyle: GoogleFonts.firaSans(
+                          if (snapshot.hasError) {
+                            return Center(
+                                child: Text('Error: ${snapshot.error}'));
+                          }
+
+                          if (snapshot.hasData) {
+                            List<String> dropDownList = [];
+
+                            for (var i in snapshot.data!) {
+                              if (i.empType != null) {
+                                dropDownList.add(i.empType!);
+                              }
+                            }
+
+                            return SizedBox(
+                              height: 32,
+                              child: DropdownButtonFormField<String>(
+                                decoration: InputDecoration(
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xff9B9B9B),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey),
+                                  ),
+                                  contentPadding:
+                                      const EdgeInsets.symmetric(horizontal: 12),
+                                ),
+                                icon: Icon(Icons.arrow_drop_down,
+                                    color: Color(0xff9B9B9B)),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: GoogleFonts.firaSans(
                                   fontSize: 10.0,
                                   fontWeight: FontWeight.w400,
-                                  color: const Color(0xff9B9B9B),
+                                  color: const Color(0xff686464),
                                 ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                contentPadding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                              ),
-                              icon: Icon(Icons.arrow_drop_down,
-                                  color: Color(0xff9B9B9B)),
-                              iconSize: 24,
-                              elevation: 16,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff686464),
-                              ),
-                              onChanged: (newValue) {
-                                for (var a in snapshot.data!) {
-                                  if (a.empType == newValue) {
-                                    selectedDegree = a.empType!;
+                                onChanged: (newValue) {
+                                  for (var a in snapshot.data!) {
+                                    if (a.empType == newValue) {
+                                      selectedDegree = a.empType!;
+                                    }
                                   }
-                                }
-                              },
-                              items: dropDownList.map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      color: Color(0xff575757),
-                                      fontWeight: FontWeight.w400,
+                                },
+                                items: dropDownList.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                          );
-                        } else {
-                          return const Offstage();
-                        }
-                      },
+                                  );
+                                }).toList(),
+                              ),
+                            );
+                          } else {
+                            return const Offstage();
+                          }
+                        },
+                      ),
                     ),
 
                     // Container(

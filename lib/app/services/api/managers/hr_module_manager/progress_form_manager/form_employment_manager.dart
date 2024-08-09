@@ -15,6 +15,8 @@ Future<ApiDataRegister> postemploymentscreen(
     String supervisor,
     String supMobile,
     String title,
+    String dateOfJoining,
+    String endDate,
     String emgMobile,
     String country
     ) async {
@@ -29,8 +31,8 @@ Future<ApiDataRegister> postemploymentscreen(
         "supervisor": supervisor,
         "supMobile": supMobile,
         "title": title,
-        "dateOfJoining": "2024-07-19T05:04:43.386Z",
-        "endDate": "2024-07-19T05:04:43.386Z",
+        "dateOfJoining": "${dateOfJoining}T00:00:00Z", //"${dateOfBirth}T00:00:00Z"
+        "endDate": "${endDate}T00:00:00Z",
         "emgMobile": emgMobile,
         "country": country
       },

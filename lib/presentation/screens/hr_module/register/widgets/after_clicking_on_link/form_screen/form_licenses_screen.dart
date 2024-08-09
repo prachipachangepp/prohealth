@@ -38,6 +38,8 @@ class _LicensesScreenState extends State<LicensesScreen> {
     required BuildContext context,
     required String country,
     required int employeeId,
+    required String expDate,
+    required String issueDate,
     required String licenseUrl,
     required String licensure,
     required String licenseNumber,
@@ -49,7 +51,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
     required String documentName,
   }) async {
     ApiDataRegister result = await postlicensesscreen(context, country,
-        employeeId, licenseUrl, licensure, licenseNumber, org, documentType);
+        employeeId,expDate, issueDate,licenseUrl, licensure, licenseNumber, org, documentType);
     // setState(() {
     //   _isLoading = false;
     // });
@@ -280,6 +282,8 @@ class _LicensesScreenState extends State<LicensesScreen> {
                       licenseNumber: st.licensurenumber.text,
                       country: st.selectedCountry.toString(),
                       employeeId: widget.employeeID,
+                      expDate:"",
+                      issueDate:'',
                       licenseUrl: '',
                       licensure: st.licensure.text,
                       org: st.org.text,

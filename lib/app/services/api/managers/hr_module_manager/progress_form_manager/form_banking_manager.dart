@@ -15,6 +15,7 @@ Future<ApiDataRegister> postbankingscreen(
     String bankName,
     int amountRequested,
     String checkUrl,
+    String effectiveDate,
     String routingNumber,
     String type,
     String requestedPercentage
@@ -28,7 +29,7 @@ Future<ApiDataRegister> postbankingscreen(
         "bankName": bankName,
         "amountRequested": amountRequested,
         "checkUrl": checkUrl,
-        "effectiveDate": "2024-07-19T06:06:32.687Z",
+        "effectiveDate": "${effectiveDate}T00:00:00Z",  //"${dateOfBirth}T00:00:00Z"
         "routingNumber": routingNumber,
         "type": type,
         "requestedPercentage": requestedPercentage

@@ -17,6 +17,7 @@ Future<ApiDataRegister> posteducationscreen(
     String phone,
     String state,
     String country,
+    String startDate,
 
     ) async {
   try {
@@ -32,7 +33,7 @@ Future<ApiDataRegister> posteducationscreen(
         "phone": phone,
         "state": state,
         "country": country,
-        "startDate": "2024-07-19T05:39:30.593Z"
+        "startDate":  "${startDate}T00:00:00Z"
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

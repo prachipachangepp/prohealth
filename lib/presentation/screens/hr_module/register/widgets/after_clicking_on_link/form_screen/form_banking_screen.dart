@@ -65,6 +65,7 @@ class _BankingScreenState extends State<BankingScreen> {
     required String bankName,
     required int amountRequested,
     required String checkUrl,
+    required String effectiveDate,
     required String routingNumber,
     required String type,
     required String requestedPercentage,
@@ -80,6 +81,7 @@ class _BankingScreenState extends State<BankingScreen> {
         bankName,
         amountRequested,
         checkUrl,
+        effectiveDate,
         routingNumber,
         type,
         requestedPercentage);
@@ -212,6 +214,7 @@ class _BankingScreenState extends State<BankingScreen> {
                     bankName: st.bankname.text,
                     amountRequested: int.parse(st.requestammount.text),
                     checkUrl: "",
+                    effectiveDate: '',
                     routingNumber: st.routingnumber.text,
                     type: st.selectedtype.toString(),
                     requestedPercentage: "",
