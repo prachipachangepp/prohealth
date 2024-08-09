@@ -386,6 +386,9 @@ class _SmProfileBarState extends State<SmProfileBar> {
               ],
             ),
           ),
+
+
+
         ],
       ),
     );

@@ -78,6 +78,7 @@ dependencies:
   universal_io: any
   encrypt: any
   cached_network_image: any
+  table_calendar: ^3.1.2
 
 
 
