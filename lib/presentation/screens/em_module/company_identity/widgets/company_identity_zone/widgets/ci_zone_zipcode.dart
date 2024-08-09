@@ -408,7 +408,6 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     snapshot.data![index].zipcodeSetupId!,
                                                     zoinId == docZoneId ? zoinId : docZoneId,
                                                     countyPreId == countyId ? countyPreId : countyId,
-                                                    widget.companyID,
                                                     widget.officeId,
                                                    cityName ==  cityController.text ? cityName.toString() :cityController.text,
                                                    zipCode == zipcodeController.text ? zipCode.toString() : zipcodeController.text,

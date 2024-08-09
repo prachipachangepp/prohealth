@@ -605,7 +605,6 @@ Future<ApiData> updateZipCodeSetup(
   int zipCodeSetupId,
   int zoneId,
   int countyId,
-  int companyId,
   String officeId,
   String cityName,
   String zipCode,
@@ -614,6 +613,7 @@ Future<ApiData> updateZipCodeSetup(
   String landmark,
 ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: AllZoneRepository.updateZipCodeSetup(
             zipCodeSetupId: zipCodeSetupId),

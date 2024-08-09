@@ -74,13 +74,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
         128; // If perceived brightness is less than 128, color is considered dark
   }
 
-  void addChip(String chip, int chipId) {
-    // setState(() {
-
-    // chipsList = selectedChips;
-    // });
-  }
-
   void deleteChip(String chip, int chipId) {
     //setState(() {
     selectedChips.remove(chip);
@@ -289,7 +282,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
           children: [
             // Expanded(flex: 2, child: Container()),
             Padding(
-              padding: const EdgeInsets.only(left: 50),
+              padding: const EdgeInsets.only(left: 100),
               child: Text(
                 AppString.srNo,
                 textAlign: TextAlign.center,
@@ -305,7 +298,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 
             ///visit
             Padding(
-              padding: const EdgeInsets.only(left: 110),
+              padding: const EdgeInsets.only(left: 150),
               child: Text(
                 AppString.visit,
                 textAlign: TextAlign.center,
@@ -320,7 +313,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 
             ///EL clinician
             Padding(
-              padding: const EdgeInsets.only(right: 270),
+              padding: const EdgeInsets.only(right: 260),
               child: Text(
                 AppString.eligibleClinician,
                 textAlign: TextAlign.center,
@@ -333,7 +326,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 40.0),
+              padding: const EdgeInsets.only(right: 90.0),
               child: Text(
                 AppString.actions,
                 textAlign: TextAlign.center,
@@ -359,37 +352,42 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             builder: (context, snapshot) {
               print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 150),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
                   ),
                 );
               }
               if (snapshot.data!.isEmpty) {
-                return Center(
-                  child: Text(
-                    AppString.dataNotFound,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 150),
+                  child: Center(
+                    child: Text(
+                      AppString.dataNotFound,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey,
+                      ),
                     ),
                   ),
                 );
               }
               if (snapshot.hasData) {
-                int totalItems = snapshot.data!.length;
-
-                // int totalPages = (totalItems / itemsPerPage).ceil();
-                List<CiVisit> currentPageItems = snapshot.data!.sublist(
-                  (currentPage - 1) * itemsPerPage,
-                  (currentPage * itemsPerPage) > totalItems
-                      ? totalItems
-                      : (currentPage * itemsPerPage),
-                );
+                // int totalItems = snapshot.data!.length;
+                // // int totalPages = (totalItems / itemsPerPage).ceil();
+                // List<CiVisit> currentPageItems = snapshot.data!.sublist(
+                //   (currentPage - 1) * itemsPerPage,
+                //   (currentPage * itemsPerPage) > totalItems
+                //       ? totalItems
+                //       : (currentPage * itemsPerPage),
+                // );
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: currentPageItems.length,
+                    itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       print(
                           "Length ::: ${snapshot.data![index].eligibleClinician.toString()}");
@@ -451,7 +449,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 children: [
                                   // Expanded(flex: 2, child: Container()),
                                   Expanded(
-                                    flex: 2,
                                     child: Text(
                                       formattedSerialNumber,
                                       style: GoogleFonts.firaSans(
@@ -461,9 +458,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
+
                                   // Expanded(flex: 1, child: Container()),
                                   Expanded(
-                                    flex: 3,
                                     child: Text(
                                       snapshot.data![index].typeofVisit
                                           .toString(),
@@ -476,7 +473,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   ),
                                   // Expanded(flex: 1, child: Container()),
                                   Expanded(
-                                    flex: 3,
                                     child: Row(
                                         mainAxisAlignment:
                                         MainAxisAlignment.start,
@@ -486,7 +482,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   ),
                                   // Expanded(flex: 2, child: Container()),
                                   Expanded(
-                                    flex: 2,
                                     child: Center(
                                       child: Row(
                                         mainAxisAlignment:
@@ -538,7 +533,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                             ? visitName.toString()
                                                                             : docNamecontroller.text,
                                                                         selectedEditChipsId);
-
+                      
                                                                     getVisit(
                                                                         context,
                                                                         1,
@@ -640,7 +635,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                               val,
                                                                                               style: CustomTextStylesCommon.commonStyle(fontWeight: FontWeightManager.medium, fontSize: FontSize.s10, color: ColorManager.mediumgrey),
                                                                                             ),
-
+                      
                                                                                             onDeleted: () {
                                                                                               setState(() {
                                                                                                 // deleteChip(val,docType);
@@ -738,7 +733,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                               });
                                                         },
                                                       ));
-
+                      
                                               //
                                             },
                                             icon: Icon(
