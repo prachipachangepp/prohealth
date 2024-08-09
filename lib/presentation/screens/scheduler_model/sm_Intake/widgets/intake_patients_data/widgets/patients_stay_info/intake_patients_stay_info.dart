@@ -26,7 +26,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Status Completed',
+                    Text(AppString.status_completed,
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
                           fontSize: AppSize.s12,

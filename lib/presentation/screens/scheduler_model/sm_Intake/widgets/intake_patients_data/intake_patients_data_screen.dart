@@ -467,6 +467,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_compliance/intake_patients_compliance.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_plan_care/intake_patients_plan_care.dart';
@@ -521,7 +523,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
 
             IntakeProfileBar()
           ],
-          SizedBox(height: 15),
+          SizedBox(height: AppSize.s15),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -544,7 +546,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   children: [
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 10,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
@@ -555,7 +557,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                           'Info',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 0
                                 ? ColorManager.mediumgrey
@@ -567,22 +569,22 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ),
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 10,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: selectedIndex == 1 ? Colors.white : null,
+                          color: selectedIndex == 1 ? ColorManager.white : null,
                         ),
                         child: Text(
                           'Compliance',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 1
                                 ? ColorManager.mediumgrey
-                                : Colors.white,
+                                : ColorManager.white,
                           ),
                         ),
                       ),
@@ -590,18 +592,18 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ),
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 10,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: selectedIndex == 2 ? Colors.white : null,
+                          color: selectedIndex == 2 ? ColorManager.white : null,
                         ),
                         child: Text(
                           'Plan of Care',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 2
                                 ? ColorManager.mediumgrey
@@ -613,22 +615,22 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ),
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 9.5,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: selectedIndex == 3 ? Colors.white : null,
+                          color: selectedIndex == 3 ? ColorManager.white : null,
                         ),
                         child: Text(
                           'Related Parties',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 3
                                 ? ColorManager.mediumgrey
-                                : Colors.white,
+                                : ColorManager.white,
                           ),
                         ),
                       ),
@@ -636,18 +638,18 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ),
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 9.8,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: selectedIndex == 4 ? Colors.white : null,
+                          color: selectedIndex == 4 ? ColorManager.white : null,
                         ),
                         child: Text(
                           'Stay Info',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 4
                                 ? ColorManager.mediumgrey
@@ -664,8 +666,8 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
               Padding(
                 padding: const EdgeInsets.only(right: 40.0),
                 child: Container(
-                  height: 26,
-                  width: 102,
+                  height: AppSize.s26,
+                  width: AppSize.s102,
                   child: ElevatedButton(
                     onPressed: () {
                       toggleProfileBar();
@@ -678,11 +680,11 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       );
                     },
                     child: Text(
-                      'Save',
+                      AppString.save,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.bold,
-                        color: Colors.white,
+                        color: ColorManager.white,
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
@@ -700,7 +702,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: AppSize.s10),
           Expanded(
             flex: 10,
             child: Padding(
@@ -723,4 +725,3 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
     );
   }
 }
-///////
