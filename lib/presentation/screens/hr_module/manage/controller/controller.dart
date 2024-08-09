@@ -94,7 +94,7 @@ class CenteredTabBarController extends GetxController
     this.tabBarViewHeight = 400.0, //320
     this.tabBarViewWidth = 600.0,
   });
-//////////////////////////////////////////////////////////////////
+///
   @override
   void onInit() {
     tabController = TabController(length: tabs.length, vsync: this);

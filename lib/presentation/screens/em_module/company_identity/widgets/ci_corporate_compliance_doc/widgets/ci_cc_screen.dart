@@ -26,7 +26,8 @@ import '../ci_cc_quaterly_bal_report.dart';
 import 'corporate_compliance_constants.dart';
 class CiCorporateComplianceScreen extends StatefulWidget {
   final int docId;
-  const CiCorporateComplianceScreen({super.key, required this.docId});
+  final String officeId;
+  const CiCorporateComplianceScreen({super.key, required this.docId, required this.officeId});
 
   @override
   State<CiCorporateComplianceScreen> createState() => _CiCorporateComplianceScreenState();
@@ -249,6 +250,10 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                     icon: CupertinoIcons.plus,
                     text: "Add Doctype",
                     onPressed: () async{
+                      String? selectedDocType;
+                      String? selectedSubDocType;
+                      String? selectedExpiryType = expiryType;
+
                       showDialog(
                           context: context,
                           builder: (context) {
@@ -274,13 +279,11 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                         expiryType: expiryType.toString(),
                                         expiryDate: calenderController.text,
                                         expiryReminder: "Schedule",
-                                        companyId: 11,
-                                        officeId: "Office 1",
+                                        officeId: widget.officeId,
                                       );
                                       setState(() async {
                                         await orgSubDocumentGet(
                                           context,
-                                          11,
                                           docTypeMetaId,
                                           docSubTypeMetaId,
                                           1,
@@ -298,6 +301,76 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                       });
                                     }
                                   },
+                                  child:  FutureBuilder<List<DocumentTypeData>>(
+                                      future: documentTypeGet(context),
+                                      builder: (context,snapshot) {
+                                        if(snapshot.connectionState == ConnectionState.waiting){
+                                          return Shimmer.fromColors(
+                                              baseColor: Colors.grey[300]!,
+                                              highlightColor: Colors.grey[100]!,
+                                              child: Container(
+                                                width: 350,
+                                                height: 30,
+                                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                              )
+                                          );
+                                        }
+                                        if (snapshot.data!.isEmpty) {
+                                          return Center(
+                                            child: Text(
+                                              AppString.dataNotFound,
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                fontWeight: FontWeightManager.medium,
+                                                fontSize: FontSize.s12,
+                                                color: ColorManager.mediumgrey,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        if(snapshot.hasData){
+                                          List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
+                                              .map((doc) => DropdownMenuItem<String>(
+                                            value: doc.docType,
+                                            child: Text(doc.docType),
+                                          ))
+                                              .toList();
+                                          // List dropDown = [];
+                                          // int docType = 0;
+                                          // List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                          // for(var i in snapshot.data!){
+                                          //   dropDownMenuItems.add(
+                                          //     DropdownMenuItem<String>(
+                                          //       child: Text(i.docType),
+                                          //       value: i.docType,
+                                          //     ),
+                                          //   );
+                                          // }
+                                          return CICCDropdown(
+                                              initialValue: selectedDocType ?? dropDownMenuItems[0].value,
+                                              onChange: (val){
+                                                setState(() {
+                                               selectedDocType = val;
+                                                for(var doc in snapshot.data!){
+                                                  if(doc.docType == val){
+                                                   // docType = a.docID;
+                                                    docTypeMetaId = doc.docID;
+
+                                                  }
+                                                }
+                                                identityDocumentTypeGet(context,docTypeMetaId).then((data) {
+                                                  _identityDataController.add(data);
+                                                }).catchError((error) {
+                                                  // Handle error
+                                                });
+                                                });
+                                              },
+                                              items:dropDownMenuItems
+                                          );
+                                        }else{
+                                          return SizedBox();
+                                        }
+                                      }
+                                  ),
                                   child1: StreamBuilder<List<IdentityDocumentIdData>>(
                                       stream: _identityDataController.stream,
                                       builder: (context,snapshot) {
@@ -325,28 +398,41 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                           );
                                         }
                                         if(snapshot.hasData){
-                                          List dropDown = [];
-                                          int docType = 0;
-                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                          for(var i in snapshot.data!){
-                                            dropDownMenuItems.add(
-                                              DropdownMenuItem<String>(
-                                                value: i.subDocType,
-                                                child: Text(i.subDocType),
-                                              ),
-                                            );
-                                          }
+                                          List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
+                                              .map((subDoc) => DropdownMenuItem<String>(
+                                            value: subDoc.subDocType,
+                                            child: Text(subDoc.subDocType),
+                                          ))
+                                              .toList();
+
+                                          // List dropDown = [];
+                                          // int docType = 0;
+                                          // List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                          // for(var i in snapshot.data!){
+                                          //   dropDownMenuItems.add(
+                                          //     DropdownMenuItem<String>(
+                                          //       value: i.subDocType,
+                                          //       child: Text(i.subDocType),
+                                          //     ),
+                                          //   );
+                                          // }
                                           return CICCDropdown(
-                                              initialValue: dropDownMenuItems[0].value,
+                                              initialValue: selectedSubDocType ?? dropDownMenuItems[0].value,
                                               onChange: (val){
-                                                for(var a in snapshot.data!){
-                                                  if(a.subDocType == val){
-                                                    docType = a.subDocID;
-                                                    docSubTypeMetaId = docType;
-                                                  }
-                                                }
-                                                print(":::${docType}");
-                                                print(":::<>${docSubTypeMetaId}");
+                                               setState(() {
+                                                 selectedSubDocType = val;
+                                                 for (var subDoc in snapshot
+                                                     .data!) {
+                                                   if (subDoc.subDocType ==
+                                                       val) {
+                                                     //docType = subDoc.subDocID;
+                                                     docSubTypeMetaId =
+                                                         subDoc.subDocID;
+                                                   }
+                                                 }
+                                               });
+                                                // print(":::${docType}");
+                                                // print(":::<>${docSubTypeMetaId}");
                                               },
                                               items:dropDownMenuItems
                                           );
@@ -392,70 +478,6 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                   //   ],
                                   // ),
                                   title: 'Add Corporate & Compliance',
-                                  child:  FutureBuilder<List<DocumentTypeData>>(
-                                      future: documentTypeGet(context),
-                                      builder: (context,snapshot) {
-                                        if(snapshot.connectionState == ConnectionState.waiting){
-                                          return Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: 350,
-                                                height: 30,
-                                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                              )
-                                          );
-                                        }
-                                        if (snapshot.data!.isEmpty) {
-                                          return Center(
-                                            child: Text(
-                                              AppString.dataNotFound,
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                fontWeight: FontWeightManager.medium,
-                                                fontSize: FontSize.s12,
-                                                color: ColorManager.mediumgrey,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if(snapshot.hasData){
-                                          List dropDown = [];
-                                          int docType = 0;
-                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                          for(var i in snapshot.data!){
-                                            dropDownMenuItems.add(
-                                              DropdownMenuItem<String>(
-                                                child: Text(i.docType),
-                                                value: i.docType,
-                                              ),
-                                            );
-                                          }
-                                          return CICCDropdown(
-                                              initialValue: dropDownMenuItems[0].value,
-                                              onChange: (val){
-                                                for(var a in snapshot.data!){
-                                                  if(a.docType == val){
-                                                    docType = a.docID;
-                                                    docTypeMetaId = docType;
-
-                                                  }
-                                                }
-                                                identityDocumentTypeGet(context,docTypeMetaId).then((data) {
-                                                  _identityDataController.add(data);
-                                                }).catchError((error) {
-                                                  // Handle error
-                                                });
-
-                                                print(":::${docType}");
-                                                print(":::<>${docTypeMetaId}");
-                                              },
-                                              items:dropDownMenuItems
-                                          );
-                                        }else{
-                                          return SizedBox();
-                                        }
-                                      }
-                                  ),
                                 );
                               },
 
@@ -482,11 +504,11 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
               },
               children: [
                 // Page 1
-                CICCLicense(docId: widget.docId, subDocId: AppConfig.subDocId1,),
-                CICCADR(docId: widget.docId, subDocId: AppConfig.subDocId2,),
-                CICCMedicalCR(docId: widget.docId, subDocId: AppConfig.subDocId3,),
-                CICCCAPReports(docId: widget.docId, subDocId: AppConfig.subDocId4,),
-                CICCQuarterlyBalReport(docId: widget.docId, subDocId: AppConfig.subDocId5,)
+                CICCLicense(docId: widget.docId, subDocId: AppConfig.subDocId1,officeId: widget.officeId,),
+                CICCADR(docId: widget.docId, subDocId: AppConfig.subDocId2,officeId: widget.officeId,),
+                CICCMedicalCR(docId: widget.docId, subDocId: AppConfig.subDocId3,officeId: widget.officeId,),
+                CICCCAPReports(docId: widget.docId, subDocId: AppConfig.subDocId4,officeId: widget.officeId,),
+                CICCQuarterlyBalReport(docId: widget.docId, subDocId: AppConfig.subDocId5,officeId: widget.officeId,)
               ],
             ),
           ),

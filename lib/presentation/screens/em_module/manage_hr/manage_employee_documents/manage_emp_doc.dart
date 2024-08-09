@@ -134,6 +134,10 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                 CustomIconButtonConst(
                   width: 170,
                   text: 'Add Document', onPressed: (){
+                  idDocController.clear();
+                  nameDocController.clear();
+                  dateController.clear();
+                  expiryType = "Not Applicable";
                   showDialog(context: context, builder: (BuildContext context){
                     return EmpDocEditPopup(
                       title:  'Add Document',
@@ -270,7 +274,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                           width: MediaQuery
                               .of(context)
                               .size
-                              .width / 1.2,
+                              .width / 1.2021,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: ColorManager.blueprime,
@@ -292,7 +296,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                             width: MediaQuery
                                                 .of(context)
                                                 .size
-                                                .width / 8.42,
+                                                .width / 8.421,
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 6),
                                             decoration: BoxDecoration(

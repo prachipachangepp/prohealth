@@ -26,4 +26,13 @@ class AppConfig {
 
   /// Policies & procedures
   static const int subDocId0 = 0;
+
+
+
+  ///health record form
+  static const int empdocumentTypeMetaDataId = 1;
+  static const int employeeDocumentTypeMetaDataId = 10;
+
+
+
 }

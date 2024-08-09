@@ -8,7 +8,8 @@ import '../../manage/widgets/child_tabbar_screen/qualifications_child/employment
 
 ///prachi
 class Banking extends StatelessWidget {
-  const Banking({Key? key}) : super(key: key);
+  final int employeeId;
+  const Banking({Key? key, required this.employeeId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class Banking extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              BankingTabContainerConstant(),
+              BankingTabContainerConstant(employeeId: employeeId,),
               SizedBox(
                 height: AppSize.s8,
               )
@@ -30,7 +31,8 @@ class Banking extends StatelessWidget {
 
 
 class HealthRecord extends StatelessWidget {
-  const HealthRecord({Key? key}) : super(key: key);
+  final int employeeId;
+  const HealthRecord({Key? key, required this.employeeId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class HealthRecord extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              HealthRecordConstant(),
+              HealthRecordConstant(employeeId: employeeId,),
               SizedBox(
                 height: AppSize.s8,
               )
@@ -51,7 +53,8 @@ class HealthRecord extends StatelessWidget {
 }
 
 class Acknowledgement extends StatelessWidget {
-  const Acknowledgement({Key? key}) : super(key: key);
+  final int employeeId;
+  const Acknowledgement({Key? key, required this.employeeId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +64,7 @@ class Acknowledgement extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              AcknowledgementTab(),
+              AcknowledgementTab(employeeId: employeeId,),
               SizedBox(
                 height: AppSize.s8,
               )

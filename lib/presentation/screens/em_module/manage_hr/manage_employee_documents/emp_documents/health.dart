@@ -279,6 +279,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                           ),
                                         )),
                                   ),
+                                  ///edit
                                   Expanded(
                                     child: Center(
                                       child: Row(
@@ -299,7 +300,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                   var empDocType = snapshotPrefill.data?.employeeDocTypesetupId;
                                                   idDocController = TextEditingController(text: snapshotPrefill.data?.employeeDocTypesetupId.toString());
                                                   docNamecontroller = TextEditingController(text:  snapshotPrefill.data?.docName.toString());
-                                                  dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
+                                                 // dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
                                                   expiryType = snapshotPrefill.data?.expiry.toString();
                                                   dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
                                     

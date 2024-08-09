@@ -15,7 +15,8 @@ import '../../../../../../../../app/resources/color.dart';
 
 class CICorporateCompilianceDocument extends StatefulWidget {
   final int docID;
-  const CICorporateCompilianceDocument({super.key, required this.docID});
+  final String officeId;
+  const CICorporateCompilianceDocument({super.key, required this.docID, required this.officeId});
 
   @override
   State<CICorporateCompilianceDocument> createState() =>
@@ -289,23 +290,23 @@ class _CICorporateCompilianceDocumentState
               children: [
                 CICcdLicense(
                   subDocID: AppConfig.subDocId1,
-                  docID: widget.docID,
+                  docID: widget.docID,officeId: widget.officeId,
                 ),
                 CICcdADR(
                   subDocID: AppConfig.subDocId2,
-                  docID: widget.docID,
+                  docID: widget.docID,officeId: widget.officeId,
                 ),
                 CiCcdMedicalCostReport(
                   subDocID: AppConfig.subDocId3,
-                  docID: widget.docID,
+                  docID: widget.docID,officeId: widget.officeId,
                 ),
                 CiCcdCapReports(
                   docID: widget.docID,
-                  subDocId: AppConfig.subDocId4,
+                  subDocId: AppConfig.subDocId4,officeId: widget.officeId,
                 ),
                 CICcdQuarteryBalanceReport(
                   docId: widget.docID,
-                  subDocID: AppConfig.subDocId5,
+                  subDocID: AppConfig.subDocId5,officeId: widget.officeId,
                 )
               ],
             ),

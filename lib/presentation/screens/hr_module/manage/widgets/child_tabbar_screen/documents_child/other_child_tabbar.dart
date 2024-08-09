@@ -64,8 +64,8 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                             employeeId: widget.employeeId,
                             documentMetaId: 9,
                             documentSetupId: 38,
-                            child: FutureBuilder<List<EmployeeDocSetupModal>>(
-                                future: getEmployeeDocSetupDropDown(context),
+                            child: FutureBuilder<List<EmployeeDocTabModal>>(
+                                future: getEmployeeDocTab(context),
                                 builder: (context,snapshot) {
                                   if(snapshot.connectionState == ConnectionState.waiting){
                                     return Shimmer.fromColors(
@@ -97,8 +97,8 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     for(var i in snapshot.data!){
                                       dropDownMenuItems.add(
                                         DropdownMenuItem<String>(
-                                          child: Text(i.documentName),
-                                          value: i.documentName,
+                                          child: Text(i.employeeDocType),
+                                          value: i.employeeDocType,
                                         ),
                                       );
                                     }
@@ -106,7 +106,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                         initialValue: dropDownMenuItems[0].value,
                                         onChange: (val){
                                           for(var a in snapshot.data!){
-                                            if(a.documentName == val){
+                                            if(a.employeeDocType == val){
                                               docType = a.employeeDocMetaDataId;
                                               //docMetaId = docType;
                                             }

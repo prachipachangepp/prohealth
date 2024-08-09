@@ -23,7 +23,8 @@ import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_
 class VendorContractQuarterlyBalanceReport extends StatefulWidget {
   final int docId;
   final int subDocId;
-  const VendorContractQuarterlyBalanceReport({super.key, required this.docId, required this.subDocId});
+  final String officeId;
+  const VendorContractQuarterlyBalanceReport({super.key, required this.docId, required this.subDocId, required this.officeId});
 
   @override
   State<VendorContractQuarterlyBalanceReport> createState() => _VendorContractQuarterlyBalanceReportState();
@@ -128,7 +129,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
           child: StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context, snapshot) {
-                orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                   _controller.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -298,11 +299,10 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                             expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                             expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                             expiryReminder: "Schedule",
-                                                            companyId: 11,
-                                                            officeId: "Office 1",
+                                                            officeId: widget.officeId,
                                                           );
                                                           setState(() async {
-                                                            await orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                                                            await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                                                               _controller.add(data);
                                                             }).catchError((error) {
                                                               // Handle error
@@ -488,7 +488,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                             context,
                                                             snapshot.data![index].docId);
                                                         setState(() async {
-                                                          await orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                                                          await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                                                             _controller.add(data);
                                                           }).catchError((error) {
                                                             // Handle error

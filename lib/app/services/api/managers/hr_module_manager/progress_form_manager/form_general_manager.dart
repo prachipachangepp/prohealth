@@ -83,7 +83,7 @@ Future<ApiDataRegister> postgeneralscreendata(
         "personalEmail": personalEmail,
         "workEmail": workEmail,
         "address": address,
-        "dateOfBirth":  "${dateOfBirth}T00:00:00Z",
+        "dateOfBirth":  "${dateOfBirth}T00:00:00Z", //"${issueDate}T00:00:00Z",
         "emergencyContact": emergencyContact,
         "covreage": covreage,
         "employment": employment,

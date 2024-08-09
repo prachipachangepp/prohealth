@@ -99,7 +99,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
             StreamBuilder<List<CiOrgDocumentCC>>(
                 stream : _ccAdrController.stream,
                 builder: (context, snapshot) {
-                  orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                  orgSubDocumentGet(context,widget.docId, widget.subDocId, 1, 15).then((data) {
                     _ccAdrController.add(data);
                   }).catchError((error) {
                     // Handle error
@@ -264,11 +264,11 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                                     expiryType: expiry.toString(),
                                                                     expiryDate: calender.toString(),
                                                                     expiryReminder: "Schedule",
-                                                                    companyId: 11,
-                                                                    officeId: "Office 1",
+
+                                                                    officeId: widget.officeId,
                                                                   );
                                                                   setState(() async {
-                                                                    await orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                                                                    await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                                                                       _ccAdrController.add(data);
                                                                     }).catchError((error) {
                                                                       // Handle error
@@ -417,7 +417,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                                     context,
                                                                     snapshot.data![index].docId!);
                                                                 setState(() async {
-                                                                  await orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                                                                  await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                                                                     _ccAdrController.add(data);
                                                                   }).catchError((error) {
                                                                     // Handle error

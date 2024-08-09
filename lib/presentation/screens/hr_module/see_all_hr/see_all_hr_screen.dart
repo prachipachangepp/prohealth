@@ -228,6 +228,13 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen>
   }
 }
 
+
+
+///enums
+enum OfficeLocation { sanJose, austin }
+enum Zone { zone1, zone2 }
+enum LicenseStatus { active, expired }
+enum Availability { fullTime, partTime }
 ///
 class ProfilePatientPopUp extends StatefulWidget {
   final VoidCallback onSearch;
@@ -326,16 +333,16 @@ class _PopUpState extends State<ProfilePatientPopUp> {
                   'Office Location',
                   style: GoogleFonts.firaSans(
                     fontSize: 10,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w400,
                     color: Color(0xff737373),
                   ),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width / 3.7),
+                SizedBox(width: MediaQuery.of(context).size.width / 11),
                 Text(
                   'Zone',
                   style: GoogleFonts.firaSans(
                     fontSize: 10,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w400,
                     color: Color(0xff737373),
                   ),
                 ),
@@ -344,38 +351,43 @@ class _PopUpState extends State<ProfilePatientPopUp> {
             SizedBox(height: MediaQuery.of(context).size.height / 60),
             Row(
               children: [
-                CustomDropDown(
-                  width: 96,
-                  height: 27,
-                  items: ['San Joes', 'Austin'],
-                  labelText: 'Office Location',
-                  labelStyle: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff737373),
+                Container(
+                  width: 120,
+                  height: 30,
+                  child: CustomDropDown(
+
+                    items: ['San Joes', 'Austin'],
+                    labelText: 'Office Location',
+                    labelStyle: GoogleFonts.firaSans(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff737373),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        dropdownOfficeLocation = value;
+                      });
+                    },
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      dropdownOfficeLocation = value;
-                    });
-                  },
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 20),
-                CustomDropDown(
-                  width: 96,
-                  height: 27,
-                  items: ['Zone 1', 'Zone 2'],
-                  labelText: 'Zone',
-                  labelStyle: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff737373),
+                Container(
+                  width: 120,
+                  height: 30,
+                  child: CustomDropDown(
+                    items: ['Zone 1', 'Zone 2'],
+                    labelText: 'Zone',
+                    labelStyle: GoogleFonts.firaSans(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff737373),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        dropdownZone = value;
+                      });
+                    },
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      dropdownZone = value;
-                    });
-                  },
                 ),
               ],
             ),
@@ -386,7 +398,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
                   'License status',
                   style: GoogleFonts.firaSans(
                     fontSize: 10,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w400,
                     color: Color(0xff737373),
                   ),
                 ),
@@ -395,21 +407,24 @@ class _PopUpState extends State<ProfilePatientPopUp> {
             SizedBox(height: MediaQuery.of(context).size.height / 60),
             Row(
               children: [
-                CustomDropDown(
-                  width: 96,
-                  height: 27,
-                  items: ['Active', 'Expired'],
-                  labelText: 'License Status',
-                  labelStyle: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff737373),
+                Container(
+                  width: 120,
+                  height: 30,
+                  child: CustomDropDown(
+
+                    items: ['Active', 'Expired'],
+                    labelText: 'License Status',
+                    labelStyle: GoogleFonts.firaSans(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff737373),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        dropdownLicenseStatus = value;
+                      });
+                    },
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      dropdownLicenseStatus = value;
-                    });
-                  },
                 ),
               ],
             ),
@@ -420,7 +435,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
                   'Availability',
                   style: GoogleFonts.firaSans(
                     fontSize: 10,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w400,
                     color: Color(0xff737373),
                   ),
                 ),
@@ -429,21 +444,24 @@ class _PopUpState extends State<ProfilePatientPopUp> {
             SizedBox(height: MediaQuery.of(context).size.height / 60),
             Row(
               children: [
-                CustomDropDown(
-                  width: 96,
-                  height: 27,
-                  items: ['Full-Time', 'Part-Time'],
-                  labelText: 'Availability',
-                  labelStyle: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff737373),
+                Container(
+                  width: 120,
+                  height: 30,
+                  child: CustomDropDown(
+
+                    items: ['Full-Time', 'Part-Time'],
+                    labelText: 'Availability',
+                    labelStyle: GoogleFonts.firaSans(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff737373),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        dropdownAvailability = value;
+                      });
+                    },
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      dropdownAvailability = value;
-                    });
-                  },
                 ),
               ],
             ),
@@ -755,6 +773,18 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //     );
 //   }
 // }
+
+
+
+
+
+
+
+
+
+
+
+
 
 class ConstantContainerWithText extends StatefulWidget {
   final String text;

@@ -10,15 +10,16 @@ import 'dart:typed_data';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/signature_screen.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../manage/widgets/bottom_row.dart';
 import 'multi_step_form.dart';
 
 
 class OfferLetterDescriptionScreen extends StatefulWidget {
-  final Uint8List? signatureBytes;
-
-  OfferLetterDescriptionScreen({this.signatureBytes});
+  final dynamic signatureBytes;
+  final int employeeId;
+  OfferLetterDescriptionScreen({this.signatureBytes, required this.employeeId});
 
 
   @override
@@ -130,7 +131,7 @@ class _OfferLetterDescriptionScreenState
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 15),
             FutureBuilder<OfferLetterData>(
-              future:GetOfferLetter(context, 43, 1 ),
+              future:GetOfferLetter(context, widget.employeeId, 1 ),
               builder: (context, snapshot) {
                 // if(snapshot.connectionState == ConnectionState.waiting){
                 //   return CircularProgressIndicator(color: Colors.blue,);
@@ -202,7 +203,7 @@ class _OfferLetterDescriptionScreenState
                                   setState(() {
                                     signatureBytes = selectedSignature;
                                   });
-                                }, employeeId: 1,
+                                }, employeeId: widget.employeeId,
                               ),
                             ),
                           );
@@ -379,10 +380,11 @@ class _OfferLetterDescriptionScreenState
                                     ),
                                     actions: [
                                       TextButton(
-                                        onPressed: () {
+                                        onPressed: () async {
+                                          //String userid= await TokenManager.getUserID();
                                           Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => MultiStepForm()),
+                                            MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId!,)),
                                           );
                                         },
                                         child: Text('OK', style: GoogleFonts.firaSans(

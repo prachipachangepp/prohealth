@@ -1,17 +1,26 @@
+import 'dart:core';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:html' as html;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_banking_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 
 import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
 class BankingScreen extends StatefulWidget {
+  final int  employeeID;
   const BankingScreen({
     super.key,
-    required this.context,
+    required this.context, required this.employeeID,
   });
 
   final BuildContext context;
@@ -43,6 +52,38 @@ class _BankingScreenState extends State<BankingScreen> {
     });
   }
 
+  Future<void> perfFormBanckingData({
+    required BuildContext context,
+    required int employeeId,
+    required String accountNumber,
+    required String bankName,
+    required int amountRequested,
+    required String checkUrl,
+    required String routingNumber,
+    required String type,
+    required String requestedPercentage,
+    //required String documentType,
+    //required String employeeId,
+    required dynamic documentFile,
+    required String documentName,
+  }) async {
+    ApiDataRegister result = await postbankingscreen(context,employeeId,accountNumber,bankName,
+        amountRequested,checkUrl,routingNumber,type,requestedPercentage);
+
+    // setState(() {
+    //   _isLoading = false;
+    // });
+    print('BanckingId :: ${result.banckingId!}');
+    await uploadcheck(context: context, employeeid: employeeId,
+        empBankingId: result.banckingId!, documentFile: documentFile, documentName: documentName);
+
+    if (result.success) {
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${result.message}')),
+      );
+    }
+  }
   Future<void> postbankingscreendata(
       BuildContext context,
       int employeeId,
@@ -95,7 +136,7 @@ class _BankingScreenState extends State<BankingScreen> {
             return BankingForm(
               key: key,
               index: index + 1,
-              onRemove: () => removeEduacationForm(key),
+              onRemove: () => removeEduacationForm(key),employeeID:widget.employeeID,
             );
           }).toList(),
         ),
@@ -144,16 +185,42 @@ class _BankingScreenState extends State<BankingScreen> {
               onPressed: () async {
                 for (var key in bankingFormKeys) {
                   final st = key.currentState!;
-                  await postbankingscreen(
-                    context, 3,
-                    st.accountnumber.text,
-                    st.bankname.text,
-                    int.parse(st.requestammount.text),
-                    "checkUrl",
-                    st.routingnumber.text,
-                    st.selectedtype.toString(),
-                    "requestedPercentage",
+                  await perfFormBanckingData(
+                    context: context,
+                    employeeId: st.widget.employeeID,
+                    accountNumber:st.accountnumber.text,
+                    bankName:st.bankname.text,
+                    amountRequested:int.parse(st.requestammount.text),
+                    checkUrl:"",
+                    routingNumber:st.routingnumber.text,
+                    type:st.selectedtype.toString(),
+                    requestedPercentage:"", documentFile: st.finalPath, documentName: st.fileName,
                   );
+
+                  if (st.finalPath == null || st.finalPath.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('No file selected. Please select a file to upload.'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    try {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Document uploaded successfully!'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Failed to upload document: $e'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  }
                 }
                // accountnumber.clear();
               },
@@ -174,9 +241,10 @@ class _BankingScreenState extends State<BankingScreen> {
 }
 
 class BankingForm extends StatefulWidget {
+  final int employeeID;
   final VoidCallback onRemove;
   final int index;
-  const BankingForm({super.key, required this.onRemove, required this.index});
+  const BankingForm({super.key, required this.onRemove, required this.index, required this.employeeID});
 
   @override
   _BankingFormState createState() => _BankingFormState();
@@ -208,7 +276,7 @@ class _BankingFormState extends State<BankingForm> {
 
     if (result != null) {
       setState(() {
-        _fileNames.addAll(result.files.map((file) => file.name!));
+        _fileNames.addAll(result.files.map((file) => file.name));
         _loading = false; // Hide loader
       });
       print('Files picked: $_fileNames');
@@ -219,6 +287,24 @@ class _BankingFormState extends State<BankingForm> {
       print('User canceled the picker');
     }
   }
+
+
+
+  Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
+    final blob = html.Blob([bytes]);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final file = html.File([blob], fileName);
+    return XFile(url);
+  }
+
+  bool _documentUploaded = true;
+  var fileName;
+  var fileName1;
+  dynamic filePath;
+  File? xfileToFile;
+  var finalPath;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -454,62 +540,65 @@ class _BankingFormState extends State<BankingForm> {
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 5),
               ElevatedButton.icon(
-                onPressed: _pickFiles,
-// onPressed: () async {
-//   FilePickerResult? result =
-//   await FilePicker.platform.pickFiles(
-//     allowMultiple: false,
-//   );
-//   if (result != null) {
-//     PlatformFile file = result.files.first;
-//     print('File picked: ${file.name}');
-//   } else {
-//     // User canceled the picker
-//   }
-// },
+                onPressed: () async {
+                  FilePickerResult? result = await FilePicker.platform.pickFiles();
+                  if (result != null) {
+                    try {
+                      Uint8List? bytes = result.files.first.bytes;
+                      XFile xFile = await convertBytesToXFile(bytes!, result.files.first.name);
+                      finalPath = result.files.first.bytes;
+                      fileName = result.files.first.name;
+                      setState(() {
+                        _fileNames.addAll(result.files.map((file) => file.name));
+                        _loading = false;
+                      });
+                    } catch (e) {
+                      print(e);
+                    }
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xff50B5E5),
-// padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                icon: Icon(Icons.file_upload_outlined, color: Colors.white),
+                icon: Icon(Icons.upload, color: Colors.white),
                 label: Text(
-                  'Upload Document',
+                  'Upload File',
                   style: GoogleFonts.firaSans(
                     fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: Colors.white,
                   ),
                 ),
               ),
               _loading
                   ? SizedBox(
-                      width: 25,
-                      height: 25,
-                      child: CircularProgressIndicator(
-                        color: ColorManager.blueprime, // Loader color
-// Loader size
-                      ),
-                    )
+                width: 25,
+                height: 25,
+                child: CircularProgressIndicator(
+                  color: ColorManager.blueprime, // Loader color
+                  // Loader size
+                ),
+              )
                   : _fileNames.isNotEmpty
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: _fileNames
-                              .map((fileName) => Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'File picked: $fileName',
-                                      style: GoogleFonts.firaSans(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff686464)),
-                                    ),
-                                  ))
-                              .toList(),
-                        )
-                      : SizedBox(),
+                  ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _fileNames
+                    .map((fileName) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'File picked: $fileName',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                ))
+                    .toList(),
+              )
+                  : SizedBox(),
               SizedBox(height: MediaQuery.of(context).size.height / 20),// Display file names if picked
             ],
 

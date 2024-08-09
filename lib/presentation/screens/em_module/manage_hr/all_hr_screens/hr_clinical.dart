@@ -153,6 +153,8 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                 text: AppString.addemployeetype,
                 icon: Icons.add,
                 onPressed: () {
+                  typeController.clear();
+                  shorthandController.clear();
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {

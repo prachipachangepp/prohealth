@@ -26,7 +26,7 @@ Future<List<EmployeeBankingData>> getEmployeeBanking(
   List<EmployeeBankingData> itemsData = [];
   try {
     final response = await Api(context)
-        .get(path: ManageReposotory.getBankingEmployee(employeeId: employeeId, approveOnly: 'yes'));
+        .get(path: ManageReposotory.getBankingEmployee(employeeId: employeeId, approveOnly: 'no'));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data!) {
         //String effectiveFormattedDate = convertIsoToDayMonthYear(item['effectiveDate']);

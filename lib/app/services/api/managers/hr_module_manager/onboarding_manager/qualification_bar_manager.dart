@@ -32,6 +32,7 @@ BuildContext context, int employeeId, String approveOnly) async{
             emgMobile: item['emgMobile'] ?? '--',
             country: item['country'] ?? '--'),
         );
+        itemData.sort((a, b) => a.employmentId.compareTo(b.employmentId));
       }
     }else {
       print("Employment List");
@@ -123,6 +124,7 @@ Future<List<OnboardingQualificationEducationData>> getOnboardingQualificationEdu
           startDate: item['startDate'] ?? '--', country: item['country'] ?? '--',
 
         ));
+        itemData.sort((a, b) => a.educationId.compareTo(b.educationId));
       }
     }else {
       print("Education List");
@@ -213,6 +215,7 @@ Future<List<OnboardingQualificationReferanceData>> getOnboardingQualificationRef
             references: item['references'],
             title: item['title'],
             approve: item['approve']));
+        itemData.sort((a, b) => a.referenceId.compareTo(b.referenceId));
       }
     }else {
       print("Reference List");
@@ -318,6 +321,7 @@ Future<List<OnboardingQualificationLicenseData>> getOnboardingQualificationLicen
             documentType: item['documentType'],
             approve: item['approved'] ?? false,
            ));
+        itemData.sort((a, b) => a.licenseId.compareTo(b.licenseId));
       }
     }else {
       print("License List");

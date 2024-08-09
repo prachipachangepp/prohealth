@@ -55,8 +55,6 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-
-
               width: 100,
               margin: EdgeInsets.only(right: 40),
               child: CustomIconButtonConst(
@@ -173,8 +171,9 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                     ? totalItems
                     : (currentPage * itemsPerPage),
               );
-              return WrapWidget(
-                  childern:List.generate(snapshot.data!.length, (index){
+              return Wrap(
+                spacing: 10,
+                  children:List.generate(snapshot.data!.length, (index){
                     int serialNumber =
                         index + 1 + (currentPage - 1) * itemsPerPage;
                     String formattedSerialNumber =
@@ -359,7 +358,11 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
-                                child: BorderIconButton(iconData: Icons.edit_outlined, buttonText: 'Edit', onPressed: (){
+                                child: snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(
+                                  fontSize: MediaQuery.of(context).size.width/120,
+                                  color: ColorManager.mediumgrey,
+                                  fontWeight: FontWeight.w600,
+                                )): BorderIconButton(iconData: Icons.edit_outlined, buttonText: 'Edit', onPressed: (){
                                   setState(() {
                                     showDialog(context: context, builder: (BuildContext context){
                                       return FutureBuilder<EmployeementPrefillData>(
@@ -523,13 +526,14 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                         ),
                       ),
                     );
+
                   })
               );
             }else{
               return SizedBox();
-            }
 
-          }
+            }
+}
         ),
       ],
     );

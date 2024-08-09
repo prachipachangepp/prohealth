@@ -18,7 +18,8 @@ import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/string_manager.dart';
 
 class BankingHeadTabbar extends StatefulWidget {
-  BankingHeadTabbar({super.key,});
+  final int employeeID;
+  BankingHeadTabbar({super.key, required this.employeeID,});
   @override
   _BankingHeadTabbarState createState() => _BankingHeadTabbarState();
 }
@@ -47,7 +48,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
     return StreamBuilder<List<EmployeeBankingData>>(
       stream: bankingStreamController.stream,
       builder: (context,snapshot) {
-        getEmployeeBanking(context, 2).then((data) {
+        getEmployeeBanking(context, widget.employeeID).then((data) {
           bankingStreamController.add(data);
         }).catchError((error) {
           // Handle error
@@ -151,68 +152,181 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                  }
                                ));
                                },
-                               onPressedPrint:  () async {
-                                 final pdf = pw.Document();
-                                 final bankingData = snapshot.data![index];
-                                 pdf.addPage(
-                                   pw.Page(
-                                     build: (pw.Context context) => pw.Center(
-                                       child: pw.Column(
-                                         mainAxisAlignment: pw.MainAxisAlignment.center,
-                                         children: [
-                                           pw.Text(
-                                             'Bank #${bankingData.empBankingId.toString()}',
-                                           ),
-                                           pw.SizedBox(height: 10),
-                                           pw.Row(
-                                             mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
-                                             children: [
-                                               pw.Column(
-                                                 crossAxisAlignment: pw.CrossAxisAlignment.start,
-                                                 children: [
-                                                   pw.Text('Type'),
-                                                   pw.SizedBox(height: 5),
-                                                   pw.Text('Effective Date'),
-                                                   pw.SizedBox(height: 5),
-                                                   pw.Text('Bank Name'),
-                                                   pw.SizedBox(height: 5),
-                                                   pw.Text('Routing/Transit No.'),
-                                                   pw.SizedBox(height: 5),
-                                                   pw.Text('Account No.'),
-                                                   pw.SizedBox(height: 5),
-                                                   pw.Text('Requested amount'),
-                                                   pw.SizedBox(height: 5),
-                                                 ],
-                                               ),
-                                               pw.Column(
-                                                 crossAxisAlignment: pw.CrossAxisAlignment.start,
-                                                 children: [
-                                                   pw.Text(bankingData.type),
-                                                   pw.SizedBox(height: 5),
-                                                   pw.Text(bankingData.effectiveDate),
-                                                   pw.SizedBox(height: 5),
-                                                   pw.Text(bankingData.bankName),
-                                                   pw.SizedBox(height: 5),
-                                                   pw.Text(bankingData.routinNumber),
-                                                   pw.SizedBox(height: 5),
-                                                   pw.Text(bankingData.accountNumber),
-                                                   pw.SizedBox(height: 5),
-                                                   pw.Text(bankingData.amountRequested.toString()),
-                                                   pw.SizedBox(height: 5),
-                                                 ],
-                                               ),
-                                             ],
-                                           ),
-                                         ],
+                               onPressedPrint: () async {
+                                 try {
+                                   final pdf = pw.Document();
+                                   final bankingData = snapshot.data![index];
+
+                                   pdf.addPage(
+                                     pw.Page(
+                                       build: (pw.Context context) => pw.Padding(
+                                         padding: pw.EdgeInsets.all(20),
+                                         child: pw.Column(
+                                           crossAxisAlignment: pw.CrossAxisAlignment.start,
+                                           children: [
+                                             pw.Text(
+                                               'Banking Details',
+                                               style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold),
+                                             ),
+                                             pw.Divider(),
+                                             pw.SizedBox(height: 10),
+                                             pw.Text(
+                                               'Bank #${bankingData.empBankingId.toString()}',
+                                               style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold),
+                                             ),
+                                             pw.SizedBox(height: 20),
+                                             pw.Table(
+                                               border: pw.TableBorder.all(),
+                                               children: [
+                                                 pw.TableRow(
+                                                   children: [
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text('Type', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                                                     ),
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text(bankingData.type),
+                                                     ),
+                                                   ],
+                                                 ),
+                                                 pw.TableRow(
+                                                   children: [
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text('Effective Date', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                                                     ),
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text(bankingData.effectiveDate),
+                                                     ),
+                                                   ],
+                                                 ),
+                                                 pw.TableRow(
+                                                   children: [
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text('Bank Name', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                                                     ),
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text(bankingData.bankName),
+                                                     ),
+                                                   ],
+                                                 ),
+                                                 pw.TableRow(
+                                                   children: [
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text('Routing/Transit No.', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                                                     ),
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text(bankingData.routinNumber),
+                                                     ),
+                                                   ],
+                                                 ),
+                                                 pw.TableRow(
+                                                   children: [
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text('Account No.', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                                                     ),
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text(bankingData.accountNumber),
+                                                     ),
+                                                   ],
+                                                 ),
+                                                 pw.TableRow(
+                                                   children: [
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text('Requested Amount', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                                                     ),
+                                                     pw.Padding(
+                                                       padding: pw.EdgeInsets.all(8),
+                                                       child: pw.Text(bankingData.amountRequested.toString()),
+                                                     ),
+                                                   ],
+                                                 ),
+                                               ],
+                                             ),
+                                           ],
+                                         ),
                                        ),
                                      ),
-                                   ),
-                                 );
+                                   );
 
-                                 await Printing.layoutPdf(
-                                   onLayout: (PdfPageFormat format) async => pdf.save(),
-                                 );
+                                   await Printing.layoutPdf(
+                                     onLayout: (PdfPageFormat format) async => pdf.save(),
+                                   );
+                                 } catch (e) {
+                                   print('Error generating PDF: $e');
+                                 }
                                },
+                               // onPressedPrint:  () async {
+                               //   final pdf = pw.Document();
+                               //   final bankingData = snapshot.data![index];
+                               //   pdf.addPage(
+                               //     pw.Page(
+                               //       build: (pw.Context context) => pw.Center(
+                               //         child: pw.Column(
+                               //           mainAxisAlignment: pw.MainAxisAlignment.center,
+                               //           children: [
+                               //             pw.Text(
+                               //               'Bank #${bankingData.empBankingId.toString()}',
+                               //             ),
+                               //             pw.SizedBox(height: 10),
+                               //             pw.Row(
+                               //               mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
+                               //               children: [
+                               //                 pw.Column(
+                               //                   crossAxisAlignment: pw.CrossAxisAlignment.start,
+                               //                   children: [
+                               //                     pw.Text('Type'),
+                               //                     pw.SizedBox(height: 5),
+                               //                     pw.Text('Effective Date'),
+                               //                     pw.SizedBox(height: 5),
+                               //                     pw.Text('Bank Name'),
+                               //                     pw.SizedBox(height: 5),
+                               //                     pw.Text('Routing/Transit No.'),
+                               //                     pw.SizedBox(height: 5),
+                               //                     pw.Text('Account No.'),
+                               //                     pw.SizedBox(height: 5),
+                               //                     pw.Text('Requested amount'),
+                               //                     pw.SizedBox(height: 5),
+                               //                   ],
+                               //                 ),
+                               //                 pw.Column(
+                               //                   crossAxisAlignment: pw.CrossAxisAlignment.start,
+                               //                   children: [
+                               //                     pw.Text(bankingData.type),
+                               //                     pw.SizedBox(height: 5),
+                               //                     pw.Text(bankingData.effectiveDate),
+                               //                     pw.SizedBox(height: 5),
+                               //                     pw.Text(bankingData.bankName),
+                               //                     pw.SizedBox(height: 5),
+                               //                     pw.Text(bankingData.routinNumber),
+                               //                     pw.SizedBox(height: 5),
+                               //                     pw.Text(bankingData.accountNumber),
+                               //                     pw.SizedBox(height: 5),
+                               //                     pw.Text(bankingData.amountRequested.toString()),
+                               //                     pw.SizedBox(height: 5),
+                               //                   ],
+                               //                 ),
+                               //               ],
+                               //             ),
+                               //           ],
+                               //         ),
+                               //       ),
+                               //     ),
+                               //   );
+                               //
+                               //   await Printing.layoutPdf(
+                               //     onLayout: (PdfPageFormat format) async => pdf.save(),
+                               //   );
+                               // },
                              ),
                           ],
                         ),
@@ -437,9 +551,9 @@ class BankingContainerConst extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: IconButtonWidget(
-                    width: 75,
-                    iconData1: Icons.print_outlined,
-                    buttonText: AppStringHr.print,
+                    width: 100,
+                    iconData1: Icons.file_download_outlined,
+                    buttonText: AppStringHr.download,
                       onPressed: onPressedPrint,
                       //     () async {
                       //   final pdf = pw.Document();
@@ -458,21 +572,21 @@ class BankingContainerConst extends StatelessWidget {
                       // },
                   ),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/180),
-                Flexible(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xff1696C8)),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: IconButtonWidget(
-                      width: 100,
-                      iconData1: Icons.file_download_outlined,
-                      buttonText: AppStringHr.download,
-                      onPressed:(){},
-                    ),
-                  ),
-                )
+                // SizedBox(width: MediaQuery.of(context).size.width/180),
+                // Flexible(
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //       border: Border.all(color: const Color(0xff1696C8)),
+                //       borderRadius: BorderRadius.circular(8),
+                //     ),
+                //     child: IconButtonWidget(
+                //       width: 100,
+                //       iconData1: Icons.file_download_outlined,
+                //       buttonText: AppStringHr.download,
+                //       onPressed:(){},
+                //     ),
+                //   ),
+                // )
               ],
             )
           ],

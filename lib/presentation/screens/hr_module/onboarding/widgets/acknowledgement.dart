@@ -14,7 +14,8 @@ import '../../manage/const_wrap_widget.dart';
 
 ///saloni
 class AcknowledgementTab extends StatefulWidget {
-  const AcknowledgementTab({Key? key}) : super(key: key);
+  final int employeeId;
+  const AcknowledgementTab({Key? key, required this.employeeId}) : super(key: key);
 
   @override
   State<AcknowledgementTab> createState() => _AcknowledgementTabState();
@@ -35,7 +36,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
 
   Future<void> _fetchData() async {
     try {
-      var data = await getAckHealthRecord(context, 12, 37, 36,'no');
+      var data = await getAckHealthRecord(context, 10, 48, widget.employeeId,'no');
       _fetchedData = data;
       _controller.add(data);
       _checked = List.generate(data.length, (_) => false);
@@ -129,8 +130,11 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(
-              color: ColorManager.blueprime,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 150),
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
             ),
           );
         }
@@ -144,15 +148,16 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
         }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return Center(
-            child: Text(
-              AppString.dataNotFound,
-              style: CustomTextStylesCommon.commonStyle(
-                fontWeight: FontWeightManager.medium,
-                fontSize: FontSize.s12,
-                color: ColorManager.mediumgrey,
-              ),
-            ),
-          );
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150),
+                child: Text(
+                  AppString.dataNotFound,
+                  style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey),
+                ),
+              ));
         }
         return Padding(
           padding: const EdgeInsets.only(left: 180),

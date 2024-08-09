@@ -78,12 +78,13 @@ Future<List<AllCountyGet>> getZoneBYcompOffice(
 
 ///county get
 Future<List<AllCountyZoneGet>> getZoneByCounty(BuildContext context,
-    String officeId, int compId, int countyId, int pageNo, int noOfRow) async {
+    String officeId,int countyId, int pageNo, int noOfRow) async {
   List<AllCountyZoneGet> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: AllZoneRepository.countyZoneGet(
-            companyId: compId,
+            companyId: companyId,
             officeId: officeId,
             pageNo: pageNo,
             noOfRow: noOfRow,
@@ -182,8 +183,9 @@ Future<List<AllCountyGetList>> getCountyZoneList(BuildContext context) async {
 
 /// Zone county add
 Future<ApiData> addZoneCountyData(BuildContext context, String zoneName,
-    int countyId, String officeId, int companyId) async {
+    int countyId, String officeId,) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response =
         await Api(context).post(path: AllZoneRepository.addCountyZone(), data: {
       "zoneName": zoneName,
@@ -440,12 +442,13 @@ Future<ApiData> deleteCounty(BuildContext context, int countyId) async {
 
 ///zipcode,zone get
 Future<List<AllZipCodeGet>> getZipcodeSetup(
-    BuildContext context, String officeId, int compId, pageNo, noOfRow) async {
+    BuildContext context, String officeId, pageNo, noOfRow) async {
   List<AllZipCodeGet> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: AllZoneRepository.zipcodeSetupGet(
-            companyId: compId,
+            companyId: companyId,
             officeId: officeId,
             pageNo: pageNo,
             noOfRow: noOfRow));
@@ -554,7 +557,6 @@ Future<ApiData> addZipCodeSetup(
   BuildContext context,
   int zoneId,
   int countyId,
-  int companyId,
   String officeId,
   String cityName,
   String zipCode,
@@ -563,6 +565,7 @@ Future<ApiData> addZipCodeSetup(
   String landmark,
 ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context)
         .post(path: AllZoneRepository.addZipCodeSetupPost(), data: {
       "zoneId": zoneId,
@@ -602,7 +605,6 @@ Future<ApiData> updateZipCodeSetup(
   int zipCodeSetupId,
   int zoneId,
   int countyId,
-  int companyId,
   String officeId,
   String cityName,
   String zipCode,
@@ -611,6 +613,7 @@ Future<ApiData> updateZipCodeSetup(
   String landmark,
 ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: AllZoneRepository.updateZipCodeSetup(
             zipCodeSetupId: zipCodeSetupId),

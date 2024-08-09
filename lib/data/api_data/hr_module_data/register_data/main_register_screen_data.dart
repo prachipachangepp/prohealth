@@ -10,7 +10,7 @@ class RegisterDataCompID {
   final String? phoneNbr;
   final String? link;
   final int? employeeEnrollId;
-  final int? employeeId;
+  final int employeeId;
   final int? deptId;
   final String? posotion;
   final String? speciality;
@@ -28,7 +28,7 @@ class RegisterDataCompID {
     this.phoneNbr,
     this.link,
     this.employeeEnrollId,
-    this.employeeId,
+    required this.employeeId,
     this.deptId,
     this.posotion,
     this.speciality,
