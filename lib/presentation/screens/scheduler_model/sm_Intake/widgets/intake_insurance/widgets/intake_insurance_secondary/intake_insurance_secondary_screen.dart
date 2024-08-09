@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../textfield_dropdown_constant/double_date_picker_textfield.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
+import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakeInsuranceSecondaryScreen extends StatefulWidget {
@@ -123,7 +126,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                labelText:'Category', initialValue: 'Medicare',)
+                                labelText:'Category',)
                           ),
                           SizedBox(width: 35),
                           Flexible(
@@ -136,7 +139,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularTextField(
+                              child: DoubleDatePickerTextField(
                                 labelText: 'Effective from', isDate: true,)
                           ),
                           SizedBox(width: 35),
@@ -288,74 +291,6 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class SchedularTextField extends StatelessWidget {
-  final String labelText;
-  final String? initialValue;
-  final bool isDate;
-
-  SchedularTextField({
-    Key? key,
-    required this.labelText,
-    this.initialValue,
-    this.isDate = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final TextEditingController _dateController = TextEditingController(text: initialValue);
-
-    Future<void> _selectDateRange(BuildContext context) async {
-      DateTimeRange? selectedDateRange = await showDateRangePicker(
-        context: context,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2101),
-        initialDateRange: DateTimeRange(
-          start: DateTime.now(),
-          end: DateTime.now().add(Duration(days: 1)),
-        ),
-      );
-
-      if (selectedDateRange != null) {
-        _dateController.text =
-        "${DateFormat('yyyy-MM-dd').format(selectedDateRange.start)}    to   ${DateFormat('yyyy-MM-dd').format(selectedDateRange.end)}";
-      }
-    }
-
-    return SizedBox(
-      height: 25.38,
-      child: TextFormField(
-        controller: isDate ? _dateController : TextEditingController(text: initialValue),
-        style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          color: ColorManager.black,
-        ),
-        cursorColor: ColorManager.black,
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
-            color: ColorManager.greylight, // label text color
-          ),
-          border: const OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)), // border color
-          ),
-          suffixIcon: isDate
-              ? Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime) // calendar color
-              : null,
-        ),
-        readOnly: isDate,
-        onTap: isDate
-            ? () async {
-          await _selectDateRange(context);
-        }
-            : null,
       ),
     );
   }
