@@ -236,7 +236,7 @@ int listIndex = 0 ;
                                   : null,
                             ),
                             child: Text(
-                              'Corporate & Compliance Documents',
+                              'Corporate & Compliance',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,

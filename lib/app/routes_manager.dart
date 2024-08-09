@@ -76,8 +76,8 @@ class RoutesManager {
       getArgumentTitle(context).isNotEmpty
           ? EmailVerification(email: getArgumentTitle(context))
           : const LoginScreen(),
-      HomeScreen.routeName: (context) => const HomeScreen(),
      OnBoardingWelcome.routeName :(context) => const OnBoardingWelcome(),
+      HomeScreen.routeName: (context) => const HomeScreen(),
     };
   }
 }
