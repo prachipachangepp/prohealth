@@ -1,17 +1,10 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/popup_const.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/const_field.dart';
-import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
@@ -19,7 +12,6 @@ import '../../../../app/services/api_sm/company_identity/add_doc_company_manager
 import '../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import '../../hr_module/manage/web_manage/manage_screen.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../login_module/login/widgets/login_web.dart';
 import '../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class SeeAllScreen extends StatefulWidget {

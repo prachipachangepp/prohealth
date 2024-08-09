@@ -790,9 +790,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
 
                                 dropdownItems1 = [
                                   snapshot.data!.serviceDetails![index].serviceName,
-                                  'HCO Number: ${hcoNumController.text}',
-                                  'Medicare ID: ${medicareController.text}',
-                                  'NPI Number: ${npiNumController.text}',
+                                  'HCO Number: ${snapshot.data!.serviceDetails![index].hcoNum}',
+                                  'Medicare ID: ${snapshot.data!.serviceDetails![index].medicareNum}',
+                                  'NPI Number: ${snapshot.data!.serviceDetails![index].npiNum}',
                                 ];
 
                                 return  Row(
@@ -880,7 +880,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        ///hospice
+                                        ///hospic
                                         Row(
                                           children: [
                                             CheckboxConstant(
@@ -917,7 +917,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                             ),
                                           ],
                                         ),
-                                        ///pavilliate care
                                         Row(
                                           children: [
                                             CheckboxConstant(
