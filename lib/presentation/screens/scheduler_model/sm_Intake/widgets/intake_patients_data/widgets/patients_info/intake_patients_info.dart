@@ -294,6 +294,4 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
     );
   }
 }
-
-
-
+////////
