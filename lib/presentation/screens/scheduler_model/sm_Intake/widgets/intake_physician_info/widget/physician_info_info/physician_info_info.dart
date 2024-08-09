@@ -28,249 +28,247 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
       backgroundColor: ColorManager.white,
       body: Center(
         child: SingleChildScrollView(
-          child: Container(
-            child: Column(
+          child: Column(
 
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 80.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text('Status Completed',
-                        style: GoogleFonts.firaSans(
-                            decoration: TextDecoration.none,
-                            fontSize: 12.0,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.greenDark
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 80.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('Status Completed',
+                      style: GoogleFonts.firaSans(
+                          decoration: TextDecoration.none,
+                          fontSize: 12.0,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.greenDark
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 19.5),
+              SizedBox(height: 10),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.95,
+                // height: 405,
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 0,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Primary Physician',)
                         ),
-                      ),
-                    ],
-                  ),
+                        SizedBox(width:AppSize.s35),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Physician’s First Name', )
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Physician’s Last Name',)
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'PECOS Status',)
+                        ),
+                      ],
+                    ),
+                    SizedBox(height:AppSize.s16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'UPIN#', )
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'NPI#', )
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Street')
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Suite/ Apt', )
+                        ),
+                      ],
+                    ),
+                    SizedBox(height:AppSize.s16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'City')
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularDropdown(
+                              labelText: 'State',
+                                items: ['Option 1', 'Option 2', 'Option 3'])
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextFieldWithButton(
+                                labelText: 'Zip Code',
+                                initialValue: '26586845121',
+                                buttonText: 'View Zone')
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Phone')
+                        ),
+                      ],
+                    ),
+                    SizedBox(height:AppSize.s16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Fax')
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Protocol',)
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: Container()), // Empty container for alignment
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: Container()),
+                      ],
+                    ),
+                    SizedBox(height:AppSize.s32),
+
+                    Divider(
+                      height: 5,
+                      color: Color(0xffD9D9D9),
+                      thickness: 4,
+                    ),
+
+                    ////////////////////////second box///////////////////////////
+
+
+                    SizedBox(height:AppSize.s32),
+                    Row(
+                      children: [
+                        Flexible(child: SchedularTextField(
+                            labelText: 'Certifying or F2F Physician')
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Physician’s First Name')
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Physician’s Last Name.',)
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(child: SchedularTextField(
+                            labelText: 'PECOS Status')
+                        ),
+                      ],
+                    ),
+                    SizedBox(height:AppSize.s16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'UPIN#', )
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'NPI#', )
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Street')
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Suite/ Apt', )
+                        ),
+                      ],
+                    ),
+                    SizedBox(height:AppSize.s16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'City')
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularDropdown(
+                              labelText: 'State',
+                                items: ['Option 1', 'Option 2', 'Option 3'])
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextFieldWithButton(
+                                labelText: 'Zip Code',
+                                initialValue: '26586845121', buttonText: 'View Zone')
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Phone')
+                        ),
+                      ],
+                    ),
+                    SizedBox(height:AppSize.s16),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: SchedularTextField(
+                                labelText: 'Fax')
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: SchedularTextField(
+                              labelText: 'Protocol',)
+                        ),
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: Container()), // Empty container for alignment
+                        SizedBox(width:AppSize.s35 ),
+                        Flexible(
+                            child: Container()),
+                      ],
+                    ),
+                  ],
                 ),
-                SizedBox(height: 19.5),
-                SizedBox(height: 10),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.95,
-                  // height: 405,
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 0,
-                        blurRadius: 10,
-                        offset: Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Primary Physician',)
-                          ),
-                          SizedBox(width:AppSize.s35),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Physician’s First Name', )
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Physician’s Last Name',)
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'PECOS Status',)
-                          ),
-                        ],
-                      ),
-                      SizedBox(height:AppSize.s16),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'UPIN#', )
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'NPI#', )
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Street')
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Suite/ Apt', )
-                          ),
-                        ],
-                      ),
-                      SizedBox(height:AppSize.s16),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'City')
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularDropdown(
-                                labelText: 'State',
-                                  items: ['Option 1', 'Option 2', 'Option 3'])
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextFieldWithButton(
-                                  labelText: 'Zip Code',
-                                  initialValue: '26586845121',
-                                  buttonText: 'View Zone')
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Phone')
-                          ),
-                        ],
-                      ),
-                      SizedBox(height:AppSize.s16),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Fax')
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Protocol',)
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: Container()), // Empty container for alignment
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: Container()),
-                        ],
-                      ),
-                      SizedBox(height:AppSize.s32),
-
-                      Divider(
-                        height: 5,
-                        color: Color(0xffD9D9D9),
-                        thickness: 4,
-                      ),
-
-                      ////////////////////////second box///////////////////////////
-
-
-                      SizedBox(height:AppSize.s32),
-                      Row(
-                        children: [
-                          Flexible(child: SchedularTextField(
-                              labelText: 'Certifying or F2F Physician')
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Physician’s First Name')
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Physician’s Last Name.',)
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(child: SchedularTextField(
-                              labelText: 'PECOS Status')
-                          ),
-                        ],
-                      ),
-                      SizedBox(height:AppSize.s16),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'UPIN#', )
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'NPI#', )
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Street')
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Suite/ Apt', )
-                          ),
-                        ],
-                      ),
-                      SizedBox(height:AppSize.s16),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'City')
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularDropdown(
-                                labelText: 'State',
-                                  items: ['Option 1', 'Option 2', 'Option 3'])
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextFieldWithButton(
-                                  labelText: 'Zip Code',
-                                  initialValue: '26586845121', buttonText: 'View Zone')
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Phone')
-                          ),
-                        ],
-                      ),
-                      SizedBox(height:AppSize.s16),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: SchedularTextField(
-                                  labelText: 'Fax')
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: SchedularTextField(
-                                labelText: 'Protocol',)
-                          ),
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: Container()), // Empty container for alignment
-                          SizedBox(width:AppSize.s35 ),
-                          Flexible(
-                              child: Container()),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

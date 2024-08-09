@@ -32,10 +32,9 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-
-      Container(
-
+    return Column(
+        children: [
+          Container(
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
