@@ -9,70 +9,145 @@ import '../../api.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
 ///get manage detail
-Future<ManageDetails> companyDetailGetAll(
-    BuildContext context, String officeId) async {
-  var itemsData;
-  List<DetailsServiceData> detailService = [];
+// Future<ManageDetails> companyDetailGetAll(
+//     BuildContext context, String officeId) async {
+//  // var itemsData;
+//   var itemList;
+//
+//   try {
+//     final companyID =await TokenManager.getCompanyId();
+//     final response = await Api(context).get(
+//         path: EstablishmentManagerRepository.getManageDetails(
+//             companyID: companyID, officeId: officeId));
+//     print(response);
+//
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//      // print("Office details response<<::${itemList}");
+//       // for (var item in response.data['officeDetail']) {
+//       // itemsData = ManageDetails(
+//       //     officeName: response.data['officeDetail']['name'],
+//       //     priNumber: response.data['officeDetail']['primary_phone'],
+//       //     secNumber: response.data['officeDetail']['secondary_phone'],
+//       //     alternateNumber: response.data['officeDetail']['alternative_phone'],
+//       //     address: response.data['officeDetail']['address'],
+//       //     email: response.data['officeDetail']['email'],
+//       //     officeID: response.data['officeDetail']["office_id"],
+//       //     sucess: true,
+//       //     message: response.statusMessage!,
+//       //     primaryFax: response.data['officeDetail']["primary_fax"],
+//       //     secondaryFax: response.data['officeDetail']["secondary_fax"]);
+//
+//       for (var item in response.data) {
+//         List<DetailsServiceData> detailService = [];
+//       for(var items in item['serviceList']){
+//         try {
+//           detailService.add(DetailsServiceData(
+//               CompanyId: items['company_id'],
+//               officeId: items['office_id'],
+//               serviceName: items['service_name'],
+//               serviceId: items['service_id'],
+//               npiNum: items['npi_number'],
+//               medicareNum: items['medicare_provider_id'],
+//               hcoNum: items['hco_num_id'],
+//               OfficeServiceId: items['Office_service_id']));
+//         }catch(e){}
+//       }
+//        print(':::::::::::detailService${item}');
+//       itemList.add(ManageDetails(
+//             officeName: response.data['officeDetail']['name'],
+//             priNumber: response.data['officeDetail']['primary_phone'],
+//             secNumber: response.data['officeDetail']['secondary_phone'],
+//             alternateNumber: response.data['officeDetail']['alternative_phone'],
+//             address: response.data['officeDetail']['address'],
+//             email: response.data['officeDetail']['email'],
+//             officeID: response.data['officeDetail']["office_id"],
+//             sucess: true,
+//             message: response.statusMessage!,
+//             primaryFax: response.data['officeDetail']["primary_fax"],
+//             secondaryFax: response.data['officeDetail']["secondary_fax"],
+//       serviceDetails: detailService),);
+//
+//       }
+//       // }
+//       // );
+//       // itemsList.add(
+//       //   ManageDetails(
+//       //       officeName: item['name'],
+//       //       priNumber: item['primary_phone'],
+//       //       secNumber: item['secondary_phone'],
+//       //       alternateNumber: item['alternative_phone'],
+//       //       address: item['address'],
+//       //       email: item['email'],
+//       //       officeID: item["office_id"],
+//       //       sucess: true,
+//       //       message: response.statusMessage!),
+//       // );
+//       print("Office details response:::::${itemList}");
+//     } else {
+//       print('Api Error');
+//       //return itemsList;
+//     }
+//     return itemList;
+//   } catch (e) {
+//     print("Error $e");
+//     return itemList;
+//   }
+// }
+Future<ManageDetails?> companyDetailGetAll(BuildContext context, String officeId) async {
   try {
-    final companyID =await TokenManager.getCompanyId();
+    final companyID = await TokenManager.getCompanyId();
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.getManageDetails(
-            companyID: companyID, officeId: officeId));
+      path: EstablishmentManagerRepository.getManageDetails(
+        companyID: companyID,
+        officeId: officeId,
+      ),
+    );
+
     print(response);
+
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Office details response<<::${itemsData}");
-      // for (var item in response.data['officeDetail']) {
-      itemsData = ManageDetails(
-          officeName: response.data['officeDetail']['name'],
-          priNumber: response.data['officeDetail']['primary_phone'],
-          secNumber: response.data['officeDetail']['secondary_phone'],
-          alternateNumber: response.data['officeDetail']['alternative_phone'],
-          address: response.data['officeDetail']['address'],
-          email: response.data['officeDetail']['email'],
-          officeID: response.data['officeDetail']["office_id"],
-          sucess: true,
-          message: response.statusMessage!,
-          primaryFax: response.data['officeDetail']["primary_fax"],
-          secondaryFax: response.data['officeDetail']["secondary_fax"]);
-      for(var items in response.data['serviceList']){
-        detailService.add(DetailsServiceData(
-            CompanyId: items['company_id'],
+      // Parse service list
+      List<DetailsServiceData> detailService = [];
+      if (response.data['serviceList'] != null) {
+        for (var items in response.data['serviceList']) {
+          detailService.add(DetailsServiceData(
+            officeServiceId: items['Office_service_id'],
+            companyId: items['company_id'],
             officeId: items['office_id'],
             serviceName: items['service_name'],
             serviceId: items['service_id'],
             npiNum: items['npi_number'],
             medicareNum: items['medicare_provider_id'],
             hcoNum: items['hco_num_id'],
-            OfficeServiceId: items['Office_service_id']));
-
+          ));
+        }
       }
-      // }
-      // );
-      // itemsList.add(
-      //   ManageDetails(
-      //       officeName: item['name'],
-      //       priNumber: item['primary_phone'],
-      //       secNumber: item['secondary_phone'],
-      //       alternateNumber: item['alternative_phone'],
-      //       address: item['address'],
-      //       email: item['email'],
-      //       officeID: item["office_id"],
-      //       sucess: true,
-      //       message: response.statusMessage!),
-      // );
-      print("Office details response:::::${itemsData}");
-      // CompanyModel(
-      //   name: response.data['Name'],
-      //   address: response.data['address'],
-      //   );
+
+      // Create ManageDetails object
+      final manageDetails = ManageDetails(
+        officeID: response.data['officeDetail']['company_Office_id'].toString(),
+        success: true,
+        message: response.statusMessage ?? '',
+        officeName: response.data['officeDetail']['name'],
+        priNumber: response.data['officeDetail']['primary_phone'],
+        secNumber: response.data['officeDetail']['secondary_phone'],
+        alternateNumber: response.data['officeDetail']['alternative_phone'],
+        address: response.data['officeDetail']['address'],
+        email: response.data['officeDetail']['email'],
+        primaryFax: response.data['officeDetail']['primary_fax'],
+        secondaryFax: response.data['officeDetail']['secondary_fax'],
+        serviceDetails: detailService,
+      );
+
+      print("Office details response::::: ${manageDetails}");
+      return manageDetails;
     } else {
-      print('Api Error');
-      //return itemsList;
+      print('Api Error: ${response.statusMessage}');
+      return null;
     }
-    return itemsData;
   } catch (e) {
-    print("Error $e");
-    return itemsData;
+    print("Error: $e");
+    return null;
   }
 }
 
