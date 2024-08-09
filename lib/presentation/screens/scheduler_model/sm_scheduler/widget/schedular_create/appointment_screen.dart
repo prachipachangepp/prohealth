@@ -40,65 +40,62 @@ class _SmProfileBarState extends State<SmProfileBar> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: AppPadding.p40),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(Icons.keyboard_arrow_left_rounded),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.keyboard_arrow_left_rounded),
+                          ),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 180),
+                          TextButton(
+                            onPressed: () {
+                             Navigator.pop(context);
+                            },
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              minimumSize: Size.zero,
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width / 180),
-                            TextButton(
-                              onPressed: () {
-                               Navigator.pop(context);
-                              },
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                minimumSize: Size.zero,
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            child: Text(
+                              'Back',
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s14,
+                                fontWeight: FontWeightManager.medium,
+                                color: ColorManager.textBlack
                               ),
-                              child: Text(
-                                'Back',
-                                style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s14,
-                                  fontWeight: FontWeightManager.medium,
-                                  color: ColorManager.textBlack
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 140),
-                        CircleAvatar(
-                          radius: 40, //MediaQuery.of(context).size.width * 0.03
-                          backgroundImage: AssetImage('images/profile.png'),
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height / 60),
-                        Text(
-                          'JOHN SCOTT',
-                          style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s10,
-                              // fontSize: MediaQuery.of(context).size.width * 0.006,
-                              fontWeight: FontWeightManager.medium),
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height / 30),
-                        Text(
-                          'Active',
-                          style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s10,
-                              // fontSize: MediaQuery.of(context).size.width * 0.006,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.textPrimaryColor),
-                        )
-                      ],
-                    ),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height / 140),
+                      CircleAvatar(
+                        radius: 40, //MediaQuery.of(context).size.width * 0.03
+                        backgroundImage: AssetImage('images/profile.png'),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
+                      Text(
+                        'JOHN SCOTT',
+                        style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            // fontSize: MediaQuery.of(context).size.width * 0.006,
+                            fontWeight: FontWeightManager.medium),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
+                      Text(
+                        'Active',
+                        style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            // fontSize: MediaQuery.of(context).size.width * 0.006,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.textPrimaryColor),
+                      )
+                    ],
                   ),
                   // SizedBox(width: MediaQuery.of(context).size.width / 40),
                   Padding(
