@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/see_all/see_all.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
@@ -8,6 +9,18 @@ import 'package:prohealth/data/api_data/hr_module_data/see_all_data/see_all_data
 
 Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context) async {
   List<SeeAllData> itemsData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
 
   try{
     final compID = await TokenManager.getCompanyId();
@@ -15,6 +28,7 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context) async {
     SeeAllRepository.getEmpSeeAll(compId: compID));
     if(response.statusCode == 200 || response.statusCode == 201){
       for(var item in response.data){
+        String DOB = convertIsoToDayMonthYear(item['dateOfBirth']);
       itemsData.add(SeeAllData(
         empId: item['employeeId'],
         code: item['code'],
@@ -33,7 +47,7 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context) async {
         regOfficId: item['regOfficId'],
         personalEmail: item['personalEmail'],
         workEmail: item['workEmail'],
-        dateOfBirth: item['dateOfBirth'],
+        dateOfBirth: DOB,
         emergencyContact: item['emergencyContact'],
         employment: item['employment'],
         covreage: item['covreage'],
