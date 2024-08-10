@@ -26,21 +26,14 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
         itemsList.add(
           OnboardingAckHealthData(
             DocumentName: item['DocumentName'] ?? 'Document Name',
-              employeeDocumentId: item['employeeDocumentId'] ?? 1,
-              EmployeeDocumentTypeMetaDataId: item['EmployeeDocumentTypeMetaDataId'] ?? 10,
-              EmployeeDocumentTypeSetupId: item['EmployeeDocumentTypeSetupId'] ?? 2,
-              employeeId: item['employeeId'] ?? 1,
-              DocumentUrl: item['DocumentUrl'] ?? 'null',
-              ReminderThreshold: item['ReminderThreshold'] ?? '--',
             Expiry: item['Expiry'] ?? '--',
+            ReminderThreshold: item['ReminderThreshold'] ?? '--',
             DocumentType: item['DocumentType'] ?? '--',
-             // approved: item['approved'] ?? false)
-          // EmployeeDocTabModal(
-          //   employeeDocType: item['EmployeeDocumentType']== null ?"null" :item['EmployeeDocumentType'],
-          //   employeeDocMetaDataId: item['EmployeeDocumentTypeMetaDataId']== null ? 0 :item['EmployeeDocumentTypeMetaDataId'],
-          //   success: true,
-          //   message: response.statusMessage!,
-          // ),
+            EmployeeDocumentTypeMetaDataId: item['EmployeeDocumentTypeMetaDataId'] ?? 10,
+            EmployeeDocumentTypeSetupId: item['EmployeeDocumentTypeSetupId'] ?? 2,
+            DocumentUrl: item['DocumentUrl'] ?? 'null',
+            employeeDocumentId: item['employeeDocumentId'] ?? 1,
+             employeeId: item['employeeId'] ?? 1,
           ) );
         print(".....Get ack Health......$response");
       }

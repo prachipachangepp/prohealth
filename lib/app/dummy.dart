@@ -1096,3 +1096,262 @@
 //     );
 //   }
 // }
+
+
+import '../presentation/screens/hr_module/onboarding/widgets/genaral_tab.dart';
+
+///class _OnboardingGeneralState extends State<OnboardingGeneral> {
+//   final StreamController<List<SeeAllData>> generalController =
+//   StreamController<List<SeeAllData>>();
+//   late int currentPage;
+//   late int itemsPerPage;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     currentPage = 1;
+//     itemsPerPage = 2;
+//     getEmployeeSeeAll(context).then((data) {
+//       generalController.add(data);
+//     }).catchError((error) {});
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     double containerWidth = MediaQuery.of(context).size.width * 0.9;
+//     double containerHeight = MediaQuery.of(context).size.height * 0.2;
+//     return Column(
+//       children: [
+//         Expanded(
+//           child: StreamBuilder<List<SeeAllData>>(
+//             stream: generalController.stream,
+//             builder: (context, snapshot) {
+//               if (snapshot.connectionState == ConnectionState.waiting) {
+//                 return Center(
+//                   child: CircularProgressIndicator(
+//                     color: ColorManager.blueprime,
+//                   ),
+//                 );
+//               }
+//               if (snapshot.data == null || snapshot.data!.isEmpty) {
+//                 return Center(
+//                   child: Text(
+//                     AppString.dataNotFound,
+//                     style: CustomTextStylesCommon.commonStyle(
+//                       fontWeight: FontWeightManager.medium,
+//                       fontSize: FontSize.s12,
+//                       color: ColorManager.mediumgrey,
+//                     ),
+//                   ),
+//                 );
+//               }
+//               if (snapshot.hasData) {
+//                 int totalItems = snapshot.data!.length;
+//                 int totalPages = (totalItems / itemsPerPage).ceil();
+//
+//                 List<SeeAllData> currentPageItems = snapshot.data!.sublist(
+//                   (currentPage - 1) * itemsPerPage,
+//                   (currentPage * itemsPerPage) > totalItems
+//                       ? totalItems
+//                       : (currentPage * itemsPerPage),
+//                 );
+//                 return Column(
+//                   children: [
+//                     Expanded(
+//                       child: ListView.builder(
+//                         scrollDirection: Axis.vertical,
+//                         itemCount: currentPageItems.length,
+//                         itemBuilder: (context, index) {
+//                           return Column(
+//                             children: [
+//                               Material(
+//                                 color: ColorManager.white,
+//                                 elevation: 4,
+//                                 borderRadius: BorderRadius.circular(20),
+//                                 child: Container(
+//                                   width: containerWidth,
+//                                   height: 150,
+//                                   decoration: BoxDecoration(
+//                                     borderRadius: BorderRadius.circular(20),
+//                                     border: Border.all(
+//                                       width: 1,
+//                                       color: ColorManager.grey,
+//                                     ),
+//                                   ),
+//                                   child: Column(
+//                                     mainAxisAlignment: MainAxisAlignment.start,
+//                                     crossAxisAlignment: CrossAxisAlignment.start,
+//                                     children: [
+//                                       Row(
+//                                         mainAxisAlignment: MainAxisAlignment.end,
+//                                         crossAxisAlignment: CrossAxisAlignment.end,
+//                                         children: [
+//                                           Container(
+//                                             width: AppSize.s88,
+//                                             height: AppSize.s20,
+//                                             decoration: BoxDecoration(
+//                                               color: ColorManager.greenF,
+//                                               borderRadius: BorderRadius.only(
+//                                                 topRight: Radius.circular(20),
+//                                               ),
+//                                             ),
+//                                             child: Center(
+//                                               child: Text(
+//                                                 snapshot.data![index].status.toString(),
+//                                                 textAlign: TextAlign.center,
+//                                                 style: CustomTextStylesCommon.commonStyle(
+//                                                   color: ColorManager.white,
+//                                                   fontSize: FontSize.s11,
+//                                                   fontWeight: FontWeightManager.bold,
+//                                                 ),
+//                                               ),
+//                                             ),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                       Padding(
+//                                         padding: EdgeInsets.only(
+//                                           left: MediaQuery.of(context).size.width / 60,
+//                                         ),
+//                                         child: InkWell(
+//                                           onTap: () => widget.selectButton(1, snapshot.data![index].empId!),
+//                                           child: Container(
+//                                             color: Colors.white,
+//                                             child: Row(
+//                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                                               crossAxisAlignment: CrossAxisAlignment.center,
+//                                               children: [
+//                                                 Column(
+//                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                                                   children: [
+//                                                     CircleAvatar(
+//                                                       radius: MediaQuery.of(context).size.width / 50,
+//                                                       child: Image.asset('images/profile.png'),
+//                                                     ),
+//                                                     SizedBox(
+//                                                       height: MediaQuery.of(context).size.width / 80,
+//                                                     ),
+//                                                     Text(
+//                                                       '${snapshot.data![index].firstName ?? ''} ${snapshot.data![index].lastName ?? ''}',
+//                                                       style: CustomTextStylesCommon.commonStyle(
+//                                                         color: ColorManager.black,
+//                                                         fontSize: FontSize.s12,
+//                                                         fontWeight: FontWeightManager.bold,
+//                                                       ),
+//                                                     ),
+//                                                   ],
+//                                                 ),
+//
+//                                                 // Replaced columns with InfoTextWidget
+//                                                 InfoTextWidget(
+//                                                   texts: [
+//                                                     'Social Security Number',
+//                                                     'Type of Clinician',
+//                                                     'Phone Number',
+//                                                     'Personal Email'
+//                                                   ],
+//                                                 ),
+//                                                 InfoTextWidget(
+//                                                   texts: [
+//                                                     snapshot.data![index].ssnnbr ?? '-',
+//                                                     snapshot.data![index].type ?? '-',
+//                                                     snapshot.data![index].primaryPhoneNbr ?? '-',
+//                                                     snapshot.data![index].personalEmail ?? '-',
+//                                                   ],
+//                                                 ),
+//                                                 InfoTextWidget(
+//                                                   texts: [
+//                                                     'Drivers License Number',
+//                                                     'Speciality',
+//                                                     'City',
+//                                                     'Zone',
+//                                                   ],
+//                                                 ),
+//                                                 InfoTextWidget(
+//                                                   texts: [
+//                                                     snapshot.data![index].driverLicenseNum ?? '-',
+//                                                     '--', // If data is not available
+//                                                     snapshot.data![index].city ?? '-',
+//                                                     snapshot.data![index].zone ?? '-',
+//                                                   ],
+//                                                 ),
+//                                                 InfoTextWidget(
+//                                                   texts: [
+//                                                     'Address',
+//                                                     'Employment',
+//                                                     'City',
+//                                                     'Date of Birth',
+//                                                   ],
+//                                                 ),
+//                                                 InfoTextWidget(
+//                                                   texts: [
+//                                                     snapshot.data![index].finalAddress ?? '-',
+//                                                     snapshot.data![index].employment ?? '-',
+//                                                     snapshot.data![index].city ?? '-',
+//                                                     snapshot.data![index].dateOfBirth ?? '-',
+//                                                   ],
+//                                                 ),
+//                                                 InfoTextWidget(
+//                                                   texts: [
+//                                                     'Status',
+//                                                     'Race',
+//                                                     'Service',
+//                                                     '',
+//                                                   ],
+//                                                 ),
+//                                                 InfoTextWidget(
+//                                                   texts: [
+//                                                     snapshot.data![index].status ?? '-',
+//                                                     snapshot.data![index].race ?? '-',
+//                                                     snapshot.data![index].service ?? '-',
+//                                                   ],
+//                                                 ),
+//                                               ],
+//                                             ),
+//                                           ),
+//                                         ),
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               ),
+//                               SizedBox(
+//                                 height: AppSize.s5,
+//                               ),
+//                             ],
+//                           );
+//                         },
+//                       ),
+//                     ),
+//                     PaginationControlsWidget(
+//                       currentPage: currentPage,
+//                       items: snapshot.data!,
+//                       itemsPerPage: itemsPerPage,
+//                       onPreviousPagePressed: () {
+//                         setState(() {
+//                           currentPage = currentPage > 1 ? currentPage - 1 : 1;
+//                         });
+//                       },
+//                       onPageNumberPressed: (pageNumber) {
+//                         setState(() {
+//                           currentPage = pageNumber;
+//                         });
+//                       },
+//                       onNextPagePressed: () {
+//                         setState(() {
+//                           currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+//                         });
+//                       },
+//                     ),
+//                     SizedBox(height: AppSize.s10),
+//                   ],
+//                 );
+//               }
+//               return Offstage();
+//             },
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

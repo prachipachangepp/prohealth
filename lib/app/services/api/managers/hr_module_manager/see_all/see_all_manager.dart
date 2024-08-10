@@ -10,15 +10,9 @@ import 'package:prohealth/data/api_data/hr_module_data/see_all_data/see_all_data
 Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context) async {
   List<SeeAllData> itemsData = [];
   String convertIsoToDayMonthYear(String isoDate) {
-    // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
-
-    // Create a DateFormat object to format the date
     DateFormat dateFormat = DateFormat('yyyy-MM-dd');
-
-    // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
-
     return formattedDate;
   }
 
@@ -31,6 +25,7 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context) async {
         String DOB = convertIsoToDayMonthYear(item['dateOfBirth']);
       itemsData.add(SeeAllData(
         empId: item['employeeId'],
+        expertise: item['expertise'],
         code: item['code'],
         userID: item['userId'],
         firstName: item['firstName'],

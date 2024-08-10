@@ -31,7 +31,7 @@ class HrAdministrativeScreen extends StatefulWidget {
 class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
-  AdministrativeData administrativeData = AdministrativeData();
+ // AdministrativeData administrativeData = AdministrativeData();
   final StreamController<List<HRAllData>> _controller = StreamController<List<HRAllData>>();
 
   late int currentPage;
@@ -42,8 +42,8 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 10;
-    administrativeData.loadEmployeeData();
+    itemsPerPage = 2;
+   // administrativeData.loadEmployeeData();
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
     getAllHrDeptWise(context, widget.deptId).then((data) {
