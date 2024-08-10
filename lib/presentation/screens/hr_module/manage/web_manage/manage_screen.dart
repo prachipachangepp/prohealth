@@ -269,7 +269,7 @@ class ManageScreen extends StatelessWidget {
                             ),
 
                             // Pay Rates Tab
-                            const PayRatesHeadTabbar(),
+                             PayRatesHeadTabbar(employeeId: searchByEmployeeIdProfileData!.employeeId!,),
 
                             // Termination Tab
                             const TerminationHeadTabbar(),

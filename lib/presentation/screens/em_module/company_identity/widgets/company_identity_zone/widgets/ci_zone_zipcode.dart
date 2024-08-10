@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/const_string.dart';
@@ -231,8 +232,13 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                 Expanded(
                                   flex: 2,
                                   child: InkWell(
-                                    onTap:(){
-
+                                    onTap:() async{
+                                       String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].latitude}, ${snapshot.data![index].longitude}";
+                                      if (await canLaunchUrlString(googleMapsUrl)) {
+                                      await launchUrlString(googleMapsUrl);
+                                      } else {
+                                      print('Could not open the map.');
+                                      }
                                     },
                                     child: Text(
                                       textAlign: TextAlign.center,
