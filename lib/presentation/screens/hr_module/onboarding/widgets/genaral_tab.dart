@@ -31,8 +31,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 20;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
+    itemsPerPage = 40;
+    items = List.generate(40, (index) => 'Item ${index + 1}');
     getEmployeeSeeAll(context).then((data) {
       generalController.add(data);
     }).catchError((error) {});

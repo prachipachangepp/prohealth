@@ -49,8 +49,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 20;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
+    itemsPerPage = 30;
+    items = List.generate(30, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
     getVisit(context, 1, 30).then((data) {
@@ -346,46 +346,46 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       SizedBox(
         height: AppSize.s5,
       ),
-      Expanded(
-        child: StreamBuilder<List<CiVisit>>(
-            stream: _visitController.stream,
-            builder: (context, snapshot) {
-              print('1111111');
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 150),
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: ColorManager.blueprime,
+      StreamBuilder<List<CiVisit>>(
+          stream: _visitController.stream,
+          builder: (context, snapshot) {
+            print('1111111');
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150),
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                ),
+              );
+            }
+            if (snapshot.data!.isEmpty) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150),
+                child: Center(
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
                     ),
                   ),
-                );
-              }
-              if (snapshot.data!.isEmpty) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 150),
-                  child: Center(
-                    child: Text(
-                      AppString.dataNotFound,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey,
-                      ),
-                    ),
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                // int totalItems = snapshot.data!.length;
-                // // int totalPages = (totalItems / itemsPerPage).ceil();
-                // List<CiVisit> currentPageItems = snapshot.data!.sublist(
-                //   (currentPage - 1) * itemsPerPage,
-                //   (currentPage * itemsPerPage) > totalItems
-                //       ? totalItems
-                //       : (currentPage * itemsPerPage),
-                // );
-                return ListView.builder(
+                ),
+              );
+            }
+            if (snapshot.hasData) {
+              // int totalItems = snapshot.data!.length;
+              // // int totalPages = (totalItems / itemsPerPage).ceil();
+              // List<CiVisit> currentPageItems = snapshot.data!.sublist(
+              //   (currentPage - 1) * itemsPerPage,
+              //   (currentPage * itemsPerPage) > totalItems
+              //       ? totalItems
+              //       : (currentPage * itemsPerPage),
+              // );
+              return Expanded(
+                child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
@@ -458,7 +458,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
-
+                      
                                   // Expanded(flex: 1, child: Container()),
                                   Expanded(
                                     child: Text(
@@ -750,11 +750,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               ))
                         ]),
                       );
-                    });
-              }
-              return Offstage();
-            }),
-      ),
+                    }),
+              );
+            }
+            return Offstage();
+          }),
       //       PaginationControlsWidget(
     ]);
   }

@@ -49,8 +49,6 @@ class ScreenSizeController extends GetxController {
 //   }
 // }
 
-///head 1st tabbar
-///saloni
 class MyAppTabBarController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -78,8 +76,6 @@ class MyAppTabBarController extends GetxController
   }
 }
 
-///middle head tabbar
-///saloni
 class CenteredTabBarController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -108,8 +104,6 @@ class CenteredTabBarController extends GetxController
   }
 }
 
-///last child tabbar
-///saloni
 class CenteredTabBarChildController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -138,7 +132,7 @@ class CenteredTabBarChildController extends GetxController
   }
 }
 
-///saloni
+
 class RegisterController extends GetxController {
   final isDialogOpen = false.obs;
 
@@ -152,7 +146,7 @@ class RegisterController extends GetxController {
   }
 }
 
-///prachi
+
 class AddEmployeeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -181,7 +175,7 @@ class AddEmployeeController extends GetxController
   }
 }
 
-///prachi
+
 class OnboardingController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -210,7 +204,7 @@ class OnboardingController extends GetxController
   }
 }
 
-///
+
 class QualificationTabBarController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;

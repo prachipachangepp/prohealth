@@ -231,7 +231,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
       employeeId: employeeId,
     ));
     print("Getting response");
-
+    print("Search response ::: ${response}");
     if (response.statusCode == 200 || response.statusCode == 201) {
       itemsData = SearchByEmployeeIdProfileData(
         employeeId: response.data['employeeId']??0,

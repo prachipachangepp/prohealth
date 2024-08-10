@@ -83,6 +83,7 @@ class _ManageScreenState extends State<ManageScreen> {
 
   @override
   void initState() {
+    print("Emp id in manageScreen ::: ${widget.employeeId}");
     // List<Tab> tabs = [];
     // await FutureBuilder<List<EmployeeDocTabModal>>(
     //     future: getEmployeeDocTab(context),
@@ -96,7 +97,6 @@ class _ManageScreenState extends State<ManageScreen> {
     //         return SizedBox(height: 1,width: 1,);
     //       }
     //     });
-
     childController = CenteredTabBarChildController(
       tabs: [
         Tab(text: AppStringHr.employment,),
@@ -109,12 +109,11 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              EmploymentContainerConstant(employeeId: widget.searchByEmployeeIdProfileData!.employeeId!,),
+              EmploymentContainerConstant(employeeId: widget.employeeId!,),
               Container(height: 30,),
             ],
           ),
         ),
-
         ///education
         SingleChildScrollView(
           child: Column(
@@ -212,6 +211,13 @@ class _ManageScreenState extends State<ManageScreen> {
       ],
     ));
     super.initState();
+  }
+  @override
+  void dispose(){
+    super.dispose();
+    childController.dispose();
+    childControlleOne.dispose();
+    centeredTabBarController.dispose();
   }
 
   @override

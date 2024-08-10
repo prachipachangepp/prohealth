@@ -543,6 +543,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     SearchByEmployeeIdProfileData
                     searchByEmployeeIdProfileData = snapshot.data!;
                     print("Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
+                    int empID = searchByEmployeeIdProfileData.employeeId!;
                     return PageView(
                       controller: _pageController,
                       physics: NeverScrollableScrollPhysics(),
@@ -550,7 +551,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         DashBoardScreen(),
                         ManageScreen(
                           searchByEmployeeIdProfileData:
-                          searchByEmployeeIdProfileData, employeeId: searchByEmployeeIdProfileData.employeeId!,
+                          searchByEmployeeIdProfileData,
+                          employeeId: empID,
                         ),
                         //AddEmployeeHomeScreen(),
                         RegisterScreen(),
