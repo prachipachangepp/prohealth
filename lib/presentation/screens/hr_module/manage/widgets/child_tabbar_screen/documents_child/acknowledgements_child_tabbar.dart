@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -14,6 +15,7 @@ import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,6 +23,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../onboarding/download_doc_const.dart';
 ///download
+
 class AcknowledgementsChildBar extends StatefulWidget {
   final int employeeId;
   const AcknowledgementsChildBar({super.key, required this.employeeId});
@@ -32,7 +35,6 @@ class AcknowledgementsChildBar extends StatefulWidget {
 class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
   final StreamController<List<OnboardingAckHealthData>> _controller = StreamController<List<OnboardingAckHealthData>>();
   TextEditingController acknowldgementNameController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -45,6 +47,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
 
   @override
   Widget build(BuildContext context) {
+    //print('Employee Id in documents :: ${controller.employeeId}');
     return Column(
       children: [
         Row(
