@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -12,6 +13,7 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employeement_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/add_employee_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_employeement_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
@@ -21,7 +23,7 @@ import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 
 ///done by saloni
-class EmploymentContainerConstant extends StatefulWidget {
+class EmploymentContainerConstant extends StatefulWidget{
   final int employeeId;
   EmploymentContainerConstant({required this.employeeId});
   @override
@@ -45,11 +47,12 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
   @override
   void initState() {
     // TODO: implement initState
-    print("Employee id in EmployeeMent screen :: ${widget.employeeId}");
+    //CenteredTabBarController centeredTabBarController;
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
+    //print("Employee id in EmployeeMent screen :: ${employeeId}");
     return Column(
       children: [
         Row(

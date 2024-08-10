@@ -368,6 +368,8 @@ import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/text_form_field_const.dart';
 import '../../whitelabelling/success_popup.dart';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CIZoneAddPopup extends StatefulWidget {
   final TextEditingController countynameController;
@@ -562,6 +564,23 @@ class AddZipCodePopup extends StatefulWidget {
 }
 
 class _AddZipCodePopupState extends State<AddZipCodePopup> {
+  LatLng? _selectedLocation;
+
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PickLocationScreen()),
+    );
+
+    if (pickedLocation != null) {
+      setState(() {
+        _selectedLocation = pickedLocation;
+      });
+
+      // Use _selectedLocation.latitude and _selectedLocation.longitude as needed
+      print('Selected Location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}');
+    }
+  }
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -670,13 +689,8 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                     Row(
                       children: [
                         TextButton(
-                          onPressed: () async {
-                            const String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=36.778259, -119.417931";
-                            if (await canLaunchUrlString(googleMapsUrl)) {
-                              await launchUrlString(googleMapsUrl);
-                            } else {
-                              print('Could not open the map.');
-                            }
+                          onPressed: () {
+                            //_pickLocation();
                           },
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.transparent),
@@ -747,7 +761,63 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   }
 }
 
+/// Pick google map location
+class PickLocationScreen extends StatefulWidget {
+  @override
+  _PickLocationScreenState createState() => _PickLocationScreenState();
+}
 
+class _PickLocationScreenState extends State<PickLocationScreen> {
+  LatLng? _pickedLocation;
+
+  void _onMapCreated(GoogleMapController controller) {
+    // Optional: Set initial camera position
+    controller.animateCamera(CameraUpdate.newLatLngZoom(
+      LatLng(37.7749, -122.4194), // Initial position (San Francisco)
+      10,
+    ));
+  }
+
+  void _onTap(LatLng location) {
+    setState(() {
+      _pickedLocation = location;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Pick Location'),
+        actions: [
+          if (_pickedLocation != null)
+            IconButton(
+              icon: Icon(Icons.check),
+              onPressed: () {
+                Navigator.pop(context, _pickedLocation);
+              },
+            ),
+        ],
+      ),
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        onTap: _onTap,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(37.7749, -122.4194), // Initial position (San Francisco)
+          zoom: 10,
+        ),
+        markers: _pickedLocation != null
+            ? {
+          Marker(
+            markerId: MarkerId('picked-location'),
+            position: _pickedLocation!,
+          ),
+        }
+            : {},
+      ),
+    );
+  }
+}
 
 class AddZonePopup extends StatefulWidget {
   final TextEditingController zoneNumberController;
