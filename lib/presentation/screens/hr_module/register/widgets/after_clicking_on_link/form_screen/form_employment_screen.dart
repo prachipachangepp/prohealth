@@ -193,9 +193,9 @@ class _Employment_screenState extends State<Employment_screen> {
                       state.supervisorMobileNumberController.text,
                       state.finalPositionController.text,
                       state.startDateController.text,
-                      state.isChecked ? 'Present' : state.endDateController.text,
-                      "emgMobile",
-                      "country"
+                      state.isChecked ? 'Present': state.endDateController.text,
+                        "NA",
+                        "USA"
                     );
                     if (state.finalPath == null || state.finalPath.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(

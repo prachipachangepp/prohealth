@@ -33,7 +33,7 @@ Future<ApiDataRegister> posteducationscreen(
         "phone": phone,
         "state": state,
         "country": country,
-        "startDate":  "${startDate}T00:00:00Z"
+        "startDate": "${startDate}T00:00:00Z"
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

@@ -23,8 +23,8 @@ Future<ApiDataRegister> postlicensesscreen(
       data: {
         "country": country,
         "employeeId": employeeId,
-        "expDate": "${expDate}T00:00:00Z",
-        "issueDate": "${issueDate}T00:00:00Z",
+        "expDate":   "${expDate}T00:00:00Z",
+        "issueDate":"${issueDate}T00:00:00Z",
         "licenseUrl": licenseUrl,
         "licensure": licensure,
         "licenseNumber": licenseNumber,

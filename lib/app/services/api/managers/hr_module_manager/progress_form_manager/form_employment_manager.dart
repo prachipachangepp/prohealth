@@ -18,8 +18,7 @@ Future<ApiDataRegister> postemploymentscreen(
     String dateOfJoining,
     String endDate,
     String emgMobile,
-    String country
-    ) async {
+    String country) async {
   try {
     var response = await ApiOffer(context).post(
       path: ProgressBarRepository.postemploymentscreen(),
@@ -31,7 +30,7 @@ Future<ApiDataRegister> postemploymentscreen(
         "supervisor": supervisor,
         "supMobile": supMobile,
         "title": title,
-        "dateOfJoining": "${dateOfJoining}T00:00:00Z", //"${dateOfBirth}T00:00:00Z"
+        "dateOfJoining": "${dateOfJoining}T00:00:00Z",
         "endDate": "${endDate}T00:00:00Z",
         "emgMobile": emgMobile,
         "country": country
@@ -49,6 +48,8 @@ Future<ApiDataRegister> postemploymentscreen(
           message: response.statusMessage!);
     } else {
       print("Error 1");
+      print("::::::::::::: no data added");
+
       return ApiDataRegister(
           statusCode: response.statusCode!,
           success: false,

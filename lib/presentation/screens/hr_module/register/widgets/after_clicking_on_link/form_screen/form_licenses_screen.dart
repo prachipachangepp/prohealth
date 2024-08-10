@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
@@ -34,6 +35,72 @@ class LicensesScreen extends StatefulWidget {
 }
 
 class _LicensesScreenState extends State<LicensesScreen> {
+  // Future<void> perfFormLinsence({
+  //   required BuildContext context,
+  //   required String country,
+  //   required int employeeId,
+  //   required String expDate,
+  //   required String issueDate,
+  //   required String licenseUrl,
+  //   required String licensure,
+  //   required String licenseNumber,
+  //   required String org,
+  //   required String documentType,
+  //   required dynamic documentFile,
+  //   required String documentName,
+  // }) async {
+  //   // Check if a document file is selected
+  //   if (documentFile == null || documentFile.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('No file selected. Please select a file to upload.'),
+  //         backgroundColor: Colors.red,
+  //       ),
+  //     );
+  //     return; // Exit the function early as there's no file to upload
+  //   }
+  //
+  //   // Proceed with API call only if a document file is provided
+  //   ApiDataRegister result = await postlicensesscreen(
+  //     context,
+  //     country,
+  //     employeeId,
+  //     expDate,
+  //     issueDate,
+  //     licenseUrl,
+  //     licensure,
+  //     licenseNumber,
+  //     org,
+  //     documentType,
+  //   );
+  //
+  //   print('LicenseId :: ${result.licenses!}');
+  //
+  //   await uploadlinceses(
+  //     context: context,
+  //     employeeid: employeeId,
+  //     documentFile: documentFile,
+  //     documentName: documentName,
+  //     licensedId: result.licenses!,
+  //   );
+  //
+  //   // Check the result of the API call
+  //   if (result.success) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Document uploaded successfully!'),
+  //         backgroundColor: Colors.green,
+  //       ),
+  //     );
+  //   } else {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Error: ${result.message}'),
+  //       ),
+  //     );
+  //   }
+  // }
+
   Future<void> perfFormLinsence({
     required BuildContext context,
     required String country,
@@ -50,8 +117,17 @@ class _LicensesScreenState extends State<LicensesScreen> {
     required dynamic documentFile,
     required String documentName,
   }) async {
-    ApiDataRegister result = await postlicensesscreen(context, country,
-        employeeId,expDate, issueDate,licenseUrl, licensure, licenseNumber, org, documentType);
+    ApiDataRegister result = await postlicensesscreen(
+        context,
+        country,
+        employeeId,
+        expDate,
+        issueDate,
+        licenseUrl,
+        licensure,
+        licenseNumber,
+        org,
+        documentType);
     // setState(() {
     //   _isLoading = false;
     // });
@@ -282,65 +358,54 @@ class _LicensesScreenState extends State<LicensesScreen> {
                       licenseNumber: st.licensurenumber.text,
                       country: st.selectedCountry.toString(),
                       employeeId: widget.employeeID,
-                      expDate:"",
-                      issueDate:'',
-                      licenseUrl: '',
+                      expDate: st.controllerExpirationDate.text,
+                      issueDate: st.controllerIssueDate.text,
+                      licenseUrl: 'NA',
                       licensure: st.licensure.text,
                       org: st.org.text,
-                      documentType: '',
+                      documentType: 'NA',
                       documentFile: st.finalPath,
                       documentName: st.fileName);
-                  // await postlicensesscreen(
-                  //     context,
-                  //     selectedCountry.toString(),
-                  //     widget.employeeID,
-                  //     "__",
-                  //     st.licensure.text,
-                  //     st.licensurenumber.text,
-                  //     st.org.text,
-                  //     "__");
 
-                  // if (st.finalPath == null || st.finalPath.isEmpty) {
-                  //   ScaffoldMessenger.of(context).showSnackBar(
-                  //     SnackBar(
-                  //       content: Text(
-                  //           'No file selected. Please select a file to upload.'),
-                  //       backgroundColor: Colors.red,
-                  //     ),
-                  //   );
-                  // }
-                  // else {
-                  //   try {
-                  //     // uploadlinceses(
-                  //     //   context: context,
-                  //     //   employeeid: widget.employeeID,
-                  //     //   documentFile: st.finalPath,
-                  //     //   documentName: "fileName",
-                  //     // );
-                  //     // await uploadDocuments(
-                  //     //   context: context,
-                  //     //   employeeDocumentMetaId: 10,
-                  //     //   employeeDocumentTypeSetupId: 48,
-                  //     //   employeeId: widget.employeeID,
-                  //     //   documentFile: st.finalPath,
-                  //     //   documentName: 'education data',
-                  //     // );
-                  //
+                  //   if (st.finalPath == null || st.finalPath.isEmpty) {
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //       SnackBar(
+                  //         content: Text(
+                  //             'No file selected. Please select a file to upload.'),
+                  //         backgroundColor: Colors.red,
+                  //       ),
+                  //     );
+                  //   } else {
                   //     ScaffoldMessenger.of(context).showSnackBar(
                   //       SnackBar(
                   //         content: Text('Document uploaded successfully!'),
                   //         backgroundColor: Colors.green,
                   //       ),
                   //     );
-                  //   } catch (e) {
-                  //     ScaffoldMessenger.of(context).showSnackBar(
-                  //       SnackBar(
-                  //         content: Text('Failed to upload document: $e'),
-                  //         backgroundColor: Colors.red,
-                  //       ),
-                  //     );
+                  //     // try {
+                  //     //   // await uploadEmployeeResume(
+                  //     //   //   context: context,
+                  //     //   //
+                  //     //   //   employeementId: widget.employeeID,
+                  //     //   //   documentFile: state.finalPath,
+                  //     //   //   documentName: state.fileName.toString(),
+                  //     //   // );
+                  //     //
+                  //     //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     //     SnackBar(
+                  //     //       content: Text('Document uploaded successfully!'),
+                  //     //       backgroundColor: Colors.green,
+                  //     //     ),
+                  //     //   );
+                  //     // } catch (e) {
+                  //     //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     //     SnackBar(
+                  //     //       content: Text('Failed to upload document: $e'),
+                  //     //       backgroundColor: Colors.red,
+                  //     //     ),
+                  //     //   );
+                  //     // }
                   //   }
-                  // }
                 }
                 //licensure.clear();
               },
@@ -383,10 +448,25 @@ class _licensesFormState extends State<licensesForm> {
   TextEditingController licensure = TextEditingController();
   TextEditingController org = TextEditingController();
   TextEditingController licensurenumber = TextEditingController();
-  TextEditingController _controllerIssueDate = TextEditingController();
-  TextEditingController _controllerExpirationDate = TextEditingController();
+  TextEditingController controllerIssueDate = TextEditingController();
+  TextEditingController controllerExpirationDate = TextEditingController();
 
   String? selectedCountry;
+
+
+
+  final StreamController<List<AEClinicalReportingOffice>> Countrystream =
+  StreamController<List<AEClinicalReportingOffice>>();
+  void initState() {
+    super.initState();
+    HrAddEmplyClinicalReportingOfficeApi(context, 11).then((data) {
+      Countrystream.add(data);
+    }).catchError((error) {});
+  }
+
+
+
+
 
   List<String> _fileNames = [];
   bool _loading = false;
@@ -507,7 +587,93 @@ class _licensesFormState extends State<licensesForm> {
                       ),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-                     CountryDropdown(),
+                    StreamBuilder<List<AEClinicalReportingOffice>>(
+                     stream: Countrystream.stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 7),
+                              child: Container(
+                                width: AppSize.s250,
+                                height: AppSize.s40,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.faintGrey),
+                              ),
+                            ),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          List<String> dropDownList = [];
+                          for (var i in snapshot.data!) {
+                            if (i.name != null) {
+                              dropDownList.add(i.name!);
+                              //print("Country: $ctlrCountry");
+                            }
+                          }
+                          return SizedBox(
+                            height: 32,
+                            child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                // hintText: 'Select Clinician',
+                                hintStyle: GoogleFonts.firaSans(
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff9B9B9B),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    //   //  vertical: 5,
+                                    horizontal: 12),
+                              ),
+                              // value: selectedCountry,
+                              icon: const Icon(Icons.arrow_drop_down,
+                                  color: Color(0xff9B9B9B)),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xff686464),
+                              ),
+
+                              onChanged: (newValue) {
+                                for (var a in snapshot.data!) {
+                                  if (a.name == newValue) {
+                                    selectedCountry = a.name!;
+                                    //country = a
+                                    // int? docType = a.companyOfficeID;
+                                  }
+                                }
+                              },
+                              items: dropDownList.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: Color(0xff575757),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        } else {
+                          return const Offstage();
+                        }
+                      },
+                    ),
 
                     // Container(
                     //   height: 32,
@@ -592,7 +758,7 @@ class _licensesFormState extends State<licensesForm> {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 100),
                     CustomTextFieldRegister(
-                      controller: _controllerIssueDate,
+                      controller: controllerIssueDate,
                       hintText: 'dd-mm-yyyy',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
@@ -615,8 +781,8 @@ class _licensesFormState extends State<licensesForm> {
                           );
                           if (pickedDate != null) {
                             String formattedDate =
-                                DateFormat('dd/MM/yyyy').format(pickedDate);
-                            _controllerIssueDate.text = formattedDate;
+                                DateFormat('yyyy-MM-dd').format(pickedDate);
+                            controllerIssueDate.text = formattedDate;
                           }
                         },
                       ),
@@ -645,7 +811,7 @@ class _licensesFormState extends State<licensesForm> {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 100),
                     CustomTextFieldRegister(
-                      controller: _controllerExpirationDate,
+                      controller: controllerExpirationDate,
                       hintText: 'dd-mm-yyyy',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
@@ -668,8 +834,8 @@ class _licensesFormState extends State<licensesForm> {
                           );
                           if (pickedDate != null) {
                             String formattedDate =
-                                DateFormat('dd/MM/yyyy').format(pickedDate);
-                            _controllerExpirationDate.text = formattedDate;
+                                DateFormat('yyyy-MM-dd').format(pickedDate);
+                            controllerExpirationDate.text = formattedDate;
                           }
                         },
                       ),
@@ -763,114 +929,6 @@ class _licensesFormState extends State<licensesForm> {
             thickness: 2,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class CountryDropdown extends StatefulWidget {
-  //String ?selectedCountry;
-
-   CountryDropdown({
-    super.key,
-  });
-
-  @override
-  State<CountryDropdown> createState() => _CountryDropdownState();
-}
-
-class _CountryDropdownState extends State<CountryDropdown> {
-  String ?selectedCountry;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: FutureBuilder<List<AEClinicalReportingOffice>>(
-        future: HrAddEmplyClinicalReportingOfficeApi(context, 11),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState ==
-              ConnectionState.waiting) {
-            return Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 7),
-                child: Container(
-                  width: AppSize.s250,
-                  height: AppSize.s40,
-                  decoration: BoxDecoration(
-                      color: ColorManager.faintGrey),
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasData) {
-            List<String> dropDownList = [];
-            for (var i in snapshot.data!) {
-              if (i.name != null) {
-                dropDownList.add(i.name!);
-                //print("Country: $ctlrCountry");
-              }
-            }
-            return SizedBox(
-              height: 32,
-              child: DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  // hintText: 'Select Clinician',
-                  hintStyle: GoogleFonts.firaSans(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xff9B9B9B),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                    borderSide:
-                        const BorderSide(color: Colors.grey),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                      //   //  vertical: 5,
-                      horizontal: 12),
-                ),
-                // value: selectedCountry,
-                icon: Icon(Icons.arrow_drop_down,
-                    color: Color(0xff9B9B9B)),
-                iconSize: 24,
-                elevation: 16,
-                style: GoogleFonts.firaSans(
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xff686464),
-                ),
-
-                onChanged: (newValue) {
-                  for (var a in snapshot.data!) {
-                    if (a.name == newValue) {
-                      selectedCountry = a.name!;
-                      //country = a
-                      // int? docType = a.companyOfficeID;
-                    }
-                  }
-                },
-                items: dropDownList.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        color: Color(0xff575757),
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            );
-          } else {
-            return const Offstage();
-          }
-        },
       ),
     );
   }

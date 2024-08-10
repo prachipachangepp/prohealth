@@ -78,7 +78,6 @@ class _EducationScreenState extends State<EducationScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -177,10 +176,8 @@ class _EducationScreenState extends State<EducationScreen> {
                         st.collegeuniversity.text,
                         st.phone.text,
                         st.state.text,
-                        "Country",
-                        "startDate"
-
-                    );
+                        "USA",
+                        "2024-08-09");
 
                     if (st.finalPath == null || st.finalPath.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -268,13 +265,14 @@ class _EducationFormState extends State<EducationForm> {
   String? graduatetype;
   String? selectedDegree;
 
-
-  final StreamController<List<AEClinicalDiscipline>>Degreestream = StreamController<List<AEClinicalDiscipline>>();
-   void  initState(){
-     super.initState();
-     HrAddEmplyClinicalDisciplinApi(
-         context, 1).then((data){Degreestream.add(data);}).catchError((error){});
-   }
+  final StreamController<List<AEClinicalDiscipline>> Degreestream =
+      StreamController<List<AEClinicalDiscipline>>();
+  void initState() {
+    super.initState();
+    HrAddEmplyClinicalDisciplinApi(context, 1).then((data) {
+      Degreestream.add(data);
+    }).catchError((error) {});
+  }
   // Stream<List<AEClinicalDiscipline>> HrAddEmplyClinicalDisciplinApiAsStream(
   //     BuildContext context, int id) async* {
   //   // Replace with actual stream logic
@@ -488,7 +486,8 @@ class _EducationFormState extends State<EducationForm> {
 
                     Container(
                       child: StreamBuilder<List<AEClinicalDiscipline>>(
-                        stream: Degreestream.stream, // Change this to a stream method
+                        stream: Degreestream
+                            .stream, // Change this to a stream method
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -537,8 +536,8 @@ class _EducationFormState extends State<EducationForm> {
                                     borderSide:
                                         const BorderSide(color: Colors.grey),
                                   ),
-                                  contentPadding:
-                                      const EdgeInsets.symmetric(horizontal: 12),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 12),
                                 ),
                                 icon: Icon(Icons.arrow_drop_down,
                                     color: Color(0xff9B9B9B)),

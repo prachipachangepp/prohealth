@@ -214,7 +214,7 @@ class _BankingScreenState extends State<BankingScreen> {
                     bankName: st.bankname.text,
                     amountRequested: int.parse(st.requestammount.text),
                     checkUrl: "",
-                    effectiveDate: '',
+                    effectiveDate: st.effectivecontroller.text,
                     routingNumber: st.routingnumber.text,
                     type: st.selectedtype.toString(),
                     requestedPercentage: "",
@@ -313,7 +313,7 @@ class _BankingFormState extends State<BankingForm> {
 
 
 
-  TextEditingController controller = TextEditingController();
+  TextEditingController effectivecontroller = TextEditingController();
   TextEditingController requestammount = TextEditingController();
   TextEditingController accountnumber = TextEditingController();
   TextEditingController routingnumber = TextEditingController();
@@ -453,7 +453,7 @@ class _BankingFormState extends State<BankingForm> {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 60),
                     CustomTextFieldRegister(
-                      controller: controller,
+                      controller: effectivecontroller,
                       hintText: 'dd-mm-yyyy',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
@@ -475,7 +475,7 @@ class _BankingFormState extends State<BankingForm> {
                             lastDate: DateTime(2101),
                           );
                           if (pickedDate != null) {
-                            controller.text =
+                            effectivecontroller.text =
                                 "${pickedDate.toLocal()}".split(' ')[0];
                           }
                         },

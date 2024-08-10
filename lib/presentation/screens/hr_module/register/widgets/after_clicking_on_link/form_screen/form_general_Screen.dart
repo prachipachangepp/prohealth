@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
@@ -27,10 +28,11 @@ import 'form_educaton_screen.dart';
 
 class generalForm extends StatefulWidget {
   final int employeeID;
- //final int userId;
+  //final int userId;
   generalForm({
     super.key,
-    required this.context, required this.employeeID,
+    required this.context,
+    required this.employeeID,
   });
 
   final BuildContext context;
@@ -42,6 +44,30 @@ class generalForm extends StatefulWidget {
 class _generalFormState extends State<generalForm> {
   double textFieldWidth = 430;
   double textFieldHeight = 38;
+
+
+  final StreamController<List<AEClinicalDiscipline>> Spealitystream =
+  StreamController<List<AEClinicalDiscipline>>();
+  void initState() {
+    super.initState();
+    HrAddEmplyClinicalDisciplinApi(context, 1).then((data) {
+      Spealitystream.add(data);
+    }).catchError((error) {});
+
+
+
+    HrAddEmplyClinicalDisciplinApi(context, 1).then((data) {
+      Clnicalstream.add(data);
+    }).catchError((error) {});
+  }
+
+
+  final StreamController<List<AEClinicalDiscipline>> Clnicalstream =
+  StreamController<List<AEClinicalDiscipline>>();
+
+
+
+
 
   //TextEditingController firstName = TextEditingController();
 
@@ -62,9 +88,9 @@ class _generalFormState extends State<generalForm> {
 
   bool isChecked = false;
 
-  String ?specialityName;
+  String? specialityName;
 
-  String ?clinicialName;
+  String? clinicialName;
 
   bool get isFirstStep => _currentStep == 0;
 
@@ -95,10 +121,9 @@ class _generalFormState extends State<generalForm> {
     final blob = html.Blob(bytes);
     final url = html.Url.createObjectUrlFromBlob(blob);
 
-
     // Create the file.
     //final anchor = html.AnchorElement(href: url)..setAttribute("download", fileName)..click();
-    final file = html.File([blob],fileName);
+    final file = html.File([blob], fileName);
     // Write the bytes to the file.
     print(file.toString());
     return WebFile(file, url);
@@ -130,8 +155,6 @@ class _generalFormState extends State<generalForm> {
     }
   }
 
-
-
   ////////////////////////////
   ///////
   //
@@ -162,8 +185,6 @@ class _generalFormState extends State<generalForm> {
 
   @override
   Widget build(BuildContext context) {
-
-
     // Future<String> userid= TokenManager.getUserID();
 
     return Container(
@@ -236,43 +257,44 @@ class _generalFormState extends State<generalForm> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed:
-
-
-                            ()async {
+                        onPressed: () async {
                           // FilePickerResult? result = await FilePicker.platform.pickFiles(
                           //   allowMultiple: false,
                           // );
-                          FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          FilePickerResult? result =
+                              await FilePicker.platform.pickFiles();
                           if (result != null) {
                             print("Result::: ${result}");
 
-                            try{
+                            try {
                               Uint8List? bytes = result.files.first.bytes;
                               XFile xlfile = XFile(result.xFiles.first.path);
                               xfileToFile = File(xlfile.path);
 
-                              print("::::XFile To File ${xfileToFile.toString()}");
-                              XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
+                              print(
+                                  "::::XFile To File ${xfileToFile.toString()}");
+                              XFile xFile = await convertBytesToXFile(
+                                  bytes!, result.xFiles.first.name);
                               // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
                               // html.File file = webFile.file;
                               //  print("XFILE ${xFile.path}");
                               //  //filePath = xfileToFile as XFile?;
                               //  print("L::::::${filePath}");
-                              _fileNames.addAll(result.files.map((file) => file.name!));
+                              _fileNames.addAll(
+                                  result.files.map((file) => file.name!));
                               print('File picked: ${_fileNames}');
                               //print(String.fromCharCodes(file));
-                              fileName= result.files.first.name;
+                              fileName = result.files.first.name;
                               finalPath = result.files.first.bytes;
                               setState(() {
                                 _fileNames;
                                 _documentUploaded = true;
                               });
-                            }catch(e){
+                            } catch (e) {
                               print(e);
                             }
                           }
-                        },      //_pickFiles,
+                        }, //_pickFiles,
 
                         label: Text(
                           "Choose File",
@@ -713,9 +735,10 @@ class _generalFormState extends State<generalForm> {
                             color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
+
                       ///clinician
-                      FutureBuilder<List<AEClinicalDiscipline>>(
-                        future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                      StreamBuilder<List<AEClinicalDiscipline>>(
+                        stream: Spealitystream.stream,
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -723,8 +746,8 @@ class _generalFormState extends State<generalForm> {
                               baseColor: Colors.grey[300]!,
                               highlightColor: Colors.grey[100]!,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 7),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 7),
                                 child: Container(
                                   width: AppSize.s250,
                                   height: AppSize.s40,
@@ -752,10 +775,10 @@ class _generalFormState extends State<generalForm> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(4.0),
                                     borderSide:
-                                    const BorderSide(color: Colors.grey),
+                                        const BorderSide(color: Colors.grey),
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
-                                    //   //  vertical: 5,
+                                      //   //  vertical: 5,
                                       horizontal: 12),
                                 ),
                                 // value: selectedCountry,
@@ -772,7 +795,7 @@ class _generalFormState extends State<generalForm> {
                                 onChanged: (newValue) {
                                   for (var a in snapshot.data!) {
                                     if (a.empType == newValue) {
-                                      _selectedClinician =a.empType!;
+                                      _selectedClinician = a.empType!;
                                       //country = a
                                       // int? docType = a.companyOfficeID;
                                     }
@@ -855,8 +878,8 @@ class _generalFormState extends State<generalForm> {
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
 
-                      FutureBuilder<List<AEClinicalDiscipline>>(
-                        future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                      StreamBuilder<List<AEClinicalDiscipline>>(
+                        stream:Clnicalstream.stream,
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -864,8 +887,8 @@ class _generalFormState extends State<generalForm> {
                               baseColor: Colors.grey[300]!,
                               highlightColor: Colors.grey[100]!,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 7),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 7),
                                 child: Container(
                                   width: AppSize.s250,
                                   height: AppSize.s40,
@@ -894,10 +917,10 @@ class _generalFormState extends State<generalForm> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(4.0),
                                     borderSide:
-                                    const BorderSide(color: Colors.grey),
+                                        const BorderSide(color: Colors.grey),
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
-                                    //   //  vertical: 5,
+                                      //   //  vertical: 5,
                                       horizontal: 12),
                                 ),
                                 // value: selectedCountry,
@@ -914,7 +937,7 @@ class _generalFormState extends State<generalForm> {
                                 onChanged: (newValue) {
                                   for (var a in snapshot.data!) {
                                     if (a.empType == newValue) {
-                                      _selectedSpeciality =a.empType!;
+                                      _selectedSpeciality = a.empType!;
                                       //country = a
                                       // int? docType = a.companyOfficeID;
                                     }
@@ -940,10 +963,6 @@ class _generalFormState extends State<generalForm> {
                           }
                         },
                       ),
-
-
-
-
 
                       // CustomDropdownTextField(
                       //   width: 600,
@@ -972,37 +991,6 @@ class _generalFormState extends State<generalForm> {
                       //     color: const Color(0xff9B9B9B),
                       //   ),
                       // ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                       // Container(
                       //   height: 32,
@@ -1129,41 +1117,38 @@ class _generalFormState extends State<generalForm> {
                       SnackBar(content: Text("General data saved")),
                     );
 
-                      if (finalPath == null || finalPath.isEmpty) {
+                    if (finalPath == null || finalPath.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'No file selected. Please select a file to upload.'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } else {
+                      try {
+                        await uploadphoto(
+                          context: context,
+                          employeeid: widget.employeeID,
+                          documentFile: finalPath,
+                          documentName: fileName,
+                        );
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('No file selected. Please select a file to upload.'),
+                            content: Text('Document uploaded successfully!'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Failed to upload document: $e'),
                             backgroundColor: Colors.red,
                           ),
                         );
-                      } else {
-                        try  {
-                          await uploadphoto(
-                              context: context,
-
-                              employeeid: widget.employeeID,
-                              documentFile: finalPath,
-                              documentName: fileName,
-                          );
-
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Document uploaded successfully!'),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
-                        } catch (e) {
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Failed to upload document: $e'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
                       }
+                    }
 
                     firstname.clear();
                     lastname.clear();
