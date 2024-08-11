@@ -35,6 +35,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   final HRController hrController = Get.put(HRController());
   late final VoidCallback? onItem2Selected;
   bool showSelectOption = true;
+  bool isSelected = false;
   final ButtonSelectionController myController =
       Get.put(ButtonSelectionController());
   String selectedOption = 'Select';
@@ -333,7 +334,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 width: 32,
                                 height: 25,
                                 decoration: BoxDecoration(
-                                  color: ColorManager.white,
+                                  color: isSelected ? ColorManager.white : ColorManager.blueprime,
                                   borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
@@ -344,7 +345,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   ],
                                 ),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    isSelected = true;
+                                  },
                                   child: Center(
                                     child: Text(
                                       'DZ',

@@ -212,3 +212,31 @@ class ZipCodeGetPrefill {
     required this.message,
   });
 }
+
+/// Model class zipcode by countyId
+
+class ZipcodeByCountyIdData {
+  final int zipcodeSetupId;
+  final int zoneId;
+  final int countyId;
+  final String city;
+  final String zipCode;
+  final String latitude;
+  final String longitude;
+  final String landMark;
+  final int companyId;
+  final String officeId;
+
+  ZipcodeByCountyIdData({
+    required this.zipcodeSetupId,
+    required this.zoneId,
+    required this.countyId,
+    required this.city,
+    required this.zipCode,
+    required this.latitude,
+    required this.longitude,
+    required this.landMark,
+    required this.companyId,
+    required this.officeId,
+  });
+}

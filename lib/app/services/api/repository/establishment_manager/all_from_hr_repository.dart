@@ -84,5 +84,9 @@ class AllZoneRepository{
   static String zipcodeSetupGet({required int companyId,required String officeId,required int pageNo,required int noOfRow}){
     return "$zipcodesetup/$companyId/$officeId/$pageNo/$noOfRow";
   }
+  /// Zipcode by countyId
+  static String zipcodeByCountyId({required int companyId, required int countyId}){
+    return "$zipcodesetup/GetByCounty/$companyId/$countyId";
+  }
 
 }
