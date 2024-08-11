@@ -33,17 +33,12 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
   TextEditingController shorthandController = TextEditingController();
  // AdministrativeData administrativeData = AdministrativeData();
   final StreamController<List<HRAllData>> _controller = StreamController<List<HRAllData>>();
-
-  late int currentPage;
-  late int itemsPerPage;
+  //Color containerColor = ColorManager.pinkfaint;
   late List<Color> containerColors;
 
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 2;
-   // administrativeData.loadEmployeeData();
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
     getAllHrDeptWise(context, widget.deptId).then((data) {
@@ -76,6 +71,14 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
   }
   int docMetaId =3;
   int doceEditMetaId=3;
+  int currentPage = 1;
+  final int itemsPerPage = 3;
+  final int totalPages = 5;
+  void onPageNumberPressed(int pageNumber) {
+    setState(() {
+      currentPage = pageNumber;
+    });
+  }
 
 
   @override
@@ -255,27 +258,22 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                 );
               }
               if (snapshot.hasData) {
-
                 int totalItems = snapshot.data!.length;
                 int totalPages = (totalItems / itemsPerPage).ceil();
-
-                List<HRAllData> currentPageItems = snapshot.data!.sublist(
-                  (currentPage - 1) * itemsPerPage,
-                  (currentPage * itemsPerPage) > totalItems
-                      ? totalItems
-                      : (currentPage * itemsPerPage),
-                );
+                List<HRAllData> paginatedData =
+                snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
 
                 return Column(
                   children: [
                     Expanded(
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
-                        itemCount: currentPageItems.length,
+                        itemCount: paginatedData.length,
                         itemBuilder: (context, index) {
                           int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                          String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                          currentPageItems.sort((a, b) => a.employeeTypesId.compareTo(b.employeeTypesId));
+                          String formattedSerialNumber =
+                          serialNumber.toString().padLeft(2, '0');
+                          HRAllData hrdata = paginatedData[index];
                           return Container(
                             margin: EdgeInsets.all(5),
                             decoration: BoxDecoration(
@@ -299,7 +297,8 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                   flex: 2,
                                   child: Text(
                                     // Display the employeeTypesId in sorted order
-                                    currentPageItems[index].employeeTypesId.toString(),
+                                   // hrdata.employeeTypesId.toString(),
+                                    formattedSerialNumber,
                                     textAlign: TextAlign.center,
                                     style: AllHRTableData.customTextStyle(context),
                                   ),
@@ -316,7 +315,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                 Expanded(
                                   flex: 3,
                                   child: Text(
-                                    currentPageItems[index].empType.toString(),
+                                    hrdata.empType.toString(),
                                     textAlign: TextAlign.center,
                                     style: AllHRTableData.customTextStyle(context),
                                   ),
@@ -324,7 +323,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                 Expanded(
                                   flex: 3,
                                   child: Text(
-                                    currentPageItems[index].abbrivation.toString(),
+                                    hrdata.abbrivation.toString(),
                                     textAlign: TextAlign.center,
                                     style: AllHRTableData.customTextStyle(context),
                                   ),
@@ -336,7 +335,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                     height: AppSize.s22,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
-                                      color: currentPageItems[index].color.toColorMaybeNull,
+                                      color: hrdata.color.toColorMaybeNull,
                                     ),
                                   ),
                                 ),
@@ -351,7 +350,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                             context: context,
                                             builder: (BuildContext context) {
                                               return FutureBuilder<HRGetEmpId>(
-                                                  future: HrGetById(context, snapshot.data![index].employeeTypesId),
+                                                  future: HrGetById(context, hrdata.employeeTypesId),
                                                   builder: (context, snapshot) {
                                                     if(snapshot.connectionState == ConnectionState.waiting){
                                                       return Center(
@@ -360,11 +359,11 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                                         ),
                                                       );
                                                     }
-                                                    var type = snapshot.data?.empType.toString();
-                                                    var shorthand = snapshot.data?.empType.toString();
-                                                    doceEditMetaId = snapshot.data!.deptId;
-                                                    typeController = TextEditingController(text: snapshot.data?.empType.toString());
-                                                    shorthandController = TextEditingController(text: snapshot.data?.abbrivation.toString());
+                                                    var type = hrdata.empType.toString();
+                                                    var shorthand = hrdata.empType.toString();
+                                                    doceEditMetaId = hrdata.deptID;//snapshot.data!.deptId;
+                                                    typeController = TextEditingController(text: hrdata.empType.toString());
+                                                    shorthandController = TextEditingController(text: hrdata.abbrivation.toString());
 
                                                     return EditPopupWidget(
                                                       typeController: typeController,
@@ -430,7 +429,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                                                 );
                                                               }
                                                               return CICCDropdown(
-                                                                  initialValue: dropDownMenuItems[2].value,
+                                                                  initialValue: dropDownMenuItems[1].value,
                                                                   onChange: (val){
                                                                     for(var a in snapshot.data!){
                                                                       if(a.deptName == val){
@@ -474,7 +473,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                                     Navigator.pop(context);
                                                   }, onDelete: () async {
                                                 await  allfromHrDelete(
-                                                    context, snapshot.data![index].employeeTypesId);
+                                                    context, hrdata.employeeTypesId);
                                                 getAllHrDeptWise(context,widget.deptId).then((data){
                                                   _controller.add(data);
                                                 }).catchError((error){});

@@ -3,9 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/hr_module/onboarding/onboarding_tab_bar_const.dart';
-import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/widgets/ob_general_heading_constant.dart';
-
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -13,7 +10,6 @@ import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/see_all/see_all_manager.dart';
 import '../../../../../data/api_data/hr_module_data/see_all_data/see_all_data.dart';
-import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
 class OnboardingGeneral extends StatefulWidget {
   final void Function(int,int) selectButton;
@@ -22,23 +18,28 @@ class OnboardingGeneral extends StatefulWidget {
   @override
   State<OnboardingGeneral> createState() => _OnboardingGeneralState();
 }
+
 class _OnboardingGeneralState extends State<OnboardingGeneral> {
   final StreamController<List<SeeAllData>> generalController =
   StreamController<List<SeeAllData>>();
-  late int currentPage;
-  late int itemsPerPage;
-  //late List<String> items;
-
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 2;
     getEmployeeSeeAll(context).then((data) {
-      generalController.add(data);
+      final filteredData = data.where((item) =>
+      item.status == 'Partial' || item.status == 'Opened').toList();
+      generalController.add(filteredData);
     }).catchError((error) {});
   }
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
 
+  void onPageNumberPressed(int pageNumber) {
+    setState(() {
+      currentPage = pageNumber;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
@@ -72,30 +73,28 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
               if (snapshot.hasData) {
                 int totalItems = snapshot.data!.length;
                 int totalPages = (totalItems / itemsPerPage).ceil();
-
-                List<SeeAllData> currentPageItems = snapshot.data!.sublist(
-                  (currentPage - 1) * itemsPerPage,
-                  (currentPage * itemsPerPage) > totalItems
-                      ? totalItems
-                      : (currentPage * itemsPerPage),
-                );
+                List<SeeAllData> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
                 return Column(
                   children: [
                     Expanded(
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
-                          itemCount: currentPageItems.length,
+                          itemCount: paginatedData.length,
                           itemBuilder: (context, index) {
+                            int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                            String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                            SeeAllData general = paginatedData[index];
                             return Column(
                               children: [
                                 Material(
-                                  //color: ColorManager.white,
+                                  color: ColorManager.white,
                                   elevation: 4,
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
                                     width: containerWidth,
                                     height: 150,
                                     decoration: BoxDecoration(
+                                      color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
                                         width: 1,
@@ -114,13 +113,17 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                 width: AppSize.s88,
                                                 height: AppSize.s20,
                                                 decoration: BoxDecoration(
-                                                    color: ColorManager.greenF,
+                                                    color: general.status == 'Opened'
+                                                        ? const Color(0xff51B5E6)
+                                                        : general.status == 'Partial'
+                                                        ? const Color(0xffCA8A04)
+                                                        : const Color(0xffB4DB4C),
                                                     borderRadius: BorderRadius.only(
                                                         topRight:
                                                         Radius.circular(20))),
                                                 child: Center(
                                                   child: Text(
-                                                      snapshot.data![index].status.toString(),
+                                                      general.status.toString(),
                                                       textAlign: TextAlign.center,
                                                       style: CustomTextStylesCommon
                                                           .commonStyle(
@@ -133,343 +136,260 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                 )),
                                           ],
                                         ),
-                                        SizedBox(height: 2,),
+                                        SizedBox(height: 5,),
                                         Padding(
-                                          padding: EdgeInsets.only(
-                                              left:
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
                                               MediaQuery.of(context).size.width /
                                                   60),
                                           child: InkWell(
                                             onTap: () => widget.selectButton(1,snapshot.data![index].empId!), // Corrected reference
-                                            child: Container(
-                                              color: Colors.white,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: [
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                      children: [
-                                                        // CircleAvatar(
-                                                                //   radius: MediaQuery.of(context).size.width / 50,
-                                                                //   child: Image.asset(
-                                                                //       'images/profile.png'),
-                                                                // ),
-                                                                // CircleAvatar(
-                                                                //   radius: MediaQuery.of(context).size.width / 50,
-                                                                //   backgroundImage: NetworkImage(snapshot.data![index].imgurl ?? '')
-                                                                //   as ImageProvider,
-                                                                //   child: Image.network(
-                                                                //     snapshot.data![index].imgurl ?? '',
-                                                                //     fit: BoxFit.cover,
-                                                                //     errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                                                //       print('Error loading image: $exception');
-                                                                //       return Image.asset('images/profile.png', fit: BoxFit.cover);
-                                                                //     },
-                                                                //   ),
-                                                                // ),
-                                                                ///Error loading image: [object ProgressEvent]
-                                                                // Error loading image: [object ProgressEvent]
-                                                                // Error loading image: ImageCodecException: Failed to detect image file format using the file header.
-                                                                // File header was [0x3c 0x21 0x44 0x4f 0x43 0x54 0x59 0x50 0x45 0x20].
-                                                                /// Image source: encoded image bytes
-                                                                // CircleAvatar(
-                                                                //   radius: MediaQuery.of(context).size.width / 50,
-                                                                //   backgroundColor: Colors.grey,                                                   child: ClipOval(
-                                                                //     child: Image.network(
-                                                                //       snapshot.data![index].imgurl ?? '',
-                                                                //       fit: BoxFit.cover,
-                                                                //       errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                                                //         print('Error loading image: $exception');
-                                                                //         return Image.asset('images/profile.png', fit: BoxFit.cover);
-                                                                //       },
-                                                                //     ),
-                                                                //   ),
-                                                                // ),
-                                                                ///Error loading image: [object ProgressEvent]
-
-                                                        CircleAvatar(
-                                                          radius: MediaQuery.of(context).size.width / 50,
-                                                          backgroundColor: Colors.grey,
-                                                          child: ClipOval(
-                                                            child: Builder(
-                                                              builder: (context) {
-                                                                String imageUrl = Uri.encodeFull(snapshot.data![index].imgurl ?? '');
-                                                                return Image.network(
-                                                                  imageUrl,
-                                                                  fit: BoxFit.cover,
-                                                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                                                    print('Error loading image: $exception');
-                                                                    return Image.asset('images/profile.png', fit: BoxFit.cover);
-                                                                  },
-                                                                );
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: MediaQuery.of(context).size.width / 50,
+                                                      backgroundColor: Colors.grey,
+                                                      child: ClipOval(
+                                                        child: Builder(
+                                                          builder: (context) {
+                                                            String imageUrl = Uri.encodeFull(general.imgurl ?? '');
+                                                            return Image.network(
+                                                              imageUrl,
+                                                              fit: BoxFit.cover,
+                                                              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                                                print('Error loading image: $exception');
+                                                                return Image.asset('images/profile.png', fit: BoxFit.cover);
                                                               },
-                                                            ),
-                                                          ),
+                                                            );
+                                                          },
                                                         ),
-                                                        SizedBox(
-                                                          height: MediaQuery.of(context).size.width / 80,
-                                                        ),
-                                                        Text(
-                                                          '${snapshot.data![index].firstName?.capitalizeFirst ?? ''} ${snapshot.data![index].lastName?.capitalizeFirst ?? ''}',
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                            color: ColorManager.black,
-                                                            fontSize: FontSize.s12,
-                                                            fontWeight: FontWeightManager.bold,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: ObGeneralHeadingConstant(
-                                                      text1: 'Social Security No.',
-                                                      text2: 'Clinician Type',
-                                                      text3: 'Phone Number',
-                                                      text4: 'Personal Email',
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 10,),
-                                                  Column(
-                                                    children: [
-                                                      ObGeneralDataConstant(
-                                                        text1: snapshot.data![index].ssnnbr ?? '--',
-                                                        text2: snapshot.data![index].type ?? '--',
-                                                        text3: snapshot.data![index].primaryPhoneNbr ?? '--',
-                                                        text4: snapshot.data![index].personalEmail ?? '--',
                                                       ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(width: 20,),
-                                                  Expanded(
-                                                    child: ObGeneralHeadingConstant(
-                                                      text1: 'Drivers License No.',
-                                                      text2: 'Speciality',
-                                                      text3: 'City',
-                                                      text4: 'Zone',
                                                     ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Column(
-                                                      children: [
-                                                        ObGeneralDataConstant(
-                                                          text1: snapshot.data![index].driverLicenseNum,
-                                                          text2: snapshot.data![index].expertise,
-                                                          text3: snapshot.data![index].city,
-                                                          text4: snapshot.data![index].zone,
-                                                        ),
-                                                      ],
+                                                    SizedBox(
+                                                      height: MediaQuery.of(context).size.height / 40,
                                                     ),
-                                                  ),
-                                                  Expanded(
-                                                    child: ObGeneralHeadingConstant(
-                                                      text1: 'Address',
-                                                      text2: 'Employment',
-                                                      text3: 'City',
-                                                      text4: 'Date of Birth',
+                                                    Text(
+                                                      '${general.firstName?.capitalizeFirst ?? ''} ${general.lastName?.capitalizeFirst ?? ''}',
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        color: ColorManager.black,
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeightManager.bold,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Column(
-                                                      children: [
-                                                        ObGeneralDataConstant(
-                                                          text1: snapshot.data![index].finalAddress,
-                                                          text2: snapshot.data![index].employment,
-                                                          text3: snapshot.data![index].city,
-                                                          text4: snapshot.data![index].dateOfBirth,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: ObGeneralHeadingConstant(
-                                                      text1: 'Status',
-                                                      text2: 'Race',
-                                                      text3: 'Service',
-                                                      text4: '',
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Column(
-                                                      children: [
-                                                        ObGeneralDataConstant(
-                                                          text1: snapshot.data![index].status,
-                                                          text2: snapshot.data![index].race,
-                                                          text3: snapshot.data![index].service,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  // Expanded(
-                                                  //   flex: 1,
-                                                  //   child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomRight: Radius.circular(20))),),),
+                                                  ],
+                                                ),
+                                                const Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    InfoText('Social Security No.'),
+                                                    InfoText('Clinician Type'),
+                                                    InfoText('Phone Number'),
+                                                    InfoText('Personal Email'),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    InfoData(general.ssnnbr ?? '--',),
+                                                    InfoData(general.type ?? '--'),
+                                                    InfoData(general.primaryPhoneNbr ?? '--'),
+                                                    InfoData(general.personalEmail ?? '--'),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    InfoText('Drivers License No.'),
+                                                    InfoText('Speciality'),
+                                                    InfoText('City'),
+                                                    InfoText( 'Zone'),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    InfoData(general.driverLicenseNum ?? '--'),
+                                                    InfoData(general.expertise ?? '--'),
+                                                    InfoData(general.city ?? '--'),
+                                                    InfoData(general.zone ?? '--'),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    InfoText('Address'),
+                                                    InfoText('Employment'),
+                                                    InfoText('Date of Birth'),
+                                                    InfoText('Race'),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    InfoData(general.finalAddress ?? '--'),
+                                                    InfoData(general.employment ?? '--'),
+                                                    InfoData(general.dateOfBirth ?? '--'),
+                                                    InfoData(general.race ?? '--'),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    InfoText('Service'),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    InfoData(general.service ?? '--'),
 
-                                                ],
-                                              )
-
-                                              // Row(
-                                              //   mainAxisAlignment:
-                                              //   MainAxisAlignment.spaceEvenly,
-                                              //   crossAxisAlignment:
-                                              //   CrossAxisAlignment.center,
-                                              //   children: [
-                                              //     Column(
-                                              //       mainAxisAlignment:
-                                              //       MainAxisAlignment.spaceEvenly,
-                                              //       children: [
-                                              //         // CircleAvatar(
-                                              //         //   radius: MediaQuery.of(context).size.width / 50,
-                                              //         //   child: Image.asset(
-                                              //         //       'images/profile.png'),
-                                              //         // ),
-                                              //         // CircleAvatar(
-                                              //         //   radius: MediaQuery.of(context).size.width / 50,
-                                              //         //   backgroundImage: NetworkImage(snapshot.data![index].imgurl ?? '')
-                                              //         //   as ImageProvider,
-                                              //         //   child: Image.network(
-                                              //         //     snapshot.data![index].imgurl ?? '',
-                                              //         //     fit: BoxFit.cover,
-                                              //         //     errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                              //         //       print('Error loading image: $exception');
-                                              //         //       return Image.asset('images/profile.png', fit: BoxFit.cover);
-                                              //         //     },
-                                              //         //   ),
-                                              //         // ),
-                                              //         ///Error loading image: [object ProgressEvent]
-                                              //         // Error loading image: [object ProgressEvent]
-                                              //         // Error loading image: ImageCodecException: Failed to detect image file format using the file header.
-                                              //         // File header was [0x3c 0x21 0x44 0x4f 0x43 0x54 0x59 0x50 0x45 0x20].
-                                              //         /// Image source: encoded image bytes
-                                              //         // CircleAvatar(
-                                              //         //   radius: MediaQuery.of(context).size.width / 50,
-                                              //         //   backgroundColor: Colors.grey,                                                   child: ClipOval(
-                                              //         //     child: Image.network(
-                                              //         //       snapshot.data![index].imgurl ?? '',
-                                              //         //       fit: BoxFit.cover,
-                                              //         //       errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                              //         //         print('Error loading image: $exception');
-                                              //         //         return Image.asset('images/profile.png', fit: BoxFit.cover);
-                                              //         //       },
-                                              //         //     ),
-                                              //         //   ),
-                                              //         // ),
-                                              //         ///Error loading image: [object ProgressEvent]
-                                              //         CircleAvatar(
-                                              //           radius: MediaQuery.of(context).size.width / 50,
-                                              //           backgroundColor: Colors.grey,
-                                              //           child: ClipOval(
-                                              //             child: Builder(
-                                              //               builder: (context) {
-                                              //                 // Encode the URL to handle special characters
-                                              //                 String imageUrl = Uri.encodeFull(snapshot.data![index].imgurl ?? '');
-                                              //                 return Image.network(
-                                              //                   imageUrl,
-                                              //                   fit: BoxFit.cover,
-                                              //                   errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                              //                     print('Error loading image: $exception');
-                                              //                     return Image.asset('images/profile.png', fit: BoxFit.cover);
-                                              //                   },
-                                              //                 );
-                                              //               },
-                                              //             ),
-                                              //           ),
-                                              //         ),
-                                              //
-                                              //
-                                              //
-                                              //         SizedBox(
-                                              //           height: MediaQuery.of(context)
-                                              //               .size
-                                              //               .width /80,
-                                              //         ),
-                                              //         Text(
-                                              //           '${snapshot.data![index].firstName?.capitalizeFirst ?? ''} ${snapshot.data![index].lastName?.capitalizeFirst ?? ''}',
-                                              //           style: CustomTextStylesCommon
-                                              //               .commonStyle(
-                                              //             color: ColorManager.black,
-                                              //             fontSize: FontSize.s12,
-                                              //             fontWeight:
-                                              //             FontWeightManager.bold,
-                                              //           ),
-                                              //         )
-                                              //       ],
-                                              //     ),
-                                              //
-                                              //     ObGeneralHeadingConstant(
-                                              //         text1: 'Social Security Number',
-                                              //         text2: 'Type of Clinician',
-                                              //         text3: 'Phone Number',
-                                              //         text4: 'Personal Email'),
-                                              //
-                                              //     Column(
-                                              //       children: [
-                                              //         ObGeneralDataConstant(
-                                              //           text1: snapshot.data![index].ssnnbr ?? '--',
-                                              //           text2: snapshot.data![index].type ?? '--',
-                                              //           text3: snapshot.data![index].primaryPhoneNbr ?? '--',
-                                              //           text4: snapshot.data![index].personalEmail ?? '--',
-                                              //         )
-                                              //       ],
-                                              //     ),
-                                              //
-                                              //     ObGeneralHeadingConstant(
-                                              //       text1: 'Drivers License Number',
-                                              //       text2: 'Speciality',
-                                              //       text3: 'City',
-                                              //       text4: 'Zone',
-                                              //     ),
-                                              //
-                                              //     Column(
-                                              //       children: [
-                                              //         ObGeneralDataConstant(
-                                              //           text1: snapshot.data![index].driverLicenseNum,
-                                              //           text2: snapshot.data![index].expertise,///experties
-                                              //           text3: snapshot.data![index].city,
-                                              //           text4: snapshot.data![index].zone,
-                                              //         )
-                                              //       ],
-                                              //     ),
-                                              //
-                                              //     ObGeneralHeadingConstant(
-                                              //         text1: 'Address',
-                                              //         text2: 'Employment',
-                                              //         text3: 'City',
-                                              //         text4: 'Date of Birth'),
-                                              //
-                                              //     Column(
-                                              //       children: [
-                                              //         ObGeneralDataConstant(
-                                              //           text1: snapshot.data![index].finalAddress,
-                                              //           text2: snapshot.data![index].employment,
-                                              //           text3: snapshot.data![index].city,
-                                              //           text4: snapshot.data![index].dateOfBirth,
-                                              //         )
-                                              //       ],
-                                              //     ),
-                                              //
-                                              //     ObGeneralHeadingConstant(
-                                              //       text1: 'Status',
-                                              //       text2: 'Race',
-                                              //       text3: 'Service',
-                                              //       text4: '',
-                                              //     ),
-                                              //
-                                              //     Column(
-                                              //       children: [
-                                              //         ObGeneralDataConstant(
-                                              //           text1: snapshot.data![index].status,
-                                              //           text2: snapshot.data![index].race,
-                                              //           text3: snapshot.data![index].service,
-                                              //         )
-                                              //       ],
-                                              //     ),
-                                              //   ],
-                                              // ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
+
                                           ),
                                         ),
+                                        // Padding(
+                                        //   padding: EdgeInsets.only(
+                                        //       left:
+                                        //       MediaQuery.of(context).size.width /
+                                        //           60),
+                                        //   child: InkWell(
+                                        //     onTap: () => widget.selectButton(1,snapshot.data![index].empId!), // Corrected reference
+                                        //     child: Container(
+                                        //         color: Colors.white,
+                                        //         child: Row(
+                                        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        //           crossAxisAlignment: CrossAxisAlignment.center,
+                                        //           children: [
+                                        //             Expanded(
+                                        //               flex: 1,
+                                        //               child: Column(
+                                        //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        //                 children: [
+                                        //                   CircleAvatar(
+                                        //                     radius: MediaQuery.of(context).size.width / 50,
+                                        //                     backgroundColor: Colors.grey,
+                                        //                     child: ClipOval(
+                                        //                       child: Builder(
+                                        //                         builder: (context) {
+                                        //                           String imageUrl = Uri.encodeFull(general.imgurl ?? '');
+                                        //                           return Image.network(
+                                        //                             imageUrl,
+                                        //                             fit: BoxFit.cover,
+                                        //                             errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                        //                               print('Error loading image: $exception');
+                                        //                               return Image.asset('images/profile.png', fit: BoxFit.cover);
+                                        //                             },
+                                        //                           );
+                                        //                         },
+                                        //                       ),
+                                        //                     ),
+                                        //                   ),
+                                        //                   SizedBox(
+                                        //                     height: MediaQuery.of(context).size.width / 80,
+                                        //                   ),
+                                        //                   Text(
+                                        //                     '${general.firstName?.capitalizeFirst ?? ''} ${general.lastName?.capitalizeFirst ?? ''}',
+                                        //                     style: CustomTextStylesCommon.commonStyle(
+                                        //                       color: ColorManager.black,
+                                        //                       fontSize: FontSize.s12,
+                                        //                       fontWeight: FontWeightManager.bold,
+                                        //                     ),
+                                        //                   ),
+                                        //                 ],
+                                        //               ),
+                                        //             ),
+                                        //             Expanded(
+                                        //               child: ObGeneralHeadingConstant(
+                                        //                 text1: 'Social Security No.',
+                                        //                 text2: 'Clinician Type',
+                                        //                 text3: 'Phone Number',
+                                        //                 text4: 'Personal Email',
+                                        //               ),
+                                        //             ),
+                                        //             SizedBox(width: 10,),
+                                        //             Column(
+                                        //               children: [
+                                        //                 ObGeneralDataConstant(
+                                        //                   text1: general.ssnnbr ?? '--',
+                                        //                   text2: general.type ?? '--',
+                                        //                   text3: general.primaryPhoneNbr ?? '--',
+                                        //                   text4: general.personalEmail ?? '--',
+                                        //                 ),
+                                        //               ],
+                                        //             ),
+                                        //             SizedBox(width: 20,),
+                                        //             Expanded(
+                                        //               child: ObGeneralHeadingConstant(
+                                        //                 text1: 'Drivers License No.',
+                                        //                 text2: 'Speciality',
+                                        //                 text3: 'City',
+                                        //                 text4: 'Zone',
+                                        //               ),
+                                        //             ),
+                                        //             Expanded(
+                                        //               child: Column(
+                                        //                 children: [
+                                        //                   ObGeneralDataConstant(
+                                        //                     text1: general.driverLicenseNum,
+                                        //                     text2: general.expertise,
+                                        //                     text3: general.city,
+                                        //                     text4: general.zone,
+                                        //                   ),
+                                        //                 ],
+                                        //               ),
+                                        //             ),
+                                        //             Expanded(
+                                        //               child: ObGeneralHeadingConstant(
+                                        //                 text1: 'Address',
+                                        //                 text2: 'Employment',
+                                        //                 text3: 'Date of Birth',
+                                        //                 text4: 'Race',
+                                        //               ),
+                                        //             ),
+                                        //             Expanded(
+                                        //               child: Column(
+                                        //                 children: [
+                                        //                   ObGeneralDataConstant(
+                                        //                     text1: general.finalAddress,
+                                        //                     text2: general.employment,
+                                        //                     text3: general.dateOfBirth,
+                                        //                     text4: general.race,
+                                        //                   ),
+                                        //                 ],
+                                        //               ),
+                                        //             ),
+                                        //             Expanded(
+                                        //               child: ObGeneralHeadingConstant(
+                                        //                 text1: 'Service',
+                                        //                 text2: '',
+                                        //                 text3: '',
+                                        //                 text4: '',
+                                        //               ),
+                                        //             ),
+                                        //             Expanded(
+                                        //               child: Column(
+                                        //                 children: [
+                                        //                   ObGeneralDataConstant(
+                                        //                     text1: general.service,
+                                        //                     text2: '',
+                                        //                     text3: '',
+                                        //                   ),
+                                        //                 ],
+                                        //               ),
+                                        //             ),
+                                        //           ],
+                                        //         )
+                                        //     ),
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -481,31 +401,90 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                             );
                           }),
                     ),
-                    PaginationControlsWidget(
-                      currentPage: currentPage,
-                      items: snapshot.data!,
-                      itemsPerPage: itemsPerPage,
-                      onPreviousPagePressed: () {
-                        setState(() {
-                          currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                        });
-                      },
-                      onPageNumberPressed: (pageNumber) {
-                        setState(() {
-                          currentPage = pageNumber;
-                        });
-                      },
-                      onNextPagePressed: () {
-                        setState(() {
-                          currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-                          print('$currentPage');
-                          getEmployeeSeeAll(context).then((data) {
-                            generalController.add(data);
-                          }).catchError((error) {});
-                        });
-                      },
+                    SizedBox(height: AppSize.s5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Previous Page Button
+                        InkWell(
+                          onTap: currentPage > 1 ? () {
+                            setState(() {
+                              currentPage--;
+                            });
+                          } : null,
+                          child: Container(
+                            height: 20,
+                            width: 20,
+                            margin: EdgeInsets.only(left: 5, right: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: ColorManager.bluelight,
+                            ),
+                            child: Icon(Icons.arrow_back_ios_sharp, size: 14, color: Colors.white),
+                          ),
+                        ),
+                        for (var i = 1; i <= totalPages; i++)
+                          if (i == 1 ||
+                              i == totalPages ||
+                              i == currentPage ||
+                              (i == currentPage - 1 && i > 1) ||
+                              (i == currentPage + 1 && i < totalPages))
+                            InkWell(
+                              onTap: () => onPageNumberPressed(i),
+                              child: Container(
+                                width: 20,
+                                height: 20,
+                                margin: EdgeInsets.only(left: 5, right: 5),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(
+                                    color: currentPage == i ? ColorManager.bluelight : ColorManager.fmediumgrey.withOpacity(0.2),
+                                    width: currentPage == i ? 2.0 : 1.0,
+                                  ),
+                                  color: currentPage == i ? ColorManager.bluelight : Colors.transparent,
+                                ),
+                                child: Text(
+                                  '$i',
+                                  style: TextStyle(
+                                    color: currentPage == i ? Colors.white : ColorManager.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            )
+                          else if (i == currentPage - 2 || i == currentPage + 2)
+                            Text(
+                              '..',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                        ///Page Number Buttons
+                        InkWell(
+                          onTap: currentPage < totalPages ? () {
+                            setState(() {
+                              currentPage++;
+                            });
+                          } : null,
+                          child: Container(
+                            height: 20,
+                            width: 20,
+                            margin: EdgeInsets.only(left: 5, right: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: ColorManager.bluelight,
+                            ),
+                            child: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.white),
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: AppSize.s10),
+                    SizedBox(height: AppSize.s5),
                   ],
                 );
               }
@@ -518,33 +497,36 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
   }
 }
 
-class InfoTextWidget extends StatelessWidget {
-  final List<String> texts;
-  const InfoTextWidget({
-    super.key,
-    required this.texts,
-  });
+class InfoText extends StatelessWidget {
+  final String text;
+
+  const InfoText(this.text, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          texts.length,
-              (index) => Text(
-            texts[index],
-            style: GoogleFonts.firaSans(
-              fontWeight: FontWeightManager.lightbold,
-              color: ColorManager.mediumgrey,
-              fontSize: FontSize.s10,
-            ),
-          ),
-        ),
-      ),
+    return Column(
+      children: [
+        Text(text, style: GoogleFonts.firaSans(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),),
+        const SizedBox(height: 10),
+      ],
     );
   }
 }
 
+class InfoData extends StatelessWidget {
+  final String text;
 
+  const InfoData(
+      this.text,
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(text,style: GoogleFonts.firaSans(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),),
+        const SizedBox(height: 10),
+      ],
+    );
+  }
+}
