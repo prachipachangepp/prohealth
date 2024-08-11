@@ -523,8 +523,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                 ),
                 SizedBox(height: AppSize.s10),
               ],
-            )
-              ;
+            );
   }
   return Offstage();
 },
