@@ -11,6 +11,7 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/see_all/see_all_manager.dart';
 import '../../../../../data/api_data/hr_module_data/see_all_data/see_all_data.dart';
 
+
 class OnboardingGeneral extends StatefulWidget {
   final void Function(int,int) selectButton;
   const OnboardingGeneral({Key? key, required this.selectButton}) : super(key: key);
