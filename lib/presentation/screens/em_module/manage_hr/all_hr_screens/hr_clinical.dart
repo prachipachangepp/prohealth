@@ -77,7 +77,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   int docTypeMetaId =1;
   int doceEditMetaId=1;
   int currentPage = 1;
-  final int itemsPerPage = 3;
+  final int itemsPerPage = 10;
   final int totalPages = 5;
   void onPageNumberPressed(int pageNumber) {
     setState(() {
@@ -323,7 +323,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                 Expanded(
                                   flex: 3,
                                   child: Text(
-                                      hrdata.empType.toString(),
+                                      hrdata.empType.toString().capitalizeFirst!,
                                     textAlign: TextAlign.center,
                                     style: AllHRTableData.customTextStyle(context)
                                   ),
@@ -331,7 +331,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                 Expanded(
                                   flex: 3,
                                   child: Text(
-                                      hrdata.abbrivation.toString(),
+                                      hrdata.abbrivation.toString().capitalizeFirst!,
                                       textAlign: TextAlign.center,
                                     style: AllHRTableData.customTextStyle(context)
                                   ),
@@ -455,12 +455,6 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                                           }
                                                         }
                                                     ),
-                                                      // onColorChanged: (Color color) {
-                                                      //   setState(() {
-                                                      //     containerColors[index] =
-                                                      //      color; // Update color for this item
-                                                      //   });
-                                                      // },
                                                     );
                                                   }
                                               );
@@ -480,7 +474,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                                     Navigator.pop(context);
                                                   }, onDelete: () async {
                                                  await  allfromHrDelete(
-                                                      context, hrdata.employeeTypesId!);
+                                                      context, hrdata.employeeTypesId);
                                                   getAllHrDeptWise(context,widget.deptId).then((data){
                                                     _controller.add(data);
                                                   }).catchError((error){});
@@ -533,31 +527,6 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
         SizedBox(
           height: AppSize.s10,
         ),
-        // PaginationControlsWidget(
-        //   currentPage: currentPage,
-        //   items: items,
-        //   itemsPerPage: itemsPerPage,
-        //   onPreviousPagePressed: () {
-        //     /// Handle previous page button press
-        //     setState(() {
-        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-        //     });
-        //   },
-        //   onPageNumberPressed: (pageNumber) {
-        //     /// Handle page number tap
-        //     setState(() {
-        //       currentPage = pageNumber;
-        //     });
-        //   },
-        //   onNextPagePressed: () {
-        //     /// Handle next page button press
-        //     setState(() {
-        //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
-        //           ? currentPage + 1
-        //           : (items.length / itemsPerPage).ceil();
-        //     });
-        //   },
-        // ),
       ],
     );
   }
