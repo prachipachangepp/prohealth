@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../app/resources/value_manager.dart';
+import 'chart.dart';
 
 class SMDashboardScreen extends StatefulWidget {
   const SMDashboardScreen({super.key});
@@ -239,6 +240,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                           decoration: BoxDecoration(
                               color: Colors.grey,
                               borderRadius: BorderRadius.circular(47.0)),
+                          child: VisitsForCliniciansGraph()
                         ),
                       ],
                     ),
