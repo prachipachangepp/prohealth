@@ -131,7 +131,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   }
 
   int currentPage = 1;
-  final int itemsPerPage = 3;
+  final int itemsPerPage = 10;
   final int totalPages = 5;
 
   void onPageNumberPressed(int pageNumber) {

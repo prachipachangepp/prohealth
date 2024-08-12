@@ -253,6 +253,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                             });
                       })
                   : CustomIconButtonConst(
+                width: 150,
                       icon: Icons.add,
                       text: "Add Doctype",
                       onPressed: () {
