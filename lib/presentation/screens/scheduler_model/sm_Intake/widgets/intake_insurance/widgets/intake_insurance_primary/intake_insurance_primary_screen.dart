@@ -160,6 +160,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           ),
                         ],
                       ),
+                      ////
                       SizedBox(height: 16),
                       Row(
                         children: [
