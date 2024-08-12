@@ -358,6 +358,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -367,6 +368,8 @@ import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/text_form_field_const.dart';
 import '../../whitelabelling/success_popup.dart';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CIZoneAddPopup extends StatefulWidget {
   final TextEditingController countynameController;
@@ -395,6 +398,7 @@ class CIZoneAddPopup extends StatefulWidget {
     this.title4,
     this.title5,
     this.title6,
+
     required this.countynameController,
     required this.zipcodeController,
     this.mapController,
@@ -419,7 +423,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
       child: SingleChildScrollView(
         child: Container(
           width: AppSize.s407,
-          height: AppSize.s511,
+          height: AppSize.s350,
           decoration: BoxDecoration(
             color: ColorManager.white,
             borderRadius: BorderRadius.circular(8),
@@ -502,13 +506,14 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   ],
                 ),
               ),
-              SizedBox(height: AppSize.s30,),
+              SizedBox(height: AppSize.s5),
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: 25,width: 25,
+                    height: AppSize.s25,
+                    width: AppSize.s25,
                     child: CircularProgressIndicator( color: ColorManager.blueprime,))
                     : Center(
                   child: CustomElevatedButton(
@@ -559,6 +564,23 @@ class AddZipCodePopup extends StatefulWidget {
 }
 
 class _AddZipCodePopupState extends State<AddZipCodePopup> {
+  LatLng? _selectedLocation;
+
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PickLocationScreen()),
+    );
+
+    if (pickedLocation != null) {
+      setState(() {
+        _selectedLocation = pickedLocation;
+      });
+
+      // Use _selectedLocation.latitude and _selectedLocation.longitude as needed
+      print('Selected Location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}');
+    }
+  }
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -582,7 +604,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                     topRight: Radius.circular(8),
                   ),
                 ),
-                height: 40,
+                height: AppSize.s40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -622,15 +644,15 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Zone',
+                          AppString.zone,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             color: ColorManager.mediumgrey,
                             //decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: AppSize.s5),
                         widget.child!
                       ],
                     ),
@@ -642,12 +664,12 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                           'County Name',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             color: ColorManager.mediumgrey,
                             //decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: AppSize.s5),
                         widget.child1!
                       ],
                     ),
@@ -667,13 +689,8 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                     Row(
                       children: [
                         TextButton(
-                          onPressed: () async {
-                            const String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=36.778259, -119.417931";
-                            if (await canLaunchUrlString(googleMapsUrl)) {
-                              await launchUrlString(googleMapsUrl);
-                            } else {
-                              print('Could not open the map.');
-                            }
+                          onPressed: () {
+                            //_pickLocation();
                           },
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.transparent),
@@ -681,16 +698,16 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             'Pick Location',
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xff579EBA),
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.bluelight,
                               //decoration: TextDecoration.none,
                             ),
                           ),
                         ),
                         Icon(
                           Icons.location_on_outlined,
-                          color: Color(0xff686464),
-                          size: 18,
+                          color: ColorManager.granitegray,
+                          size: AppSize.s18,
                         ),
                       ],
                     ),
@@ -744,7 +761,63 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   }
 }
 
+/// Pick google map location
+class PickLocationScreen extends StatefulWidget {
+  @override
+  _PickLocationScreenState createState() => _PickLocationScreenState();
+}
 
+class _PickLocationScreenState extends State<PickLocationScreen> {
+  LatLng? _pickedLocation;
+
+  void _onMapCreated(GoogleMapController controller) {
+    // Optional: Set initial camera position
+    controller.animateCamera(CameraUpdate.newLatLngZoom(
+      LatLng(37.7749, -122.4194), // Initial position (San Francisco)
+      10,
+    ));
+  }
+
+  void _onTap(LatLng location) {
+    setState(() {
+      _pickedLocation = location;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Pick Location'),
+        actions: [
+          if (_pickedLocation != null)
+            IconButton(
+              icon: Icon(Icons.check),
+              onPressed: () {
+                Navigator.pop(context, _pickedLocation);
+              },
+            ),
+        ],
+      ),
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        onTap: _onTap,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(37.7749, -122.4194), // Initial position (San Francisco)
+          zoom: 10,
+        ),
+        markers: _pickedLocation != null
+            ? {
+          Marker(
+            markerId: MarkerId('picked-location'),
+            position: _pickedLocation!,
+          ),
+        }
+            : {},
+      ),
+    );
+  }
+}
 
 class AddZonePopup extends StatefulWidget {
   final TextEditingController zoneNumberController;
@@ -825,15 +898,15 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('County',
+                        Text(AppString.country,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             color: ColorManager.mediumgrey,
                             //decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: AppSize.s5),
                         widget.child!
                       ],
                     ),
@@ -846,8 +919,10 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: 25,width: 25,
-                    child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                    height: AppSize.s25,
+                    width: AppSize.s25,
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,))
                     : Center(
                   child: CustomElevatedButton(
                     width: AppSize.s105,

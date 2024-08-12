@@ -1,10 +1,11 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
-
-
 
 class ComplianceAddPopUp extends StatefulWidget {
   const ComplianceAddPopUp({super.key});
@@ -41,7 +42,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: ColorManager.white,
       titlePadding: EdgeInsets.zero,
       title: Container(
         decoration: BoxDecoration(
@@ -51,7 +52,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
           ),
           color: Color(0xff50B5E5),
         ),
-        height: 47,
+        height: AppSize.s47,
         width: 408,
         child: Row(
           children: [
@@ -60,9 +61,9 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
               child: Text(
                 'Add New Compliance Document',
                 style: GoogleFonts.firaSans(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  fontSize: FontSize.s14,
+                  fontWeight: FontWeightManager.bold,
+                  color: ColorManager.white,
                 ),
               ),
             ),
@@ -73,7 +74,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
               },
               icon: Icon(
                 Icons.close,
-                color: Colors.white,
+                color: ColorManager.white,
               ),
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
@@ -85,7 +86,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
       content: SingleChildScrollView(
         child: Container(
           height: 475,
-          width: 350,
+          width: AppSize.s350,
           color: ColorManager.white,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -97,12 +98,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        'Type of the Document',
+                      Text(AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xff686464)
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.textPrimaryColor
                         ),),
                     ],
                   ),
@@ -110,34 +110,43 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     height: MediaQuery.of(context).size.height / 80,
                   ),
                   Container(
-                    height: 30,
+                    height: AppSize.s30,
                     child: TextFormField(
-                      cursorColor: Colors.black,
+                      cursorColor: ColorManager.black,
                       cursorHeight: 18,
                       controller: _typeDocumentController,
                       style: GoogleFonts.firaSans(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff575757)
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.regular,
+                          color: ColorManager.textPrimaryColor
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                         labelText: 'Compliance Type 1',
                         labelStyle: GoogleFonts.firaSans(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff575757)
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.regular,
+                            color: ColorManager.lightgreyheading
                         ),
                         border: OutlineInputBorder(),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          borderSide: BorderSide(
+                              color: ColorManager.containerBorderGrey,
+                              width: 1.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          borderSide: BorderSide(
+                              color: ColorManager.containerBorderGrey,
+                              width: 1.0),
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 10),
                         suffixIcon: PopupMenuButton<String>(
-                          icon: Icon(Icons.arrow_drop_down, color: Colors.black,),
+                          icon: Align(
+                              alignment: Alignment.center,
+                              child: Icon(Icons.arrow_drop_down,
+                                  color: ColorManager.black)
+                          ),
                           onSelected: (String value) {
                             setState(() {
                               _typeDocumentSelectedOption = value;
@@ -150,14 +159,15 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                                 value: value,
                                 child: Text(value,
                                   style: GoogleFonts.firaSans(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff575757)
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeightManager.regular,
+                                      color: ColorManager.lightgreyheading
                                   ),),
                               );
                             }).toList();
                           },
                         ),
+                        isDense: true
                       ),
                     ),
                   ),
@@ -168,11 +178,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        'Name of the Document',
+                        AppString.name_of_the_document,
                         style: GoogleFonts.firaSans(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xff686464)
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.textPrimaryColor
                         ),),
                     ],
                   ),
@@ -180,24 +190,28 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     height: MediaQuery.of(context).size.height / 120,
                   ),
                   Container(
-                    height: 30,
+                    height: AppSize.s30,
                     child: TextFormField(
                       cursorColor: Colors.black,
                       cursorHeight: 18,
                       controller: _nameDocumentController,
                       style: GoogleFonts.firaSans(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff575757)
+                          fontSize: AppSize.s12,
+                          fontWeight: FontWeightManager.regular,
+                          color: ColorManager.lightgreyheading
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          borderSide: BorderSide(
+                              color: ColorManager.containerBorderGrey,
+                              width: 1.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          borderSide: BorderSide(
+                              color: ColorManager.containerBorderGrey,
+                              width: 1.0),
                         ),
                         contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                       ),
@@ -211,9 +225,9 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                       Text(
                         'Expiry Type',
                         style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xff686464)
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.textPrimaryColor
                         ),
                       ),
                       RadioListTile<String>(
@@ -222,8 +236,8 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                         title: Text(
                           'Not Applicable',
                           style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400
+                              fontSize: FontSize.s10,
+                              fontWeight: FontWeightManager.regular
                           ),),
                         value: 'Not Applicable',
                         groupValue: _selectedExpiryType,
@@ -239,8 +253,8 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                         title: Text(
                           'Scheduled',
                           style: GoogleFonts.firaSans(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeightManager.regular,
                           ),),
                         value: 'Scheduled',
                         groupValue: _selectedExpiryType,
@@ -256,7 +270,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                         title: Text(
                           'Issuer Expiry',
                           style: GoogleFonts.firaSans(
-                            fontSize: 10,
+                            fontSize: FontSize.s10,
                             fontWeight: FontWeight.w400,
                           ),),
                         value: 'Issuer Expiry',
@@ -276,11 +290,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        'Upload Document',
+                        AppString.upload_document,
                         style: GoogleFonts.firaSans(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xff686464)
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.textPrimaryColor
                         ),),
                     ],
                   ),
@@ -288,11 +302,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     height: MediaQuery.of(context).size.height / 120,
                   ),
                   Container(
-                    height: 30,
-                    width: 360,
+                    height: AppSize.s30,
+                    width: AppSize.s360,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Color(0xffB1B1B1),
+                        color: ColorManager.containerBorderGrey,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
@@ -308,18 +322,21 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                               child: Text(
                                 _fileName,
                                 style: GoogleFonts.firaSans(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff575757),
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.regular,
+                                  color: ColorManager.lightgreyheading,
                                 ),
                               ),
                             ),
                           ],
                         ),
                         Spacer(),
-                        IconButton(
+                        IconButton(padding: EdgeInsets.only(top: 6),
                           onPressed: _pickFile,
-                          icon: Icon(Icons.file_upload_outlined, color: Colors.black),
+                          icon: Icon(
+                              Icons.file_upload_outlined,
+                              color: ColorManager.black,
+                          size: 20),
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           hoverColor: Colors.transparent,
@@ -337,11 +354,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                   ElevatedButton(
                     onPressed: () {},
                     child: Text(
-                      'Submit',
+                      AppString.submit,
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.white,
                       ),
                     ),
                     style: ElevatedButton.styleFrom(

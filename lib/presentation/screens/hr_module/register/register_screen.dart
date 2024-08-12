@@ -423,7 +423,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   emailController = TextEditingController(text: email);
 
                                   return RegisterEnrollPopup(
-                                    employeeId: data.employeeId!,
+                                    employeeId: data.employeeId,
                                     firstName: firstNameController,
                                     lastName: lastNameController,
                                     email: emailController,

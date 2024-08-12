@@ -5,6 +5,9 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
+import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
+import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 import '../patients_info/intake_patients_info.dart';
 
 class IntakePatientsStayInfoScreen extends StatelessWidget {
@@ -13,6 +16,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -22,10 +26,10 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Status Completed',
+                    Text(AppString.status_completed,
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: 12.0,
+                          fontSize: AppSize.s12,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
                       ),
@@ -56,18 +60,18 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                     children: [
                       Text('Last Inpatient Stay Information',
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            color: Color(0xff686464),
+                            fontSize: AppSize.s12,
+                            color: ColorManager.granitegray,
                             fontWeight: FontWeightManager.semiBold,)),
-                      SizedBox(height: 20),
+                      SizedBox(height: AppSize.s20),
                       _buildInpatientStaySection(),
-                      SizedBox(height: 30),
+                      SizedBox(height: AppSize.s30),
                       Text('Location of Care',
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            color: Color(0xff686464),
+                            fontSize: AppSize.s12,
+                            color: ColorManager.granitegray,
                             fontWeight: FontWeightManager.semiBold,)),
-                      SizedBox(height: 20),
+                      SizedBox(height: AppSize.s20),
                       _buildLocationOfCareSection(),
                     ],
                   ),
@@ -88,71 +92,73 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularDropdown(
                     labelText: 'Facility',
-                    initialValue: 'Select a Facility')
+                    items: ['Option 1', 'Option 2', 'Option 3'])
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: 'Medical Record #')
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularDropdown(
                     labelText: AppString.status,
-                    initialValue: 'Scheduled')
+                    items: ['Option 1', 'Option 2', 'Option 3']
+                    )
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: 'Hospital')
             ),
           ],
         ),
-        SizedBox(height: 16),
+        SizedBox(height: AppSize.s16),
         Row(
           children: [
             Flexible(
                 child: SchedularTextField(
                     labelText: 'Phone')
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: AppString.address)
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText:  AppString.city)
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularDropdown(
-                    labelText:  AppString.state)
+                    labelText:  AppString.state,
+                    items: ['Option 1', 'Option 2', 'Option 3'])
             ),
           ],
         ),
-        SizedBox(height: 16),
+        SizedBox(height: AppSize.s16),
         Row(
           children: [
             Flexible(child: SchedularTextFieldWithButton(
-              labelText: 'Zip Code',
+              labelText: AppString.zip_code,
               initialValue: '2656845121',
               buttonText: 'View Zone',
             )),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: 'Admit Date',
                     isDate: true)
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: 'D/C',
                     isDate: true)
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: 'Recent Surgery/ Procedure'
@@ -160,7 +166,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 16),
+        SizedBox(height: AppSize.s16),
         Row(
           children: [
             Flexible(
@@ -168,16 +174,16 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                     labelText: 'Date of Surgery/ Procedure',
                     isDate: true)
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: AppString.comments
                 )
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
-                child: Container()), // Empty container for alignment
-            SizedBox(width: 35),
+                child: Container()),             // Empty container for alignment
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: Container()),
           ],
@@ -185,8 +191,6 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
       ],
     );
   }
-
-
 
 
   Widget _buildLocationOfCareSection() {
@@ -201,20 +205,20 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                     isDate: true
                 )
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: AppString.enddate,
                     isDate: true
                 )
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: 'Street'
                 )
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: 'Suite/ Apt#'
@@ -222,7 +226,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 20),
+        SizedBox(height: AppSize.s20),
         Row(
           children: [
             Flexible(
@@ -230,21 +234,22 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                     labelText: AppString.city
                 )
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularDropdown(
-                    labelText: AppString.state
+                    labelText: AppString.state,
+                    items: ['Option 1', 'Option 2', 'Option 3']
                 )
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextFieldWithButton(
-                  labelText: 'Zip Code',
+                  labelText: AppString.zip_code,
                   initialValue: '2656845121',
                   buttonText: 'View Zone',
                 )
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: AppString.phone
@@ -252,7 +257,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 16),
+        SizedBox(height: AppSize.s16),
         Row(
           children: [
             Flexible(
@@ -260,13 +265,13 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                     labelText: 'Fax'
                 )
             ),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: Container()),
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: Container()), // Empty container for alignment
-            SizedBox(width: 35),
+            SizedBox(width: AppSize.s35),
             Flexible(
                 child: Container()),
           ],

@@ -107,21 +107,24 @@ class CenteredTabBarController extends GetxController
 class CenteredTabBarChildController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
-  final List<Widget> tabs;
-  final List<Widget> tabViews;
+  final List<Widget>? tabs;
+  final List<Widget>? tabViews;
   final double tabBarViewHeight;
   final double tabBarViewWidth;
+  int? employeeId;
 
   CenteredTabBarChildController({
-    required this.tabs,
-    required this.tabViews,
+    this.employeeId,
+     this.tabs,
+     this.tabViews,
     this.tabBarViewHeight = 250.0, //250
     this.tabBarViewWidth = 620.0,
   });
 
   @override
   void onInit() {
-    tabController = TabController(length: tabs.length, vsync: this);
+    print("Controller employeeId :: ${employeeId}");
+    tabController = TabController(length: tabs!.length, vsync: this);
     super.onInit();
   }
 

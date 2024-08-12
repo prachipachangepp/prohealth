@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/schedular_success_popup.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
@@ -83,8 +84,12 @@ class _ReferralSubmitPopupState extends State<ReferralSubmitPopup> {
                           ),
                         ),
                         onPressed: () {
-                          // Handle 'Yes' action
-                          Navigator.of(context).pop();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SchedularSuccessPopup(title: 'Success');
+                            },
+                          );
                         },
                       ),
                     ),

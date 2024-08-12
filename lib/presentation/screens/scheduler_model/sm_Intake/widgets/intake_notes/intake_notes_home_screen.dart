@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_phhysician_info/widget/physician_info_face_to_face/physician_info_face_to_face.dart';
-import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_phhysician_info/widget/physician_info_info/physician_info_info.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/widgets/intake_notes_miscellaneous/intake_notes_miscellaneous_screen.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_compliance/intake_patients_compliance.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_plan_care/intake_patients_plan_care.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_related_party/intake_patients_related_party.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_stay_info/intake_patients_stay_info.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 
-class IntakePhysicianScreen extends StatefulWidget {
-  const IntakePhysicianScreen({super.key});
+class SmIntakeNotesScreen extends StatefulWidget {
+  SmIntakeNotesScreen({super.key});
 
   @override
-  State<IntakePhysicianScreen> createState() => _IntakePhysicianScreenState();
+  State<SmIntakeNotesScreen> createState() => _SmIntakeNotesScreenState();
 }
 
-class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
+class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
   int selectedIndex = 0;
   final PageController smIntakePageController = PageController();
 
@@ -32,13 +36,14 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
   @override
   Widget build(BuildContext context) {
     return  Material(
+      color: ColorManager.white,
       elevation: 4,
       borderRadius: BorderRadius.circular(14),
       child: Column(
         children: [
           SizedBox(height: 15,),
           Container(
-            width: MediaQuery.of(context).size.width/2.4, //2.4
+            width: MediaQuery.of(context).size.width/1.405,
             height: 30,
             decoration: BoxDecoration(
                 boxShadow: [
@@ -50,7 +55,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                   ),
                 ],
                 color: ColorManager.blueprime,
-                borderRadius: BorderRadius.circular(14)
+                borderRadius: BorderRadius.circular(20)
             ),
             child: Row(
               children: [
@@ -67,7 +72,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Info',
+                      'Physician',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -92,7 +97,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Referring Diagnosis',
+                      'Supervisory',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -117,7 +122,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Physician Orders',
+                      'Nurses Clinical',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -142,7 +147,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                           : null,
                     ),
                     child: Text(
-                      'Face To Face',
+                      'Speech Therapy',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
@@ -154,6 +159,79 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                     ),
                   ),
                   onTap: () => selectButton(3),
+                ),
+                InkWell(
+                  child: Container(
+                    height: 30,
+                    width: MediaQuery.of(context).size.width / 9.8,
+                    padding: EdgeInsets.symmetric(vertical: 6),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: selectedIndex == 4
+                          ? Colors.white
+                          : null,
+                    ),
+                    child: Text(
+                      'Home Health Aid',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: selectedIndex == 4
+                            ? ColorManager.mediumgrey
+                            : Colors.white,
+                      ),
+                    ),
+                  ),
+                  onTap: () => selectButton(4),
+                ),InkWell(
+                  child: Container(
+                    height: 30,
+                    width: MediaQuery.of(context).size.width / 9.8,
+                    padding: EdgeInsets.symmetric(vertical: 6),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: selectedIndex == 5
+                          ? Colors.white
+                          : null,
+                    ),
+                    child: Text(
+                      'Spiritual',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: selectedIndex == 5
+                            ? ColorManager.mediumgrey
+                            : Colors.white,
+                      ),
+                    ),
+                  ),
+                  onTap: () => selectButton(5),
+                ),InkWell(
+                  child: Container(
+                    height: 30,
+                    width: MediaQuery.of(context).size.width / 9.8,
+                    padding: EdgeInsets.symmetric(vertical: 6),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: selectedIndex == 6
+                          ? Colors.white
+                          : null,
+                    ),
+                    child: Text(
+                      'Miscellaneous',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: selectedIndex == 6
+                            ? ColorManager.mediumgrey
+                            : Colors.white,
+                      ),
+                    ),
+                  ),
+                  onTap: () => selectButton(6),
                 ),
               ],
             ),
@@ -171,10 +249,13 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                   controller: smIntakePageController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    PhysicianInfoInfoScreen(),
-                    Container(),
-                    Container(),
-                    PhysicianFaceToFace(),
+                    Container(color: Colors.red),
+                    Container(color: Colors.blue),
+                    Container(color: Colors.purple),
+                    Container(color: Colors.grey),
+                    Container(color: Colors.yellow),
+                    Container(color: Colors.brown),
+                    IntakeNotesMiscellaneousScreen(),
                   ]),
             ),
           ),
