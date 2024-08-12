@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_reference_manager.dart';
 
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_reference_data.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
 
@@ -10,7 +11,8 @@ class ReferencesScreen extends StatefulWidget {
   final int employeeID;
   const ReferencesScreen({
     super.key,
-    required this.context, required this.employeeID,
+    required this.context,
+    required this.employeeID,
   });
 
   final BuildContext context;
@@ -27,7 +29,6 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController knowthisperson = TextEditingController();
   TextEditingController lengthofassociation = TextEditingController();
-
 
   List<GlobalKey<_ReferencesFormState>> referenceFormKeys = [];
 
@@ -49,7 +50,6 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
     });
   }
 
-
   Future<void> postreferencescreendata(
       BuildContext context,
       String association,
@@ -65,6 +65,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
       SnackBar(content: Text("Reference data saved")),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -101,10 +102,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                       ),
                     ),
                   ),
-
                 ],
               ),
-
             ],
           ),
         ),
@@ -116,7 +115,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
             return ReferencesForm(
               key: key,
               index: index + 1,
-              onRemove: () => removeEduacationForm(key),employeeID:widget.employeeID,
+              onRemove: () => removeEduacationForm(key),
+              employeeID: widget.employeeID,
             );
           }).toList(),
         ),
@@ -174,10 +174,9 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                       st.email.text,
                       st.widget.employeeID,
                       st.mobilenumber.text,
-                     st.name.text,
+                      st.name.text,
                       st.knowthisperson.text,
                       st.titleposition.text);
-
                 }
                 lengthofassociation.clear();
                 companyorganization.clear();
@@ -198,7 +197,6 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
             ),
           ],
         ),
-
       ],
     );
   }
@@ -208,7 +206,12 @@ class ReferencesForm extends StatefulWidget {
   final int employeeID;
   final VoidCallback onRemove;
   final int index;
-  const ReferencesForm({Key? key, required this.onRemove, required this.index, required this.employeeID}):super (key:key);
+  const ReferencesForm(
+      {Key? key,
+      required this.onRemove,
+      required this.index,
+      required this.employeeID})
+      : super(key: key);
 
   @override
   _ReferencesFormState createState() => _ReferencesFormState();
@@ -223,226 +226,295 @@ class _ReferencesFormState extends State<ReferencesForm> {
   TextEditingController knowthisperson = TextEditingController();
   TextEditingController lengthofassociation = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 160.0, right: 160),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'References #${widget.index}',
-                style: GoogleFonts.firaSans(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff686464)),
-              ),
-              IconButton(
-                icon: Icon(Icons.remove_circle, color: Colors.red),
-                onPressed: widget.onRemove,
-              ),
-            ],
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppString.name,
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: name,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      height: 32,
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 40),
-                    Text(
-                      AppString.title_position,
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: titleposition,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      height: 32,
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 30),
-                    Text(
-                      AppString.company_organization,
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: companyorganization,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      height: 32,
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 30),
-                    Text(
-                      AppString.mobile_number,
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: mobilenumber,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      height: 32,
-                    ),
-                  ],
+    return FutureBuilder<List<ReferenceDataForm>>(
+        future: getEmployeeReferenceForm(context, widget.employeeID),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 150),
+                child: CircularProgressIndicator(
+                  color: Color(0xff50B5E5),
                 ),
               ),
-              SizedBox(width: MediaQuery.of(context).size.width / 15),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppString.email,
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldForEmail(
-                      controller: email,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      height: 32,
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 60),
-                    Text(
-                      AppString.how_do_you_know_this_person,
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: knowthisperson,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      height: 32,
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 60),
-                    Text(
-                      AppString.length_of_association,
-                      style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
-                    ),
-                    SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height / 60),
-                    CustomTextFieldRegister(
-                      controller: lengthofassociation,
-                      hintText: 'Enter Text',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      height: 32,
-                    ),
-                  ],
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150),
+                child: Text(
+                  'Error: ${snapshot.error}',
+                  style: TextStyle(color: Colors.red),
                 ),
               ),
-            ],
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Text(
-            'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
-            style: GoogleFonts.firaSans(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w500,
-                color: Color(0xff686464)),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height / 20),
-          const Divider(color: Colors.grey,thickness: 2,)
+            );
+          }
+          if (snapshot.hasData) {
+            List<ReferenceDataForm>? data = snapshot.data;
+            //print{::::::::=> "$snapshot.data"};
+            print(":::::: :=>${snapshot.data!}");
 
-        ],
-      ),
-    );
+            return Container(
+              height: MediaQuery.of(context).size.height / 1,
+              width: MediaQuery.of(context).size.width / 1,
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (BuildContext context, int index) {
+
+
+                   name = TextEditingController(text:snapshot.data![index].name);
+                titleposition = TextEditingController(text:snapshot.data![index].title);
+                   companyorganization = TextEditingController(text:snapshot.data![index].company);
+                   mobilenumber = TextEditingController(text:snapshot.data![index].mob);
+                   email = TextEditingController(text:snapshot.data![index].email);
+                   knowthisperson = TextEditingController(text:snapshot.data![index].references);
+                   lengthofassociation = TextEditingController(text:snapshot.data![index].association);
+
+
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 160.0, right: 160),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'References #${snapshot.data![index].referenceId}',
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)),
+                            ),
+                            IconButton(
+                              icon:
+                                  Icon(Icons.remove_circle, color: Colors.red),
+                              onPressed: widget.onRemove,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height / 20),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppString.name,
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldRegister(
+                                    controller: name,
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              40),
+                                  Text(
+                                    AppString.title_position,
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldRegister(
+                                    controller: titleposition,
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              30),
+                                  Text(
+                                    AppString.company_organization,
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldRegister(
+                                    controller: companyorganization,
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              30),
+                                  Text(
+                                    AppString.mobile_number,
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldRegister(
+                                    controller: mobilenumber,
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width / 15),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppString.email,
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldForEmail(
+                                    controller: email,
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  Text(
+                                    AppString.how_do_you_know_this_person,
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldRegister(
+                                    controller: knowthisperson,
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  Text(
+                                    AppString.length_of_association,
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60),
+                                  CustomTextFieldRegister(
+                                    controller: lengthofassociation,
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height / 20),
+                        Text(
+                          'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
+                          style: GoogleFonts.firaSans(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff686464)),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height / 20),
+                        const Divider(
+                          color: Colors.grey,
+                          thickness: 2,
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
+            );
+          }
+
+          return SizedBox();
+        });
   }
 }
 
-
 ///class
-
 
 //save
 // Row(

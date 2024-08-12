@@ -13,7 +13,9 @@ class EducationData {
   bool? approved;
   final String country;
   final String startDate;
-  EducationData({required this.sucess, required this.message,
+  EducationData({
+    required this.sucess,
+    required this.message,
     required this.country,
     required this.startDate,
     this.approved,
@@ -44,7 +46,11 @@ class EducationPrefillData {
   bool? approved;
   final String country;
   final String startDate;
-  EducationPrefillData({required this.country, required this.startDate,required this.sucess, required this.message,
+  EducationPrefillData({
+    required this.country,
+    required this.startDate,
+    required this.sucess,
+    required this.message,
     this.approved,
     required this.educationId,
     required this.employeeID,

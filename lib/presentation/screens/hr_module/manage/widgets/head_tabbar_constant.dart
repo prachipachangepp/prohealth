@@ -19,7 +19,7 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              // color: Colors.green,
+             // color: Colors.green,
               child: TabBar(
                 controller: controller.tabController,
                 tabs: controller.tabs,
@@ -50,7 +50,7 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
             // ),
 
             Container(
-             // color: Colors.purpleAccent,
+             //color: Colors.purpleAccent,
               height: controller.tabBarViewHeight,
               child: TabBarView(
                 physics: const NeverScrollableScrollPhysics(),
