@@ -212,17 +212,17 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                             width: MediaQuery.of(context).size.width / 3,
                             child: Row(
                               children: [
-                              // data.approved ==false ?
-                               Checkbox(
-                                  value: _checked[index],
-                                  onChanged: (value) {
-                                    _handleCheckboxChanged(
-                                        value,
-                                        index,
-                                        snapshot
-                                            .data![index].employeeDocumentId);
-                                  },
-                                ),// : Offstage(),
+                              data.approved == true ?
+                                Offstage():Checkbox(
+                                value: _checked[index],
+                                onChanged: (value) {
+                                  _handleCheckboxChanged(
+                                      value,
+                                      index,
+                                      snapshot
+                                          .data![index].employeeDocumentId);
+                                },
+                              ),
                                 SizedBox(width: 10),
                                 GestureDetector(
                                   onTap: () => downloadFile(fileUrl),

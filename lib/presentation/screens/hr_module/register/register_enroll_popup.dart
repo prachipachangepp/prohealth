@@ -56,7 +56,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
    final TextEditingController position = TextEditingController();
   // final TextEditingController email = TextEditingController();
   FocusNode _focusNode = FocusNode();
-  int? _selectedItemIndex;
+   List<int> _selectedItemIndex = [];
+   String selectedIndexVal = '';
    int country = 0;
    int zoneId = 0;
    int countyId =0;
@@ -806,7 +807,13 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           ],
                           onChanged: (selectedIndex) {
                             print('Selected index: $selectedIndex');
-                            _selectedItemIndex = selectedIndex;
+                            // _selectedItemIndex = selectedIndex as List<int>;
+                            setState(() {
+                              selectedIndexVal =
+                              ['Full Time', 'Contract', 'Part Time', 'Per Diem'][selectedIndex];
+                              print('Selected items: $selectedIndexVal');
+                            });
+
                           },
                         ),
                       ),
@@ -844,8 +851,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   title: 'Service',
                                   items: serviceName,
                                   onChanged: (val) {
-                                    serviceVal =  serviceName[val].toString();
-                                   print('Service data ${serviceVal}');
+                                    setState(() {
+                                      serviceVal =  serviceName[val].toString();
+                                      print('Service data ${serviceVal}');
+                                    });
+
                                   },
                                 ),
                               );
@@ -894,9 +904,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     countyId: 9,
                     zoneId: 18,
                     employment: "Full Time",
-                    service: serviceVal
+                    service: "Home Health"
                     );
-
 
                         print("${widget.employeeId}");
 

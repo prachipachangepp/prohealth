@@ -79,12 +79,11 @@ class ManageDetails {
     this.serviceDetails,
   });
 
-  // Add factory constructor to convert JSON to the model
   factory ManageDetails.fromJson(Map<String, dynamic> json) {
     return ManageDetails(
       officeID: json['officeDetail']['company_Office_id'].toString(),
-      success: true, // Assuming 'success' field might come from a larger API response
-      message: '', // Placeholder, update with actual message field from API response
+      success: true,
+      message: '',
       officeName: json['officeDetail']['name'],
       priNumber: json['officeDetail']['primary_phone'],
       secNumber: json['officeDetail']['secondary_phone'],

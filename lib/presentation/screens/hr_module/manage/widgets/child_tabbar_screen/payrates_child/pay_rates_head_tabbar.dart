@@ -15,7 +15,8 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_s
 import '../../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class PayRatesHeadTabbar extends StatefulWidget {
-  const PayRatesHeadTabbar({super.key});
+  final int employeeId;
+  const PayRatesHeadTabbar({super.key, required this.employeeId});
 
   @override
   State<PayRatesHeadTabbar> createState() => _PayRatesHeadTabbarState();
@@ -164,39 +165,39 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
             const SizedBox(
               height: 10,
             ),
-            StreamBuilder<List<PayratesData>>(
-              stream: _payratesStreamController.stream,
-              builder: (context,snapshot) {
-                getEmployeePayrates(context, 2,1,20).then((data) {
-                  _payratesStreamController.add(data);
-                }).catchError((error) {
-                  // Handle error
-                });
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 120),
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: ColorManager.blueprime,
+            Expanded(
+              child: StreamBuilder<List<PayratesData>>(
+                stream: _payratesStreamController.stream,
+                builder: (context,snapshot) {
+                  getEmployeePayrates(context, widget.employeeId,1,20).then((data) {
+                    _payratesStreamController.add(data);
+                  }).catchError((error) {
+                    // Handle error
+                  });
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 120),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
                       ),
-                    ),
-                  );
-                }
-                if (snapshot.data!.isEmpty) {
-                  return Center(
-                    child: Text(
-                      AppString.dataNotFound,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey,
+                    );
+                  }
+                  if (snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        AppString.dataNotFound,
+                        style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey,
+                        ),
                       ),
-                    ),
-                  );
-                }
-                if(snapshot.hasData){
-                  return Expanded(
-                    child: ListView.builder(
+                    );
+                  }
+                  if(snapshot.hasData){
+                    return ListView.builder(
                         scrollDirection: Axis.vertical,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
@@ -318,11 +319,11 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                               ),
                             ],
                           );
-                        }),
-                  );
+                        });
+                  }
+                  return const SizedBox();
                 }
-                return const SizedBox();
-              }
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

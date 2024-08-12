@@ -363,7 +363,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:61701/#/onBordingWelcome";
+                          const url = "http://localhost:54426/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                             await launch(url);
@@ -423,7 +423,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   emailController = TextEditingController(text: email);
 
                                   return RegisterEnrollPopup(
-                                    employeeId: data.employeeId!,
+                                    employeeId: data.employeeId,
                                     firstName: firstNameController,
                                     lastName: lastNameController,
                                     email: emailController,

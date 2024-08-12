@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +8,6 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/work_s
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
-import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
-
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../data/api_data/establishment_data/work_schedule/work_week_data.dart';
@@ -30,15 +27,9 @@ class _DefineHolidaysState extends State<DefineHolidays> {
   TextEditingController calenderController = TextEditingController();
 
   late CompanyIdentityManager _companyManager;
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 5;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
     holidaysListGet(context).then((data) {
       _controller.add(data);
@@ -48,24 +39,27 @@ class _DefineHolidaysState extends State<DefineHolidays> {
     // companyAllApi(context);
   }
   String convertDayMonthYearToIso(String dayMonthYear) {
-    // Split the dayMonthYear string into day, month, and year parts
     List<String> parts = dayMonthYear.split(' ');
     int day = int.parse(parts[0]);
     int month = int.parse(parts[1]);
     int year = int.parse(parts[2]);
-
-    // Create a DateTime object from the parsed parts
     DateTime dateTime = DateTime(day, month, year);
-
-    // Create a DateFormat object to format the date to ISO 8601 format
     DateFormat isoFormat = DateFormat('yyyy-MM-ddTHH:mm:ssZ');
-
-    // Format the date into ISO 8601 format
     String formattedDate = isoFormat.format(dateTime);
 
     return formattedDate;
   }
   bool _isLoading = false;
+
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
+
+  void onPageNumberPressed(int pageNumber) {
+    setState(() {
+      currentPage = pageNumber;
+    });
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -80,6 +74,8 @@ class _DefineHolidaysState extends State<DefineHolidays> {
               width: 170,
               icon: Icons.add,
               text: "Add New Holiday", onPressed: (){
+                holidayNameController.clear();
+                calenderController.clear();
             showDialog(context: context, builder: (BuildContext context){
               return AddHolidayPopup(
                 title: 'Add New Holiday',
@@ -194,234 +190,295 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                 );
               }
               if (snapshot.hasData) {
-                return ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      int serialNumber =
-                          index + 1 + (currentPage - 1) * itemsPerPage;
-                      String formattedSerialNumber =
-                      serialNumber.toString().padLeft(2, '0');
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // SizedBox(height: 5),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          Color(0xff000000).withOpacity(0.25),
-                                      spreadRadius: 0,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                height: 50,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            formattedSerialNumber,
-                                            // formattedSerialNumber,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
+                int totalItems = snapshot.data!.length;
+                int totalPages = (totalItems / itemsPerPage).ceil();
+                List<DefineHolidayData> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+
+                return Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: paginatedData.length,
+                          itemBuilder: (context, index) {
+                            int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                            String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                            DefineHolidayData defineData = paginatedData[index];
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // SizedBox(height: 5),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(4),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Color(0xff000000).withOpacity(0.25),
+                                            spreadRadius: 0,
+                                            blurRadius: 4,
+                                            offset: Offset(0, 2),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                      // Text(''),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            snapshot.data![index].holidayName,
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            snapshot.data![index].date.toString(),
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      //  Text(''),
-                                      Expanded(
+                                      height: 50,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
                                           children: [
-                                            IconButton(
-                                                onPressed: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return FutureBuilder<DefinePrefillHolidayData>(
-                                                          future: holidaysPrefillGet(context, snapshot.data![index].holidayId),
-                                                          builder: (context, snapshotPrefill) {
-                                                            if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                              return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
-                                                            }
-                                                            var holidayName = snapshotPrefill.data?.holidayName.toString();
-                                                            var date = snapshotPrefill.data?.date.toString();
-                                                            holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
-                                                            calenderController = TextEditingController(text: snapshotPrefill.data?.date);
-                                                            return AddHolidayPopup(
-                                                              title: 'Edit New Holiday',
-                                                              controller:
-                                                                  holidayNameController,
-                                                              calenderDateController:
-                                                              calenderController,
-                                                              onPressed: ()  async{
-                                                                await updateHolidays(context, snapshot.data![index].holidayId,
-                                                                    holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
-                                                                    date == calenderController.text ? DateFormat('mm-dd-yyy').format(date as DateTime) : calenderController.text, 2024, 1);
-                                                                holidaysListGet(
-                                                                    context)
-                                                                    .then((data) {
-                                                                  _controller
-                                                                      .add(data);
-                                                                }).catchError(
-                                                                        (error) {
-                                                                      // Handle error
-                                                                    });
-                                                                holidayNameController.clear();
-                                                                calenderController.clear();
-                                                              },
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  formattedSerialNumber,
+                                                  // formattedSerialNumber,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            // Text(''),
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  defineData.holidayName,
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  defineData.date.toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            //  Text(''),
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext
+                                                                context) {
+                                                              return FutureBuilder<DefinePrefillHolidayData>(
+                                                                future: holidaysPrefillGet(context, defineData.holidayId),
+                                                                builder: (context, snapshotPrefill) {
+                                                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                                    return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
+                                                                  }
+                                                                  var holidayName = snapshotPrefill.data?.holidayName.toString();
+                                                                  var date = snapshotPrefill.data?.date.toString();
+                                                                  holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
+                                                                  calenderController = TextEditingController(text: snapshotPrefill.data?.date);
+                                                                  return AddHolidayPopup(
+                                                                    title: 'Edit New Holiday',
+                                                                    controller:
+                                                                        holidayNameController,
+                                                                    calenderDateController:
+                                                                    calenderController,
+                                                                    onPressed: ()  async{
+                                                                      await updateHolidays(context, defineData.holidayId,
+                                                                          holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
+                                                                          date == calenderController.text ? DateFormat('mm-dd-yyy').format(date as DateTime) : calenderController.text, 2024, 1);
+                                                                      holidaysListGet(
+                                                                          context)
+                                                                          .then((data) {
+                                                                        _controller
+                                                                            .add(data);
+                                                                      }).catchError(
+                                                                              (error) {
+                                                                            // Handle error
+                                                                          });
+                                                                      holidayNameController.clear();
+                                                                      calenderController.clear();
+                                                                    },
 
-                                                            );
-                                                          }
-                                                        );
-                                                      });
-                                                },
-                                                icon: Icon(
-                                                  Icons.edit_outlined,
-                                                  size: 18,
-                                                  color: ColorManager.blueprime,
-                                                )),
-                                            IconButton(
-                                                onPressed: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          StatefulBuilder(
-                                                            builder: (BuildContext context, void Function(void Function()) setState) {
-                                                              return DeletePopup(
-                                                                  title: 'Delete Holidays',
-                                                                  loadingDuration: _isLoading,
-                                                                  onCancel: () {
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  }, onDelete:
-                                                                  () async {
-                                                                setState(() {
-                                                                  _isLoading = true;
-                                                                });
-                                                                try {
-                                                                  await deleteHolidays(
-                                                                      context,
-                                                                      snapshot
-                                                                          .data![
-                                                                      index]
-                                                                          .holidayId);
-                                                                  setState(() async {
-                                                                    await holidaysListGet(
-                                                                        context)
-                                                                        .then((data) {
-                                                                      _controller
-                                                                          .add(data);
-                                                                    }).catchError(
-                                                                            (error) {
-                                                                          // Handle error
-                                                                        });
-                                                                    Navigator.pop(context);
-                                                                  });
-                                                                } finally {
-                                                                  setState(() {
-                                                                    _isLoading = false;
-                                                                  });
+                                                                  );
                                                                 }
-                                                              });
-                                                            },
+                                                              );
+                                                            });
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.edit_outlined,
+                                                        size: 18,
+                                                        color: ColorManager.blueprime,
+                                                      )),
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) =>
+                                                                StatefulBuilder(
+                                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                    return DeletePopup(
+                                                                        title: 'Delete Holidays',
+                                                                        loadingDuration: _isLoading,
+                                                                        onCancel: () {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        }, onDelete:
+                                                                        () async {
+                                                                      setState(() {
+                                                                        _isLoading = true;
+                                                                      });
+                                                                      try {
+                                                                        await deleteHolidays(
+                                                                            context,
+                                                                            defineData.holidayId);
+                                                                        setState(() async {
+                                                                          await holidaysListGet(
+                                                                              context)
+                                                                              .then((data) {
+                                                                            _controller
+                                                                                .add(data);
+                                                                          }).catchError(
+                                                                                  (error) {
+                                                                                // Handle error
+                                                                              });
+                                                                          Navigator.pop(context);
+                                                                        });
+                                                                      } finally {
+                                                                        setState(() {
+                                                                          _isLoading = false;
+                                                                        });
+                                                                      }
+                                                                    });
+                                                                  },
 
-                                                          ));
-                                                },
-                                                icon: Icon(
-                                                  Icons.delete_outline,
-                                                  size: 18,
-                                                  color: ColorManager.red,
-                                                )),
+                                                                ));
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.delete_outline,
+                                                        size: 18,
+                                                        color: ColorManager.red,
+                                                      )),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                )),
+                                      )),
+                                ),
+                              ],
+                            );
+                          }),
+                    ),
+                    // Pagination Controls
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Previous Page Button
+                        InkWell(
+                          onTap: currentPage > 1 ? () {
+                            setState(() {
+                              currentPage--;
+                            });
+                          } : null,
+                          child: Container(
+                            height: 20,
+                            width: 20,
+                            margin: EdgeInsets.only(left: 5, right: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: ColorManager.bluelight,
+                            ),
+                            child: Icon(Icons.arrow_back_ios_sharp, size: 14, color: Colors.white),
                           ),
-                        ],
-                      );
-                    });
+                        ),
+                        for (var i = 1; i <= totalPages; i++)
+                          if (i == 1 ||
+                              i == totalPages ||
+                              i == currentPage ||
+                              (i == currentPage - 1 && i > 1) ||
+                              (i == currentPage + 1 && i < totalPages))
+                            InkWell(
+                              onTap: () => onPageNumberPressed(i),
+                              child: Container(
+                                width: 20,
+                                height: 20,
+                                margin: EdgeInsets.only(left: 5, right: 5),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(
+                                    color: currentPage == i ? ColorManager.bluelight : ColorManager.fmediumgrey.withOpacity(0.2),
+                                    width: currentPage == i ? 2.0 : 1.0,
+                                  ),
+                                  color: currentPage == i ? ColorManager.bluelight : Colors.transparent,
+                                ),
+                                child: Text(
+                                  '$i',
+                                  style: TextStyle(
+                                    color: currentPage == i ? Colors.white : ColorManager.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            )
+                          else if (i == currentPage - 2 || i == currentPage + 2)
+                            Text(
+                              '..',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                        ///Page Number Buttons
+                        InkWell(
+                          onTap: currentPage < totalPages ? () {
+                            setState(() {
+                              currentPage++;
+                            });
+                          } : null,
+                          child: Container(
+                            height: 20,
+                            width: 20,
+                            margin: EdgeInsets.only(left: 5, right: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: ColorManager.bluelight,
+                            ),
+                            child: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
               }
               return Offstage();
             },
           ),
         ),
-        // SizedBox(
-        //   height: 10,
-        // ),
-        // PaginationControlsWidget(
-        //   currentPage: currentPage,
-        //   items: items,
-        //   itemsPerPage: itemsPerPage,
-        //   onPreviousPagePressed: () {
-        //     /// Handle previous page button press
-        //     setState(() {
-        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-        //     });
-        //   },
-        //   onPageNumberPressed: (pageNumber) {
-        //     /// Handle page number tap
-        //     setState(() {
-        //       currentPage = pageNumber;
-        //     });
-        //   },
-        //   onNextPagePressed: () {
-        //     /// Handle next page button press
-        //     setState(() {
-        //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
-        //           ? currentPage + 1
-        //           : (items.length / itemsPerPage).ceil();
-        //     });
-        //   },
-        // ),
       ],
     );
   }

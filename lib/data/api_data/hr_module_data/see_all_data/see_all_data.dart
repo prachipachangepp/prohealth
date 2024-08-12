@@ -6,7 +6,7 @@ class SeeAllData {
   final String? lastName;
   final int? deptId;
   final int? empTypeId;
-  //final String? expertise;
+  final String? expertise;
   final int? cityID;
   final int? countryId;
   final int? zoneId;
@@ -58,7 +58,8 @@ class SeeAllData {
   final double? profileScorePercentage;
 
 
-  SeeAllData(  {
+  SeeAllData( {
+    this.expertise,
     this.createdAt,
     this.driverLicenseNum,
     this.dateofHire,

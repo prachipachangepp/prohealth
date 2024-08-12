@@ -1154,6 +1154,8 @@
 // //                                         children: _buildCheckboxes(),
 // //                                       ),
 // //
+import 'dart:ui';
+
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 // //                                     SingleChildScrollView(
 // //                                       scrollDirection: Axis.horizontal,
@@ -1199,29 +1201,6 @@ import '../../../../app/resources/value_manager.dart';
 import '../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
-
-List<Map<String, dynamic>> checkboxData = [
-  {'title': '95673', 'value': false},
-  {'title': '95673', 'value': false},
-  {'title': '95673', 'value': false},
-  {'title': '95673', 'value': false},
-  {'title': '95673', 'value': false},
-  {'title': '56866', 'value': false},
-  {'title': '56866', 'value': false},
-  {'title': '56866', 'value': false},
-  {'title': '56866', 'value': false},
-  {'title': '56866', 'value': false},
-];
-
-List<Map<String, dynamic>> checkboxDataCity = [
-  {'title': 'RioLinda', 'value': false},
-  {'title': 'Antelope', 'value': false},
-  {'title': 'PleasantGrove', 'value': false},
-  {'title': 'Elverta', 'value': false},
-  {'title': 'Natomas', 'value': false},
-  {'title': 'Nicolaus', 'value': false},
-];
-
 class OfferLetterScreen extends StatefulWidget {
   final String email;
   final int userId;
@@ -1237,7 +1216,7 @@ class OfferLetterScreen extends StatefulWidget {
   final String soecalityName;
   final String clinicalName;
   final int employeeId;
-  final ApiData apiData;
+  final ApiData? apiData;
 
   const OfferLetterScreen(
       {super.key,
@@ -1254,7 +1233,7 @@ class OfferLetterScreen extends StatefulWidget {
       required this.employement,
       required this.soecalityName,
       required this.clinicalName,
-      required this.employeeId, required this.apiData});
+      required this.employeeId, this.apiData});
 
   @override
   State<OfferLetterScreen> createState() => _OfferLetterScreenState();
@@ -1298,8 +1277,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   void initState() {
     super.initState();
     _initAppLinks();
-    checkboxStates = List.from(checkboxData);
-    checkboxStatesCity = List.from(checkboxDataCity);
     _pageController.addListener(() {
       setState(() {
         _currentPageIndex = _pageController.page!.toInt();
@@ -1367,6 +1344,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   int selectedCountyId = 0;
   int selectedCityId = 0;
   bool _isLoading = false;
+  Map<String, bool> checkedZipCodes = {};
+  Map<String, bool> checkedCityName = {};
+  List<String> selectedZipCodes = [];
+  List<String> selectedCityName = [];
+  String selectedZipCodesString = '';
+  String selectedCityString = '';
 
   @override
   Widget build(BuildContext context) {
@@ -1589,6 +1572,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                               countyId = a.countyId;
                                               selectedCountyId = countyId;
                                               print("County Id :: ${selectedCountyId}");
+                                              setState(() {
+                                                getZipcodeByCountyId(context: context, countyId:selectedCountyId);
+                                              });
+
                                               //empTypeId = docType;
                                             }
                                           }
@@ -1695,8 +1682,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                           for(var a in snapshot.data!){
                                             if(a.zoneName == newValue){
                                               zoneId = a.zoneID!;
-                                              selectedCountyId = zoneId;
-                                              print("Zone Id :: ${selectedCountyId}");
+                                              selectedZoneId = zoneId;
+                                              print("Zone Id :: ${selectedZoneId}");
                                               //empTypeId = docType;
                                             }
                                           }
@@ -1752,9 +1739,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           child: Column(
                             children: [
                               Padding(
-                                // padding: const EdgeInsets.symmetric(
-                                //     horizontal:
-                                //         180.0),
                                 padding: const EdgeInsets.only(
                                     left: 180.0, right: 180.0),
                                 child: TabBar(
@@ -1783,38 +1767,103 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     physics:
                                         const NeverScrollableScrollPhysics(),
                                     children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: ListView(
-                                              children: _buildCheckboxes()
-                                                  .sublist(0, 5),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: ListView(
-                                              children: _buildCheckboxes()
-                                                  .sublist(5, 10),
-                                            ),
-                                          ),
-                                        ],
+                                      FutureBuilder<List<ZipcodeByCountyIdData>>(
+                                        future: getZipcodeByCountyId(context: context, countyId:selectedCountyId),
+                                        builder: (BuildContext context,snapshot) {
+                                          if(snapshot.connectionState == ConnectionState.waiting){
+                                            return SizedBox();
+                                          }
+                                          if(selectedCountyId == 0){
+                                            return Center(child: Text('Select county',style:
+                                            GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
+                                          }
+                                          if(snapshot.data!.isEmpty){
+                                            return Center(child: Text('No Data Found!',style:
+                                            GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
+                                          }
+                                          return Row(
+                                            children: [
+                                              Container(
+                                                width:200,
+                                                height:300,
+                                                child: ListView.builder(
+                                                  itemCount: snapshot.data!.length,
+                                                  itemBuilder: (BuildContext context, int index) {
+                                                    String zipCode = snapshot.data![index].zipCode;
+                                                    bool isChecked = checkedZipCodes[zipCode] ?? false;
+                                                    return  CheckBoxTileConst(text: zipCode, value: isChecked, onChanged: (bool? val) {setState(() {
+                                                      checkedZipCodes[zipCode] = val ?? false;
+                                                      if (val == true) {
+                                                        selectedZipCodes.add(zipCode);
+                                                      } else {
+                                                        selectedZipCodes.remove(zipCode);
+                                                      }
+                                                      // Update the string representation
+                                                      selectedZipCodesString = selectedZipCodes.join(', ');
+                                                    });  });
+                                                  },
+                                                ),
+                                              ),
+                                              // Expanded(
+                                              //   child: ListView(
+                                              //     children: _buildCheckboxes()
+                                              //         .sublist(5, 10),
+                                              //   ),
+                                              // ),
+                                            ],
+                                          );
+                                        },
+
                                       ),
                                       // Tab 2 content: Cities
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: ListView(
-                                              children: _buildCheckboxesCity()
-                                                  .sublist(0, 3),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: ListView(
-                                              children: _buildCheckboxesCity()
-                                                  .sublist(3, 6),
-                                            ),
-                                          ),
-                                        ],
+                                      FutureBuilder<List<ZipcodeByCountyIdData>>(
+                                        future: getZipcodeByCountyId(context: context, countyId:selectedCountyId),
+                                        builder: (BuildContext context,snapshot) {
+                                          if(snapshot.connectionState == ConnectionState.waiting){
+                                            return SizedBox();
+                                          }
+                                          if(selectedCountyId == 0){
+                                            return Center(child: Text('Select county',style:
+                                            GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
+                                          }
+                                          if(snapshot.data!.isEmpty){
+                                            return Center(child: Text('No Data Found!',style:
+                                            GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),));
+                                          }
+                                          return Row(
+                                            children: [
+                                              Container(
+                                                width:200,
+                                                height:300,
+                                                child: ListView.builder(
+                                                  itemCount: snapshot.data!.length,
+                                                  itemBuilder: (BuildContext context, int index) {
+                                                    String cityName = snapshot.data![index].city;
+                                                    bool isChecked = checkedCityName[cityName] ?? false;
+                                                    return  CheckBoxTileConst(text: cityName, value: isChecked, onChanged: (bool? val) {setState(() {
+                                                      checkedCityName[cityName] = val ?? false;
+                                                      if (val == true) {
+                                                        selectedCityName.add(cityName);
+                                                      } else {
+                                                        selectedCityName.remove(cityName);
+                                                      }
+                                                      // Update the string representation
+                                                      selectedCityString = selectedCityName.join(', ');
+                                                      print(selectedCityString);
+                                                    });  });
+                                                  },
+                                                ),
+                                              ),
+                                              // Expanded(
+                                              //   child: ListView(
+                                              //     children: _buildCheckboxes()
+                                              //         .sublist(5, 10),
+                                              //   ),
+                                              // ),
+                                            ],
+                                          );
+                                        },
+
                                       ),
                                     ],
                                   ),
@@ -1845,7 +1894,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     children: [
                       if (_salary.isNotEmpty)
                         Text(
-                          _salary,
+                          "\$ ${_salary}",
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
                             fontWeight: FontWeight.w400,
@@ -1925,6 +1974,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                             TextFormField(
                                               cursorColor: Colors.black,
                                               decoration: InputDecoration(
+                                                prefix:Text("\$ "),
                                                 hintText: '0.00',
                                                 hintStyle: GoogleFonts.firaSans(
                                                     fontSize: 12,
@@ -2058,16 +2108,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
               ),
 
               SizedBox(height: MediaQuery.of(context).size.height / 30),
-              // SizedBox(
-              //   height: 30,
-              //   width: 250,
-              //   child: CustomDropdownFormField(
-              //       hintText: 'Salaried',
-              //
-              //       items: ['Salaried', 'Per Visit'],
-              //       value: dropdownValue,
-              //       onChanged: handleDropdownChange),
-              // ),
               SizedBox(height: MediaQuery.of(context).size.height / 30),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.end,
@@ -2340,7 +2380,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   ElevatedButton(
                     onPressed: ()  {
                       // await _generateUrlLink(widget.email, widget.userId.toString());
-                      print("Widget employeeId ${widget.apiData.employeeId!}");
+                      print("Widget employeeId ${widget.apiData!.employeeId!}");
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -2358,7 +2398,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 await addEmpEnrollOffers(
                                   context,
                                   0,
-                                  widget.apiData.employeeId!,
+                                  widget.apiData!.employeeId!,
                                   issueDateController.text,
                                 lastDateController.text,
                                  startDateController.text,
@@ -2368,16 +2408,16 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 await addEmpEnrollAddCoverage(
                                   context,
                                   0,
-                                  widget.apiData.employeeId!,
-                                  'Dallas',
-                                  9,
-                                  18,
+                                  widget.apiData!.employeeId!,
+                                  selectedCityString,
+                                  selectedCountyId,
+                                  selectedZoneId,
                                 );
 
                                 await addEmpEnrollAddCompensation(
                                   context,
                                   0,
-                                  widget.apiData.employeeId!,
+                                  widget.apiData!.employeeId!,
                                   dropdownValue.toString(),
                                   int.parse(_salary),
                                 );
@@ -2497,69 +2537,24 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   }
 }
 
-// Stack(
-//   children: [
-//     Container(
-//       height: 36,
-//       width: MediaQuery.of(context).size.width / 3.5,
-//       child: TextField(
-//         cursorColor: Colors.black,
-//         controller: patientsController,
-//         decoration: InputDecoration(
-//           border: const OutlineInputBorder(
-//             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-//           ),
-//           enabledBorder: const OutlineInputBorder(
-//             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-//           ),
-//           focusedBorder: const OutlineInputBorder(
-//             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-//           ),
-//           filled: true,
-//           fillColor: Colors.white,
-//           labelText: 'No. of Patients',
-//           labelStyle: GoogleFonts.firaSans(
-//               fontSize: 10.0,
-//               fontWeight: FontWeight.w400,
-//               color: const Color(0xff575757)),
-//           suffixIcon: Container(
-//             // padding: EdgeInsets.only(right: 10),
-//             margin: const EdgeInsets.only(right: 10, top: 6, bottom: 6),
-//             height: 3,
-//             decoration: BoxDecoration(
-//               border: Border.all(color: Colors.grey),
-//               borderRadius: BorderRadius.circular(5.0),
-//             ),
-//             child: DropdownButton<String>(
-//               value: selectedDropdownValue,
-//               items: ['Per day', 'Per week', 'Per month']
-//                   .map((String value) {
-//                 return DropdownMenuItem<String>(
-//                   value: value,
-//                   child: Container(
-//                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-//                       child: Text(
-//                         value,
-//                         style: const TextStyle(fontSize: 10.0),
-//                       )// Set your desired font size here
-//
-//                   ),
-//                 );
-//               }).toList(),
-//               onChanged: (String? value) {
-//                 if (value != null) {
-//                   setState(() {
-//                     selectedDropdownValue = value;
-//                   });
-//                 }
-//               },
-//               underline: const SizedBox(),
-//               icon: Icon(Icons.arrow_drop_down,
-//                   color: ColorManager.blueprime),
-//             ),
-//           ),
-//         ),
-//       ),
-//     ),
-//   ],
-// ),
+class CheckBoxTileConst extends StatelessWidget {
+  final String text;
+  bool value;
+  ValueChanged<bool?> onChanged;
+   CheckBoxTileConst({super.key, required this.text,required this.value,required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 40,
+      height: 50,
+      child: CheckboxListTile(
+          title: Text(text,style:
+          GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),),
+          value: value,
+          onChanged: onChanged,
+      ),
+    );
+  }
+}
+

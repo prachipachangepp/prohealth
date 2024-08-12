@@ -391,6 +391,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                             IconButton(onPressed: (){
                                               showDialog(context: context, builder: (context){
                                                 return CCScreenEditPopup(
+                                                  height: 350,
                                                   title: "Edit Policies & Procedures",
                                                   idDocController: docIdController,
                                                   nameDocController: docNamecontroller,
