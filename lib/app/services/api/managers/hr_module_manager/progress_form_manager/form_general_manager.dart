@@ -18,6 +18,7 @@ Future<ApiDataRegister> postgeneralscreendata(
     int cityId,
     int countryId,
     int countyId,
+
     bool terminationFlag,
     bool approved,
     int zoneId,
