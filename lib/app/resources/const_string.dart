@@ -205,10 +205,14 @@ class AppString {
   static String upload_document ="Upload Document";
   static String type_of_the_document ="Type of the Document'";
   static String fax ="Fax";
+  static String yes ="Yes";
+  static String no ="No";
   static String name_of_the_document ="Name of the Document";
   static String add_new ="Add New";
-  static String Street ="street";
+  static String street ="street";
   static String create ="Create";
+  static String contact ="Contact";
+  static String category ="Category";
   static String suite_Apt ="Suite/ Apt.";
   static String comments ="Comments";
   static String specialisation ="Specialisation";

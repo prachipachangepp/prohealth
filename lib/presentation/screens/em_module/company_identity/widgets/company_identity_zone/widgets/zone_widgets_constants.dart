@@ -728,7 +728,8 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: 25,width: 25,
+                    height: AppSize.s25,
+                    width: AppSize.s25,
                     child: CircularProgressIndicator( color: ColorManager.blueprime,))
                     : Center(
                   child: CustomElevatedButton(

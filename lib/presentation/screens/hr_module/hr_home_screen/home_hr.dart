@@ -54,7 +54,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
 
     return OverlayEntry(
       builder: (context) => Positioned(
-        width: 330,
+        width: AppSize.s330,
         child: CompositedTransformFollower(
           link: _layerLink,
           showWhenUnlinked: true,
@@ -136,7 +136,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorManager.white,
       body: Column(
         children: [
           ///log appbar
@@ -145,7 +145,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           ///appbar titles
           Container(
             // color: Colors.pink,
-            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            margin: const EdgeInsets.symmetric(
+                vertical: 15,
+                horizontal: 15),
             child: Row(
               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -155,8 +157,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   children: [
                     Obx(
                       () => CustomTitleButton(
-                        height: 30,
-                        width: 100,
+                        height: AppSize.s30,
+                        width: AppSize.s100,
                         onPressed: () {
                           //companyAll(context);
                           myController.selectButton(0);
@@ -174,7 +176,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     ),
                     Obx(
                       () => CustomTitleButton(
-                        height: 30,
+                        height: AppSize.s30,
                         width: 140,
                         onPressed: () {
                           myController.selectButton(1);
@@ -210,7 +212,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     // ),
                     Obx(
                       () => CustomTitleButton(
-                        height: 30,
+                        height: AppSize.s30,
                         width: 140,
                         onPressed: () {
                           myController.selectButton(2);
@@ -231,7 +233,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     ),
                     Obx(
                       () => CustomTitleButton(
-                        height: 30,
+                        height: AppSize.s30,
                         width: 140,
                         onPressed: () {
                           myController.selectButton(3);
@@ -258,12 +260,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     Container(
                         padding: EdgeInsets.all(5),
                         width: AppSize.s330,
-                        height: 40,
+                        height: AppSize.s40,
                         child: CompositedTransformTarget(
                           link: _layerLink,
                           child: TextField(
                             controller: _controller,
-                            style: GoogleFonts.firaSans(fontSize: 12),
+                            style: GoogleFonts.firaSans(fontSize: FontSize.s12),
                             onChanged: _search,
                             decoration: InputDecoration(
                                 hintText: 'Search',
@@ -283,7 +285,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   icon: Center(
                                     child: Icon(
                                       Icons.search,
-                                      size: 18,
+                                      size: AppSize.s18,
                                     ),
                                   ),
                                   onPressed: () {},
@@ -299,8 +301,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         ? Row(
                             children: [
                               Container(
-                                width: 37,
-                                height: 25,
+                                width: AppSize.s37,
+                                height: AppSize.s25,
                                 decoration: BoxDecoration(
                                   color: ColorManager.white,
                                   borderRadius: BorderRadius.circular(9),
@@ -331,10 +333,12 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 width: MediaQuery.of(context).size.width / 90,
                               ),
                               Container(
-                                width: 32,
-                                height: 25,
+                                width: AppSize.s32,
+                                height: AppSize.s25,
                                 decoration: BoxDecoration(
-                                  color: isSelected ? ColorManager.white : ColorManager.blueprime,
+                                  color: isSelected ?
+                                  ColorManager.white :
+                                  ColorManager.blueprime,
                                   borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
@@ -361,6 +365,38 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   ),
                                 ),
                               ),
+                              // Container(
+                              //   height: 25,
+                              //   width: 32,
+                              //   child: ElevatedButton(
+                              //
+                              //     onPressed: () {
+                              //       // Handle button press
+                              //     },
+                              //     style: ElevatedButton.styleFrom(
+                              //       backgroundColor: isSelected ?
+                              //       ColorManager.white : ColorManager.blueprime,
+                              //       iconColor: ColorManager.black, // Text color
+                              //       maximumSize: Size(32, 25),
+                              //       shape: RoundedRectangleBorder(
+                              //         borderRadius: BorderRadius.circular(8),
+                              //       ),
+                              //       elevation: 4, // Same as the boxShadow effect
+                              //       shadowColor: Color(0x40000000),
+                              //     ),
+                              //     child: Center(
+                              //       child: Text(
+                              //         'DZ',
+                              //         textAlign: TextAlign.center,
+                              //         style: GoogleFonts.firaSans(
+                              //           fontSize: FontSize.s11,
+                              //           fontWeight: FontWeightManager.regular,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // )
+
                             ],
                           )
                         : SizedBox(width: 1),
@@ -436,34 +472,3 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
