@@ -422,10 +422,11 @@ class _BankingFormState extends State<BankingForm> {
     //                   text: snapshot.data![index].routingNumber);
     //               bankname = TextEditingController(
     //                   text: snapshot.data![index].bankName);
-    //               selectedtype=snapshot.data![index].type;
+    //               selectedtype=snapshot.data![index].type.toString();
+    //               // selectedacc =snapshot.data![index]
     //               // verifyaccountnumber = TextEditingController(text:snapshot.data![index].);
-    //
-               return  Padding(
+
+               return   Padding(
                     padding: EdgeInsets.only(left: 166.0, right: 166),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -783,6 +784,9 @@ class _BankingFormState extends State<BankingForm> {
                       ],
                     ),
                   );
+
+
+
         //         },
         //       ),
         //     );
