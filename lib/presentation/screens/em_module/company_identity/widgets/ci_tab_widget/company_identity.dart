@@ -1,5 +1,6 @@
 import 'dart:async';
-
+// import 'dart:nativewrappers/_internal/vm/lib/math_patch.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
@@ -33,8 +34,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   late StreamController<List<CompanyIdentityModel>> _companyIdentityController;
   final PageController _pageController = PageController();
   final _formKey = GlobalKey<FormState>();
-  late int currentPage;
-  late int itemsPerPage;
   bool showStreamBuilder = true;
   bool showManageScreen = false;
   // bool _isSubmitting = false;
@@ -45,8 +44,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 30;
+    // currentPage = 1;
+    // itemsPerPage = 30;
   }
 
   String selectedOfficeID = '';
@@ -75,6 +74,17 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
       showManageScreen = false;
     });
   }
+
+  int currentPage = 1;
+  int itemsPerPage = 3;
+  final int totalPages = 5;
+
+  void onPageNumberPressed(int page) {
+    setState(() {
+      currentPage = page;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +153,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               ),
             ],
           ),
-
         /// Render heading only if both manage and whitelabelling screens are not shown
         if (!showManageScreen && !showWhitelabellingScreen)
           Container(
@@ -192,7 +201,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     ),
                   ),
                 ),
-
                 Expanded(
                   child: Center(
                     child: Text(
@@ -213,151 +221,246 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
           Expanded(
             child: showStreamBuilder
                 ? FutureBuilder(
-                    future: companyOfficeListGet(context,1, 30),
-                    builder: (context, snap) {
-                      if (snap.hasData) {
-                        _companyIdentityController.add(snap.data!);
-                        return StreamBuilder<List<CompanyIdentityModel>>(
-                          stream: _companyIdentityController.stream,
-                          builder: (BuildContext context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.blue),
-                              );
-                            }
-                            if (snapshot.data!.isEmpty) {
-                              return const Center(
-                                child: Text(
-                                  "No Data!",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              );
-                            }
-                            if (snapshot.hasData) {
-                              int totalItems = snapshot.data!.length;
-                              int startIndex = (currentPage - 1) * itemsPerPage;
-                              int endIndex =
-                                  (currentPage * itemsPerPage) > totalItems
-                                      ? totalItems
-                                      : (currentPage * itemsPerPage);
-                              return ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) {
-                                  int serialNumber = index + 1 + startIndex;
-                                  String formattedSerialNumber =
-                                      serialNumber.toString().padLeft(2, '0');
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(height: 5),
-                                      Container(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 5),
-                                        margin: const EdgeInsets.symmetric(
-                                            horizontal: 50),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 1,
-                                              blurRadius: 4,
-                                              offset: const Offset(0, 2),
-                                            ),
-                                          ],
-                                        ),
-                                        height: 56,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Expanded(
-                                              child: Center(
-                                                child: Text(
-                                                  formattedSerialNumber,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff686464),
-                                                  ),
-                                                ),
+                future: companyOfficeListGet(context, 1, 30),
+                builder: (context, snap) {
+                  if (snap.hasData) {
+                    _companyIdentityController.add(snap.data!);
+                    return StreamBuilder<List<CompanyIdentityModel>>(
+                      stream: _companyIdentityController.stream,
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator(color: Colors.blue));
+                        }
+                        if (snapshot.data!.isEmpty) {
+                          return const Center(
+                            child: Text(
+                              "No Data!",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          int totalItems = snapshot.data!.length;
+                          int totalPages = (totalItems / itemsPerPage).ceil();
+                          List<CompanyIdentityModel> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                          return Column(
+                            children: [
+                              Expanded(
+                                child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: paginatedData.length,
+                                  itemBuilder: (context, index) {
+                                    int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                    String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                                    return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(height: 5),
+                                        Container(
+                                          padding: const EdgeInsets.only(bottom: 5),
+                                          margin: const EdgeInsets.symmetric(horizontal: 50),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(4),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey.withOpacity(0.5),
+                                                spreadRadius: 1,
+                                                blurRadius: 4,
+                                                offset: const Offset(0, 2),
                                               ),
-                                            ),
-                                            Expanded(
-                                              child: Center(
-                                                child: Text(
-                                                  snapshot.data![index].officeName
-                                                      .toString(),
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff686464),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Center(
-                                                child: Text(
-                                                  snapshot.data![index].address
-                                                      .toString(),
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff686464),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child:
-                                              Center(
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    CustomButtonTransparentSM(
-                                                      text: 'Manage',
-                                                      onPressed: () {
-                                                        print(snapshot
-                                                            .data![index].officeId);
-                                                        print("Is office id");
-                                                        showManageScreenFunction(
-                                                          officeId: snapshot
-                                                              .data![index].officeId,
-                                                          officeName: snapshot
-                                                              .data![index].officeName,
-                                                          compId: snapshot
-                                                              .data![index].companyId,
-                                                          companyOfficeId: snapshot.data![index].companyOfficeId,
-                                                        );
-                                                      },
+                                            ],
+                                          ),
+                                          height: 56,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Expanded(
+                                                child: Center(
+                                                  child: Text(
+                                                    formattedSerialNumber,
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 10,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: const Color(0xff686464),
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ),
+                                              Expanded(
+                                                child: Center(
+                                                  child: Text(
+                                                    paginatedData[index].officeName.toString(),
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 10,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: const Color(0xff686464),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Center(
+                                                  child: Text(
+                                                    paginatedData[index].address.toString(),
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 10,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: const Color(0xff686464),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Center(
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      CustomButtonTransparentSM(
+                                                        text: 'Manage',
+                                                        onPressed: () {
+                                                          print(paginatedData[index].officeId);
+                                                          showManageScreenFunction(
+                                                            officeId: paginatedData[index].officeId,
+                                                            officeName: paginatedData[index].officeName,
+                                                            compId: paginatedData[index].companyId,
+                                                            companyOfficeId: paginatedData[index].companyOfficeId,
+                                                          );
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                              /// Pagination Controls
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // Previous Page Button
+                                  InkWell(
+                                    onTap: currentPage > 1 ? () {
+                                      setState(() {
+                                        currentPage--;
+                                      });
+                                    } : null,
+                                    child: Container(
+                                      height: 20,
+                                      width: 20,
+                                      margin: EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: ColorManager.bluelight,
+                                      ),
+                                      child: Icon(Icons.arrow_back_ios_sharp, size: 14, color: Colors.white),
+                                    ),
+                                  ),
+                                  // Page Number Buttons
+                                  for (var i = 1; i <= totalPages; i++)
+                                    if (i == 1 ||
+                                        i == totalPages ||
+                                        i == currentPage ||
+                                        (i == currentPage - 1 && i > 1) ||
+                                        (i == currentPage + 1 && i < totalPages))
+                                      InkWell(
+                                        onTap: () => onPageNumberPressed(i),
+                                        child: Container(
+                                          width: 20,
+                                          height: 20,
+                                          margin: EdgeInsets.only(left: 5, right: 5),
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            borderRadius: BorderRadius.circular(4),
+                                            border: Border.all(
+                                              color: currentPage == i ? ColorManager.bluelight : ColorManager.fmediumgrey.withOpacity(0.2),
+                                              width: currentPage == i ? 2.0 : 1.0,
                                             ),
-                                          ],
+                                            color: currentPage == i ? ColorManager.bluelight : Colors.transparent,
+                                          ),
+                                          child: Text(
+                                            '$i',
+                                            style: TextStyle(
+                                              color: currentPage == i ? Colors.white : ColorManager.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    else if (i == currentPage - 2 || i == currentPage + 2)
+                                      Text(
+                                        '..',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
                                         ),
                                       ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }
+                                  // Next Page Button
+                                  InkWell(
+                                    onTap: currentPage < totalPages ? () {
+                                      setState(() {
+                                        currentPage++;
+                                      });
+                                    } : null,
+                                    child: Container(
+                                      height: 20,
+                                      width: 20,
+                                      margin: EdgeInsets.only(left: 5, right: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: ColorManager.bluelight,
+                                      ),
+                                      child: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              )
+
+
+
+
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     ElevatedButton(
+                              //       onPressed: () {
+                              //         if (currentPage > 1) {
+                              //           setState(() {
+                              //             currentPage--;
+                              //           });
+                              //         }
+                              //       },
+                              //       child: const Text('Previous'),
+                              //     ),
+                              //     const SizedBox(width: 10),
+                              //     ElevatedButton(
+                              //       onPressed: () {
+                              //         if (currentPage < totalPages) {
+                              //           setState(() {
+                              //             currentPage++;
+                              //           });
+                              //         }
+                              //       },
+                              //       child: const Text('Next'),
+                              //     ),
+                              //   ],
+                              // ),
+                            ],
+                          );
+                        }
                             return const Scaffold();
                           },
                         );
@@ -401,6 +504,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
           Expanded(
             child: WhitelabellingScreen(officeId: selectedOfficeID,),
           ),
+
       ],
     );
   }
