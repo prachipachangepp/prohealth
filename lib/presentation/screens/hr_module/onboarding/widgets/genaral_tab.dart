@@ -145,7 +145,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                           child: InkWell(
                                             onTap: () => widget.selectButton(1,snapshot.data![index].empId!), // Corrected reference
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 Column(
                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -153,19 +153,20 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                   children: [
                                                     CircleAvatar(
                                                       radius: MediaQuery.of(context).size.width / 50,
-                                                      backgroundColor: Colors.grey,
+                                                      backgroundColor: ColorManager.white,
                                                       child: ClipOval(
                                                         child: Builder(
                                                           builder: (context) {
                                                             String imageUrl = Uri.encodeFull(general.imgurl ?? '');
-                                                            return Image.network(
-                                                              imageUrl,
-                                                              fit: BoxFit.cover,
-                                                              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                                                print('Error loading image: $exception');
-                                                                return Image.asset('images/profile.png', fit: BoxFit.cover);
-                                                              },
-                                                            );
+                                                            return Icon(Icons.person,color: ColorManager.mediumgrey,size: 40,);
+                                                            // return Image.network(
+                                                            //   imageUrl,
+                                                            //   fit: BoxFit.cover,
+                                                            //   errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                                            //     print('Error loading image: $exception');
+                                                            //     return Image.asset('images/profile.png', fit: BoxFit.cover);
+                                                            //   },
+                                                            // );
                                                           },
                                                         ),
                                                       ),
@@ -183,71 +184,98 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                     ),
                                                   ],
                                                 ),
-                                                const Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                 Row(
+                                                   children: [
+                                                     Column(
+                                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                                       children: [
+                                                         InfoText('Social Security No.'),
+                                                         InfoText('Clinician Type'),
+                                                         InfoText('Phone Number'),
+                                                         InfoText('Personal Email'),
+                                                       ],
+                                                     ),
+                                                     SizedBox(width: MediaQuery.of(context).size.width/30,),
+                                                     Column(
+                                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                                       children: [
+                                                         InfoData(general.ssnnbr ?? '--',),
+                                                         InfoData(general.type ?? '--'),
+                                                         InfoData(general.primaryPhoneNbr ?? '--'),
+                                                         Container(
+                                                           width:MediaQuery.of(context).size.width/8,
+                                                             height:MediaQuery.of(context).size.height/20,
+                                                             child: Center(child:  Text(general.personalEmail!,textAlign:TextAlign.start,style: GoogleFonts.firaSans(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),))),
+                                                       ],
+                                                     ),
+                                                   ],
+                                                 ),
+                                                Row(
                                                   children: [
-                                                    InfoText('Social Security No.'),
-                                                    InfoText('Clinician Type'),
-                                                    InfoText('Phone Number'),
-                                                    InfoText('Personal Email'),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        InfoText('Drivers License No.'),
+                                                        InfoText('Speciality'),
+                                                        InfoText('City'),
+                                                        InfoText( 'Zone'),
+                                                      ],
+                                                    ),
+                                                    SizedBox(width: MediaQuery.of(context).size.width/30,),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        InfoData(general.driverLicenseNum ?? '--'),
+                                                        InfoData(general.expertise ?? '--'),
+                                                        InfoData(general.city ?? '--'),
+                                                        InfoData(general.zone ?? '--'),
+                                                      ],
+                                                    ),
                                                   ],
                                                 ),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                 Row(
+                                                   children: [
+                                                     Column(
+                                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                                       children: [
+                                                         InfoText('Address'),
+                                                         InfoText('Employment'),
+                                                         InfoText('Date of Birth'),
+                                                         InfoText('Race'),
+                                                       ],
+                                                     ),
+                                                     SizedBox(width: MediaQuery.of(context).size.width/30,),
+                                                     Column(
+                                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                                       children: [
+                                                         InfoData(general.finalAddress ?? '--'),
+                                                         InfoData(general.employment ?? '--'),
+                                                         InfoData(general.dateOfBirth ?? '--'),
+                                                         InfoData(general.race ?? '--'),
+                                                       ],
+                                                     ),
+                                                   ],
+                                                 ),
+                                                Row(
                                                   children: [
-                                                    InfoData(general.ssnnbr ?? '--',),
-                                                    InfoData(general.type ?? '--'),
-                                                    InfoData(general.primaryPhoneNbr ?? '--'),
-                                                    InfoData(general.personalEmail ?? '--'),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    InfoText('Drivers License No.'),
-                                                    InfoText('Speciality'),
-                                                    InfoText('City'),
-                                                    InfoText( 'Zone'),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    InfoData(general.driverLicenseNum ?? '--'),
-                                                    InfoData(general.expertise ?? '--'),
-                                                    InfoData(general.city ?? '--'),
-                                                    InfoData(general.zone ?? '--'),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    InfoText('Address'),
-                                                    InfoText('Employment'),
-                                                    InfoText('Date of Birth'),
-                                                    InfoText('Race'),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    InfoData(general.finalAddress ?? '--'),
-                                                    InfoData(general.employment ?? '--'),
-                                                    InfoData(general.dateOfBirth ?? '--'),
-                                                    InfoData(general.race ?? '--'),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    InfoText('Service'),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    InfoData(general.service ?? '--'),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        InfoText('Service'),
+                                                      ],
+                                                    ),
+                                                    SizedBox(width: MediaQuery.of(context).size.width/30,),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          width: 120,
+                                                            height:50,
+                                                            child: Center(
+                                                                child: Text(general.service!,style: GoogleFonts.firaSans(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),))),
 
+                                                      ],
+                                                    ),
                                                   ],
                                                 ),
                                               ],
