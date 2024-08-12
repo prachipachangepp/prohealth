@@ -204,6 +204,7 @@ class CustomTextFieldRegister extends StatelessWidget {
         padding: const EdgeInsets.all(1.0),
         child: TextFormField(
           controller: controller,
+
           cursorHeight: cursorHeight,
           cursorColor: Colors.black,
           cursorWidth: 1.5,

@@ -1188,7 +1188,6 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/zone_m
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/register_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
@@ -2277,41 +2276,41 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
               //   ),
               // ),
               // SizedBox(height: MediaQuery.of(context).size.height / 80),
-              // Row(
-              //   children: [
-              //     ElevatedButton(
-              //       onPressed: ()  {
-              //         // TextEditingController issueDateController = TextEditingController();
-              //         // TextEditingController lastDateController = TextEditingController();
-              //         // TextEditingController startDateController = TextEditingController();
-              //         // TextEditingController verbalAcceptanceController = TextEditingController();
-              //         // TextEditingController patientsController = TextEditingController();
-              //       },
-              //       style: ElevatedButton.styleFrom(
-              //         backgroundColor: const Color(0xff1696C8),
-              //         foregroundColor: Colors.white,
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(8),
-              //         ),
-              //       ),
-              //       child: Text(
-              //         'Compensation',
-              //         style: GoogleFonts.firaSans(
-              //           fontSize: 12.0,
-              //           fontWeight: FontWeight.w800,
-              //         ),
-              //       ),
-              //     ),
-              //     SizedBox(
-              //       width: 15,
-              //     ),
-              //     Text(
-              //       'Not Defined',
-              //       style: GoogleFonts.firaSans(
-              //           fontSize: 12, fontWeight: FontWeight.w600),
-              //     )
-              //   ],
-              // ),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: ()  {
+                      // TextEditingController issueDateController = TextEditingController();
+                      // TextEditingController lastDateController = TextEditingController();
+                      // TextEditingController startDateController = TextEditingController();
+                      // TextEditingController verbalAcceptanceController = TextEditingController();
+                      // TextEditingController patientsController = TextEditingController();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xff1696C8),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      'Compensation',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    'Not Defined',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 12, fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
               SizedBox(height: MediaQuery.of(context).size.height / 40),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -2393,12 +2392,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 // Navigator.push(
                                 //   context,
                                 //   MaterialPageRoute(
-                                //     builder: (context) => RegisterScreen(),
-                                // //     OfferLetterDescriptionScreen(
-                                // //       employeeId: widget.apiData.employeeId!,
+                                //     builder: (context) =>
+                                //     OfferLetterDescriptionScreen(
+                                //       employeeId: widget.apiData.employeeId!,
                                 //     ),
-                                //   );
-
+                                //   ),
+                                // );
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('Enrollment data save'))
                                 );

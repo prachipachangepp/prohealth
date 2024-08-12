@@ -43,6 +43,8 @@ class OnboardingQualificationEducationData {
   bool? approved;
   final String country;
   final String startDate;
+
+
   OnboardingQualificationEducationData(
       {required this.educationId,
         required this.empId,
