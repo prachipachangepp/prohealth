@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_role_manager.dart';
@@ -8,7 +9,8 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 
 class CompanyIdentityScreen extends StatefulWidget {
   final VoidCallback? onWhitelabellingPressed;
-  const CompanyIdentityScreen({super.key, this.onWhitelabellingPressed});
+  final String? officeId;
+  const CompanyIdentityScreen({super.key, this.onWhitelabellingPressed, this.officeId});
   @override
   State<CompanyIdentityScreen> createState() => _CompanyIdentityScreenState();
 }
@@ -80,12 +82,12 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                   // documentTypeGet(context);
                 });
               },
-              children: const [
+              children: [
                 CompanyIdentity(),
                 // Page 1
                 CiVisitScreen(),
                 // Page 2
-                CiOrgDocument(),
+                CiOrgDocument(officeId: widget.officeId ?? 'Office 01',),
                 // Page 3
                 CiRoleManager()
               ],

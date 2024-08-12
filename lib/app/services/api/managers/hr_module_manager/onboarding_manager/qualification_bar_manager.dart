@@ -12,11 +12,19 @@ import '../../../../../resources/const_string.dart';
 Future<List<OnboardingQualificationEmploymentData>> getOnboardingQualificationEmp(
 BuildContext context, int employeeId, String approveOnly) async{
   List<OnboardingQualificationEmploymentData> itemData = [];
+  String convertIsoToDayMonthYear(String isoDate) {
+    DateTime dateTime = DateTime.parse(isoDate);
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    String formattedDate = dateFormat.format(dateTime);
+    return formattedDate;
+  }
   try{
     final response = await Api(context).get(path:
     OnboardingQualificationRepo.getEmpEmploymentHistories(employeeid: employeeId, approveOnly: approveOnly));
     if(response.statusCode == 200 || response.statusCode == 201){
       for(var item in response.data){
+        String StartDate = convertIsoToDayMonthYear(item['dateOfJoining']);
+        String EndDate = convertIsoToDayMonthYear(item['endDate']);
         itemData.add(OnboardingQualificationEmploymentData(
             employmentId: item['employmentId'],
             empId: item['employeeId'],
@@ -26,12 +34,13 @@ BuildContext context, int employeeId, String approveOnly) async{
             supervisor: item['supervisor'],
             supMobile: item['supMobile'],
             title: item['title'],
-            dateOfJoin: item['dateOfJoining'],
-            endDate: item['endDate'],
+            dateOfJoin: StartDate,//item['dateOfJoining'],
+            endDate: EndDate,//item['endDate'],
             approve: item['approved'] ?? false,
             emgMobile: item['emgMobile'] ?? '--',
             country: item['country'] ?? '--'),
         );
+        itemData.sort((a, b) => a.employmentId.compareTo(b.employmentId));
       }
     }else {
       print("Employment List");
@@ -123,6 +132,7 @@ Future<List<OnboardingQualificationEducationData>> getOnboardingQualificationEdu
           startDate: item['startDate'] ?? '--', country: item['country'] ?? '--',
 
         ));
+        itemData.sort((a, b) => a.educationId.compareTo(b.educationId));
       }
     }else {
       print("Education List");
@@ -212,7 +222,8 @@ Future<List<OnboardingQualificationReferanceData>> getOnboardingQualificationRef
             name: item['name'],
             references: item['references'],
             title: item['title'],
-            approve: item['approve']));
+            approve: item['approve'] ?? false));
+        itemData.sort((a, b) => a.referenceId.compareTo(b.referenceId));
       }
     }else {
       print("Reference List");
@@ -286,15 +297,9 @@ Future<ApiData> approveOnboardQualifyReferencePatch(BuildContext context, int re
 Future<List<OnboardingQualificationLicenseData>> getOnboardingQualificationLicense(
     BuildContext context, int employeeId, String approveOnly) async{
   String convertIsoToDayMonthYear(String isoDate) {
-    // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
-
-    // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('dd MMM yyyy');
-
-    // Format the date into "dd mm yy" format
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
     String formattedDate = dateFormat.format(dateTime);
-
     return formattedDate;
   }
   List<OnboardingQualificationLicenseData> itemData = [];
@@ -304,13 +309,13 @@ Future<List<OnboardingQualificationLicenseData>> getOnboardingQualificationLicen
     if(response.statusCode == 200 || response.statusCode == 201){
       for(var item in response.data){
         String expFormattedDate = convertIsoToDayMonthYear(item['expDate']);
-        String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        String issueDate = convertIsoToDayMonthYear(item['issueDate']);
         itemData.add(OnboardingQualificationLicenseData(
             licenseId: item['licenseId'],
             employeeId: item['employeeId'],
             country: item['country'],
-            expDate: item['expDate'],
-            issueDate: item['issueDate'],
+            expDate: expFormattedDate,//item['expDate'],
+            issueDate: issueDate,//item['issueDate'],
             licenseUrl: item['licenseUrl'],
             licensure: item['licensure'],
             licenseNumber: item['licenseNumber'],
@@ -318,6 +323,7 @@ Future<List<OnboardingQualificationLicenseData>> getOnboardingQualificationLicen
             documentType: item['documentType'],
             approve: item['approved'] ?? false,
            ));
+        itemData.sort((a, b) => a.licenseId.compareTo(b.licenseId));
       }
     }else {
       print("License List");

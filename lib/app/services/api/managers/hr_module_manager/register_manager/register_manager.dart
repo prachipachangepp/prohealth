@@ -106,10 +106,15 @@ Future<ApiData> addEmpEnroll(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Enroll added");
       // orgDocumentGet(context);
+      var data = response.data;
+      var employeeEnrollIdVar = data['employeeId'];
+
+      print("EmployeeEmrollId ::: ${employeeEnrollIdVar}");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,
+          employeeId:employeeEnrollIdVar);
     } else {
       print("Error 1");
       return ApiData(
@@ -185,10 +190,10 @@ Future<ApiData> addEmpEnrollOffers(
       data: {
         "employeeEnrollId": employeeEnrollId,
         "employeeId": employeeId,
-        "issueDate": issueDate,
-        "lastDate": lastDate,
-        "startDate": startDate,
-        "verbalDate": verbalDate,
+        "issueDate": "${issueDate}T00:00:00Z",  //issueDate,
+        "lastDate": "${lastDate}T00:00:00Z",//lastDate,
+        "startDate": "${startDate}T00:00:00Z",//startDate,
+        "verbalDate": "${verbalDate}T00:00:00Z",//verbalDate,
       },
     );
     print(response);

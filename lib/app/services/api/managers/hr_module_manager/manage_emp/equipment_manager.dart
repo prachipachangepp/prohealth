@@ -8,7 +8,7 @@ import '../../../../../../data/api_data/hr_module_data/manage/equipment_data.dar
 
 /// Get equipment
 Future<List<EquipmentData>> getEquipement(
-    BuildContext context) async {
+    BuildContext context,int employeeId) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -25,19 +25,19 @@ Future<List<EquipmentData>> getEquipement(
   List<EquipmentData> itemsData = [];
   try {
     final response =
-        await Api(context).get(path: ManageReposotory.getEquipement());
+        await Api(context).get(path: ManageReposotory.getEquipement(employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         String assignedFormattedDate =
             convertIsoToDayMonthYear(item['assignedDate']);
         itemsData.add(
             EquipmentData(
-            empInventoryId: item['employeeInventoryId'],
-            inventoryId: item['inventoryId'],
+            empInventoryId: item['employeeInventoryId']??0,
+            inventoryId: item['inventoryId']??0,
             assignedDate: assignedFormattedDate,
             employeeId: item['employeeId'],
             givenId: item['givenId'],
-            inventoryTypeId: item['inventoryTypeId'],
+            inventoryTypeId: item['inventoryTypeId']??0,
             name: item['name'],
             createdAt: item['createdAt'] ?? "--"));
         itemsData.sort((a, b) => a.empInventoryId.compareTo(b.empInventoryId));
@@ -71,7 +71,7 @@ Future<EquipmentPrefillData> getPrefillEquipement(
   var itemsData;
   try {
     final response =
-        await Api(context).get(path: ManageReposotory.getEquipement());
+        await Api(context).get(path: ManageReposotory.getEquipement(employeeId: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
         String assignedFormattedDate =
             convertIsoToDayMonthYear(response.data['assignedDate']);

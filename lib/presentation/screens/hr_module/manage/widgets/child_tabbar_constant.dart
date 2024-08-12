@@ -12,7 +12,7 @@ class CenteredTabBarChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: controller.tabs.length,
+      length: controller.tabs!.length,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -34,7 +34,7 @@ class CenteredTabBarChild extends StatelessWidget {
             width: controller.tabBarViewWidth,
             child: TabBar(
               isScrollable: false,
-              tabs: controller.tabs,
+              tabs: controller.tabs!,
               dividerColor: Colors.transparent,
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(50), // Creates border
@@ -60,7 +60,7 @@ class CenteredTabBarChild extends StatelessWidget {
               height: controller.tabBarViewHeight,
               child: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
-                children: controller.tabViews,
+                children: controller.tabViews!,
               ),
             ),
           ),

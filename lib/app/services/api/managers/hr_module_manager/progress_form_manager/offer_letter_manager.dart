@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:prohealth/app/services/api/api_offer.dart';
 import 'package:prohealth/app/services/encode_decode_base64.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
@@ -31,6 +32,29 @@ Future<OfferLetterData> GetOfferLetter(BuildContext context,
                 templateName: response.data['templateName'],
                 template: response.data['template']
             );
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+/// Get employeeId
+Future<EmployeeIdByEmail> GetEmployeeIdByEmail(BuildContext context,
+    int companyId,
+    String emailId
+    ) async {
+  // List<OfferLetterData> itemsList = [];
+  var itemsList;
+  try {
+    final response = await Api(context)
+        .get(path: OfferLetterHtmlRepo.getOfferEmployeeIdbyEmail(companyId: companyId, email: emailId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      itemsList = EmployeeIdByEmail(employeeID: int.parse(response.data));
     } else {
       print('Api Error');
     }
@@ -101,14 +125,14 @@ Future<ApiData> updateOfferLetter(
 
 
 /// Upload signiture
-Future<ApiData> uploadSignature(
+Future<ApiDataRegister> uploadSignature(
     BuildContext context,
     int employeeId,
     dynamic documentFile
     ) async {
   try {
     String document = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
-    var response = await Api(context).post(
+    var response = await ApiOffer(context).post(
       path: OfferLetterHtmlRepo.uploadSignatureDocument(employeeId: employeeId),
       data: {
         "base64":document
@@ -117,20 +141,20 @@ Future<ApiData> uploadSignature(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Signature uploaded");
       // orgDocumentGet(context);
-      return ApiData(
+      return ApiDataRegister(
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!);
     } else {
       print("Error 1");
-      return ApiData(
+      return ApiDataRegister(
           statusCode: response.statusCode!,
           success: false,
           message: response.data['message']);
     }
   } catch (e) {
     print("Error $e");
-    return ApiData(
+    return ApiDataRegister(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

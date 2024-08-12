@@ -72,8 +72,8 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                             employeeId: widget.employeeId,
                             documentMetaId: 1,
                             documentSetupId: 10,
-                            child: FutureBuilder<List<EmployeeDocSetupModal>>(
-                                future: getEmployeeDocSetupDropDown(context),
+                            child: FutureBuilder<List<EmployeeDocTabModal>>(
+                                future: getEmployeeDocTab(context),
                                 builder: (context,snapshot) {
                                   if(snapshot.connectionState == ConnectionState.waiting){
                                     return Shimmer.fromColors(
@@ -105,8 +105,8 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     for(var i in snapshot.data!){
                                       dropDownMenuItems.add(
                                         DropdownMenuItem<String>(
-                                          child: Text(i.documentName),
-                                          value: i.documentName,
+                                          child: Text(i.employeeDocType),
+                                          value: i.employeeDocType,
                                         ),
                                       );
                                     }
@@ -114,7 +114,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                         initialValue: dropDownMenuItems[0].value,
                                         onChange: (val){
                                           for(var a in snapshot.data!){
-                                            if(a.documentName == val){
+                                            if(a.employeeDocType == val){
                                               docType = a.employeeDocMetaDataId;
                                               //docMetaId = docType;
                                             }

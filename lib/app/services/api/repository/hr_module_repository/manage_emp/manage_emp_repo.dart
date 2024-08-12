@@ -7,8 +7,8 @@ class ManageReposotory{
   static String employement = "/employee-employment-histories";
   static String selectDocuments = "/corporate-document";
   static String banking = "/employee-bankings";
-
-  static String equipement = "/employee-inventories";
+  static String equipementGet = "/employee-inventories/ByemployeeId";
+  static String equipement1 = "/employee-inventories";
 
   static String payrates = "/employee-payrates/ByEmployeeId";
 
@@ -17,6 +17,10 @@ class ManageReposotory{
   static String employeeTimeOff = "/employee-time-off";
 
   static String licenseStatus = "/employee-licenses/LicenseDetailByemployeeId";
+  static String resumeupload = "/employees/attach-resumebase64";
+  static String photoupload = "/employees/attach-photobase64";
+  static String licensesupload = "/employee-licenses/attach-licensebase64";
+  static String Bankcheckupload = "/employee-bankings/attach-checkbase64";
 
 
   /// Licenses status wise
@@ -24,6 +28,9 @@ class ManageReposotory{
   static String getLicenseStatus({required int employeeId,required String approvedOnly}){
     return "$licenseStatus/$employeeId/$approvedOnly";
   }
+
+
+
 
   /// Employeement
   static String getEmployeement({required int employeeId,required String approveOnly}){
@@ -35,6 +42,16 @@ class ManageReposotory{
   static String updateEmployeement({required int employeementId}){
     return "$employement/$employeementId";
   }
+
+  static String updateEmployeementresume({required int employeementId}){
+    return "$resumeupload/$employeementId";
+  }
+
+
+
+
+
+
   /// Education
   static String getEmployeeDucation({required int employeeId,required String approveOnly}){
     return "$education/$byemployeeId/$employeeId/$approveOnly";
@@ -45,6 +62,14 @@ class ManageReposotory{
   static String patchEmployeeDucation({required int educationId}){
     return "$education/$educationId";
   }
+
+  static String uploadphoto({required int employeeid}){
+    return "$photoupload/$employeeid";
+  }
+
+
+
+
   /// Employee licences
   static String getEmployeeLicenses({required int employeeid,required String approveOnly}){
     return "$employee_licenses/ByemployeeId/$employeeid/$approveOnly";
@@ -69,6 +94,11 @@ class ManageReposotory{
   }
   static String dropdownAttaceLicences({required int licensedId}){
     return "$employee_licenses/attach-license/$licensedId";
+
+  }
+///
+  static String uploadlinceses({required int licensedId}){
+    return "$licensesupload/$licensedId";
 
   }
 
@@ -118,19 +148,27 @@ class ManageReposotory{
   static String rejectBankingEmployee({required int empBankingId}){
     return "/employee-bankings/reject/$empBankingId";
   }
+////////
+
+  static String uploadcheck({required int empBankingId}){
+    return "$Bankcheckupload/$empBankingId";
+  }
+
+
+
   /// Equipment
 
   static String addEquipement(){
-    return "$equipement$add";
+    return "$equipement1$add";
   }
-  static String getEquipement(){
-    return "$equipement";
+  static String getEquipement({required int employeeId}){
+    return "$equipementGet/$employeeId";
   }
   static String getPrefillEquipement({required int empInventoryId}){
-    return "$equipement/$empInventoryId";
+    return "$equipementGet/$empInventoryId";
   }
   static String patchEquipement({required int empInventoryId}){
-    return "$equipement/$empInventoryId";
+    return "$equipement1/$empInventoryId";
   }
 
   /// Payrates

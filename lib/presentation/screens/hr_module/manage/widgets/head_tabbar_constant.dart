@@ -7,6 +7,8 @@ import '../controller/controller.dart';
 
 ///getx
 class CenteredTabBar extends GetView<CenteredTabBarController> {
+  final int employeeId;
+  CenteredTabBar({required this.employeeId});
   @override
   Widget build(BuildContext context) {
     return Padding(

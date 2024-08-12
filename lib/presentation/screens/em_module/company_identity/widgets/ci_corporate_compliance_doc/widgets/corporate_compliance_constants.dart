@@ -8,6 +8,7 @@ import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/text_form_field_const.dart';
 
@@ -560,27 +561,28 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
   }
 }
 
-///
+/// add popu
 class AddOrgDocButton extends StatefulWidget {
   final TextEditingController idDocController;
   final TextEditingController nameDocController;
   final TextEditingController calenderController;
   final VoidCallback onPressed;
-   Widget? child;
-   Widget? child1;
+  Widget? child;
+  Widget? child1;
   final String title;
   final Widget? radioButton;
+  final Visibility? child2;
   final bool? loadingDuration;
-   AddOrgDocButton(
+  AddOrgDocButton(
       {super.key,
-      required this.idDocController,
-      required this.nameDocController,
-       this.child,
-       this.child1,
-      required this.onPressed,
-      required this.calenderController,
-      this.radioButton,
-      this.loadingDuration, required this.title});
+        required this.idDocController,
+        required this.nameDocController,
+        this.child,
+        this.child1,
+        required this.onPressed,
+        required this.calenderController,
+        this.radioButton,
+        this.loadingDuration, required this.title,this.child2});
 
   @override
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
@@ -589,6 +591,7 @@ class AddOrgDocButton extends StatefulWidget {
 class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   String? _expiryType;
   // bool _isLoading = false;
+  bool _showExpiryDate = true;
   var _selectedDate = DateTime.now();
 
   @override
@@ -701,135 +704,42 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               height: AppSize.s10,
             ),
             ///radio
+
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppPadding.p25,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Expiry Type',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  widget.radioButton!,
-                ],
-              ),
+              child:  widget.radioButton,
             ),
             SizedBox(height: AppSize.s13),
+            // if (_showExpiryDate)
             Padding(
-              padding: const EdgeInsets.only(
-                top: AppPadding.p3,
-                left: AppPadding.p20,
-                right: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Expiry Date',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  FormField<String>(
-                    builder: (FormFieldState<String> field) {
-                      return SizedBox (
-                        width: 354,
-                        height: 30,
-                        child: TextFormField(
-                          cursorColor: ColorManager.black,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                            //decoration: TextDecoration.none,
-                          ),
-                          controller: widget.calenderController,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            hintText: 'mm-dd-yyyy',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
-                            ),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 16),
-                            suffixIcon: Icon(Icons.calendar_month_outlined,
-                                color: ColorManager.blueprime),
-                            errorText: field.errorText,
-                          ),
-                          //readOnly: true,
-                          onTap: () async {
-                            DateTime? date = await showDatePicker(
-                              context: context,
-                              initialDate: _selectedDate,
-                              firstDate: DateTime(2024),
-                              lastDate: DateTime(2025),
-                            );
-                            if (date != null) {
-                              String formattedDate =
-                                  DateFormat('MM-dd-yyyy').format(date);
-                              widget.calenderController.text = formattedDate;
-                              field.didChange(formattedDate);
-                              // birthdayController.text =
-                              // date.toLocal().toString().split(' ')[0];
-                              // field.didChange(date.toLocal().toString().split(' ')[0]);
-                            }
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'please select birth date';
-                            }
-                            return null;
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+                padding: const EdgeInsets.only(
+                  top: AppPadding.p3,
+                  left: AppPadding.p20,
+                  right: AppPadding.p20,
+                ),
+                child: widget.child2
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
               child: Center(
                 child: widget.loadingDuration == true
                     ? SizedBox(
-                        height: 25,
-                        width: 25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ),
-                      )
+                  height: 25,
+                  width: 25,
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                )
                     : CustomElevatedButton(
-                        width: AppSize.s105,
-                        height: AppSize.s30,
-                        text: AppStringEM.save,
-                        onPressed: () {
-                          widget.onPressed();
-                        },
-                      ),
+                  width: AppSize.s105,
+                  height: AppSize.s30,
+                  text: AppStringEM.save,
+                  onPressed: () {
+                    widget.onPressed();
+                  },
+                ),
               ),
             ),
           ],
@@ -837,4 +747,271 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
       ),
     );
   }
-}
+ }
+///
+// class AddOrgDocButton extends StatefulWidget {
+//   final TextEditingController idDocController;
+//   final TextEditingController nameDocController;
+//   final TextEditingController calenderController;
+//   final VoidCallback onPressed;
+//    Widget? child;
+//    Widget? child1;
+//   final String title;
+//   final Widget? radioButton;
+//   final bool? loadingDuration;
+//    AddOrgDocButton(
+//       {super.key,
+//       required this.idDocController,
+//       required this.nameDocController,
+//        this.child,
+//        this.child1,
+//       required this.onPressed,
+//       required this.calenderController,
+//       this.radioButton,
+//       this.loadingDuration, required this.title});
+//
+//   @override
+//   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
+// }
+//
+// class _AddOrgDocButtonState extends State<AddOrgDocButton> {
+//   String? _expiryType;
+//   // bool _isLoading = false;
+//   bool _showExpiryDate = true;
+//   var _selectedDate = DateTime.now();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Dialog(
+//       backgroundColor: Colors.transparent,
+//       child: Container(
+//         width: AppSize.s420,
+//         height: AppSize.s550,
+//         //height: MediaQuery.of(context).size.height/1.2,
+//         decoration: BoxDecoration(
+//           color: ColorManager.white,
+//           borderRadius: BorderRadius.circular(8),
+//         ),
+//         child: Column(
+//           children: [
+//             Container(
+//               height: 40,
+//               padding: EdgeInsets.all(5),
+//               decoration: BoxDecoration(
+//                 color: ColorManager.bluebottom,
+//                 borderRadius: BorderRadius.only(
+//                   topLeft: Radius.circular(8),
+//                   topRight: Radius.circular(8),
+//                 ),
+//               ),
+//               child: Row(
+//                 // mainAxisAlignment: MainAxisAlignment.end,
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Text(
+//                     widget.title,
+//                     textAlign: TextAlign.center,
+//                     style: GoogleFonts.firaSans(
+//                       fontSize: 13,
+//                       fontWeight:
+//                       FontWeightManager.semiBold,
+//                       color: ColorManager.white,
+//                       decoration: TextDecoration.none,
+//                     ),
+//                   ),
+//                   IconButton(
+//                     onPressed: () {
+//                       Navigator.pop(context);
+//                     },
+//                     icon: Icon(Icons.close,
+//                       color: ColorManager.white,),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.symmetric(
+//                 vertical: AppPadding.p3,
+//                 horizontal: AppPadding.p20,
+//               ),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                 children: [
+//                   SMTextFConst(
+//                     controller: widget.idDocController,
+//                     keyboardType: TextInputType.text,
+//                     text: 'ID of the Document',
+//                   ),
+//                   SizedBox(height: AppSize.s13),
+//                   SMTextFConst(
+//                     controller: widget.nameDocController,
+//                     keyboardType: TextInputType.text,
+//                     text: 'Name of the Document',
+//                   ),
+//                   SizedBox(height: AppSize.s13),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Type of the Document',
+//                         style: GoogleFonts.firaSans(
+//                           fontSize: FontSize.s12,
+//                           fontWeight: FontWeight.w700,
+//                           color: ColorManager.mediumgrey,
+//                           //decoration: TextDecoration.none,
+//                         ),
+//                       ),
+//                       SizedBox(height: 5),
+//                       widget.child ?? SizedBox(),
+//                     ],
+//                   ),
+//                   SizedBox(height: AppSize.s13),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Sub Type of the Document',
+//                         style: GoogleFonts.firaSans(
+//                           fontSize: FontSize.s12,
+//                           fontWeight: FontWeight.w700,
+//                           color: ColorManager.mediumgrey,
+//                           decoration: TextDecoration.none,
+//                         ),
+//                       ),
+//                       SizedBox(height: 5),
+//                       widget.child1 ?? SizedBox(),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(
+//               height: AppSize.s10,
+//             ),
+//             ///radio
+//
+//             Padding(
+//               padding: const EdgeInsets.symmetric(
+//                 horizontal: AppPadding.p25,
+//               ),
+//               child:  widget.radioButton,
+//             ),
+//             SizedBox(height: AppSize.s13),
+//             if (_showExpiryDate)
+//             Padding(
+//               padding: const EdgeInsets.only(
+//                 top: AppPadding.p3,
+//                 left: AppPadding.p20,
+//                 right: AppPadding.p20,
+//               ),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     'Expiry Date',
+//                     style: GoogleFonts.firaSans(
+//                       fontSize: FontSize.s12,
+//                       fontWeight: FontWeight.w700,
+//                       color: ColorManager.mediumgrey,
+//                       decoration: TextDecoration.none,
+//                     ),
+//                   ),
+//                   FormField<String>(
+//                     builder: (FormFieldState<String> field) {
+//                       return SizedBox (
+//                         width: 354,
+//                         height: 30,
+//                         child: TextFormField(
+//                           cursorColor: ColorManager.black,
+//                           style: GoogleFonts.firaSans(
+//                             fontSize: FontSize.s12,
+//                             fontWeight: FontWeight.w700,
+//                             color: ColorManager.mediumgrey,
+//                             //decoration: TextDecoration.none,
+//                           ),
+//                           controller: widget.calenderController,
+//                           decoration: InputDecoration(
+//                             enabledBorder: OutlineInputBorder(
+//                               borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                             focusedBorder: OutlineInputBorder(
+//                               borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                             hintText: 'mm-dd-yyyy',
+//                             hintStyle: GoogleFonts.firaSans(
+//                               fontSize: FontSize.s12,
+//                               fontWeight: FontWeight.w700,
+//                               color: ColorManager.mediumgrey,
+//                               //decoration: TextDecoration.none,
+//                             ),
+//                             border: OutlineInputBorder(
+//                               borderRadius: BorderRadius.circular(8),
+//                               borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+//                             ),
+//                             contentPadding:
+//                                 EdgeInsets.symmetric(horizontal: 16),
+//                             suffixIcon: Icon(Icons.calendar_month_outlined,
+//                                 color: ColorManager.blueprime),
+//                             errorText: field.errorText,
+//                           ),
+//                           //readOnly: true,
+//                           onTap: () async {
+//                             DateTime? date = await showDatePicker(
+//                               context: context,
+//                               initialDate: _selectedDate,
+//                               firstDate: DateTime(2024),
+//                               lastDate: DateTime(2025),
+//                             );
+//                             if (date != null) {
+//                               String formattedDate =
+//                                   DateFormat('MM-dd-yyyy').format(date);
+//                               widget.calenderController.text = formattedDate;
+//                               field.didChange(formattedDate);
+//                               // birthdayController.text =
+//                               // date.toLocal().toString().split(' ')[0];
+//                               // field.didChange(date.toLocal().toString().split(' ')[0]);
+//                             }
+//                           },
+//                           validator: (value) {
+//                             if (value == null || value.isEmpty) {
+//                               return 'please select birth date';
+//                             }
+//                             return null;
+//                           },
+//                         ),
+//                       );
+//                     },
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
+//               child: Center(
+//                 child: widget.loadingDuration == true
+//                     ? SizedBox(
+//                         height: 25,
+//                         width: 25,
+//                         child: CircularProgressIndicator(
+//                           color: ColorManager.blueprime,
+//                         ),
+//                       )
+//                     : CustomElevatedButton(
+//                         width: AppSize.s105,
+//                         height: AppSize.s30,
+//                         text: AppStringEM.save,
+//                         onPressed: () {
+//                           widget.onPressed();
+//                         },
+//                       ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

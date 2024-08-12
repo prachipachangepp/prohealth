@@ -78,6 +78,7 @@ dependencies:
   universal_io: any
   encrypt: any
   cached_network_image: any
+  google_maps_flutter: any
 
 
 

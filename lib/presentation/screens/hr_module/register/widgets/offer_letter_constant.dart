@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/value_manager.dart';
 
 
 class CustomTextFieldOfferScreen extends StatefulWidget {
@@ -106,6 +107,8 @@ class _CustomDropdownFormFieldState extends State<CustomDropdownFormField> {
       height: widget.height,
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
+
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
           ),
@@ -119,13 +122,13 @@ class _CustomDropdownFormFieldState extends State<CustomDropdownFormField> {
           fillColor: Colors.white,
           hintText: widget.hintText,
           hintStyle: GoogleFonts.firaSans(
-            fontSize: 12.0,
+            fontSize: 10.0,
             fontWeight: FontWeight.w400,
             color: Color(0xff686464),
           ),
           labelText: widget.labelText,
           labelStyle: GoogleFonts.firaSans(
-            fontSize: 12,
+            fontSize: 10,
             fontWeight: FontWeight.w400,
             color: Color(0xff686464),
           ),

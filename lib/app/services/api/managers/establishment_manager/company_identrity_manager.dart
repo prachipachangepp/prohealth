@@ -200,6 +200,7 @@ Future<List<CompanyIdentityModel>> companyOfficeListGet(
           companyId: companyId,
           address: item['address'],
           officeId: item['office_id'],
+          companyOfficeId: item['company_Office_id'],
         ));
       }
       // print("ResponseList:::::${itemsList}");

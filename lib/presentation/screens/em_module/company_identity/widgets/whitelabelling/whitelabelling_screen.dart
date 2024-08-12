@@ -21,8 +21,8 @@ import '../../../widgets/button_constant.dart';
 import '../../../widgets/text_form_field_const.dart';
 
 class WhitelabellingScreen extends StatefulWidget {
-  // final int companyId;
-  WhitelabellingScreen({super.key});
+  final String officeId;
+  WhitelabellingScreen({super.key, required this.officeId});
 
   @override
   State<WhitelabellingScreen> createState() => _WhitelabellingScreenState();
@@ -70,6 +70,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
 
   String fileName = "No Chosen";
   String? _previewImageUrl;
+  dynamic filePath;
 
 
   List<PlatformFile>? pickedMobileFiles;
@@ -81,6 +82,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
         await FilePicker.platform.pickFiles(allowMultiple: true);
     if (result != null) {
       pickedMobileFiles = result.files;
+      filePath = result.files.first.bytes;
       _mobileFilesStreamController.add(pickedMobileFiles!);
       // type: FileType.image,
       // allowMultiple: false,
@@ -92,6 +94,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
         await FilePicker.platform.pickFiles(allowMultiple: true);
     if (result != null) {
       pickedWebFiles = result.files;
+      filePath = result.files.first.bytes;
       _webFilesStreamController.add(pickedWebFiles!);
     }
   }
@@ -591,16 +594,18 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     onPressed: () async {
                                                       await postWhitelabellingAdd(
                                                         context,
-                                                        0,
-                                                        '',
+                                                        widget.officeId,
                                                         primNumController.text,
                                                         secNumberController.text,
                                                         faxController.text,
-                                                        emailController.text,
+                                                        faxController.text,
                                                         altNumController.text,
+                                                        emailController.text,
                                                         nameController.text,
                                                         addressController.text,
                                                       );
+                                                      await uploadWebAndAppLogo(context: context, type: "web", documentFile: filePath, documentName: fileName);
+                                                      Navigator.pop(context);
                                                       showDialog(
                                                         context: context,
                                                         builder: (BuildContext context) {
@@ -642,7 +647,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                     child:
                       ///old code
                     StreamBuilder<WhiteLabellingCompanyDetailModal>(
-                      stream: Stream.fromFuture(getWhiteLabellingData(context, 1)),
+                      stream: Stream.fromFuture(getWhiteLabellingData(context)),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           var data = snapshot.data!;
@@ -739,7 +744,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                         // color: ColorManager.red,
                         child: StreamBuilder<WhiteLabellingCompanyDetailModal>(
                             stream: Stream.fromFuture(
-                                getWhiteLabellingData(context, 1)),
+                                getWhiteLabellingData(context)),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 var data = snapshot.data!;

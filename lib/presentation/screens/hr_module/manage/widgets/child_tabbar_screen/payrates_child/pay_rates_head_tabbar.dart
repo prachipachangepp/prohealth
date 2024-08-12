@@ -9,12 +9,14 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/payrates_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/payrates_data.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 import '../../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class PayRatesHeadTabbar extends StatefulWidget {
-  const PayRatesHeadTabbar({super.key});
+  final int employeeId;
+  const PayRatesHeadTabbar({super.key, required this.employeeId});
 
   @override
   State<PayRatesHeadTabbar> createState() => _PayRatesHeadTabbarState();
@@ -36,7 +38,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 5;
+    itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
     // companyAllApi(context);
@@ -163,39 +165,39 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
             const SizedBox(
               height: 10,
             ),
-            StreamBuilder<List<PayratesData>>(
-              stream: _payratesStreamController.stream,
-              builder: (context,snapshot) {
-                getEmployeePayrates(context, 2,1,20).then((data) {
-                  _payratesStreamController.add(data);
-                }).catchError((error) {
-                  // Handle error
-                });
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 120),
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: ColorManager.blueprime,
+            Expanded(
+              child: StreamBuilder<List<PayratesData>>(
+                stream: _payratesStreamController.stream,
+                builder: (context,snapshot) {
+                  getEmployeePayrates(context, widget.employeeId,1,20).then((data) {
+                    _payratesStreamController.add(data);
+                  }).catchError((error) {
+                    // Handle error
+                  });
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 120),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
                       ),
-                    ),
-                  );
-                }
-                if (snapshot.data!.isEmpty) {
-                  return Center(
-                    child: Text(
-                      AppString.dataNotFound,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey,
+                    );
+                  }
+                  if (snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        AppString.dataNotFound,
+                        style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey,
+                        ),
                       ),
-                    ),
-                  );
-                }
-                if(snapshot.hasData){
-                  return Expanded(
-                    child: ListView.builder(
+                    );
+                  }
+                  if(snapshot.hasData){
+                    return ListView.builder(
                         scrollDirection: Axis.vertical,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
@@ -317,64 +319,37 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                               ),
                             ],
                           );
-                        }),
-                  );
+                        });
+                  }
+                  return const SizedBox();
                 }
-                return const SizedBox();
-              }
+              ),
             ),
-            // RadioListTile<String>(
-            //   title: Text('Per zone',
-            //     style: GoogleFonts.firaSans(
-            //       fontSize: FontSize.s10,
-            //       fontWeight: FontWeightManager.medium,
-            //       color: ColorManager.mediumgrey,
-            //       decoration: TextDecoration.none,
-            //     ),),
-            //   value: 'Per zone',
-            //   groupValue: _expiryType,
-            //   onChanged: (value) {
-            //     setState(() {
-            //       _expiryType = value;
-            //     });
-            //   },
-            // ),
-            // Row(
-            //   children: [
-            //     RadioListTile<String>(
-            //       title: Text('Per zone',
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: FontSize.s10,
-            //           fontWeight: FontWeightManager.medium,
-            //           color: ColorManager.mediumgrey,
-            //           decoration: TextDecoration.none,
-            //         ),),
-            //       value: 'Per zone',
-            //       groupValue: _expiryType,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           _expiryType = value;
-            //         });
-            //       },
-            //     ),
-            //     RadioListTile<String>(
-            //       title: Text('Per milege',
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: FontSize.s10,
-            //           fontWeight: FontWeightManager.medium,
-            //           color: ColorManager.mediumgrey,
-            //           decoration: TextDecoration.none,
-            //         ),),
-            //       value: 'type2',
-            //       groupValue: _expiryType,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           _expiryType = value;
-            //         });
-            //       },
-            //     ),
-            //   ],
-            // )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomRadioListTile(
+                  title: "Per Zone",
+                  value: 'Per zone',
+                  groupValue: _expiryType,
+                  onChanged: (value) {
+                    setState(() {
+                      _expiryType = value;
+                    });
+                  },
+                ),
+                CustomRadioListTile(
+                  title: "Per milege",
+                  value: 'type2',
+                  groupValue: _expiryType,
+                  onChanged: (value) {
+                    setState(() {
+                      _expiryType = value;
+                    });
+                  },
+                ),
+              ],
+            )
           ],
         ),
       ),

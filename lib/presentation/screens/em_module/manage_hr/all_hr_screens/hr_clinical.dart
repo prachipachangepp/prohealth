@@ -39,17 +39,11 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   final HRClincicalController hrClinController = Get.put(HRClincicalController());
   final StreamController<List<HRAllData>> _controller = StreamController<List<HRAllData>>();
 
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
   String? selectedValue;
   late List<Color> hrcontainerColors;
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 30;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
     getAllHrDeptWise(context,widget.deptId).then((data){
@@ -70,8 +64,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   }
   String seletedType = "Clinical";
   String color ="";
-  int docTypeMetaId =1;
-  int doceEditMetaId=1;
+
   void onChange(String seletedTypeEmp){
     setState(() {
       seletedType = seletedTypeEmp;
@@ -81,6 +74,16 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('containerColor$index', color.value);
   }
+  int docTypeMetaId =1;
+  int doceEditMetaId=1;
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
+  void onPageNumberPressed(int pageNumber) {
+    setState(() {
+      currentPage = pageNumber;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,62 +92,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            ///dropdown
-            // Container(
-            //   height: AppSize.s32,
-            //   width: AppSize.s103,
-            //   padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
-            //   decoration: BoxDecoration(
-            //     color: ColorManager.blueprime,
-            //     borderRadius: BorderRadius.circular(12), // Rounded corners
-            //   ),
-            //   child: Obx(
-            //     () => Center(
-            //       child: DropdownButton<String>(
-            //         icon: Icon(
-            //           Icons.arrow_drop_down,
-            //           size: MediaQuery.of(context).size.width / 80,
-            //           color: ColorManager.white,
-            //         ),
-            //         dropdownColor: ColorManager.white,
-            //         style: TextStyle(
-            //           fontSize: MediaQuery.of(context).size.width / 92,
-            //           color: ColorManager.white,
-            //         ),
-            //         underline: Container(),
-            //         value: hrClinController.selectedItem.value,
-            //         onChanged: (String? newValue) {
-            //           if (newValue != null) {
-            //             hrClinController.changeSelectedItem(newValue);
-            //           }
-            //         },
-            //         items: [
-            //           'Sort By',
-            //           'Available',
-            //           'Unavailable',
-            //         ]
-            //             .map<DropdownMenuItem<String>>(
-            //               (String value) => DropdownMenuItem<String>(
-            //                 value: value,
-            //                 child: Text(
-            //                   value,
-            //                   textAlign: TextAlign.center,
-            //                   style: GoogleFonts.firaSans(
-            //                     color:
-            //                         hrClinController.selectedItem.value == value
-            //                             ? Colors.white
-            //                             : Colors.black,
-            //                     fontSize: FontSize.s12,
-            //                     fontWeight: FontWeightManager.bold,
-            //                   ),
-            //                 ),
-            //               ),
-            //             )
-            //             .toList(),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+
             ///button
             Container(
               width: AppSize.s172,
@@ -153,6 +101,8 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                 text: AppString.addemployeetype,
                 icon: Icons.add,
                 onPressed: () {
+                  typeController.clear();
+                  shorthandController.clear();
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -328,231 +278,246 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                 }
                 if (snapshot.hasData) {
                   int totalItems = snapshot.data!.length;
-                  // int totalPages = (totalItems / itemsPerPage).ceil();
-                  List<HRAllData> currentPageItems =
-                  snapshot.data!.sublist(
-                    (currentPage - 1) * itemsPerPage,
-                    (currentPage * itemsPerPage) > totalItems
-                        ? totalItems
-                        : (currentPage * itemsPerPage),
-                  );
+                  int totalPages = (totalItems / itemsPerPage).ceil();
+                  List<HRAllData> paginatedData =
+                  snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+
                   return
-            ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: currentPageItems.length,
-                itemBuilder: (context, index) {
-                  int serialNumber =
-                      index + 1 + (currentPage - 1) * itemsPerPage;
-                  String formattedSerialNumber =
-                      serialNumber.toString().padLeft(2, '0');
-
-                  return Container(
-                      margin: EdgeInsets.all(5,),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorManager.black.withOpacity(0.25),
-                            spreadRadius: 0,
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      height: AppSize.s56,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                              formattedSerialNumber,
-                              textAlign: TextAlign.center,
-                              style: AllHRTableData.customTextStyle(context)
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                                snapshot.data![index].empType.toString(),
-                              textAlign: TextAlign.center,
-                              style: AllHRTableData.customTextStyle(context)
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                                snapshot.data![index].abbrivation.toString(),
-                                textAlign: TextAlign.center,
-                              style: AllHRTableData.customTextStyle(context)
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 20,
-                              height: AppSize.s22,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: snapshot.data![index].color?.toColor,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ///edit
-                                IconButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context, builder: (BuildContext context) {
-                                        return FutureBuilder<HRGetEmpId>(
-                                            future: HrGetById(context, snapshot.data![index].employeeTypesId),
-                                            builder: (context, snapshot) {
-                                              if(snapshot.connectionState == ConnectionState.waiting){
-                                                return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
-                                              }
-                                              var type = snapshot.data?.empType.toString();
-                                              var shorthand = snapshot.data?.empType.toString();
-                                              var hexColorData = snapshot.data!.color!.replaceAll("#","").toString();
-                                               //hexColorData = i.color.replaceAll("#","");
-                                              Color hexColor = Color(int.parse('0xFF$hexColorData'));
-                                              print('Hex Color ::::${hexColor}');
-                                               hrcontainerColors[index] = hexColor;
-                                              var splitHexColor = hexColor.toString().substring(10,16);
-                                              typeController = TextEditingController(text: snapshot.data?.empType.toString());
-                                              shorthandController = TextEditingController(text: snapshot.data?.abbrivation.toString());
-                                              return EditPopupWidget(
-                                                typeController: typeController,
-                                                shorthandController: shorthandController,
-                                                containerColor: hrcontainerColors[index],
-                                                onSavePressed: () async{
-                                                  await AllFromHrPatch(context, snapshot.data!.empTypeId, 1,
-                                                      type == typeController.text ? type.toString() : typeController.text,
-                                                      shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
-                                                      splitHexColor == hrcontainerColors[index] ? splitHexColor : color );
-                                                  getAllHrDeptWise(context,widget.deptId).then((data){
-                                                    _controller.add(data);
-                                                  }).catchError((error){});
-                                                  Navigator.pop(context);
-                                                  typeController.clear();
-                                                  shorthandController.clear();
-                                                  seletedType = "Administrative";
-                                                },
-                                                onColorChanged: (Color seletedColor) {
-                                                  setState(() {
-                                                    hrcontainerColors[index] = seletedColor;
-                                                    print("Color ${seletedColor}");
-                                                    color = seletedColor.toString().substring(10,16);
-                                                    _saveColor(index, seletedColor);
-                                                  });
-                                                }, title: 'Edit Clinical',
-                                                child:  FutureBuilder<List<HRHeadBar>>(
-                                                  future: companyHRHeadApi(context,widget.deptId),
-                                                  builder: (context,snapshot) {
-                                                    if(snapshot.connectionState == ConnectionState.waiting){
-                                                      return Shimmer.fromColors(
-                                                          baseColor: Colors.grey[300]!,
-                                                          highlightColor: Colors.grey[100]!,
-                                                          child: Container(
-                                                            width: 350,
-                                                            height: 30,
-                                                            decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                          )
-                                                      );
-                                                    }
-                                                    if (snapshot.data!.isEmpty) {
-                                                      return Center(
-                                                        child: Text(
-                                                          AppString.dataNotFound,
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeightManager.medium,
-                                                            fontSize: FontSize.s12,
-                                                            color: ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    if(snapshot.hasData){
-                                                      List dropDown = [];
-                                                      int docType = 0;
-                                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                      for(var i in snapshot.data!){
-                                                        dropDownMenuItems.add(
-                                                          DropdownMenuItem<String>(
-                                                            child: Text(i.deptName),
-                                                            value: i.deptName,
-                                                          ),
-                                                        );
-                                                      }
-                                                      return CICCDropdown(
-                                                          initialValue: dropDownMenuItems[0].value,
-                                                          onChange: (val){
-                                                            for(var a in snapshot.data!){
-                                                              if(a.deptName == val){
-                                                                docType = a.deptId;
-                                                                doceEditMetaId = docType;
-                                                              }
-                                                            }
-                                                            print(":::${docType}");
-                                                            print(":::<>${doceEditMetaId}");
-                                                          },
-                                                          items:dropDownMenuItems
-                                                      );
-                                                    }else{
-                                                      return SizedBox();
-                                                    }
-                                                  }
-                                              ),
-                                                // onColorChanged: (Color color) {
-                                                //   setState(() {
-                                                //     containerColors[index] =
-                                                //      color; // Update color for this item
-                                                //   });
-                                                // },
-                                              );
-                                            }
-                                        );
-                                      },
-                                    );
-                                  },
-                                  icon: Icon(Icons.edit_outlined,size: 18,),
-                                  color: ColorManager.blueprime,
-                                ),
-                                ///delete
-                                IconButton(
-                                  onPressed: () {
-                                     showDialog(context: context,
-                                        builder: (context) => DeletePopup(
-                                            title: 'Delete Clinical',
-                                            onCancel: (){
-                                              Navigator.pop(context);
-                                            }, onDelete: () async {
-                                           await  allfromHrDelete(
-                                                context, snapshot.data![index].employeeTypesId!);
-                                            getAllHrDeptWise(context,widget.deptId).then((data){
-                                              _controller.add(data);
-                                            }).catchError((error){});
-                                             Navigator.pop(context);
-                                        }));
-
-                                  },
-                                  icon: Icon(
-                                    size: 18,
-                                    Icons.delete_outline,
-                                    color: Color(0xffF6928A),
-                                  ),
+            Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: paginatedData.length,
+                      itemBuilder: (context, index) {
+                        int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                        String formattedSerialNumber =
+                        serialNumber.toString().padLeft(2, '0');
+                        HRAllData hrdata = paginatedData[index];
+                        return Container(
+                            margin: EdgeInsets.all(5,),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: ColorManager.black.withOpacity(0.25),
+                                  spreadRadius: 0,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
-                      ));
-                })
-              ;
+                            height: AppSize.s56,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    formattedSerialNumber,
+                                    textAlign: TextAlign.center,
+                                    style: AllHRTableData.customTextStyle(context)
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Text(
+                                      hrdata.empType.toString().capitalizeFirst!,
+                                    textAlign: TextAlign.center,
+                                    style: AllHRTableData.customTextStyle(context)
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Text(
+                                      hrdata.abbrivation.toString().capitalizeFirst!,
+                                      textAlign: TextAlign.center,
+                                    style: AllHRTableData.customTextStyle(context)
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width / 20,
+                                    height: AppSize.s22,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: hrdata.color?.toColor,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ///edit
+                                      IconButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context, builder: (BuildContext context) {
+                                              return FutureBuilder<HRGetEmpId>(
+                                                  future: HrGetById(context, hrdata.employeeTypesId),
+                                                  builder: (context, snapshot) {
+                                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                                      return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
+                                                    }
+                                                    var type = hrdata.toString();
+                                                    var shorthand = hrdata.toString();
+                                                    var hexColorData = snapshot.data!.color!.replaceAll("#","").toString();
+                                                     //hexColorData = i.color.replaceAll("#","");
+                                                    Color hexColor = Color(int.parse('0xFF$hexColorData'));
+                                                    print('Hex Color ::::${hexColor}');
+                                                     hrcontainerColors[index] = hexColor;
+                                                    var splitHexColor = hexColor.toString().substring(10,16);
+                                                    typeController = TextEditingController(text: hrdata.empType.toString());
+                                                    shorthandController = TextEditingController(text: hrdata.abbrivation.toString());
+                                                    return EditPopupWidget(
+                                                      typeController: typeController,
+                                                      shorthandController: shorthandController,
+                                                      containerColor: hrcontainerColors[index],
+                                                      onSavePressed: () async{
+                                                        await AllFromHrPatch(context, snapshot.data!.empTypeId, doceEditMetaId,
+                                                            type == typeController.text ? type.toString() : typeController.text,
+                                                            shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
+                                                            splitHexColor == hrcontainerColors[index] ? splitHexColor : color );
+                                                        getAllHrDeptWise(context,widget.deptId).then((data){
+                                                          _controller.add(data);
+                                                        }).catchError((error){});
+                                                        Navigator.pop(context);
+                                                        typeController.clear();
+                                                        shorthandController.clear();
+                                                        seletedType = "Clinical";
+                                                      },
+                                                      onColorChanged: (Color seletedColor) {
+                                                        setState(() {
+                                                          hrcontainerColors[index] = seletedColor;
+                                                          print("Color ${seletedColor}");
+                                                          color = seletedColor.toString().substring(10,16);
+                                                          _saveColor(index, seletedColor);
+                                                        });
+                                                      }, title: 'Edit Clinical',
+                                                      child:  FutureBuilder<List<HRHeadBar>>(
+                                                        future: companyHRHeadApi(context,widget.deptId),
+                                                        builder: (context,snapshot) {
+                                                          if(snapshot.connectionState == ConnectionState.waiting){
+                                                            return Shimmer.fromColors(
+                                                                baseColor: Colors.grey[300]!,
+                                                                highlightColor: Colors.grey[100]!,
+                                                                child: Container(
+                                                                  width: 350,
+                                                                  height: 30,
+                                                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                                )
+                                                            );
+                                                          }
+                                                          if (snapshot.data!.isEmpty) {
+                                                            return Center(
+                                                              child: Text(
+                                                                AppString.dataNotFound,
+                                                                style: CustomTextStylesCommon.commonStyle(
+                                                                  fontWeight: FontWeightManager.medium,
+                                                                  fontSize: FontSize.s12,
+                                                                  color: ColorManager.mediumgrey,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          if(snapshot.hasData){
+                                                            List dropDown = [];
+                                                            int docType = 0;
+                                                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                                            for(var i in snapshot.data!){
+                                                              dropDownMenuItems.add(
+                                                                DropdownMenuItem<String>(
+                                                                  child: Text(i.deptName),
+                                                                  value: i.deptName,
+                                                                ),
+                                                              );
+                                                            }
+                                                            return CICCDropdown(
+                                                                initialValue: dropDownMenuItems[0].value,
+                                                                onChange: (val){
+                                                                  for(var a in snapshot.data!){
+                                                                    if(a.deptName == val){
+                                                                      docType = a.deptId;
+                                                                      doceEditMetaId = docType;
+                                                                    }
+                                                                  }
+                                                                  print(":::${docType}");
+                                                                  print(":::<>${doceEditMetaId}");
+                                                                },
+                                                                items:dropDownMenuItems
+                                                            );
+                                                          }else{
+                                                            return SizedBox();
+                                                          }
+                                                        }
+                                                    ),
+                                                    );
+                                                  }
+                                              );
+                                            },
+                                          );
+                                        },
+                                        icon: Icon(Icons.edit_outlined,size: 18,),
+                                        color: ColorManager.blueprime,
+                                      ),
+                                      ///delete
+                                      IconButton(
+                                        onPressed: () {
+                                           showDialog(context: context,
+                                              builder: (context) => DeletePopup(
+                                                  title: 'Delete Clinical',
+                                                  onCancel: (){
+                                                    Navigator.pop(context);
+                                                  }, onDelete: () async {
+                                                 await  allfromHrDelete(
+                                                      context, hrdata.employeeTypesId);
+                                                  getAllHrDeptWise(context,widget.deptId).then((data){
+                                                    _controller.add(data);
+                                                  }).catchError((error){});
+                                                   Navigator.pop(context);
+                                              }));
+
+                                        },
+                                        icon: Icon(
+                                          size: 18,
+                                          Icons.delete_outline,
+                                          color: Color(0xffF6928A),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ));
+                      }),
+                ),
+                PaginationControlsWidget(
+                  currentPage: currentPage,
+                  items: snapshot.data!,
+                  itemsPerPage: itemsPerPage,
+                  onPreviousPagePressed: () {
+                    setState(() {
+                      currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                    });
+                  },
+                  onPageNumberPressed: (pageNumber) {
+                    setState(() {
+                      currentPage = pageNumber;
+                    });
+                  },
+                  onNextPagePressed: () {
+                    setState(() {
+                      currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                    });
+                  },
+                ),
+                SizedBox(height: AppSize.s10),
+              ],
+            );
   }
   return Offstage();
 },
@@ -562,31 +527,6 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
         SizedBox(
           height: AppSize.s10,
         ),
-        // PaginationControlsWidget(
-        //   currentPage: currentPage,
-        //   items: items,
-        //   itemsPerPage: itemsPerPage,
-        //   onPreviousPagePressed: () {
-        //     /// Handle previous page button press
-        //     setState(() {
-        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-        //     });
-        //   },
-        //   onPageNumberPressed: (pageNumber) {
-        //     /// Handle page number tap
-        //     setState(() {
-        //       currentPage = pageNumber;
-        //     });
-        //   },
-        //   onNextPagePressed: () {
-        //     /// Handle next page button press
-        //     setState(() {
-        //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
-        //           ? currentPage + 1
-        //           : (items.length / itemsPerPage).ceil();
-        //     });
-        //   },
-        // ),
       ],
     );
   }

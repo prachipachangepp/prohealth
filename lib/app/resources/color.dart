@@ -19,6 +19,9 @@ class ColorManager {
   static Color orangeheading = Color(0xffFFA500);
   static Color lightGrey = Color(0xffB7B7B7);
   static Color granitegray= Color(0xff686464);
+
+  static Color burnt_red= Color(0xffDE0909);
+
   static Color containerBorderGrey = Color(0xffB1B1B1);
   static Color textPrimaryColor = Color(0xff686464);
   static Color fmediumgrey = Color(0xFF686464).withOpacity(0.46);

@@ -22,7 +22,8 @@ import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_
 class VendorContractCapReport extends StatefulWidget {
   final int docId;
   final int subDocId;
-  const VendorContractCapReport({super.key, required this.docId, required this.subDocId});
+  final String officeId;
+  const VendorContractCapReport({super.key, required this.docId, required this.subDocId, required this.officeId});
 
   @override
   State<VendorContractCapReport> createState() => _VendorContractCapReportState();
@@ -127,7 +128,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
           child:StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context, snapshot) {
-                orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                   _controller.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -296,11 +297,10 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                             expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                             expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                             expiryReminder: "Schedule",
-                                                            companyId: 11,
-                                                            officeId: "Office 1",
+                                                            officeId: widget.officeId,
                                                           );
                                                           setState(() async {
-                                                            await orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                                                            await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                                                               _controller.add(data);
                                                             }).catchError((error) {
                                                               // Handle error
@@ -412,17 +412,18 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                       child:  FutureBuilder<List<DocumentTypeData>>(
                                                           future: documentTypeGet(context),
                                                           builder: (context,snapshot) {
-                                                            if(snapshot.connectionState == ConnectionState.waiting){
-                                                              return Shimmer.fromColors(
-                                                                  baseColor: Colors.grey[300]!,
-                                                                  highlightColor: Colors.grey[100]!,
-                                                                  child: Container(
-                                                                    width: 350,
-                                                                    height: 30,
-                                                                    decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                  )
-                                                              );
-                                                            }
+                                                            // if(snapshot.connectionState == ConnectionState.waiting){
+                                                            //   return
+                                                            //     Shimmer.fromColors(
+                                                            //       baseColor: Colors.grey[300]!,
+                                                            //       highlightColor: Colors.grey[100]!,
+                                                            //       child: Container(
+                                                            //         width: 350,
+                                                            //         height: 30,
+                                                            //         decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                            //       )
+                                                            //   );
+                                                            // }
                                                             if(snapshot.hasData){
                                                               List dropDown = [];
                                                               int docType = 0;
@@ -486,7 +487,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                             context,
                                                             snapshot.data![index].docId);
                                                         setState(() async {
-                                                          await orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                                                          await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
                                                             _controller.add(data);
                                                           }).catchError((error) {
                                                             // Handle error

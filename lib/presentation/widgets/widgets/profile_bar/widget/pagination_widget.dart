@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 
-class PaginationControlsWidget extends StatelessWidget {
+class PaginationControlsWidget extends StatefulWidget {
   final int currentPage;
   final List<dynamic> items;
-  final int itemsPerPage;
-  final void Function() onPreviousPagePressed;
-  final void Function(int) onPageNumberPressed;
-  final void Function() onNextPagePressed;
+   int itemsPerPage;
+   void Function() onPreviousPagePressed;
+   void Function(int) onPageNumberPressed;
+   void Function() onNextPagePressed;
 
-  const PaginationControlsWidget({
+   PaginationControlsWidget({
     required this.currentPage,
     required this.items,
     required this.itemsPerPage,
@@ -18,6 +18,11 @@ class PaginationControlsWidget extends StatelessWidget {
     required this.onNextPagePressed,
   });
 
+  @override
+  State<PaginationControlsWidget> createState() => _PaginationControlsWidgetState();
+}
+
+class _PaginationControlsWidgetState extends State<PaginationControlsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,18 +45,18 @@ class PaginationControlsWidget extends StatelessWidget {
             child: IconButton(
               padding: EdgeInsets.only(bottom: 1.5),
               icon: Icon(Icons.chevron_left),
-              onPressed: onPreviousPagePressed,
+              onPressed: widget.onPreviousPagePressed,
               color: Colors.black,
               iconSize: 20,
             ),
           ),
           SizedBox(width: 3),
-          for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
+          for (var i = 1; i <= (widget.items.length / widget.itemsPerPage).ceil(); i++)
             if (i == 1 ||
-                i == currentPage ||
-                i == (items.length / itemsPerPage).ceil())
+                i == widget.currentPage ||
+                i == (widget.items.length / widget.itemsPerPage).ceil())
               InkWell(
-                onTap: () => onPageNumberPressed(i),
+                onTap: () => widget.onPageNumberPressed(i),
                 child: Container(
                   width: 20,
                   height: 20,
@@ -61,22 +66,22 @@ class PaginationControlsWidget extends StatelessWidget {
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
-                      color: currentPage == i ? Colors.blue : ColorManager.fmediumgrey.withOpacity(0.2),
-                      width: currentPage == i ? 2.0 : 1.0,
+                      color: widget.currentPage == i ? Colors.blue : ColorManager.fmediumgrey.withOpacity(0.2),
+                      width: widget.currentPage == i ? 2.0 : 1.0,
                     ),
-                    color: currentPage == i ? Colors.blue : Colors.transparent,
+                    color: widget.currentPage == i ? Colors.blue : Colors.transparent,
                   ),
                   child: Text(
                     '$i',
                     style: TextStyle(
-                      color: currentPage == i ? Colors.white : ColorManager.black,
+                      color: widget.currentPage == i ? Colors.white : ColorManager.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
                     ),
                   ),
                 ),
               )
-            else if (i == currentPage - 1 || i == currentPage + 1)
+            else if (i == widget.currentPage - 1 || i == widget.currentPage + 1)
               Text(
                 '..',
                 style: TextStyle(
@@ -100,7 +105,7 @@ class PaginationControlsWidget extends StatelessWidget {
             child: IconButton(
               padding: EdgeInsets.only(bottom: 1.5),
               icon: Icon(Icons.chevron_right),
-              onPressed: onNextPagePressed,
+              onPressed: widget.onNextPagePressed,
               color: Colors.black,
               iconSize: 20,
             ),

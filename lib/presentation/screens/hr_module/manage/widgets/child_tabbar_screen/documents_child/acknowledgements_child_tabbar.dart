@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -14,6 +15,7 @@ import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,6 +23,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../onboarding/download_doc_const.dart';
 ///download
+
 class AcknowledgementsChildBar extends StatefulWidget {
   final int employeeId;
   const AcknowledgementsChildBar({super.key, required this.employeeId});
@@ -32,15 +35,19 @@ class AcknowledgementsChildBar extends StatefulWidget {
 class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
   final StreamController<List<OnboardingAckHealthData>> _controller = StreamController<List<OnboardingAckHealthData>>();
   TextEditingController acknowldgementNameController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
-
+    getAckHealthRecord(context, 10, 48, widget.employeeId,"no").then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    //print('Employee Id in documents :: ${controller.employeeId}');
     return Column(
       children: [
         Row(
@@ -58,8 +65,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         employeeId: widget.employeeId,
                         AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
                         },
-                        child: FutureBuilder<List<EmployeeDocSetupModal>>(
-                            future: getEmployeeDocSetupDropDown(context),
+                        child: FutureBuilder<List<EmployeeDocTabModal>>(
+                            future: getEmployeeDocTab(context),
                             builder: (context,snapshot) {
                               if(snapshot.connectionState == ConnectionState.waiting){
                                 return Shimmer.fromColors(
@@ -91,8 +98,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                 for(var i in snapshot.data!){
                                   dropDownMenuItems.add(
                                     DropdownMenuItem<String>(
-                                      child: Text(i.documentName),
-                                      value: i.documentName,
+                                      child: Text(i.employeeDocType),
+                                      value: i.employeeDocType,
                                     ),
                                   );
                                 }
@@ -100,7 +107,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                                     initialValue: dropDownMenuItems[0].value,
                                     onChange: (val){
                                       for(var a in snapshot.data!){
-                                        if(a.documentName == val){
+                                        if(a.employeeDocType == val){
                                           docType = a.employeeDocMetaDataId;
                                           //docMetaId = docType;
                                         }
@@ -127,11 +134,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
         StreamBuilder(
           stream: _controller.stream,
           builder: (context, snapshot) {
-            getAckHealthRecord(context, 10, 48, widget.employeeId,"no").then((data) {
-              _controller.add(data);
-            }).catchError((error) {
-              // Handle error
-            });
+
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(
@@ -162,7 +165,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Container(
-                height: MediaQuery.of(context).size.height / 1,
+                height: MediaQuery.of(context).size.height/2,
                 padding: EdgeInsets.symmetric(vertical: 30),
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -180,12 +183,14 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                   children: List.generate(snapshot.data!.length, (index) {
                     final data = snapshot.data![index];
                     final fileUrl = data.DocumentUrl;
-                    try{
-                      var keyGenerate =  AppFilePickerBase64.mainFun(keyUrl:fileUrl);
-                      print("Generated file ::: ${keyGenerate.toString()}");
-                    }catch(e){
-                      print(e);
-                    }
+                    // var decodedImage = AppFilePickerBase64.getDecodeBase64(url: fileUrl);
+                    // print("Decoded Doc ${decodedImage}");
+                    // try{
+                    //   // var keyGenerate =  AppFilePickerBase64.mainFun(keyUrl:fileUrl);
+                    //   // print("Generated file ::: ${keyGenerate.toString()}");
+                    // }catch(e){
+                    //   print(e);
+                    // }
                     //var decodeBse64 = EncodeDecodeBase64.getDecodeBase64(fetchedUrl: "e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O");
                     // print("File:::>>${decodeBse64}");
                     final fileExtension = fileUrl.split('.').last.toLowerCase();

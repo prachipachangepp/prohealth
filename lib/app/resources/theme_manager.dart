@@ -138,7 +138,7 @@ class AknowledgementStyleConst {
 class ProfileBarConst {
   static TextStyle profileTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(
-      fontSize: FontSize.s8,
+      fontSize: FontSize.s10,
       color: ColorManager.primary,
       decoration: TextDecoration.underline,
       decorationColor: Colors.blueAccent,

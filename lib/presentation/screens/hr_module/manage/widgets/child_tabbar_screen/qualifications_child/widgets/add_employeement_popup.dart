@@ -73,7 +73,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.5,
-        height:  MediaQuery.of(context).size.height / 1.5,
+        height:  MediaQuery.of(context).size.height / 1.6,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -116,7 +116,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ],
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -139,7 +139,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -191,7 +191,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

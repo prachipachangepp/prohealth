@@ -278,7 +278,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         width: 440,
                         padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                          color: Colors.blue,
+                          color: ColorManager.bluebottom,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(12),
                             topRight: Radius.circular(12),

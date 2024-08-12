@@ -35,6 +35,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   final HRController hrController = Get.put(HRController());
   late final VoidCallback? onItem2Selected;
   bool showSelectOption = true;
+  bool isSelected = false;
   final ButtonSelectionController myController =
       Get.put(ButtonSelectionController());
   String selectedOption = 'Select';
@@ -180,7 +181,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(1,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
+
                             pgeControllerId = 1;
+
                         },
                         text: 'Manage',
                         isSelected: myController.selectedIndex.value == 1,
@@ -214,7 +217,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(2,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
+
                             pgeControllerId = 2;
+
+
                         },
                         text: 'Register',
                         isSelected: myController.selectedIndex.value == 2,
@@ -232,7 +238,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           _pageController.animateToPage(3,
                               duration: Duration(milliseconds: 500),
                               curve: Curves.ease);
+
                             pgeControllerId = 3;
+
                         },
                         text: 'Onboarding',
                         isSelected: myController.selectedIndex.value == 3,
@@ -242,7 +250,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width/20,),
                 /// search text
-                pgeControllerId == 2 || pgeControllerId == 3 ?  SizedBox() :Row(
+                // pgeControllerId == 2 || pgeControllerId == 3 ?  SizedBox() :
+                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -283,117 +292,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                     horizontal: 20, vertical: 5)),
                           ),
                         )),
-
-                    /// formated text field
-                    //     TextFormField(
-                    //   controller: searchController,
-                    //   // focusNode: focusNode,
-                    //   // autofocus: true,
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       getSearchProfileByText(
-                    //           context, 5, searchController.text);
-                    //       employeeId =
-                    //           value == "" ? 0 : int.parse(value.toString());
-                    //       getSearchByEmployeeIdProfileByText(
-                    //           context, employeeId);
-                    //       employeeId = 2;
-                    //       getSearchByEmployeeIdProfileByText(
-                    //           context, employeeId);
-                    //     });
-                    //   },
-                    //   textAlign: TextAlign.start,
-                    //   cursorHeight: 14,
-                    //   cursorColor: ColorManager.black,
-                    //   style: GoogleFonts.firaSans(
-                    //     fontSize: 12,
-                    //   ),
-                    //   textAlignVertical: TextAlignVertical.center,
-                    //   decoration: InputDecoration(
-                    //       hintText: 'Search',
-                    //       alignLabelWithHint: true,
-                    //       hintStyle: GoogleFonts.firaSans(
-                    //         fontSize: FontSize.s12,
-                    //         fontWeight: FontWeightManager.regular,
-                    //         color: ColorManager.mediumgrey,
-                    //       ),
-                    //       border: OutlineInputBorder(
-                    //           borderRadius:
-                    //               BorderRadius.all(Radius.circular(20))),
-                    //       suffixIcon: IconButton(
-                    //         icon: Center(
-                    //           child: Icon(
-                    //             Icons.search,
-                    //             size: 18,
-                    //           ),
-                    //         ),
-                    //         onPressed: () {},
-                    //       ),
-                    //       contentPadding: EdgeInsets.symmetric(
-                    //           horizontal: 20, vertical: 5)),
-                    // ),
-
-                    /// using typeAheadField
-                    // TypeAheadField(
-                    //   controller: searchController,
-                    //   suggestionsCallback: (name){
-                    //     getSearchProfileByText(context, 5, name);
-                    //
-                    //   },
-                    //   builder:(context, controller, focusNode) {
-                    //     return TextFormField(
-                    //       controller: controller,
-                    //       focusNode: focusNode,
-                    //       autofocus: true,
-                    //       onChanged: (value) {
-                    //         setState(() {
-                    //           //getSearchProfileById(context, 5, int.parse(name.toString()));
-                    //           employeeId = value == "" ? 0 :int.parse(value.toString());
-                    //           getSearchByEmployeeIdProfileByText(context,employeeId);
-                    //           // employeeId = 2;
-                    //           // getSearchByEmployeeIdProfileByText(context,employeeId);
-                    //         });
-                    //       },
-                    //       textAlign: TextAlign.start,
-                    //       cursorHeight: 12,
-                    //       cursorColor: ColorManager.black,
-                    //       style: GoogleFonts.firaSans(
-                    //         fontSize: 12,
-                    //       ),
-                    //       textAlignVertical: TextAlignVertical.center,
-                    //       decoration: InputDecoration(
-                    //           hintText: 'Search',
-                    //           alignLabelWithHint: true,
-                    //           hintStyle: GoogleFonts.firaSans(
-                    //             fontSize: FontSize.s12,
-                    //             fontWeight: FontWeightManager.regular,
-                    //             color: ColorManager.mediumgrey,
-                    //           ),
-                    //           border: OutlineInputBorder(
-                    //               borderRadius: BorderRadius.all(
-                    //                   Radius.circular(20))),
-                    //           suffixIcon: IconButton(
-                    //             icon: Center(
-                    //               child: Icon(
-                    //                 Icons.search,
-                    //                 size: 18,
-                    //               ),
-                    //             ),
-                    //             onPressed: () {},
-                    //           ),
-                    //           contentPadding: EdgeInsets.symmetric(
-                    //               horizontal: 20, vertical: 5)),
-                    //     );
-                    //   },
-                    //     itemBuilder: (context, String value) {
-                    //     print("::::::${value}");
-                    //   return ListTile(
-                    //     title: Text(value),
-                    //   );
-                    // }, onSelected: (value) {
-                    //     searchController.text = value;
-                    // },
-                    // )
                      SizedBox(
                       width: MediaQuery.of(context).size.width / 70,
                     ),
@@ -406,7 +304,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 decoration: BoxDecoration(
                                   color: ColorManager.white,
                                   borderRadius: BorderRadius.circular(9),
-                                  boxShadow: const [
+                                  boxShadow: [
                                     BoxShadow(
                                       color: Color(0x40000000),
                                       offset: Offset(0, 4),
@@ -416,13 +314,14 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return ProfilePatientPopUp(onSearch: () {  },);
-                                      },
-                                    );
+                                    // showDialog(
+                                    //   context: context,
+                                    //   builder: (BuildContext context) {
+                                    //     return ProfilePatientPopUp();
+                                    //   },
+                                    // );
                                   },
+
                                   child: Center(
                                     child: SvgPicture.asset('images/menuLines.svg'),
                                   ),
@@ -435,9 +334,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 width: 32,
                                 height: 25,
                                 decoration: BoxDecoration(
-                                  color: ColorManager.white,
+                                  color: isSelected ? ColorManager.white : ColorManager.blueprime,
                                   borderRadius: BorderRadius.circular(8),
-                                  boxShadow: const [
+                                  boxShadow: [
                                     BoxShadow(
                                       color: Color(0x40000000),
                                       offset: Offset(0, 4),
@@ -446,7 +345,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   ],
                                 ),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    isSelected = true;
+                                  },
                                   child: Center(
                                     child: Text(
                                       'DZ',
@@ -465,35 +366,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         : SizedBox(width: 1),
                   ],
                 ),
-                // SizedBox(
-                //   height: 30,
-                //         width: 140,
-                // ),
-                ///see all
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.end,
-                //   mainAxisAlignment: MainAxisAlignment.end,
-                //   children: [
-                //     Obx(
-                //       () => CustomTitleButton(
-                //         height: 30,
-                //         width: 140,
-                //         onPressed: () {
-                //           //companyAll(context);
-                //           myController.selectButton(6);
-                //           _pageController.animateToPage(6,
-                //               duration: Duration(milliseconds: 500),
-                //               curve: Curves.ease);
-                //         },
-                //         text: 'See All',
-                //         isSelected: myController.selectedIndex.value == 6,
-                //       ),
-                //     ),
-                //   ],
-                // )
               ],
             ),
           ),
+
           ///page view
           Expanded(
             flex: 8,
@@ -532,6 +408,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     SearchByEmployeeIdProfileData
                     searchByEmployeeIdProfileData = snapshot.data!;
                     print("Employee ID:::${searchByEmployeeIdProfileData.employeeId!}");
+                    int empID = searchByEmployeeIdProfileData.employeeId!;
                     return PageView(
                       controller: _pageController,
                       physics: NeverScrollableScrollPhysics(),
@@ -539,7 +416,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         DashBoardScreen(),
                         ManageScreen(
                           searchByEmployeeIdProfileData:
-                          searchByEmployeeIdProfileData, employeeId: searchByEmployeeIdProfileData.employeeId!,
+                          searchByEmployeeIdProfileData,
+                          employeeId: empID,
                         ),
                         //AddEmployeeHomeScreen(),
                         RegisterScreen(),

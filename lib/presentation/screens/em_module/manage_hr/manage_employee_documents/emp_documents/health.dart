@@ -32,9 +32,6 @@ class HealthEmpDoc extends StatefulWidget {
 }
 
 class _HealthEmpDocState extends State<HealthEmpDoc> {
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
 
@@ -55,31 +52,38 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 20;
-    items = List.generate(60, (index) => 'Item ${index + 1}');
-    hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
+   // hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
     //   _controller.add(data);
     // }).catchError((error) {
     //   // Handle error
     // });
 
-    _loadColors();
+    //_loadColors();
   }
-  void _loadColors() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      for (int i = 0; i < hrcontainerColors.length; i++) {
-        int? colorValue = prefs.getInt('containerColor$i');
-        if (colorValue != null) {
-          hrcontainerColors[i] = Color(colorValue);
-        }
-      }
-    });
-  }
+  // void _loadColors() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     for (int i = 0; i < hrcontainerColors.length; i++) {
+  //       int? colorValue = prefs.getInt('containerColor$i');
+  //       if (colorValue != null) {
+  //         hrcontainerColors[i] = Color(colorValue);
+  //       }
+  //     }
+  //   });
+  // }
   String? expiryType;
   int docMetaId = 0;
+
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
+
+  void onPageNumberPressed(int pageNumber) {
+    setState(() {
+      currentPage = pageNumber;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -199,328 +203,318 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                     );
                   }
                   if(snapshot.hasData){
-                    return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        int serialNumber =
-                            index + 1 + (currentPage - 1) * itemsPerPage;
-                        String formattedSerialNumber =
-                        serialNumber.toString().padLeft(2, '0');
-                        return Column(
-                          children: [
-                            SizedBox(height: AppSize.s5),
-                            Container(
-                              padding: EdgeInsets.only(bottom: AppPadding.p5),
-                              margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
-                              decoration: BoxDecoration(
-                                color:ColorManager.white,
-                                borderRadius: BorderRadius.circular(4),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: ColorManager.grey.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              height: AppSize.s56,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    int totalItems = snapshot.data!.length;
+                    int totalPages = (totalItems / itemsPerPage).ceil();
+                    List<EmployeeDocumentModal> paginatedData =
+                    snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: paginatedData.length,
+                            itemBuilder: (context, index) {
+                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                              String formattedSerialNumber =
+                              serialNumber.toString().padLeft(2, '0');
+                              EmployeeDocumentModal employeedoc = paginatedData[index];
+                              return Column(
                                 children: [
-                                  Expanded(
-                                    child: Center(
-                                        child: Text(
-                                          formattedSerialNumber,
-                                          // snapshot.data![index].name.toString(),
-                                          style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464)
-                                            // color: isSelected ? Colors.white : Colors.black,
-                                          ),
-                                          textAlign: TextAlign.start,
-                                        )),
-                                  ),
-                                  Expanded(
-                                    child: Center(
-                                        child: Text(
-                                          snapshot.data![index].docName,
-                                          style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464)
-                                            // color: isSelected ? Colors.white : Colors.black,
-                                          ),
-                                        )),
-                                  ),
-                                  Expanded(
-                                    child: Center(
-                                        child: Text(
-                                          snapshot.data![index].expiry,
-                                          style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464)
-                                            // color: isSelected ? Colors.white : Colors.black,
-                                          ),
-                                        )),
-                                  ),
-                                  Expanded(
-                                    child: Center(
-                                        child: Text(
-                                          snapshot.data![index].reminderThreshold,
-                                          style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464)
-                                            // color: isSelected ? Colors.white : Colors.black,
-                                          ),
-                                        )),
-                                  ),
-                                  Expanded(
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          IconButton(onPressed: (){
-                                            showDialog(context: context, builder: (context){
-                                              return FutureBuilder<GetEmployeeSetupPrefillData>(
-                                                future: getPrefillEmployeeDocTab(context,snapshot.data![index].employeeDocTypesetupId),
-                                                builder: (context,snapshotPrefill) {
-                                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                    return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                                  }
-                                                  var expiry = snapshotPrefill.data?.expiry.toString();
-                                                  var docName = snapshotPrefill.data?.docName.toString();
-                                                  var empSetupId = snapshotPrefill.data?.employeeDocTypesetupId;
-                                                  var calender = snapshotPrefill.data?.reminderThreshold.toString();
-                                                  var empDocType = snapshotPrefill.data?.employeeDocTypesetupId;
-                                                  idDocController = TextEditingController(text: snapshotPrefill.data?.employeeDocTypesetupId.toString());
-                                                  docNamecontroller = TextEditingController(text:  snapshotPrefill.data?.docName.toString());
-                                                  dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
-                                                  expiryType = snapshotPrefill.data?.expiry.toString();
-                                                  dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
-                                    
-                                                  return EmpDocEditPopup(
-                                                    title:  'Edit Document',
-                                                    expiryType: expiryType,
-                                                    idDocController: idDocController,
-                                                    nameDocController: docNamecontroller,
-                                                    calenderController: dateController,
-                                                    onSavePredded: () async{
-                                                      await editEmployeeDocTypeSetupId(context,
-                                                          docName == docNamecontroller ? docName.toString() : docNamecontroller.text,
-                                                        expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-                                                        calender == dateController.text ? calender.toString() : dateController.text,
-                                                            snapshot.data![index].employeeDocTypesetupId,
-                                                        empDocType == docMetaId ? empDocType! : docMetaId,
-                                                          );
-                                                      getEmployeeDoc(context, widget.metaDocID,1,20).then((data) {
-                                                        _controller.add(data);
-                                                      }).catchError((error) {
-                                                        // Handle error
-                                                      });
-                                                      Navigator.pop(context);
-                                                      nameDocController.clear();
-                                                      dateController.clear();
-                                                      Future.delayed(
-                                                          Duration(
-                                                              seconds: 2),
-                                                              () {
-                                                            print(
-                                                                'Submit action completed!');
-                                                          });
-                                                    },
-                                    
-                                                    radioButton: StatefulBuilder(
-                                                      builder: (BuildContext context, void Function(void Function()) setState) {
-                                                        return Column(
-                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            CustomRadioListTile(
-                                                              value: "Not Applicable",
-                                                              groupValue: expiryType.toString(),
-                                                              onChanged: (value) {
-                                                                setState(() {
-                                                                  expiryType = value!;
-                                                                });
-                                                              },
-                                                              title: "Not Applicable",
-                                                            ),
-                                                            CustomRadioListTile(
-                                                              value: 'Scheduled',
-                                                              groupValue: expiryType.toString(),
-                                                              onChanged: (value) {
-                                                                setState(() {
-                                                                  expiryType = value!;
-                                                                });
-                                                              },
-                                                              title: 'Scheduled',
-                                                            ),
-                                                            CustomRadioListTile(
-                                                              value: 'Issuer Expiry',
-                                                              groupValue: expiryType.toString(),
-                                                              onChanged: (value) {
-                                                                setState(() {
-                                                                  expiryType = value!;
-                                                                });
-                                                              },
-                                                              title: 'Issuer Expiry',
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                    
-                                                    ),
-                                                    child:  FutureBuilder<List<EmployeeDocTabModal>>(
-                                                        future: getEmployeeDocTab(context),
-                                                        builder: (context,snapshot) {
-                                                          if(snapshot.connectionState == ConnectionState.waiting){
-                                                            return Shimmer.fromColors(
-                                                                baseColor: Colors.grey[300]!,
-                                                                highlightColor: Colors.grey[100]!,
-                                                                child: Container(
-                                                                  width: 350,
-                                                                  height: 30,
-                                                                  decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                )
-                                                            );
-                                                          }
-                                                          if(snapshot.hasData){
-                                                            List dropDown = [];
-                                                            int docType = 0;
-                                                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                            for(var i in snapshot.data!){
-                                                              dropDownMenuItems.add(
-                                                                DropdownMenuItem<String>(
-                                                                  child: Text(i.employeeDocType),
-                                                                  value: i.employeeDocType,
-                                                                ),
-                                                              );
-                                                            }
-                                                            return CICCDropdown(
-                                                                initialValue: dropDownMenuItems[0].value,
-                                                                onChange: (val){
-                                                                  for(var a in snapshot.data!){
-                                                                    if(a.employeeDocType == val){
-                                                                      docType = a.employeeDocMetaDataId;
-                                                                      docMetaId = docType;
-                                                                    }
-                                                                  }
-                                                                  print(":::${docType}");
-                                                                  print(":::<>${docMetaId}");
-                                                                },
-                                                                items:dropDownMenuItems
-                                    
-                                                            );
-                                                          }else{
-                                                            return SizedBox();
-                                                          }
+                                  SizedBox(height: AppSize.s5),
+                                  Container(
+                                    padding: EdgeInsets.only(bottom: AppPadding.p5),
+                                    margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
+                                    decoration: BoxDecoration(
+                                      color:ColorManager.white,
+                                      borderRadius: BorderRadius.circular(4),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: ColorManager.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    height: AppSize.s56,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Expanded(
+                                          child: Center(
+                                              child: Text(
+                                                formattedSerialNumber,
+                                                // snapshot.data![index].name.toString(),
+                                                style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Color(0xff686464)
+                                                  // color: isSelected ? Colors.white : Colors.black,
+                                                ),
+                                                textAlign: TextAlign.start,
+                                              )),
+                                        ),
+                                        Expanded(
+                                          child: Center(
+                                              child: Text(
+                                                employeedoc.docName,
+                                                style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Color(0xff686464)
+                                                  // color: isSelected ? Colors.white : Colors.black,
+                                                ),
+                                              )),
+                                        ),
+                                        Expanded(
+                                          child: Center(
+                                              child: Text(
+                                                employeedoc.expiry,
+                                                style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Color(0xff686464)
+                                                  // color: isSelected ? Colors.white : Colors.black,
+                                                ),
+                                              )),
+                                        ),
+                                        Expanded(
+                                          child: Center(
+                                              child: Text(
+                                                employeedoc.reminderThreshold,
+                                                style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Color(0xff686464)
+                                                  // color: isSelected ? Colors.white : Colors.black,
+                                                ),
+                                              )),
+                                        ),
+                                        ///edit
+                                        Expanded(
+                                          child: Center(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                IconButton(onPressed: (){
+                                                  showDialog(context: context, builder: (context){
+                                                    return FutureBuilder<GetEmployeeSetupPrefillData>(
+                                                      future: getPrefillEmployeeDocTab(context,employeedoc.employeeDocTypesetupId),
+                                                      builder: (context,snapshotPrefill) {
+                                                        if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                          return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
                                                         }
-                                                    ),
-                                    
-                                                  );
-                                                }
-                                              );
-                                                });
-                                               },
-                                                  icon: Icon(
-                                                  Icons.edit_outlined,
-                                                  size: 18,
-                                                  color: ColorManager.bluebottom,)),
-                                          SizedBox(width: 3,),
-                                          ///delete
-                                          IconButton(
-                                            onPressed: () async {
-                                            await showDialog(context: context,
-                                                  builder: (context) => DeletePopup(
-                                                      title: 'Delete Health Doc',
-                                                      onCancel: (){
-                                                    Navigator.pop(context);
-                                                  }, onDelete: (){
-                                                    setState(() async{
-                                                      await employeedoctypeSetupIdDelete(
-                                                          context,
-                                                          snapshot.data![index].employeeDocTypesetupId);
-                                                      getEmployeeDoc(context, widget.metaDocID,1,20).then((data) {
-                                                        _controller.add(data);
-                                                      }).catchError((error) {
-                                                        // Handle error
+                                                        var expiry = snapshotPrefill.data?.expiry.toString();
+                                                        var docName = snapshotPrefill.data?.docName.toString();
+                                                        var empSetupId = snapshotPrefill.data?.employeeDocTypesetupId;
+                                                        var calender = snapshotPrefill.data?.reminderThreshold.toString();
+                                                        var empDocType = snapshotPrefill.data?.employeeDocTypesetupId;
+                                                        idDocController = TextEditingController(text: snapshotPrefill.data?.employeeDocTypesetupId.toString());
+                                                        docNamecontroller = TextEditingController(text:  snapshotPrefill.data?.docName.toString());
+                                                       // dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
+                                                        expiryType = snapshotPrefill.data?.expiry.toString();
+                                                        dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
+
+                                                        return EmpDocEditPopup(
+                                                          title:  'Edit Document',
+                                                          expiryType: expiryType,
+                                                          idDocController: idDocController,
+                                                          nameDocController: docNamecontroller,
+                                                          calenderController: dateController,
+                                                          onSavePredded: () async{
+                                                            await editEmployeeDocTypeSetupId(context,
+                                                                docName == docNamecontroller ? docName.toString() : docNamecontroller.text,
+                                                              expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
+                                                              calender == dateController.text ? calender.toString() : dateController.text,
+                                                                  employeedoc.employeeDocTypesetupId,
+                                                              empDocType == docMetaId ? empDocType! : docMetaId,
+                                                                );
+                                                            getEmployeeDoc(context, widget.metaDocID,1,20).then((data) {
+                                                              _controller.add(data);
+                                                            }).catchError((error) {
+                                                              // Handle error
+                                                            });
+                                                            Navigator.pop(context);
+                                                            nameDocController.clear();
+                                                            dateController.clear();
+                                                            Future.delayed(
+                                                                Duration(
+                                                                    seconds: 2),
+                                                                    () {
+                                                                  print(
+                                                                      'Submit action completed!');
+                                                                });
+                                                          },
+
+                                                          radioButton: StatefulBuilder(
+                                                            builder: (BuildContext context, void Function(void Function()) setState) {
+                                                              return Column(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  CustomRadioListTile(
+                                                                    value: "Not Applicable",
+                                                                    groupValue: expiryType.toString(),
+                                                                    onChanged: (value) {
+                                                                      setState(() {
+                                                                        expiryType = value!;
+                                                                      });
+                                                                    },
+                                                                    title: "Not Applicable",
+                                                                  ),
+                                                                  CustomRadioListTile(
+                                                                    value: 'Scheduled',
+                                                                    groupValue: expiryType.toString(),
+                                                                    onChanged: (value) {
+                                                                      setState(() {
+                                                                        expiryType = value!;
+                                                                      });
+                                                                    },
+                                                                    title: 'Scheduled',
+                                                                  ),
+                                                                  CustomRadioListTile(
+                                                                    value: 'Issuer Expiry',
+                                                                    groupValue: expiryType.toString(),
+                                                                    onChanged: (value) {
+                                                                      setState(() {
+                                                                        expiryType = value!;
+                                                                      });
+                                                                    },
+                                                                    title: 'Issuer Expiry',
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            },
+
+                                                          ),
+                                                          child:  FutureBuilder<List<EmployeeDocTabModal>>(
+                                                              future: getEmployeeDocTab(context),
+                                                              builder: (context,snapshot) {
+                                                                if(snapshot.connectionState == ConnectionState.waiting){
+                                                                  return Shimmer.fromColors(
+                                                                      baseColor: Colors.grey[300]!,
+                                                                      highlightColor: Colors.grey[100]!,
+                                                                      child: Container(
+                                                                        width: 350,
+                                                                        height: 30,
+                                                                        decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                                      )
+                                                                  );
+                                                                }
+                                                                if(snapshot.hasData){
+                                                                  List dropDown = [];
+                                                                  int docType = 0;
+                                                                  List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                                                  for(var i in snapshot.data!){
+                                                                    dropDownMenuItems.add(
+                                                                      DropdownMenuItem<String>(
+                                                                        child: Text(i.employeeDocType),
+                                                                        value: i.employeeDocType,
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  return CICCDropdown(
+                                                                      initialValue: dropDownMenuItems[0].value,
+                                                                      onChange: (val){
+                                                                        for(var a in snapshot.data!){
+                                                                          if(a.employeeDocType == val){
+                                                                            docType = a.employeeDocMetaDataId;
+                                                                            docMetaId = docType;
+                                                                          }
+                                                                        }
+                                                                        print(":::${docType}");
+                                                                        print(":::<>${docMetaId}");
+                                                                      },
+                                                                      items:dropDownMenuItems
+
+                                                                  );
+                                                                }else{
+                                                                  return SizedBox();
+                                                                }
+                                                              }
+                                                          ),
+
+                                                        );
+                                                      }
+                                                    );
                                                       });
-                                                      Navigator.pop(context);
-                                                    });
-                                                  }
-                                                  )
-                                            );
-                                            },
-                                            icon: Icon(
-                                              size: 18,
-                                              Icons.delete_outline_outlined,
-                                              color: Color(0xffF6928A),
+                                                     },
+                                                        icon: Icon(
+                                                        Icons.edit_outlined,
+                                                        size: 18,
+                                                        color: ColorManager.bluebottom,)),
+                                                SizedBox(width: 3,),
+                                                ///delete
+                                                IconButton(
+                                                  onPressed: () async {
+                                                  await showDialog(context: context,
+                                                        builder: (context) => DeletePopup(
+                                                            title: 'Delete Health Doc',
+                                                            onCancel: (){
+                                                          Navigator.pop(context);
+                                                        }, onDelete: (){
+                                                          setState(() async{
+                                                            await employeedoctypeSetupIdDelete(
+                                                                context,
+                                                                employeedoc.employeeDocTypesetupId);
+                                                            getEmployeeDoc(context, widget.metaDocID,1,20).then((data) {
+                                                              _controller.add(data);
+                                                            }).catchError((error) {
+                                                              // Handle error
+                                                            });
+                                                            Navigator.pop(context);
+                                                          });
+                                                        }
+                                                        )
+                                                  );
+                                                  },
+                                                  icon: Icon(
+                                                    size: 18,
+                                                    Icons.delete_outline_outlined,
+                                                    color: Color(0xffF6928A),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          // InkWell(
-                                          //   onTap:(){
-                                          //
-                                          //     setState(() async{
-                                          //       await employeedoctypeSetupIdDelete(
-                                          //           context,
-                                          //           snapshot.data![index].employeeDocTypesetupId!);
-                                          //           getEmployeeDoc(context, widget.metaDocID,1,10).then((data) {
-                                          //           _controller.add(data);
-                                          //       }).catchError((error) {
-                                          //         // Handle error
-                                          //       });
-                                          //     });
-                                          //
-                                          //   },child: Icon(Icons.delete_outline_outlined,
-                                          //   size:20,color: Color(0xffF6928A),
-                                          //     )
-                                          // ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
-                              ),
-                            ),
-                          ],
-                        );
-                      },
+                              );
+                            },
+                          ),
+                        ),
+                        PaginationControlsWidget(
+                          currentPage: currentPage,
+                          items: snapshot.data!,
+                          itemsPerPage: itemsPerPage,
+                          onPreviousPagePressed: () {
+                            setState(() {
+                              currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                            });
+                          },
+                          onPageNumberPressed: (pageNumber) {
+                            setState(() {
+                              currentPage = pageNumber;
+                            });
+                          },
+                          onNextPagePressed: () {
+                            setState(() {
+                              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                            });
+                          },
+                        ),
+                        SizedBox(height: AppSize.s10)
+                      ],
                     );
                   }
                   return Offstage();
                 }
             ),
           ),
-          // PaginationControlsWidget(
-          //   currentPage: currentPage,
-          //   items: items,
-          //   itemsPerPage: itemsPerPage,
-          //   onPreviousPagePressed: () {
-          //     /// Handle previous page button press
-          //     setState(() {
-          //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-          //     });
-          //   },
-          //   onPageNumberPressed: (pageNumber) {
-          //     /// Handle page number tap
-          //     setState(() {
-          //       currentPage = pageNumber;
-          //     });
-          //   },
-          //   onNextPagePressed: () {
-          //     /// Handle next page button press
-          //     setState(() {
-          //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
-          //           ? currentPage + 1
-          //           : (items.length / itemsPerPage).ceil();
-          //     });
-          //   },
-          // ),
         ],
       ),
     );

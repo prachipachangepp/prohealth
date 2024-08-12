@@ -61,7 +61,8 @@ Future<List<AllCountyGet>> getZoneBYcompOffice(
             sucess: true,
             message: response.statusMessage,
             zoneName: item['zoneName'],
-            zoinId: item['zoneId'], countyId: item['county_id']));
+            zoinId: item['zoneId'],
+            countyId: item['county_id']));
       }
       print("County response:::::${itemsList}");
     } else {
@@ -78,12 +79,13 @@ Future<List<AllCountyGet>> getZoneBYcompOffice(
 
 ///county get
 Future<List<AllCountyZoneGet>> getZoneByCounty(BuildContext context,
-    String officeId, int compId, int countyId, int pageNo, int noOfRow) async {
+    String officeId, int countyId, int pageNo, int noOfRow) async {
   List<AllCountyZoneGet> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: AllZoneRepository.countyZoneGet(
-            companyId: compId,
+            companyId: companyId,
             officeId: officeId,
             pageNo: pageNo,
             noOfRow: noOfRow,
@@ -114,25 +116,24 @@ Future<List<AllCountyZoneGet>> getZoneByCounty(BuildContext context,
     return itemsList;
   }
 }
+
 /// zone county prefill patch
-Future<CountyZonePrefillGet> getZoneByCountyPrefill(BuildContext context, int zoinId) async {
+Future<CountyZonePrefillGet> getZoneByCountyPrefill(
+    BuildContext context, int zoinId) async {
   var itemsList;
   try {
-    final response = await Api(context).get(
-        path: AllZoneRepository.countyZoneDelete(zoinId: zoinId));
+    final response = await Api(context)
+        .get(path: AllZoneRepository.countyZoneDelete(zoinId: zoinId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
       print("1");
 
-        itemsList=CountyZonePrefillGet(
-
-            countyId: response.data['county_id'] ?? 0,
-            zoneId: response.data['zone_id'] ?? 0,
-            zoneName: response.data['zoneName'] ?? "--",
-            companyId: response.data['companyId'],
-            officeId: response.data['officeId']);
-
-
+      itemsList = CountyZonePrefillGet(
+          countyId: response.data['county_id'] ?? 0,
+          zoneId: response.data['zone_id'] ?? 0,
+          zoneName: response.data['zoneName'] ?? "--",
+          companyId: response.data['companyId'],
+          officeId: response.data['officeId']);
     } else {
       print('County Api Error');
       return itemsList;
@@ -181,9 +182,14 @@ Future<List<AllCountyGetList>> getCountyZoneList(BuildContext context) async {
 }
 
 /// Zone county add
-Future<ApiData> addZoneCountyData(BuildContext context, String zoneName,
-    int countyId, String officeId, int companyId) async {
+Future<ApiData> addZoneCountyData(
+  BuildContext context,
+  String zoneName,
+  int countyId,
+  String officeId,
+) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response =
         await Api(context).post(path: AllZoneRepository.addCountyZone(), data: {
       "zoneName": zoneName,
@@ -316,7 +322,8 @@ Future<ApiData> addCounty(
       "officeId": officeId
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Data all added county ${countyName} + ${stateName} + ${countryName} + ${lat} + ${long} + ${companyId} + ${officeId}" );
+      print(
+          "Data all added county ${countyName} + ${stateName} + ${countryName} + ${lat} + ${long} + ${companyId} + ${officeId}");
       print("County added");
       return ApiData(
           statusCode: response.statusCode!,
@@ -348,8 +355,8 @@ Future<ApiData> updateCounty(
     int companyId,
     String officeId) async {
   try {
-    var response =
-    await Api(context).patch(path: AllZoneRepository.updateCounty(countyId: countyId), data: {
+    var response = await Api(context)
+        .patch(path: AllZoneRepository.updateCounty(countyId: countyId), data: {
       "countyName": countyName,
       "state": stateName,
       "Country": countryName,
@@ -383,24 +390,23 @@ Future<CountyPrefillGet> countyPrefillGet(
     BuildContext context, int countyId) async {
   var itemsList;
   try {
-    final response = await Api(context).get(
-        path: AllZoneRepository.updateCounty(countyId: countyId));
+    final response = await Api(context)
+        .get(path: AllZoneRepository.updateCounty(countyId: countyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
       print("1");
 
-       itemsList =  CountyPrefillGet(
-            countyName: response.data['countyName'],
-            state: response.data['state'],
-            country: response.data['Country'],
-            sucess: true,
-            message: response.statusMessage,
-           // zoneName: response.data['zoneName'],
-           // zoinId: response.data['zoneId'],
-           countyId: response.data['county_id'],
-           companyId: response.data['companyId'],
-           officeId: response.data['officeId']);
-
+      itemsList = CountyPrefillGet(
+          countyName: response.data['countyName'],
+          state: response.data['state'],
+          country: response.data['Country'],
+          sucess: true,
+          message: response.statusMessage,
+          // zoneName: response.data['zoneName'],
+          // zoinId: response.data['zoneId'],
+          countyId: response.data['county_id'],
+          companyId: response.data['companyId'],
+          officeId: response.data['officeId']);
     } else {
       print('County prefill Api Error');
       return itemsList;
@@ -440,12 +446,13 @@ Future<ApiData> deleteCounty(BuildContext context, int countyId) async {
 
 ///zipcode,zone get
 Future<List<AllZipCodeGet>> getZipcodeSetup(
-    BuildContext context, String officeId, int compId, pageNo, noOfRow) async {
+    BuildContext context, String officeId, pageNo, noOfRow) async {
   List<AllZipCodeGet> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: AllZoneRepository.zipcodeSetupGet(
-            companyId: compId,
+            companyId: companyId,
             officeId: officeId,
             pageNo: pageNo,
             noOfRow: noOfRow));
@@ -485,29 +492,30 @@ Future<List<AllZipCodeGet>> getZipcodeSetup(
 /// Zipcode prefill
 Future<ZipCodeGetPrefill> getZipcodeSetupPrefill(
     BuildContext context, int zipCodeSetupId) async {
- var itemsList;
+  var itemsList;
   try {
     final response = await Api(context).get(
-        path: AllZoneRepository.deleteZipCodeSetup(zipCodeSetupId: zipCodeSetupId));
+        path: AllZoneRepository.deleteZipCodeSetup(
+            zipCodeSetupId: zipCodeSetupId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
       print("1");
 
-        itemsList = ZipCodeGetPrefill(
-            zipcodeSetupId: response.data['zipcodeSetupId'],
-            zoneId: response.data['zoneId'],
-            countyID: response.data['countyId'],
-            companyID: response.data['companyId'],
-            city: response.data['city'],
-            zipcode: response.data['zipcode'],
-            latitude: response.data['latitude'],
-            longitude: response.data['longitude'],
-            landmark: response.data['landmark'],
-            officeId: response.data['officeId'],
-            sucess: true,
-            message: response.statusMessage,
-            zoneName: response.data['zone'] ?? "--",
-            countyName: response.data['county'] ?? "--");
+      itemsList = ZipCodeGetPrefill(
+          zipcodeSetupId: response.data['zipcodeSetupId'],
+          zoneId: response.data['zoneId'],
+          countyID: response.data['countyId'],
+          companyID: response.data['companyId'],
+          city: response.data['city'],
+          zipcode: response.data['zipcode'],
+          latitude: response.data['latitude'],
+          longitude: response.data['longitude'],
+          landmark: response.data['landmark'],
+          officeId: response.data['officeId'],
+          sucess: true,
+          message: response.statusMessage,
+          zoneName: response.data['zone'] ?? "--",
+          countyName: response.data['county'] ?? "--");
 
       // print("Org Document response:::::${itemsList}");
     } else {
@@ -554,7 +562,6 @@ Future<ApiData> addZipCodeSetup(
   BuildContext context,
   int zoneId,
   int countyId,
-  int companyId,
   String officeId,
   String cityName,
   String zipCode,
@@ -563,6 +570,7 @@ Future<ApiData> addZipCodeSetup(
   String landmark,
 ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context)
         .post(path: AllZoneRepository.addZipCodeSetupPost(), data: {
       "zoneId": zoneId,
@@ -602,7 +610,6 @@ Future<ApiData> updateZipCodeSetup(
   int zipCodeSetupId,
   int zoneId,
   int countyId,
-  int companyId,
   String officeId,
   String cityName,
   String zipCode,
@@ -611,6 +618,7 @@ Future<ApiData> updateZipCodeSetup(
   String landmark,
 ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: AllZoneRepository.updateZipCodeSetup(
             zipCodeSetupId: zipCodeSetupId),
@@ -642,5 +650,41 @@ Future<ApiData> updateZipCodeSetup(
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Get zipCode by countyId
+Future<List<ZipcodeByCountyIdData>> getZipcodeByCountyId(
+    {required BuildContext context, required int countyId}) async {
+  List<ZipcodeByCountyIdData> itemsList = [];
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path: AllZoneRepository.zipcodeByCountyId(
+            companyId: companyId, countyId: countyId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(ZipcodeByCountyIdData(
+            zipcodeSetupId: item['zipcodeSetupId'],
+            zoneId: item['zoneId'],
+            countyId: item['countyId'],
+            city: item['city'],
+            zipCode: item['zipcode'],
+            latitude: item['latitude'],
+            longitude: item['longitude'],
+            landMark: item['landmark'],
+            companyId: item['companyId'],
+            officeId: item['officeId']));
+      }
+      print("Zipcode by CountyId response:::::${itemsList}");
+    } else {
+      print('Zipcode by CountyId Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
   }
 }

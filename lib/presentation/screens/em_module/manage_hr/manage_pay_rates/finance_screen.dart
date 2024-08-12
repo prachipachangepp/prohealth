@@ -18,9 +18,11 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/table_constant.dart';
 import '../../widgets/text_form_field_const.dart';
@@ -28,7 +30,7 @@ import '../../widgets/text_form_field_const.dart';
 
 
 class FinanceScreen extends StatefulWidget {
-  FinanceScreen({super.key});
+  FinanceScreen({super.key,});
 
   @override
   State<FinanceScreen> createState() => _FinanceScreenState();
@@ -42,9 +44,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
   final StreamController<List<PayRateFinanceData>> _payRatesController = StreamController<List<PayRateFinanceData>>();
 
   String _selectedOption = 'Option 1';
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
   int docZoneId = 0;
   int docAddVisitTypeId = 0;
   int docVisitTypeId =0;
@@ -52,19 +51,19 @@ class _FinanceScreenState extends State<FinanceScreen> {
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 6;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
+  }
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
 
+  void onPageNumberPressed(int pageNumber) {
+    setState(() {
+      currentPage = pageNumber;
+    });
   }
  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-    List<String> currentPageItems = items.sublist(
-      (currentPage - 1) * itemsPerPage,
-      min(currentPage * itemsPerPage, items.length),
-    );
-
     return Material(
       color: Colors.white,
       child: Padding(
@@ -441,282 +440,314 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     );
                   }
                   if (snapshot.hasData) {
-                    return ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    int serialNumber =
-                        index + 1 + (currentPage - 1) * itemsPerPage;
-                    String formattedSerialNumber =
-                        serialNumber.toString().padLeft(2, '0');
+                    int totalItems = snapshot.data!.length;
+                    int totalPages = (totalItems / itemsPerPage).ceil();
+                    List<PayRateFinanceData> paginatedData =
+                    snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+
                     return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 5),
-                        Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xff000000).withOpacity(0.25),
-                                  spreadRadius: 0,
-                                  blurRadius: 4,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            height: 50,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      formattedSerialNumber,
-                                      //textAlign: TextAlign.end,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: const Color(0xff686464),
-                                        decoration: TextDecoration.none,
+                        Expanded(
+                          child: ListView.builder(
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: paginatedData.length,
+                                            itemBuilder: (context, index) {
+                                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                              String formattedSerialNumber =
+                                              serialNumber.toString().padLeft(2, '0');
+                                              PayRateFinanceData finance = paginatedData[index];
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 5),
+                              Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(4),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0xff000000).withOpacity(0.25),
+                                        spreadRadius: 0,
+                                        blurRadius: 4,
+                                        offset: const Offset(0, 2),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      snapshot.data![index].typeVisit,
-                                      //textAlign: TextAlign.end,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: const Color(0xff686464),
-                                        decoration: TextDecoration.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '\$${snapshot.data![index].payRates}',
-                                      //textAlign: TextAlign.end,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: const Color(0xff686464),
-                                        decoration: TextDecoration.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '${snapshot.data![index].permile}',
-                                      //textAlign: TextAlign.end,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: const Color(0xff686464),
-                                        decoration: TextDecoration.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '${snapshot.data![index].zone!}' ,
-                                     // textAlign: TextAlign.start,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: const Color(0xff686464),
-                                        decoration: TextDecoration.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return FutureBuilder<PayRatePrefillFinanceData>(
-                                                  future:payPrefillRatesDataGet(context,snapshot.data![index].payRatesSetupId),
-                                                  builder: (context,snapshotPrefill) {
-                                                    if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                      return Center(
-                                                        child: CircularProgressIndicator(
-                                                          color: ColorManager.blueprime,
-                                                        ),
-                                                      );
-                                                    }
-                                                    var payRates = snapshotPrefill.data?.payRates;
-                                                    var visitTypeId = snapshotPrefill.data?.typeOfVisitId;
-                                                    var perMile = snapshotPrefill.data?.perMiles;
-                                                    print(":::PAYRATESTYPE${visitTypeId}");
-                                                    var zoneTypeId = snapshotPrefill.data?.zoneId;
-                                                    payRatesController = TextEditingController(text: snapshotPrefill.data?.payRates.toString());
-                                                    perMilesController = TextEditingController(text: snapshotPrefill.data?.perMiles.toString());
-                                                    return PayRatesPopup(
-                                                      title: 'Edit Payrate',
-                                                      child1: SMTextFConst(
-                                                        enable: false,
-                                                        readOnly: true,
-                                                        controller: TextEditingController(text: visitTypeId.toString(),),
-                                                        keyboardType: TextInputType.number,
-                                                        text: 'Type of Visit',
-                                                      ),
-                                                      child2:  FutureBuilder<List<AllZoneData>>(
-                                                          future: getAllZone(context),
-                                                          builder: (context,snapshot) {
-                                                            if(snapshot.connectionState == ConnectionState.waiting){
-                                                              return Shimmer.fromColors(
-                                                                  baseColor: Colors.grey[300]!,
-                                                                  highlightColor: Colors.grey[100]!,
-                                                                  child: Container(
-                                                                    width: 354,
-                                                                    height: 30,
-                                                                    decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                  )
-                                                              );
-                                                            }
-                                                            if (snapshot.data!.isEmpty) {
-                                                              return Center(
-                                                                child: Text(
-                                                                  AppString.dataNotFound,
-                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                    fontWeight: FontWeightManager.medium,
-                                                                    fontSize: FontSize.s12,
-                                                                    color: ColorManager.mediumgrey,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                            if(snapshot.hasData){
-                                                              List dropDown = [];
-                                                              int docType = 0;
-                                                              List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                                              for(var i in snapshot.data!){
-                                                                dropDownTypesList.add(
-                                                                  DropdownMenuItem<String>(
-                                                                    child: Text(i.zoneName),
-                                                                    value: i.zoneName,
-                                                                  ),
-                                                                );
-                                                              }
-                                                              return CICCDropdown(
-                                                                  initialValue: dropDownTypesList[0].value,
-                                                                  onChange: (val){
-                                                                    for(var a in snapshot.data!){
-                                                                      if(a.zoneName == val){
-                                                                        docType = a.zoneId;
-                                                                        docZoneId = docType;
-                                                                      }
-                                                                    }
-                                                                    print(":::${docType}");
-                                                                    print(":::<>${docZoneId}");
-                                                                  },
-                                                                  items:dropDownTypesList
-                                                              );
-                                                            }
-                                                            return const SizedBox();
-                                                          }
-                                                      ),
-                                                      payRatesController: payRatesController,
-                                                      perMilesController: perMilesController,
-                                                      onPressed: () async{
-                                                        await updatePayRatesSetupPost(
-                                                            context,
-                                                            1,
-                                                            1,
-                                                            perMile == int.parse(perMilesController.text) ? perMile! : int.parse(perMilesController.text),
-                                                            visitTypeId!,
-                                                            zoneTypeId == docZoneId ? zoneTypeId! : docZoneId,
-                                                             payRates == int.parse(payRatesController.text) ? payRates! : int.parse(payRatesController.text),
-                                                          snapshot.data![index].payRatesSetupId,);
-                                                        print("ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
-                                                        payRatesDataGet(context,1,1,30).then((data) {
-                                                          _payRatesController.add(data);
-                                                        }).catchError((error) {
-                                                          // Handle error
-                                                        });
-                                                        docZoneId = 0;
-                                                        zoneTypeId = 0;
-                                                        visitTypeId = 0;
-                                                        payRatesController.clear();
-                                                        perMilesController.clear();
-                                                      },);
-                                                  }
-                                                );
-                                              },
-                                            );
-                                          },
-                                          icon: Icon(
-                                            Icons.edit_outlined,size: 18,
-                                            color: ColorManager.blueprime,
+                                  height: 50,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            formattedSerialNumber,
+                                            //textAlign: TextAlign.end,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
                                           ),
                                         ),
-                                        IconButton(onPressed: (){
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  StatefulBuilder(
-                                                    builder: (BuildContext context, void Function(void Function()) setState) {
-                                                      return  DeletePopup(
-                                                          title: 'Delete Pay Rates',
-                                                          loadingDuration: _isLoading,
-                                                          onCancel: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          }, onDelete: () async {
-                                                        setState(() {
-                                                          _isLoading = true;
-                                                        });
-                                                        try {
-                                                          await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
-                                                          setState(() async {
-                                                            await payRatesDataGet(context,1,1,30).then((data) {
-                                                              _payRatesController.add(data);
-                                                            }).catchError((error) {
-                                                              // Handle error
-                                                            });
-                                                            Navigator.pop(context);
-                                                          });
-                                                        } finally {
-                                                          setState(() {
-                                                            _isLoading = false;
-                                                          });
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            finance.typeVisit,
+                                            //textAlign: TextAlign.end,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            '\$${finance.payRates}',
+                                            //textAlign: TextAlign.end,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            '${finance.permile}',
+                                            //textAlign: TextAlign.end,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            '${finance.zone!}' ,
+                                           // textAlign: TextAlign.start,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return FutureBuilder<PayRatePrefillFinanceData>(
+                                                        future:payPrefillRatesDataGet(context,finance.payRatesSetupId),
+                                                        builder: (context,snapshotPrefill) {
+                                                          if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                            return Center(
+                                                              child: CircularProgressIndicator(
+                                                                color: ColorManager.blueprime,
+                                                              ),
+                                                            );
+                                                          }
+                                                          var payRates = snapshotPrefill.data?.payRates;
+                                                          var visitTypeId = snapshotPrefill.data?.typeOfVisitId;
+                                                          var perMile = snapshotPrefill.data?.perMiles;
+                                                          print(":::PAYRATESTYPE${visitTypeId}");
+                                                          var zoneTypeId = snapshotPrefill.data?.zoneId;
+                                                          payRatesController = TextEditingController(text: snapshotPrefill.data?.payRates.toString());
+                                                          perMilesController = TextEditingController(text: snapshotPrefill.data?.perMiles.toString());
+                                                          return PayRatesPopup(
+                                                            title: 'Edit Payrate',
+                                                            child1: SMTextFConst(
+                                                              enable: false,
+                                                              readOnly: true,
+                                                              controller: TextEditingController(text: visitTypeId.toString(),),
+                                                              keyboardType: TextInputType.number,
+                                                              text: 'Type of Visit',
+                                                            ),
+                                                            child2:  FutureBuilder<List<AllZoneData>>(
+                                                                future: getAllZone(context),
+                                                                builder: (context,snapshot) {
+                                                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                                                    return Shimmer.fromColors(
+                                                                        baseColor: Colors.grey[300]!,
+                                                                        highlightColor: Colors.grey[100]!,
+                                                                        child: Container(
+                                                                          width: 354,
+                                                                          height: 30,
+                                                                          decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                                        )
+                                                                    );
+                                                                  }
+                                                                  if (snapshot.data!.isEmpty) {
+                                                                    return Center(
+                                                                      child: Text(
+                                                                        AppString.dataNotFound,
+                                                                        style: CustomTextStylesCommon.commonStyle(
+                                                                          fontWeight: FontWeightManager.medium,
+                                                                          fontSize: FontSize.s12,
+                                                                          color: ColorManager.mediumgrey,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  if(snapshot.hasData){
+                                                                    List dropDown = [];
+                                                                    int docType = 0;
+                                                                    List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                                                    for(var i in snapshot.data!){
+                                                                      dropDownTypesList.add(
+                                                                        DropdownMenuItem<String>(
+                                                                          child: Text(i.zoneName),
+                                                                          value: i.zoneName,
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                    return CICCDropdown(
+                                                                        initialValue: dropDownTypesList[0].value,
+                                                                        onChange: (val){
+                                                                          for(var a in snapshot.data!){
+                                                                            if(a.zoneName == val){
+                                                                              docType = a.zoneId;
+                                                                              docZoneId = docType;
+                                                                            }
+                                                                          }
+                                                                          print(":::${docType}");
+                                                                          print(":::<>${docZoneId}");
+                                                                        },
+                                                                        items:dropDownTypesList
+                                                                    );
+                                                                  }
+                                                                  return const SizedBox();
+                                                                }
+                                                            ),
+                                                            payRatesController: payRatesController,
+                                                            perMilesController: perMilesController,
+                                                            onPressed: () async{
+                                                              await updatePayRatesSetupPost(
+                                                                  context,
+                                                                  1,
+                                                                  1,
+                                                                  perMile == int.parse(perMilesController.text) ? perMile! : int.parse(perMilesController.text),
+                                                                  visitTypeId!,
+                                                                  zoneTypeId == docZoneId ? zoneTypeId! : docZoneId,
+                                                                   payRates == int.parse(payRatesController.text) ? payRates! : int.parse(payRatesController.text),
+                                                                snapshot.data![index].payRatesSetupId,);
+                                                              print("ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
+                                                              payRatesDataGet(context,1,1,30).then((data) {
+                                                                _payRatesController.add(data);
+                                                              }).catchError((error) {
+                                                                // Handle error
+                                                              });
+                                                              docZoneId = 0;
+                                                              zoneTypeId = 0;
+                                                              visitTypeId = 0;
+                                                              payRatesController.clear();
+                                                              perMilesController.clear();
+                                                            },);
                                                         }
-
-
-
-                                                      });
+                                                      );
                                                     },
+                                                  );
+                                                },
+                                                icon: Icon(
+                                                  Icons.edit_outlined,size: 18,
+                                                  color: ColorManager.blueprime,
+                                                ),
+                                              ),
+                                              IconButton(onPressed: (){
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        StatefulBuilder(
+                                                          builder: (BuildContext context, void Function(void Function()) setState) {
+                                                            return  DeletePopup(
+                                                                title: 'Delete Pay Rates',
+                                                                loadingDuration: _isLoading,
+                                                                onCancel: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                }, onDelete: () async {
+                                                              setState(() {
+                                                                _isLoading = true;
+                                                              });
+                                                              try {
+                                                                await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
+                                                                setState(() async {
+                                                                  await payRatesDataGet(context,1,1,30).then((data) {
+                                                                    _payRatesController.add(data);
+                                                                  }).catchError((error) {
+                                                                    // Handle error
+                                                                  });
+                                                                  Navigator.pop(context);
+                                                                });
+                                                              } finally {
+                                                                setState(() {
+                                                                  _isLoading = false;
+                                                                });
+                                                              }
 
-                                                  ));
-                                        }, icon: Icon(
-                                          Icons.delete_outline_outlined,
-                                          size: 18,color: ColorManager.red,))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 30,)
-                              ],
-                            )),
+
+
+                                                            });
+                                                          },
+
+                                                        ));
+                                              }, icon: Icon(
+                                                Icons.delete_outline_outlined,
+                                                size: 18,color: ColorManager.red,))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 30,)
+                                    ],
+                                  )),
+                            ],
+                          );
+                                            }),
+                        ),
+                        PaginationControlsWidget(
+                          currentPage: currentPage,
+                          items: snapshot.data!,
+                          itemsPerPage: itemsPerPage,
+                          onPreviousPagePressed: () {
+                            setState(() {
+                              currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                            });
+                          },
+                          onPageNumberPressed: (pageNumber) {
+                            setState(() {
+                              currentPage = pageNumber;
+                            });
+                          },
+                          onNextPagePressed: () {
+                            setState(() {
+                              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                            });
+                          },
+                        ),
+                        SizedBox(height: AppSize.s10),
                       ],
                     );
-                  });
   }
   return const Offstage();
 },

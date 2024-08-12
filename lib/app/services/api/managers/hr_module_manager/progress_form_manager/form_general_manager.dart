@@ -8,7 +8,6 @@ import '../../../repository/hr_module_repository/form_repository/form_general_re
 
 Future<ApiDataRegister> postgeneralscreendata(
     BuildContext context,
-
     String code,
     int userID,
     String firstName,
@@ -83,7 +82,7 @@ Future<ApiDataRegister> postgeneralscreendata(
         "personalEmail": personalEmail,
         "workEmail": workEmail,
         "address": address,
-        "dateOfBirth":  "${dateOfBirth}T00:00:00Z",
+        "dateOfBirth":  "${dateOfBirth}T00:00:00Z", //"${issueDate}T00:00:00Z",
         "emergencyContact": emergencyContact,
         "covreage": covreage,
         "employment": employment,

@@ -14,10 +14,7 @@ Future<ApiDataRegister> postlicensesscreen(
     String licensure,
     String licenseNumber,
     String org,
-    String documentType
-
-
-    ) async {
+    String documentType) async {
   try {
     var response = await ApiOffer(context).post(
       path: ProgressBarRepository.postlicensesscreen(),
@@ -30,8 +27,7 @@ Future<ApiDataRegister> postlicensesscreen(
         "licensure": licensure,
         "licenseNumber": licenseNumber,
         "org": org,
-        "documentType":documentType
-
+        "documentType": documentType
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -39,10 +35,13 @@ Future<ApiDataRegister> postlicensesscreen(
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Licenses data saved")),
       );
+      var data = response.data;
+      var liscenseIdget = data['licenseId'];
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,
           success: true,
+          licenses: liscenseIdget,
           message: response.statusMessage!);
     } else {
       print("Error 1");

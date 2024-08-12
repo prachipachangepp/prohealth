@@ -34,14 +34,14 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
               ReminderThreshold: item['ReminderThreshold'] ?? '--',
             Expiry: item['Expiry'] ?? '--',
             DocumentType: item['DocumentType'] ?? '--',
-             // approved: item['approved'] ?? false)
+              approved: item['approved'])
           // EmployeeDocTabModal(
           //   employeeDocType: item['EmployeeDocumentType']== null ?"null" :item['EmployeeDocumentType'],
           //   employeeDocMetaDataId: item['EmployeeDocumentTypeMetaDataId']== null ? 0 :item['EmployeeDocumentTypeMetaDataId'],
           //   success: true,
           //   message: response.statusMessage!,
           // ),
-          ) );
+           );
         print(".....Get ack Health......$response");
       }
       print("onboarding Document Response:::::${itemsList}");

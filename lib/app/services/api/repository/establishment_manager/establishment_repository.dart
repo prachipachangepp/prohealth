@@ -5,7 +5,7 @@ class EstablishmentManagerRepository {
   static String company = "/Company";
   static String details = "Details";
   static String companyLogo = "/company-logo";
-  static String uploadLogo = "uploadLogo";
+  static String uploadLogo = "uploadLogoBase64";
   static String companyOffice = "/company-office";
   static String add = "/add";
   static String document = "/document";
@@ -56,7 +56,10 @@ class EstablishmentManagerRepository {
       {required int companyId, required String type}) {
     return "$companyLogo/$type/$companyId/$uploadLogo";
   }
-
+///company-office/{company_Office_id}
+  static String companyOfficepatch({required int company_Office_id}) {
+    return "$companyOffice/$company_Office_id";
+  }
   static String addNewOffice() {
     return "$companyOffice/$add";
   }
@@ -74,8 +77,15 @@ class EstablishmentManagerRepository {
   static String updateOrgCocument({required int docId}){
     return "$CorporateDocument/$docId";
   }
+  ///company-office-service/{Office_service_id}
+  static String companyofficeservicepatch({required int Office_service_id}){
+    return "$companyOfficeService/$Office_service_id";
+  }
   static String companyOfficeServiceGet(){
     return "$companyOfficeService";
+  }
+  static String companyOfficeVendorGet(){
+    return "/vendors";
   }
   static String postCompanyOffice(){
     return "$companyOffice/$add";

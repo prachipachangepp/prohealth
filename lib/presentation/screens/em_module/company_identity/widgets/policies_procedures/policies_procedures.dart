@@ -48,6 +48,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
+
   @override
   void initState() {
     super.initState();
@@ -99,13 +100,11 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         expiryType: expiryType.toString(),
                                         expiryDate: calenderController.text,
                                         expiryReminder: "Schedule",
-                                        companyId: 11,
                                         officeId: "Office 1",
                                       );
                                       setState(() async {
                                         await orgSubDocumentGet(
                                           context,
-                                          11,
                                           docTypeMetaId,
                                           docSubTypeMetaId,
                                           1,
@@ -123,6 +122,70 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                       });
                                     }
                                   },
+                                  child:  FutureBuilder<List<DocumentTypeData>>(
+                                      future: documentTypeGet(context),
+                                      builder: (context,snapshot) {
+                                        if(snapshot.connectionState == ConnectionState.waiting){
+                                          return Shimmer.fromColors(
+                                              baseColor: Colors.grey[300]!,
+                                              highlightColor: Colors.grey[100]!,
+                                              child: Container(
+                                                width: 350,
+                                                height: 30,
+                                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                              )
+                                          );
+                                        }
+                                        if (snapshot.data!.isEmpty) {
+                                          return Center(
+                                            child: Text(
+                                              AppString.dataNotFound,
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                fontWeight: FontWeightManager.medium,
+                                                fontSize: FontSize.s12,
+                                                color: ColorManager.mediumgrey,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        if(snapshot.hasData){
+                                          List dropDown = [];
+                                          int docType = 0;
+                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                          for(var i in snapshot.data!){
+                                            dropDownMenuItems.add(
+                                              DropdownMenuItem<String>(
+                                                child: Text(i.docType),
+                                                value: i.docType,
+                                              ),
+                                            );
+                                          }
+                                          return CICCDropdown(
+                                              initialValue: dropDownMenuItems[0].value,
+                                              onChange: (val){
+                                                for(var a in snapshot.data!){
+                                                  if(a.docType == val){
+                                                    docType = a.docID;
+                                                    docTypeMetaId = docType;
+
+                                                  }
+                                                }
+                                                identityDocumentTypeGet(context,docTypeMetaId).then((data) {
+                                                  _identityDataController.add(data);
+                                                }).catchError((error) {
+                                                  // Handle error
+                                                });
+
+                                                print(":::${docType}");
+                                                print(":::<>${docTypeMetaId}");
+                                              },
+                                              items:dropDownMenuItems
+                                          );
+                                        }else{
+                                          return SizedBox();
+                                        }
+                                      }
+                                  ),
                                   child1: StreamBuilder<List<IdentityDocumentIdData>>(
                                       stream: _identityDataController.stream,
                                       builder: (context,snapshot) {
@@ -217,70 +280,6 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     ],
                                   ),
                                   title: '',
-                                  child:  FutureBuilder<List<DocumentTypeData>>(
-                                      future: documentTypeGet(context),
-                                      builder: (context,snapshot) {
-                                        if(snapshot.connectionState == ConnectionState.waiting){
-                                          return Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: 350,
-                                                height: 30,
-                                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                              )
-                                          );
-                                        }
-                                        if (snapshot.data!.isEmpty) {
-                                          return Center(
-                                            child: Text(
-                                              AppString.dataNotFound,
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                fontWeight: FontWeightManager.medium,
-                                                fontSize: FontSize.s12,
-                                                color: ColorManager.mediumgrey,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if(snapshot.hasData){
-                                          List dropDown = [];
-                                          int docType = 0;
-                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                          for(var i in snapshot.data!){
-                                            dropDownMenuItems.add(
-                                              DropdownMenuItem<String>(
-                                                child: Text(i.docType),
-                                                value: i.docType,
-                                              ),
-                                            );
-                                          }
-                                          return CICCDropdown(
-                                              initialValue: dropDownMenuItems[0].value,
-                                              onChange: (val){
-                                                for(var a in snapshot.data!){
-                                                  if(a.docType == val){
-                                                    docType = a.docID;
-                                                    docTypeMetaId = docType;
-
-                                                  }
-                                                }
-                                                identityDocumentTypeGet(context,docTypeMetaId).then((data) {
-                                                  _identityDataController.add(data);
-                                                }).catchError((error) {
-                                                  // Handle error
-                                                });
-
-                                                print(":::${docType}");
-                                                print(":::<>${docTypeMetaId}");
-                                              },
-                                              items:dropDownMenuItems
-                                          );
-                                        }else{
-                                          return SizedBox();
-                                        }
-                                      }
-                                  ),
                                 );
                               },
 
@@ -296,7 +295,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
             StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context,snapshot) {
-                orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+                orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 6).then((data) {
                   _controller.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -392,6 +391,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                             IconButton(onPressed: (){
                                               showDialog(context: context, builder: (context){
                                                 return CCScreenEditPopup(
+                                                  height: 350,
                                                   title: "Edit Policies & Procedures",
                                                   idDocController: docIdController,
                                                   nameDocController: docNamecontroller,
@@ -420,16 +420,19 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                   title: 'Delete Policies Procedure',
                                                   onCancel: (){
                                                 Navigator.pop(context);
-                                              }, onDelete: (){ setState(() async{
+                                              }, onDelete: (){
+                                                Navigator.pop(context);
+                                                    setState(() async{
                                                 await deleteDocument(
                                                     context,
                                                     snapshot.data![index].docId!);
-                                                orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+                                                orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 6).then((data) {
                                                   _controller.add(data);
                                                 }).catchError((error) {
                                                   // Handle error
                                                 });
-                                              });}));
+                                              });
+                                                  }));
                                             }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                           ],
                                         )
