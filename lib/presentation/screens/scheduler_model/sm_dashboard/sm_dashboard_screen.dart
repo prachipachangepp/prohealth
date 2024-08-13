@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
 
+import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import 'chart.dart';
 
@@ -76,14 +78,14 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              height: 98,
+                              height: AppSize.s98,
                               width: MediaQuery.of(context).size.width/2.5,
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: ColorManager.white,
                                 borderRadius: BorderRadius.circular(36.0),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.5),
+                                    color: ColorManager.black.withOpacity(0.5),
                                     offset: Offset(0, 4),
                                     blurRadius: 4,
                                     spreadRadius: 0,
@@ -106,8 +108,8 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                           style: GoogleFonts.kanit(
                                             decoration: TextDecoration.none,
                                             fontSize: MediaQuery.of(context).size.width * 0.01,  //16
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xff271E4A),
+                                            fontWeight: FontWeightManager.semiBold,
+                                            color: ColorManager.darkblue,
                                           ),
                                         ),
                                       ),
@@ -129,30 +131,30 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                           style: GoogleFonts.firaSans(
                                             decoration: TextDecoration.none,
                                             fontSize: MediaQuery.of(context).size.width * 0.008, //12
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff000000),
+                                            fontWeight: FontWeightManager.medium,
+                                            color: ColorManager.black,
                                           ),
                                         ),
-                                        SizedBox(height: 6),
+                                        SizedBox(height: AppSize.s6),
                                         Container(
-                                          height: 2,
-                                          color: Colors.black,
-                                          width: 60,
+                                          height: AppSize.s2,
+                                          color: ColorManager.black,
+                                          width: AppSize.s60,
                                         ),
-                                        SizedBox(height: 6),
+                                        SizedBox(height: AppSize.s6),
                                         Text(
                                           '25',
                                           style: GoogleFonts.firaSans(
                                             decoration: TextDecoration.none,
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w500,
+                                            fontSize: FontSize.s30,
+                                            fontWeight: FontWeightManager.medium,
                                             color: Color(0xffBBBBBB),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 35),
+                                  SizedBox(width: AppSize.s35),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 18.0),
                                     child: Column(
@@ -166,23 +168,23 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                           style: GoogleFonts.firaSans(
                                             decoration: TextDecoration.none,
                                             fontSize: MediaQuery.of(context).size.width * 0.008, //12
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff000000),
+                                            fontWeight: FontWeightManager.medium,
+                                            color: ColorManager.black,
                                           ),
                                         ),
-                                        SizedBox(height: 6),
+                                        SizedBox(height: AppSize.s6),
                                         Container(
                                           height: 2,
-                                          color: Colors.black,
-                                          width: 60,
+                                          color: ColorManager.black,
+                                          width: AppSize.s60,
                                         ),
-                                        SizedBox(height: 6),
+                                        SizedBox(height: AppSize.s6),
                                         Text(
                                           '12',
                                           style: GoogleFonts.firaSans(
                                             decoration: TextDecoration.none,
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w500,
+                                            fontSize: FontSize.s30,
+                                            fontWeight: FontWeightManager.medium,
                                             color: Color(0xffBBBBBB),
                                           ),
                                         ),
@@ -213,8 +215,8 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                               style: GoogleFonts.firaSans(
                                                 decoration: TextDecoration.none,
                                                 fontSize: MediaQuery.of(context).size.width * 0.008, //12
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff686464),
+                                                fontWeight: FontWeightManager.medium,
+                                                color: ColorManager.granitegray,
                                               ),
                                             ),
                                           );
@@ -271,9 +273,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                               child: Column(
                                 children: [
                                   Container(
-                                    height: 37,
+                                    height: AppSize.s37,
                                     decoration: BoxDecoration(
-                                      color: Color(0xff50B5E5),
+                                      color: ColorManager.blueprime,
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(20.0),
                                         topRight: Radius.circular(20.0),
@@ -293,9 +295,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   decoration:
                                                       TextDecoration.none,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeightManager.medium,
                                                   fontSize: AppSize.s12,
-                                                  color: Colors.white,
+                                                  color: ColorManager.white,
                                                 ),
                                               ),
                                             ],
@@ -304,7 +306,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(height: 15),
+                                  SizedBox(height: AppSize.s15),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 20.0),
                                     child: Column(
@@ -317,14 +319,14 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                               child:
                                                   Image.asset('images/1.png'),
                                             ),
-                                            SizedBox(width: 7),
+                                            SizedBox(width: AppSize.s7),
                                             Text(
                                               'James Smith',
                                               style: GoogleFonts.firaSans(
                                                 decoration: TextDecoration.none,
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeightManager.medium,
                                                 fontSize: AppSize.s12,
-                                                color: Color(0xff271E4A),
+                                                color: ColorManager.darkblue,
                                               ),
                                             ),
                                             // SizedBox(width: MediaQuery.of(context).size.width/20),
@@ -337,29 +339,29 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   decoration:
                                                       TextDecoration.none,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeightManager.medium,
                                                   fontSize: AppSize.s12,
-                                                  color: Color(0xff50B5E5),
+                                                  color: ColorManager.blueprime,
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: 8),
+                                        SizedBox(height: AppSize.s8),
                                         Row(
                                           children: [
                                             CircleAvatar(
                                               child:
                                                   Image.asset('images/2.png'),
                                             ),
-                                            SizedBox(width: 7),
+                                            SizedBox(width: AppSize.s7),
                                             Text(
                                               'Michael Jackson',
                                               style: GoogleFonts.firaSans(
                                                 decoration: TextDecoration.none,
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeightManager.medium,
                                                 fontSize: AppSize.s12,
-                                                color: Color(0xff271E4A),
+                                                color: ColorManager.darkblue,
                                               ),
                                             ),
                                             // SizedBox(width: MediaQuery.of(context).size.width/20),
@@ -372,36 +374,33 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   decoration:
                                                       TextDecoration.none,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeightManager.medium,
                                                   fontSize: AppSize.s12,
-                                                  color: Color(0xff50B5E5),
+                                                  color: ColorManager.blueprime,
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: 8),
+                                        SizedBox(height: AppSize.s8),
                                         Row(
                                           children: [
                                             CircleAvatar(
                                               child:
                                                   Image.asset('images/3.png'),
                                             ),
-                                            SizedBox(width: 7),
+                                            SizedBox(width: AppSize.s7),
                                             Text(
                                               'Ross Geller',
                                               style: GoogleFonts.firaSans(
                                                 decoration: TextDecoration.none,
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeightManager.medium,
                                                 fontSize: AppSize.s12,
-                                                color: Color(0xff271E4A),
+                                                color: ColorManager.darkblue,
                                               ),
                                             ),
                                             SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    20),
+                                                width: MediaQuery.of(context).size.width / 20),
                                             Spacer(),
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -411,9 +410,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   decoration:
                                                       TextDecoration.none,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeightManager.medium,
                                                   fontSize: AppSize.s12,
-                                                  color: Color(0xff50B5E5),
+                                                  color: ColorManager.blueprime,
                                                 ),
                                               ),
                                             ),
@@ -437,10 +436,10 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                               width: MediaQuery.of(context).size.width/5.5, //276
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.0),
-                                color: Colors.white,
+                                color: ColorManager.white,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.25),
+                                    color: ColorManager.black.withOpacity(0.25),
                                     spreadRadius: 2,
                                     blurRadius: 10,
                                     offset: Offset(0, 4),
@@ -450,9 +449,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                               child: Column(
                                 children: [
                                   Container(
-                                    height: 37,
+                                    height: AppSize.s37,
                                     decoration: BoxDecoration(
-                                      color: Color(0xff50B5E5),
+                                      color: ColorManager.blueprime,
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(20.0),
                                         topRight: Radius.circular(20.0),
@@ -472,9 +471,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   decoration:
                                                       TextDecoration.none,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeightManager.medium,
                                                   fontSize: AppSize.s12,
-                                                  color: Colors.white,
+                                                  color: ColorManager.white,
                                                 ),
                                               ),
                                             ],
@@ -483,7 +482,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(height: 15),
+                                  SizedBox(height: AppSize.s15),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 20.0),
                                     child: Column(
@@ -496,14 +495,14 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                               child:
                                                   Image.asset('images/1.png'),
                                             ),
-                                            SizedBox(width: 7),
+                                            SizedBox(width: AppSize.s7),
                                             Text(
                                               'James Smith',
                                               style: GoogleFonts.firaSans(
                                                 decoration: TextDecoration.none,
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeightManager.medium,
                                                 fontSize: AppSize.s12,
-                                                color: Color(0xff271E4A),
+                                                color: ColorManager.darkblue,
                                               ),
                                             ),
                                             // SizedBox(width: MediaQuery.of(context).size.width/20),
@@ -516,29 +515,29 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   decoration:
                                                       TextDecoration.none,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeightManager.medium,
                                                   fontSize: AppSize.s12,
-                                                  color: Color(0xff50B5E5),
+                                                  color: ColorManager.blueprime,
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: 8),
+                                        SizedBox(height: AppSize.s8),
                                         Row(
                                           children: [
                                             CircleAvatar(
                                               child:
                                                   Image.asset('images/2.png'),
                                             ),
-                                            SizedBox(width: 7),
+                                            SizedBox(width: AppSize.s7),
                                             Text(
                                               'John Scott',
                                               style: GoogleFonts.firaSans(
                                                 decoration: TextDecoration.none,
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeightManager.medium,
                                                 fontSize: AppSize.s12,
-                                                color: Color(0xff271E4A),
+                                                color: ColorManager.darkblue,
                                               ),
                                             ),
                                             // SizedBox(width: MediaQuery.of(context).size.width/20),
@@ -551,9 +550,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   decoration:
                                                       TextDecoration.none,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeightManager.medium,
                                                   fontSize: AppSize.s12,
-                                                  color: Color(0xff50B5E5),
+                                                  color: ColorManager.blueprime,
                                                 ),
                                               ),
                                             ),
@@ -570,17 +569,14 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                             Text(
                                               'Ross Geller',
                                               style: GoogleFonts.firaSans(
-                                                decoration: TextDecoration.none,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: AppSize.s12,
-                                                color: Color(0xff271E4A),
+                                                  decoration: TextDecoration.none,
+                                                  fontWeight: FontWeightManager.medium,
+                                                  fontSize: AppSize.s12,
+                                                  color: ColorManager.darkblue,
                                               ),
                                             ),
                                             SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    20),
+                                                width: MediaQuery.of(context).size.width / 20),
                                             Spacer(),
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -592,7 +588,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                       TextDecoration.none,
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: AppSize.s12,
-                                                  color: Color(0xff50B5E5),
+                                                  color: ColorManager.blueprime,
                                                 ),
                                               ),
                                             ),
@@ -617,11 +613,11 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                         Row(
                           children: [
                             Container(
-                              height: 221.0, //210
+                              height: AppSize.s221, //210
                               width: MediaQuery.of(context).size.width/5.5, //276
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.0),
-                                color: Colors.white,
+                                color: ColorManager.white,
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.25),
@@ -635,9 +631,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height: 37,
+                                      height: AppSize.s37,
                                       decoration: BoxDecoration(
-                                        color: Color(0xff50B5E5),
+                                        color: ColorManager.blueprime,
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(20.0),
                                           topRight: Radius.circular(20.0),
@@ -654,9 +650,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                   'Clinicians With Highest Case Load',
                                                   style: GoogleFonts.firaSans(
                                                     decoration: TextDecoration.none,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontWeight: FontWeightManager.medium,
                                                     fontSize: AppSize.s12,
-                                                    color: Colors.white,
+                                                    color: ColorManager.white,
                                                   ),
                                                 ),
                                               ],
@@ -675,7 +671,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                             children: [
                                               DropdownButton<String>(
                                                 value: selectedValueThisMonthA,
-                                                icon: Icon(Icons.keyboard_arrow_down, color: Color(0xff686464)),
+                                                icon: Icon(Icons.keyboard_arrow_down, color: ColorManager.granitegray),
                                                 underline: Container(
                                                   height: 0,
                                                   color: Colors.transparent,
@@ -688,8 +684,8 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                       style: GoogleFonts.firaSans(
                                                         decoration: TextDecoration.none,
                                                         fontSize: AppSize.s10,
-                                                        fontWeight: FontWeight.w500,
-                                                        color: Color(0xff686464),
+                                                        fontWeight: FontWeightManager.medium,
+                                                        color: ColorManager.granitegray,
                                                       ),
                                                     ),
                                                   );
@@ -707,7 +703,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                               CircleAvatar(
                                                 child: Image.asset('images/1.png'),
                                               ),
-                                              SizedBox(width: 7),
+                                              SizedBox(width: AppSize.s7),
                                               Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
@@ -715,19 +711,19 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                     'James Smith',
                                                     style: GoogleFonts.firaSans(
                                                       decoration: TextDecoration.none,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight: FontWeightManager.medium,
                                                       fontSize: AppSize.s12,
-                                                      color: Color(0xff271E4A),
+                                                      color: ColorManager.darkblue,
                                                     ),
                                                   ),
-                                                  SizedBox(height: 4),
+                                                  SizedBox(height: AppSize.s4),
                                                   Container(
-                                                    width: 58,
+                                                    width: AppSize.s58,
                                                     child: ClipRRect(
                                                       borderRadius: BorderRadius.circular(4.0),
                                                       child: LinearProgressIndicator(
                                                         value: 0.55,
-                                                        backgroundColor: Color(0xffD9D9D9),
+                                                        backgroundColor: ColorManager.cream,
                                                         valueColor: AlwaysStoppedAnimation<Color>(Color(0xff7B9DF4)),
                                                       ),
                                                     ),
@@ -741,21 +737,21 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                   '55%',
                                                   style: GoogleFonts.firaSans(
                                                     decoration: TextDecoration.none,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontWeight: FontWeightManager.medium,
                                                     fontSize: 12.0, // Use a fixed size instead of AppSize.s12
-                                                    color: Color(0xff50B5E5),
+                                                    color: ColorManager.calandercolour,
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 8),
+                                          SizedBox(height: AppSize.s8),
                                           Row(
                                             children: [
                                               CircleAvatar(
                                                 child: Image.asset('images/5.png'),
                                               ),
-                                              SizedBox(width: 7),
+                                              SizedBox(width: AppSize.s7),
                                               Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
@@ -763,19 +759,19 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                     'John Scott',
                                                     style: GoogleFonts.firaSans(
                                                       decoration: TextDecoration.none,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight: FontWeightManager.medium,
                                                       fontSize: AppSize.s12,
-                                                      color: Color(0xff271E4A),
+                                                      color: ColorManager.darkblue,
                                                     ),
                                                   ),
-                                                  SizedBox(height: 4),
+                                                  SizedBox(height: AppSize.s4),
                                                   Container(
-                                                    width: 58,
+                                                    width: AppSize.s58,
                                                     child: ClipRRect(
                                                       borderRadius: BorderRadius.circular(4.0),
                                                       child: LinearProgressIndicator(
                                                         value: 0.55,
-                                                        backgroundColor: Color(0xffD9D9D9),
+                                                        backgroundColor: ColorManager.cream,
                                                         valueColor: AlwaysStoppedAnimation<Color>(Color(0xff7B9DF4)),
                                                       ),
                                                     ),
@@ -789,21 +785,21 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                   '55%',
                                                   style: GoogleFonts.firaSans(
                                                     decoration: TextDecoration.none,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontWeight: FontWeightManager.medium,
                                                     fontSize: AppSize.s12,
-                                                    color: Color(0xff50B5E5),
+                                                    color: ColorManager.calandercolour,
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 8),
+                                          SizedBox(height: AppSize.s8),
                                           Row(
                                             children: [
                                               CircleAvatar(
                                                 child: Image.asset('images/6.png'),
                                               ),
-                                              SizedBox(width: 7),
+                                              SizedBox(width: AppSize.s7),
                                               Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
@@ -811,19 +807,19 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                     'Mary Irish',
                                                     style: GoogleFonts.firaSans(
                                                       decoration: TextDecoration.none,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight: FontWeightManager.medium,
                                                       fontSize: AppSize.s12,
-                                                      color: Color(0xff271E4A),
+                                                      color: ColorManager.darkblue,
                                                     ),
                                                   ),
                                                   SizedBox(height: 4),
                                                   Container(
-                                                    width: 70,
+                                                    width: AppSize.s70,
                                                     child: ClipRRect(
                                                       borderRadius: BorderRadius.circular(4.0),
                                                       child: LinearProgressIndicator(
                                                         value: 0.55,
-                                                        backgroundColor: Color(0xffD9D9D9),
+                                                        backgroundColor: ColorManager.cream,
                                                         valueColor: AlwaysStoppedAnimation<Color>(Color(0xff7B9DF4)),
                                                       ),
                                                     ),
@@ -837,9 +833,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                   '55%',
                                                   style: GoogleFonts.firaSans(
                                                     decoration: TextDecoration.none,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontWeight: FontWeightManager.medium,
                                                     fontSize: AppSize.s12,
-                                                    color: Color(0xff50B5E5),
+                                                    color: ColorManager.blueprime,
                                                   ),
                                                 ),
                                               ),
@@ -853,22 +849,19 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                               ),
                             ),
 
-
-
-
                             //////////
                             //4th container
                             SizedBox(
                                 width: MediaQuery.of(context).size.width / 40),
                             Container(
-                              height: 221.0, //210
+                              height: AppSize.s221, //210
                               width: MediaQuery.of(context).size.width/5.5, //276
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.0),
-                                color: Colors.white,
+                                color: ColorManager.white,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.25),
+                                    color: ColorManager.black.withOpacity(0.25),
                                     spreadRadius: 2,
                                     blurRadius: 10,
                                     offset: Offset(0, 4),
@@ -879,9 +872,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height: 37,
+                                      height: AppSize.s37,
                                       decoration: BoxDecoration(
-                                        color: Color(0xff50B5E5),
+                                        color: ColorManager.blueprime,
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(20.0),
                                           topRight: Radius.circular(20.0),
@@ -901,9 +894,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                   style: GoogleFonts.firaSans(
                                                     decoration:
                                                         TextDecoration.none,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontWeight: FontWeightManager.medium,
                                                     fontSize: AppSize.s12,
-                                                    color: Colors.white,
+                                                    color: ColorManager.white,
                                                   ),
                                                 ),
                                               ],
@@ -924,9 +917,10 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                             children: [
                                               DropdownButton<String>(
                                                 value: selectedValueThisMonthB,
-                                                icon: Icon(Icons.keyboard_arrow_down, color: Color(0xff686464)),
+                                                icon: Icon(Icons.keyboard_arrow_down,
+                                                    color: ColorManager.granitegray),
                                                 underline: Container(
-                                                  height: 0,
+                                                  height: AppSize.s0,
                                                   color: Colors.transparent,
                                                 ),
                                                 items: dropdownItemsThisMonthB.map<DropdownMenuItem<String>>((String value) {
@@ -937,8 +931,8 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                       style: GoogleFonts.firaSans(
                                                         decoration: TextDecoration.none,
                                                         fontSize: AppSize.s10,
-                                                        fontWeight: FontWeight.w500,
-                                                        color: Color(0xff686464),
+                                                        fontWeight: FontWeightManager.medium,
+                                                        color: ColorManager.granitegray,
                                                       ),
                                                     ),
                                                   );
@@ -957,7 +951,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                 child:
                                                     Image.asset('images/1.png'),
                                               ),
-                                              SizedBox(width: 7),
+                                              SizedBox(width: AppSize.s7),
                                               Column(
                                                 children: [
                                                   FittedBox(
@@ -967,15 +961,15 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                       style: GoogleFonts.firaSans(
                                                         decoration:
                                                             TextDecoration.none,
-                                                        fontWeight: FontWeight.w500,
+                                                        fontWeight: FontWeightManager.medium,
                                                         fontSize: AppSize.s12,
-                                                        color: Color(0xff271E4A),
+                                                        color: ColorManager.darkblue,
                                                       ),
                                                     ),
                                                   ),
-                                                  SizedBox(height: 4),
+                                                  SizedBox(height: AppSize.s4),
                                                   Container(
-                                                    width: 58,
+                                                    width: AppSize.s58,
                                                     child: ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -984,7 +978,7 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                           LinearProgressIndicator(
                                                         value: 0.55,
                                                         backgroundColor:
-                                                            Color(0xffD9D9D9),
+                                                            ColorManager.cream,
                                                         valueColor:
                                                             AlwaysStoppedAnimation<
                                                                     Color>(
@@ -1005,22 +999,22 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                   style: GoogleFonts.firaSans(
                                                     decoration:
                                                         TextDecoration.none,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontWeight: FontWeightManager.medium,
                                                     fontSize: AppSize.s12,
-                                                    color: Color(0xff50B5E5),
+                                                    color: ColorManager.blueprime,
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 8),
+                                          SizedBox(height: AppSize.s8),
                                           Row(
                                             children: [
                                               CircleAvatar(
                                                 child:
                                                     Image.asset('images/5.png'),
                                               ),
-                                              SizedBox(width: 7),
+                                              SizedBox(width: AppSize.s7),
                                               Column(
                                                 children: [
                                                   Text(
@@ -1028,14 +1022,14 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                     style: GoogleFonts.firaSans(
                                                       decoration:
                                                           TextDecoration.none,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight: FontWeightManager.medium,
                                                       fontSize: AppSize.s12,
-                                                      color: Color(0xff271E4A),
+                                                      color: ColorManager.darkblue,
                                                     ),
                                                   ),
-                                                  SizedBox(height: 4),
+                                                  SizedBox(height: AppSize.s4),
                                                   Container(
-                                                    width: 58,
+                                                    width: AppSize.s58,
                                                     child: ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -1044,12 +1038,10 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                           LinearProgressIndicator(
                                                         value: 0.55,
                                                         backgroundColor:
-                                                            Color(0xffD9D9D9),
+                                                            ColorManager.cream,
                                                         valueColor:
                                                             AlwaysStoppedAnimation<
-                                                                    Color>(
-                                                                Color(
-                                                                    0xff7B9DF4)),
+                                                                    Color>(Color(0xff7B9DF4)),
                                                       ),
                                                     ),
                                                   ),
@@ -1066,22 +1058,22 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                   style: GoogleFonts.firaSans(
                                                     decoration:
                                                         TextDecoration.none,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontWeight: FontWeightManager.medium,
                                                     fontSize: AppSize.s12,
-                                                    color: Color(0xff50B5E5),
+                                                    color: ColorManager.blueprime,
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 8),
+                                          SizedBox(height: AppSize.s8),
                                           Row(
                                             children: [
                                               CircleAvatar(
                                                 child:
                                                     Image.asset('images/6.png'),
                                               ),
-                                              SizedBox(width: 7),
+                                              SizedBox(width: AppSize.s7),
                                               Column(
                                                 children: [
                                                   Text(
@@ -1089,14 +1081,14 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                     style: GoogleFonts.firaSans(
                                                       decoration:
                                                           TextDecoration.none,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight: FontWeightManager.medium,
                                                       fontSize: AppSize.s12,
-                                                      color: Color(0xff271E4A),
+                                                      color: ColorManager.darkblue,
                                                     ),
                                                   ),
                                                   SizedBox(height: 4),
                                                   Container(
-                                                    width: 70,
+                                                    width: AppSize.s70,
                                                     child: ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -1105,22 +1097,17 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                           LinearProgressIndicator(
                                                         value: 0.55,
                                                         backgroundColor:
-                                                            Color(0xffD9D9D9),
+                                                            ColorManager.cream,
                                                         valueColor:
                                                             AlwaysStoppedAnimation<
-                                                                    Color>(
-                                                                Color(
-                                                                    0xff7B9DF4)),
+                                                                    Color>(Color(0xff7B9DF4)),
                                                       ),
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                               SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      20),
+                                                  width: MediaQuery.of(context).size.width / 20),
                                               Spacer(),
                                               Padding(
                                                 padding: const EdgeInsets.only(
@@ -1130,9 +1117,9 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                                   style: GoogleFonts.firaSans(
                                                     decoration:
                                                         TextDecoration.none,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontWeight: FontWeightManager.medium,
                                                     fontSize: AppSize.s12,
-                                                    color: Color(0xff50B5E5),
+                                                    color: ColorManager.blueprime,
                                                   ),
                                                 ),
                                               ),
@@ -1145,8 +1132,6 @@ class _DashboardScreenState extends State<SMDashboardScreen> {
                                 ),
                               ),
                             ),
-
-
                           ],
                         ),
                       ],
@@ -1178,7 +1163,7 @@ class CustomContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: 95,
+        height: AppSize.s95,
         // width: 280,
         decoration: BoxDecoration(
           color: ColorManager.blueprime.withOpacity(0.17),
@@ -1202,18 +1187,18 @@ class CustomContainer extends StatelessWidget {
                   numberText,
                   style: GoogleFonts.firaSans(
                     decoration: TextDecoration.none,
-                    color: Color(0xff686464),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    color: ColorManager.granitegray,
+                    fontSize: FontSize.s16,
+                    fontWeight: FontWeightManager.semiBold,
                   ),
                 ),
                 Text(
                   descriptionText,
                   style: GoogleFonts.firaSans(
                     decoration: TextDecoration.none,
-                    color: Color(0xff686464),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    color: ColorManager.granitegray,
+                    fontSize: FontSize.s16,
+                    fontWeight: FontWeightManager.semiBold,
                   ),
                 ),
               ],
