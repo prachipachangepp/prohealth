@@ -562,23 +562,55 @@ class AddZipCodePopup extends StatefulWidget {
 }
 
 class _AddZipCodePopupState extends State<AddZipCodePopup> {
-  LatLng? _selectedLocation;
+  LatLng? _selectedLocation= LatLng(37.7749, -122.4194);
+
+  // void _pickLocation() async {
+  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
+  //     MaterialPageRoute(
+  //       builder: (context) => PickLocationScreen(
+  //         initialLocation: _selectedLocation!,
+  //         onLocationPicked: (location) {
+  //           setState(() {
+  //             _selectedLocation = location;
+  //           });
+  //         },
+  //       ),
+  //     ),
+  //   );
+  //   // if (pickedLocation != null) {
+  //   //   setState(() {
+  //   //     _selectedLocation = pickedLocation;
+  //   //   });
+  //
+  //
+  //     // Use _selectedLocation.latitude and _selectedLocation.longitude as needed
+  //     print('Selected Location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}');
+  //   }
 
   void _pickLocation() async {
-    final pickedLocation = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => PickLocationScreen()),
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) => PickLocationScreen(
+          initialLocation: _selectedLocation!,
+          onLocationPicked: (location) {
+            setState(() {
+              _selectedLocation = location;
+            });
+          },
+        ),
+      ),
     );
 
     if (pickedLocation != null) {
       setState(() {
         _selectedLocation = pickedLocation;
+        // Update the mapController text field with the new location
+        widget.mapController.text =
+        '${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}';
       });
-
-      // Use _selectedLocation.latitude and _selectedLocation.longitude as needed
-      print('Selected Location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}');
     }
   }
+
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -688,7 +720,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            //_pickLocation();
+                            _pickLocation();
                           },
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.transparent),
@@ -702,11 +734,22 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             ),
                           ),
                         ),
-                        Icon(
-                          Icons.location_on_outlined,
-                          color: ColorManager.granitegray,
-                          size: AppSize.s18,
-                        ),
+                        if (_selectedLocation != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: Text(
+                              'Selected Location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}',
+                              style: TextStyle(
+                                fontSize: 12, // Adjust the size if you use FontSize.s12
+                                color: Colors.black54, // Adjust the color if needed
+                              ),
+                            ),
+                          ),
+                        // Icon(
+                        //   Icons.location_on_outlined,
+                        //   color: ColorManager.granitegray,
+                        //   size: AppSize.s18,
+                        // ),
                       ],
                     ),
                     SizedBox(height: AppSize.s20),
@@ -762,25 +805,41 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
 
 /// Pick google map location
 class PickLocationScreen extends StatefulWidget {
+  final LatLng initialLocation;
+  final Function(LatLng) onLocationPicked;
+
+  const PickLocationScreen({
+    required this.initialLocation,
+    required this.onLocationPicked,
+  });
+
   @override
   _PickLocationScreenState createState() => _PickLocationScreenState();
 }
 
 class _PickLocationScreenState extends State<PickLocationScreen> {
-  LatLng? _pickedLocation;
+  late GoogleMapController _mapController;
+  late LatLng _selectedLocation;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedLocation = widget.initialLocation;
+  }
 
   void _onMapCreated(GoogleMapController controller) {
-    // Optional: Set initial camera position
-    controller.animateCamera(CameraUpdate.newLatLngZoom(
-      LatLng(37.7749, -122.4194), // Initial position (San Francisco)
-      10,
-    ));
+    _mapController = controller;
   }
 
   void _onTap(LatLng location) {
     setState(() {
-      _pickedLocation = location;
+      _selectedLocation = location;
     });
+  }
+
+  void _confirmSelection() {
+    widget.onLocationPicked(_selectedLocation);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -789,34 +848,36 @@ class _PickLocationScreenState extends State<PickLocationScreen> {
       appBar: AppBar(
         title: Text('Pick Location'),
         actions: [
-          if (_pickedLocation != null)
-            IconButton(
-              icon: Icon(Icons.check),
-              onPressed: () {
-                Navigator.pop(context, _pickedLocation);
-              },
-            ),
+          IconButton(
+            icon: Icon(Icons.check),
+            onPressed: _confirmSelection,
+          ),
         ],
       ),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        onTap: _onTap,
-        initialCameraPosition: CameraPosition(
-          target: LatLng(37.7749, -122.4194), // Initial position (San Francisco)
-          zoom: 10,
-        ),
-        markers: _pickedLocation != null
-            ? {
-          Marker(
-            markerId: MarkerId('picked-location'),
-            position: _pickedLocation!,
+      body: Stack(
+        children: [
+          GoogleMap(
+            onMapCreated: _onMapCreated,
+            onTap: _onTap,
+            initialCameraPosition: CameraPosition(
+              target: _selectedLocation,
+              zoom: 14.0,
+            ),
+            markers: {
+              Marker(
+                markerId: MarkerId('selectedLocation'),
+                position: _selectedLocation,
+              ),
+            },
           ),
-        }
-            : {},
+        ],
       ),
     );
   }
 }
+
+
+
 
 class AddZonePopup extends StatefulWidget {
   final TextEditingController zoneNumberController;

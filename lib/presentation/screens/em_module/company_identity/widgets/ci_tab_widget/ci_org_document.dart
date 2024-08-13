@@ -78,11 +78,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
     }).catchError((error) {
       // Handle error
     });
-    // currentPage = 1;
-    // itemsPerPage = 5;
-    // items = List.generate(20, (index) => 'Item ${index + 1}');
-    //_companyManager = CompanyIdentityManager();
-    // companyAllApi(context);
   }
   var docID = 8;
   int docTypeMetaId = 8;
