@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
@@ -229,7 +230,7 @@ class _CICcdADRState extends State<CICcdADR> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    currentPageItems[index].name.toString(),
+                                    currentPageItems[index].name.toString().capitalizeFirst!,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -254,8 +255,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                 child: Center(
                                   child: Text(
                                     currentPageItems[index]
-                                        .reminderThreshold
-                                        .toString(),
+                                        .reminderThreshold!.toString().capitalizeFirst!,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,

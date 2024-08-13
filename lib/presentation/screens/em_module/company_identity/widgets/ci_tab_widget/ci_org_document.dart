@@ -411,50 +411,53 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                       }
                                     },
                                   ),
-                                  radioButton: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Expiry Type",
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w700,
-                                          color: ColorManager.mediumgrey,
-                                          decoration: TextDecoration.none,
+                                  radioButton: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
+                                          ),
                                         ),
-                                      ),
-                                      CustomRadioListTile(
-                                        value: "Not Applicable",
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: "Not Applicable",
-                                      ),
-                                      CustomRadioListTile(
-                                        value: 'Scheduled',
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: 'Scheduled',
-                                      ),
-                                      CustomRadioListTile(
-                                        value: 'Issuer Expiry',
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: 'Issuer Expiry',
-                                      ),
-                                    ],
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   child2: Visibility(
                                     visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",

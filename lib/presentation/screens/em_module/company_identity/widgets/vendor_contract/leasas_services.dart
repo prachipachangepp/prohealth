@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -195,7 +196,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    snapshot.data![index].name.toString(),textAlign:TextAlign.center,
+                                                    snapshot.data![index].name.toString().capitalizeFirst!,textAlign:TextAlign.center,
                                                     style: GoogleFonts.firaSans(
                                                       fontSize: 10,
                                                       fontWeight: FontWeight.bold,

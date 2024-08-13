@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -201,7 +202,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  snapshot.data![index].name.toString(),
+                                                  snapshot.data![index].name.toString().capitalizeFirst!,
                                                   textAlign: TextAlign.center,
                                                   style: GoogleFonts.firaSans(
                                                     fontSize: 10,
