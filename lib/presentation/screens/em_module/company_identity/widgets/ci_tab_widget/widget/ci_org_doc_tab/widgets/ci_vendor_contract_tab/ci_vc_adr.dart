@@ -512,6 +512,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                               ],
                             ),
                           ),
+
                         ],
                       );
                     },
@@ -521,31 +522,31 @@ class _VendorContractADRState extends State<VendorContractADR> {
               }
           ),
         ),
-        // PaginationControlsWidget(
-        //   currentPage: currentPage,
-        //   items: items,
-        //   itemsPerPage: itemsPerPage,
-        //   onPreviousPagePressed: () {
-        //     /// Handle previous page button press
-        //     setState(() {
-        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-        //     });
-        //   },
-        //   onPageNumberPressed: (pageNumber) {
-        //     /// Handle page number tap
-        //     setState(() {
-        //       currentPage = pageNumber;
-        //     });
-        //   },
-        //   onNextPagePressed: () {
-        //     /// Handle next page button press
-        //     setState(() {
-        //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
-        //           ? currentPage + 1
-        //           : (items.length / itemsPerPage).ceil();
-        //     });
-        //   },
-        // ),
+        PaginationControlsWidget(
+          currentPage: currentPage,
+          items: items,
+          itemsPerPage: itemsPerPage,
+          onPreviousPagePressed: () {
+            /// Handle previous page button press
+            setState(() {
+              currentPage = currentPage > 1 ? currentPage - 1 : 1;
+            });
+          },
+          onPageNumberPressed: (pageNumber) {
+            /// Handle page number tap
+            setState(() {
+              currentPage = pageNumber;
+            });
+          },
+          onNextPagePressed: () {
+            /// Handle next page button press
+            setState(() {
+              currentPage = currentPage < (items.length / itemsPerPage).ceil()
+                  ? currentPage + 1
+                  : (items.length / itemsPerPage).ceil();
+            });
+          },
+        ),
       ],
     );
   }

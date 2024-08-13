@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../app/resources/value_manager.dart';
+import '../../../screens/hr_module/register/taxtfield_constant.dart';
 
 ///textfield constant widget
 ///todo prachi
@@ -235,7 +236,107 @@ class _CustomDropDownState extends State<CustomDropDown> {
 }
 
 ///todo prachi
-///Human Resource screen textField
+///Human Resource screen textField email only
+class HRManageTextFieldEmail extends StatefulWidget {
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final String text;
+  final Color textColor;
+  final Icon? icon;
+  final bool? readOnly;
+  final VoidCallback? onChange;
+  final double? width;
+  final double? height;
+  final double cursorHeight;
+  final String labelText;
+  final TextStyle labelStyle;
+  final double labelFontSize;
+  final Icon? suffixIcon;
+  final IconData? prefixIcon;
+  final FocusNode? focusNode;
+  final String? errorText;
+  final String? Function(String?)? validator;
+  // final bool Function(String)? validator;
+  final ValueChanged<String>? onChanged;
+
+  HRManageTextFieldEmail({
+    Key? key,
+    required this.controller,
+    required this.keyboardType,
+    required this.text,
+    this.textColor = const Color(0xff686464), this.icon,
+    this.onChange, this.readOnly, this.width, this.height,
+    required this.cursorHeight, required this.labelText,
+    required this.labelStyle, required this.labelFontSize, this.suffixIcon,
+    this.prefixIcon, this.focusNode, this.errorText, this.onChanged, this.validator,
+    // this.validator,
+  }) : super(key: key);
+
+  @override
+  State<HRManageTextFieldEmail> createState() => _HRManageTextFieldEmailState();
+}
+
+class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
+  late bool hasError;
+
+  @override
+  void initState() {
+    super.initState();
+    hasError = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 320,
+      height: 40,
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p5),
+        child: TextFormField(
+          focusNode: widget.focusNode,
+          controller: widget.controller,
+          textAlign: TextAlign.start,
+          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
+          textAlignVertical: TextAlignVertical.center,
+          cursorColor: ColorManager.black,
+          textInputAction: TextInputAction.next,
+          // cursorHeight: widget.cursorHeight,
+          // validator: validator,
+          // validator: (value) {
+          //   if (value == null || value.isEmpty) {
+          //     return 'This field cannot be empty';
+          //   }
+          //   return null;
+          // },
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: AppPadding.p3,
+                top: AppPadding.p5, left: AppPadding.p5),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.mediumgrey),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.mediumgrey),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.mediumgrey),
+            ),
+            labelText: widget.labelText,
+            labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize),
+            errorText: hasError ? widget.errorText : null,
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(left: AppPadding.p14),
+              child: widget.suffixIcon,
+            ),
+          ),
+        )
+        ,
+      ),
+    );
+  }
+}
+
+
+///Human Resource screen textField normal
 class HRManageTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
@@ -327,12 +428,18 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
               child: widget.suffixIcon,
             ),
           ),
+          inputFormatters: [
+            CapitalizeFirstLetterFormatter(),
+          ],
         )
         ,
       ),
     );
   }
 }
+
+
+
 ///drop down User
 
 

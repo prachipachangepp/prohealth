@@ -78,7 +78,7 @@ class OnboardingQualificationRepo {
 
 
   ///onboarding Acknowledment & health record
-  //employee-documents/ByemployeeId/{EmployeeDocumentTypeMetaDataId}/{EmployeeDocumentTypeSetupId}/{employeeId}
+  //employee-documents/ByemployeeId/{EmployeeDocumentTypeMetaDataId}/{EmployeeDocumentTypeSetupId}/{employeeId}/approve-only
   static String getAckHealthRecord({required int EmpDocTypeMetaDataId,required int EmpDocTypeSetupId,required int employeeId, required String approveOnly}) {
     return "$employee_doc$byEmployeeId/$EmpDocTypeMetaDataId/$EmpDocTypeSetupId/$employeeId/$approveOnly";
   }

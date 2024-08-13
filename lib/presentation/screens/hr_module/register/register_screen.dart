@@ -156,6 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ],
       ),
     );
+
   }
 
   Widget buildDropdownButton(BuildContext context) {
@@ -363,17 +364,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:54426/#/onBordingWelcome";
+                          const url = "http://localhost:62011#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
-                            await launch(url);
-                             // Navigator.push(
-                             //   context,
-                             //   MaterialPageRoute(
-                             //    builder: (context) => OnBoardingWelcome(),
-                             //  ),
-                             // );
-                          } else {
+                           await launch(url);
+                           //   Navigator.push(
+                           //     context,
+                           //     MaterialPageRoute(
+                           //      builder: (context) => OnBoardingWelcome(),
+                           //    ),
+                           //   );
+                           } else {
                             throw 'Could not launch $url';
                           }
                         },
@@ -423,7 +424,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   emailController = TextEditingController(text: email);
 
                                   return RegisterEnrollPopup(
-                                    employeeId: data.employeeId,
+                                    employeeId: data.employeeId!,
                                     firstName: firstNameController,
                                     lastName: lastNameController,
                                     email: emailController,
@@ -463,4 +464,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+
 }

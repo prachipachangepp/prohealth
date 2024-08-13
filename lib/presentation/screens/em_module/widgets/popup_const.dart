@@ -105,7 +105,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 18),
                 // Padding(
                 //   padding: const EdgeInsets.only(bottom: 8.0),
                 //   child: HRManageTextField(
@@ -157,7 +157,7 @@ class _CustomDialogState extends State<CustomDialog> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextField(
+                  child: HRManageTextFieldEmail(
                     controller: widget.emailController,
                     keyboardType: TextInputType.phone,
                     text: "Email",

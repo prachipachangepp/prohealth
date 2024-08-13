@@ -427,7 +427,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         DashBoardScreen(),
                         Center(
                             child: Text(
-                              AppString.dataNotFound,
+                              "Search Any User!",
                               style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
                                   fontSize: FontSize.s12,

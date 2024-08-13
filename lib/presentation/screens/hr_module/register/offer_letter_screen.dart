@@ -2432,11 +2432,15 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 // Navigator.push(
                                 //   context,
                                 //   MaterialPageRoute(
-                                //     builder: (context) => OfferLetterDescriptionScreen(
+                                //     builder: (context) =>
+                                //     OfferLetterDescriptionScreen(
                                 //       employeeId: widget.apiData.employeeId!,
                                 //     ),
                                 //   ),
                                 // );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Enrollment data save'))
+                                );
                               } catch (e) {
                                 print("Error during enrollment: $e");
                                 ScaffoldMessenger.of(context).showSnackBar(
