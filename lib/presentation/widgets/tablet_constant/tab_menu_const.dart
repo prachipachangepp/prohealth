@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../app/resources/color.dart';
 import '../../../app/resources/font_manager.dart';
+import '../../../app/resources/value_manager.dart';
 
 class TabMenuConst extends StatelessWidget {
   final String text;
@@ -31,8 +32,8 @@ class TabMenuConst extends StatelessWidget {
             children: [
               Image(
                 image: imageProvider,
-                width: 20,
-                height: 20,
+                width:  AppSize.s20,
+                height:  AppSize.s20,
               ),
               SizedBox(height: 8),
               Flexible(
@@ -41,7 +42,7 @@ class TabMenuConst extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.firaSans(
                     color: ColorManager.mediumgrey,
-                    fontSize: 10,
+                    fontSize: FontSize.s10,
                     fontWeight: FontWeightManager.extrabold,
                   ),
                 ),

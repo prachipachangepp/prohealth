@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 
 import '../../../../app/resources/color.dart';
 
@@ -40,15 +41,15 @@ class SchedularTextField extends StatelessWidget {
         textCapitalization: TextCapitalization.sentences,
         controller: _controller,
         style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
+          fontSize: FontSize.s12,
+          fontWeight: FontWeightManager.regular,
           color: ColorManager.black,
         ),
         cursorColor: ColorManager.black,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
+            fontSize: FontSize.s10,
             color: ColorManager.greylight, // label text color
           ),
           border: const OutlineInputBorder(),

@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../app/resources/color.dart';
 
@@ -30,8 +32,8 @@ class PageViewMenuButtonConst extends StatelessWidget {
           Text(
             heading,
             style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
+              fontSize: FontSize.s12,
+              fontWeight: FontWeightManager.bold,
               color: grpIndex == index
                   ? ColorManager.blueprime
                   : const Color(0xff686464),
@@ -39,8 +41,8 @@ class PageViewMenuButtonConst extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.only(top: 10),
-            height: 6,
-            width: 120,
+            height: AppSize.s6,
+            width: AppSize.s120,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(13.0),
               color: grpIndex == index ? ColorManager.blueprime : Colors.transparent,

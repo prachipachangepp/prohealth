@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/schedular_success_popup.dart';
 
 import '../../../../../../../../app/resources/color.dart';
@@ -19,8 +21,8 @@ class _ReferralSubmitPopupState extends State<ReferralSubmitPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: 500,
-        height: 150,
+        width: AppSize.s500,
+        height: AppSize.s150,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -34,7 +36,7 @@ class _ReferralSubmitPopupState extends State<ReferralSubmitPopup> {
                 style: GoogleFonts.firaSans(
                     fontSize: AppSize.s12,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xff686464)
+                  color: ColorManager.granitegray
                 ),
               ),
             ),
@@ -45,17 +47,17 @@ class _ReferralSubmitPopupState extends State<ReferralSubmitPopup> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    child: Text('No',
+                    child: Text(AppString.no,
                         style: GoogleFonts.firaSans(
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                             fontSize: AppSize.s12,
-                            color: Color(0xff686464))),
+                            color: ColorManager.granitegray)),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
-                  SizedBox(width: 20),
+                  SizedBox(width: AppSize.s20),
                   SizedBox(
-                    height: 26,
-                    width: 103,
+                    height: AppSize.s26,
+                    width: AppSize.s103,
                     child: Container(
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -69,16 +71,15 @@ class _ReferralSubmitPopupState extends State<ReferralSubmitPopup> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: ElevatedButton(
-                        child: Text(
-                          'Yes',
+                        child: Text(AppString.yes,
                           style: GoogleFonts.firaSans(
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             fontSize: AppSize.s12,
-                            color: Colors.white,
+                            color: ColorManager.white,
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
+                          backgroundColor: ColorManager.blueprime,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
