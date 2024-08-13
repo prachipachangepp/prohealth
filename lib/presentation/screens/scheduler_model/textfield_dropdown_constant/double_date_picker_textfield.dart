@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../app/resources/color.dart';
 
@@ -43,23 +45,25 @@ class DoubleDatePickerTextField extends StatelessWidget {
       child: TextFormField(
         controller: isDate ? _dateController : TextEditingController(text: initialValue),
         style: GoogleFonts.firaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
+          fontSize: FontSize.s12,
+          fontWeight: FontWeightManager.regular,
           color: ColorManager.black,
         ),
         cursorColor: ColorManager.black,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
+            fontSize: FontSize.s10,
             color: ColorManager.greylight, // label text color
           ),
           border: const OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)), // border color
+            borderSide: BorderSide(color: ColorManager.containerBorderGrey), // border color
           ),
           suffixIcon: isDate
-              ? Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime) // calendar color
+              ? Icon(
+              Icons.calendar_month_outlined,
+              color: ColorManager.blueprime) // calendar color
               : null,
         ),
         readOnly: isDate,

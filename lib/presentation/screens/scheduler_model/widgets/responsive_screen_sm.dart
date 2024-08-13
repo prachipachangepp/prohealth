@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/sm_desktop_screen.dart';
 
+import '../../../../app/resources/value_manager.dart';
+
 class ResponsiveScreenSM extends StatelessWidget {
   const ResponsiveScreenSM({super.key});
 
@@ -13,10 +15,10 @@ class ResponsiveScreenSM extends StatelessWidget {
         } else {
           return Container(
             color: Colors.white,
-            height: 100,
-            width: 500,
+            height: AppSize.s100,
+            width: AppSize.s500,
             child: Center(
-              child: Text('Tablet Screen Scheduler & Intake',style: TextStyle(fontSize: 20),
+              child: Text('Tablet Screen Scheduler & Intake',style: TextStyle(fontSize: AppSize.s20),
               ),
             ),
           );

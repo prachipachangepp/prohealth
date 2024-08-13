@@ -327,7 +327,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: ColorManager.white,
       titlePadding: EdgeInsets.zero,
       title: Container(
         decoration: BoxDecoration(
@@ -337,8 +337,8 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
           ),
           color: ColorManager.blueprime,
         ),
-        height: 47,
-        width: 1280,
+        height: AppSize.s47,
+        width: AppSize.s1280,
         child: Row(
           children: [
             Padding(
@@ -347,8 +347,8 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                 'Search Clinician',
                 style: GoogleFonts.firaSans(
                   fontSize: FontSize.s14,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  fontWeight: FontWeightManager.bold,
+                  color: ColorManager.white,
                 ),
               ),
             ),
@@ -359,7 +359,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
               },
               icon: Icon(
                 Icons.close,
-                color: Colors.white,
+                color: ColorManager.white,
               ),
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
@@ -373,7 +373,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 300,
+              height: AppSize.s300,
               child: Column(
                 children: [
                   Row(
@@ -381,8 +381,8 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                       Container(
                         // height: MediaQuery.of(context).size.height/20,
                         // width: MediaQuery.of(context).size.width/50,
-                        height: 25,
-                        width: 598,
+                        height: AppSize.s25,
+                        width: AppSize.s598,
                         child: TextField(
                           decoration: InputDecoration(
                             labelText: 'Search for a clinican',
@@ -446,7 +446,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                   ),
                   SizedBox(height: AppSize.s26),
                   Container(
-                    height: 29,
+                    height: AppSize.s29,
                     decoration: BoxDecoration(
                       color: ColorManager.granitegray,
                       borderRadius: BorderRadius.circular(12),
@@ -547,7 +547,7 @@ class _SearchClinicianPopUpState extends State<SearchClinicianPopUp> {
                       itemCount: clinicians.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          height: 30,
+                          height: AppSize.s30,
                           color: index.isEven
                               ? ColorManager.blueprime.withOpacity(0.17)
                               : Colors.white,

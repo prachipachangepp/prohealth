@@ -44,13 +44,13 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: AppSize.s10),
               Container(
-                height: 249,
+                height: AppSize.s249,
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: ColorManager.white,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
@@ -63,7 +63,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 20),
+                    SizedBox(height: AppSize.s20),
                     Row(
                       children: [
                         Flexible(
@@ -75,7 +75,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                             child: SchedularTextField(
                               labelText: 'Agency Name', )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
                               labelText: 'Rate',
@@ -84,31 +84,31 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         SizedBox(width: 35),
                         Flexible(
                             child: SchedularTextField(
-                              labelText: 'Street',
+                              labelText: AppString.street,
                             )
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: AppSize.s20),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
                               labelText: AppString.suite_Apt, )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
                               labelText: AppString.city,
                                 items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
                               labelText: AppString.state,
                                 items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextFieldWithButton(
                                 labelText: AppString.zip_code,
@@ -116,23 +116,23 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: AppSize.s20),
                     Row(
                       children: [
                         Flexible(child: SchedularTextField(
                             labelText: AppString.phone)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                               labelText: AppString.fax )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                               labelText:AppString.email )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(child: SchedularTextField(
                             labelText: 'Unites')
                         ),

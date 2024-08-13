@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
 
 import '../../../app/resources/color.dart';
 import '../../../app/resources/font_manager.dart';
+import '../../../app/resources/value_manager.dart';
 import '../../screens/home_module/home_screen.dart';
 import '../widgets/const_appbar/controller.dart';
 
@@ -37,7 +38,7 @@ class AppBarWeb extends StatelessWidget {
           children: [
             ///logo
             Container(
-              width: 200,
+              width: AppSize.s200,
               // color: Colors.white,
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               child: Image.asset(
@@ -133,8 +134,8 @@ class AppBarWeb extends StatelessWidget {
                                             ),
                                             Text("KLIP",
                                                 style: GoogleFonts.jost(
-                                                  color: Colors.white,
-                                                  fontSize: 12,
+                                                  color: ColorManager.white,
+                                                  fontSize: FontSize.s12,
                                                   fontWeight: FontWeight.w400,
                                                   decoration:
                                                       TextDecoration.none,
@@ -157,7 +158,7 @@ class AppBarWeb extends StatelessWidget {
                                       ),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(18),
-                                        color: Colors.white,
+                                        color: ColorManager.white,
                                         boxShadow: const [
                                           BoxShadow(
                                             color: Color(0x40000000),
@@ -180,7 +181,7 @@ class AppBarWeb extends StatelessWidget {
                                             ),
                                           ),
                                           const SizedBox(
-                                            width: 10,
+                                            width: AppSize.s10,
                                           ),
                                           AppClickableWidget(
                                             onTap: () {
@@ -204,13 +205,13 @@ class AppBarWeb extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(
-                                      width: 10,
+                                      width: AppSize.s10,
                                     ),
 
                                     ///add button
                                     Container(
-                                      width: 33,
-                                      height: 33,
+                                      width: AppSize.s33,
+                                      height: AppSize.s33,
                                       decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         boxShadow: [
@@ -403,7 +404,7 @@ class AppBarWeb extends StatelessWidget {
                                         ),
                                       )
                                     : SizedBox(
-                                        width: 1,
+                                        width: AppSize.s1,
                                       ),
                                 // SizedBox(
                                 //   width: MediaQuery.of(context).size.width / 50,
@@ -465,7 +466,7 @@ class AppBarWeb extends StatelessWidget {
                                         ),
                                       ),
 
-                                      SizedBox(width: 18), //width between the notifications_none_outlined & settings_outlined icon
+                                      SizedBox(width: AppSize.s18), //width between the notifications_none_outlined & settings_outlined icon
 
                                       AppClickableWidget(
                                         onTap: () {},
@@ -494,7 +495,7 @@ class AppBarWeb extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(Icons.person,color:Colors.white,),
-                                      const SizedBox(height: 2),
+                                      const SizedBox(height:  AppSize.s2),
                                       FutureBuilder(
                                         future: user(),
                                         builder: (context,snap) {
@@ -506,7 +507,7 @@ class AppBarWeb extends StatelessWidget {
                                             style: GoogleFonts.firaSans(
                                               color: Colors.white,
                                               fontSize: FontSize.s9,
-                                              fontWeight: FontWeight.w400,
+                                              fontWeight: FontWeightManager.regular,
                                             ),
                                           );
                                         }

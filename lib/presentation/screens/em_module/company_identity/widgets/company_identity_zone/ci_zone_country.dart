@@ -258,7 +258,11 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                               _contyController.add(data);
                                             }).catchError((error){});
                                           }));
-                                        }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
+                                        }, icon: Icon(
+                                          Icons.delete_outline,
+                                          size:18,
+                                          color: ColorManager.faintOrange,)
+                                        ),
                                       ],
                                     ),
                                   ),

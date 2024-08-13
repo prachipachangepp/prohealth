@@ -708,8 +708,8 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
           ),
           color: ColorManager.blueprime,
         ),
-        height: 47,
-        width: 1280,
+        height: AppSize.s47,
+        width: AppSize.s1280,
         child: Row(
           children: [
             Padding(
@@ -744,7 +744,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 300,
+              height: AppSize.s300,
               child: Column(
                 children: [
                   Row(
@@ -771,7 +771,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                               borderRadius: BorderRadius.circular(12.0),
                               borderSide: BorderSide(
                                 color: ColorManager.containerBorderGrey,
-                                width: 1.0,
+                                width: AppSize.s1,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
@@ -813,9 +813,9 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSize.s20),
                   Container(
-                    height: 29,
+                    height: AppSize.s29,
                     // width: 1260,
                     decoration: BoxDecoration(
                       color: ColorManager.granitegray,
@@ -929,21 +929,21 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: AppSize.s10),
                   Expanded(
                     child: ListView.builder(
                       itemCount: patients.length,
                       itemBuilder: (context, index) {
                         final patient = patients[index];
                         final statusColor = patient['status'] == 'Scheduled'
-                            ? Colors.red
+                            ? ColorManager.red
                             : Color(0xffB4DB4C);
 
                         return Container(
-                          height: 30,
+                          height: AppSize.s30,
                           color: index.isEven
                               ? ColorManager.blueprime.withOpacity(0.17)
-                              : Colors.white,
+                              : ColorManager.white,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

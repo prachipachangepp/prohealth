@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class SchedularTextFieldWithButton extends StatelessWidget {
@@ -18,30 +21,30 @@ class SchedularTextFieldWithButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 25.38,
+      height: AppSize.s25p38,
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
           TextFormField(
             initialValue: initialValue,
             style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: Colors.black,
+              fontSize: FontSize.s12,
+              fontWeight: FontWeightManager.regular,
+              color: ColorManager.black,
             ),
-            cursorColor: Colors.black,
+            cursorColor: ColorManager.black,
             decoration: InputDecoration(
               labelText: labelText,
               labelStyle: GoogleFonts.firaSans(
-                fontSize: 10,
-                color: Color(0XFF575757),                                                      // text color
+                fontSize: FontSize.s10,
+                color: ColorManager.lightgreyheading,                                                      // text color
               ),
               border: const OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0XFFB1B1B1)),
+                borderSide: BorderSide(color: ColorManager.containerBorderGrey),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0XFFB1B1B1)),
+                borderSide: BorderSide(color: ColorManager.containerBorderGrey),
               ),
               contentPadding: EdgeInsets.only(
                 top: 10,
@@ -54,8 +57,8 @@ class SchedularTextFieldWithButton extends StatelessWidget {
           Positioned(
             right: 5,
             child: Container(
-              height: 18,                                  //  view zone height button
-              width: 72,
+              height: AppSize.s18,                                  //  view zone height button
+              width: AppSize.s72,
               child: ElevatedButton(
                 onPressed: () async {
                   String googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
@@ -68,9 +71,9 @@ class SchedularTextFieldWithButton extends StatelessWidget {
                 child: Text(
                   buttonText,
                   style: GoogleFonts.firaSans(
-                    fontSize:10,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
+                    fontSize:FontSize.s10,
+                    fontWeight: FontWeightManager.regular,
+                    color: ColorManager.white,
                     decoration: TextDecoration.underline,
                   ),
                 ),

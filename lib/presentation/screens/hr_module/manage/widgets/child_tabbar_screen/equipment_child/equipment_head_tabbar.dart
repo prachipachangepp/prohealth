@@ -392,7 +392,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
-                          color: const Color(0xff686464),
+                          color:  ColorManager.granitegray,
                           decoration: TextDecoration.none,
                         ),),
                       SizedBox(height: 2),
@@ -421,7 +421,11 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                               print("Type::${typeName}");
                             });
                           },
-                          value: 'Cellular',style: GoogleFonts.roboto(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.bold),
+                          value: 'Cellular',
+                          style: GoogleFonts.roboto(
+                              color: ColorManager.granitegray,
+                            fontSize: AppSize.s12,
+                            fontWeight: FontWeightManager.bold),
                         ),
                       ),
                     ],
@@ -435,9 +439,9 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                         children: [
                           Text('Assign Date',
                             style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xff686464),
+                              fontSize: AppSize.s12,
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.granitegray,
                               decoration: TextDecoration.none,
                             ),),
                         ],
@@ -447,11 +451,11 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                         builder: (FormFieldState<String> field) {
                           return SizedBox(
                             width: 354,
-                            height: 30,
+                            height: AppSize.s30,
                             child: TextFormField(
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeightManager.bold,
                                 color: ColorManager.mediumgrey,
                                 //decoration: TextDecoration.none,
                               ),
@@ -462,7 +466,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                 hintText: 'dd-mm-yyyy',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: FontSize.s12,
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeightManager.bold,
                                   color: ColorManager.mediumgrey,
                                   //decoration: TextDecoration.none,
                                 ),
@@ -475,8 +479,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                                   borderRadius: BorderRadius.circular(8),
                                   borderSide: BorderSide(
                                       width: 1,
-                                      color: ColorManager
-                                          .mediumgrey), // Set focused border color to red
+                                      color: ColorManager.mediumgrey), // Set focused border color to red
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -524,11 +527,11 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                   SizedBox(height: MediaQuery.of(context).size.width/22,),
                   Center(
                     child: isLoading ? SizedBox(
-                      height: 25,
-                        width: 25,
+                      height: AppSize.s25,
+                        width: AppSize.s25,
                         child: CircularProgressIndicator(color: ColorManager.blueprime,)):
                      CustomElevatedButton(
-                        width: 150,
+                        width: AppSize.s150,
                         height: AppSize.s30,
                         text: 'Add Equipment',
                         onPressed: () async{
