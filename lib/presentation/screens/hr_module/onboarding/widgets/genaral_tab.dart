@@ -725,7 +725,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                               fit: BoxFit.cover,
                                                               errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                                                                 print('Error loading image: $exception');
-                                                                return Image.asset('images/profile.png', fit: BoxFit.cover);
+                                                                // return Image.asset('images/profile.png', fit: BoxFit.cover);
+                                                                return Icon(Icons.person,color: ColorManager.mediumgrey,size: 40,);
                                                               },
                                                             );
                                                           },
