@@ -56,8 +56,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
    final TextEditingController position = TextEditingController();
   // final TextEditingController email = TextEditingController();
   FocusNode _focusNode = FocusNode();
-   List<int> _selectedItemIndex = [];
-   String selectedIndexVal = '';
+  int? _selectedItemIndex;
    int country = 0;
    int zoneId = 0;
    int countyId =0;
@@ -788,84 +787,232 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
               SizedBox(
                 height: AppSize.s5,
               ),
-              Expanded(
-                child: Column(
-               //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
 
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 16.0),
-                        child: McqWidget(
-                          title: 'Employment',
-                          items: [
-                            'Full Time',
-                            'Contract',
-                            'Part Time',
-                            'Per Diem'
-                          ],
-                          onChanged: (selectedIndex) {
-                            print('Selected index: $selectedIndex');
-                            // _selectedItemIndex = selectedIndex as List<int>;
-                            setState(() {
-                              selectedIndexVal =
-                              ['Full Time', 'Contract', 'Part Time', 'Per Diem'][selectedIndex];
-                              print('Selected items: $selectedIndexVal');
-                            });
+              Container(
+                height: 60,
 
-                          },
-                        ),
-                      ),
-                    ),
-
-                    Expanded(
-                      flex: 1,
-                      child: FutureBuilder<
-                          List<AEClinicalService>>(
-                          future:
-                          HrAddEmplyClinicalServiceRadioButtonApi(
-                              context, 1),
-                          builder: (context, snap) {
-                            if (snap.connectionState ==
-                                ConnectionState.waiting) {
-                              return Center(
-                                child: SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child:
-                                    CircularProgressIndicator(
-                                      color:
-                                      ColorManager.blueprime,
-                                    )),
-                              );
-                            }
-                            if (snap.hasData) {
-                              List<String> serviceName = [];
-                              for (var i in snap.data!) {
-                                serviceName.add(i.serviceName!);
-                              }
-                              return Padding(
-                                padding: EdgeInsets.only(left: 16.0),
-                                child: McqWidget(
-                                  title: 'Service',
-                                  items: serviceName,
-                                  onChanged: (val) {
-                                    setState(() {
-                                      serviceVal =  serviceName[val].toString();
-                                      print('Service data ${serviceVal}');
-                                    });
-
-                                  },
-                                ),
-                              );
-                            }
-                            return SizedBox();
-                          }),
-                    ),
-                  ],
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16.0),
+                  child: McqWidget(
+                    title: 'Employment',
+                    items: [
+                      'Full Time',
+                      'Contract',
+                      'Part Time',
+                      'Per Diem'
+                    ],
+                    onChanged: (selectedIndex) {
+                      print('Selected index: $selectedIndex');
+                      _selectedItemIndex = selectedIndex;
+                    },
+                  ),
                 ),
               ),
+
+              //
+              //
+              //
+              // Container(
+              //   height: 100,
+              //   child: FutureBuilder<List<AEClinicalService>>(
+              //     future: HrAddEmplyClinicalServiceRadioButtonApi(context, 1),
+              //     builder: (context, snap) {
+              //       if (snap.connectionState == ConnectionState.waiting) {
+              //         return Center(
+              //           child: SizedBox(
+              //             height: 20,
+              //             width: 20,
+              //             child: CircularProgressIndicator(
+              //               color: ColorManager.blueprime,
+              //             ),
+              //           ),
+              //         );
+              //       }
+              //       if (snap.hasData) {
+              //         List<String> serviceName = [];
+              //         for (var i in snap.data!) {
+              //           serviceName.add(i.serviceName!);
+              //         }
+              //
+              //         final selectedItemIndex = RxInt(-1); // Initialize state
+              //
+              //         return Padding(
+              //           padding: EdgeInsets.only(left: 16.0),
+              //           child: McqWidgetEnroll(
+              //             title: 'Service',
+              //             items: serviceName,
+              //             selectedItemIndex: selectedItemIndex,
+              //             onChanged: (val) {
+              //               serviceVal = serviceName[val].toString();
+              //               print('Service data $serviceVal');
+              //             },
+              //           ),
+              //         );
+              //       }
+              //       return SizedBox();
+              //     },
+              //   ),
+              // ),
+
+
+              Container(
+
+                height: 100,
+                child: FutureBuilder<List<AEClinicalService>>(
+                  future: HrAddEmplyClinicalServiceRadioButtonApi(context, 1),
+                  builder: (context, snap) {
+                    if (snap.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: ColorManager.blueprime,
+                          ),
+                        ),
+                      );
+                    }
+                    if (snap.hasData) {
+                      List<String> serviceName = [];
+                      for (var i in snap.data!) {
+                        serviceName.add(i.serviceName!);
+                      }
+                      return Padding(
+                        padding: EdgeInsets.only(left: 16.0),
+                        child: McqWidget(
+                          title: 'Service',
+                          items: serviceName,
+                          onChanged: (val) {
+                            serviceVal = serviceName[val].toString();
+                            print('Service data $serviceVal');
+                          },
+                        ),
+                      );
+                    }
+                    return SizedBox();
+                  },
+                ),
+              ),
+
+
+              // Container(
+              //   color: Colors.blue,
+              //   height: 100,
+              //   child: FutureBuilder<
+              //       List<AEClinicalService>>(
+              //       future:
+              //       HrAddEmplyClinicalServiceRadioButtonApi(
+              //           context, 1),
+              //       builder: (context, snap) {
+              //         if (snap.connectionState ==
+              //             ConnectionState.waiting) {
+              //           return Center(
+              //             child: SizedBox(
+              //                 height: 20,
+              //                 width: 20,
+              //                 child:
+              //                 CircularProgressIndicator(
+              //                   color:
+              //                   ColorManager.blueprime,
+              //                 )),
+              //           );
+              //         }
+              //         if (snap.hasData) {
+              //           List<String> serviceName = [];
+              //           for (var i in snap.data!) {
+              //             serviceName.add(i.serviceName!);
+              //           }
+              //           return Padding(
+              //             padding: EdgeInsets.only(left: 16.0),
+              //             child: McqWidget(
+              //               title: 'Service',
+              //               items: serviceName,
+              //               onChanged: (val) {
+              //                 serviceVal =  serviceName[val].toString();
+              //                 print('Service data ${serviceVal}');
+              //               },
+              //             ),
+              //           );
+              //         }
+              //         return SizedBox();
+              //       }),
+              //
+              // ),
+
+
+
+              // Expanded(
+              //   child: Column(
+              //  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: [
+              //
+              //       Expanded(
+              //         flex: 1,
+              //         child: Padding(
+              //           padding: EdgeInsets.only(left: 16.0),
+              //           child: McqWidget(
+              //             title: 'Employment',
+              //             items: [
+              //               'Full Time',
+              //               'Contract',
+              //               'Part Time',
+              //               'Per Diem'
+              //             ],
+              //             onChanged: (selectedIndex) {
+              //               print('Selected index: $selectedIndex');
+              //               _selectedItemIndex = selectedIndex;
+              //             },
+              //           ),
+              //         ),
+              //       ),
+              //
+              //       Expanded(
+              //
+              //         flex: 1,
+              //         child: FutureBuilder<
+              //             List<AEClinicalService>>(
+              //             future:
+              //             HrAddEmplyClinicalServiceRadioButtonApi(
+              //                 context, 1),
+              //             builder: (context, snap) {
+              //               if (snap.connectionState ==
+              //                   ConnectionState.waiting) {
+              //                 return Center(
+              //                   child: SizedBox(
+              //                       height: 20,
+              //                       width: 20,
+              //                       child:
+              //                       CircularProgressIndicator(
+              //                         color:
+              //                         ColorManager.blueprime,
+              //                       )),
+              //                 );
+              //               }
+              //               if (snap.hasData) {
+              //                 List<String> serviceName = [];
+              //                 for (var i in snap.data!) {
+              //                   serviceName.add(i.serviceName!);
+              //                 }
+              //                 return Padding(
+              //                   padding: EdgeInsets.only(left: 16.0),
+              //                   child: FittedBox(
+              //                     child: McqWidget(
+              //                       title: 'Service',
+              //                       items: serviceName,
+              //                       onChanged: (val) {
+              //                         serviceVal =  serviceName[val].toString();
+              //                        print('Service data ${serviceVal}');
+              //                       },
+              //                     ),
+              //                   ),
+              //                 );
+              //               }
+              //               return SizedBox();
+              //             }),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               ///////////////////////////////
               SizedBox(
                 height: AppSize.s6,
@@ -904,8 +1051,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     countyId: 9,
                     zoneId: 18,
                     employment: "Full Time",
-                    service: "Home Health"
+                    service: serviceVal
                     );
+
 
                         print("${widget.employeeId}");
 
@@ -1018,7 +1166,7 @@ class RegisterEnrollAlertDialog {
                         return null;
                       },
                     ),
-                    CustomTextFieldRegister(
+                    CustomTextFieldForEmail(
                       height: AppSize.s35,
                       width: MediaQuery.of(context).size.width / 6,
                       controller: email,
