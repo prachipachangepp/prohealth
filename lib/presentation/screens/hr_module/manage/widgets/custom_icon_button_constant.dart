@@ -290,6 +290,47 @@ class CustomTitleButton extends StatelessWidget {
   }
 }
 
+/// DZone button
+class DZoneButton extends StatelessWidget {
+  final bool isSelected;
+  final VoidCallback onTap;
+   DZoneButton({super.key,required this.isSelected,required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 32,
+      height: 25,
+      decoration: BoxDecoration(
+        color: isSelected ? ColorManager.blueprime : ColorManager.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x40000000),
+            offset: Offset(0, 4),
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Center(
+          child: Text(
+            'DZ',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.firaSans(
+              fontSize: FontSize.s11,
+              fontWeight: FontWeightManager.regular,
+              color: isSelected ? ColorManager.white : ColorManager.black,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
 class CustomDropdownButton extends StatelessWidget {
   final List<String> items;
   final String? selectedItem;

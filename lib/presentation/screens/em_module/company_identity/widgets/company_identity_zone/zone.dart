@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
@@ -60,7 +61,31 @@ class _CiOrgDocumentState extends State<CiZone> {
       curve: Curves.ease,
     );
   }
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
 
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) =>
+            MapScreen(
+              initialLocation: _selectedLocation,
+              onLocationPicked: (location) {
+                setState(() {
+                  _selectedLocation = location;
+                  print("Selected LatLong :: ${_selectedLocation
+                      .latitude} + ${_selectedLocation.longitude}");
+                });
+              },
+            ),
+      ),
+    );
+
+    if (pickedLocation != null) {
+      setState(() {
+        _selectedLocation = pickedLocation;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -383,6 +408,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                     countynameController: countynameController,
                                     cityNameController: cityController,
                                     zipcodeController: zipcodeController,
+                                    onPickLocation: _pickLocation,
                                     child1: FutureBuilder<
                                             List<AllCountyGetList>>(
                                         future: getCountyZoneList(context),
@@ -460,9 +486,10 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           widget.officeId,
                                           cityController.text,
                                           zipcodeController.text,
-                                          "37.0902°",
-                                          "95.7129°",
+                                          _selectedLocation.latitude.toString(),
+                                          _selectedLocation.longitude.toString(),
                                           landmarkController.text);
+                                      print("Saved lat long${_selectedLocation.latitude.toString()} + ${_selectedLocation.longitude.toString()}");
                                     },
                                     mapController: mapController,
                                     landmarkController: landmarkController,
@@ -577,3 +604,5 @@ class _CiOrgDocumentState extends State<CiZone> {
     );
   }
 }
+
+

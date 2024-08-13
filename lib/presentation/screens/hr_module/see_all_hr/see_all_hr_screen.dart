@@ -236,304 +236,27 @@ enum Zone { zone1, zone2 }
 enum LicenseStatus { active, expired }
 enum Availability { fullTime, partTime }
 ///
-class ProfilePatientPopUp extends StatefulWidget {
-  final VoidCallback onSearch;
-
-  const ProfilePatientPopUp({Key? key, required this.onSearch}) : super(key: key);
-
-  @override
-  State<ProfilePatientPopUp> createState() => _PopUpState();
-}
-
-class _PopUpState extends State<ProfilePatientPopUp> {
-  String? dropdownOfficeLocation;
-  String? dropdownZone;
-  String? dropdownLicenseStatus;
-  String? dropdownAvailability;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      titlePadding: EdgeInsets.zero,
-      backgroundColor: Colors.white,
-      title: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8.0),
-            topRight: Radius.circular(8.0),
-          ),
-          color: Color(0xff50B5E5),
-        ),
-        height: 32,
-        width: 300,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Patient Profile',
-                style: GoogleFonts.firaSans(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Spacer(),
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.close,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
-      ),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Other UI elements...
-            SizedBox(height: MediaQuery.of(context).size.height / 160),
-            Row(
-              children: [
-                ConstantContainerWithText(text: 'RN'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'LVN'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'PT'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'PTA'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'HHA'),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 45),
-            Row(
-              children: [
-                ConstantContainerWithText(text: 'COTA'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'ST'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'MSW'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'OT'),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 30),
-            Row(
-              children: [
-                Text(
-                  'Office Location',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff737373),
-                  ),
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width / 11),
-                Text(
-                  'Zone',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff737373),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 60),
-            Row(
-              children: [
-                Container(
-                  width: 120,
-                  height: 30,
-                  child: CustomDropDown(
-
-                    items: ['San Joes', 'Austin'],
-                    labelText: 'Office Location',
-                    labelStyle: GoogleFonts.firaSans(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff737373),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        dropdownOfficeLocation = value;
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width / 20),
-                Container(
-                  width: 120,
-                  height: 30,
-                  child: CustomDropDown(
-                    items: ['Zone 1', 'Zone 2'],
-                    labelText: 'Zone',
-                    labelStyle: GoogleFonts.firaSans(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff737373),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        dropdownZone = value;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 25),
-            Row(
-              children: [
-                Text(
-                  'License status',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff737373),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 60),
-            Row(
-              children: [
-                Container(
-                  width: 120,
-                  height: 30,
-                  child: CustomDropDown(
-
-                    items: ['Active', 'Expired'],
-                    labelText: 'License Status',
-                    labelStyle: GoogleFonts.firaSans(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff737373),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        dropdownLicenseStatus = value;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 25),
-            Row(
-              children: [
-                Text(
-                  'Availability',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff737373),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 60),
-            Row(
-              children: [
-                Container(
-                  width: 120,
-                  height: 30,
-                  child: CustomDropDown(
-
-                    items: ['Full-Time', 'Part-Time'],
-                    labelText: 'Availability',
-                    labelStyle: GoogleFonts.firaSans(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff737373),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        dropdownAvailability = value;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 25),
-            ElevatedButton(
-              onPressed: (){
-                widget.onSearch();
-                Navigator.pop(context);
-              },
-              child: Text('Search', style: GoogleFonts.firaSans(
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-///
 // class ProfilePatientPopUp extends StatefulWidget {
-//   const ProfilePatientPopUp({Key? key}) : super(key: key);
+//   final VoidCallback onSearch;
+//
+//   const ProfilePatientPopUp({Key? key, required this.onSearch}) : super(key: key);
 //
 //   @override
 //   State<ProfilePatientPopUp> createState() => _PopUpState();
 // }
 //
 // class _PopUpState extends State<ProfilePatientPopUp> {
-//   String? dropdownValue;
 //   String? dropdownOfficeLocation;
 //   String? dropdownZone;
 //   String? dropdownLicenseStatus;
 //   String? dropdownAvailability;
 //
-//   // Example method to call the API
-//   Future<void> _searchByFilter() async {
-//     var result = await postSearchByFilter(
-//       context,
-//       true, // patientProfileSearch
-//       'John Doe', // profileName
-//       true, // officeLocationSearch
-//       dropdownOfficeLocation ?? '', // officeId
-//       true, // zoneSearch
-//       1, // zoneId
-//       true, // licenseSearch
-//       dropdownLicenseStatus ?? '', // licenseStatus
-//       true, // availabilitySearch
-//       dropdownAvailability ?? '', // availability
-//     );
-//
-//     if (result.success) {
-//       print('Search successful');
-//       // Handle success response
-//     } else {
-//       print('Search failed: ${result.message}');
-//       // Handle failure response
-//     }
-//   }
-//
 //   @override
 //   Widget build(BuildContext context) {
 //     return AlertDialog(
 //       shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.only(
-//         topLeft: Radius.circular(8.0),
-//         topRight: Radius.circular(8.0),
-//         bottomLeft: Radius.circular(8.0),
-//         bottomRight: Radius.circular(8.0),
-//       )),
+//         borderRadius: BorderRadius.circular(8.0),
+//       ),
 //       titlePadding: EdgeInsets.zero,
 //       backgroundColor: Colors.white,
 //       title: Container(
@@ -576,6 +299,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //         child: Column(
 //           mainAxisSize: MainAxisSize.min,
 //           children: [
+//             // Other UI elements...
 //             SizedBox(height: MediaQuery.of(context).size.height / 160),
 //             Row(
 //               children: [
@@ -609,16 +333,16 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //                   'Office Location',
 //                   style: GoogleFonts.firaSans(
 //                     fontSize: 10,
-//                     fontWeight: FontWeight.w700,
+//                     fontWeight: FontWeight.w400,
 //                     color: Color(0xff737373),
 //                   ),
 //                 ),
-//                 SizedBox(width: MediaQuery.of(context).size.width / 3.7),
+//                 SizedBox(width: MediaQuery.of(context).size.width / 11),
 //                 Text(
 //                   'Zone',
 //                   style: GoogleFonts.firaSans(
 //                     fontSize: 10,
-//                     fontWeight: FontWeight.w700,
+//                     fontWeight: FontWeight.w400,
 //                     color: Color(0xff737373),
 //                   ),
 //                 ),
@@ -627,15 +351,16 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //             SizedBox(height: MediaQuery.of(context).size.height / 60),
 //             Row(
 //               children: [
-//                 Center(
+//                 Container(
+//                   width: 120,
+//                   height: 30,
 //                   child: CustomDropDown(
-//                     width: 96,
-//                     height: 27,
+//
 //                     items: ['San Joes', 'Austin'],
 //                     labelText: 'Office Location',
 //                     labelStyle: GoogleFonts.firaSans(
 //                       fontSize: 10,
-//                       fontWeight: FontWeight.w700,
+//                       fontWeight: FontWeight.w400,
 //                       color: Color(0xff737373),
 //                     ),
 //                     onChanged: (value) {
@@ -644,24 +369,17 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //                       });
 //                     },
 //                   ),
-//                   // Text(
-//                   //   'San Jose',
-//                   //   style: GoogleFonts.firaSans(
-//                   //     fontSize: 10,
-//                   //     fontWeight: FontWeight.w400,
-//                   //   ),
-//                   // ),
 //                 ),
 //                 SizedBox(width: MediaQuery.of(context).size.width / 20),
-//                 Center(
+//                 Container(
+//                   width: 120,
+//                   height: 30,
 //                   child: CustomDropDown(
-//                     width: 96,
-//                     height: 27,
 //                     items: ['Zone 1', 'Zone 2'],
 //                     labelText: 'Zone',
 //                     labelStyle: GoogleFonts.firaSans(
 //                       fontSize: 10,
-//                       fontWeight: FontWeight.w700,
+//                       fontWeight: FontWeight.w400,
 //                       color: Color(0xff737373),
 //                     ),
 //                     onChanged: (value) {
@@ -670,13 +388,6 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //                       });
 //                     },
 //                   ),
-//                   // Text(
-//                   //   'Zone 1',
-//                   //   style: GoogleFonts.firaSans(
-//                   //     fontSize: 10,
-//                   //     fontWeight: FontWeight.w400,
-//                   //   ),
-//                   // ),
 //                 ),
 //               ],
 //             ),
@@ -687,7 +398,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //                   'License status',
 //                   style: GoogleFonts.firaSans(
 //                     fontSize: 10,
-//                     fontWeight: FontWeight.w700,
+//                     fontWeight: FontWeight.w400,
 //                     color: Color(0xff737373),
 //                   ),
 //                 ),
@@ -696,32 +407,25 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //             SizedBox(height: MediaQuery.of(context).size.height / 60),
 //             Row(
 //               children: [
-//                 Center(
-//                     child:  CustomDropDown(
-//             width: 96,
-//               height: 27,
-//               items: ['Active', 'Expired'],
-//               labelText: 'License Status',
-//               labelStyle: GoogleFonts.firaSans(
-//                 fontSize: 10,
-//                 fontWeight: FontWeight.w700,
-//                 color: Color(0xff737373),
-//               ),
-//               onChanged: (value) {
-//                 setState(() {
-//                   dropdownLicenseStatus = value;
-//                 });
-//               },
-//             ),
+//                 Container(
+//                   width: 120,
+//                   height: 30,
+//                   child: CustomDropDown(
 //
-//                     // Text(
-//                     //   'Expired',
-//                     //   style: GoogleFonts.firaSans(
-//                     //     fontSize: 10,
-//                     //     fontWeight: FontWeight.w400,
-//                     //   ),
-//                     // ),
+//                     items: ['Active', 'Expired'],
+//                     labelText: 'License Status',
+//                     labelStyle: GoogleFonts.firaSans(
+//                       fontSize: 10,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff737373),
 //                     ),
+//                     onChanged: (value) {
+//                       setState(() {
+//                         dropdownLicenseStatus = value;
+//                       });
+//                     },
+//                   ),
+//                 ),
 //               ],
 //             ),
 //             SizedBox(height: MediaQuery.of(context).size.height / 25),
@@ -731,7 +435,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //                   'Availability',
 //                   style: GoogleFonts.firaSans(
 //                     fontSize: 10,
-//                     fontWeight: FontWeight.w700,
+//                     fontWeight: FontWeight.w400,
 //                     color: Color(0xff737373),
 //                   ),
 //                 ),
@@ -740,32 +444,38 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //             SizedBox(height: MediaQuery.of(context).size.height / 60),
 //             Row(
 //               children: [
-//                 Center(
-//                     child:  CustomDropDown(
-//             width: 96,
-//               height: 27,
-//               items: ['Full-Time', 'Part-Time'],
-//               labelText: 'Availability',
-//               labelStyle: GoogleFonts.firaSans(
+//                 Container(
+//                   width: 120,
+//                   height: 30,
+//                   child: CustomDropDown(
+//
+//                     items: ['Full-Time', 'Part-Time'],
+//                     labelText: 'Availability',
+//                     labelStyle: GoogleFonts.firaSans(
+//                       fontSize: 10,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff737373),
+//                     ),
+//                     onChanged: (value) {
+//                       setState(() {
+//                         dropdownAvailability = value;
+//                       });
+//                     },
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: MediaQuery.of(context).size.height / 25),
+//             ElevatedButton(
+//               onPressed: (){
+//                 widget.onSearch();
+//                 Navigator.pop(context);
+//               },
+//               child: Text('Search', style: GoogleFonts.firaSans(
 //                 fontSize: 10,
 //                 fontWeight: FontWeight.w700,
-//                 color: Color(0xff737373),
-//               ),
-//               onChanged: (value) {
-//                 setState(() {
-//                   dropdownAvailability = value;
-//                 });
-//               },
-//             ),
-//                     // Text(
-//                     //   'Full-Time',
-//                     //   style: GoogleFonts.firaSans(
-//                     //     fontSize: 10,
-//                     //     fontWeight: FontWeight.w400,
-//                     //   ),
-//                     // ),
-//                     ),
-//               ],
+//                 color: Colors.white,
+//               ),),
 //             ),
 //           ],
 //         ),
@@ -773,6 +483,282 @@ class _PopUpState extends State<ProfilePatientPopUp> {
 //     );
 //   }
 // }
+
+///
+class ProfilePatientPopUp extends StatefulWidget {
+  final Widget? zoneDropDown;
+  final VoidCallback onSearch;
+  ProfilePatientPopUp({Key? key, required this.onSearch, this.zoneDropDown,}) : super(key: key);
+
+  @override
+  State<ProfilePatientPopUp> createState() => _PopUpState();
+}
+
+class _PopUpState extends State<ProfilePatientPopUp> {
+  String? dropdownValue;
+  String? dropdownOfficeLocation;
+  String? dropdownZone;
+  String? dropdownLicenseStatus;
+  String? dropdownAvailability;
+
+  // Example method to call the API
+
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(8.0),
+        topRight: Radius.circular(8.0),
+        bottomLeft: Radius.circular(8.0),
+        bottomRight: Radius.circular(8.0),
+      )),
+      titlePadding: EdgeInsets.zero,
+      backgroundColor: Colors.white,
+      title: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8.0),
+            topRight: Radius.circular(8.0),
+          ),
+          color: Color(0xff50B5E5),
+        ),
+        height: 32,
+        width: 300,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Patient Profile',
+                style: GoogleFonts.firaSans(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Spacer(),
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height / 160),
+            Row(
+              children: [
+                ConstantContainerWithText(text: 'RN'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'LVN'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'PT'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'PTA'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'HHA'),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 45),
+            Row(
+              children: [
+                ConstantContainerWithText(text: 'COTA'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'ST'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'MSW'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'OT'),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
+            // Row(
+            //   children: [
+            //     Text(
+            //       'Office Location',
+            //       style: GoogleFonts.firaSans(
+            //         fontSize: 10,
+            //         fontWeight: FontWeight.w700,
+            //         color: Color(0xff737373),
+            //       ),
+            //     ),
+            //     SizedBox(width: MediaQuery.of(context).size.width / 3.7),
+            //     Text(
+            //       'Zone',
+            //       style: GoogleFonts.firaSans(
+            //         fontSize: 10,
+            //         fontWeight: FontWeight.w700,
+            //         color: Color(0xff737373),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            SizedBox(height: MediaQuery.of(context).size.height / 60),
+            Row(
+              children: [
+                Center(
+                  child: CustomDropDown(
+                    width: 96,
+                    height: 27,
+                    items: ['San Joes', 'Austin'],
+                    labelText: 'Office Location',
+                    labelStyle: GoogleFonts.firaSans(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff737373),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        dropdownOfficeLocation = value;
+                      });
+                    },
+                  ),
+                  // Text(
+                  //   'San Jose',
+                  //   style: GoogleFonts.firaSans(
+                  //     fontSize: 10,
+                  //     fontWeight: FontWeight.w400,
+                  //   ),
+                  // ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Zone', style: GoogleFonts.firaSans(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff737373))),
+                      widget.zoneDropDown == null ? Offstage() : widget.zoneDropDown!
+                    ],
+                  ),
+                  // Text(
+                  //   'Zone 1',
+                  //   style: GoogleFonts.firaSans(
+                  //     fontSize: 10,
+                  //     fontWeight: FontWeight.w400,
+                  //   ),
+                  // ),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 25),
+            Row(
+              children: [
+                Text(
+                  'License status',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff737373),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 60),
+            Row(
+              children: [
+                Center(
+                    child:  CustomDropDown(
+            width: 96,
+              height: 27,
+              items: ['Active', 'Expired'],
+              labelText: 'License Status',
+              labelStyle: GoogleFonts.firaSans(
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff737373),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  dropdownLicenseStatus = value;
+                });
+              },
+            ),
+
+                    // Text(
+                    //   'Expired',
+                    //   style: GoogleFonts.firaSans(
+                    //     fontSize: 10,
+                    //     fontWeight: FontWeight.w400,
+                    //   ),
+                    // ),
+                    ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 25),
+            Row(
+              children: [
+                Text(
+                  'Availability',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff737373),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 60),
+            Row(
+              children: [
+                Center(
+                    child:  CustomDropDown(
+            width: 96,
+              height: 27,
+              items: ['Full-Time', 'Part-Time'],
+              labelText: 'Availability',
+              labelStyle: GoogleFonts.firaSans(
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff737373),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  dropdownAvailability = value;
+                });
+              },
+            ),
+                    // Text(
+                    //   'Full-Time',
+                    //   style: GoogleFonts.firaSans(
+                    //     fontSize: 10,
+                    //     fontWeight: FontWeight.w400,
+                    //   ),
+                    // ),
+                    ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 25),
+            ElevatedButton(
+              onPressed: (){
+                widget.onSearch();
+                Navigator.pop(context);
+              },
+              child: Text('Search', style: GoogleFonts.firaSans(
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 
 

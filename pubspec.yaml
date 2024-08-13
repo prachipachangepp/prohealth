@@ -79,6 +79,9 @@ dependencies:
   encrypt: any
   cached_network_image: any
   google_maps_flutter: any
+  google_maps_flutter_web: any
+  geocoding: any
+
 
 
 
