@@ -364,7 +364,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:50346#/onBordingWelcome";
+                          const url = "http://localhost:54716/#/onBordingWelcome";
                           //const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                            await launch(url);
