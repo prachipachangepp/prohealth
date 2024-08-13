@@ -189,7 +189,7 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                     height: MediaQuery.of(context).size.height / 120,
                   ),
                   Container(
-                    height: 30,
+                    height: AppSize.s30,
                     child: TextFormField(
                       cursorColor: Colors.black,
                       cursorHeight: 18,
@@ -376,5 +376,6 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
     );
   }
 }
+
 
 //////////////////
