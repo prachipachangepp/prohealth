@@ -560,6 +560,11 @@
 //   }
 // }
 
+
+
+
+
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -752,7 +757,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                     ),
                                                   ],
                                                 ),
-                                                const Column(
+                                                Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     InfoText('Social Security No.'),
@@ -1099,3 +1104,4 @@ class InfoData extends StatelessWidget {
     );
   }
 }
+///

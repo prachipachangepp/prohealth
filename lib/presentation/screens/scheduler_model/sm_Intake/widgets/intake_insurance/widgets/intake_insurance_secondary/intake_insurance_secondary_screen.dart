@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
 
 import '../../../../../../../../app/resources/color.dart';
@@ -36,7 +37,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                     Text('Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: 12.0,
+                          fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
                       ),
@@ -70,114 +71,114 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                               child: SchedularTextField(
                                   labelText: 'Primary Insurance')
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Name')
+                                  labelText: AppString.name)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Street')
+                                  labelText: AppString.street)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Code')
+                                  labelText: AppString.code)
                           ),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Suite/Apt #')
+                                  labelText: AppString.suite_Apt)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'City')
+                                  labelText:AppString.city)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
-                                labelText: 'State',)
+                                labelText: AppString.state,)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'Zip Code')
+                                  labelText:AppString.zip_code)
                           ),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'Type')
+                                  labelText:AppString.type)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
                                   labelText:'Phone')
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
                                 labelText:'Category',)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
                                   labelText:'Authorisation')
                           ),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
                               child: DoubleDatePickerTextField(
                                 labelText: 'Effective from', isDate: true,)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
                                   labelText:'Group #')
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
                                   labelText: 'Group Name')
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
                                   labelText:'Policy/ HIC #')
                           ),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
                               child: SchedularDropdown(
                                 labelText: 'Eligibility Status', )
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: Container()),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: Container()),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: Container()),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
@@ -186,8 +187,9 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                               children: [
                                 Text('Insurance Verified',
                                     style: GoogleFonts.firaSans(
-                                        color: Color(0xff575757),
-                                        fontSize: 10, fontWeight: FontWeight.w400)
+                                        color: ColorManager.lightgreyheading,
+                                        fontSize: FontSize.s10,
+                                        fontWeight:FontWeightManager.regular)
                                 ),
                                 SizedBox(height: 1),
                                 Row(
@@ -197,29 +199,30 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                       groupValue: status,
                                       onChanged: (value) => setState(() => status = value),
                                     ),
-                                    Text('Yes',
+                                    Text(AppString.yes,
                                         style: GoogleFonts.firaSans(
-                                            fontSize: 12, fontWeight: FontWeight.w400)
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeightManager.regular)
                                     ),
-                                    SizedBox(width: 35),
+                                    SizedBox(width: AppSize.s35),
                                     Radio<String>(
                                       value: 'No',
                                       groupValue: status,
                                       onChanged: (value) => setState(() => status = value),
                                     ),
-                                    Text('No',
+                                    Text(AppString.no,
                                         style: GoogleFonts.firaSans(
-                                            fontSize: 12, fontWeight: FontWeight.w400)
+                                            fontSize: 12, fontWeight:FontWeightManager.regular)
                                     ),
-                                    SizedBox(width: 20),
+                                    SizedBox(width: AppSize.s20),
                                     TextButton(
                                       onPressed: () => setState(() => status = null), // Clear selection
                                       child: Text(
                                         'Clear',
                                         style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff575757)
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeightManager.regular,
+                                            color: ColorManager.lightgreyheading
                                         ),
                                       ),
                                     ),
@@ -228,28 +231,28 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                               ],
                             ),
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: Container()),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: Container()),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: Container()),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
                             child: Container(
-                              height: 99,
+                              height: AppSize.s99,
                               child: TextFormField(
                                 maxLines: 3,
-                                cursorColor: Colors.black,
+                                cursorColor: ColorManager.black,
                                 decoration: InputDecoration(
-                                  labelText: 'Contact',
+                                  labelText: AppString.contact,
                                   labelStyle: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
                                     fontWeight: FontWeightManager.regular,

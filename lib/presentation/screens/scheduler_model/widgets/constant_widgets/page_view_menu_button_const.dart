@@ -40,7 +40,7 @@ class PageViewMenuButtonConst extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 10),
             height: 6,
-            width: 120,
+            width: MediaQuery.of(context).size.width/9,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(13.0),
               color: grpIndex == index ? ColorManager.blueprime : Colors.transparent,
@@ -59,6 +59,7 @@ class PageViewMenuButtonConst extends StatelessWidget {
     );
   }
 }
+////
 
 
 typedef OnClickableTap = Function();

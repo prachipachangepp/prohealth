@@ -79,6 +79,9 @@ dependencies:
   encrypt: any
   cached_network_image: any
   google_maps_flutter: any
+  table_calendar: ^3.1.2
+  calendar_view: ^1.2.0
+  fl_chart: any
 
 
 
