@@ -78,9 +78,10 @@ dependencies:
   universal_io: any
   encrypt: any
   cached_network_image: any
-  google_maps_flutter: any
-  google_maps_flutter_web: any
-  geocoding: any
+  google_maps_flutter: ^2.9.0
+  google_maps_flutter_web: ^0.5.10
+  geocoding: ^2.0.0
+
 
 
 
