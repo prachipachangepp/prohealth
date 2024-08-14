@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -208,7 +209,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                 Expanded(
                                   child: Center(
                                       child: Text(
-                                        snapshot.data![index].name.toString(),
+                                        snapshot.data![index].name.toString().capitalizeFirst!,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -232,7 +233,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                 Expanded(
                                   child: Center(
                                       child: Text(
-                                        snapshot.data![index].reminderThreshold.toString(),
+                                        snapshot.data![index].reminderThreshold.toString().capitalizeFirst!,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
