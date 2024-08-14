@@ -42,7 +42,8 @@ class _CustomIconButtonState extends State<CustomIconButton> {
       icon: widget.icon != null
           ? Icon(widget.icon!, color: Colors.white, size: 20)
           : const SizedBox.shrink(),
-      label: Text(widget.text,
+      label: Text(
+          widget.text,
           textAlign: TextAlign.center,
           style: CustomTextStylesCommon.commonStyle(
               fontSize: FontSize.s12,

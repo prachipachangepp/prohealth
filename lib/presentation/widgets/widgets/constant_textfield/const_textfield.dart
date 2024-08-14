@@ -312,13 +312,13 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
             contentPadding: EdgeInsets.only(bottom: AppPadding.p3,
                 top: AppPadding.p5, left: AppPadding.p5),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             labelText: widget.labelText,
             labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize),
@@ -412,13 +412,13 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
             contentPadding: EdgeInsets.only(bottom: AppPadding.p3,
                 top: AppPadding.p5, left: AppPadding.p5),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             labelText: widget.labelText,
             labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize),

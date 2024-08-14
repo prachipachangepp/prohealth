@@ -250,7 +250,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                   ? Padding(
                     padding: const EdgeInsets.only(right: 10.0),
                     child: CustomIconButtonConst(
-                                    // width: MediaQuery.of(context).size.width/15,
+                                    // width: MediaQuery.of(context).size.width/12,
+                      width: 79,
                         icon: Icons.add,
                         text: "Add",
                         onPressed: () {
@@ -281,7 +282,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                   )
                   : _selectedIndex == 1
                       ? CustomIconButtonConst(
-                  width: MediaQuery.of(context).size.width/10,
+                  // width: MediaQuery.of(context).size.width/12,
+                  width: 79,
                           icon: Icons.add,
                           text: AppStringEM.add,
                           onPressed: () {
@@ -371,7 +373,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                 });
                           })
                       : CustomIconButtonConst(
-                  width: MediaQuery.of(context).size.width/10,
+                  // width: MediaQuery.of(context).size.width/12,
+                  width: 79,
                           icon: Icons.add,
                           text: "Add",
                           onPressed: () {
