@@ -517,7 +517,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   child: CustomElevatedButton(
                     width: AppSize.s105,
                     height: AppSize.s30,
-                    text: AppStringEM.save,
+                    text: AppStringEM.add,
                     onPressed: () async {
                       setState(() {
                         isLoading = true;
@@ -676,10 +676,10 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       children: [
                         Text(
                           'Zone',
-                          style: TextStyle(
+                          style: GoogleFonts.firaSans(
                             fontSize: 12, // Adjust the size if needed
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey, // Adjust the color if needed
+                            fontWeight: FontWeightManager.bold,
+                            color: Color(0xff686464), // Adjust the color if needed
                           ),
                         ),
                         SizedBox(height: 5),
