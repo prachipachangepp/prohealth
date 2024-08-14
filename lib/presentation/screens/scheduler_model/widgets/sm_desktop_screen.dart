@@ -62,8 +62,8 @@ class SMDesktopScreen extends StatelessWidget {
                     children: [
                       Obx(
                             () => CustomTitleButton(
-                          height: 30,
-                          width: 100,
+                          height: AppSize.s30,
+                          width: AppSize.s100,
                           onPressed: () {
                             //companyAll(context);
                             myController.selectButton(0);
@@ -76,12 +76,12 @@ class SMDesktopScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 10,
+                        width: AppSize.s10,
                       ),
                       Obx(
                             () => CustomTitleButton(
-                          height: 30,
-                          width: 140,
+                          height: AppSize.s30,
+                          width: AppSize.s140,
                           onPressed: () {
 
                             //companyByIdApi(context,);
@@ -102,8 +102,8 @@ class SMDesktopScreen extends StatelessWidget {
 
                       Obx(
                             () => CustomTitleButton(
-                          height: 30,
-                          width: 140,
+                          height: AppSize.s30,
+                          width: AppSize.s140,
                           onPressed: () {
 
                             //companyByIdApi(context,);
@@ -118,13 +118,13 @@ class SMDesktopScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 15,
+                        width: AppSize.s15,
                       ),
 
                       Obx(
                             () => CustomTitleButton(
-                          height: 30,
-                          width: 140,
+                          height: AppSize.s30,
+                          width: AppSize.s140,
                           onPressed: () {
 
                             //companyByIdApi(context,);
@@ -139,7 +139,7 @@ class SMDesktopScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 15,
+                        width: AppSize.s15,
                       ),
                     ],
                   ),

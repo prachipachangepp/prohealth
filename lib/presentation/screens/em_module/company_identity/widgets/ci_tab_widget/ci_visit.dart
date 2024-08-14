@@ -32,32 +32,24 @@ class CiVisitScreen extends StatefulWidget {
 }
 
 class _CiVisitScreenState extends State<CiVisitScreen> {
-  late int currentPage;
-  late int itemsPerPage;
   late List<String> items;
   String? selectedValue;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController eligibleClinicalController = TextEditingController();
   final StreamController<List<CiVisit>> _visitController =
-  StreamController<List<CiVisit>>();
+      StreamController<List<CiVisit>>();
   late List<Color> hrcontainerColors;
-  // FocusNode _focusNode = FocusNode();
-  // bool _showList = false;
   int empTypeId = 0;
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 30;
-    items = List.generate(30, (index) => 'Item ${index + 1}');
+    items = List.generate(3, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    getVisit(context, 1, 30).then((data) {
+    getVisit(context, 1, 3).then((data) {
       _visitController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+    }).catchError((error) {});
   }
 
   List<Widget> selectedChips = [];
@@ -101,13 +93,22 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     });
   }
 
-  // List<> eligibalClinical =[];
+  int currentPage = 1;
+  int itemsPerPage = 3;
+  final int totalPages = 5;
+
+  void onPageNumberPressed(int page) {
+    setState(() {
+      currentPage = page;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> currentPageItems = items.sublist(
-      (currentPage - 1) * itemsPerPage,
-      min(currentPage * itemsPerPage, items.length),
-    );
+    // List<String> currentPageItems = items.sublist(
+    //   (currentPage - 1) * itemsPerPage,
+    //   min(currentPage * itemsPerPage, items.length),
+    // );
     final RegisterController _controller = Get.put(RegisterController());
     return Column(children: [
       Row(
@@ -117,8 +118,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             width: AppSize.s150,
             margin: EdgeInsets.only(right: AppMargin.m30),
             child: CustomIconButtonConst(
-              // heightContainer: 30,
-              //   widthContainer: 120,
+                // heightContainer: 30,
+                //   widthContainer: 120,
                 text: AppString.addnewvisit,
                 icon: Icons.add,
                 onPressed: () {
@@ -136,8 +137,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               onSavePressed: () async {
                                 print(":::::${_selectedItem}");
                                 await addVisitPost(context,
-                                    docNamecontroller.text,  selectedChipsId);
-                                getVisit(context,  1, 30).then((data) {
+                                    docNamecontroller.text, selectedChipsId);
+                                getVisit(context, 1, 30).then((data) {
                                   _visitController.add(data);
                                 }).catchError((error) {
                                   // Handle error
@@ -161,7 +162,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                             decoration: BoxDecoration(
                                                 color: ColorManager.faintGrey,
                                                 borderRadius:
-                                                BorderRadius.circular(10)),
+                                                    BorderRadius.circular(10)),
                                           ));
                                     }
                                     if (snapshot.data!.isEmpty) {
@@ -171,7 +172,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           style: CustomTextStylesCommon
                                               .commonStyle(
                                             fontWeight:
-                                            FontWeightManager.medium,
+                                                FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
@@ -181,7 +182,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                     if (snapshot.hasData) {
                                       int docType = 0;
                                       List<DropdownMenuItem<String>>
-                                      dropDownTypesList = [];
+                                          dropDownTypesList = [];
                                       for (var i in snapshot.data!) {
                                         dropDownTypesList.add(
                                           DropdownMenuItem<String>(
@@ -192,7 +193,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       }
                                       return CICCDropdown(
                                           initialValue:
-                                          dropDownTypesList[0].value,
+                                              dropDownTypesList[0].value,
                                           onChange: (val) {
                                             for (var a in snapshot.data!) {
                                               if (a.abbrivation == val) {
@@ -203,7 +204,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                     selectedChips.add(
                                                       Chip(
                                                         backgroundColor:
-                                                        ColorManager.white,
+                                                            ColorManager.white,
                                                         shape: StadiumBorder(
                                                             side: BorderSide(
                                                                 color: ColorManager
@@ -218,10 +219,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                           val,
                                                           style: CustomTextStylesCommon.commonStyle(
                                                               fontWeight:
-                                                              FontWeightManager
-                                                                  .medium,
+                                                                  FontWeightManager
+                                                                      .medium,
                                                               fontSize:
-                                                              FontSize.s10,
+                                                                  FontSize.s10,
                                                               color: ColorManager
                                                                   .mediumgrey),
                                                         ),
@@ -291,8 +292,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                     color: ColorManager.white
-                  // color: isSelected ? Colors.white : Colors.black,
-                ),
+                    // color: isSelected ? Colors.white : Colors.black,
+                    ),
               ),
             ),
 
@@ -306,8 +307,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                     color: ColorManager.white
-                  // color: isSelected ? Colors.white : Colors.black,
-                ),
+                    // color: isSelected ? Colors.white : Colors.black,
+                    ),
               ),
             ),
 
@@ -321,8 +322,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                     color: ColorManager.white
-                  // color: isSelected ? Colors.white : Colors.black,
-                ),
+                    // color: isSelected ? Colors.white : Colors.black,
+                    ),
               ),
             ),
             Padding(
@@ -334,8 +335,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                     color: ColorManager.white
-                  // color: isSelected ? Colors.white : Colors.black,
-                ),
+                    // color: isSelected ? Colors.white : Colors.black,
+                    ),
                 // style: RegisterTableHead.customTextStyle(context),
               ),
             ),
@@ -346,13 +347,15 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       SizedBox(
         height: AppSize.s5,
       ),
+
+      ///
       StreamBuilder<List<CiVisit>>(
           stream: _visitController.stream,
           builder: (context, snapshot) {
             print('1111111');
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 150),
+                padding: const EdgeInsets.symmetric(vertical: 50),
                 child: Center(
                   child: CircularProgressIndicator(
                     color: ColorManager.blueprime,
@@ -362,7 +365,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             }
             if (snapshot.data!.isEmpty) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 150),
+                padding: const EdgeInsets.symmetric(vertical: 50),
                 child: Center(
                   child: Text(
                     AppString.dataNotFound,
@@ -384,6 +387,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
               //       ? totalItems
               //       : (currentPage * itemsPerPage),
               // );
+              int totalItems = snapshot.data!.length;
+              int totalPages = (totalItems / itemsPerPage).ceil();
+              List<CiVisit> paginatedData = snapshot.data!
+                  .skip((currentPage - 1) * itemsPerPage)
+                  .take(itemsPerPage)
+                  .toList();
               return Expanded(
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
@@ -405,24 +414,24 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   : Color(int.parse('0xFF$hexColor')),
                               child: Center(
                                   child: Text(
-                                    i.eligibleClinician,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      color: _isDarkColor(hexColor == 'string'
+                                i.eligibleClinician,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: _isDarkColor(hexColor == 'string'
                                           ? Colors.white
                                           : Color(int.parse('0xFF$hexColor')))
-                                          ? ColorManager.white
-                                          : ColorManager.black,
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ))),
+                                      ? ColorManager.white
+                                      : ColorManager.black,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ))),
                         ));
                       }
                       int serialNumber =
                           index + 1 + (currentPage - 1) * itemsPerPage;
                       String formattedSerialNumber =
-                      serialNumber.toString().padLeft(2, '0');
+                          serialNumber.toString().padLeft(2, '0');
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: Column(children: [
@@ -445,7 +454,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               height: AppSize.s56,
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   // Expanded(flex: 2, child: Container()),
                                   Expanded(
@@ -458,11 +467,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
-                      
+
                                   // Expanded(flex: 1, child: Container()),
                                   Expanded(
                                     child: Text(
-                                      snapshot.data![index].typeofVisit
+                                      paginatedData[index]
+                                          .typeofVisit
                                           .toString(),
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.firaSans(
@@ -475,9 +485,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   Expanded(
                                     child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: clinical),
                                   ),
                                   // Expanded(flex: 2, child: Container()),
@@ -485,7 +495,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                     child: Center(
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: [
                                           IconButton(
                                               onPressed: () {
@@ -494,59 +504,76 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                     builder:
                                                         (BuildContext context) {
                                                       return FutureBuilder<
-                                                          VisitListDataPrefill>(
+                                                              VisitListDataPrefill>(
                                                           future:
-                                                          getVisitListPrefill(context, snapshot.data![index].visitId),
+                                                              getVisitListPrefill(
+                                                                  context,
+                                                                  snapshot
+                                                                      .data![
+                                                                          index]
+                                                                      .visitId),
                                                           builder: (context,
                                                               snapshotPrefill) {
-                                                            if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                            if (snapshotPrefill
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
                                                               return Center(
                                                                   child:
-                                                                  CircularProgressIndicator(
-                                                                    color: ColorManager
-                                                                        .blueprime,
-                                                                  ));
+                                                                      CircularProgressIndicator(
+                                                                color: ColorManager
+                                                                    .blueprime,
+                                                              ));
                                                             }
-                                                            var visitName = snapshotPrefill.data!.visitType;
-                                                            docNamecontroller = TextEditingController(
-                                                                text: snapshotPrefill.data!.visitType.toString());
+                                                            var visitName =
+                                                                snapshotPrefill
+                                                                    .data!
+                                                                    .visitType;
+                                                            docNamecontroller =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .visitType
+                                                                        .toString());
                                                             return StatefulBuilder(
-                                                              builder: (BuildContext context,
+                                                              builder: (BuildContext
+                                                                      context,
                                                                   void Function(
-                                                                      void Function())
-                                                                  setState) {
+                                                                          void
+                                                                              Function())
+                                                                      setState) {
                                                                 return AddVisitPopup(
                                                                   nameOfDocumentController:
-                                                                  docNamecontroller,
+                                                                      docNamecontroller,
                                                                   idOfDocumentController:
-                                                                  docIdController,
+                                                                      docIdController,
                                                                   onSavePressed:
                                                                       () async {
                                                                     await updateVisitPatch(
                                                                         context,
                                                                         snapshot
                                                                             .data![
-                                                                        index]
+                                                                                index]
                                                                             .visitId,
                                                                         visitName ==
-                                                                            docNamecontroller.text
+                                                                                docNamecontroller.text
                                                                             ? visitName.toString()
                                                                             : docNamecontroller.text,
                                                                         selectedEditChipsId);
-                      
+
                                                                     getVisit(
-                                                                        context,
-                                                                        1,
-                                                                        30)
+                                                                            context,
+                                                                            1,
+                                                                            30)
                                                                         .then(
                                                                             (data) {
-                                                                          _visitController
-                                                                              .add(
+                                                                      _visitController
+                                                                          .add(
                                                                               data);
-                                                                        }).catchError(
+                                                                    }).catchError(
                                                                             (error) {
-                                                                          // Handle error
-                                                                        });
+                                                                      // Handle error
+                                                                    });
                                                                     selectedEditChipsId
                                                                         .clear();
                                                                     selectedEditChips
@@ -554,23 +581,23 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                     docNamecontroller
                                                                         .clear();
                                                                     _selectedItem =
-                                                                    "Select";
+                                                                        "Select";
                                                                   },
                                                                   child1: Wrap(
                                                                       spacing:
-                                                                      8.0,
+                                                                          8.0,
                                                                       children:
-                                                                      selectedEditChips),
+                                                                          selectedEditChips),
                                                                   title:
-                                                                  'Edit Visit',
+                                                                      'Edit Visit',
                                                                   child: FutureBuilder<
-                                                                      List<
-                                                                          HRClinical>>(
+                                                                          List<
+                                                                              HRClinical>>(
                                                                       future: companyAllHrClinicApi(
                                                                           context),
                                                                       builder:
                                                                           (context,
-                                                                          snapshot) {
+                                                                              snapshot) {
                                                                         if (snapshot.connectionState ==
                                                                             ConnectionState.waiting) {
                                                                           return Shimmer.fromColors(
@@ -587,7 +614,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                             .isEmpty) {
                                                                           return Center(
                                                                             child:
-                                                                            Text(
+                                                                                Text(
                                                                               AppString.dataNotFound,
                                                                               style: CustomTextStylesCommon.commonStyle(
                                                                                 fontWeight: FontWeightManager.medium,
@@ -600,12 +627,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                         if (snapshot
                                                                             .hasData) {
                                                                           int docType =
-                                                                          0;
+                                                                              0;
                                                                           List<DropdownMenuItem<String>>
-                                                                          dropDownTypesList =
-                                                                          [];
+                                                                              dropDownTypesList =
+                                                                              [];
                                                                           for (var i
-                                                                          in snapshot.data!) {
+                                                                              in snapshot.data!) {
                                                                             dropDownTypesList.add(
                                                                               DropdownMenuItem<String>(
                                                                                 child: Text(i.abbrivation!),
@@ -635,7 +662,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                               val,
                                                                                               style: CustomTextStylesCommon.commonStyle(fontWeight: FontWeightManager.medium, fontSize: FontSize.s10, color: ColorManager.mediumgrey),
                                                                                             ),
-                      
+
                                                                                             onDeleted: () {
                                                                                               setState(() {
                                                                                                 // deleteChip(val,docType);
@@ -681,59 +708,59 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                   context: context,
                                                   builder:
                                                       (context) =>
-                                                      StatefulBuilder(
-                                                        builder: (BuildContext
-                                                        context,
-                                                            void Function(
-                                                                void
-                                                                Function())
-                                                            setState) {
-                                                          return DeletePopup(
-                                                              title:
-                                                              'Delete Visit',
-                                                              loadingDuration:
-                                                              _isLoading,
-                                                              onCancel: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              onDelete:
-                                                                  () async {
-                                                                setState(
+                                                          StatefulBuilder(
+                                                            builder: (BuildContext
+                                                                    context,
+                                                                void Function(
+                                                                        void
+                                                                            Function())
+                                                                    setState) {
+                                                              return DeletePopup(
+                                                                  title:
+                                                                      'Delete Visit',
+                                                                  loadingDuration:
+                                                                      _isLoading,
+                                                                  onCancel: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  onDelete:
+                                                                      () async {
+                                                                    setState(
                                                                         () {
                                                                       _isLoading =
-                                                                      true;
+                                                                          true;
                                                                     });
-                                                                try {
-                                                                  await deleteVisitPatch(
-                                                                      context,
-                                                                      snapshot
-                                                                          .data![index]
-                                                                          .visitId);
-                                                                  setState(
+                                                                    try {
+                                                                      await deleteVisitPatch(
+                                                                          context,
+                                                                          snapshot
+                                                                              .data![index]
+                                                                              .visitId);
+                                                                      setState(
                                                                           () async {
-                                                                        await getVisit(context,  1, 30).then(
-                                                                                (data) {
-                                                                              _visitController
-                                                                                  .add(data);
-                                                                            }).catchError(
-                                                                                (error) {
-                                                                              // Handle error
-                                                                            });
+                                                                        await getVisit(context, 1, 30).then(
+                                                                            (data) {
+                                                                          _visitController
+                                                                              .add(data);
+                                                                        }).catchError(
+                                                                            (error) {
+                                                                          // Handle error
+                                                                        });
                                                                         Navigator.pop(
                                                                             context);
                                                                       });
-                                                                } finally {
-                                                                  setState(
+                                                                    } finally {
+                                                                      setState(
                                                                           () {
                                                                         _isLoading =
-                                                                        false;
+                                                                            false;
                                                                       });
-                                                                }
-                                                              });
-                                                        },
-                                                      ));
-                      
+                                                                    }
+                                                                  });
+                                                            },
+                                                          ));
+
                                               //
                                             },
                                             icon: Icon(
@@ -755,7 +782,166 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             }
             return Offstage();
           }),
-      //       PaginationControlsWidget(
+      /// Pagination Controls
+      // Row(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     // Previous Page Button
+      //     InkWell(
+      //       onTap: currentPage > 1
+      //           ? () {
+      //               setState(() {
+      //                 currentPage--;
+      //               });
+      //             }
+      //           : null,
+      //       child: Container(
+      //         height: 20,
+      //         width: 20,
+      //         margin: EdgeInsets.only(left: 5, right: 5),
+      //         decoration: BoxDecoration(
+      //           borderRadius: BorderRadius.circular(4),
+      //           color: ColorManager.bluelight,
+      //         ),
+      //         child: Icon(Icons.arrow_back_ios_sharp,
+      //             size: 14, color: Colors.white),
+      //       ),
+      //     ),
+      //     for (var i = 1; i <= totalPages; i++)
+      //       if (i == 1 ||
+      //           i == totalPages ||
+      //           i == currentPage ||
+      //           (i == currentPage - 1 && i > 1) ||
+      //           (i == currentPage + 1 && i < totalPages))
+      //         InkWell(
+      //           onTap: () => onPageNumberPressed(i),
+      //           child: Container(
+      //             width: 20,
+      //             height: 20,
+      //             margin: EdgeInsets.only(left: 5, right: 5),
+      //             alignment: Alignment.center,
+      //             decoration: BoxDecoration(
+      //               shape: BoxShape.rectangle,
+      //               borderRadius: BorderRadius.circular(4),
+      //               border: Border.all(
+      //                 color: currentPage == i
+      //                     ? ColorManager.bluelight
+      //                     : ColorManager.fmediumgrey.withOpacity(0.2),
+      //                 width: currentPage == i ? 2.0 : 1.0,
+      //               ),
+      //               color: currentPage == i
+      //                   ? ColorManager.bluelight
+      //                   : Colors.transparent,
+      //             ),
+      //             child: Text(
+      //               '$i',
+      //               style: TextStyle(
+      //                 color:
+      //                     currentPage == i ? Colors.white : ColorManager.black,
+      //                 fontWeight: FontWeight.bold,
+      //                 fontSize: 12,
+      //               ),
+      //             ),
+      //           ),
+      //         )
+      //       else if (i == currentPage - 2 || i == currentPage + 2)
+      //         Text(
+      //           '..',
+      //           style: TextStyle(
+      //             color: Colors.black,
+      //             fontWeight: FontWeight.bold,
+      //             fontSize: 12,
+      //           ),
+      //         ),
+      //
+      //     ///Page Number Buttons
+      //     InkWell(
+      //       onTap: currentPage < totalPages
+      //           ? () {
+      //               setState(() {
+      //                 currentPage++;
+      //               });
+      //             }
+      //           : null,
+      //       child: Container(
+      //         height: 20,
+      //         width: 20,
+      //         margin: EdgeInsets.only(left: 5, right: 5),
+      //         decoration: BoxDecoration(
+      //           borderRadius: BorderRadius.circular(4),
+      //           color: ColorManager.bluelight,
+      //         ),
+      //         child:
+      //             Icon(Icons.arrow_forward_ios, size: 14, color: Colors.white),
+      //       ),
+      //     ),
+      //   ],
+      // )
     ]);
+
+    //         PaginationControlsWidget(
+    // currentPage: 1,
+    // items: [],
+    // itemsPerPage: 3,
+    // onPreviousPagePressed: () {  },
+    // onPageNumberPressed: (int ) {  },
+    // onNextPagePressed: () {  },
+    //         )]);
   }
 }
+// import 'package:flutter/material.dart';
+
+// class PaginationControlsWidget extends StatelessWidget {
+//   final int currentPage;
+//   final List<dynamic> items;
+//   final int itemsPerPage;
+//   final VoidCallback onPreviousPagePressed;
+//   final void Function(int) onPageNumberPressed;
+//   final VoidCallback onNextPagePressed;
+//
+//   PaginationControlsWidget({
+//     required this.currentPage,
+//     required this.items,
+//     required this.itemsPerPage,
+//     required this.onPreviousPagePressed,
+//     required this.onPageNumberPressed,
+//     required this.onNextPagePressed,
+//   });
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     int totalPages = (items.length / itemsPerPage).ceil();
+//
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         IconButton(
+//           icon: Icon(Icons.arrow_back),
+//           onPressed: currentPage > 1 ? onPreviousPagePressed : null,
+//         ),
+//         for (int i = 1; i <= totalPages; i++)
+//           GestureDetector(
+//             onTap: () => onPageNumberPressed(i),
+//             child: Container(
+//               margin: EdgeInsets.symmetric(horizontal: 4),
+//               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+//               decoration: BoxDecoration(
+//                 color: i == currentPage ? Colors.blue : Colors.grey[200],
+//                 borderRadius: BorderRadius.circular(4),
+//               ),
+//               child: Text(
+//                 i.toString(),
+//                 style: TextStyle(
+//                   color: i == currentPage ? Colors.white : Colors.black,
+//                 ),
+//               ),
+//             ),
+//           ),
+//         IconButton(
+//           icon: Icon(Icons.arrow_forward),
+//           onPressed: currentPage < totalPages ? onNextPagePressed : null,
+//         ),
+//       ],
+//     );
+//   }
+// }

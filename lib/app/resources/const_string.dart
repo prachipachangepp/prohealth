@@ -12,6 +12,7 @@ class AppString {
       "House No., Street No. Area City, Zip\nCode";
   static const String dateprofile = "05-03-1997(27)";
   static const String male = "Male";
+  static const String female = "Female";
   static const String star = "****-**-***";
   static const String text = "(+1)-123-56";
   static const String personmail = "personal@gmail.com";
@@ -200,6 +201,7 @@ class AppString {
   static String date_of_death ="Date of Death";
   static String date_of_birth ="Date of Birth";
   static String suffix ="Suffix";
+  static String prefix ="Prefix";
   static String location ="Location";
   static String type ="Type";
   static String upload_document ="Upload Document";
@@ -207,6 +209,7 @@ class AppString {
   static String fax ="Fax";
   static String yes ="Yes";
   static String no ="No";
+  static String other ="other";
   static String name_of_the_document ="Name of the Document";
   static String add_new ="Add New";
   static String street ="street";
@@ -217,7 +220,9 @@ class AppString {
   static String comments ="Comments";
   static String specialisation ="Specialisation";
   static String status_completed ="Status Completed";
-
+  static String scheduled ="Scheduled";
+  static String protocol ="Protocol";
+  static String unknown ="Unknown";
 
 
 

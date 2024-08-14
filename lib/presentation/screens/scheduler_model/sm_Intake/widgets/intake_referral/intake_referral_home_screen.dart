@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_agency_info/intake_agency_info_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_agency_info/intake_referral_submit_popup.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_referral/widget/referral_referral_info/intake_referal_info_screen.dart';
@@ -39,13 +41,13 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
       borderRadius: BorderRadius.circular(14),
       child: Column(
         children: [
-          SizedBox(height: 15,),
+          SizedBox(height: AppSize.s15,),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width/5,
-                height: 30,
+                height: AppSize.s30,
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -62,25 +64,25 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                   children: [
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 10,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
 
                           borderRadius: BorderRadius.circular(20),
                           color: selectedIndex == 0
-                              ? Colors.white
+                              ? ColorManager.white
                               : null,
                         ),
                         child: Text(
                           'Referral Info',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 0
                                 ? ColorManager.mediumgrey
-                                : Colors.white,
+                                : ColorManager.white,
                           ),
                         ),
                       ),
@@ -88,24 +90,24 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                     ),
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 10,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: selectedIndex == 1
-                              ? Colors.white
+                              ? ColorManager.white
                               : null,
                         ),
                         child: Text(
                           'Agency Info',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 1
                                 ? ColorManager.mediumgrey
-                                : Colors.white,
+                                : ColorManager.white,
                           ),
                         ),
                       ),
@@ -118,8 +120,8 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
               Padding(
                 padding: const EdgeInsets.only(right: 40.0),
                 child: Container(
-                  height: 26,
-                  width: 102,
+                  height: AppSize.s26,
+                  width: AppSize.s102,
                   child: ElevatedButton(
                     onPressed: () {
                       showDialog(
@@ -129,12 +131,11 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                         },
                       );
                     },
-                    child: Text(
-                      'Save',
+                    child: Text(AppString.save,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.bold,
-                        color: Colors.white,
+                        color: ColorManager.white,
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
@@ -153,7 +154,7 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
             ],
           ),
           const SizedBox(
-            height: 10,
+            height: AppSize.s10,
           ),
           Expanded(
             flex: 10,

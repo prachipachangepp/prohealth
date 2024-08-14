@@ -27,9 +27,15 @@ class _CICorporateCompilianceDocumentState
     extends State<CICorporateCompilianceDocument> {
   final PageController _tabPageController = PageController();
 
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
+
+  void onPageNumberPressed(int pageNumber) {
+    setState(() {
+      currentPage = pageNumber;
+    });
+  }
 
   int _selectedIndex = 0;
 
