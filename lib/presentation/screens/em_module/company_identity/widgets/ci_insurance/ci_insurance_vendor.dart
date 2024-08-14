@@ -190,7 +190,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                           // Text(''),
                                           Text(
                                             snapshot.data![index].vendorName
-                                                .toString(),
+                                                .toString().capitalizeFirst!,
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,

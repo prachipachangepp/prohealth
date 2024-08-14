@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
@@ -44,7 +45,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                 child: Column(
                   children: [
                     Container(
-                      height: 88,
+                      height: AppSize.s88,
                       child: TextFormField(
                         maxLines: 3,
                         cursorColor: Colors.black,
@@ -85,7 +86,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                     Column(
                       children: [
                         Container(
-                            height: 30,
+                            height: AppSize.s30,
                             decoration: BoxDecoration(
                               color: ColorManager.fmediumgrey,
                               borderRadius: BorderRadius.circular(12),
@@ -124,8 +125,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   flex: 3,
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 25.0),
-                                    child: Text(
-                                      'Date',
+                                    child: Text(AppString.date,
                                       style: AllHRTableHeading.customTextStyle(context),
                                     ),
                                   ),
@@ -152,10 +152,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width/10),
                             Flexible(
                               child: Container(
-                                height: 25,
+                                height: AppSize.s25,
                                 width: MediaQuery.of(context).size.width/7,
                                 child: TextFormField(
-                                  cursorColor: Colors.black,
+                                  cursorColor: ColorManager.black,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -188,10 +188,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width/15),
                             Flexible(
                               child: Container(
-                                height: 25,
+                                height: AppSize.s25,
                                 width: MediaQuery.of(context).size.width/6,
                                 child: TextFormField(
-                                  cursorColor: Colors.black,
+                                  cursorColor: ColorManager.black,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -221,7 +221,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                             SizedBox(width: MediaQuery.of(context).size.width/15),
                             Container(
-                              width: 267,
+                              width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
                                   isDate: true),
@@ -252,10 +252,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width/10),
                             Flexible(
                               child: Container(
-                                height: 25,
+                                height: AppSize.s25,
                                 width: MediaQuery.of(context).size.width/7,
                                 child: TextFormField(
-                                  cursorColor: Colors.black,
+                                  cursorColor: ColorManager.black,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -288,10 +288,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width/15),
                             Flexible(
                               child: Container(
-                                height: 25,
+                                height: AppSize.s25,
                                 width: MediaQuery.of(context).size.width/6,
                                 child: TextFormField(
-                                  cursorColor: Colors.black,
+                                  cursorColor: ColorManager.black,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -321,7 +321,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                             SizedBox(width: MediaQuery.of(context).size.width/15),
                             Container(
-                              width: 267,
+                              width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
                                   isDate: true),
@@ -350,7 +350,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width/10),
                             Flexible(
                               child: Container(
-                                height: 25,
+                                height: AppSize.s25,
                                 width: MediaQuery.of(context).size.width/7,
                                 child: TextFormField(
                                   cursorColor: Colors.black,
@@ -386,10 +386,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width/15),
                             Flexible(
                               child: Container(
-                                height: 25,
+                                height: AppSize.s25,
                                 width: MediaQuery.of(context).size.width/6,
                                 child: TextFormField(
-                                  cursorColor: Colors.black,
+                                  cursorColor: ColorManager.black,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -419,7 +419,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                             SizedBox(width: MediaQuery.of(context).size.width/15),
                             Container(
-                              width: 267,
+                              width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
                                   isDate: true),
@@ -449,10 +449,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width/10),
                             Flexible(
                               child: Container(
-                                height: 25,
+                                height: AppSize.s25,
                                 width: MediaQuery.of(context).size.width/7,
                                 child: TextFormField(
-                                  cursorColor: Colors.black,
+                                  cursorColor: ColorManager.black,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -485,10 +485,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width/15),
                             Flexible(
                               child: Container(
-                                height: 25,
+                                height: AppSize.s25,
                                 width: MediaQuery.of(context).size.width/6,
                                 child: TextFormField(
-                                  cursorColor: Colors.black,
+                                  cursorColor: ColorManager.black,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -518,7 +518,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                             SizedBox(width: MediaQuery.of(context).size.width/15),
                             Container(
-                              width: 267,
+                              width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
                                   isDate: true),
@@ -546,8 +546,8 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             Padding(
                               padding: const EdgeInsets.only(right: 39.0),
                               child: Container(
-                                height: 32,
-                                width: 105,
+                                height: AppSize.s32,
+                                width: AppSize.s105,
                                 child: SchedularIconButtonConst(
                                     text: 'Add New',
                                     icon: Icons.add,
@@ -562,7 +562,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                         //////////////2nd container separate
                         SizedBox(height: MediaQuery.of(context).size.height/20),
                         Container(
-                          height: 30,
+                          height: AppSize.s30,
                           decoration: BoxDecoration(
                             color: ColorManager.fmediumgrey,
                             borderRadius: BorderRadius.circular(12),
@@ -601,10 +601,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 50.0),
                                 child: Container(
-                                  height: 25,
+                                  height: AppSize.s25,
                                   width: MediaQuery.of(context).size.width/2.5,
                                   child: TextFormField(
-                                    cursorColor: Colors.black,
+                                    cursorColor: ColorManager.black,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8.0),
@@ -635,7 +635,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                             SizedBox(width: MediaQuery.of(context).size.width/5),
                             Container(
-                              width: 267,
+                              width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
                                   isDate: true),
@@ -651,10 +651,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 50.0),
                                 child: Container(
-                                  height: 25,
+                                  height: AppSize.s25,
                                   width: MediaQuery.of(context).size.width/2.5,
                                   child: TextFormField(
-                                    cursorColor: Colors.black,
+                                    cursorColor: ColorManager.black,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8.0),
@@ -685,7 +685,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                             SizedBox(width: MediaQuery.of(context).size.width/5),
                             Container(
-                              width: 267,
+                              width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
                                   isDate: true),
@@ -723,7 +723,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                     onChanged: (value) =>
                                         setState(() => status = value),
                                   ),
-                                  Text('Male',
+                                  Text(AppString.male,
                                       style: GoogleFonts.firaSans(
                                           fontSize: FontSize.s12,
                                           fontWeight: FontWeightManager.regular,
@@ -736,7 +736,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                     onChanged: (value) =>
                                         setState(() => status = value),
                                   ),
-                                  Text('Female',
+                                  Text(AppString.female,
                                       style: GoogleFonts.firaSans(
                                           fontSize: FontSize.s12,
                                           fontWeight: FontWeightManager.regular,
@@ -795,7 +795,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                     onChanged: (value) =>
                                         setState(() => statusA = value),
                                   ),
-                                  Text('Other',
+                                  Text(AppString.other,
                                       style: GoogleFonts.firaSans(
                                           fontSize: FontSize.s12,
                                           fontWeight: FontWeightManager.regular,
@@ -820,12 +820,12 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
 
                         SizedBox(width: MediaQuery.of(context).size.width/40),
                         Container(
-                          height: 54,
+                          height: AppSize.s54,
                           width: MediaQuery.of(context).size.width/1.4,
                           child: TextFormField(
-                            cursorColor: Colors.black,
+                            cursorColor: ColorManager.black,
                             decoration: InputDecoration(
-                              labelText: 'Comments',
+                              labelText: AppString.comment,
                               labelStyle: GoogleFonts.firaSans(
                                 fontSize: FontSize.s10,
                                 fontWeight: FontWeightManager.regular,

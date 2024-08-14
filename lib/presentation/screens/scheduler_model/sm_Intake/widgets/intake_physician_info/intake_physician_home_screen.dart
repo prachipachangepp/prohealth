@@ -5,7 +5,9 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_physician_info/widget/physician_info_referring_diagnosis/physician_info_referring_diagnosis.dart';
 
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 class IntakePhysicianScreen extends StatefulWidget {
@@ -39,17 +41,17 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
       borderRadius: BorderRadius.circular(14),
       child: Column(
         children: [
-          SizedBox(height: 15,),
+          SizedBox(height: AppSize.s15),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width/2.466, //2.4
-                height: 30,
+                height: AppSize.s30,
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
+                        color: ColorManager.black.withOpacity(0.5),
                         offset: Offset(0, 4),
                         blurRadius: 4,
                         spreadRadius: 0,
@@ -62,25 +64,25 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                   children: [
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 10,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
 
                           borderRadius: BorderRadius.circular(20),
                           color: selectedIndex == 0
-                              ? Colors.white
+                              ? ColorManager.white
                               : null,
                         ),
                         child: Text(
                           'Info',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 0
                                 ? ColorManager.mediumgrey
-                                : Colors.white,
+                                : ColorManager.white,
                           ),
                         ),
                       ),
@@ -88,24 +90,24 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                     ),
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 10,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: selectedIndex == 1
-                              ? Colors.white
+                              ? ColorManager.white
                               : null,
                         ),
                         child: Text(
                           'Referring Diagnosis',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 1
                                 ? ColorManager.mediumgrey
-                                : Colors.white,
+                                : ColorManager.white,
                           ),
                         ),
                       ),
@@ -113,24 +115,24 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                     ),
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 10,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: selectedIndex == 2
-                              ? Colors.white
+                              ? ColorManager.white
                               : null,
                         ),
                         child: Text(
                           'Physician Orders',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 2
                                 ? ColorManager.mediumgrey
-                                : Colors.white,
+                                : ColorManager.white,
                           ),
                         ),
                       ),
@@ -138,24 +140,24 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                     ),
                     InkWell(
                       child: Container(
-                        height: 30,
+                        height: AppSize.s30,
                         width: MediaQuery.of(context).size.width / 9.5,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: selectedIndex == 3
-                              ? Colors.white
+                              ? ColorManager.white
                               : null,
                         ),
                         child: Text(
                           'Face To Face',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.semiBold,
                             color: selectedIndex == 3
                                 ? ColorManager.mediumgrey
-                                : Colors.white,
+                                : ColorManager.white,
                           ),
                         ),
                       ),
@@ -168,8 +170,8 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
               Padding(
                 padding: const EdgeInsets.only(right: 40.0),
                 child: Container(
-                  height: 26,
-                  width: 102,
+                  height: AppSize.s26,
+                  width: AppSize.s102,
                   child: ElevatedButton(
                     onPressed: () {
                       showDialog(
@@ -179,12 +181,11 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                         },
                       );
                     },
-                    child: Text(
-                      'Save',
+                    child: Text(AppString.save,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.bold,
-                        color: Colors.white,
+                        color: ColorManager.white,
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
@@ -203,7 +204,7 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
             ],
           ),
           const SizedBox(
-            height: 10,
+            height: AppSize.s10,
           ),
           Expanded(
             flex: 10,

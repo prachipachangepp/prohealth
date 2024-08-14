@@ -30,7 +30,7 @@ class SchedularSuccessPopup extends StatelessWidget {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -51,7 +51,8 @@ class SchedularSuccessPopup extends StatelessWidget {
                       // Navigator.push(context, MaterialPageRoute(builder: (context)=> WhitelabellingScreen()));
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.close,color: ColorManager.white,),
+                    icon: Icon(Icons.close,
+                      color: ColorManager.white,),
                   ),
                 ],
               ),

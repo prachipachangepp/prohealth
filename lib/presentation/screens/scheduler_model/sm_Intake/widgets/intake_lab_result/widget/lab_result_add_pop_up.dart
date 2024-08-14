@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
@@ -191,8 +192,8 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                   Container(
                     height: AppSize.s30,
                     child: TextFormField(
-                      cursorColor: Colors.black,
-                      cursorHeight: 18,
+                      cursorColor: ColorManager.black,
+                      cursorHeight: AppSize.s18,
                       controller: _nameDocumentController,
                       style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
@@ -247,8 +248,7 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                       RadioListTile<String>(
                         contentPadding: EdgeInsets.zero,
                         visualDensity: VisualDensity(horizontal: -4, vertical: -2),
-                        title: Text(
-                          'Scheduled',
+                        title: Text(AppString.scheduled,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.regular,
@@ -348,8 +348,7 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                 children: [
                   ElevatedButton(
                     onPressed: () {},
-                    child: Text(
-                      'Submit',
+                    child: Text(AppString.submit,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.bold,

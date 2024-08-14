@@ -81,7 +81,6 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                     ),
                   ),
                 ),
-//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                 Expanded(
                   child: Center(
                     child: Text('Zip Code',textAlign: TextAlign.start,
@@ -425,7 +424,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                 }).catchError((error){
 
                                                 });
-                                                }, mapController: mapController, landmarkController: landmarkController,);
+                                                }, mapController: mapController, landmarkController: landmarkController, onPickLocation: () {  },);
                                             }
                                           );
                                         });

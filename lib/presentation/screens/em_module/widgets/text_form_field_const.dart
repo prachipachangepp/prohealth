@@ -18,7 +18,6 @@ class SMTextFConst extends StatefulWidget {
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
 
-
    SMTextFConst({
      Key? key,
     required this.controller,

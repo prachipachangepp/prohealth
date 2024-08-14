@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/button_constant.dart';
@@ -24,7 +25,7 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Color(0xffB1D6F4).withOpacity(0.25),
+              color: ColorManager.whitebluecolor.withOpacity(0.25),
               // boxShadow: [
               //   BoxShadow(
               //     color: Colors.black.withOpacity(0.25),
@@ -48,8 +49,8 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                         alignment: Alignment.center,
                         children: [
                           SizedBox(
-                            width: 80,
-                            height: 80,
+                            width: AppSize.s80,
+                            height: AppSize.s80,
                             child: CircularProgressIndicator(
                               strokeWidth: 4.0,
                               value: 0.7,
@@ -74,7 +75,7 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
-                        'Active',
+                        AppString.active,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s10,
                           // fontSize: MediaQuery.of(context).size.width * 0.006,
@@ -93,8 +94,7 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Zone',
+                      Text(AppString.zone,
                         style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.regular,
@@ -114,8 +114,7 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                             fontWeight: FontWeightManager.regular,
                             color: ColorManager.textPrimaryColor),
                       ),
-                      Text(
-                        'Email',
+                      Text(AppString.email,
                         style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.regular,
@@ -153,12 +152,11 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                                 print('Could not open the map.');
                               }
                             },
-                            child: Text(
-                              'View Zone',
+                            child: Text(AppString.viewzone,
                               style: GoogleFonts.firaSans(
-                                fontSize: 10,
+                                fontSize: FontSize.s10,
                                 fontWeight: FontWeight.w400,
-                                color: Colors.white,
+                                color: ColorManager.white,
                                 decoration: TextDecoration.underline,
                               ),
                             ),
@@ -205,7 +203,7 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Address',
+                        AppString.address,
                         style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.regular,
@@ -236,7 +234,7 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                     Row(
                       children: [
                         Container(
-                          width: 95,
+                          width: AppSize.s95,
                           child: Text(
                             '5445 Alvilde CT, Rio Linda CA 5645451516',
                             style: GoogleFonts.firaSans(
@@ -263,9 +261,9 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                             child: Text(
                               'View Zone',
                               style: GoogleFonts.firaSans(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.regular,
+                                color: ColorManager.white,
                                 decoration: TextDecoration.underline,
                               ),
                             ),

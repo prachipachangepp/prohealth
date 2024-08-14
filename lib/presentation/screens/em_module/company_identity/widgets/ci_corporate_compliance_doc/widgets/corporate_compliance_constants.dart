@@ -409,9 +409,9 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
             widget.radioButton == null
                 ? Offstage()
                 : Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: AppPadding.p3,
-                      horizontal: AppPadding.p20,
+                    padding: const EdgeInsets.only(
+                      top: AppPadding.p3,
+                      left: AppPadding.p32,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -21,7 +21,6 @@ class OnboardingAckHealthData {
     required this.ReminderThreshold,
     required this.Expiry, required this.DocumentType,
     this.approved
-   // required this.approved,
   });
 }
 
