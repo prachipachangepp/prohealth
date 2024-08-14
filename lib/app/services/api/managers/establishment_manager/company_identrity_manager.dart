@@ -151,34 +151,6 @@ Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
   }
 }
 
-/// Company vendor
-
-Future<List<ManageInsuranceVendorData>> companyVendorGet(
-    BuildContext context) async {
-  List<ManageInsuranceVendorData> itemsList = [];
-  try {
-    final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.companyOfficeServiceGet());
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Companyy vendor:::::${itemsList}");
-      for (var item in response.data) {
-        itemsList.add(ManageInsuranceVendorData(
-            sucess: true,
-            message: response.statusMessage!,
-            vendorName: item['medicare_provider_id']));
-      }
-      print("Companyy vendor data:::::${itemsList}");
-    } else {
-      print('Api Error');
-      //return itemsList;
-    }
-    return itemsList;
-  } catch (e) {
-    print("Error $e");
-    return itemsList;
-  }
-}
-
 ///Get Company by office list by company
 Future<List<CompanyIdentityModel>> companyOfficeListGet(
     BuildContext context,int pageNo, int rowsNo) async {

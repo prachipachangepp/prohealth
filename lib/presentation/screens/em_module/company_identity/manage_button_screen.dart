@@ -47,7 +47,6 @@ class ManageWidget extends StatefulWidget {
     required this.officeName,
     required this.backButtonCallBack,
     required this.companyID, required this.companyOfficeId,
-    // required this.managePageController,
     // required this.selectedIndex,
     // required this.selectButton,
   }) : super(key: key);
@@ -600,7 +599,7 @@ int listIndex = 0 ;
                       //     nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
                       //     screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
                       //     mediaQueryWidth: 2, docId: docID,),
-                      CIInsurance(),
+                      CIInsurance(officeId: widget.officeID,),
                       // CiPageview(
                       //   managePageController: _managePageController,
                       //   selectedIndex: _selectedIndex,

@@ -22,7 +22,6 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
-
 class HealthEmpDoc extends StatefulWidget {
   final metaDocID;
   const HealthEmpDoc({super.key, required this.metaDocID});
@@ -52,28 +51,9 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
   @override
   void initState() {
     super.initState();
-   // hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    // orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
-    //   _controller.add(data);
-    // }).catchError((error) {
-    //   // Handle error
-    // });
-
-    //_loadColors();
   }
-  // void _loadColors() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     for (int i = 0; i < hrcontainerColors.length; i++) {
-  //       int? colorValue = prefs.getInt('containerColor$i');
-  //       if (colorValue != null) {
-  //         hrcontainerColors[i] = Color(colorValue);
-  //       }
-  //     }
-  //   });
-  // }
   String? expiryType;
-  int docMetaId = 0;
+  int docMetaId = 1;
 
   int currentPage = 1;
   final int itemsPerPage = 10;
@@ -207,7 +187,6 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                     int totalPages = (totalItems / itemsPerPage).ceil();
                     List<EmployeeDocumentModal> paginatedData =
                     snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
-
                     return Column(
                       children: [
                         Expanded(
@@ -270,7 +249,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                         Expanded(
                                           child: Center(
                                               child: Text(
-                                                employeedoc.expiry,
+                                                employeedoc.reminderThreshold,
                                                 style: GoogleFonts.firaSans(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w700,
@@ -282,7 +261,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                         Expanded(
                                           child: Center(
                                               child: Text(
-                                                employeedoc.reminderThreshold,
+                                                employeedoc.expiry,
                                                 style: GoogleFonts.firaSans(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w700,
@@ -300,160 +279,159 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                 IconButton(onPressed: (){
                                                   showDialog(context: context, builder: (context){
                                                     return FutureBuilder<GetEmployeeSetupPrefillData>(
-                                                      future: getPrefillEmployeeDocTab(context,employeedoc.employeeDocTypesetupId),
-                                                      builder: (context,snapshotPrefill) {
-                                                        if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                          return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                                        }
-                                                        var expiry = snapshotPrefill.data?.expiry.toString();
-                                                        var docName = snapshotPrefill.data?.docName.toString();
-                                                        var empSetupId = snapshotPrefill.data?.employeeDocTypesetupId;
-                                                        var calender = snapshotPrefill.data?.reminderThreshold.toString();
-                                                        var empDocType = snapshotPrefill.data?.employeeDocTypesetupId;
-                                                        idDocController = TextEditingController(text: snapshotPrefill.data?.employeeDocTypesetupId.toString());
-                                                        docNamecontroller = TextEditingController(text:  snapshotPrefill.data?.docName.toString());
-                                                       // dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
-                                                        expiryType = snapshotPrefill.data?.expiry.toString();
-                                                        dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
+                                                        future: getPrefillEmployeeDocTab(context,employeedoc.employeeDocTypesetupId),
+                                                        builder: (context,snapshotPrefill) {
+                                                          if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                            return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                          }
+                                                          var expiry = snapshotPrefill.data?.expiry.toString();
+                                                          var docName = snapshotPrefill.data?.docName.toString();
+                                                          var empSetupId = snapshotPrefill.data?.employeeDocTypesetupId;
+                                                          var calender = snapshotPrefill.data?.reminderThreshold.toString();
+                                                          var empDocType = snapshotPrefill.data?.employeeDocTypesetupId;
+                                                          idDocController = TextEditingController(text: snapshotPrefill.data?.employeeDocTypesetupId.toString());
+                                                          docNamecontroller = TextEditingController(text:  snapshotPrefill.data?.docName.toString());
+                                                          // dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
+                                                          expiryType = snapshotPrefill.data?.expiry.toString();
+                                                          dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
 
-                                                        return EmpDocEditPopup(
-                                                          title:  'Edit Document',
-                                                          expiryType: expiryType,
-                                                          idDocController: idDocController,
-                                                          nameDocController: docNamecontroller,
-                                                          calenderController: dateController,
-                                                          onSavePredded: () async{
-                                                            await editEmployeeDocTypeSetupId(context,
+                                                          return EmpDocEditPopup(
+                                                            title:  'Edit Document',
+                                                            expiryType: expiryType,
+                                                            idDocController: idDocController,
+                                                            nameDocController: docNamecontroller,
+                                                            calenderController: dateController,
+                                                            onSavePredded: () async{
+                                                              await editEmployeeDocTypeSetupId(context,
                                                                 docName == docNamecontroller ? docName.toString() : docNamecontroller.text,
-                                                              expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-                                                              calender == dateController.text ? calender.toString() : dateController.text,
-                                                                  employeedoc.employeeDocTypesetupId,
-                                                              empDocType == docMetaId ? empDocType! : docMetaId,
-                                                                );
-                                                            getEmployeeDoc(context, widget.metaDocID,1,20).then((data) {
-                                                              _controller.add(data);
-                                                            }).catchError((error) {
-                                                              // Handle error
-                                                            });
-                                                            Navigator.pop(context);
-                                                            nameDocController.clear();
-                                                            dateController.clear();
-                                                            Future.delayed(
-                                                                Duration(
-                                                                    seconds: 2),
-                                                                    () {
-                                                                  print(
-                                                                      'Submit action completed!');
-                                                                });
-                                                          },
-
-                                                          radioButton: StatefulBuilder(
-                                                            builder: (BuildContext context, void Function(void Function()) setState) {
-                                                              return Column(
-                                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                children: [
-                                                                  CustomRadioListTile(
-                                                                    value: "Not Applicable",
-                                                                    groupValue: expiryType.toString(),
-                                                                    onChanged: (value) {
-                                                                      setState(() {
-                                                                        expiryType = value!;
-                                                                      });
-                                                                    },
-                                                                    title: "Not Applicable",
-                                                                  ),
-                                                                  CustomRadioListTile(
-                                                                    value: 'Scheduled',
-                                                                    groupValue: expiryType.toString(),
-                                                                    onChanged: (value) {
-                                                                      setState(() {
-                                                                        expiryType = value!;
-                                                                      });
-                                                                    },
-                                                                    title: 'Scheduled',
-                                                                  ),
-                                                                  CustomRadioListTile(
-                                                                    value: 'Issuer Expiry',
-                                                                    groupValue: expiryType.toString(),
-                                                                    onChanged: (value) {
-                                                                      setState(() {
-                                                                        expiryType = value!;
-                                                                      });
-                                                                    },
-                                                                    title: 'Issuer Expiry',
-                                                                  ),
-                                                                ],
+                                                                expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
+                                                                calender == dateController.text ? calender.toString() : dateController.text,
+                                                                employeedoc.employeeDocTypesetupId,
+                                                                empDocType == docMetaId ? empDocType! : docMetaId,
                                                               );
+                                                              getEmployeeDoc(context, widget.metaDocID,1,20).then((data) {
+                                                                _controller.add(data);
+                                                              }).catchError((error) {
+                                                                // Handle error
+                                                              });
+                                                              Navigator.pop(context);
+                                                              nameDocController.clear();
+                                                              dateController.clear();
+                                                              Future.delayed(
+                                                                  Duration(
+                                                                      seconds: 2),
+                                                                      () {
+                                                                    print(
+                                                                        'Submit action completed!');
+                                                                  });
                                                             },
 
-                                                          ),
-                                                          child:  FutureBuilder<List<EmployeeDocTabModal>>(
-                                                              future: getEmployeeDocTab(context),
-                                                              builder: (context,snapshot) {
-                                                                if(snapshot.connectionState == ConnectionState.waiting){
-                                                                  return Shimmer.fromColors(
-                                                                      baseColor: Colors.grey[300]!,
-                                                                      highlightColor: Colors.grey[100]!,
-                                                                      child: Container(
-                                                                        width: 350,
-                                                                        height: 30,
-                                                                        decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                      )
-                                                                  );
-                                                                }
-                                                                if(snapshot.hasData){
-                                                                  List dropDown = [];
-                                                                  int docType = 0;
-                                                                  List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                                  for(var i in snapshot.data!){
-                                                                    dropDownMenuItems.add(
-                                                                      DropdownMenuItem<String>(
-                                                                        child: Text(i.employeeDocType),
-                                                                        value: i.employeeDocType,
-                                                                      ),
+                                                            radioButton: StatefulBuilder(
+                                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                return Column(
+                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    CustomRadioListTile(
+                                                                      value: "Not Applicable",
+                                                                      groupValue: expiryType.toString(),
+                                                                      onChanged: (value) {
+                                                                        setState(() {
+                                                                          expiryType = value!;
+                                                                        });
+                                                                      },
+                                                                      title: "Not Applicable",
+                                                                    ),
+                                                                    CustomRadioListTile(
+                                                                      value: 'Scheduled',
+                                                                      groupValue: expiryType.toString(),
+                                                                      onChanged: (value) {
+                                                                        setState(() {
+                                                                          expiryType = value!;
+                                                                        });
+                                                                      },
+                                                                      title: 'Scheduled',
+                                                                    ),
+                                                                    CustomRadioListTile(
+                                                                      value: 'Issuer Expiry',
+                                                                      groupValue: expiryType.toString(),
+                                                                      onChanged: (value) {
+                                                                        setState(() {
+                                                                          expiryType = value!;
+                                                                        });
+                                                                      },
+                                                                      title: 'Issuer Expiry',
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                              },
+
+                                                            ),
+                                                            child:  FutureBuilder<List<EmployeeDocTabModal>>(
+                                                                future: getEmployeeDocTab(context),
+                                                                builder: (context,snapshot) {
+                                                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                                                    return Shimmer.fromColors(
+                                                                        baseColor: Colors.grey[300]!,
+                                                                        highlightColor: Colors.grey[100]!,
+                                                                        child: Container(
+                                                                          width: 350,
+                                                                          height: 30,
+                                                                          decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                                        )
                                                                     );
                                                                   }
-                                                                  return CICCDropdown(
-                                                                      initialValue: dropDownMenuItems[0].value,
-                                                                      onChange: (val){
-                                                                        for(var a in snapshot.data!){
-                                                                          if(a.employeeDocType == val){
-                                                                            docType = a.employeeDocMetaDataId;
-                                                                            docMetaId = docType;
+                                                                  if(snapshot.hasData){
+                                                                    List dropDown = [];
+                                                                    int docType = 0;
+                                                                    List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                                                    for(var i in snapshot.data!){
+                                                                      dropDownMenuItems.add(
+                                                                        DropdownMenuItem<String>(
+                                                                          child: Text(i.employeeDocType),
+                                                                          value: i.employeeDocType,
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                    return CICCDropdown(
+                                                                        initialValue: dropDownMenuItems[0].value,
+                                                                        onChange: (val){
+                                                                          for(var a in snapshot.data!){
+                                                                            if(a.employeeDocType == val){
+                                                                              docType = a.employeeDocMetaDataId;
+                                                                              docMetaId = docType;
+                                                                            }
                                                                           }
-                                                                        }
-                                                                        print(":::${docType}");
-                                                                        print(":::<>${docMetaId}");
-                                                                      },
-                                                                      items:dropDownMenuItems
+                                                                          print(":::${docType}");
+                                                                          print(":::<>${docMetaId}");
+                                                                        },
+                                                                        items:dropDownMenuItems
 
-                                                                  );
-                                                                }else{
-                                                                  return SizedBox();
+                                                                    );
+                                                                  }else{
+                                                                    return SizedBox();
+                                                                  }
                                                                 }
-                                                              }
-                                                          ),
-
-                                                        );
-                                                      }
+                                                            ),
+                                                          );
+                                                        }
                                                     );
-                                                      });
-                                                     },
-                                                        icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size: 18,
-                                                        color: ColorManager.bluebottom,)),
+                                                  });
+                                                },
+                                                    icon: Icon(
+                                                      Icons.edit_outlined,
+                                                      size: 18,
+                                                      color: ColorManager.bluebottom,)),
                                                 SizedBox(width: 3,),
                                                 ///delete
                                                 IconButton(
                                                   onPressed: () async {
-                                                  await showDialog(context: context,
+                                                    await showDialog(context: context,
                                                         builder: (context) => DeletePopup(
                                                             title: 'Delete Health Doc',
                                                             onCancel: (){
-                                                          Navigator.pop(context);
-                                                        }, onDelete: (){
+                                                              Navigator.pop(context);
+                                                            }, onDelete: (){
                                                           setState(() async{
                                                             await employeedoctypeSetupIdDelete(
                                                                 context,
@@ -467,7 +445,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                           });
                                                         }
                                                         )
-                                                  );
+                                                    );
                                                   },
                                                   icon: Icon(
                                                     size: 18,
@@ -487,27 +465,6 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                             },
                           ),
                         ),
-                        PaginationControlsWidget(
-                          currentPage: currentPage,
-                          items: snapshot.data!,
-                          itemsPerPage: itemsPerPage,
-                          onPreviousPagePressed: () {
-                            setState(() {
-                              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                            });
-                          },
-                          onPageNumberPressed: (pageNumber) {
-                            setState(() {
-                              currentPage = pageNumber;
-                            });
-                          },
-                          onNextPagePressed: () {
-                            setState(() {
-                              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-                            });
-                          },
-                        ),
-                        SizedBox(height: AppSize.s10)
                       ],
                     );
                   }
@@ -520,3 +477,4 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
     );
   }
 }
+
