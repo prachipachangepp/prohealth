@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -43,9 +44,9 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: AppSize.s10),
               Container(
-                height: 275,
+                height: AppSize.s275,
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -62,70 +63,70 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 20),
+                    SizedBox(height: AppSize.s20),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
                               labelText: 'Referral Date',)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                               labelText: 'Projected SOC Delete', )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
                               labelText: 'Referral Source',
                                 items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                               labelText: 'Referee’s First Name',)
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
                               labelText: 'Referee’s Last Name', )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
                               labelText: 'Referee’s Company Name',
                                 items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
                               labelText: 'Phone',
                                 items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
-                              labelText: 'Fax',
+                              labelText: AppString.fax,
                                 items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(child: SchedularTextField(
-                            labelText: 'Prefix')
+                            labelText: AppString.prefix)
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                               labelText: 'Protocol', )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +135,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                                   style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s10, fontWeight: FontWeightManager.regular)
                               ),
-                              SizedBox(height: 1),
+                              SizedBox(height: AppSize.s1),
                               Row(
                                 children: [
                                   Radio<String>(
@@ -146,7 +147,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                                       style: GoogleFonts.firaSans(
                                           fontSize: FontSize.s12, fontWeight: FontWeightManager.regular)
                                   ),
-                                  SizedBox(width: 35),
+                                  SizedBox(width: AppSize.s35),
                                   Radio<String>(
                                     value: 'Late',
                                     groupValue: status,
@@ -154,35 +155,36 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                                   ),
                                   Text('Late',
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12, fontWeight: FontWeightManager.regular)
+                                          fontSize: FontSize.s12,
+                                          fontWeight: FontWeightManager.regular)
                                   ),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(child: SchedularTextField(
                             labelText: 'Referral Taken By')
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
                                 labelText: 'Reason if not visited within 48 hours')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
                                 labelText: 'Comments')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: Container()), // Empty container for alignment
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: Container()), // Empty container for alignment
                       ],

@@ -3,8 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_lab_result/widget/lab_result_add_pop_up.dart';
 
+import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/font_manager.dart';
 import '../../../widgets/constant_widgets/button_constant.dart';
 
 class IntakeLabResultScreen extends StatefulWidget {
@@ -18,7 +21,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
+      color: ColorManager.white,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -31,14 +34,14 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                     style: GoogleFonts.firaSans(
                         decoration: TextDecoration.none,
                         fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xffDE0909)
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.burnt_red
                     ),
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width/60),
                   Container(
-                    height: 32,
-                    width: 105,
+                    height: AppSize.s32,
+                    width: AppSize.s105,
                     child: SchedularIconButtonConst(
                         text: 'Add New',
                         icon: Icons.add,
@@ -61,11 +64,11 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: ColorManager.white,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: ColorManager.black.withOpacity(0.2),
                       spreadRadius: 1,
                       blurRadius: 5,
                       offset: Offset(0, 4),
@@ -87,10 +90,10 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                               child: Column(
                                 children: [
                                   Container(
-                                    height: 65,
+                                    height: AppSize.s65,
                                     // width: 1109, //1109
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(8.0),
                                       boxShadow: [
                                         BoxShadow(
@@ -110,10 +113,12 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                             Padding(
                                               padding: const EdgeInsets.only(left: 10.0),
                                               child: Container(
-                                                color: Color(0xff50B5E5),
-                                                height: 45,
-                                                width: 62,
-                                                child: Icon(Icons.remove_red_eye_outlined, color: Colors.white, size: 24,),
+                                                color: ColorManager.blueprime,
+                                                height: AppSize.s45,
+                                                width: AppSize.s62,
+                                                child: Icon(Icons.remove_red_eye_outlined,
+                                                  color: ColorManager.white,
+                                                  size: AppSize.s24,),
                                               ),
                                             ),
 
@@ -127,9 +132,9 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                     'ID: 248d1eb1-9020-4d8d-8168-43a3ef90a261',
                                                     style: GoogleFonts.firaSans(
                                                         decoration: TextDecoration.none,
-                                                        fontSize: 10.0,
-                                                        fontWeight: FontWeight.w500,
-                                                        color: Color(0xff686464)
+                                                        fontSize: FontSize.s10,
+                                                        fontWeight: FontWeightManager.medium,
+                                                        color: ColorManager.granitegray
                                                     ),
                                                   ),
                                                   SizedBox(height: 3.5),
@@ -137,20 +142,20 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                     'Compliance 1',
                                                     style: GoogleFonts.firaSans(
                                                         decoration: TextDecoration.none,
-                                                        fontSize: 12.0,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: Color(0xff686464)
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeightManager.bold,
+                                                        color: ColorManager.granitegray
                                                     ),
                                                   ),
 
-                                                  SizedBox(height: 1),
+                                                  SizedBox(height: AppSize.s1),
                                                   Text(
                                                     'Expiry 10 months',
                                                     style: GoogleFonts.firaSans(
                                                         decoration: TextDecoration.none,
-                                                        fontSize: 10.0,
-                                                        fontWeight: FontWeight.w300,
-                                                        color: Color(0xff686464)
+                                                        fontSize: FontSize.s10,
+                                                        fontWeight: FontWeightManager.lightbold,
+                                                        color: ColorManager.granitegray
                                                     ),
                                                   )
                                                 ],
@@ -158,7 +163,6 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                             ),
                                           ],
                                         ),
-
                                         // SizedBox(width: MediaQuery.of(context).size.width/4.5), //3.5
                                         Padding(
                                           padding: const EdgeInsets.only(right: 50.0),
@@ -167,18 +171,16 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                               IconButton(
                                                 icon: Icon(
                                                   Icons.history,
-                                                  color: Color(0xff686464),
+                                                  color: ColorManager.granitegray,
                                                 ),
                                                 onPressed: () {
-
                                                 },
                                               ),
-
                                               SizedBox(width: MediaQuery.of(context).size.width/120),
                                               IconButton(
                                                 icon: Icon(
                                                   Icons.print_outlined,
-                                                  color: Color(0xff686464),
+                                                  color: ColorManager.granitegray,
                                                 ),
                                                 onPressed: () async {
                                                   final pdf = pw.Document();
@@ -201,7 +203,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                               IconButton(
                                                 icon: Icon(
                                                   Icons.file_download_outlined,
-                                                  color: Color(0xff686464),
+                                                  color:ColorManager.granitegray,
                                                 ),
                                                 onPressed: () {
 
@@ -212,7 +214,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                               IconButton(
                                                 icon: Icon(
                                                   Icons.delete_outline,
-                                                  color: Color(0xff686464),
+                                                  color:ColorManager.granitegray,
                                                 ),
                                                 onPressed: () {
 

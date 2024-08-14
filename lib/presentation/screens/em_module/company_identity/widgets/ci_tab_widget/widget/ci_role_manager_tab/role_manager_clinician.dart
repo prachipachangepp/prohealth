@@ -15,8 +15,10 @@ import '../../../../../../../../app/services/api/managers/establishment_manager/
 import '../../../../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../../../../../data/api_data/establishment_data/role_manager/role_manager_data.dart';
+import '../../../../../../hr_module/register/widgets/after_clicking_on_link/verify_user_popup.dart';
 import '../../../../../widgets/button_constant.dart';
 import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../../whitelabelling/success_popup.dart';
 
 class RoleManagerClinician extends StatefulWidget {
   const RoleManagerClinician({super.key});
@@ -69,7 +71,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 20,),
+            SizedBox(height: AppSize.s20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -80,8 +82,8 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                     Text(
                       'Pick Department',
                       style: GoogleFonts.firaSans(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
+                        fontSize: FontSize.s10,
+                        fontWeight: FontWeightManager.bold,
                         color: ColorManager.mediumgrey,
                         decoration: TextDecoration.none,
                       ),
@@ -95,8 +97,8 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                                 baseColor: Colors.grey[300]!,
                                 highlightColor: Colors.grey[100]!,
                                 child: Container(
-                                  width: 350,
-                                  height: 30,
+                                  width: AppSize.s350,
+                                  height: AppSize.s30,
                                   decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
                                 )
                             );
@@ -165,13 +167,13 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                     Text(
                       'Pick Employee Type',
                       style: GoogleFonts.firaSans(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
+                        fontSize: FontSize.s10,
+                        fontWeight: FontWeightManager.bold,
                         color: ColorManager.mediumgrey,
                         decoration: TextDecoration.none,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    SizedBox(height: AppSize.s4),
                     StreamBuilder<List<RoleManagerDepartmentEmpType>>(
                         stream: empTypeController.stream,
                         builder: (context,snapshot) {
@@ -180,8 +182,8 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                                 baseColor: Colors.grey[300]!,
                                 highlightColor: Colors.grey[100]!,
                                 child: Container(
-                                  width: 350,
-                                  height: 30,
+                                  width: AppSize.s350,
+                                  height: AppSize.s30,
                                   decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
                                 )
                             );
@@ -228,7 +230,9 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                                 items:dropDownMenuItems
                             );
                           }else{
-                            return SizedBox(height:1,width: 1,);
+                            return SizedBox(
+                              height:AppSize.s1,
+                              width: AppSize.s1,);
                           }
                         }
                     ),
@@ -237,7 +241,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
               ],
             ),
 
-            SizedBox(height: 20),
+            SizedBox(height: AppSize.s20),
             /// row 1
             StreamBuilder<List<ModuleMetaData>>(
                 stream: roleMetaDataClinicalController.stream,
@@ -315,7 +319,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                                         // ) as ImageProvider<Object>,
                                         //NetworkImage(metaModule.iconUrl),
                                         AssetImage('images/rehab.png'),
-                                        borderColor: isSelected ? ColorManager.blueprime : Colors.white,
+                                        borderColor: isSelected ? ColorManager.blueprime : ColorManager.white,
                                       ),
                                       if (isSelected)
                                         Positioned(
@@ -370,7 +374,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                     return SizedBox();
                   }
                 }),
-            SizedBox(height: 40),
+            SizedBox(height: AppSize.s40),
 
             /// button
             Center(
@@ -379,7 +383,12 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                 height: AppSize.s30,
                 text: AppStringEM.save,
                 onPressed: () {
-                  //Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CCSuccessPopup();
+                    },
+                  );
                 },
               ),
             ),

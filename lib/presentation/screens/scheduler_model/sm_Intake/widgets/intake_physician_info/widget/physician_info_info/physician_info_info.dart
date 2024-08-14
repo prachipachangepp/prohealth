@@ -5,6 +5,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
@@ -39,7 +40,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                     Text('Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
-                          fontSize: 12.0,
+                          fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
                       ),
@@ -48,7 +49,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                 ),
               ),
               SizedBox(height: 19.5),
-              SizedBox(height: 10),
+              SizedBox(height: AppSize.s10),
               Container(
                 width: MediaQuery.of(context).size.width * 0.95,
                 // height: 405,
@@ -67,7 +68,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
@@ -106,7 +107,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextField(
-                                labelText: 'Street')
+                                labelText: AppString.street)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
@@ -120,18 +121,18 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                                labelText: 'City')
+                                labelText: AppString.city)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularDropdown(
-                              labelText: 'State',
+                              labelText: AppString.state,
                                 items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextFieldWithButton(
-                                labelText: 'Zip Code',
+                                labelText: AppString.zip_code,
                                 initialValue: '26586845121',
                                 buttonText: 'View Zone')
                         ),
@@ -147,12 +148,12 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                                labelText: 'Fax')
+                                labelText: AppString.fax)
                         ),
-                        SizedBox(width:AppSize.s35 ),
+                        SizedBox(width:AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
-                              labelText: 'Protocol',)
+                              labelText: AppString.protocol)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
@@ -165,8 +166,8 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                     SizedBox(height:AppSize.s32),
 
                     Divider(
-                      height: 5,
-                      color: Color(0xffD9D9D9),
+                      height: AppSize.s5,
+                      color: ColorManager.cream,
                       thickness: 4,
                     ),
 
@@ -210,7 +211,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextField(
-                                labelText: 'Street')
+                                labelText: AppString.street)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
@@ -224,18 +225,18 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                                labelText: 'City')
+                                labelText: AppString.city)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularDropdown(
-                              labelText: 'State',
+                              labelText: AppString.state,
                                 items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextFieldWithButton(
-                                labelText: 'Zip Code',
+                                labelText: AppString.zip_code,
                                 initialValue: '26586845121', buttonText: 'View Zone')
                         ),
                         SizedBox(width:AppSize.s35 ),
@@ -250,12 +251,12 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                                labelText: 'Fax')
+                                labelText: AppString.fax)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularTextField(
-                              labelText: 'Protocol',)
+                              labelText: AppString.protocol)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(

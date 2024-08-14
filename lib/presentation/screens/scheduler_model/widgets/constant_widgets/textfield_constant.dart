@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 /////Schedular PopUp Textfield constant///////
 class PopUpTextField extends StatelessWidget {
@@ -56,12 +57,12 @@ class PopUpTextField extends StatelessWidget {
     }
 
     return SizedBox(
-      height: 30,
+      height: AppSize.s30,
       child: TextFormField(
         controller: _controller,
         style: GoogleFonts.firaSans(
           fontSize: FontSize.s12,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeightManager.regular,
           color: ColorManager.black,
         ),
         cursorColor: ColorManager.black,
@@ -76,21 +77,21 @@ class PopUpTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
-              width: 1.0,
+              width: AppSize.s1,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
-              width: 1.0,
+              width: AppSize.s1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
-              width: 1.0,
+              width: AppSize.s1,
             ),
           ),
           suffixIcon: isDate
@@ -128,7 +129,7 @@ class PopUpDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 30, // DROPDOWN CONTAINER HEIGHT
+      height: AppSize.s30, // DROPDOWN CONTAINER HEIGHT
       child: DropdownButtonFormField<String>(
         value: initialValue,
         style: GoogleFonts.firaSans(
@@ -147,21 +148,21 @@ class PopUpDropdown extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
-              width: 1.0,
+              width: AppSize.s1,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
-              width: 1.0,
+              width: AppSize.s1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
-              width: 1.0,
+              width: AppSize.s1,
             ),
           ),
         ),

@@ -10,6 +10,7 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -59,7 +60,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
     return Column(
       children: [
         Container(
-          height: 30,
+          height: AppSize.s30,
           decoration: BoxDecoration(
             color: Colors.grey,
             borderRadius: BorderRadius.circular(12),
@@ -75,9 +76,9 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                     child: Text(
                       'Zone Number',
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        fontSize: AppSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
                     ),
@@ -88,9 +89,9 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                   child: Center(
                     child: Text('Zip Codes',
                         style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                          fontSize: AppSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.white,
                           decoration: TextDecoration.none,
                         )),
                   ),
@@ -99,9 +100,9 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                   child: Center(
                     child: Text('County',
                         style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                          fontSize: AppSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.white,
                           decoration: TextDecoration.none,
                         )),
                   ),
@@ -111,9 +112,9 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                     child: Text('Cities',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                          fontSize: AppSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.white,
                           decoration: TextDecoration.none,
                         )),
                   ),
@@ -123,9 +124,9 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                     child: Text(
                       'Actions',
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        fontSize: AppSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
                     ),
@@ -136,7 +137,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
           ),
         ),
         SizedBox(
-          height: 10,
+          height: AppSize.s10,
         ),
         Expanded(
           child: StreamBuilder<List<AllCountyZoneGet>>(
@@ -196,7 +197,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                     ),
                                   ],
                                 ),
-                                height: 50,
+                                height: AppSize.s50,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15),
@@ -209,8 +210,8 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                           snapshot.data![index].zoneId
                                               .toString(),
                                           style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
+                                            fontSize: AppSize.s10,
+                                            fontWeight: FontWeightManager.medium,
                                             color: ColorManager.mediumgrey,
                                             decoration: TextDecoration.none,
                                           ),
@@ -224,8 +225,8 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                           snapshot.data![index].zipcodes
                                               .toString(),
                                           style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
+                                            fontSize: AppSize.s10,
+                                            fontWeight: FontWeightManager.medium,
                                             color: ColorManager.mediumgrey,
                                             decoration: TextDecoration.none,
                                           ),
@@ -239,7 +240,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                               .toString(),
                                           style: GoogleFonts.firaSans(
                                             fontSize: 10,
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeightManager.medium,
                                             color: ColorManager.mediumgrey,
                                             decoration: TextDecoration.none,
                                           ),
@@ -252,8 +253,8 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                           snapshot.data![index].cities
                                               .toString(),
                                           style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
+                                            fontSize: AppSize.s10,
+                                            fontWeight: FontWeightManager.medium,
                                             color: ColorManager.mediumgrey,
                                             decoration: TextDecoration.none,
                                           ),
@@ -288,8 +289,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                 return Center(
                                                                   child:
                                                                       CircularProgressIndicator(
-                                                                    color: ColorManager
-                                                                        .blueprime,
+                                                                    color: ColorManager.blueprime,
                                                                   ),
                                                                 );
                                                               }
@@ -374,7 +374,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                             highlightColor: Colors.grey[100]!,
                                                                             child: Container(
                                                                               width: 354,
-                                                                              height: 30,
+                                                                              height: AppSize.s30,
                                                                               decoration: BoxDecoration(color: ColorManager.faintGrey, borderRadius: BorderRadius.circular(10)),
                                                                             ));
                                                                       }
@@ -448,7 +448,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                 },
                                                 icon: Icon(
                                                   Icons.edit_outlined,
-                                                  size: 18,
+                                                  size: AppSize.s18,
                                                   color: ColorManager.blueprime,
                                                 )),
                                             IconButton(
@@ -487,7 +487,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                 },
                                                 icon: Icon(
                                                   Icons.delete_outline,
-                                                  size: 18,
+                                                  size: AppSize.s18,
                                                   color:
                                                       ColorManager.faintOrange,
                                                 )),

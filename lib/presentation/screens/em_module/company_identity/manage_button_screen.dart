@@ -189,11 +189,11 @@ int listIndex = 0 ;
                                           'Details',
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.firaSans(
-                                            fontSize: 12,
+                                            fontSize: AppSize.s12,
                                             fontWeight: FontWeightManager.semiBold,
                                             color: _selectedIndex == 0
                                                 ? ColorManager.mediumgrey
-                                                : Colors.white,
+                                                : ColorManager.white,
                                           ),
                                         ),
                                       ),
@@ -201,7 +201,7 @@ int listIndex = 0 ;
                                   ),
                         InkWell(
                                       child: Container(
-                                        height: 30,
+                                        height: AppSize.s30,
                                         width: MediaQuery.of(context).size.width / 8.9,
                                         padding: EdgeInsets.symmetric(vertical: 6),
                                         decoration: BoxDecoration(
@@ -214,7 +214,7 @@ int listIndex = 0 ;
                                           'Zones',
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.firaSans(
-                                            fontSize: 12,
+                                            fontSize: FontSize.s12,
                                             fontWeight: FontWeightManager.semiBold,
                                             color: _selectedIndex == 1
                                                 ? ColorManager.mediumgrey
@@ -226,20 +226,20 @@ int listIndex = 0 ;
                                   ),
                         InkWell(
                           child: Container(
-                            height: 30,
+                            height: AppSize.s30,
                             width: MediaQuery.of(context).size.width / 7,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: _selectedIndex == 2
-                                  ? Colors.white
+                                  ? ColorManager.white
                                   : null,
                             ),
                             child: Text(
                               'Corporate & Compliance',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                                 fontWeight: FontWeightManager.semiBold,
                                 color: _selectedIndex == 2
                                     ? ColorManager.mediumgrey
@@ -251,24 +251,24 @@ int listIndex = 0 ;
                         ),
                         InkWell(
                           child: Container(
-                            height: 30,
+                            height: AppSize.s30,
                             width: MediaQuery.of(context).size.width / 8.7,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: _selectedIndex == 3
-                                  ? Colors.white
+                                  ? ColorManager.white
                                   : null,
                             ),
                             child: Text(
                               'Insurance',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                                 fontWeight: FontWeightManager.semiBold,
                                 color: _selectedIndex == 3
                                     ? ColorManager.mediumgrey
-                                    : Colors.white,
+                                    : ColorManager.white,
                               ),
                             ),
                           ),
@@ -276,24 +276,24 @@ int listIndex = 0 ;
                         ),
                         InkWell(
                           child: Container(
-                            height: 30,
+                            height: AppSize.s30,
                             width: MediaQuery.of(context).size.width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: _selectedIndex == 4
-                                  ? Colors.white
+                                  ? ColorManager.white
                                   : null,
                             ),
                             child: Text(
                               'Vendor Contracts',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                                 fontWeight: FontWeightManager.semiBold,
                                 color: _selectedIndex == 4
                                     ? ColorManager.mediumgrey
-                                    : Colors.white,
+                                    : ColorManager.white,
                               ),
                             ),
                           ),
@@ -301,24 +301,24 @@ int listIndex = 0 ;
                         ),
                         InkWell(
                           child: Container(
-                            height: 30,
+                            height: AppSize.s30,
                             width: MediaQuery.of(context).size.width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: _selectedIndex == 5
-                                  ? Colors.white
+                                  ? ColorManager.white
                                   : null,
                             ),
                             child: Text(
                               'Policies & Procedures',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                                 fontWeight: FontWeightManager.semiBold,
                                 color: _selectedIndex == 5
                                     ? ColorManager.mediumgrey
-                                    : Colors.white,
+                                    : ColorManager.white,
                               ),
                             ),
                           ),
@@ -326,24 +326,24 @@ int listIndex = 0 ;
                         ),
                         InkWell(
                           child: Container(
-                            height: 30,
+                            height: AppSize.s30,
                             width: MediaQuery.of(context).size.width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: _selectedIndex == 6
-                                  ? Colors.white
+                                  ? ColorManager.white
                                   : null,
                             ),
                             child: Text(
                               'Templates',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                                 fontWeight: FontWeightManager.semiBold,
                                 color: _selectedIndex == 6
                                     ? ColorManager.mediumgrey
-                                    : Colors.white,
+                                    : ColorManager.white,
                               ),
                             ),
                           ),
@@ -534,7 +534,7 @@ int listIndex = 0 ;
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: AppSize.s10,
           ),
           Expanded(
             flex: 10,
@@ -649,20 +649,22 @@ class CustomButtonList extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 30,
+        height: AppSize.s30,
         width: MediaQuery.of(context).size.width / 8.62,
         padding: const EdgeInsets.symmetric(vertical: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: isSelected == docID ? Colors.white : null,
+          color: isSelected == docID ? ColorManager.white : null,
         ),
         child: Text(
           buttonText,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 12,
+            fontSize: FontSize.s12,
             fontWeight: FontWeight.bold,
-            color: isSelected == docID ? Colors.grey[600] : Colors.white,
+            color: isSelected == docID ?
+            Colors.grey[600] :
+            ColorManager.white,
           ),
         ),
       ),

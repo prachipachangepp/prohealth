@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
@@ -60,7 +61,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
           padding: const EdgeInsets.only(
               left: AppPadding.p29, right: AppPadding.p32),
           child: Container(
-            height: 317,
+            height: AppSize.s317,
             decoration: BoxDecoration(
               color: ColorManager.white,
               border: Border.all(
@@ -106,7 +107,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                   onChanged: (value) =>
                                       setState(() => status = value),
                                 ),
-                                Text('Male',
+                                Text(AppString.male,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.regular,
@@ -119,7 +120,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                   onChanged: (value) =>
                                       setState(() => status = value),
                                 ),
-                                Text('Female',
+                                Text(AppString.female,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.regular,
@@ -152,7 +153,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                   onChanged: (value) =>
                                       setState(() => statusA = value),
                                 ),
-                                Text('Yes',
+                                Text(AppString.yes,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.regular,
@@ -165,7 +166,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                   onChanged: (value) =>
                                       setState(() => statusA = value),
                                 ),
-                                Text('No',
+                                Text(AppString.no,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.regular,
@@ -178,7 +179,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                   onChanged: (value) =>
                                       setState(() => statusA = value),
                                 ),
-                                Text('Unknown',
+                                Text(AppString.unknown,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.regular,
@@ -198,7 +199,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        width: 267,
+                        width: AppSize.s267,
                         child: SchedularTextField(
                             labelText: 'Date of face-to face encounter',
                             isDate: true),
@@ -279,7 +280,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                               onChanged: (value) =>
                                   setState(() => statusB = value),
                             ),
-                            Text('Yes',
+                            Text(AppString.yes,
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s12,
                                     fontWeight: FontWeightManager.regular,
@@ -292,7 +293,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                               onChanged: (value) =>
                                   setState(() => statusB = value),
                             ),
-                            Text('No',
+                            Text(AppString.no,
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s12,
                                     fontWeight: FontWeightManager.regular,
@@ -305,7 +306,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                               onChanged: (value) =>
                                   setState(() => statusB = value),
                             ),
-                            Text('Unknown',
+                            Text(AppString.unknown,
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s12,
                                     fontWeight: FontWeightManager.regular,
