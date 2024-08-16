@@ -60,7 +60,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
           children: [
             Container(
               width: 100,
-              margin: EdgeInsets.only(right: 40),
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
                   icon: Icons.add,
@@ -438,7 +438,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                     width: 300,
                                                     child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
                                                     },)),
-                                              ), tite: 'Edit Employeement', onpressedClose: () {Navigator.pop(context);  },);
+                                              ), tite: 'Edit Employment', onpressedClose: () {Navigator.pop(context);  },);
                                           }
                                       );
                                     });

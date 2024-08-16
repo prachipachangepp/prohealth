@@ -103,7 +103,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
             SizedBox(width: 20),
             Container(
               width: 100,
-              margin: EdgeInsets.only(right: 20),
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
                   icon: Icons.add,

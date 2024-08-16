@@ -30,7 +30,7 @@ class _CheckboxTileState extends State<CheckboxTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(widget.title,style: TextStyle(fontSize: AppSize.s10,fontWeight: FontWeightManager.bold),),
+      title: Text(widget.title,style: TextStyle(fontSize: AppSize.s12,fontWeight: FontWeightManager.regular),),
       leading: Checkbox(
         activeColor: ColorManager.blueprime,
         value: _value,
