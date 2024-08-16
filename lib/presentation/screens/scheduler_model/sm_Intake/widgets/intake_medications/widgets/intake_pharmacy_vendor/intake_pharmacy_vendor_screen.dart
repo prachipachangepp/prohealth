@@ -95,7 +95,7 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Deliver by', isDate: true)
+                                  labelText: 'Deliver by', )
                           ),
                           SizedBox(width: 35),
                           Flexible(
@@ -162,7 +162,7 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Deliver by', isDate: true)
+                                  labelText: 'Deliver by',)
                           ),
                           SizedBox(width: 35),
                           Flexible(
