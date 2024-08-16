@@ -546,7 +546,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     :CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.submit,
+                  text: AppStringEM.add, //submit
                   onPressed: () {
                     widget.onSavePressed!();
 
