@@ -1135,13 +1135,16 @@ class RegisterEnrollAlertDialog {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomTextFieldRegister(
+
+
                       height: AppSize.s35,
                       width: MediaQuery.of(context).size.width / 6,
                       controller: firstName,
                       labelText: AppString.fname,
                       keyboardType: TextInputType.text,
-                      padding: EdgeInsets.only(
-                          bottom: AppPadding.p5, left: AppPadding.p20),
+                      // padding: EdgeInsets.only(
+                      //     //bottom: AppPadding.p5,
+                      //     left: AppPadding.p20),
                       onChanged: (value) {},
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -1154,6 +1157,7 @@ class RegisterEnrollAlertDialog {
                       height: AppSize.s35,
                       width: MediaQuery.of(context).size.width / 6,
                       controller: lastName,
+
                       labelText: AppString.lname,
                       keyboardType: TextInputType.text,
                       padding: EdgeInsets.only(

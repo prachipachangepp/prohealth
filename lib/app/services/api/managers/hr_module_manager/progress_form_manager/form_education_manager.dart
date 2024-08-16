@@ -10,7 +10,7 @@ import '../../../repository/hr_module_repository/form_repository/form_general_re
 
 
   ///post api
-  Future<ApiDataRegister> postEducationScreenForm(
+  Future<ApiDataRegister> postEducationScreenData(
     BuildContext context,
     int employeeId,
     String? graduate,

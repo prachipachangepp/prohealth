@@ -8,7 +8,7 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-Future<ApiDataRegister> postreferencescreen(
+Future<ApiDataRegister> postreferencescreenData(
     BuildContext context,
     String association,
     String comment,

@@ -118,7 +118,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
     required dynamic documentFile,
     required String documentName,
   }) async {
-    ApiDataRegister result = await postlicensesscreen(
+    ApiDataRegister result = await postlicensesscreenData(
         context,
         country,
         employeeId,

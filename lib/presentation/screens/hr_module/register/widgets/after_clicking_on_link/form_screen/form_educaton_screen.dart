@@ -212,7 +212,7 @@ class _EducationScreenState extends State<EducationScreen> {
                   // Loop through each form and extract data to post
                   for (var key in educationFormKeys) {
                     final st = key.currentState!;
-                    await postEducationScreenForm(
+                    await postEducationScreenData(
                         context,
                         st.widget.employeeID,
                         st.graduatetype.toString(),
