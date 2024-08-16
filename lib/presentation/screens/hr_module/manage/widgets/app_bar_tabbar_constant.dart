@@ -46,7 +46,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                       ),
                       indicatorSize: TabBarIndicatorSize.tab,
                       indicatorColor: const Color(0xFF686464),
-                      labelColor: Colors.white,
+                      labelColor: ColorManager.white,
                       labelStyle: const TextStyle(
                         fontFamily: 'FiraSans',
                         fontSize: FontSize.s12,
@@ -172,7 +172,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: AppSize.s20),
             Container(
               //color: Colors.grey,
               height: controller.tabBarViewHeight,

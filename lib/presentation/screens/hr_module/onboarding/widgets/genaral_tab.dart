@@ -654,12 +654,12 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
                                     width: containerWidth,
-                                    height: 150,
+                                    height: AppSize.s150,
                                     decoration: BoxDecoration(
                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
-                                        width: 1,
+                                        width: AppSize.s1,
                                         color: ColorManager.white,
                                       ),
                                     ),
@@ -693,12 +693,11 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                           ColorManager.white,
                                                           fontSize: FontSize.s11,
                                                           fontWeight:
-                                                          FontWeightManager
-                                                              .bold)),
+                                                          FontWeightManager.bold)),
                                                 )),
                                           ],
                                         ),
-                                        SizedBox(height: 5,),
+                                        SizedBox(height: AppSize.s5),
                                         Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal:
@@ -735,7 +734,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                     ),
                                                     SizedBox(height: MediaQuery.of(context).size.height / 40),
                                                     Container(
-                                                      height: 30,
+                                                      height: AppSize.s30,
                                                       width: MediaQuery.of(context).size.width/18,
                                                       child: Align(
                                                         alignment: Alignment.center,
@@ -816,8 +815,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         InfoText('Personal Email'),
-                                                        InfoText('City'),
-                                                        InfoText( 'Zone'),
+                                                        InfoText(AppString.city),
+                                                        InfoText( AppString.zone),
                                                       ],
                                                     ),
                                                   ),
@@ -1010,8 +1009,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                             });
                           } : null,
                           child: Container(
-                            height: 20,
-                            width: 20,
+                            height: AppSize.s20,
+                            width: AppSize.s20,
                             margin: EdgeInsets.only(left: 5, right: 5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
@@ -1029,8 +1028,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                             InkWell(
                               onTap: () => onPageNumberPressed(i),
                               child: Container(
-                                width: 20,
-                                height: 20,
+                                width: AppSize.s20,
+                                height: AppSize.s20,
                                 margin: EdgeInsets.only(left: 5, right: 5),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
@@ -1047,7 +1046,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                   style: TextStyle(
                                     color: currentPage == i ? Colors.white : ColorManager.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 12,
+                                    fontSize: FontSize.s12,
                                   ),
                                 ),
                               ),
@@ -1056,9 +1055,9 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                             Text(
                               '..',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: ColorManager.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                               ),
                             ),
                         ///Page Number Buttons
@@ -1069,8 +1068,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                             });
                           } : null,
                           child: Container(
-                            height: 20,
-                            width: 20,
+                            height: AppSize.s20,
+                            width: AppSize.s20,
                             margin: EdgeInsets.only(left: 5, right: 5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
@@ -1103,8 +1102,11 @@ class InfoText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text, style: GoogleFonts.firaSans(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),),
-        const SizedBox(height: 10),
+        Text(text, style: GoogleFonts.firaSans(
+            fontSize: FontSize.s12,
+            fontWeight: FontWeightManager.regular,
+            color: ColorManager.textBlack),),
+        const SizedBox(height: AppSize.s10),
       ],
     );
   }
@@ -1121,8 +1123,11 @@ class InfoData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text,style: GoogleFonts.firaSans(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),),
-        const SizedBox(height: 10),
+        Text(text,style: GoogleFonts.firaSans(
+            fontSize: FontSize.s12,
+            fontWeight: FontWeightManager.regular,
+            color: ColorManager.textBlack),),
+        const SizedBox(height: AppSize.s10),
       ],
     );
   }

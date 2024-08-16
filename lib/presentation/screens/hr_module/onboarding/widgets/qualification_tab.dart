@@ -36,7 +36,7 @@ class _OnboardingQualificationState extends State<OnboardingQualification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: ColorManager.white,
         body: Column(children: [
           Padding(
             padding: EdgeInsets.only(right:  MediaQuery.of(context).size.width/65),

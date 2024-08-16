@@ -164,7 +164,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.close, color: Colors.white),
+            icon: Icon(Icons.close, color: ColorManager.white),
           ),
         ],
       ),
@@ -183,7 +183,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
           text: labelText,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter valid details';
+              return 'Please Enter valid details';
             }
             return null;
           },
@@ -191,7 +191,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: Text(
-            controller.text.isEmpty ? 'Please enter some text' : '',
+            controller.text.isEmpty ? 'Please Enter some text' : '',
             style: TextStyle(
               color: ColorManager.red,
               fontSize: FontSize.s12,

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/approve_reject_dialog_constant.dart';
@@ -149,7 +150,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
           return Center(
             child: Text(
               'Error: ${snapshot.error}',
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(color: ColorManager.red),
             ),
           );
         }
@@ -217,7 +218,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                             child: Row(
                               children: [
                                 data.approved == true ?
-                                SizedBox(width: 31,):Checkbox(
+                                SizedBox(width: AppSize.s31):Checkbox(
                                   value: _checked[index],
                                   onChanged: data.approved == null ?
                                       (value) {
@@ -228,22 +229,22 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                                             .data![index].employeeDocumentId);
                                   } : null
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: AppSize.s10),
                                 GestureDetector(
                                   onTap: () => downloadFile(fileUrl),
                                   child: Container(
-                                    width: 62,
-                                    height: 45,
+                                    width: AppSize.s62,
+                                    height: AppSize.s45,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       border: Border.all(
-                                          width: 2,
+                                          width: AppSize.s2,
                                           color: ColorManager.faintGrey),
                                     ),
                                     child: fileWidget,
                                   ),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: AppSize.s10),
                                 Expanded(
                                   child: Text(
                                     data.DocumentName,
@@ -255,7 +256,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: AppSize.s10),
                       ],
                     );
                   }),
@@ -269,18 +270,17 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                     ElevatedButton(
                       onPressed: _handleRejectSelected,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Color(0xff1696C8),
-                        side: BorderSide(color: Color(0xff1696C8)),
+                        backgroundColor: ColorManager.white,
+                        foregroundColor: ColorManager.bluebottom,
+                        side: BorderSide(color: ColorManager.bluebottom),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
-                        'Reject',
+                      child: Text(AppString.reject,
                         style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w500,
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeightManager.medium,
                         ),
                       ),
                     ),
@@ -288,8 +288,8 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                     ElevatedButton(
                       onPressed: _handleApproveSelected,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff1696C8),
-                        foregroundColor: Colors.white,
+                        backgroundColor: ColorManager.bluebottom,
+                        foregroundColor: ColorManager.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -297,8 +297,8 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                       child: Text(
                         'Approve',
                         style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w700,
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeightManager.bold,
                         ),
                       ),
                     ),
