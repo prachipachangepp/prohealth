@@ -87,7 +87,7 @@ Future<List<LicensesDataForm>> getLicensesForm(
   List<LicensesDataForm> itemsData = [];
   try {
     final response = await ApiOffer(context).get(
-        path: ProgressBarRepository()
+        path: ProgressBarRepository
             .getLicensesByEmpID(employeeID: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {

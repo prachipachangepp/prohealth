@@ -79,7 +79,7 @@ Future<List<ReferenceDataForm>> getEmployeeReferenceForm(
   List<ReferenceDataForm> itemsData = [];
   try {
     final response = await ApiOffer(context).get(
-        path: ProgressBarRepository()
+        path: ProgressBarRepository
             .getReferenceByEmpID(employeeID: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {

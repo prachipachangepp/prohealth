@@ -212,7 +212,7 @@ Future<List<EducationDataForm>> getEmployeeEducationForm(
   try {
     final response = await ApiOffer(context).get(
         path:
-            ProgressBarRepository().getEmployeeByEmpID(employeeID: employeeId));
+            ProgressBarRepository.getEmployeeByEmpID(employeeID: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         //String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);
@@ -228,7 +228,7 @@ Future<List<EducationDataForm>> getEmployeeEducationForm(
           college: item['college'],
           phone: item['phone'],
           state: item['state'],
-          approved: item['approved'] ?? false,
+          approved: item['approved'],
           // sucess: true,
           // message: response.statusMessage!,
           country: item['country'] ?? "__",
