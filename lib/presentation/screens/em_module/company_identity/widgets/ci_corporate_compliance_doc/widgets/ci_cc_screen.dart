@@ -248,7 +248,6 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                       String? selectedDocType;
                       String? selectedSubDocType;
                       String? selectedExpiryType = expiryType;
-
                       showDialog(
                           context: context,
                           builder: (context) {
