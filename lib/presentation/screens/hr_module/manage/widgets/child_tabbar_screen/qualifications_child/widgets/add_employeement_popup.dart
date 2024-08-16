@@ -208,13 +208,15 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ),
               ],
             ),
-            Spacer(),
+            // Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CustomButtonTransparent(
+                    width: 105,
+                    height: 33,
                     text: "Cancel",
                     onPressed: () {
                       Navigator.pop(context);
@@ -228,7 +230,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     child: CircularProgressIndicator(color: ColorManager.blueprime),
                   )
                       : CustomElevatedButton(
-                    width: 100,
+                    height: 33,
+                    width: 105,
                     text: "Save",
                     onPressed: _handleSave,
                   ),
