@@ -1,9 +1,8 @@
-
-
 import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
@@ -236,7 +235,7 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    currentPageItems[index].name.toString(),
+                                    currentPageItems[index].name.toString().capitalizeFirst!,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -262,7 +261,7 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                   child: Text(
                                     currentPageItems[index]
                                         .reminderThreshold
-                                        .toString(),
+                                        .toString().capitalizeFirst!,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,

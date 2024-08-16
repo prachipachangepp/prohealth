@@ -7,7 +7,7 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 
 /// Add search by employee
-Future<ApiData> postSearchByFilter(
+Future<List<ApiDataFilter>?> postSearchByFilter(
     BuildContext context,
     bool patientProfileSearch,
     String profileName,
@@ -18,10 +18,13 @@ Future<ApiData> postSearchByFilter(
     bool licenseSearch,
     String licenseStatus,
     bool availabilitySearch,
-    String availability
+    String availability,
+    bool isDZone,
+    int loggedUserId,
 
     ) async {
   try {
+    List<ApiDataFilter> responseList = [];
     var response = await Api(context).post(
       path: SearchByfilterRepo.employeeSearchByFilter(),
       data: {
@@ -34,7 +37,9 @@ Future<ApiData> postSearchByFilter(
          "licenseSearch": licenseSearch,
          "licenseStatus": licenseStatus,
          "availabilitySearch":availabilitySearch,
-         "availability": availability
+         "availability": availability,
+         "isDZone":isDZone,
+         "loggedInUserId":loggedUserId
 
         // "employeeId": employeeId,
         // "graduate": graduate,
@@ -51,20 +56,21 @@ Future<ApiData> postSearchByFilter(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Search By Filter Done");
       // orgDocumentGet(context);
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: true,
-          message: response.statusMessage!);
+
+      for(var i in response.data){
+        var employeID = i['employeeId'];
+         responseList.add(ApiDataFilter(
+            statusCode: response.statusCode!,
+            success: true,
+            message: response.statusMessage!,
+            employeeId:employeID));
+      }
+
     } else {
       print("Error 1");
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: false,
-          message: response.data['message']);
     }
+    return responseList;
   } catch (e) {
     print("Error $e");
-    return ApiData(
-        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

@@ -105,21 +105,6 @@ class _BankingScreenState extends State<BankingScreen> {
       );
     }
   }
-  //
-  // Future<void> postbankingscreendata(
-  //     BuildContext context,
-  //     int employeeId,
-  //     String accountNumber,
-  //     String bankName,
-  //     int amountRequested,
-  //     String checkUrl,
-  //     String routingNumber,
-  //     String type,
-  //     String requestedPercentage) async {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(content: Text("Banking data saved")),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -222,33 +207,7 @@ class _BankingScreenState extends State<BankingScreen> {
                     documentFile: st.finalPath,
                     documentName: st.fileName,
                   );
-
                   validateAccounts;
-
-                  // if (st.finalPath == null || st.finalPath.isEmpty) {
-                  //   ScaffoldMessenger.of(context).showSnackBar(
-                  //     SnackBar(
-                  //       content: Text(
-                  //           'No file selected. Please select a file to upload.'),
-                  //       backgroundColor: Colors.red,
-                  //     ),
-                  //   );
-                  // } else {
-                  //   try {
-                  //     ScaffoldMessenger.of(context).showSnackBar(
-                  //       SnackBar(
-                  //         content: Text('Document uploaded successfully!'),
-                  //         backgroundColor: Colors.green,
-                  //       ),
-                  //     );
-                  //   } catch (e) {
-                  //     ScaffoldMessenger.of(context).showSnackBar(
-                  //       SnackBar(
-                  //         content: Text('Failed to upload document: $e'),
-                  //         backgroundColor: Colors.red,
-                  //       ),
-                  //     );
-                  //   }
                 }
               },
               // accountnumber.clear();
@@ -374,57 +333,57 @@ class _BankingFormState extends State<BankingForm> {
 
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder<List<BankingDataForm>>(
-    //     future: getBankingForm(context, widget.employeeID),
-    //     builder: (context, snapshot) {
-    //       if (snapshot.connectionState == ConnectionState.waiting) {
-    //         return const Center(
-    //           child: Padding(
-    //             padding: EdgeInsets.symmetric(vertical: 150),
-    //             child: CircularProgressIndicator(
-    //               color: Color(0xff50B5E5),
-    //             ),
-    //           ),
-    //         );
-    //       }
-    //       if (snapshot.hasError) {
-    //         return Center(
-    //           child: Padding(
-    //             padding: const EdgeInsets.symmetric(vertical: 150),
-    //             child: Text(
-    //               'Error: ${snapshot.error}',
-    //               style: TextStyle(color: Colors.red),
-    //             ),
-    //           ),
-    //         );
-    //       }
-    //       if (snapshot.hasData) {
-    //         List<BankingDataForm>? data = snapshot.data;
-    //         //print{::::::::=> "$snapshot.data"};
-    //         print(":::::: :=>${snapshot.data!}");
-    //         //final data = snapshot.data;
-    //         // Update controllers with API data
-    //
-    //         return Container(
-    //           height: MediaQuery.of(context).size.height / 1,
-    //           width: MediaQuery.of(context).size.width / 1,
-    //
-    //           child: ListView.builder(
-    //             itemBuilder: (BuildContext context, int index) {
-    //               effectivecontroller = TextEditingController(
-    //                   text: snapshot.data![index].effectiveDate);
-    //               requestammount = TextEditingController(
-    //                   text: snapshot.data![index].amountRequested.toString());
-    //               // requestammount = snapshot.data![index].requestammount  ;
-    //               accountnumber = TextEditingController(
-    //                   text: snapshot.data![index].accountNumber);
-    //               routingnumber = TextEditingController(
-    //                   text: snapshot.data![index].routingNumber);
-    //               bankname = TextEditingController(
-    //                   text: snapshot.data![index].bankName);
-    //               selectedtype=snapshot.data![index].type;
-    //               // verifyaccountnumber = TextEditingController(text:snapshot.data![index].);
-    //
+    return FutureBuilder<List<BankingDataForm>>(
+        future: getBankingForm(context, widget.employeeID),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 150),
+                child: CircularProgressIndicator(
+                  color: Color(0xff50B5E5),
+                ),
+              ),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150),
+                child: Text(
+                  'Error: ${snapshot.error}',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            );
+          }
+          if (snapshot.hasData) {
+            List<BankingDataForm>? data = snapshot.data;
+            //print{::::::::=> "$snapshot.data"};
+            print(":::::: :=>${snapshot.data!}");
+            //final data = snapshot.data;
+            // Update controllers with API data
+
+            return Container(
+              height: MediaQuery.of(context).size.height / 1,
+              width: MediaQuery.of(context).size.width / 1,
+
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  effectivecontroller = TextEditingController(
+                      text: snapshot.data![index].effectiveDate);
+                  requestammount = TextEditingController(
+                      text: snapshot.data![index].amountRequested.toString());
+                  // requestammount = snapshot.data![index].requestammount  ;
+                  accountnumber = TextEditingController(
+                      text: snapshot.data![index].accountNumber);
+                  routingnumber = TextEditingController(
+                      text: snapshot.data![index].routingNumber);
+                  bankname = TextEditingController(
+                      text: snapshot.data![index].bankName);
+                  selectedtype=snapshot.data![index].type;
+                  // verifyaccountnumber = TextEditingController(text:snapshot.data![index].);
                return  Padding(
                     padding: EdgeInsets.only(left: 166.0, right: 166),
                     child: Column(
@@ -434,7 +393,7 @@ class _BankingFormState extends State<BankingForm> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Bank Details #${widget.index}',
+                              'Bank Details #${snapshot.data![index].empBankingId}',
                               style: GoogleFonts.firaSans(
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w700,
@@ -783,12 +742,12 @@ class _BankingFormState extends State<BankingForm> {
                       ],
                     ),
                   );
-        //         },
-        //       ),
-        //     );
-        //   }
-        //
-        //   return SizedBox();
-        // });
+                },
+              ),
+            );
+          }
+
+          return SizedBox();
+        });
   }
 }

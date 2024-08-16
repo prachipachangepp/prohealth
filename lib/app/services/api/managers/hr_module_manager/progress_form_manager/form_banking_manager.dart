@@ -107,8 +107,7 @@ Future<ApiData> uploadcheck({
 
 
 
-////get prifill api
-
+///get prifill api
 Future<List<BankingDataForm>> getBankingForm(
     BuildContext context, int employeeId) async {
   String convertIsoToDayMonthYear(String isoDate) {
