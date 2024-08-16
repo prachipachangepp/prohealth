@@ -8,7 +8,7 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-Future<ApiDataRegister> postemploymentscreen(
+Future<ApiDataRegister> postemploymentscreenData(
     BuildContext context,
     int employeeId,
     String employer,
