@@ -228,43 +228,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: widget.firstName,//firstname
                             labelFontSize: 12,
                           ),
-                          // CustomTextFieldRegister(
-                          //   height: AppSize.s30,
-                          //   width: MediaQuery.of(context).size.width / 7,
-                          //   controller: firstName,
-                          //   labelText: AppString.fname,
-                          //   keyboardType: TextInputType.text,
-                          //   padding: EdgeInsets.only(
-                          //       bottom: AppPadding.p5, left: AppPadding.p20),
-                          //   onChanged: (value) {},
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return AppString.enterText;
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
                           SizedBox(
                             height: AppSize.s10,
                           ),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width/7,
-                          //   height: AppSize.s30,
-                          //   //alignment: Alignment.center,
-                          //   //color: Colors.cyan,
-                          //
-                          //   child: MyDropdownTextField(
-                          //     hint: AppString.speciality,
-                          //
-                          //     //width: MediaQuery.of(context).size.width/7,
-                          //     // height: AppSize.s25,
-                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                          //     onChanged: (String? newValue) {
-                          //
-                          //       print('Selected item: $newValue');
-                          //     },
-                          //   ),
-                          // ),
                           FutureBuilder<List<AEClinicalDiscipline>>(
                             future: HrAddEmplyClinicalDisciplinApi(context, 1),
                             builder: (context, snapshot) {
@@ -330,22 +296,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: widget.email,
                             labelFontSize: 12,
                           ),
-                          // CustomTextFieldRegister(
-                          //   height: AppSize.s30,
-                          //   width: MediaQuery.of(context).size.width / 7,
-                          //   controller: email,
-                          //   labelText: AppString.email,
-                          //   keyboardType: TextInputType.text,
-                          //   padding: EdgeInsets.only(
-                          //       bottom: AppPadding.p5, left: AppPadding.p20),
-                          //   onChanged: (value) {},
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return AppString.enterText;
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
                           SizedBox(
                             height: AppPadding.p10,
                           ),
@@ -437,22 +387,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: widget.lastName,
                             labelFontSize: 12,
                           ),
-                          // CustomTextFieldRegister(
-                          //   height: AppSize.s30,
-                          //   width: MediaQuery.of(context).size.width / 7,
-                          //   controller: lastName,
-                          //   labelText: AppString.lname,
-                          //   keyboardType: TextInputType.text,
-                          //   padding: EdgeInsets.only(
-                          //       bottom: AppPadding.p5, left: AppPadding.p20),
-                          //   onChanged: (value) {},
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return AppString.enterText;
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
                           SizedBox(
                             height: AppSize.s10,
                           ),
@@ -506,45 +440,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               }
                             },
                           ),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width/7,
-                          //   height: AppSize.s30,
-                          //   //alignment: Alignment.center,
-                          //   //color: Colors.cyan,
-                          //
-                          //   child: MyDropdownTextField(
-                          //     hint: AppString.clinician,
-                          //
-                          //     //width: MediaQuery.of(context).size.width/7,
-                          //     // height: AppSize.s25,
-                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                          //     onChanged: (String? newValue) {
-                          //       print('Selected item: $newValue');
-                          //     },
-                          //   ),
-                          // ),
                       
                           SizedBox(
                             height: AppSize.s10,
                           ),
-                      
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width/7,
-                          //   height: AppSize.s30,
-                          //   //alignment: Alignment.center,
-                          //   //color: Colors.cyan,
-                          //
-                          //   child: MyDropdownTextField(
-                          //     hint: AppString.city,
-                          //
-                          //     //width: MediaQuery.of(context).size.width/7,
-                          //     // height: AppSize.s25,
-                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                          //     onChanged: (String? newValue) {
-                          //       print('Selected item: $newValue');
-                          //     },
-                          //   ),
-                          // ),
+
                           FutureBuilder<List<AEClinicalCity>>(
                             future: HrAddEmplyClinicalCityApi(context),
                             builder: (context, snapshot) {
