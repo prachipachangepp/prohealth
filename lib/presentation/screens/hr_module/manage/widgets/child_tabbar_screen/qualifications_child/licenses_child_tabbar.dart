@@ -5,6 +5,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
@@ -55,8 +56,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                         baseColor: Colors.grey[300]!,
                         highlightColor: Colors.grey[100]!,
                         child: Container(
-                          width: 350,
-                          height: 30,
+                          width: AppSize.s350,
+                          height: AppSize.s30,
                           decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
                         )
                     );
@@ -79,7 +80,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                       );
                     }
                     return CICCDropdown(
-                        width: 200,
+                        width: AppSize.s200,
                         initialValue: dropDownMenuItems[0].value,
                         onChange: (val){
                           for(var a in snapshot.data!){
@@ -99,9 +100,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                   }
                 }
             ),
-            SizedBox(width: 20),
+            SizedBox(width: AppSize.s20),
             Container(
-              width: 100,
+              width: AppSize.s100,
               margin: EdgeInsets.only(right: 20),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
@@ -135,8 +136,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                         baseColor: Colors.grey[300]!,
                                         highlightColor: Colors.grey[100]!,
                                         child: Container(
-                                          width: 350,
-                                          height: 30,
+                                          width: AppSize.s350,
+                                          height: AppSize.s30,
                                           decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
                                         )
                                     );
@@ -159,7 +160,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                       );
                                     }
                                     return CICCDropdown(
-                                        width: 200,
+                                        width: AppSize.s200,
                                         initialValue: dropDownMenuItems[0].value,
                                         onChange: (val){
                                           for(var a in snapshot.data!){
@@ -186,7 +187,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
           ],
         ),
         SizedBox(
-          height: 1,
+          height: AppSize.s1,
         ),
         StreamBuilder<List<QulificationLicensesData>>(
           stream: streamController.stream,
@@ -251,8 +252,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   Text('License #${snapshot.data![index].licenseId}',
                                     style: TextStyle(
                                       fontFamily: 'FiraSans',
-                                      fontSize: 13,
-                                      color: Color(0xFF333333),
+                                      fontSize: FontSize.s13,
+                                      color: ColorManager.blackfaint,
                                       fontWeight: FontWeight.bold,
                                     ),),
                                 ],
@@ -266,13 +267,13 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     children: [
                                       Text('Licensure/Certification',
                                           style: ThemeManager.customTextStyle(context)),
-                                      const SizedBox(height: 10,),
+                                      const SizedBox(height: AppSize.s10),
                                       Text('Issuing Organization',
                                           style: ThemeManager.customTextStyle(context)),
-                                      const SizedBox(height: 10,),
+                                      const SizedBox(height: AppSize.s10),
                                       Text('Country',
                                           style: ThemeManager.customTextStyle(context)),
-                                      const SizedBox(height: 10,),
+                                      const SizedBox(height: AppSize.s10),
                                       Text('Number/ID',
                                           style: ThemeManager.customTextStyle(context)),
                                     ],),
@@ -281,13 +282,13 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     children: [
                                       Text(snapshot.data![index].licenure,
                                         style: ThemeManagerDark.customTextStyle(context),),
-                                      const SizedBox(height: 10,),
+                                      const SizedBox(height: AppSize.s10),
                                       Text(snapshot.data![index].org,
                                         style: ThemeManagerDark.customTextStyle(context),),
-                                      const SizedBox(height: 10,),
+                                      const SizedBox(height: AppSize.s10),
                                       Text(snapshot.data![index].country,
                                         style: ThemeManagerDark.customTextStyle(context),),
-                                      const SizedBox(height: 10,),
+                                      const SizedBox(height: AppSize.s10),
                                       Text(snapshot.data![index].licenseNumber,
                                         style: ThemeManagerDark.customTextStyle(context),),
                                     ],
@@ -296,10 +297,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     children: [
                                       Text('Issue Date',
                                           style: ThemeManager.customTextStyle(context)),
-                                      const SizedBox(height: 10,),
+                                      const SizedBox(height: AppSize.s10),
                                       Text('End Date',
                                           style: ThemeManager.customTextStyle(context)),
-                                      const SizedBox(height: 50,)
+                                      const SizedBox(height: AppSize.s50)
                                     ],
                                   ),
                                   Column(
@@ -307,10 +308,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     children: [
                                       Text(snapshot.data![index].issueDate,
                                         style: ThemeManagerDark.customTextStyle(context),),
-                                      const SizedBox(height: 10,),
+                                      const SizedBox(height: AppSize.s10),
                                       Text(snapshot.data![index].expData,
                                         style: ThemeManagerDark.customTextStyle(context),),
-                                      const SizedBox(height: 50,)
+                                      const SizedBox(height: AppSize.s50,)
 
                                     ],
                                   ),
@@ -324,7 +325,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   CustomIconButton(text: 'Reject', color: ColorManager.white,textColor: ColorManager.blueprime,onPressed: () async{
                                     await rejectLicensePatch(context, snapshot.data![index].licenseId);
                                   }) :SizedBox() ,
-                                  const SizedBox(width: 5,),
+                                  const SizedBox(width: AppSize.s5),
                                   snapshot.data![index].approved == true ?
                                   Text('Approved',
                                       textAlign: TextAlign.center,
