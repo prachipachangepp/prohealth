@@ -224,7 +224,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
-                                  isDate: true),
+                                  ),
                             ),
                           ],
                         ),
@@ -324,7 +324,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
-                                  isDate: true),
+                              ),
                             ),
                           ],
                         ),
@@ -422,7 +422,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
-                                  isDate: true),
+                                 ),
                             ),
                           ],
                         ),
@@ -521,7 +521,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
-                                  isDate: true),
+                                  ),
                             ),
                           ],
                         ),
@@ -638,7 +638,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
-                                  isDate: true),
+                                 ),
                             ),
                           ],
                         ),
@@ -688,7 +688,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
-                                  isDate: true),
+                                ),
                             ),
                           ],
                         ),

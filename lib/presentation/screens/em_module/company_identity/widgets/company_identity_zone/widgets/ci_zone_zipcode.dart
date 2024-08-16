@@ -232,7 +232,9 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                   flex: 2,
                                   child: InkWell(
                                     onTap:() async{
-                                       String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].latitude}, ${snapshot.data![index].longitude}";
+                                       String googleMapsUrl =
+                                           "https://www.google.com/maps/search/?api=1&query=${snapshot.data![index].latitude},"
+                                           " ${snapshot.data![index].longitude}";
                                       if (await canLaunchUrlString(googleMapsUrl)) {
                                       await launchUrlString(googleMapsUrl);
                                       } else {

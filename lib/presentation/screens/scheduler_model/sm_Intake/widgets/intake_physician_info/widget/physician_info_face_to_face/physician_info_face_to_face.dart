@@ -202,7 +202,7 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                         width: AppSize.s267,
                         child: SchedularTextField(
                             labelText: 'Date of face-to face encounter',
-                            isDate: true),
+                            ),
                       ),
                     ),
 
