@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
 // import 'package:google_maps_flutter_web/google_maps_flutter_web.dart';
@@ -44,11 +45,11 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorManager.white,
-        title: Text('Pick Location',style:TextStyle(color: ColorManager.black)),
+        backgroundColor: ColorManager.bluelight,
+        title: Text('Pick Location',style: GoogleFonts.firaSans(color: ColorManager.white)),
         actions: [
           IconButton(
-            icon: Icon(Icons.check,color: ColorManager.black),
+            icon: Icon(Icons.check,color: ColorManager.white),
             onPressed: _confirmSelection,
           ),
         ],

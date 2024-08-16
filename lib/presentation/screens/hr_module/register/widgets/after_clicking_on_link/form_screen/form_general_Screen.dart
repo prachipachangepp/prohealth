@@ -851,53 +851,7 @@ class _generalFormState extends State<generalForm> {
                                 }
                               },
                             ),
-                            // SizedBox(
-                            //   height: 32,
-                            //   child: DropdownButtonFormField<String>(
-                            //     decoration: InputDecoration(
-                            //      // hintText: 'Select Clinician',
-                            //       hintStyle: GoogleFonts.firaSans(
-                            //         fontSize: 10.0,
-                            //         fontWeight: FontWeight.w400,
-                            //         color: const Color(0xff9B9B9B),
-                            //       ),
-                            //       border: OutlineInputBorder(
-                            //         borderRadius: BorderRadius.circular(4.0),
-                            //         borderSide: const BorderSide(color: Colors.grey),
-                            //       ),
-                            //       contentPadding: const EdgeInsets.symmetric(
-                            //           //   //  vertical: 5,
-                            //           horizontal: 12),
-                            //     ),
-                            //     value: _selectedClinician,
-                            //     icon: const Icon(Icons.arrow_drop_down,
-                            //         color: Color(0xff9B9B9B)),
-                            //     iconSize: 24,
-                            //     elevation: 16,
-                            //     style: GoogleFonts.firaSans(
-                            //       fontSize: 10.0,
-                            //       fontWeight: FontWeight.w400,
-                            //       color: const Color(0xff686464),
-                            //     ),
-                            //     onChanged: (String? newValue) {
-                            //       setState(() {
-                            //         _selectedClinician = newValue;
-                            //       });
-                            //     },
-                            //     items: <String>[
-                            //       'Clinician 1',
-                            //       'Clinicin ',
-                            //       'Clinican',
-                            //       'Cliniian'
-                            //     ] // List of countries
-                            //         .map<DropdownMenuItem<String>>((String value) {
-                            //       return DropdownMenuItem<String>(
-                            //         value: value,
-                            //         child: Text(value),
-                            //       );
-                            //     }).toList(),
-                            //   ),
-                            // ),
+
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height / 30),
@@ -1000,83 +954,6 @@ class _generalFormState extends State<generalForm> {
                                 }
                               },
                             ),
-
-                            // CustomDropdownTextField(
-                            //   width: 600,
-                            //   height: 32,
-                            //  // hintText: 'Select Speciality ',
-                            //
-                            //   items: [
-                            //     'Speciality1',
-                            //     'Speciality2',
-                            //     'CSpeciality',
-                            //     'Speciality'
-                            //   ],
-                            //   value: _selectedSpeciality,
-                            //   // List of countries
-                            //   //     .map<DropdownMenuItem<String>>((String value) {
-                            //   //   return DropdownMenuItem<String>(
-                            //   //     value: value,
-                            //   //     child: Text(value),
-                            //   //   );
-                            //   // }).toList(),
-                            //
-                            //   labelText: 'Select Speciality',
-                            //   labelStyle: GoogleFonts.firaSans(
-                            //     fontSize: 10,
-                            //     fontWeight: FontWeight.w400,
-                            //     color: const Color(0xff9B9B9B),
-                            //   ),
-                            // ),
-
-                            // Container(
-                            //   height: 32,
-                            //   child: DropdownButtonFormField<String>(
-                            //     // alignment: AlignmentDirectional.centerStart,
-                            //     decoration: InputDecoration(
-                            //       //hintText:
-                            //           //'Select Speciality                                      ',
-                            //       hintStyle: GoogleFonts.firaSans(
-                            //         fontSize: 10,
-                            //         fontWeight: FontWeight.w400,
-                            //         color: const Color(0xff9B9B9B),
-                            //       ),
-                            //       border: OutlineInputBorder(
-                            //         borderRadius: BorderRadius.circular(4.0),
-                            //         borderSide: const BorderSide(color: Colors.grey),
-                            //       ),
-                            //       contentPadding: const EdgeInsets.only(
-                            //           bottom: AppPadding.p5, left: 12),
-                            //     ),
-                            //     value: _selectedSpeciality,
-                            //     icon: const Icon(Icons.arrow_drop_down,
-                            //         color: Color(0xff9B9B9B)),
-                            //     iconSize: 24,
-                            //     elevation: 16,
-                            //     style: GoogleFonts.firaSans(
-                            //       fontSize: 10.0,
-                            //       fontWeight: FontWeight.w400,
-                            //       color: const Color(0xff686464),
-                            //     ),
-                            //     onChanged: (String? newValue) {
-                            //       setState(() {
-                            //         _selectedSpeciality = newValue;
-                            //       });
-                            //     },
-                            //     items: <String>[
-                            //       'Speciality1',
-                            //       'Speciality2',
-                            //       'CSpeciality',
-                            //       'Speciality'
-                            //     ] // List of countries
-                            //         .map<DropdownMenuItem<String>>((String value) {
-                            //       return DropdownMenuItem<String>(
-                            //         value: value,
-                            //         child: Text(value),
-                            //       );
-                            //     }).toList(),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),

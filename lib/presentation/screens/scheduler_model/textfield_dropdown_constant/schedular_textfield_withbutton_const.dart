@@ -10,12 +10,13 @@ class SchedularTextFieldWithButton extends StatelessWidget {
   final String labelText;
   final String? initialValue;
   final String buttonText;
+  final controller;
 
   SchedularTextFieldWithButton({
     super.key,
     required this.labelText,
     this.initialValue,
-    required this.buttonText,
+    required this.buttonText, this.controller,
   });
 
   @override

@@ -150,13 +150,13 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularTextField(
                     labelText: 'Admit Date',
-                    isDate: true)
+                    )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: 'D/C',
-                    isDate: true)
+                   )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
@@ -172,7 +172,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularTextField(
                     labelText: 'Date of Surgery/ Procedure',
-                    isDate: true)
+                 )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
@@ -202,14 +202,15 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularTextField(
                     labelText: AppString.startdate,
-                    isDate: true
+
                 )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
                     labelText: AppString.enddate,
-                    isDate: true
+                    suffixIcon: Icon(Icons.calendar_month_outlined),
+                    // isDate: true
                 )
             ),
             SizedBox(width: AppSize.s35),

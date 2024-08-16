@@ -357,7 +357,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: HRManageTextField(
+                        child: HRManageTextFieldEmail(
                           controller: widget.emailController,
                           keyboardType: TextInputType.phone,
                           text: "Email",
