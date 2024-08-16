@@ -50,7 +50,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
           children: [
             Container(
               width: 100,
-              margin: EdgeInsets.only(right: 20),
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
                   icon: Icons.add,
