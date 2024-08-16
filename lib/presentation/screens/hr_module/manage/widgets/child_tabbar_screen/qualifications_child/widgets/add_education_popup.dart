@@ -362,7 +362,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: 360,
+        height: AppSize.s360,
         width: 932,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -371,9 +371,9 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
         child: Column(
           children: [
             Container(
-              height: 41,
+              height: AppSize.s41,
               decoration: BoxDecoration(
-                color: Color(0xff50B5E5),
+                color: ColorManager.blueprime,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(8),
                   topRight: Radius.circular(8),
@@ -389,7 +389,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s16,
                         fontWeight: FontWeightManager.bold,
-                        color: Colors.white,
+                        color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
                     ),
@@ -422,7 +422,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                               errorText: _collegeUniversityError ? 'Please enter College/University Name' : null,
                             ),
                           ),
-                          SizedBox(width: 20),
+                          SizedBox(width: AppSize.s20),
                           Expanded(
                             child: _buildTextField(
                               controller: widget.phoneController,
@@ -430,11 +430,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                               errorText: _phoneError ? 'Please enter valid phone number' : null,
                             ),
                           ),
-                          SizedBox(width: 20),
+                          SizedBox(width: AppSize.s20),
                           Expanded(
                             child: _buildTextField(
                               controller: widget.calenderController,
-                              labelText: "Start Date",
+                              labelText: AppString.startdate,
                               errorText: _calendarError ? 'Please Enter Start Date' : null,
                               suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
                               onTap: () async {
@@ -456,7 +456,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: AppSize.s20),
                       Row(
                         children: [
                           Expanded(
@@ -470,15 +470,15 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                               ],
                             ),
                           ),
-                          SizedBox(width: 20),
+                          SizedBox(width: AppSize.s20),
                           Expanded(
                             child: _buildTextField(
                               controller: widget.cityController,
-                              labelText: "City",
+                              labelText: AppString.city,
                               errorText: _cityError ? 'Please Enter City' : null,
                             ),
                           ),
-                          SizedBox(width: 20),
+                          SizedBox(width: AppSize.s20),
                           Expanded(
                             child: _buildTextField(
                               controller: widget.degreeController,
@@ -488,17 +488,17 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: AppSize.s20),
                       Row(
                         children: [
                           Expanded(
                             child: _buildTextField(
                               controller: widget.stateController,
-                              labelText: "State",
+                              labelText: AppString.state,
                               errorText: _stateError ? 'Please Enter State' : null,
                             ),
                           ),
-                          SizedBox(width: 20),
+                          SizedBox(width: AppSize.s20),
                           Expanded(
                             child: _buildTextField(
                               controller: widget.majorSubjectController,
@@ -506,7 +506,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                               errorText: _majorSubjectError ? 'Please Enter Major Subject' : null,
                             ),
                           ),
-                          SizedBox(width: 20),
+                          SizedBox(width: AppSize.s20),
                           Expanded(
                             child: _buildTextField(
                               controller: widget.countryNameController,
@@ -517,26 +517,26 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                         ],
                       ),
 
-                      SizedBox(height: 20),
+                      SizedBox(height: AppSize.s20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           CustomButtonTransparent(
-                            text: "Cancel",
+                            text: AppString.cancel,
                             onPressed: widget.onpressedClose,
                           ),
-                          SizedBox(width: 10),
+                          SizedBox(width: AppSize.s10),
                           isLoading
                               ? SizedBox(
-                            height: 25,
-                            width: 25,
+                            height: AppSize.s25,
+                            width: AppSize.s25,
                             child: CircularProgressIndicator(
                               color: ColorManager.blueprime,
                             ),
                           )
                               : CustomElevatedButton(
-                            width: 100,
-                            text: "Save",
+                            width: AppSize.s100,
+                            text: AppString.save,
                             onPressed: _handleSave,
                           ),
                         ],
@@ -577,9 +577,9 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
               if (labelText == "Phone") {
                 _phoneError = value.isEmpty || value.length != 10 || int.tryParse(value) == null;
               }
-              if (labelText == "City") _cityError = value.isEmpty;
+              if (labelText == AppString.city) _cityError = value.isEmpty;
               //if (labelText == "Degree") _degreeError = value.isEmpty;
-              if (labelText == "State") _stateError = value.isEmpty;
+              if (labelText == AppString.state) _stateError = value.isEmpty;
               if (labelText == "Major Subject") _majorSubjectError = value.isEmpty;
               if (labelText == "Country Name") _countryNameError = value.isEmpty;
             });
@@ -589,7 +589,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
               return AppString.enterText;
             }
             if (labelText == "Phone" && (value.length != 10 || int.tryParse(value) == null)) {
-              return 'Please enter a valid 10-digit phone number';
+              return 'Please Enter a valid 10-digit phone number';
             }
             return null;
           },
@@ -599,7 +599,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
             padding: EdgeInsets.only(left: 10, top: 5),
             child: Text(
               errorText,
-              style: TextStyle(color: Colors.red, fontSize: 10),
+              style: TextStyle(color: ColorManager.red, fontSize: FontSize.s10),
             ),
           ),
       ],
