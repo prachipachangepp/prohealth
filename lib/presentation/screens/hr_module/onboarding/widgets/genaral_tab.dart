@@ -1127,4 +1127,3 @@ class InfoData extends StatelessWidget {
     );
   }
 }
-//////
