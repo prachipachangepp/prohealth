@@ -238,7 +238,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                         String? selectedDocType;
                         String? selectedSubDocType;
                         String? selectedExpiryType = expiryType;
-
                         showDialog(
                           context: context,
                           builder: (context) {
@@ -532,7 +531,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                       ],
                                     ),
                                   ),
-                                  title: 'Add Document',
+                                  title: '',
                                 );
                               },
                             );

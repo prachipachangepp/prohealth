@@ -195,8 +195,6 @@ class _Employment_screenState extends State<Employment_screen> {
                         print(e);
                       }
                     }
-
-                    // Replace with your actual API call for saving the employment data
                     await postemploymentscreenData(
                         context,
                         state.widget.employeeID,

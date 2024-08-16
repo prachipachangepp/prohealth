@@ -265,6 +265,128 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                   calenderController: calenderController,
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
+                                  onPressed: () async {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    String expiryTypeToSend =
+                                    selectedExpiryType == "Not Applicable"
+                                        ? "--"
+                                        : calenderController.text;
+                                    try {
+                                      await addComplianceDocumentPost(
+
+                                        context: context,
+                                        // patientId: widget.patientId,
+                                        patientId: 24,
+                                        docTypeId: docTypeId,
+                                        // docTypeId: 24,
+                                        docName: docNamecontroller.text,
+                                        docUrl: 'url',
+                                        expDate: "2024-08-16T09:39:48.030Z",
+                                        // name: docNamecontroller.text,
+                                        // docTypeID: docTypeMetaId,
+                                        // docSubTypeID: docTypeMetaId == 10 ? 0 : docSubTypeMetaId,
+                                        // docCreated: DateTime.now().toString(),
+                                        // url: "url",
+                                        // expiryType: selectedExpiryType.toString(),
+                                        // expiryDate: expiryTypeToSend,
+                                        // expiryReminder: selectedExpiryType.toString(),
+                                        // officeId: widget.officeId,
+
+                                      );
+                                      print("DocName${docNamecontroller.text}");
+                                      fetchPatientDataCompliance(
+                                        context,
+                                        // docTypeMetaId,
+                                        // docSubTypeMetaId,
+                                        // 1,
+                                        // 15,
+                                      );
+                                      Navigator.pop(context);
+                                      setState(() {
+                                        expiryType = '';
+                                        calenderController.clear();
+                                        docIdController.clear();
+                                        docNamecontroller.clear();
+                                      });
+                                    } finally {
+                                      setState(() {
+                                        _isLoading = false;
+                                      });
+                                    }
+                                  },
+                                  child: FutureBuilder<List<PatientDataComplianceDoc>>(
+                                    future:
+                                    getpatientDataComplianceDoc(context),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.grey[100]!,
+                                          child: Container(
+                                            width: 350,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey,
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      if (snapshot.data!.isEmpty) {
+                                        return Center(
+                                          child: Text(
+                                            AppString.dataNotFound,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              fontWeight:
+                                              FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      if (snapshot.hasData) {
+                                        List<DropdownMenuItem<String>>
+                                        dropDownMenuItems = snapshot.data!
+                                            .map((doc) =>
+                                            DropdownMenuItem<String>(
+                                              value: doc.docType,
+                                              child: Text(doc.docType!),
+                                            ))
+                                            .toList();
+                                        return CICCDropdown(
+                                          initialValue: selectedDocType ??
+                                              dropDownMenuItems[0].value,
+                                          onChange: (val) {
+                                            setState(() {
+                                              selectedDocType = val;
+                                              for (var doc in snapshot.data!) {
+                                                if (doc.docType == val) {
+                                                  docTypeId = doc.docTypeId!;
+                                                }
+                                              }
+                                              fetchPatientDataCompliance(
+                                                context,
+                                              ).then((data) {
+                                                _compliancePatientDataController
+                                                    .add(data);
+                                              }).catchError((error) {
+                                                // Handle error
+                                              });
+                                            });
+                                          },
+                                          items: dropDownMenuItems,
+                                        );
+                                      } else {
+                                        return SizedBox();
+                                      }
+                                    },
+                                  ),
                                   radioButton: Padding(
                                     padding: const EdgeInsets.only(left: 10.0),
                                     child: Column(
@@ -424,129 +546,6 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  onPressed: () async {
-                                    setState(() {
-                                      _isLoading = true;
-                                    });
-                                    String expiryTypeToSend =
-                                        selectedExpiryType == "Not Applicable"
-                                            ? "--"
-                                            : calenderController.text;
-                                    try {
-                                      await addComplianceDocumentPost(
-
-                                        context: context,
-                                        // patientId: widget.patientId,
-                                        patientId: 24,
-                                        docTypeId: docTypeId,
-                                        // docTypeId: 24,
-                                        docName: docNamecontroller.text,
-                                        docUrl: 'url',
-                                        expDate: "2024-08-16T09:39:48.030Z",
-                                        // name: docNamecontroller.text,
-                                        // docTypeID: docTypeMetaId,
-                                        // docSubTypeID: docTypeMetaId == 10 ? 0 : docSubTypeMetaId,
-                                        // docCreated: DateTime.now().toString(),
-                                        // url: "url",
-                                        // expiryType: selectedExpiryType.toString(),
-                                        // expiryDate: expiryTypeToSend,
-                                        // expiryReminder: selectedExpiryType.toString(),
-                                        // officeId: widget.officeId,
-
-                                      );
-                                      print("DocName${docNamecontroller.text}");
-                                       fetchPatientDataCompliance(
-                                        context,
-                                        // docTypeMetaId,
-                                        // docSubTypeMetaId,
-                                        // 1,
-                                        // 15,
-                                      );
-                                      Navigator.pop(context);
-                                      setState(() {
-                                        expiryType = '';
-                                        calenderController.clear();
-                                        docIdController.clear();
-                                        docNamecontroller.clear();
-                                      });
-                                    } finally {
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
-                                    }
-                                  },
-                                  child: FutureBuilder<
-                                      List<PatientDataComplianceDoc>>(
-                                    future:
-                                        getpatientDataComplianceDoc(context),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return Shimmer.fromColors(
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.grey[100]!,
-                                          child: Container(
-                                            width: 350,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              color: ColorManager.faintGrey,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshot.data!.isEmpty) {
-                                        return Center(
-                                          child: Text(
-                                            AppString.dataNotFound,
-                                            style: CustomTextStylesCommon
-                                                .commonStyle(
-                                              fontWeight:
-                                                  FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshot.hasData) {
-                                        List<DropdownMenuItem<String>>
-                                            dropDownMenuItems = snapshot.data!
-                                                .map((doc) =>
-                                                    DropdownMenuItem<String>(
-                                                      value: doc.docType,
-                                                      child: Text(doc.docType!),
-                                                    ))
-                                                .toList();
-                                        return CICCDropdown(
-                                          initialValue: selectedDocType ??
-                                              dropDownMenuItems[0].value,
-                                          onChange: (val) {
-                                            setState(() {
-                                              selectedDocType = val;
-                                              for (var doc in snapshot.data!) {
-                                                if (doc.docType == val) {
-                                                  docTypeId = doc.docTypeId!;
-                                                }
-                                              }
-                                              fetchPatientDataCompliance(
-                                                context,
-                                              ).then((data) {
-                                                _compliancePatientDataController
-                                                    .add(data);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
-                                            });
-                                          },
-                                          items: dropDownMenuItems,
-                                        );
-                                      } else {
-                                        return SizedBox();
-                                      }
-                                    },
                                   ),
                                   title: '',
                                 );
