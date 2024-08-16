@@ -208,9 +208,9 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ),
               ],
             ),
-            Spacer(),
+            // Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

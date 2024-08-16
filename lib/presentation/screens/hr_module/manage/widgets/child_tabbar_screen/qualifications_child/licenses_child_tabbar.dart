@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -249,11 +250,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                Row(
                                 children: [
                                   Text('License #${snapshot.data![index].licenseId}',
-                                    style: TextStyle(
-                                      fontFamily: 'FiraSans',
+                                    style: GoogleFonts.firaSans(
                                       fontSize: 13,
                                       color: Color(0xFF333333),
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeightManager.medium,
                                     ),),
                                 ],
                               ),

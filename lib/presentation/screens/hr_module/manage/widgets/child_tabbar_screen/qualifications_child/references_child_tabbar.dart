@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -154,11 +155,10 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                            Row(
                             children: [
                               Text('References #${snapshot.data![index].referenceId}',
-                                style: TextStyle(
-                                  fontFamily: 'FiraSans',
+                                style: GoogleFonts.firaSans(
                                   fontSize: 13,
                                   color: Color(0xFF333333),
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeightManager.medium,
                                 ),),
                             ],
                           ),
