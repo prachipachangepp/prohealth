@@ -205,7 +205,7 @@ class AppString {
   static String location ="Location";
   static String type ="Type";
   static String upload_document ="Upload Document";
-  static String type_of_the_document ="Type of the Document'";
+  static String type_of_the_document ="Type of the Document";
   static String fax ="Fax";
   static String yes ="Yes";
   static String no ="No";

@@ -391,7 +391,9 @@ class _CICCLicenseState extends State<CICCLicense> {
                                               );
 
                                             });
-                                          }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
+                                          },
+                                              icon: Icon(Icons.edit_outlined,
+                                                size:18,color: ColorManager.bluebottom,)),
                                           IconButton(
                                               onPressed: (){
                                                 showDialog(context: context,
@@ -411,7 +413,8 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                 context,
                                                                 snapshot.data![index].docId!);
                                                             setState(() async {
-                                                              await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
+                                                              await orgSubDocumentGet(context,
+                                                                  widget.docId, widget.subDocId, 1, 15).then((data) {
                                                                 _ccLisenceController.add(data);
                                                               }).catchError((error) {
                                                                 // Handle error

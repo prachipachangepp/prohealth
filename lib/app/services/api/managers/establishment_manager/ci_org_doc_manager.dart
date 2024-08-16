@@ -34,7 +34,7 @@ Future<ApiData> addCorporateDocumentPost({
       "company_id": companyId,
       "office_id": officeId
     };
-    print(' Post ORG Doc$data');
+    print('Post ORG Doc$data');
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.addCorporateDocumentPost(),
         data: data);

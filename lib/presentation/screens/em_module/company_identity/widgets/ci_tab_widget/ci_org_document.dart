@@ -256,7 +256,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                     String expiryTypeToSend = selectedExpiryType == "Not Applicable"
                                         ? "--"
                                         :calenderController.text;
-
                                     try {
                                       await addCorporateDocumentPost(
                                         context: context,

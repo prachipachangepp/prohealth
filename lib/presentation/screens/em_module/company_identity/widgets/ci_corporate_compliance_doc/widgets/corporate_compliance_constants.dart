@@ -622,6 +622,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 // mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  ///title
                   Text(
                     widget.title,
                     textAlign: TextAlign.center,
@@ -652,12 +653,14 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  ///ID of the Document
                   SMTextFConst(
                     controller: widget.idDocController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
                   ),
                   SizedBox(height: AppSize.s13),
+                  ///Name of the Document
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
@@ -667,6 +670,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      ///Type of the Document
                       Text(
                         'Type of the Document',
                         style: GoogleFonts.firaSans(
@@ -684,6 +688,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      ///Sub Type of the Document
                       Text(
                         'Sub Type of the Document',
                         style: GoogleFonts.firaSans(
