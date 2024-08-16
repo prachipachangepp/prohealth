@@ -198,7 +198,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               style: GoogleFonts.firaSans(
                 fontSize: 12,
                 fontWeight: FontWeightManager.bold,
-                color: const Color(0xff50B5E5),
+                color: Color(0xff50B5E5),
                 decoration: TextDecoration.none,
               ),
               icon: const Icon(
@@ -222,7 +222,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value, style: TextStyle(color: ColorManager.blueprime)),
+                  child: Text(
+                      value, style: TextStyle(
+                    color: _selectedValue == value
+                        ? ColorManager.blueprime
+                        : ColorManager.granitegray,),
+                  ),
                 );
               }).toList(),
             ),
