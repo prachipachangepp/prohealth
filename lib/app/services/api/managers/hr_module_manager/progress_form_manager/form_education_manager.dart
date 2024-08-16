@@ -8,20 +8,20 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-class FormEducationManager {
+
   ///post api
-  Future<ApiDataRegister> posteducationscreen(
+  Future<ApiDataRegister> postEducationScreenForm(
     BuildContext context,
     int employeeId,
-    String graduate,
-    String degree,
-    String major,
-    String city,
-    String college,
-    String phone,
-    String state,
-    String country,
-    String startDate,
+    String? graduate,
+    String? degree,
+    String? major,
+    String? city,
+    String? college,
+    String? phone,
+    String? state,
+    String? country,
+    String? startDate,
   ) async {
     try {
       var response = await ApiOffer(context).post(
@@ -39,6 +39,7 @@ class FormEducationManager {
           "startDate": "${startDate}T00:00:00Z"
         },
       );
+      print(':::::::::::${response}');
       if (response.statusCode == 200 || response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Education data saved")),
@@ -66,47 +67,6 @@ class FormEducationManager {
           message: AppString.somethingWentWrong);
     }
   }
-
-  ///////////////////////
-  /// get prifillapi
-  ///
-
-  ///
-  ///
-  ///
-  // Future<ApiDataRegister> getEmployeeEducationForm(
-  //     BuildContext context,
-  //      int employeeID,
-  //
-  //
-  //    ) async {
-  //   try {
-  //     var response = await ApiOffer(context).get(
-  //       path:  ProgressBarRepository().getEmployeeByEmpID( employeeID: employeeID )
-  //
-  //
-  //     );
-  //     print("::::::::=>${response}");
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       print("Education updates");
-  //       // orgDocumentGet(context);
-  //       return ApiDataRegister(
-  //           statusCode: response.statusCode!,
-  //           success: true,
-  //           message: response.statusMessage!);
-  //     } else {
-  //       print("Error 1");
-  //       return ApiDataRegister(
-  //           statusCode: response.statusCode!,
-  //           success: false,
-  //           message: response.data['message']);
-  //     }
-  //   } catch (e) {
-  //     print("Error $e");
-  //     return ApiDataRegister(
-  //         statusCode: 404, success: false, message: AppString.somethingWentWrong);
-  //   }
-  // }
 
   ///patch api
 
@@ -141,8 +101,9 @@ class FormEducationManager {
           "startDate": "${startDate}T00:00:00Z"
         },
       );
+      print("::::::::=>${response}");
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print("Education updates");
+        print("Banking  updates");
         // orgDocumentGet(context);
         return ApiDataRegister(
             statusCode: response.statusCode!,
@@ -164,33 +125,37 @@ class FormEducationManager {
     }
   }
 
-  ///
-  ///
-  Future<List<EduactionDegree>> HrEmplyDegreedropdown(
-      BuildContext context, int degreeId) async {
-    List<EduactionDegree> itemsList = [];
-    try {
-      final response = await ApiOffer(context).get(
-          path: ProgressBarRepository.patchEmployeeDegree(degreeId: degreeId));
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        for (var item in response.data) {
-          itemsList.add(EduactionDegree(
-            degreeId: item['degreeId'],
-            degree: item['degree'],
-            companyId: item['companyId'],
-          ));
-        }
-      } else {
-        print('Api Error');
+
+
+
+///
+Future<List<EduactionDegree>> HrEmplyDegreedropdown(
+    BuildContext context,) async {
+  List<EduactionDegree> itemsList = [];
+  try {
+    final response = await ApiOffer(context).get(
+        path: ProgressBarRepository.patchEmployeeDegree());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(EduactionDegree(
+          degreeId: item['degreeId'],
+          degree: item['degree'],
+          companyId: item['companyId'],
+        ));
       }
-      print("Response:::::${response}");
-      return itemsList;
-    } catch (e) {
-      print("Error $e");
-      return itemsList;
+    } else {
+      print('Api Error');
     }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
   }
 }
+
+
+///get api prifill
 
 Future<List<EducationDataForm>> getEmployeeEducationForm(
     BuildContext context, int employeeId) async {
@@ -213,6 +178,7 @@ Future<List<EducationDataForm>> getEmployeeEducationForm(
     final response = await ApiOffer(context).get(
         path:
             ProgressBarRepository().getEmployeeByEmpID(employeeID: employeeId));
+    //print("::::::::=>${response}");
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         //String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);

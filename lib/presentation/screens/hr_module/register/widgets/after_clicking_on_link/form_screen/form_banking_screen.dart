@@ -37,9 +37,9 @@ class _BankingScreenState extends State<BankingScreen> {
 
   List<GlobalKey<_BankingFormState>> bankingFormKeys = [];
 
-  var validateAccounts;
-
-  var errorMessage;
+  // var validateAccounts;
+  //
+  // var errorMessage;
 
   @override
   void initState() {
@@ -58,6 +58,74 @@ class _BankingScreenState extends State<BankingScreen> {
       bankingFormKeys.remove(key);
     });
   }
+
+
+  TextEditingController effectivecontroller = TextEditingController();
+  TextEditingController requestammount = TextEditingController();
+  TextEditingController accountnumber = TextEditingController();
+  TextEditingController routingnumber = TextEditingController();
+  TextEditingController bankname = TextEditingController();
+  TextEditingController verifyaccountnumber = TextEditingController();
+
+  String? selectedtype;
+  String? postselectedtype;
+
+  String? selectedacc;
+
+  List<String> _fileNames = [];
+  bool _loading = false;
+
+  void _pickFiles() async {
+    setState(() {
+      _loading = true; // Show loader
+      _fileNames.clear(); // Clear previous file names if any
+    });
+
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+    );
+
+    if (result != null) {
+      setState(() {
+        _fileNames.addAll(result.files.map((file) => file.name));
+        _loading = false; // Hide loader
+      });
+      print('Files picked: $_fileNames');
+    } else {
+      setState(() {
+        _loading = false; // Hide loader on cancel
+      });
+      print('User canceled the picker');
+    }
+  }
+
+  Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
+    final blob = html.Blob([bytes]);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final file = html.File([blob], fileName);
+    return XFile(url);
+  }
+
+  bool _documentUploaded = true;
+  var fileName;
+  var fileName1;
+  dynamic filePath;
+  File? xfileToFile;
+  var finalPath;
+
+  String? errorMessage;
+
+  void validateAccounts() {
+    setState(() {
+      if (accountnumber.text != verifyaccountnumber.text) {
+        errorMessage = 'Account numbers do not match';
+      } else {
+        errorMessage = null;
+      }
+    });
+  }
+
+
 
   Future<void> perfFormBanckingData({
     required BuildContext context,
@@ -106,6 +174,8 @@ class _BankingScreenState extends State<BankingScreen> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -136,6 +206,425 @@ class _BankingScreenState extends State<BankingScreen> {
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 20),
+
+    // FutureBuilder<List<BankingDataForm>>(
+    // future: getBankingForm(context, widget.employeeID),
+    // builder: (context, snapshot) {
+    // if (snapshot.connectionState == ConnectionState.waiting) {
+    // return const Center(
+    // child: Padding(
+    // padding: EdgeInsets.symmetric(vertical: 150),
+    // child: CircularProgressIndicator(
+    // color: Color(0xff50B5E5),
+    // ),
+    // ),
+    // );
+    // }
+    // if (snapshot.hasError) {
+    // return Center(
+    // child: Padding(
+    // padding: const EdgeInsets.symmetric(vertical: 150),
+    // child: Text(
+    // 'Error: ${snapshot.error}',
+    // style: TextStyle(color: Colors.red),
+    // ),
+    // ),
+    // );
+    // }
+    // if (snapshot.hasData) {
+    // List<BankingDataForm>? data = snapshot.data;
+    // //print{::::::::=> "$snapshot.data"};
+    // print(":::::: :=>${snapshot.data!}");
+    // //final data = snapshot.data;
+    // // Update controllers with API data
+    //
+    // return Container(
+    // height: MediaQuery.of(context).size.height / 1,
+    // width: MediaQuery.of(context).size.width / 1,
+    //
+    // child: ListView.builder(
+    // itemCount: snapshot.data!.length,
+    // itemBuilder: (BuildContext context, int index) {
+    // effectivecontroller = TextEditingController(
+    // text: snapshot.data![index].effectiveDate);
+    // requestammount = TextEditingController(
+    // text: snapshot.data![index].amountRequested.toString());
+    // // requestammount = snapshot.data![index].requestammount  ;
+    // accountnumber = TextEditingController(
+    // text: snapshot.data![index].accountNumber);
+    // routingnumber = TextEditingController(
+    // text: snapshot.data![index].routingNumber);
+    // bankname = TextEditingController(
+    // text: snapshot.data![index].bankName);
+    // selectedtype=snapshot.data![index].type;
+    // // verifyaccountnumber = TextEditingController(text:snapshot.data![index].);
+    // return  Padding(
+    // padding: EdgeInsets.only(left: 166.0, right: 166),
+    // child: Column(
+    // crossAxisAlignment: CrossAxisAlignment.start,
+    // children: [
+    // Row(
+    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    // children: [
+    // Text(
+    // 'Bank Details #${snapshot.data![index].empBankingId}',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 14.0,
+    // fontWeight: FontWeight.w700,
+    // color: Color(0xff686464)),
+    // ),
+    // IconButton(
+    // icon:
+    // Icon(Icons.remove_circle, color: Colors.red),
+    // onPressed:(){},
+    // ),
+    // ],
+    // ),
+    // SizedBox(
+    // height: MediaQuery.of(context).size.height / 20),
+    // Row(
+    // crossAxisAlignment: CrossAxisAlignment.start,
+    // children: [
+    // Expanded(
+    // child: Column(
+    // crossAxisAlignment: CrossAxisAlignment.start,
+    // children: [
+    // Text(
+    // 'Type',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff686464)),
+    // ),
+    // Row(
+    // children: [
+    // Expanded(
+    // child: CustomRadioListTile(
+    // title: 'Checking',
+    // value: 'Checking',
+    // groupValue: selectedtype,
+    // onChanged: (value) {
+    // setState(() {
+    // selectedtype = value;
+    // });
+    // },
+    // )),
+    // Expanded(
+    // child: CustomRadioListTile(
+    // title: 'Savings',
+    // value: 'Savings',
+    // groupValue: selectedtype,
+    // onChanged: (value) {
+    // setState(() {
+    // selectedtype = value;
+    // });
+    // },
+    // ),
+    // ),
+    // ],
+    // ),
+    // SizedBox(
+    // height:
+    // MediaQuery.of(context).size.height /
+    // 40),
+    // Text(
+    // 'Effective Date',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff686464)),
+    // ),
+    // SizedBox(
+    // height:
+    // MediaQuery.of(context).size.height /
+    // 60),
+    // CustomTextFieldRegister(
+    // controller: effectivecontroller,
+    // hintText: 'dd-mm-yyyy',
+    // hintStyle: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff9B9B9B),
+    // ),
+    // height: 32,
+    // suffixIcon: IconButton(
+    // icon: Icon(
+    // Icons.calendar_month_outlined,
+    // color: Color(0xff50B5E5),
+    // size: 16,
+    // ),
+    // onPressed: () async {
+    // DateTime? pickedDate =
+    // await showDatePicker(
+    // context: context,
+    // initialDate: DateTime.now(),
+    // firstDate: DateTime(2000),
+    // lastDate: DateTime(2101),
+    // );
+    // if (pickedDate != null) {
+    // effectivecontroller.text =
+    // "${pickedDate.toLocal()}"
+    //     .split(' ')[0];
+    // }
+    // },
+    // ),
+    // ),
+    // SizedBox(
+    // height:
+    // MediaQuery.of(context).size.height /
+    // 30),
+    // Text(
+    // 'Bank Name',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff686464)),
+    // ),
+    // SizedBox(
+    // height:
+    // MediaQuery.of(context).size.height /
+    // 60),
+    // CustomTextFieldRegister(
+    // controller: bankname,
+    // hintText: 'Enter Text',
+    // hintStyle: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff9B9B9B),
+    // ),
+    // height: 32,
+    // ),
+    // SizedBox(
+    // height:
+    // MediaQuery.of(context).size.height /
+    // 30),
+    // Text(
+    // 'Routing/Transit Number ( 9 Digits )',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff686464)),
+    // ),
+    // SizedBox(
+    // height:
+    // MediaQuery.of(context).size.height /
+    // 60),
+    // CustomTextFieldRegister(
+    // controller: routingnumber,
+    // hintText: 'Enter Text',
+    // hintStyle: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff9B9B9B),
+    // ),
+    // height: 32,
+    // ),
+    // ],
+    // ),
+    // ),
+    // SizedBox(
+    // width: MediaQuery.of(context).size.width / 15),
+    // Expanded(
+    // child: Column(
+    // crossAxisAlignment: CrossAxisAlignment.start,
+    // children: [
+    // Text(
+    // 'Account Number ',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff686464)),
+    // ),
+    // SizedBox(
+    // height:
+    // MediaQuery.of(context).size.height /
+    // 60),
+    // CustomTextFieldRegister(
+    // controller: accountnumber,
+    // hintText: 'Enter Text',
+    // hintStyle: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff9B9B9B),
+    // ),
+    // height: 32,
+    // ),
+    // SizedBox(
+    // height:
+    // MediaQuery.of(context).size.height /
+    // 30),
+    // Text(
+    // 'Verify Account Number',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff686464)),
+    // ),
+    // SizedBox(
+    // height:
+    // MediaQuery.of(context).size.height /
+    // 60),
+    // CustomTextFieldRegister(
+    // controller: verifyaccountnumber,
+    // // controller: ,
+    // hintText: 'Enter Text',
+    // hintStyle: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff9B9B9B),
+    // ),
+    // height: 32,
+    // ),
+    // if (errorMessage != null)
+    // Padding(
+    // padding: const EdgeInsets.only(top: 8.0),
+    // child: Text(
+    // errorMessage!,
+    // style: TextStyle(
+    // color: Colors.red, fontSize: 10),
+    // ),
+    // ),
+    // SizedBox(
+    // height:
+    // MediaQuery.of(context).size.height /
+    // 25),
+    // Text(
+    // 'Requested amount for this account (select one)',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff686464)),
+    // ),
+    // CustomRadioListTile(
+    // title: 'Specific Amount',
+    // value: 'Specific Amount',
+    // groupValue: selectedacc,
+    // onChanged: (value) {
+    // setState(() {
+    // selectedacc = value;
+    // });
+    // },
+    // ),
+    // CustomTextFieldRegister(
+    // controller: requestammount,
+    // prefixText: '\$',
+    // prefixStyle: GoogleFonts.firaSans(
+    // fontSize: 10.0,
+    // fontWeight: FontWeight.w400,
+    // color: Color(0xff9B9B9B),
+    // ),
+    // height: 32,
+    // keyboardType: TextInputType.number,
+    // ),
+    // ],
+    // ),
+    // ),
+    // ],
+    // ),
+    // SizedBox(
+    // height: MediaQuery.of(context).size.height / 20),
+    // Row(
+    // children: [
+    // Expanded(
+    // child: Text(
+    // 'Upload your Void Check',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 14.0,
+    // fontWeight: FontWeight.w500,
+    // color: Color(0xff686464)),
+    // ),
+    // ),
+    // SizedBox(
+    // width: MediaQuery.of(context).size.width / 5),
+    // ElevatedButton.icon(
+    // onPressed: () async {
+    // FilePickerResult? result =
+    // await FilePicker.platform.pickFiles();
+    // if (result != null) {
+    // try {
+    // Uint8List? bytes = result.files.first.bytes;
+    // XFile xFile = await convertBytesToXFile(
+    // bytes!, result.files.first.name);
+    // finalPath = result.files.first.bytes;
+    // fileName = result.files.first.name;
+    // setState(() {
+    // _fileNames.addAll(result.files
+    //     .map((file) => file.name));
+    // _loading = false;
+    // });
+    // } catch (e) {
+    // print(e);
+    // }
+    // }
+    // },
+    // style: ElevatedButton.styleFrom(
+    // backgroundColor: Color(0xff50B5E5),
+    // shape: RoundedRectangleBorder(
+    // borderRadius: BorderRadius.circular(8.0),
+    // ),
+    // ),
+    // icon: Icon(Icons.upload, color: Colors.white),
+    // label: Text(
+    // 'Upload File',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 14.0,
+    // fontWeight: FontWeight.w500,
+    // color: Colors.white,
+    // ),
+    // ),
+    // ),
+    // _loading
+    // ? SizedBox(
+    // width: 25,
+    // height: 25,
+    // child: CircularProgressIndicator(
+    // color: ColorManager
+    //     .blueprime, // Loader color
+    // // Loader size
+    // ),
+    // )
+    //     : _fileNames.isNotEmpty
+    // ? Column(
+    // crossAxisAlignment:
+    // CrossAxisAlignment.start,
+    // children: _fileNames
+    //     .map((fileName) => Padding(
+    // padding:
+    // const EdgeInsets.all(8.0),
+    // child: Text(
+    // 'File picked: $fileName',
+    // style: GoogleFonts.firaSans(
+    // fontSize: 12.0,
+    // fontWeight:
+    // FontWeight.w400,
+    // color:
+    // Color(0xff686464)),
+    // ),
+    // ))
+    //     .toList(),
+    // )
+    //     : SizedBox(),
+    // SizedBox(
+    // height: MediaQuery.of(context).size.height /
+    // 20), // Display file names if picked
+    // ],
+    // ),
+    // const Divider(
+    // color: Colors.grey,
+    // thickness: 2,
+    // )
+    // ],
+    // ),
+    // );
+    // },
+    // ),
+    // );
+    // }
+    //
+    // return SizedBox();
+    // }),
+
+
         Column(
           children: bankingFormKeys.asMap().entries.map((entry) {
             int index = entry.key;
@@ -266,6 +755,13 @@ class _BankingFormState extends State<BankingForm> {
     verifyaccountnumber.dispose();
     super.dispose();
   }
+  TextEditingController posteffectivecontroller = TextEditingController();
+  TextEditingController postrequestammountcontroller = TextEditingController();
+  TextEditingController postaccountnumbercontroller = TextEditingController();
+  TextEditingController postroutingnumbercontroller = TextEditingController();
+  TextEditingController postbanknamecontroller = TextEditingController();
+  TextEditingController postverifyaccountnumbercontroller = TextEditingController();
+
 
   TextEditingController effectivecontroller = TextEditingController();
   TextEditingController requestammount = TextEditingController();
@@ -275,6 +771,7 @@ class _BankingFormState extends State<BankingForm> {
   TextEditingController verifyaccountnumber = TextEditingController();
 
   String? selectedtype;
+  String? postselectedtype;
 
   String? selectedacc;
 
@@ -333,57 +830,58 @@ class _BankingFormState extends State<BankingForm> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<BankingDataForm>>(
-        future: getBankingForm(context, widget.employeeID),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 150),
-                child: CircularProgressIndicator(
-                  color: Color(0xff50B5E5),
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 150),
-                child: Text(
-                  'Error: ${snapshot.error}',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasData) {
-            List<BankingDataForm>? data = snapshot.data;
-            //print{::::::::=> "$snapshot.data"};
-            print(":::::: :=>${snapshot.data!}");
-            //final data = snapshot.data;
-            // Update controllers with API data
-
-            return Container(
-              height: MediaQuery.of(context).size.height / 1,
-              width: MediaQuery.of(context).size.width / 1,
-
-              child: ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  effectivecontroller = TextEditingController(
-                      text: snapshot.data![index].effectiveDate);
-                  requestammount = TextEditingController(
-                      text: snapshot.data![index].amountRequested.toString());
-                  // requestammount = snapshot.data![index].requestammount  ;
-                  accountnumber = TextEditingController(
-                      text: snapshot.data![index].accountNumber);
-                  routingnumber = TextEditingController(
-                      text: snapshot.data![index].routingNumber);
-                  bankname = TextEditingController(
-                      text: snapshot.data![index].bankName);
-                  selectedtype=snapshot.data![index].type;
-                  // verifyaccountnumber = TextEditingController(text:snapshot.data![index].);
+    // return
+    //   FutureBuilder<List<BankingDataForm>>(
+    //     future: getBankingForm(context, widget.employeeID),
+    //     builder: (context, snapshot) {
+    //       if (snapshot.connectionState == ConnectionState.waiting) {
+    //         return const Center(
+    //           child: Padding(
+    //             padding: EdgeInsets.symmetric(vertical: 150),
+    //             child: CircularProgressIndicator(
+    //               color: Color(0xff50B5E5),
+    //             ),
+    //           ),
+    //         );
+    //       }
+    //       if (snapshot.hasError) {
+    //         return Center(
+    //           child: Padding(
+    //             padding: const EdgeInsets.symmetric(vertical: 150),
+    //             child: Text(
+    //               'Error: ${snapshot.error}',
+    //               style: TextStyle(color: Colors.red),
+    //             ),
+    //           ),
+    //         );
+    //       }
+    //       if (snapshot.hasData) {
+    //         List<BankingDataForm>? data = snapshot.data;
+    //         //print{::::::::=> "$snapshot.data"};
+    //         print(":::::: :=>${snapshot.data!}");
+    //         //final data = snapshot.data;
+    //         // Update controllers with API data
+    //
+    //         return Container(
+    //           height: MediaQuery.of(context).size.height / 1,
+    //           width: MediaQuery.of(context).size.width / 1,
+    //
+    //           child: ListView.builder(
+    //             itemCount: snapshot.data!.length,
+    //             itemBuilder: (BuildContext context, int index) {
+    //               effectivecontroller = TextEditingController(
+    //                   text: snapshot.data![index].effectiveDate);
+    //               requestammount = TextEditingController(
+    //                   text: snapshot.data![index].amountRequested.toString());
+    //               // requestammount = snapshot.data![index].requestammount  ;
+    //               accountnumber = TextEditingController(
+    //                   text: snapshot.data![index].accountNumber);
+    //               routingnumber = TextEditingController(
+    //                   text: snapshot.data![index].routingNumber);
+    //               bankname = TextEditingController(
+    //                   text: snapshot.data![index].bankName);
+    //               selectedtype=snapshot.data![index].type;
+    //               // verifyaccountnumber = TextEditingController(text:snapshot.data![index].);
                return  Padding(
                     padding: EdgeInsets.only(left: 166.0, right: 166),
                     child: Column(
@@ -393,7 +891,7 @@ class _BankingFormState extends State<BankingForm> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Bank Details #${snapshot.data![index].empBankingId}',
+                              'Bank Details #${widget.index}',
                               style: GoogleFonts.firaSans(
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w700,
@@ -742,12 +1240,12 @@ class _BankingFormState extends State<BankingForm> {
                       ],
                     ),
                   );
-                },
-              ),
-            );
-          }
-
-          return SizedBox();
-        });
+        //         },
+        //       ),
+        //     );
+        //   }
+        //
+        //   return SizedBox();
+        // });
   }
 }

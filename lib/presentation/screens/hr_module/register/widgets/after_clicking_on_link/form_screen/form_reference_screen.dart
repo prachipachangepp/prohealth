@@ -228,50 +228,50 @@ class _ReferencesFormState extends State<ReferencesForm> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ReferenceDataForm>>(
-        future: getEmployeeReferenceForm(context, widget.employeeID),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 150),
-                child: CircularProgressIndicator(
-                  color: Color(0xff50B5E5),
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 150),
-                child: Text(
-                  'Error: ${snapshot.error}',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasData) {
-            List<ReferenceDataForm>? data = snapshot.data;
-            //print{::::::::=> "$snapshot.data"};
-            print(":::::: :=>${snapshot.data!}");
-
-            return Container(
-              height: MediaQuery.of(context).size.height / 1,
-              width: MediaQuery.of(context).size.width / 1,
-              child: ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-
-
-                   name = TextEditingController(text:snapshot.data![index].name);
-                titleposition = TextEditingController(text:snapshot.data![index].title);
-                   companyorganization = TextEditingController(text:snapshot.data![index].company);
-                   mobilenumber = TextEditingController(text:snapshot.data![index].mob);
-                   email = TextEditingController(text:snapshot.data![index].email);
-                   knowthisperson = TextEditingController(text:snapshot.data![index].references);
-                   lengthofassociation = TextEditingController(text:snapshot.data![index].association);
+    // return FutureBuilder<List<ReferenceDataForm>>(
+    //     future: getEmployeeReferenceForm(context, widget.employeeID),
+    //     builder: (context, snapshot) {
+    //       if (snapshot.connectionState == ConnectionState.waiting) {
+    //         return const Center(
+    //           child: Padding(
+    //             padding: EdgeInsets.symmetric(vertical: 150),
+    //             child: CircularProgressIndicator(
+    //               color: Color(0xff50B5E5),
+    //             ),
+    //           ),
+    //         );
+    //       }
+    //       if (snapshot.hasError) {
+    //         return Center(
+    //           child: Padding(
+    //             padding: const EdgeInsets.symmetric(vertical: 150),
+    //             child: Text(
+    //               'Error: ${snapshot.error}',
+    //               style: TextStyle(color: Colors.red),
+    //             ),
+    //           ),
+    //         );
+    //       }
+    //       if (snapshot.hasData) {
+    //         List<ReferenceDataForm>? data = snapshot.data;
+    //         //print{::::::::=> "$snapshot.data"};
+    //         print(":::::: :=>${snapshot.data!}");
+    //
+    //         return Container(
+    //           height: MediaQuery.of(context).size.height / 1,
+    //           width: MediaQuery.of(context).size.width / 1,
+    //           child: ListView.builder(
+    //             itemCount: snapshot.data!.length,
+    //             itemBuilder: (BuildContext context, int index) {
+    //
+    //
+    //                name = TextEditingController(text:snapshot.data![index].name);
+    //             titleposition = TextEditingController(text:snapshot.data![index].title);
+    //                companyorganization = TextEditingController(text:snapshot.data![index].company);
+    //                mobilenumber = TextEditingController(text:snapshot.data![index].mob);
+    //                email = TextEditingController(text:snapshot.data![index].email);
+    //                knowthisperson = TextEditingController(text:snapshot.data![index].references);
+    //                lengthofassociation = TextEditingController(text:snapshot.data![index].association);
 
 
                   return Padding(
@@ -283,7 +283,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'References #${snapshot.data![index].referenceId}',
+                              'References #${widget.index}',
                               style: GoogleFonts.firaSans(
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w700,
@@ -504,13 +504,13 @@ class _ReferencesFormState extends State<ReferencesForm> {
                       ],
                     ),
                   );
-                },
-              ),
-            );
-          }
-
-          return SizedBox();
-        });
+        //         },
+        //       ),
+        //     );
+        //   }
+        //
+        //   return SizedBox();
+        // });
   }
 }
 

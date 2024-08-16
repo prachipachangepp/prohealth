@@ -19,18 +19,18 @@ class EduactionDegree {
 
 ///onboarding-qualification-education
 class EducationDataForm {
-final int educationID;
-  final int empId;
+final int? educationID;
+  final int? empId;
   final String? graduate;
-  final String degree;
-  final String major;
-  final String city;
-  final String college;
-  final String phone;
-  final String state;
+  final String? degree;
+  final String? major;
+  final String? city;
+  final String? college;
+  final String? phone;
+  final String? state;
   bool? approved;
-  final String country;
-  final String startDate;
+  final String? country;
+  final String? startDate;
 
 
   EducationDataForm(
