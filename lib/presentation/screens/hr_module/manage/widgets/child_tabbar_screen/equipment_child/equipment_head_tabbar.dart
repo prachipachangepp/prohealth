@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/equipment_manager.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/equipment_data.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../app/resources/color.dart';
@@ -27,9 +26,6 @@ class InventoryHeadTabbar extends StatefulWidget {
 class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
   TextEditingController vendorName = TextEditingController();
   final StreamController<List<EquipmentData>> equipementDataStreamController = StreamController<List<EquipmentData>>();
-
-  late CompanyIdentityManager _companyManager;
-//
   late int currentPage;
 
   late int itemsPerPage;
@@ -42,7 +38,6 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
     currentPage = 1;
     itemsPerPage = 20;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    _companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
 

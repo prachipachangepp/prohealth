@@ -7,6 +7,8 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
+import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+
 class ContractAddDialog extends StatefulWidget {
   final TextEditingController contractNmaeController;
   final TextEditingController contractIdController;
@@ -19,7 +21,7 @@ class ContractAddDialog extends StatefulWidget {
   State<ContractAddDialog> createState() => _ContractAddDialogState();
 }
 class _ContractAddDialogState extends State<ContractAddDialog> {
-  String? _expiryType;
+  String? expiryType;
   TextEditingController birthdayController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s420,
+        height: AppSize.s390,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -73,7 +75,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
+                vertical: AppPadding.p8,
                 horizontal: AppPadding.p20,
               ),
               child: Column(
@@ -104,57 +106,39 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                         ),
                       ),
                       SizedBox(height: 5,),
-                      Column(
+                     Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          RadioListTile<String>(
-                            title: Text('Not Applicable',
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
-                                color: ColorManager.mediumgrey,
-                                decoration: TextDecoration.none,
-                              ),),
-                            value: 'type1',
-                            groupValue: _expiryType,
+                          CustomRadioListTile(
+                            value: "Not Applicable",
+                            groupValue: expiryType.toString(),
                             onChanged: (value) {
                               setState(() {
-                                _expiryType = value;
+                                expiryType = value!;
                               });
                             },
+                            title: "Not Applicable",
                           ),
-                          RadioListTile<String>(
-                            title: Text('Scheduled',
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
-                                color: ColorManager.mediumgrey,
-                                decoration: TextDecoration.none,
-                              ),),
-                            value: 'type2',
-                            groupValue: _expiryType,
+                          CustomRadioListTile(
+                            value: 'Scheduled',
+                            groupValue: expiryType.toString(),
                             onChanged: (value) {
                               setState(() {
-                                _expiryType = value;
+                                expiryType = value!;
                               });
                             },
+                            title: 'Scheduled',
                           ),
-                          RadioListTile<String>(
-                            title:  Text('Issuer Expiry',
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
-                                color: ColorManager.mediumgrey,
-                                decoration: TextDecoration.none,
-                              ),),
-                            value: 'type3',
-                            groupValue: _expiryType,
+                          CustomRadioListTile(
+                            value: 'Issuer Expiry',
+                            groupValue: expiryType.toString(),
                             onChanged: (value) {
                               setState(() {
-                                _expiryType = value;
+                                expiryType = value!;
                               });
                             },
+                            title: 'Issuer Expiry',
                           ),
                         ],
                       ),

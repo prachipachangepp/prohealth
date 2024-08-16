@@ -20,7 +20,10 @@ import 'custome_dialog.dart';
 
 class CIInsurance extends StatefulWidget {
   final String officeId;
-  const CIInsurance({super.key, required this.officeId,});
+  final int docID;
+  final int subDocID;
+  final int companyID;
+  const CIInsurance({super.key, required this.officeId, required this.docID, required this.subDocID, required this.companyID,});
 
   @override
   State<CIInsurance> createState() => _CiOrgDocumentState();
@@ -373,7 +376,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                 children: [
                   // Page 1
                   CiInsuranceVendor(officeId: widget.officeId,),
-                  CiInsuranceContract(),
+                  CiInsuranceContract(docID: widget.docID, subDocID: widget.subDocID, companyID: widget.companyID, officeId: widget.officeId,),
                 ],
               ),
             ),

@@ -7,7 +7,6 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/payrates_manager.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/payrates_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -26,8 +25,6 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
   TextEditingController vendorName = TextEditingController();
   final StreamController<List<PayratesData>> _payratesStreamController = StreamController<List<PayratesData>>();
 
-  late CompanyIdentityManager _companyManager;
-
   late int currentPage;
 
   late int itemsPerPage;
@@ -40,7 +37,6 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
     currentPage = 1;
     itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    _companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
 

@@ -293,6 +293,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                         "37.0902°",
                                         "95.7129°",
                                         widget.officeId);
+                                    Navigator.pop(context);
                                   },
                                   title1: 'State Name',
                                   countynameController: stateController,
@@ -322,6 +323,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           zoneNumberController.text,
                                           countyId,
                                           widget.officeId);
+                                      Navigator.pop(context);
                                     },
                                     child: FutureBuilder<
                                             List<AllCountyGetList>>(
@@ -490,6 +492,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           _selectedLocation.longitude.toString(),
                                           landmarkController.text);
                                       print("Saved lat long${_selectedLocation.latitude.toString()} + ${_selectedLocation.longitude.toString()}");
+                                      Navigator.pop(context);
                                     },
                                     mapController: mapController,
                                     landmarkController: landmarkController,

@@ -1,55 +1,3 @@
-//
-// class ManageDetails {
-//   final String officeID;
-//   final String officeName;
-//   final String priNumber;
-//   final String secNumber;
-//   final String alternateNumber;
-//   final String address;
-//   final String email;
-//   final String primaryFax;
-//   final String secondaryFax;
-//   final List<DetailsServiceData>? serviceDetails;
-//   final bool sucess;
-//   final String message;
-//
-//   ManageDetails({
-//     required this.officeID,
-//     required this.sucess,
-//     required this.message,
-//     required this.officeName,
-//     required this.priNumber,
-//       required this.secNumber,
-//     required this.alternateNumber,
-//       required this.address,
-//       required this.primaryFax,
-//       required this.secondaryFax,
-//     required this.email,
-//   this.serviceDetails});
-// }
-//
-// class DetailsServiceData{
-// final int OfficeServiceId;
-// final int CompanyId;
-// final String officeId;
-// final String serviceName;
-// final String serviceId;
-// final String npiNum;
-// final String medicareNum;
-// final String hcoNum;
-//
-// DetailsServiceData({
-// required this.CompanyId,
-// required this.officeId,
-// required this.serviceName,
-// required this.serviceId,
-// required this.npiNum,
-// required this.medicareNum,
-//   required this.hcoNum,
-//   required this.OfficeServiceId
-// });
-// }
-
 class ManageDetails {
   final String officeID;
   final String officeName;
@@ -133,4 +81,26 @@ class DetailsServiceData {
       hcoNum: json['hcoNum'],
     );
   }
+}
+
+
+///get doc type : /document-type
+class GetManageDetailsHeadData{
+  final int? id;
+  final String? docName;
+  final bool sucess;
+  final String message;
+
+  GetManageDetailsHeadData({this.id, this.docName, required this.sucess, required this.message,});
+}
+
+///get document subtype: /identity/GetDocType/{document_type_id}
+class GetManageDetailsSubHeadData{
+  final int docTypeId;
+  final String docType;
+  final int subDocTypeId;
+  final String subDocType;
+  final bool sucess;
+  final String message;
+  GetManageDetailsSubHeadData({required this.docTypeId, required this.docType,required this.subDocTypeId,required this.subDocType,required this.sucess,required this.message, });
 }
