@@ -17,6 +17,7 @@ class EstablishmentManagerRepository {
   static String getDocType = "/GetDocType";
   static String getDocTypeManageCC = "/document-type";
   static String getDocListCompany = "/GetDocumentListByCompany";
+  static String getDocListCompanyOffice = "/GetDocumentListByCompanyAndOffice";
   static String visit = "/visits";
   static String visitList = "/visitList";
   static String documentType = "/document-type";
@@ -90,7 +91,7 @@ class EstablishmentManagerRepository {
     return "$vendors";
   }
   ///vendors/{vendorId}
-  static String companyOfficeVendorPatch({required int vendorId}){
+  static String companyOfficeVendorPatchDelete({required int vendorId}){
     return "$vendors/$vendorId";
   }
   ///post
@@ -116,10 +117,11 @@ class EstablishmentManagerRepository {
   static String corporateGetDocType({required int docTypeId}){
     return "$identity/$getDocType";
   }
-  ///
+  ///identity/GetDocumentListByCompanyAndOffice/{company_id}/{office_id}/{document_type_id}/{document_sub_type_id}/{pageNbr}/{NbrofRows}
   static String corporateGetListbyCompany({required int companyId,required String officeId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
-    return "$identity/$getDocListCompany/$companyId/$officeId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
+    return "$identity/$getDocListCompanyOffice/$companyId/$officeId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
   }
+  ///org doc
   static String getCiOrgDLicense({required int companyId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
     return "$identity/$getDocListCompany/$companyId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
   }

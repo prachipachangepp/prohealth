@@ -14,18 +14,6 @@ class CiOrgDocumentCC {
   final bool sucess;
   final String message;
 
-  // "document_id": 32,
-  // "document_type_id": 8,
-  // "document_subtype_id": 12,
-  // "doc_name": "Document ADR",
-  // "doc_created_at": "2024-06-26T09:33:06.778Z",
-  // "url": "",
-  // "expiry_type": "Issuer Expiry",
-  // "expiry_date": "00-09-2024",
-  // "expiry_reminder": "Schedule",
-  // "company_id": 11,
-  // "office_id": "Office 1"
-
   CiOrgDocumentCC(
       {required this.documentTypeId,
       required this.documentSubTypeId,
@@ -127,17 +115,6 @@ class CorporatePrefillDocumentData {
     required this.message,
   });
 
-  // "document_id": 9,
-  // "document_type_id": 1,
-  // "document_subtype_id": 0,
-  // "doc_name": "OTP",
-  // "doc_created_at": "2024-06-21T06:38:52.239Z",
-  // "url": "",
-  // "expiry_type": "Not Applicable",
-  // "expiry_date": "00-21-2024",
-  // "expiry_reminder": "Schedule",
-  // "company_id": 11,
-  // "office_id": "1"
 }
 
 /// identity document type

@@ -10,8 +10,6 @@ import 'all_hr_screens/hr_clinical.dart';
 import 'all_hr_screens/hr_sales.dart';
 
 class HrScreen extends StatefulWidget {
-  // final int deptId;
-  // const HrScreen({required this.deptId})
   @override
   _HrScreenState createState() => _HrScreenState();
 }
@@ -167,7 +165,9 @@ class _HrWidgetState extends State<HrWidget> {
                 controller: widget.hrPageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  //Container(),
+                  // Container(color: Colors.red,child: Text('Clinical'),),
+                  // Container(color: Colors.greenAccent,child: Text('sales'),),
+                  // Container(color: Colors.purple,child: Text('Admin'),),
                   HrClinicalScreen(deptId: deptId,),
                   HrClinicalScreen(deptId: deptId,),
                   HrSalesScreen(deptId: deptId,),

@@ -66,10 +66,10 @@ class _PaginationControlsWidgetState extends State<PaginationControlsWidget> {
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
-                      color: widget.currentPage == i ? Colors.blue : ColorManager.fmediumgrey.withOpacity(0.2),
+                      color: widget.currentPage == i ? ColorManager.bluebottom : ColorManager.fmediumgrey.withOpacity(0.2),
                       width: widget.currentPage == i ? 2.0 : 1.0,
                     ),
-                    color: widget.currentPage == i ? Colors.blue : Colors.transparent,
+                    color: widget.currentPage == i ? ColorManager.bluebottom : Colors.transparent,
                   ),
                   child: Text(
                     '$i',

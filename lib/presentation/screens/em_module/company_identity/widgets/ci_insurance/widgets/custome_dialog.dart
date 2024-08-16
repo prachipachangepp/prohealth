@@ -11,35 +11,34 @@ import '../../whitelabelling/success_popup.dart';
 
 class CustomPopup extends StatefulWidget {
   final TextEditingController namecontroller;
-  final TextEditingController addressController;
-  final TextEditingController emailController;
-  final TextEditingController workemailController;
-  final TextEditingController phoneController;
-  final TextEditingController workPhoneController;
-  final Widget childZone;
-  final Widget childCity;
+  final TextEditingController? addressController;
+  final TextEditingController? emailController;
+  final TextEditingController? workemailController;
+  final TextEditingController? phoneController;
+  final TextEditingController? workPhoneController;
+  final Widget? childZone;
+  final Widget? childCity;
    final VoidCallback onPressed;
    final String title;
    CustomPopup({Key? key, required this.onPressed,
      required this.title, required this.namecontroller,
-     required this.addressController,
-     required this.emailController, required this.workemailController,
-     required this.phoneController, required this.workPhoneController,
-     required this.childZone,required this.childCity}) : super(key: key);
+     this.addressController,
+     this.emailController, this.workemailController,
+     this.phoneController, this.workPhoneController,
+     this.childZone, this.childCity}) : super(key: key);
 
   @override
   State<CustomPopup> createState() => _CustomPopupState();
 }
 
 class _CustomPopupState extends State<CustomPopup> {
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s550,
+        height: widget.childZone == null ? AppSize.s250 : AppSize.s550,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -101,6 +100,7 @@ class _CustomPopupState extends State<CustomPopup> {
               ),
             ),
             SizedBox(height: AppSize.s5),
+            widget.addressController == null ? Offstage() :
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -111,7 +111,7 @@ class _CustomPopupState extends State<CustomPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
-                    controller: widget.addressController,
+                    controller: widget.addressController!,
                     keyboardType: TextInputType.text,
                     text: AppString.address,
                   ),
@@ -119,12 +119,13 @@ class _CustomPopupState extends State<CustomPopup> {
               ),
             ),
             SizedBox(height: AppSize.s5),
+            widget.childCity == null ? Offstage() :
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppString.zone,
+                    AppString.city,
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
                       fontWeight: FontWeight.w700,
@@ -133,10 +134,11 @@ class _CustomPopupState extends State<CustomPopup> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  widget.childCity,
+                  widget.childCity!,
                 ]
             ),
             SizedBox(height: AppSize.s5),
+            widget.emailController == null ? Offstage() :
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -147,7 +149,7 @@ class _CustomPopupState extends State<CustomPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
-                    controller: widget.emailController,
+                    controller: widget.emailController!,
                     keyboardType: TextInputType.text,
                     text: AppString.email,
                   ),
@@ -155,6 +157,7 @@ class _CustomPopupState extends State<CustomPopup> {
               ),
             ),
             SizedBox(height: AppSize.s5),
+            widget.phoneController == null ? Offstage() :
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -165,7 +168,7 @@ class _CustomPopupState extends State<CustomPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
-                    controller: widget.phoneController,
+                    controller: widget.phoneController!,
                     keyboardType: TextInputType.text,
                     text: AppString.phone,
                   ),
@@ -173,6 +176,7 @@ class _CustomPopupState extends State<CustomPopup> {
               ),
             ),
             SizedBox(height: AppSize.s5),
+            widget.workemailController == null ? Offstage() :
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -183,7 +187,7 @@ class _CustomPopupState extends State<CustomPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
-                    controller: widget.workemailController,
+                    controller: widget.workemailController!,
                     keyboardType: TextInputType.text,
                     text: AppString.workemail,
                   ),
@@ -191,6 +195,7 @@ class _CustomPopupState extends State<CustomPopup> {
               ),
             ),
             SizedBox(height: AppSize.s5),
+            widget.workPhoneController == null ? Offstage() :
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -201,7 +206,7 @@ class _CustomPopupState extends State<CustomPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
-                    controller: widget.workPhoneController,
+                    controller: widget.workPhoneController!,
                     keyboardType: TextInputType.text,
                     text:"Work Phone",
                   ),
@@ -209,6 +214,7 @@ class _CustomPopupState extends State<CustomPopup> {
               ),
             ),
             SizedBox(height: AppSize.s5),
+            widget.childZone == null ? Offstage() :
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,7 +229,7 @@ class _CustomPopupState extends State<CustomPopup> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                   widget.childZone,
+                   widget.childZone!,
                 ]
             ),
             Spacer(),

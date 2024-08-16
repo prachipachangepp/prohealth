@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
@@ -8,16 +6,14 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_licence.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../company_identity_screen.dart';
 import '../ci_cc_adr.dart';
 import '../ci_cc_cap_reports.dart';
@@ -39,7 +35,6 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
-  // final StreamController<List<IdentityDocumentIdData>> _identityDropDownDataController = StreamController<List<IdentityDocumentIdData>>();
 
   int _selectedIndex = 0;
   int docTypeMetaId = 8;
@@ -247,20 +242,19 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
               Padding(
                 padding: const EdgeInsets.only(bottom: 5.0),
                 child: CustomIconButton(
-                    icon: CupertinoIcons.plus,
+                    icon: Icons.add,
                     text: "Add Doctype",
                     onPressed: () async{
                       String? selectedDocType;
                       String? selectedSubDocType;
                       String? selectedExpiryType = expiryType;
-
                       showDialog(
                           context: context,
                           builder: (context) {
                             return  StatefulBuilder(
                               builder: (BuildContext context, void Function(void Function()) setState) {
                                 return CCScreenEditPopup(
-                                  height: AppSize.s350,
+                                  height: AppSize.s400,
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
                                   loadingDuration: _isLoading,
@@ -282,13 +276,16 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                         officeId: widget.officeId,
                                       );
                                       setState(() async {
-                                        await orgSubDocumentGet(
-                                          context,
-                                          docTypeMetaId,
-                                          docSubTypeMetaId,
-                                          1,
-                                          15,
-                                        );
+                                        await getManageCorporate(context,
+                                            widget.officeId,
+                                            widget.docId, docSubTypeMetaId, 1, 15);
+                                        // orgSubDocumentGet(
+                                        //   context,
+                                        //   docTypeMetaId,
+                                        //   docSubTypeMetaId,
+                                        //   1,
+                                        //   15,
+                                        // );
                                         Navigator.pop(context);
                                         expiryType = '';
                                         calenderController.clear();
@@ -334,17 +331,6 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                             child: Text(doc.docType),
                                           ))
                                               .toList();
-                                          // List dropDown = [];
-                                          // int docType = 0;
-                                          // List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                          // for(var i in snapshot.data!){
-                                          //   dropDownMenuItems.add(
-                                          //     DropdownMenuItem<String>(
-                                          //       child: Text(i.docType),
-                                          //       value: i.docType,
-                                          //     ),
-                                          //   );
-                                          // }
                                           return CICCDropdown(
                                               initialValue: selectedDocType ?? dropDownMenuItems[0].value,
                                               onChange: (val){
@@ -404,18 +390,6 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                             child: Text(subDoc.subDocType),
                                           ))
                                               .toList();
-
-                                          // List dropDown = [];
-                                          // int docType = 0;
-                                          // List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                          // for(var i in snapshot.data!){
-                                          //   dropDownMenuItems.add(
-                                          //     DropdownMenuItem<String>(
-                                          //       value: i.subDocType,
-                                          //       child: Text(i.subDocType),
-                                          //     ),
-                                          //   );
-                                          // }
                                           return CICCDropdown(
                                               initialValue: selectedSubDocType ?? dropDownMenuItems[0].value,
                                               onChange: (val){
@@ -441,42 +415,6 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                         }
                                       }
                                   ),
-                                  // radioButton: Column(
-                                  //   mainAxisAlignment: MainAxisAlignment.start,
-                                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                                  //   children: [
-                                  //     CustomRadioListTile(
-                                  //       value: "Not Applicable",
-                                  //       groupValue: expiryType.toString(),
-                                  //       onChanged: (value) {
-                                  //         setState(() {
-                                  //           expiryType = value!;
-                                  //         });
-                                  //       },
-                                  //       title: "Not Applicable",
-                                  //     ),
-                                  //     CustomRadioListTile(
-                                  //       value: 'Scheduled',
-                                  //       groupValue: expiryType.toString(),
-                                  //       onChanged: (value) {
-                                  //         setState(() {
-                                  //           expiryType = value!;
-                                  //         });
-                                  //       },
-                                  //       title: 'Scheduled',
-                                  //     ),
-                                  //     CustomRadioListTile(
-                                  //       value: 'Issuer Expiry',
-                                  //       groupValue: expiryType.toString(),
-                                  //       onChanged: (value) {
-                                  //         setState(() {
-                                  //           expiryType = value!;
-                                  //         });
-                                  //       },
-                                  //       title: 'Issuer Expiry',
-                                  //     ),
-                                  //   ],
-                                  // ),
                                   title: 'Add Corporate & Compliance',
                                 );
                               },

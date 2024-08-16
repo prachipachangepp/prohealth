@@ -353,7 +353,6 @@
 //   }
 // }
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -367,6 +366,8 @@ import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/text_form_field_const.dart';
 import '../../whitelabelling/success_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 class CIZoneAddPopup extends StatefulWidget {
@@ -517,7 +518,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   child: CustomElevatedButton(
                     width: AppSize.s105,
                     height: AppSize.s30,
-                    text: AppStringEM.add,
+                    text: AppStringEM.save,
                     onPressed: () async {
                       setState(() {
                         isLoading = true;
@@ -543,7 +544,8 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
     );
   }
 }
-///
+
+///edit
 class AddZipCodePopup extends StatefulWidget {
   final String title;
   final TextEditingController countynameController;
@@ -554,88 +556,38 @@ class AddZipCodePopup extends StatefulWidget {
   final Widget? child;
   final Widget? child1;
   final Future<void> Function() onSavePressed;
-  const AddZipCodePopup({
-    super.key,
-    required this.title,
-    required this.countynameController,
-    required this.zipcodeController,
-    required this.mapController,
-    required this.landmarkController,
-    this.child,
-    required this.onSavePressed,
-    required this.cityNameController,
-    this.child1, required Null Function() onPickLocation,
-  });
+  final VoidCallback? onPickLocation;
+   AddZipCodePopup({super.key, required this.title, required this.countynameController, required this.zipcodeController, required this.mapController, required this.landmarkController, this.child, required this.onSavePressed, required this.cityNameController, this.child1, this.onPickLocation,});
 
   @override
   State<AddZipCodePopup> createState() => _AddZipCodePopupState();
 }
 
 class _AddZipCodePopupState extends State<AddZipCodePopup> {
-  LatLng? _selectedLocation = LatLng(37.7749, -122.4194);
-  String? _locationName;
   bool isLoading = false;
-
-  void _pickLocation() async {
-    final pickedLocation = await Navigator.of(context).push<LatLng>(
-      MaterialPageRoute(
-        builder: (context) => PickLocationScreen(
-          initialLocation: _selectedLocation!,
-          onLocationPicked: (location) {
-            setState(() {
-              _selectedLocation = location;
-            });
-          },
-        ),
-      ),
-    );
-
-    if (pickedLocation != null) {
-      setState(() async {
-        _selectedLocation = pickedLocation;
-
-        // Update the mapController text field with the new location
-        widget.mapController.text =
-        '${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}';
-
-        // Perform reverse geocoding to get the location name
-        List<Placemark> placemarks = await placemarkFromCoordinates(
-          _selectedLocation!.latitude,
-          _selectedLocation!.longitude,
-        );
-
-        if (placemarks.isNotEmpty) {
-          _locationName = placemarks.first.name;
-        } else {
-          _locationName = "Location name not found";
-        }
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: SingleChildScrollView(
         child: Container(
-          width: 400, // Adjust the width if needed
-          height: 490, // Adjust the height if needed
+          width: AppSize.s400,
+          height: AppSize.s460,
           decoration: BoxDecoration(
-            color: Colors.white, // Adjust the color if needed
+            color: ColorManager.white,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.blue, // Adjust the color if needed
+                  color: ColorManager.bluebottom,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
                   ),
                 ),
-                height: 40, // Adjust the height if needed
+                height: AppSize.s40,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -643,10 +595,10 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Text(
                         widget.title,
-                        style: TextStyle(
-                          fontSize: 12, // Adjust the size if needed
-                          fontWeight: FontWeight.w600, // Adjust the weight if needed
-                          color: Colors.white, // Adjust the color if needed
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.semiBold,
+                          color: ColorManager.white,
                           decoration: TextDecoration.none,
                         ),
                       ),
@@ -657,7 +609,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       },
                       icon: Icon(
                         Icons.close,
-                        color: Colors.white, // Adjust the color if needed
+                        color: ColorManager.white,
                       ),
                     ),
                   ],
@@ -665,8 +617,8 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 3, // Adjust the padding if needed
-                  horizontal: 20, // Adjust the padding if needed
+                  vertical: AppPadding.p3,
+                  horizontal: AppPadding.p20,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -675,135 +627,113 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Zone',
+                          AppString.zone,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12, // Adjust the size if needed
+                            fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.bold,
-                            color: Color(0xff686464), // Adjust the color if needed
+                            color: ColorManager.mediumgrey,
+                            //decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 5),
-                        widget.child!,
+                        SizedBox(height: AppSize.s5),
+                        widget.child!
                       ],
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: AppSize.s10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'County Name',
-                          style: TextStyle(
-                            fontSize: 12, // Adjust the size if needed
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey, // Adjust the color if needed
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.mediumgrey,
+                            //decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 5),
-                        widget.child1!,
+                        SizedBox(height: AppSize.s5),
+                        widget.child1!
                       ],
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: AppSize.s10),
                     SMTextFConst(
                       controller: widget.cityNameController,
                       keyboardType: TextInputType.text,
                       text: 'City Name',
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: AppSize.s10),
                     SMTextFConst(
                       controller: widget.zipcodeController,
                       keyboardType: TextInputType.text,
                       text: 'Zip Code',
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: AppSize.s20),
                     Row(
                       children: [
                         TextButton(
-                          onPressed: _pickLocation,
+                          onPressed: widget.onPickLocation,
                           style: TextButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                          ),
+                              backgroundColor: Colors.transparent),
                           child: Text(
                             'Pick Location',
-                            style: TextStyle(
-                              fontSize: 12, // Adjust the size if needed
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blueAccent, // Adjust the color if needed
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.bluelight,
+                              //decoration: TextDecoration.none,
                             ),
                           ),
                         ),
                         Icon(
                           Icons.location_on_outlined,
-                          color: Colors.grey, // Adjust the color if needed
-                          size: 18, // Adjust the size if needed
+                          color: ColorManager.granitegray,
+                          size: AppSize.s18,
                         ),
+
                       ],
                     ),
-                    if (_selectedLocation != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'Selected Location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}',
-                          style: TextStyle(
-                            fontSize: 12, // Adjust the size if needed
-                            color: Colors.black54, // Adjust the color if needed
-                          ),
-                        ),
-                      ),
-                    if (_locationName != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          'Location Name: $_locationName',
-                          style: TextStyle(
-                            fontSize: 12, // Adjust the size if needed
-                            color: Colors.black54, // Adjust the color if needed
-                          ),
-                        ),
-                      ),
-                    SizedBox(height: 20),
+                    SizedBox(height: AppSize.s20),
+
                     SMTextFConst(
                       controller: widget.landmarkController!,
                       keyboardType: TextInputType.text,
                       text: 'Landmark',
                     ),
+
                   ],
                 ),
               ),
-              // SizedBox(height: 10),
+              SizedBox(height: AppSize.s10,),
               Padding(
-                padding: const EdgeInsets.only(bottom: 24, top: 14),
+                padding: const EdgeInsets.only(
+                    bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                  height: 25,
-                  width: 25,
-                  child: CircularProgressIndicator(
-                    color: Colors.blue, // Adjust the color if needed
-                  ),
-                )
+                    height: 25,width: 25,
+                    child: CircularProgressIndicator( color: ColorManager.blueprime,))
                     : Center(
                   child: CustomElevatedButton(
-                    text: "Save",
-                    height: 30,
-                    width: 120, onPressed: () async {
-                    setState(() {
-                      isLoading = true;
-                    });
-                    await widget.onSavePressed();
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          content: Text('Save Successfully'),
-                        );
-                      },
-                    );
-                    setState(() {
-                      isLoading = false;
-                    });
-                  },
-
-                  )
+                    width: AppSize.s105,
+                    height: AppSize.s30,
+                    text: AppStringEM.save,
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await widget.onSavePressed();
+                     // Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CountySuccessPopup(message: 'Save Successfully',);
+                        },
+                      );
+                      setState(() {
+                        isLoading = false;
+                      });
+                    },
+                  ),
                 ),
               ),
             ],
@@ -814,285 +744,18 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   }
 }
 
-
-///old
-// class AddZipCodePopup extends StatefulWidget {
-//   final String title;
-//   final TextEditingController countynameController;
-//   final TextEditingController zipcodeController;
-//   final TextEditingController mapController;
-//   final TextEditingController cityNameController;
-//   final TextEditingController landmarkController;
-//   final Widget? child;
-//   final Widget? child1;
-//   final Future<void> Function() onSavePressed;
-//   const AddZipCodePopup({super.key, required this.title,
-//     required this.countynameController,
-//     required this.zipcodeController, required this.mapController,
-//     required this.landmarkController, this.child,
-//     required this.onSavePressed, required this.cityNameController,
-//     this.child1,  void Function()? onPickLocation,});
-//
-//   @override
-//   State<AddZipCodePopup> createState() => _AddZipCodePopupState();
-// }
-//
-// class _AddZipCodePopupState extends State<AddZipCodePopup> {
-//   LatLng? _selectedLocation = LatLng(37.7749, -122.4194);
-//   String? _locationName;
-//
-//   bool isLoading = false;
-//
-//   void _pickLocation() async {
-//     final pickedLocation = await Navigator.of(context).push<LatLng>(
-//       MaterialPageRoute(
-//         builder: (context) => PickLocationScreen(
-//           initialLocation: _selectedLocation!,
-//           onLocationPicked: (location) {
-//             setState(() {
-//               _selectedLocation = location;
-//             });
-//           },
-//         ),
-//       ),
-//     );
-//
-//     if (pickedLocation != null) {
-//       setState(() async {
-//         _selectedLocation = pickedLocation;
-//
-//         // Update the mapController text field with the new location
-//         widget.mapController.text =
-//         '${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}';
-//
-//         // Perform reverse geocoding to get the location name
-//         List<Placemark> placemarks = await placemarkFromCoordinates(
-//           _selectedLocation!.latitude,
-//           _selectedLocation!.longitude,
-//         );
-//
-//         if (placemarks.isNotEmpty) {
-//           _locationName = placemarks.first.name;
-//         }
-//       });
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Dialog(
-//       backgroundColor: Colors.transparent,
-//       child: SingleChildScrollView(
-//         child: Container(
-//           width: 400, // Adjust the width if you use AppSize.s400
-//           height: 540, // Adjust the height if you use AppSize.s460
-//           decoration: BoxDecoration(
-//             color: Colors.white, // Adjust the color if you use ColorManager.white
-//             borderRadius: BorderRadius.circular(8),
-//           ),
-//           child: Column(
-//             children: [
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: Colors.blue, // Adjust the color if you use ColorManager.bluebottom
-//                   borderRadius: BorderRadius.only(
-//                     topLeft: Radius.circular(8),
-//                     topRight: Radius.circular(8),
-//                   ),
-//                 ),
-//                 height: 40, // Adjust the height if you use AppSize.s40
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Padding(
-//                       padding: const EdgeInsets.only(left: 10.0),
-//                       child: Text(
-//                         widget.title,
-//                         style: TextStyle(
-//                           fontSize: 12, // Adjust the size if you use FontSize.s12
-//                           fontWeight: FontWeight.w600, // Adjust the weight if you use FontWeightManager.semiBold
-//                           color: Colors.white, // Adjust the color if you use ColorManager.white
-//                           decoration: TextDecoration.none,
-//                         ),
-//                       ),
-//                     ),
-//                     IconButton(
-//                       onPressed: () {
-//                         Navigator.pop(context);
-//                       },
-//                       icon: Icon(
-//                         Icons.close,
-//                         color: Colors.white, // Adjust the color if you use ColorManager.white
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.symmetric(
-//                   vertical: 3, // Adjust the padding if you use AppPadding.p3
-//                   horizontal: 20, // Adjust the padding if you use AppPadding.p20
-//                 ),
-//                 child: Column(
-//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                   children: [
-//                     Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           'Zone',
-//                           style: GoogleFonts.firaSans(
-//                             fontSize: 12,
-//                             fontWeight: FontWeight.bold,
-//                             color: Colors.grey,
-//                           ),
-//                         ),
-//                         SizedBox(height: 5),
-//                         widget.child!,
-//                       ],
-//                     ),
-//                     SizedBox(height: 10),
-//                     Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           'County Name',
-//                           style: GoogleFonts.firaSans(
-//                             fontSize: 12,
-//                             fontWeight: FontWeight.bold,
-//                             color: Colors.grey,
-//                           ),
-//                         ),
-//                         SizedBox(height: 5),
-//                         widget.child1!,
-//                       ],
-//                     ),
-//                     SizedBox(height: 10),
-//                     SMTextFConst(
-//                       controller: widget.cityNameController,
-//                       keyboardType: TextInputType.text,
-//                       text: 'City Name',
-//                     ),
-//                     SizedBox(height: 10),
-//                     SMTextFConst(
-//                       controller: widget.zipcodeController,
-//                       keyboardType: TextInputType.text,
-//                       text: 'Zip Code',
-//                     ),
-//                     SizedBox(height: 20),
-//                     Row(
-//                       children: [
-//                         TextButton(
-//                           onPressed: _pickLocation,
-//                           style: TextButton.styleFrom(
-//                             backgroundColor: Colors.transparent,
-//                           ),
-//                           child: Text(
-//                             'Pick Location',
-//                             style: TextStyle(
-//                               fontSize: 12,
-//                               fontWeight: FontWeight.bold,
-//                               color: Colors.blueAccent,
-//                             ),
-//                           ),
-//                         ),
-//                         Icon(
-//                           Icons.location_on_outlined,
-//                           color: Colors.grey,
-//                           size: 18,
-//                         ),
-//                       ],
-//                     ),
-//                     if (_selectedLocation != null)
-//                       Padding(
-//                         padding: const EdgeInsets.only(top: 10.0),
-//                         child: Text(
-//                           'Selected Location: ${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}',
-//                           style: TextStyle(
-//                             fontSize: 12,
-//                             color: Colors.black54,
-//                           ),
-//                         ),
-//                       ),
-//                     if (_locationName != null)
-//                       Padding(
-//                         padding: const EdgeInsets.only(top: 5.0),
-//                         child: Text(
-//                           'Location Name: $_locationName',
-//                           style: TextStyle(
-//                             fontSize: 12,
-//                             color: Colors.black54,
-//                           ),
-//                         ),
-//                       ),
-//                     SizedBox(height: 20),
-//                     SMTextFConst(
-//                       controller: widget.landmarkController!,
-//                       keyboardType: TextInputType.text,
-//                       text: 'Landmark',
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(height: 10),
-//               Padding(
-//                 padding: const EdgeInsets.only(bottom: 24, top: 14),
-//                 child: isLoading
-//                     ? SizedBox(
-//                   height: 25,
-//                   width: 25,
-//                   child: CircularProgressIndicator(
-//                     color: Colors.blue,
-//                   ),
-//                 )
-//                     : Center(
-//                   child: ElevatedButton(
-//                     onPressed: () async {
-//                       setState(() {
-//                         isLoading = true;
-//                       });
-//                       await widget.onSavePressed();
-//                       Navigator.pop(context);
-//                       showDialog(
-//                         context: context,
-//                         builder: (BuildContext context) {
-//                           return AlertDialog(
-//                             content: Text('Save Successfully'),
-//                           );
-//                         },
-//                       );
-//                       setState(() {
-//                         isLoading = false;
-//                       });
-//                     },
-//                     child: Text('Save'),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
 /// Pick google map location
-class PickLocationScreen extends StatefulWidget {
+class MapScreen extends StatefulWidget {
   final LatLng initialLocation;
   final Function(LatLng) onLocationPicked;
 
-  const PickLocationScreen({
-    required this.initialLocation,
-    required this.onLocationPicked,
-  });
+  MapScreen({required this.initialLocation, required this.onLocationPicked});
 
   @override
-  _PickLocationScreenState createState() => _PickLocationScreenState();
+  _MapScreenState createState() => _MapScreenState();
 }
 
-class _PickLocationScreenState extends State<PickLocationScreen> {
+class _MapScreenState extends State<MapScreen> {
   late GoogleMapController _mapController;
   late LatLng _selectedLocation;
 
@@ -1129,90 +792,25 @@ class _PickLocationScreenState extends State<PickLocationScreen> {
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          GoogleMap(
-            onMapCreated: _onMapCreated,
-            onTap: _onTap,
-            initialCameraPosition: CameraPosition(
-              target: _selectedLocation,
-              zoom: 14.0,
-            ),
-            markers: {
-              Marker(
-                markerId: MarkerId('selectedLocation'),
-                position: _selectedLocation,
-              ),
-            },
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        onTap: _onTap,
+        initialCameraPosition: CameraPosition(
+          target: _selectedLocation,
+          zoom: 14.0,
+        ),
+        markers: {
+          Marker(
+            markerId: MarkerId('selectedLocation'),
+            position: _selectedLocation,
           ),
-        ],
+        },
       ),
     );
   }
 }
 
-/// Pick google map location old
-// class PickLocationScreen extends StatefulWidget {
-//   @override
-//   _PickLocationScreenState createState() => _PickLocationScreenState();
-// }
-//
-// class _PickLocationScreenState extends State<PickLocationScreen> {
-//   LatLng? _pickedLocation;
-//
-//   void _onMapCreated(GoogleMapController controller) {
-//     // Optional: Set initial camera position
-//     controller.animateCamera(CameraUpdate.newLatLngZoom(
-//       LatLng(37.7749, -122.4194), // Initial position (San Francisco)
-//       10,
-//     ));
-//   }
-//
-//   void _onTap(LatLng location) {
-//     setState(() {
-//       _pickedLocation = location;
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Pick Location'),
-//         actions: [
-//           if (_pickedLocation != null)
-//             IconButton(
-//               icon: Icon(Icons.check),
-//               onPressed: () {
-//                 Navigator.pop(context, _pickedLocation);
-//               },
-//             ),
-//         ],
-//       ),
-//       body: GoogleMap(
-//         onMapCreated: _onMapCreated,
-//         onTap: _onTap,
-//         initialCameraPosition: CameraPosition(
-//           target: LatLng(37.7749, -122.4194), // Initial position (San Francisco)
-//           zoom: 10,
-//         ),
-//         markers: _pickedLocation != null
-//             ? {
-//           Marker(
-//             markerId: MarkerId('picked-location'),
-//             position: _pickedLocation!,
-//           ),
-//         }
-//             : {},
-//       ),
-//     );
-//   }
-// }
 
-
-
-
-////
 class AddZonePopup extends StatefulWidget {
   final TextEditingController zoneNumberController;
   final Future<void> Function() onSavePressed;
