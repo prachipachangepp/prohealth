@@ -28,7 +28,7 @@ class _AddPoliciesPopupState extends State<AddPoliciesPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s330,
+        height: AppSize.s300,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),

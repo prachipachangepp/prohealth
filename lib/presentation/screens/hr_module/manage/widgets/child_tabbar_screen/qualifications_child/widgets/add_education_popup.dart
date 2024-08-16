@@ -362,7 +362,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: 360,
+        height: 373,
         width: 932,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -407,142 +407,140 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.collegeUniversityController,
-                              labelText: "College/University",
-                              errorText: _collegeUniversityError ? 'Please enter College/University Name' : null,
-                            ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 40),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.collegeUniversityController,
+                            labelText: "College/University",
+                            errorText: _collegeUniversityError ? 'Please enter College/University Name' : null,
                           ),
-                          SizedBox(width: 20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.phoneController,
-                              labelText: "Phone",
-                              errorText: _phoneError ? 'Please enter valid phone number' : null,
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.phoneController,
+                            labelText: "Phone",
+                            errorText: _phoneError ? 'Please enter valid phone number' : null,
                           ),
-                          SizedBox(width: 20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.calenderController,
-                              labelText: "Start Date",
-                              errorText: _calendarError ? 'Please Enter Start Date' : null,
-                              suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                              onTap: () async {
-                                DateTime? date = await showDatePicker(
-                                  context: context,
-                                  initialDate: _selectedStartDate,
-                                  firstDate: DateTime(1100),
-                                  lastDate: DateTime(2025),
-                                );
-                                if (date != null) {
-                                  String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                                  widget.calenderController.text = formattedDate;
-                                  setState(() {
-                                    _calendarError = formattedDate.isEmpty;
-                                  });
-                                }
-                              },
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.calenderController,
+                            labelText: "Start Date",
+                            errorText: _calendarError ? 'Please Enter Start Date' : null,
+                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                            onTap: () async {
+                              DateTime? date = await showDatePicker(
+                                context: context,
+                                initialDate: _selectedStartDate,
+                                firstDate: DateTime(1100),
+                                lastDate: DateTime(2025),
+                              );
+                              if (date != null) {
+                                String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                                widget.calenderController.text = formattedDate;
+                                setState(() {
+                                  _calendarError = formattedDate.isEmpty;
+                                });
+                              }
+                            },
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Graduate', style: TextStyle(fontSize: FontSize.s10)),
-                                widget.radioButton ?? SizedBox.shrink(),
-                                if (_radioButtonError)
-                                  Text('Please select an option', style: TextStyle(color: Colors.red, fontSize: 10)),
-                              ],
-                            ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Graduate', style: TextStyle(fontSize: FontSize.s10)),
+                              widget.radioButton ?? SizedBox.shrink(),
+                              if (_radioButtonError)
+                                Text('Please select an option', style: TextStyle(color: Colors.red, fontSize: 10)),
+                            ],
                           ),
-                          SizedBox(width: 20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.cityController,
-                              labelText: "City",
-                              errorText: _cityError ? 'Please Enter City' : null,
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.cityController,
+                            labelText: "City",
+                            errorText: _cityError ? 'Please Enter City' : null,
                           ),
-                          SizedBox(width: 20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.degreeController,
-                              labelText: "Degree",
-                              errorText: _degreeError ? 'Please Enter Degree' : null,
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.degreeController,
+                            labelText: "Degree",
+                            errorText: _degreeError ? 'Please Enter Degree' : null,
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.stateController,
-                              labelText: "State",
-                              errorText: _stateError ? 'Please Enter State' : null,
-                            ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.stateController,
+                            labelText: "State",
+                            errorText: _stateError ? 'Please Enter State' : null,
                           ),
-                          SizedBox(width: 20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.majorSubjectController,
-                              labelText: "Major Subject",
-                              errorText: _majorSubjectError ? 'Please Enter Major Subject' : null,
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.majorSubjectController,
+                            labelText: "Major Subject",
+                            errorText: _majorSubjectError ? 'Please Enter Major Subject' : null,
                           ),
-                          SizedBox(width: 20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.countryNameController,
-                              labelText: "Country Name",
-                              errorText: _countryNameError ? 'Please Enter Country Name' : null,
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.countryNameController,
+                            labelText: "Country Name",
+                            errorText: _countryNameError ? 'Please Enter Country Name' : null,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
 
-                      SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          CustomButtonTransparent(
-                            text: "Cancel",
-                            onPressed: widget.onpressedClose,
+                    SizedBox(height: 35),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomButtonTransparent(
+                          text: "Cancel",
+                          onPressed: widget.onpressedClose,
+                        ),
+                        SizedBox(width: 10),
+                        isLoading
+                            ? SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator(
+                            color: ColorManager.blueprime,
                           ),
-                          SizedBox(width: 10),
-                          isLoading
-                              ? SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: CircularProgressIndicator(
-                              color: ColorManager.blueprime,
-                            ),
-                          )
-                              : CustomElevatedButton(
-                            width: 100,
-                            text: "Save",
-                            onPressed: _handleSave,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        )
+                            : CustomElevatedButton(
+                          width: 100,
+                          text: "Save",
+                          onPressed: _handleSave,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
