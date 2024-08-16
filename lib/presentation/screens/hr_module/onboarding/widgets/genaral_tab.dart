@@ -1103,7 +1103,7 @@ class InfoText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text, style: GoogleFonts.firaSans(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),),
+        Text(text, style: GoogleFonts.firaSans(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff686464)),),
         const SizedBox(height: 10),
       ],
     );
