@@ -197,7 +197,7 @@ class _Employment_screenState extends State<Employment_screen> {
                     }
 
                     // Replace with your actual API call for saving the employment data
-                    await postemploymentscreen(
+                    await postemploymentscreenData(
                         context,
                         state.widget.employeeID,
                         state.employerController.text,
