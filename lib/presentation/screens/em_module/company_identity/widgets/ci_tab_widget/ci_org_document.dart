@@ -540,8 +540,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                         );
                       },
                     )
-
-
                   ),
                 )),
           ],

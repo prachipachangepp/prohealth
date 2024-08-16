@@ -115,22 +115,12 @@ Future<ApiData> addComplianceDocumentPost({
       "docName": docName,
       "docUrl": docUrl,
       "expDate": expDate
-      // "doc_name": name,
-      // "document_type_id": docTypeID,
-      // "document_subtype_id": docSubTypeID,
-      // "doc_created_at": docCreated,
-      // "url": url,
-      // "expiry_type": expiryType,
-      // "expiry_date": expiryDate,
-      // "expiry_reminder": expiryReminder,
-      // "company_id": companyId,
-      // "office_id": officeId
     };
     print(' Post Intake Compliance $data');
     var response = await Api(context).post(
         path: PatientDataInfoRepo.postPDCompliance(),
         data: data);
-    print('ORG Doc Post::::$response ');
+    print('Compliance Add ::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Compliance addded ");
       return ApiData(
@@ -175,16 +165,6 @@ Future<List<PatientDataComplianceDoc>> getpatientDataComplianceDoc(BuildContext 
                 expDate: item['expDate'] ?? ''
 
             )
-          // CiOrgDocumentCC(
-          //     docId: item['document_id'],
-          //     createdAt: item['doc_created_at'],
-          //     name: item["doc_name"],
-          //     expiry: item["expiry_date"],
-          //     reminderThreshold: item["expiry_type"],
-          //     sucess: true, message: response.statusMessage!, documentTypeId: item['document_type_id'],
-          //     documentSubTypeId: item['document_subtype_id'], url: item['url'], expirtReminder: item['expiry_reminder'],
-          //     companyId: item['company_id'], officeId: item['office_id']
-          // ),
         );
       }
       // print('${response.data['DocumentList']}');

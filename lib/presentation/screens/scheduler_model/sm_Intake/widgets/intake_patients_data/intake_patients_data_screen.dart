@@ -466,6 +466,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_info_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_compliance/intake_patients_compliance.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_plan_care/intake_patients_plan_care.dart';
@@ -554,7 +555,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-
+ int patientId = 0;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -709,13 +710,12 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   height: AppSize.s26,
                   width: AppSize.s102,
                   child:
-
                     /// working api
                   ElevatedButton(
                     onPressed: () async {
                       // Show the dialog or perform your action here
                       final companyId = await TokenManager.getCompanyId();
-                      await IntakeInfoSave(
+                       ApiData result = await IntakeInfoSave(
                         context,
                         "14/12/2024", // Example date, replace with actual value
                         ctlrMedicalRecord.text,
@@ -749,6 +749,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         'Type',
                         companyId,
                       );
+                       patientId = result.patientId!;
                     },
                     child: Text(
                       AppString.save,
@@ -873,26 +874,26 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   IntakePatientsDatatInfo(
-                    ctlrSos: TextEditingController(),
-                    ctlrMedicalRecord: TextEditingController(),
-                    ctlrfirstName: TextEditingController(),
-                    ctlrMI: TextEditingController(),
-                    ctlrLastName: TextEditingController(),
-                    ctlrSuffix: TextEditingController(),
-                    ctlrDate: TextEditingController(),
-                    ctlrStreet: TextEditingController(),
-                    ctlrZipCode: TextEditingController(),
-                    ctlrApartment: TextEditingController(),
-                    ctlrCity: TextEditingController(),
-                    ctlrMajorStreet: TextEditingController(),
-                    ctlrPrimeNo: TextEditingController(),
-                    ctlrSecNo: TextEditingController(),
-                    ctlrEmail: TextEditingController(),
-                    ctlrSocialSec: TextEditingController(),
-                    ctlrDischargeResaon: TextEditingController(),
-                    ctlrDateOfDeath: TextEditingController(),
+                    ctlrSos: ctlrSos,
+                    ctlrMedicalRecord: ctlrMedicalRecord,
+                    ctlrfirstName: ctlrfirstName,
+                    ctlrMI: ctlrMI,
+                    ctlrLastName: ctlrLastName,
+                    ctlrSuffix: ctlrSuffix,
+                    ctlrDate: ctlrDate,
+                    ctlrStreet: ctlrStreet,
+                    ctlrZipCode: ctlrZipCode,
+                    ctlrApartment: ctlrApartment,
+                    ctlrCity: ctlrCity,
+                    ctlrMajorStreet: ctlrMajorStreet,
+                    ctlrPrimeNo: ctlrPrimeNo,
+                    ctlrSecNo: ctlrSecNo,
+                    ctlrEmail: ctlrEmail,
+                    ctlrSocialSec: ctlrSocialSec,
+                    ctlrDischargeResaon: ctlrDischargeResaon,
+                    ctlrDateOfDeath: ctlrDateOfDeath,
                   ),
-                  IntakePComplianceScreen(),
+                  IntakePComplianceScreen(patientId: patientId),
                   IntakePlanCareScreen(),
                   IntakeRelatedPartiesScreen(),
                   IntakePatientsStayInfoScreen(),

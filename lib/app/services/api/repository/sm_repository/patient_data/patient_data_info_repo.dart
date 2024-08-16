@@ -3,7 +3,7 @@ class PatientDataInfoRepo{
   static String infoAdd = "/intake-patient-info/add";
   static String complianceGet = "/intake-patient-compliance";
   static String deleteCompliance = "/intake-patient-compliance/";
-  static String addCompliance = "/intake-patient-compliance/";
+  static String addCompliance = "/intake-patient-compliance/add";
   static String getComplianceDoc = "/intake-patient-compliance-documents";
 
   static  String getInfoPatientData({required int patientId} ){

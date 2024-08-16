@@ -205,8 +205,12 @@ Future<ApiData> IntakeInfoSave(
       },
     );
     print(response);
+
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Patient Info Saved");
+      var patientIdresponse = response.data;
+      int idPatient = patientIdresponse["patientId"];
+
       // orgDocumentGet(context);
       showDialog(
         context: context,
@@ -281,7 +285,9 @@ Future<ApiData> IntakeInfoSave(
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,
+          patientId: idPatient
+      );
     } else {
       print("Error 1");
       showDialog(
