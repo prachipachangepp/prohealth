@@ -35,16 +35,7 @@ class ComplianceAddPopUp extends StatefulWidget {
 }
 
 class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
-
-  final TextEditingController _typeDocumentController = TextEditingController();
   final TextEditingController nameDocumentController = TextEditingController();
-  final TextEditingController _uploadDocumentController = TextEditingController();
-  final List<String> _typeDocumentOptions = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
-
-
-  String? _typeDocumentSelectedOption;
-  String _selectedExpiryType = '';
-
   String _fileName = 'Upload';
 
   Future<void> _pickFile() async {
@@ -129,19 +120,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 80,
                 ),
-                ///dropdown textfield type of doc
-                // Text(
-                //   'Type of the Document',
-                //   style: GoogleFonts.firaSans(
-                //     fontSize: FontSize.s12,
-                //     fontWeight: FontWeight.w700,
-                //     color: ColorManager.mediumgrey,
-                //     //decoration: TextDecoration.none,
-                //   ),
-                // ),
-                SizedBox(height: 5),
                 widget.child ?? SizedBox(),
-                SizedBox(height: MediaQuery.of(context).size.height/30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [

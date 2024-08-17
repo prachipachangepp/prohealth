@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
-
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';

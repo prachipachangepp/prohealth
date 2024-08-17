@@ -5,6 +5,7 @@ class PatientDataInfoRepo{
   static String deleteCompliance = "/intake-patient-compliance/";
   static String addCompliance = "/intake-patient-compliance/add";
   static String getComplianceDoc = "/intake-patient-compliance-documents";
+  static String addRelatedParty = "/intake-patient-related-party/add";
 
   static  String getInfoPatientData({required int patientId} ){
     return "$infoGet$patientId";
@@ -23,6 +24,9 @@ class PatientDataInfoRepo{
   }
   static String complianceDocget(){
     return "$getComplianceDoc";
+  }
+  static String relatedPartyAdd(){
+    return "$addRelatedParty";
   }
 }
 

@@ -387,8 +387,8 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                       }
                                     },
                                   ),
-                                  radioButton: Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
+                                  radioButton: Container(
+                                    color: Colors.green,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,

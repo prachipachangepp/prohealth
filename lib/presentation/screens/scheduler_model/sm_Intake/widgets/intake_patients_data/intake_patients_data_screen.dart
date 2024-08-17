@@ -751,8 +751,6 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       if (result.success) {
 
                         patientId = result.patientId!;
-
-
                         ctlrMedicalRecord.clear();
                         ctlrfirstName.clear();
                         ctlrLastName.clear();
