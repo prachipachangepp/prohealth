@@ -189,7 +189,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 /// Abbrevation dropdown
                                 Container(
                                   height: 31,
-                                  width: 185,
+                                  width: 187,
                                   // margin: EdgeInsets.symmetric(horizontal: 20),
                                   padding:
                                   const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
