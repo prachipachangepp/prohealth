@@ -744,6 +744,206 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   }
 }
 
+//edit
+class EditZipCodePopup extends StatefulWidget {
+  final String title;
+  final TextEditingController countynameController;
+  final TextEditingController zipcodeController;
+  final TextEditingController mapController;
+  final TextEditingController cityNameController;
+  final TextEditingController landmarkController;
+  final Widget? child;
+  final Widget? child1;
+  final Future<void> Function() onSavePressed;
+  final VoidCallback? onPickLocation;
+  EditZipCodePopup({super.key, required this.title, required this.countynameController, required this.zipcodeController, required this.mapController, required this.landmarkController, this.child, required this.onSavePressed, required this.cityNameController, this.child1, this.onPickLocation,});
+
+  @override
+  State<EditZipCodePopup> createState() => _EditZipCodePopupState();
+}
+
+class _EditZipCodePopupState extends State<EditZipCodePopup> {
+  bool isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: SingleChildScrollView(
+        child: Container(
+          width: AppSize.s400,
+          height: AppSize.s460,
+          decoration: BoxDecoration(
+            color: ColorManager.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: ColorManager.bluebottom,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                ),
+                height: AppSize.s40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        widget.title,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.semiBold,
+                          color: ColorManager.white,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        color: ColorManager.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppPadding.p3,
+                  horizontal: AppPadding.p20,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppString.zone,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.mediumgrey,
+                            //decoration: TextDecoration.none,
+                          ),
+                        ),
+                        SizedBox(height: AppSize.s5),
+                        widget.child!
+                      ],
+                    ),
+                    SizedBox(height: AppSize.s10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'County Name',
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.mediumgrey,
+                            //decoration: TextDecoration.none,
+                          ),
+                        ),
+                        SizedBox(height: AppSize.s5),
+                        widget.child1!
+                      ],
+                    ),
+                    SizedBox(height: AppSize.s10),
+                    SMTextFConst(
+                      controller: widget.cityNameController,
+                      keyboardType: TextInputType.text,
+                      text: 'City Name',
+                    ),
+                    SizedBox(height: AppSize.s10),
+                    SMTextFConst(
+                      controller: widget.zipcodeController,
+                      keyboardType: TextInputType.text,
+                      text: 'Zip Code',
+                    ),
+                    SizedBox(height: AppSize.s20),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: widget.onPickLocation,
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.transparent),
+                          child: Text(
+                            'Change Location',
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.bluelight,
+                              //decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: ColorManager.granitegray,
+                          size: AppSize.s18,
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(height: AppSize.s20),
+
+                    SMTextFConst(
+                      controller: widget.landmarkController!,
+                      keyboardType: TextInputType.text,
+                      text: 'Landmark',
+                    ),
+
+                  ],
+                ),
+              ),
+              SizedBox(height: AppSize.s10,),
+              Padding(
+                padding: const EdgeInsets.only(
+                    bottom: AppPadding.p24, top: AppPadding.p14),
+                child: isLoading
+                    ? SizedBox(
+                    height: 25,width: 25,
+                    child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                    : Center(
+                  child: CustomElevatedButton(
+                    width: AppSize.s105,
+                    height: AppSize.s30,
+                    text: AppStringEM.save,
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await widget.onSavePressed();
+                      // Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CountySuccessPopup(message: 'Save Successfully',);
+                        },
+                      );
+                      setState(() {
+                        isLoading = false;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
 /// Pick google map location
 class MapScreen extends StatefulWidget {
   final LatLng initialLocation;

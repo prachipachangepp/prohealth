@@ -151,7 +151,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               right: MediaQuery
                   .of(context)
                   .size
-                  .width / 25,
+                  .width / 30,
               bottom: MediaQuery
                   .of(context)
                   .size

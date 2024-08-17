@@ -72,10 +72,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   String? _previewImageUrl;
   dynamic filePath;
 
-
   List<PlatformFile>? pickedMobileFiles;
   List<PlatformFile>? pickedWebFiles;
-
 
   Future<void> pickMobileLogo() async {
     FilePickerResult? result =
@@ -114,7 +112,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     // s3client.getObject(bucketId).then((response) {
     //   response.body;
     //   print('Response::${response.body}');
@@ -130,60 +127,56 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Logos",
+                  Text(
+                    "Logos",
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.semiBold,
+                      color: ColorManager.mediumgrey,
+                    ),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width / 4.3),
+                  Expanded(
+                    child: Text(
+                      "Details",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: ColorManager.mediumgrey,
-                      )),
-                  // SizedBox(width: MediaQuery.of(context).size.width / 5),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 4.3),
-                    child: Text("Details",
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.mediumgrey,
-                        )),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 2.2),
-                    child: Container(
-                      height: 30,
-                      width: 90,
-                      child: CustomButton(
-                        borderRadius: 12,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeightManager.medium,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
-                        text: "Save",
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CCSuccessPopup();
-                            },
-                          );
-                        },
                       ),
                     ),
                   ),
-                  // SizedBox(width: MediaQuery.of(context).size.width / 5),
+                  Container(
+                    height: 30,
+                    width: 90,
+                    child: CustomButton(
+                      borderRadius: 12,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeightManager.medium,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                      text: "Save",
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CCSuccessPopup();
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width / 50),
                   Padding(
-                    padding: EdgeInsets.only(left: 20
-                        // MediaQuery.of(context).size.width/3
-                        ),
+                    padding: const EdgeInsets.only(right: 30),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: CustomIconButton(
                           icon: Icons.edit_outlined,
                           text: "Edit Details",
-                          onPressed: () async{
+                          onPressed: () async {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -191,10 +184,9 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(8),
-                                      topRight: Radius.circular(8)
+                                      topRight: Radius.circular(8),
                                     ),
                                   ),
-
                                   backgroundColor: Colors.white,
                                   child: Container(
                                     height: 440,
@@ -219,7 +211,9 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                             ),
                                             child: Row(
                                               // mainAxisAlignment: MainAxisAlignment.end,
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   'Edit whitelabelling',
@@ -227,22 +221,28 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   style: GoogleFonts.firaSans(
                                                     fontSize: 13,
                                                     fontWeight:
-                                                    FontWeightManager.semiBold,
+                                                        FontWeightManager
+                                                            .semiBold,
                                                     color: ColorManager.white,
-                                                    decoration: TextDecoration.none,
+                                                    decoration:
+                                                        TextDecoration.none,
                                                   ),
                                                 ),
                                                 IconButton(
                                                   onPressed: () {
                                                     Navigator.pop(context);
                                                   },
-                                                  icon: Icon(Icons.close,
-                                                    color: ColorManager.white,),
+                                                  icon: Icon(
+                                                    Icons.close,
+                                                    color: ColorManager.white,
+                                                  ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                          SizedBox(height: 20,),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -255,7 +255,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text("Company App Logo",
                                                           style: GoogleFonts
@@ -265,21 +266,24 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                             fontWeight:
                                                                 FontWeightManager
                                                                     .bold,
-                                                            color:
-                                                                Color(0xff686464),
+                                                            color: Color(
+                                                                0xff686464),
                                                           )),
-                                      
+
                                                       ///main
                                                       Container(
                                                         width: 354,
                                                         height: 50,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           border: Border.all(
-                                                              color: Colors.grey),
+                                                              color:
+                                                                  Colors.grey),
                                                           borderRadius:
                                                               BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10)),
+                                                                  Radius
+                                                                      .circular(
+                                                                          10)),
                                                         ),
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -287,17 +291,23 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                   .start,
                                                           children: [
                                                             Padding(
-                                                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          10),
                                                               child: Text(
                                                                   "Upload Immunization Records from PDF",
                                                                   style: GoogleFonts.firaSans(
-                                                                      fontSize: 9,
+                                                                      fontSize:
+                                                                          9,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
-                                                                      color: Color(0xff686464))),
+                                                                      color: Color(
+                                                                          0xff686464))),
                                                             ),
-                                      
+
                                                             ///sub container
                                                             StreamBuilder<
                                                                 List<
@@ -313,31 +323,30 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                           .spaceAround,
                                                                   children: [
                                                                     Container(
-                                                                      width: 150,
-                                                                      height: 30,
+                                                                      width:
+                                                                          150,
+                                                                      height:
+                                                                          30,
                                                                       decoration:
                                                                           BoxDecoration(
                                                                         border: Border.all(
                                                                             color:
                                                                                 Colors.grey),
                                                                         borderRadius:
-                                                                            BorderRadius.all(
-                                                                                Radius.circular(10)),
+                                                                            BorderRadius.all(Radius.circular(10)),
                                                                       ),
-                                                                      child: Row(
+                                                                      child:
+                                                                          Row(
                                                                         mainAxisAlignment:
-                                                                            MainAxisAlignment
-                                                                                .spaceAround,
+                                                                            MainAxisAlignment.spaceAround,
                                                                         children: [
                                                                           InkWell(
                                                                             onTap:
                                                                                 pickMobileLogo,
                                                                             child:
                                                                                 Container(
-                                                                              color:
-                                                                                  Color(0xffD9D9D9),
-                                                                              child:
-                                                                                  Text(
+                                                                              color: Color(0xffD9D9D9),
+                                                                              child: Text(
                                                                                 "Choose File",
                                                                                 style: GoogleFonts.firaSans(
                                                                                   fontSize: 10,
@@ -349,15 +358,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                           ),
                                                                           if (snapshot
                                                                               .hasData)
-                                                                            ...snapshot
-                                                                                .data!
+                                                                            ...snapshot.data!
                                                                                 .map((file) => InkWell(
                                                                                       child: Container(
                                                                                         padding: EdgeInsets.only(bottom: 15),
                                                                                         // height: 30,
                                                                                         // width: 90,
                                                                                         child: Text(
-                                                                                          file.name.substring(0,10) + "...",
+                                                                                          file.name.substring(0, 10) + "...",
                                                                                           textAlign: TextAlign.start,
                                                                                           style: GoogleFonts.firaSans(
                                                                                             fontSize: 10,
@@ -376,7 +384,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                 );
                                                               },
                                                             ),
-                                      
                                                           ],
                                                         ),
                                                       ),
@@ -387,7 +394,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     controller: nameController,
                                                     keyboardType:
                                                         TextInputType.text,
-                                                    text: AppStringEM.companyName,
+                                                    text:
+                                                        AppStringEM.companyName,
                                                   ),
                                                   SizedBox(height: AppSize.s15),
                                                   SMTextFConst(
@@ -397,7 +405,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                         TextInputType.number,
                                                     text: AppStringEM.secNum,
                                                   ),
-                                                  SizedBox(height:AppSize.s15),
+                                                  SizedBox(height: AppSize.s15),
                                                   SMTextFConst(
                                                     controller: faxController,
                                                     keyboardType:
@@ -405,12 +413,12 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     text: AppStringEM.fax,
                                                   ),
                                                   SizedBox(height: AppSize.s15),
-
                                                   SMTextFConst(
                                                     controller: emailController,
                                                     keyboardType:
-                                                    TextInputType.text,
-                                                    text: AppStringEM.primarymail,
+                                                        TextInputType.text,
+                                                    text:
+                                                        AppStringEM.primarymail,
                                                   ),
                                                 ],
                                               ),
@@ -422,7 +430,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text("Company Web Logo",
                                                           style: GoogleFonts
@@ -432,19 +441,22 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                             fontWeight:
                                                                 FontWeightManager
                                                                     .bold,
-                                                            color:
-                                                                Color(0xff686464),
+                                                            color: Color(
+                                                                0xff686464),
                                                           )),
                                                       Container(
                                                         width: 354,
                                                         height: 50,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           border: Border.all(
-                                                              color: Colors.grey),
+                                                              color:
+                                                                  Colors.grey),
                                                           borderRadius:
                                                               BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10)),
+                                                                  Radius
+                                                                      .circular(
+                                                                          10)),
                                                         ),
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -452,54 +464,62 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                   .start,
                                                           children: [
                                                             Padding(
-                                                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          10),
                                                               child: Text(
                                                                   "Upload Immunization Records from PDF",
                                                                   style: GoogleFonts.firaSans(
-                                                                      fontSize: 9,
+                                                                      fontSize:
+                                                                          9,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
                                                                       color: Color(
                                                                           0xff686464))),
                                                             ),
-                                      
+
                                                             ///sub container
                                                             StreamBuilder<
-                                                                List<PlatformFile>>(
-                                                              stream: _webFilesStreamController.stream,
-                                                              builder: (context, snapshot) {
+                                                                List<
+                                                                    PlatformFile>>(
+                                                              stream:
+                                                                  _webFilesStreamController
+                                                                      .stream,
+                                                              builder: (context,
+                                                                  snapshot) {
                                                                 return Row(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
                                                                           .spaceAround,
                                                                   children: [
                                                                     Container(
-                                                                      width: 150,
-                                                                      height: 30,
+                                                                      width:
+                                                                          150,
+                                                                      height:
+                                                                          30,
                                                                       decoration:
                                                                           BoxDecoration(
                                                                         border: Border.all(
                                                                             color:
                                                                                 Colors.grey),
                                                                         borderRadius:
-                                                                            BorderRadius.all(
-                                                                                Radius.circular(10)),
+                                                                            BorderRadius.all(Radius.circular(10)),
                                                                       ),
-                                                                      child: Row(
+                                                                      child:
+                                                                          Row(
                                                                         mainAxisAlignment:
-                                                                            MainAxisAlignment
-                                                                                .spaceAround,
+                                                                            MainAxisAlignment.spaceAround,
                                                                         children: [
                                                                           InkWell(
                                                                             onTap:
                                                                                 pickWebLogo,
                                                                             child:
                                                                                 Container(
-                                                                              color:
-                                                                                  Color(0xffD9D9D9),
-                                                                              child:
-                                                                                  Text(
+                                                                              color: Color(0xffD9D9D9),
+                                                                              child: Text(
                                                                                 "Choose File",
                                                                                 style: GoogleFonts.firaSans(
                                                                                   fontSize: 10,
@@ -511,15 +531,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                           ),
                                                                           if (snapshot
                                                                               .hasData)
-                                                                            ...snapshot
-                                                                                .data!
+                                                                            ...snapshot.data!
                                                                                 .map((file) => InkWell(
                                                                                       child: Container(
                                                                                         padding: EdgeInsets.only(bottom: 15),
                                                                                         // height: 30,
                                                                                         // width: 90,
                                                                                         child: Text(
-                                                                                          file.name.substring(0,10) + "...",
+                                                                                          file.name.substring(0, 10) + "...",
                                                                                           textAlign: TextAlign.start,
                                                                                           style: GoogleFonts.firaSans(
                                                                                             fontSize: 10,
@@ -545,14 +564,16 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   ),
                                                   SizedBox(height: AppSize.s15),
                                                   SMTextFConst(
-                                                    controller: primNumController,
+                                                    controller:
+                                                        primNumController,
                                                     keyboardType:
                                                         TextInputType.number,
                                                     text: AppStringEM.primNum,
                                                   ),
                                                   SizedBox(height: AppSize.s15),
                                                   SMTextFConst(
-                                                    controller: altNumController,
+                                                    controller:
+                                                        altNumController,
                                                     keyboardType:
                                                         TextInputType.number,
                                                     text: AppStringEM
@@ -560,12 +581,12 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   ),
                                                   SizedBox(height: AppSize.s15),
                                                   SMTextFConst(
-                                                    controller: addressController,
+                                                    controller:
+                                                        addressController,
                                                     keyboardType:
-                                                    TextInputType.text,
+                                                        TextInputType.text,
                                                     text: AppStringEM.address,
                                                   ),
-
                                                   SizedBox(
                                                     width: 354,
                                                     height: 30,
@@ -581,9 +602,11 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                           Align(
                                             alignment: Alignment.bottomRight,
                                             child: Padding(
-                                              padding: const EdgeInsets.all(15.0),
+                                              padding:
+                                                  const EdgeInsets.all(15.0),
                                               child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
                                                 children: [
                                                   CustomElevatedButton(
                                                     width: 105,
@@ -603,7 +626,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                         context,
                                                         widget.officeId,
                                                         primNumController.text,
-                                                        secNumberController.text,
+                                                        secNumberController
+                                                            .text,
                                                         faxController.text,
                                                         faxController.text,
                                                         altNumController.text,
@@ -611,12 +635,22 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                         nameController.text,
                                                         addressController.text,
                                                       );
-                                                      await uploadWebAndAppLogo(context: context, type: "web", documentFile: filePath, documentName: fileName);
+                                                      await uploadWebAndAppLogo(
+                                                          context: context,
+                                                          type: "web",
+                                                          documentFile:
+                                                              filePath,
+                                                          documentName:
+                                                              fileName);
                                                       Navigator.pop(context);
                                                       showDialog(
                                                         context: context,
-                                                        builder: (BuildContext context) {
-                                                          return EditSuccessPopup(message: 'Submitted Successfully',);
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return EditSuccessPopup(
+                                                            message:
+                                                                'Submitted Successfully',
+                                                          );
                                                         },
                                                       );
                                                     },
@@ -649,32 +683,38 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                         border: Border.all(
                           color: ColorManager.blueprime,
                         ),
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(20))),
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
                     child:
-                      ///old code
-                    StreamBuilder<WhiteLabellingCompanyDetailModal>(
+
+                        ///old code
+                        StreamBuilder<WhiteLabellingCompanyDetailModal>(
                       stream: Stream.fromFuture(getWhiteLabellingData(context)),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           var data = snapshot.data!;
-                          var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
+                          var appLogo = data.logos.firstWhere(
+                              (logo) => logo.type == 'app',
                               orElse: () => WLLogoModal(
                                   companyLogoId: 3,
                                   companyId: 1,
-                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                  url:
+                                      'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
                                   type: ''));
-                          var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
+                          var webLogo = data.logos.firstWhere(
+                              (logo) => logo.type == 'web',
                               orElse: () => WLLogoModal(
                                   companyLogoId: 4,
                                   companyId: 1,
-                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                                  url:
+                                      'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
                                   type: ''));
-                          var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
+                          var mainLogo = data.logos.firstWhere(
+                              (logo) => logo.type == 'main',
                               orElse: () => WLLogoModal(
                                   companyLogoId: 4,
                                   companyId: 1,
-                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                                  url:
+                                      'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
                                   type: ''));
 
                           return Column(
@@ -683,44 +723,53 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                 height: 100,
                                 child: mainLogo.url.isNotEmpty
                                     ? Image.asset(
-                                  'images/formainlogoprohealth.png',
-                                  // mainLogo.url,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                    return Center(
-                                      child: Icon(Icons.error, color: Colors.red),
-                                    );
-                                  },
-                                )
+                                        'images/formainlogoprohealth.png',
+                                        // mainLogo.url,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return Center(
+                                            child: Icon(Icons.error,
+                                                color: Colors.red),
+                                          );
+                                        },
+                                      )
                                     : Container(),
                               ),
                               Container(
                                 height: 100,
                                 child: webLogo.url.isNotEmpty
-                                    ?     Image.network(
-                        "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
-                        // webLogo.url,
-                        fit: BoxFit.cover,
-                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                        return Center(
-                        child: Icon(Icons.error, color: Colors.red),
-                        );
-                        },
-                        )
-                            : Container(),),
+                                    ? Image.network(
+                                        "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
+                                        // webLogo.url,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return Center(
+                                            child: Icon(Icons.error,
+                                                color: Colors.red),
+                                          );
+                                        },
+                                      )
+                                    : Container(),
+                              ),
                               Container(
                                 height: 100,
-                                child:
-                                appLogo.url.isNotEmpty
+                                child: appLogo.url.isNotEmpty
                                     ? Image.network(
-                                      'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                    return Center(
-                                      child: Icon(Icons.error, color: Colors.red),
-                                    );
-                                  },
-                                )
+                                        'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return Center(
+                                            child: Icon(Icons.error,
+                                                color: Colors.red),
+                                          );
+                                        },
+                                      )
                                     : Container(),
                               ),
                             ],
@@ -756,11 +805,16 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                               if (snapshot.hasData) {
                                 var data = snapshot.data!;
                                 nameController.text = data.companyDetail.name;
-                                secNumberController.text = data.contactDetail.secondaryPhone;
-                                faxController.text = data.contactDetail.primaryFax;
-                                addressController.text = data.companyDetail.address;
-                                primNumController.text = data.contactDetail.primaryPhone;
-                                altNumController.text = data.contactDetail.alternativePhone;
+                                secNumberController.text =
+                                    data.contactDetail.secondaryPhone;
+                                faxController.text =
+                                    data.contactDetail.primaryFax;
+                                addressController.text =
+                                    data.companyDetail.address;
+                                primNumController.text =
+                                    data.contactDetail.primaryPhone;
+                                altNumController.text =
+                                    data.contactDetail.alternativePhone;
                                 emailController.text = data.contactDetail.email;
                               } else if (snapshot.hasError) {
                                 return Text('Error: ${snapshot.error}');
@@ -796,7 +850,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         keyboardType: TextInputType.text,
                                         text: AppStringEM.primarymail,
                                       ),
-
                                     ],
                                   ),
                                   Column(
@@ -814,7 +867,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         text: AppStringEM.alternatephone,
                                       ),
                                       SizedBox(height: AppSize.s9),
-
                                       EditTextField(
                                         controller: addressController,
                                         keyboardType: TextInputType.text,
@@ -841,6 +893,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
     );
   }
 }
+
 ///old
 // Expanded(
 //   flex: 2,
