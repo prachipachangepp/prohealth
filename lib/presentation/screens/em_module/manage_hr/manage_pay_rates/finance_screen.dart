@@ -108,6 +108,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     ),
                   ],
                 ),
+                SizedBox(height: MediaQuery.of(context).size.height/100),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
