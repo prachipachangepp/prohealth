@@ -371,9 +371,9 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
         child: Column(
           children: [
             Container(
-              height: 41,
+              height: AppSize.s41,
               decoration: BoxDecoration(
-                color: Color(0xff50B5E5),
+                color: ColorManager.blueprime,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(8),
                   topRight: Radius.circular(8),
@@ -421,7 +421,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             errorText: _collegeUniversityError ? 'Please enter College/University Name' : null,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: AppSize.s20),
                         Expanded(
                           child: _buildTextField(
                             controller: widget.phoneController,
@@ -429,7 +429,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             errorText: _phoneError ? 'Please enter valid phone number' : null,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: AppSize.s20),
                         Expanded(
                           child: _buildTextField(
                             controller: widget.calenderController,
@@ -455,7 +455,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: AppSize.s20),
                     Row(
                       children: [
                         Expanded(
@@ -473,11 +473,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                         Expanded(
                           child: _buildTextField(
                             controller: widget.cityController,
-                            labelText: "City",
+                            labelText: AppString.city,
                             errorText: _cityError ? 'Please Enter City' : null,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: AppSize.s20),
                         Expanded(
                           child: _buildTextField(
                             controller: widget.degreeController,
@@ -487,17 +487,17 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: AppSize.s20),
                     Row(
                       children: [
                         Expanded(
                           child: _buildTextField(
                             controller: widget.stateController,
-                            labelText: "State",
+                            labelText: AppString.state,
                             errorText: _stateError ? 'Please Enter State' : null,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: AppSize.s20),
                         Expanded(
                           child: _buildTextField(
                             controller: widget.majorSubjectController,
@@ -505,7 +505,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                             errorText: _majorSubjectError ? 'Please Enter Major Subject' : null,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: AppSize.s20),
                         Expanded(
                           child: _buildTextField(
                             controller: widget.countryNameController,
@@ -516,26 +516,26 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ],
                     ),
 
-                    SizedBox(height: 35),
+                    SizedBox(height: AppSize.s35),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CustomButtonTransparent(
-                          text: "Cancel",
+                          text: AppString.cancel,
                           onPressed: widget.onpressedClose,
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: AppSize.s10),
                         isLoading
                             ? SizedBox(
-                          height: 25,
-                          width: 25,
+                          height: AppSize.s25,
+                          width: AppSize.s25,
                           child: CircularProgressIndicator(
                             color: ColorManager.blueprime,
                           ),
                         )
                             : CustomElevatedButton(
-                          width: 100,
-                          text: "Save",
+                          width: AppSize.s100,
+                          text: AppString.save,
                           onPressed: _handleSave,
                         ),
                       ],

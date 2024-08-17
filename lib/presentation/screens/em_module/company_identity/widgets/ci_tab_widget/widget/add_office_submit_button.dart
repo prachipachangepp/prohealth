@@ -48,7 +48,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
         child: ListView(
           children: [
             Container(
-              height: 40,
+              height: AppSize.s40,
               width: AppSize.s390,
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
@@ -76,7 +76,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close, color: Colors.white,),
+                    icon: Icon(Icons.close, color: Colors.white),
                   ),
                 ],
               ),

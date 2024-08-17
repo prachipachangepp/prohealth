@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -116,7 +117,7 @@ int listIndex = 0 ;
       child: Column(
         children: [
           _selectedIndex != 0
-              ? Container(height: 15)
+              ? Container(height: AppSize.s15)
               : Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: AppPadding.p160, vertical: AppPadding.p10),
@@ -166,7 +167,7 @@ int listIndex = 0 ;
                   borderRadius: BorderRadius.circular(14),
                   child: Container(
                     width: MediaQuery.of(context).size.width/1.18,
-                    height: 30,
+                    height: AppSize.s30,
                   decoration: BoxDecoration(
                       color: ColorManager.blueprime,
                     borderRadius: BorderRadius.circular(14)
@@ -175,13 +176,13 @@ int listIndex = 0 ;
                       children: [
                         InkWell(
                           child: Container(
-                                        height: 30,
+                                        height: AppSize.s30,
                                         width: MediaQuery.of(context).size.width / 8.4,
                                         padding: EdgeInsets.symmetric(vertical: 6),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20),
                                           color: _selectedIndex == 0
-                                              ? Colors.white
+                                              ? ColorManager.white
                                               : null,
                                         ),
                                         child: Text(
@@ -242,7 +243,7 @@ int listIndex = 0 ;
                                 fontWeight: FontWeightManager.semiBold,
                                 color: _selectedIndex == 2
                                     ? ColorManager.mediumgrey
-                                    : Colors.white,
+                                    : ColorManager.white,
                               ),
                             ),
                           ),
