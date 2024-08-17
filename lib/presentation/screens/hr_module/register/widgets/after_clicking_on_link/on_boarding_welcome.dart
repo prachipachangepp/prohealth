@@ -680,7 +680,6 @@ class CustomTextField extends StatelessWidget {
 
 ////////////////////////////////////congratulation/////////////////////////////////////
 class OnBoardingCongratulation extends StatelessWidget {
-
   final int employeeId;
   const OnBoardingCongratulation({super.key, required this.employeeId,  });
   @override

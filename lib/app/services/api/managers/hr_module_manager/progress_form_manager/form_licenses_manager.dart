@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/api_offer.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
@@ -37,7 +38,7 @@ Future<ApiDataRegister> postlicensesscreen(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("licenses Added");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Licenses data saved")),
+        SnackBar(content: Text("Licenses data saved"),backgroundColor: Colors.green,),
       );
       var data = response.data;
       var liscenseIdget = data['licenseId'];
@@ -92,13 +93,14 @@ Future<List<LicensesDataForm>> getLicensesForm(
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         //String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);
-        //String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        String expFormattedDate = convertIsoToDayMonthYear(item['expDate']);
         itemsData.add(LicensesDataForm(
           licenseId: item['licenseId']??0,
           country: item['country']??"--",
           employeeId: item['employeeId']??2,
-          expDate: item['expDate']??"--",
-          issueDate: item['issueDate']??"--",
+          expDate: expFormattedDate,
+          issueDate: issueFormattedDate,
           licenseUrl: item['licenseUrl']??"--",
           licensure: item['licensure']??"--",
           licenseNumber: item['licenseNumber']??"--",

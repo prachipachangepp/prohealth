@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -87,9 +88,6 @@ class _EducationScreenState extends State<EducationScreen> {
       educationFormKeys.remove(key);
     });
   }
-
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -566,32 +564,38 @@ class _EducationFormState extends State<EducationForm> {
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width / 20),
-                    ElevatedButton.icon(
-                      onPressed: _handleFileUpload,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff50B5E5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: _handleFileUpload,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xff50B5E5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          icon: Icon(Icons.upload, color: Colors.white),
+                          label: Text(
+                            'Upload File',
+                            style: GoogleFonts.firaSans(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
-                      ),
-                      icon: Icon(Icons.upload, color: Colors.white),
-                      label: Text(
-                        'Upload File',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
-                      ),
+                        if (fileName != null)
+                          AutoSizeText(
+                            'File picked: $fileName',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff686464)),
+                          ),
+                      ],
                     ),
-                    if (fileName != null)
-                    Text(
-                          'File picked: $fileName',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff686464)),
-                        ),
+
 
                     SizedBox(height: MediaQuery.of(context).size.height / 20),
                   ],

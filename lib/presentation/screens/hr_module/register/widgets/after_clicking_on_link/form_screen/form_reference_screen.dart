@@ -1,7 +1,9 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_reference_manager.dart';
-
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../data/api_data/hr_module_data/progress_form_data/form_reference_data.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
@@ -22,6 +24,8 @@ class ReferencesScreen extends StatefulWidget {
 }
 
 class _ReferencesScreenState extends State<ReferencesScreen> {
+  List<GlobalKey<_ReferencesFormState>> referenceFormKeys = [];
+  bool isVisible = false;
   TextEditingController name = TextEditingController();
   TextEditingController titleposition = TextEditingController();
   TextEditingController companyorganization = TextEditingController();
@@ -30,42 +34,37 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
   TextEditingController knowthisperson = TextEditingController();
   TextEditingController lengthofassociation = TextEditingController();
 
-  List<GlobalKey<_ReferencesFormState>> referenceFormKeys = [];
+
 
   @override
   void initState() {
     super.initState();
-    addEducationForm();
+    _loadEducationData();
   }
-
-  void addEducationForm() {
+  Future<void> _loadEducationData() async {
+    try {
+      List<ReferenceDataForm> prefilledData = await getEmployeeReferenceForm(context, widget.employeeID);
+      setState(() {
+        referenceFormKeys = List.generate(
+          prefilledData.length,
+              (index) => GlobalKey<_ReferencesFormState>(),
+        );
+      });
+    } catch (e) {
+      print('Error loading Education data: $e');
+    }
+  }
+  void addReferenseForm() {
     setState(() {
       referenceFormKeys.add(GlobalKey<_ReferencesFormState>());
     });
   }
 
-  void removeEduacationForm(GlobalKey<_ReferencesFormState> key) {
+  void removeReferenseForm(GlobalKey<_ReferencesFormState> key) {
     setState(() {
       referenceFormKeys.remove(key);
     });
   }
-
-  Future<void> postreferencescreendata(
-      BuildContext context,
-      String association,
-      String comment,
-      String company,
-      String email,
-      int employeeId,
-      String mob,
-      String name,
-      String references,
-      String title) async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Reference data saved")),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -115,8 +114,8 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
             return ReferencesForm(
               key: key,
               index: index + 1,
-              onRemove: () => removeEduacationForm(key),
-              employeeID: widget.employeeID,
+              onRemove: () => removeReferenseForm(key),
+              employeeID: widget.employeeID, isVisible: isVisible,
             );
           }).toList(),
         ),
@@ -127,7 +126,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               ElevatedButton.icon(
-                onPressed: addEducationForm,
+                onPressed: addReferenseForm,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xff50B5E5),
                   // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
@@ -206,11 +205,12 @@ class ReferencesForm extends StatefulWidget {
   final int employeeID;
   final VoidCallback onRemove;
   final int index;
+  final bool isVisible;
   const ReferencesForm(
       {Key? key,
       required this.onRemove,
       required this.index,
-      required this.employeeID})
+      required this.employeeID, required this.isVisible})
       : super(key: key);
 
   @override
@@ -225,57 +225,37 @@ class _ReferencesFormState extends State<ReferencesForm> {
   TextEditingController email = TextEditingController();
   TextEditingController knowthisperson = TextEditingController();
   TextEditingController lengthofassociation = TextEditingController();
+  int? referenseIndex;
+  void initState() {
+    super.initState();
+    _initializeFormWithPrefilledData();
+  }
+  Future<void> _initializeFormWithPrefilledData() async {
+    try {
+      List<ReferenceDataForm> prefilledData = await getEmployeeReferenceForm(context, widget.employeeID);
+      if (prefilledData.isNotEmpty) {
+        var data = prefilledData[widget.index - 1]; // Assuming index matches the data list
+        setState(() {
+          name.text = data.name ?? '';
+          titleposition.text = data.title ?? '';
+          companyorganization.text = data.association ?? '';
+          mobilenumber.text = data.mob ?? '';
+          email.text = data.email ?? '';
+          knowthisperson.text = data.references ?? '';
+          lengthofassociation.text = data.association ?? '';
+          referenseIndex = data.referenceId ?? 0;
+
+        });
+      }
+    } catch (e) {
+      print('Failed to load prefilled data: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ReferenceDataForm>>(
-        future: getEmployeeReferenceForm(context, widget.employeeID),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 150),
-                child: CircularProgressIndicator(
-                  color: Color(0xff50B5E5),
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 150),
-                child: Text(
-                  'Error: ${snapshot.error}',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasData) {
-            List<ReferenceDataForm>? data = snapshot.data;
-            //print{::::::::=> "$snapshot.data"};
-            print(":::::: :=>${snapshot.data!}");
-
-            return Container(
-              height: MediaQuery.of(context).size.height / 1,
-              width: MediaQuery.of(context).size.width / 1,
-              child: ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-
-
-                   name = TextEditingController(text:snapshot.data![index].name);
-                titleposition = TextEditingController(text:snapshot.data![index].title);
-                   companyorganization = TextEditingController(text:snapshot.data![index].company);
-                   mobilenumber = TextEditingController(text:snapshot.data![index].mob);
-                   email = TextEditingController(text:snapshot.data![index].email);
-                   knowthisperson = TextEditingController(text:snapshot.data![index].references);
-                   lengthofassociation = TextEditingController(text:snapshot.data![index].association);
-
-
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 160.0, right: 160),
+    return Padding(
+      padding: const EdgeInsets.only(left: 160.0, right: 160),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -283,7 +263,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'References #${snapshot.data![index].referenceId}',
+                              referenseIndex == null ? 'References #${widget.index}' :  'References #${referenseIndex}',
                               style: GoogleFonts.firaSans(
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w700,
@@ -504,51 +484,6 @@ class _ReferencesFormState extends State<ReferencesForm> {
                       ],
                     ),
                   );
-                },
-              ),
-            );
-          }
-
-          return SizedBox();
-        });
   }
 }
 
-///class
-
-//save
-// Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: [
-// ElevatedButton(
-// style: ElevatedButton.styleFrom(
-// backgroundColor: Color(0xff1696C8),
-// foregroundColor: Colors.white,
-// shape: RoundedRectangleBorder(
-// borderRadius: BorderRadius.circular(8),
-// ),
-// ),
-// onPressed: () async {
-// await postreferencescreen(
-// context,
-// lengthofassociation.text,
-// "__",
-// companyorganization.text,
-// email.text,
-// 0,
-// mobilenumber.text,
-// name.text,
-// knowthisperson.text,
-// titleposition.text);
-// },
-// child: Text(
-// 'Save',
-// style: GoogleFonts.firaSans(
-// fontSize: 14.0,
-// fontWeight: FontWeight.w700,
-// color: Colors.white,
-// ),
-// ),
-// ),
-// ],
-// ),

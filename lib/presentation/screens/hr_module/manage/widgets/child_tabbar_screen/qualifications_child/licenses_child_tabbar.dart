@@ -51,15 +51,11 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                 future: selectDocument(context),
                 builder: (context,snapshot) {
                   if(snapshot.connectionState == ConnectionState.waiting){
-                    return Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Container(
-                          width: 350,
+                    return  Container(
+                          width: 200,
                           height: 30,
-                          decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                        )
-                    );
+                          decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
+                        );
                   }
                   if (snapshot.data!.isEmpty) {
                     return Center(

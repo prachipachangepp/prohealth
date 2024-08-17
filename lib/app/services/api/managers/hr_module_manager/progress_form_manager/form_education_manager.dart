@@ -41,7 +41,7 @@ class FormEducationManager {
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Education data saved")),
+          SnackBar(content: Text("Education data saved"),backgroundColor: Colors.green,),
         );
 
         print("education Added");

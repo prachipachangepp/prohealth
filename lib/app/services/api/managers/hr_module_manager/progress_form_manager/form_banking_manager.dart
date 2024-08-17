@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/api_offer.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
 import 'package:prohealth/app/services/encode_decode_base64.dart';
@@ -40,7 +41,7 @@ Future<ApiDataRegister> postbankingscreen(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("banking Added");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Banking data saved")),
+        SnackBar(content: Text("Banking data saved"),backgroundColor: Colors.green,),
       );
       var bankResponse = response.data;
       var banckingId = bankResponse['empBankingId'];
@@ -132,7 +133,7 @@ Future<List<BankingDataForm>> getBankingForm(
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         //String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);
-        //String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        String FormattedDate = convertIsoToDayMonthYear(item['effectiveDate']);
         itemsData.add(BankingDataForm(
           empBankingId: item['empBankingId']??00,
           employeeId: item['employeeId']??00,
@@ -140,7 +141,7 @@ Future<List<BankingDataForm>> getBankingForm(
           bankName: item['bankName']??"--",
           amountRequested: item['amountRequested']??00,
           checkUrl: item['checkUrl']??"--",
-          effectiveDate: item['effectiveDate']??"--",
+          effectiveDate: FormattedDate,
           routingNumber: item['routingNumber']??"--",
           type: item['type']??"--",
           requestedPercentage: item['requestedPercentage']??"--",
