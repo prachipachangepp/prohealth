@@ -10,124 +10,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/sm_data/patient_data/patient_data_info_data.dart';
 import '../../../api.dart';
-//
-// Future<ApiData> IntakeInfoSave(
-//     BuildContext context,
-//     String spcdate,
-//     String medicalRecord,
-//     String status,
-//     String firstName,
-//     String lastName,
-//     String mi,
-//     String suffix,
-//     String activeTraineeStatus,
-//     String dateofbirth,
-//     String street,
-//     String state,
-//     String zipcode,
-//     String suiteApt,
-//     String city,
-//     String county,
-//     String majorCrossStreet,
-//     String primaryPhoneNbr,
-//     String secondaryPhoneNbr,
-//     String email,
-//     String socSecNbr,
-//     String langaugeSpoken,
-//     String dischargeReason,
-//     String raceEthinicity,
-//     String religion,
-//     String maritalStatus,
-//     String dateofdeath,
-//     int clinicianId,
-//     String location,
-//     String casee,
-//     String Type,
-//     int companyId,
-//     ) async {
-//   try {
-//     final formattedSpcdate = formatDateToISO(spcdate) ?? "";
-//     final formattedDateofbirth = formatDateToISO(dateofbirth) ?? "";
-//     final formattedDateofdeath = formatDateToISO(dateofdeath) ?? "";
-//
-//     var response = await Api(context).post(
-//       path: PatientDataInfoRepo.addInfoPatientData(),
-//       data: {
-//         'spcdate': formattedSpcdate,
-//         'medicalRecord': medicalRecord,
-//         'status': status,
-//         'firstName': firstName,
-//         'lastName': lastName,
-//         'mi': mi,
-//         'suffix': suffix,
-//         'activeTraineeStatus': activeTraineeStatus,
-//         'dateofbirth': formattedDateofbirth,
-//         'street': street,
-//         'state': state,
-//         'zipcode': zipcode,
-//         'suiteApt': suiteApt,
-//         'city': city,
-//         'county': county,
-//         'majorCrossStreet': majorCrossStreet,
-//         'primaryPhoneNbr': primaryPhoneNbr,
-//         'secondaryPhoneNbr': secondaryPhoneNbr,
-//         'email': email,
-//         'socSecNbr': socSecNbr,
-//         'langaugeSpoken': langaugeSpoken,
-//         'dischargeReason': dischargeReason,
-//         'raceEthinicity': raceEthinicity,
-//         'religion': religion,
-//         'maritalStatus': maritalStatus,
-//         'dateofdeath': formattedDateofdeath,
-//         'clinicianId': clinicianId,
-//         'location': location,
-//         'case': casee,
-//         'Type': Type,
-//         'companyId': companyId,
-//       },
-//     );
-//     print(response);
-//
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       print("Patient Info Saved");
-//       return ApiData(
-//         statusCode: response.statusCode!,
-//         success: true,
-//         message: response.statusMessage!,
-//       );
-//     } else {
-//       print("Error 1");
-//       return ApiData(
-//         statusCode: response.statusCode!,
-//         success: false,
-//         message: response.data['message'],
-//       );
-//     }
-//   } catch (e) {
-//     print("Error $e");
-//     return ApiData(
-//       statusCode: 404,
-//       success: false,
-//       message: AppString.somethingWentWrong,
-//     );
-//   }
-// }
-//
-//
-// String? formatDateToISO(String? date) {
-//   if (date == null || date.isEmpty) return null;
-//
-//   try {
-//     // Adjust the input format as needed
-//     final DateFormat inputFormat = DateFormat('MM/dd/yyyy'); // Change this based on your input format
-//     final DateTime parsedDate = inputFormat.parse(date);
-//     // Return in ISO 8601 format
-//     return DateFormat('yyyy-MM-dd').format(parsedDate);
-//   } catch (e) {
-//     print("Date format error: $e");
-//     return null;
-//   }
-// }
+
 
 ///Info save Post API
 Future<ApiData> IntakeInfoSave(
@@ -466,3 +349,121 @@ Future<List<PatientDataInfoModal>> PatientDataInfoGet(
     return itemsList;
   }
 }
+//
+// Future<ApiData> IntakeInfoSave(
+//     BuildContext context,
+//     String spcdate,
+//     String medicalRecord,
+//     String status,
+//     String firstName,
+//     String lastName,
+//     String mi,
+//     String suffix,
+//     String activeTraineeStatus,
+//     String dateofbirth,
+//     String street,
+//     String state,
+//     String zipcode,
+//     String suiteApt,
+//     String city,
+//     String county,
+//     String majorCrossStreet,
+//     String primaryPhoneNbr,
+//     String secondaryPhoneNbr,
+//     String email,
+//     String socSecNbr,
+//     String langaugeSpoken,
+//     String dischargeReason,
+//     String raceEthinicity,
+//     String religion,
+//     String maritalStatus,
+//     String dateofdeath,
+//     int clinicianId,
+//     String location,
+//     String casee,
+//     String Type,
+//     int companyId,
+//     ) async {
+//   try {
+//     final formattedSpcdate = formatDateToISO(spcdate) ?? "";
+//     final formattedDateofbirth = formatDateToISO(dateofbirth) ?? "";
+//     final formattedDateofdeath = formatDateToISO(dateofdeath) ?? "";
+//
+//     var response = await Api(context).post(
+//       path: PatientDataInfoRepo.addInfoPatientData(),
+//       data: {
+//         'spcdate': formattedSpcdate,
+//         'medicalRecord': medicalRecord,
+//         'status': status,
+//         'firstName': firstName,
+//         'lastName': lastName,
+//         'mi': mi,
+//         'suffix': suffix,
+//         'activeTraineeStatus': activeTraineeStatus,
+//         'dateofbirth': formattedDateofbirth,
+//         'street': street,
+//         'state': state,
+//         'zipcode': zipcode,
+//         'suiteApt': suiteApt,
+//         'city': city,
+//         'county': county,
+//         'majorCrossStreet': majorCrossStreet,
+//         'primaryPhoneNbr': primaryPhoneNbr,
+//         'secondaryPhoneNbr': secondaryPhoneNbr,
+//         'email': email,
+//         'socSecNbr': socSecNbr,
+//         'langaugeSpoken': langaugeSpoken,
+//         'dischargeReason': dischargeReason,
+//         'raceEthinicity': raceEthinicity,
+//         'religion': religion,
+//         'maritalStatus': maritalStatus,
+//         'dateofdeath': formattedDateofdeath,
+//         'clinicianId': clinicianId,
+//         'location': location,
+//         'case': casee,
+//         'Type': Type,
+//         'companyId': companyId,
+//       },
+//     );
+//     print(response);
+//
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("Patient Info Saved");
+//       return ApiData(
+//         statusCode: response.statusCode!,
+//         success: true,
+//         message: response.statusMessage!,
+//       );
+//     } else {
+//       print("Error 1");
+//       return ApiData(
+//         statusCode: response.statusCode!,
+//         success: false,
+//         message: response.data['message'],
+//       );
+//     }
+//   } catch (e) {
+//     print("Error $e");
+//     return ApiData(
+//       statusCode: 404,
+//       success: false,
+//       message: AppString.somethingWentWrong,
+//     );
+//   }
+// }
+//
+//
+// String? formatDateToISO(String? date) {
+//   if (date == null || date.isEmpty) return null;
+//
+//   try {
+//     // Adjust the input format as needed
+//     final DateFormat inputFormat = DateFormat('MM/dd/yyyy'); // Change this based on your input format
+//     final DateTime parsedDate = inputFormat.parse(date);
+//     // Return in ISO 8601 format
+//     return DateFormat('yyyy-MM-dd').format(parsedDate);
+//   } catch (e) {
+//     print("Date format error: $e");
+//     return null;
+//   }
+// }
