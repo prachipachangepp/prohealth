@@ -118,7 +118,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
     required dynamic documentFile,
     required String documentName,
   }) async {
-    ApiDataRegister result = await postlicensesscreen(
+    ApiDataRegister result = await postlicensesscreenData(
         context,
         country,
         employeeId,
@@ -506,54 +506,54 @@ class _licensesFormState extends State<licensesForm> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<LicensesDataForm>>(
-        future: getLicensesForm(context, widget.employeeID),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 150),
-                child: CircularProgressIndicator(
-                  color: Color(0xff50B5E5),
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 150),
-                child: Text(
-                  'Error: ${snapshot.error}',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasData) {
-            List<LicensesDataForm>? data = snapshot.data;
-            //print{::::::::=> "$snapshot.data"};
-            print(":::::: :=>${snapshot.data!}");
-            //final data = snapshot.data;
-            // Update controllers with API data
-
-            return Container(
-              height: MediaQuery.of(context).size.height / 1,
-              width: MediaQuery.of(context).size.width / 1,
-              child: ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-
-
-                  licensure = TextEditingController(
-                      text: snapshot.data![index].licensure);
-                  org = TextEditingController(text: snapshot.data![index].org);
-                  licensurenumber = TextEditingController(
-                      text: snapshot.data![index].licenseNumber);
-                  controllerIssueDate = TextEditingController(
-                      text: snapshot.data![index].issueDate);
-                  controllerExpirationDate = TextEditingController(
-                      text: snapshot.data![index].expDate);
+    // return FutureBuilder<List<LicensesDataForm>>(
+    //     future: getLicensesForm(context, widget.employeeID),
+    //     builder: (context, snapshot) {
+    //       if (snapshot.connectionState == ConnectionState.waiting) {
+    //         return const Center(
+    //           child: Padding(
+    //             padding: EdgeInsets.symmetric(vertical: 150),
+    //             child: CircularProgressIndicator(
+    //               color: Color(0xff50B5E5),
+    //             ),
+    //           ),
+    //         );
+    //       }
+    //       if (snapshot.hasError) {
+    //         return Center(
+    //           child: Padding(
+    //             padding: const EdgeInsets.symmetric(vertical: 150),
+    //             child: Text(
+    //               'Error: ${snapshot.error}',
+    //               style: TextStyle(color: Colors.red),
+    //             ),
+    //           ),
+    //         );
+    //       }
+    //       if (snapshot.hasData) {
+    //         List<LicensesDataForm>? data = snapshot.data;
+    //         //print{::::::::=> "$snapshot.data"};
+    //         print(":::::: :=>${snapshot.data!}");
+    //         //final data = snapshot.data;
+    //         // Update controllers with API data
+    //
+    //         return Container(
+    //           height: MediaQuery.of(context).size.height / 1,
+    //           width: MediaQuery.of(context).size.width / 1,
+    //           child: ListView.builder(
+    //             itemCount: snapshot.data!.length,
+    //             itemBuilder: (BuildContext context, int index) {
+    //
+    //
+    //               licensure = TextEditingController(
+    //                   text: snapshot.data![index].licensure);
+    //               org = TextEditingController(text: snapshot.data![index].org);
+    //               licensurenumber = TextEditingController(
+    //                   text: snapshot.data![index].licenseNumber);
+    //               controllerIssueDate = TextEditingController(
+    //                   text: snapshot.data![index].issueDate);
+    //               controllerExpirationDate = TextEditingController(
+    //                   text: snapshot.data![index].expDate);
 
                   return Padding(
                     padding: const EdgeInsets.only(left: 166.0, right: 166),
@@ -564,7 +564,7 @@ class _licensesFormState extends State<licensesForm> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Licensure / Certification #${snapshot.data![index].licenseId}',
+                              'Licensure / Certification #${widget.index}',
                               style: GoogleFonts.firaSans(
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w700,
@@ -1034,13 +1034,13 @@ class _licensesFormState extends State<licensesForm> {
                       ],
                     ),
                   );
-                },
-              ),
-            );
-          }
-
-          return SizedBox();
-        });
+        //         },
+        //       ),
+        //     );
+        //   }
+        //
+        //   return SizedBox();
+        // });
   }
 }
 

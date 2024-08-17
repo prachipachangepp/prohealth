@@ -846,7 +846,7 @@ class InfoData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text, style:  ThemeManager.customTextStyle(context)),
+        Text(text, style:  ThemeManagerDark.customTextStyle(context)),
         const SizedBox(height: 10),
       ],
     );

@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -25,12 +24,9 @@ class _DefineHolidaysState extends State<DefineHolidays> {
   final StreamController<List<DefineHolidayData>> _controller =
       StreamController<List<DefineHolidayData>>();
   TextEditingController calenderController = TextEditingController();
-
-  late CompanyIdentityManager _companyManager;
   @override
   void initState() {
     super.initState();
-    _companyManager = CompanyIdentityManager();
     holidaysListGet(context).then((data) {
       _controller.add(data);
     }).catchError((error) {
@@ -483,3 +479,4 @@ class _DefineHolidaysState extends State<DefineHolidays> {
     );
   }
 }
+////

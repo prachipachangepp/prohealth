@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -11,7 +12,6 @@ import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widge
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_reference_popup.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
-import '../../../../../../../app/resources/value_manager.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 ///done by saloni
@@ -50,8 +50,8 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              width: AppSize.s100,
-              margin: EdgeInsets.only(right: 20),
+              width: 100,
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
                   icon: Icons.add,
@@ -93,7 +93,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
           ],
         ),
         SizedBox(
-          height: AppSize.s1,
+          height: 1,
         ),
         StreamBuilder<List<ReferenceData>>(
           stream: referenceStreamController.stream,
@@ -140,7 +140,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                           offset: const Offset(0, 4),
                         ),
                       ],
-                      color: ColorManager.white,
+                      color: Colors.white,
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                     ),
                     height:  MediaQuery.of(context).size.height/3.3,
@@ -155,11 +155,10 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                            Row(
                             children: [
                               Text('References #${snapshot.data![index].referenceId}',
-                                style: TextStyle(
-                                  fontFamily: 'FiraSans',
-                                  fontSize: FontSize.s13,
-                                  color: ColorManager.blackfaint,
-                                  fontWeight: FontWeight.bold,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 13,
+                                  color: Color(0xFF333333),
+                                  fontWeight: FontWeightManager.medium,
                                 ),),
                             ],
                           ),
@@ -170,16 +169,16 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(AppString.name,
+                                  Text('Name',
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: AppSize.s10),
+                                  const SizedBox(height: 10,),
                                   Text('Title/ Position',
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: AppSize.s15),
+                                  const SizedBox(height: 15,),
                                   Text('Company/ Organization',
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: AppSize.s10),
-                                  Text(AppString.mobile_number,
+                                  const SizedBox(height: 10,),
+                                  Text('Mobile Number',
                                       style: ThemeManager.customTextStyle(context)),
                                 ],
                               ),
@@ -188,13 +187,13 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                 children: [
                                   Text(snapshot.data![index].name,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: AppSize.s10),
+                                  const SizedBox(height: 10,),
                                   Text(snapshot.data![index].title,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: AppSize.s15),
+                                  const SizedBox(height: 15,),
                                   Text(snapshot.data![index].company,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: AppSize.s10),
+                                  const SizedBox(height: 10,),
                                   Text(snapshot.data![index].mobNumber,
                                     style: ThemeManagerDark.customTextStyle(context),),
                                 ],
@@ -202,15 +201,15 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(AppString.email,
+                                  Text('Email',
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: AppSize.s10),
-                                  Text(AppString.how_do_you_know_this_person,
+                                  const SizedBox(height: 10,),
+                                  Text('How do you know this\nperson ?',
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: AppSize.s5),
-                                  Text(AppString.length_of_association,
+                                  const SizedBox(height: 5,),
+                                  Text('Length of Association',
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: AppSize.s5),
+                                  const SizedBox(height: 5,),
                                   Text('Referred By',
                                       style: ThemeManager.customTextStyle(context)),
                                 ],
@@ -220,13 +219,13 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                 children: [
                                   Text(snapshot.data![index].email,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: AppSize.s10),
+                                  const SizedBox(height: 10,),
                                   Text('LinkedIn',
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: AppSize.s15),
+                                  const SizedBox(height: 15,),
                                   Text(snapshot.data![index].association,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: AppSize.s10),
+                                  const SizedBox(height: 10,),
                                   Text(snapshot.data![index].references,
                                     style: ThemeManagerDark.customTextStyle(context),),
                                 ],

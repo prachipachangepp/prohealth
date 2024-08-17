@@ -362,7 +362,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        height: AppSize.s360,
+        height: 373,
         width: 932,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -371,9 +371,9 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
         child: Column(
           children: [
             Container(
-              height: AppSize.s41,
+              height: 41,
               decoration: BoxDecoration(
-                color: ColorManager.blueprime,
+                color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(8),
                   topRight: Radius.circular(8),
@@ -389,7 +389,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s16,
                         fontWeight: FontWeightManager.bold,
-                        color: ColorManager.white,
+                        color: Colors.white,
                         decoration: TextDecoration.none,
                       ),
                     ),
@@ -407,142 +407,140 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.collegeUniversityController,
-                              labelText: "College/University",
-                              errorText: _collegeUniversityError ? 'Please enter College/University Name' : null,
-                            ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 40),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.collegeUniversityController,
+                            labelText: "College/University",
+                            errorText: _collegeUniversityError ? 'Please enter College/University Name' : null,
                           ),
-                          SizedBox(width: AppSize.s20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.phoneController,
-                              labelText: "Phone",
-                              errorText: _phoneError ? 'Please enter valid phone number' : null,
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.phoneController,
+                            labelText: "Phone",
+                            errorText: _phoneError ? 'Please enter valid phone number' : null,
                           ),
-                          SizedBox(width: AppSize.s20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.calenderController,
-                              labelText: AppString.startdate,
-                              errorText: _calendarError ? 'Please Enter Start Date' : null,
-                              suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                              onTap: () async {
-                                DateTime? date = await showDatePicker(
-                                  context: context,
-                                  initialDate: _selectedStartDate,
-                                  firstDate: DateTime(1100),
-                                  lastDate: DateTime(2025),
-                                );
-                                if (date != null) {
-                                  String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                                  widget.calenderController.text = formattedDate;
-                                  setState(() {
-                                    _calendarError = formattedDate.isEmpty;
-                                  });
-                                }
-                              },
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.calenderController,
+                            labelText: "Start Date",
+                            errorText: _calendarError ? 'Please Enter Start Date' : null,
+                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                            onTap: () async {
+                              DateTime? date = await showDatePicker(
+                                context: context,
+                                initialDate: _selectedStartDate,
+                                firstDate: DateTime(1100),
+                                lastDate: DateTime(2025),
+                              );
+                              if (date != null) {
+                                String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                                widget.calenderController.text = formattedDate;
+                                setState(() {
+                                  _calendarError = formattedDate.isEmpty;
+                                });
+                              }
+                            },
                           ),
-                        ],
-                      ),
-                      SizedBox(height: AppSize.s20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Graduate', style: TextStyle(fontSize: FontSize.s10)),
-                                widget.radioButton ?? SizedBox.shrink(),
-                                if (_radioButtonError)
-                                  Text('Please select an option', style: TextStyle(color: Colors.red, fontSize: 10)),
-                              ],
-                            ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Graduate', style: TextStyle(fontSize: FontSize.s10)),
+                              widget.radioButton ?? SizedBox.shrink(),
+                              if (_radioButtonError)
+                                Text('Please select an option', style: TextStyle(color: Colors.red, fontSize: 10)),
+                            ],
                           ),
-                          SizedBox(width: AppSize.s20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.cityController,
-                              labelText: AppString.city,
-                              errorText: _cityError ? 'Please Enter City' : null,
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.cityController,
+                            labelText: "City",
+                            errorText: _cityError ? 'Please Enter City' : null,
                           ),
-                          SizedBox(width: AppSize.s20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.degreeController,
-                              labelText: "Degree",
-                              errorText: _degreeError ? 'Please Enter Degree' : null,
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.degreeController,
+                            labelText: "Degree",
+                            errorText: _degreeError ? 'Please Enter Degree' : null,
                           ),
-                        ],
-                      ),
-                      SizedBox(height: AppSize.s20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.stateController,
-                              labelText: AppString.state,
-                              errorText: _stateError ? 'Please Enter State' : null,
-                            ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.stateController,
+                            labelText: "State",
+                            errorText: _stateError ? 'Please Enter State' : null,
                           ),
-                          SizedBox(width: AppSize.s20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.majorSubjectController,
-                              labelText: "Major Subject",
-                              errorText: _majorSubjectError ? 'Please Enter Major Subject' : null,
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.majorSubjectController,
+                            labelText: "Major Subject",
+                            errorText: _majorSubjectError ? 'Please Enter Major Subject' : null,
                           ),
-                          SizedBox(width: AppSize.s20),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: widget.countryNameController,
-                              labelText: "Country Name",
-                              errorText: _countryNameError ? 'Please Enter Country Name' : null,
-                            ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: _buildTextField(
+                            controller: widget.countryNameController,
+                            labelText: "Country Name",
+                            errorText: _countryNameError ? 'Please Enter Country Name' : null,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
 
-                      SizedBox(height: AppSize.s20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          CustomButtonTransparent(
-                            text: AppString.cancel,
-                            onPressed: widget.onpressedClose,
+                    SizedBox(height: 35),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomButtonTransparent(
+                          text: "Cancel",
+                          onPressed: widget.onpressedClose,
+                        ),
+                        SizedBox(width: 10),
+                        isLoading
+                            ? SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator(
+                            color: ColorManager.blueprime,
                           ),
-                          SizedBox(width: AppSize.s10),
-                          isLoading
-                              ? SizedBox(
-                            height: AppSize.s25,
-                            width: AppSize.s25,
-                            child: CircularProgressIndicator(
-                              color: ColorManager.blueprime,
-                            ),
-                          )
-                              : CustomElevatedButton(
-                            width: AppSize.s100,
-                            text: AppString.save,
-                            onPressed: _handleSave,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        )
+                            : CustomElevatedButton(
+                          width: 100,
+                          text: "Save",
+                          onPressed: _handleSave,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -577,9 +575,9 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
               if (labelText == "Phone") {
                 _phoneError = value.isEmpty || value.length != 10 || int.tryParse(value) == null;
               }
-              if (labelText == AppString.city) _cityError = value.isEmpty;
+              if (labelText == "City") _cityError = value.isEmpty;
               //if (labelText == "Degree") _degreeError = value.isEmpty;
-              if (labelText == AppString.state) _stateError = value.isEmpty;
+              if (labelText == "State") _stateError = value.isEmpty;
               if (labelText == "Major Subject") _majorSubjectError = value.isEmpty;
               if (labelText == "Country Name") _countryNameError = value.isEmpty;
             });
@@ -589,7 +587,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
               return AppString.enterText;
             }
             if (labelText == "Phone" && (value.length != 10 || int.tryParse(value) == null)) {
-              return 'Please Enter a valid 10-digit phone number';
+              return 'Please enter a valid 10-digit phone number';
             }
             return null;
           },
@@ -599,7 +597,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
             padding: EdgeInsets.only(left: 10, top: 5),
             child: Text(
               errorText,
-              style: TextStyle(color: ColorManager.red, fontSize: FontSize.s10),
+              style: TextStyle(color: Colors.red, fontSize: 10),
             ),
           ),
       ],

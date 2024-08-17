@@ -6,7 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/leasas_services.dart';
@@ -256,13 +258,13 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                     String? selectedDocType;
                     String? selectedSubDocType;
                     String? selectedExpiryType = expiryType;
-
                     showDialog(
                         context: context,
                         builder: (context) {
                           return  StatefulBuilder(
                             builder: (BuildContext context, void Function(void Function()) setState) {
                               return AddOrgDocButton(
+                                height: AppSize.s400,
                                 calenderController: calenderController,
                                 idDocController: docIdController,
                                 nameDocController: docNamecontroller,
@@ -285,13 +287,15 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                       officeId: widget.officeId,
                                     );
                                     setState(() async {
-                                      await orgSubDocumentGet(
-                                        context,
-                                        docTypeMetaId,
-                                        docSubTypeMetaId,
-                                        1,
-                                        15,
-                                      );
+                                      await getManageCorporate(context,
+                                          widget.officeId, widget.docId, docSubTypeMetaId, 1, 20);
+                                      // orgSubDocumentGet(
+                                      //   context,
+                                      //   docTypeMetaId,
+                                      //   docSubTypeMetaId,
+                                      //   1,
+                                      //   15,
+                                      // );
                                       Navigator.pop(context);
                                       expiryType = '';
                                       calenderController.clear();
@@ -430,42 +434,6 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                         return SizedBox(height:1,width: 1,);
                                       }
                                     }
-                                ),
-                                radioButton: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomRadioListTile(
-                                      value: "Not Applicable",
-                                      groupValue: expiryType.toString(),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          expiryType = value!;
-                                        });
-                                      },
-                                      title: "Not Applicable",
-                                    ),
-                                    CustomRadioListTile(
-                                      value: 'Scheduled',
-                                      groupValue: expiryType.toString(),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          expiryType = value!;
-                                        });
-                                      },
-                                      title: 'Scheduled',
-                                    ),
-                                    CustomRadioListTile(
-                                      value: 'Issuer Expiry',
-                                      groupValue: expiryType.toString(),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          expiryType = value!;
-                                        });
-                                      },
-                                      title: 'Issuer Expiry',
-                                    ),
-                                  ],
                                 ),
                                 title: 'Add Vendor Contract',
                               );

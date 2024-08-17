@@ -33,6 +33,14 @@ class AppConfig {
   static const int empdocumentTypeMetaDataId = 1;
   static const int employeeDocumentTypeMetaDataId = 10;
 
-
+  ///Employee Document types
+  static const int healthDocId = 1;
+  static const int certificationDocId = 2;
+  static const int employmentDocId = 3;
+  // IDs 4, 5, 6, 7 are deleted
+  static const int clinicalVerificationDocId = 9;
+  static const int acknowledgementDocId = 10;
+  static const int compensationDocId = 11;
+  static const int performanceDocId = 12;
 
 }

@@ -8,16 +8,21 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
+import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
+import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'widgets/contract_add_dialog.dart';
 
 class CiInsuranceContract extends StatefulWidget {
-  const CiInsuranceContract({super.key});
+  final int docID;
+  final int subDocID;
+  final int companyID;
+  final String officeId;
+  const CiInsuranceContract({super.key, required this.docID, required this.subDocID, required this.companyID, required this.officeId});
 
   @override
   State<CiInsuranceContract> createState() => _CiInsuranceContractState();
@@ -26,25 +31,21 @@ class CiInsuranceContract extends StatefulWidget {
 class _CiInsuranceContractState extends State<CiInsuranceContract> {
   TextEditingController contractNameController = TextEditingController();
   TextEditingController contractIdController = TextEditingController();
-  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+  final StreamController<List<ManageCCDoc>> _controller = StreamController<List<ManageCCDoc>>();
 
-  late CompanyIdentityManager _companyManager;
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
+
+  void onPageNumberPressed(int pageNumber) {
+    setState(() {
+      currentPage = pageNumber;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 5;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
-    orgSubDocumentGet(context, 9, 16, 1, 15).then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
-    //_companyManager = CompanyIdentityManager();
-    // companyAllApi(context);
   }
 
   @override
@@ -53,71 +54,15 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
       color: Colors.transparent,
       child: Column(
         children: [
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Container(
-          //       height: 30,
-          //       width: 354,
-          //       // margin: EdgeInsets.symmetric(horizontal: 20),
-          //       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-          //       decoration: BoxDecoration(
-          //         color: Colors.white,
-          //         border: Border.all(
-          //             color: Color(0xff686464).withOpacity(0.5),
-          //             width: 1), // Black border
-          //         borderRadius: BorderRadius.circular(8), // Rounded corners
-          //       ),
-          //       child: DropdownButtonFormField<String>(
-          //         focusColor: Colors.transparent,
-          //         icon: Icon(
-          //           Icons.arrow_drop_down_sharp,
-          //           color: Color(0xff686464),
-          //         ),
-          //         decoration: InputDecoration.collapsed(hintText: ''),
-          //         items: <String>[
-          //           'Sample Vendor',
-          //           'Option 1',
-          //           'Option 2',
-          //           'Option 3',
-          //           'Option 4'
-          //         ].map<DropdownMenuItem<String>>((String value) {
-          //           return DropdownMenuItem<String>(
-          //             value: value,
-          //             child: Text(value),
-          //           );
-          //         }).toList(),
-          //         onChanged: (String? newValue) {},
-          //         value: 'Sample Vendor',
-          //         style: GoogleFonts.firaSans(
-          //           fontSize: 12,
-          //           fontWeight: FontWeight.w600,
-          //           color: Color(0xff686464),
-          //           decoration: TextDecoration.none,
-          //         ),
-          //       ),
-          //     ),
-          //     CustomIconButtonConst(
-          //         icon: Icons.add,
-          //         text: "Add Doctype",
-          //         onPressed: () {
-          //           showDialog(
-          //               context: context,
-          //               builder: (BuildContext context) {
-          //                 return ContractAddDialog(
-          //                   contractNmaeController: contractNameController,
-          //                   onSubmitPressed: () {},
-          //                   contractIdController: contractIdController,
-          //
-          //                 );
-          //               });
-          //         }),
-          //   ],
-          // ),
           Expanded(
-            child: StreamBuilder<List<CiOrgDocumentCC>>(
+            child: StreamBuilder<List<ManageCCDoc>>(
               stream: _controller.stream,
               builder: (context,snapshot) {
+                getManageCorporate(context, widget.officeId, widget.docID, widget.subDocID, 1, 20).then((data) {
+                  _controller.add(data);
+                }).catchError((error) {
+                  // Handle error
+                });
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(
@@ -138,164 +83,166 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                   );
                 }
                 if(snapshot.hasData){
-                  return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        // int serialNumber =
-                        //     index + 1 + (currentPage - 1) * itemsPerPage;
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // SizedBox(height: 5),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(4),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0xff000000).withOpacity(0.25),
-                                        spreadRadius: 0,
-                                        blurRadius: 4,
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  height: 50,
-                                  child: Padding(
-                                    padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                                              child: InkWell(
-                                                onTap: () {
-                                                },
-                                                child: Image.asset(
-                                                  'images/eye.png',
-                                                  height: 15,
-                                                  width: 22,
-                                                ),
-                                              ),
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  snapshot.data![index].createdAt.toString(),
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  snapshot.data![index].name.toString().capitalizeFirst!,
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
-                                                ),
-                                              ],
+                  int totalItems = snapshot.data!.length;
+                  int totalPages = (totalItems / itemsPerPage).ceil();
+                  List<ManageCCDoc> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: paginatedData.length,
+                            itemBuilder: (context, index) {
+                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                              String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                              ManageCCDoc contract = paginatedData[index];
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // SizedBox(height: 5),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(4),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0xff000000).withOpacity(0.25),
+                                              spreadRadius: 0,
+                                              blurRadius: 4,
+                                              offset: Offset(0, 2),
                                             ),
                                           ],
                                         ),
+                                        height: 50,
+                                        child: Padding(
+                                          padding:
+                                          const EdgeInsets.symmetric(horizontal: 15),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                      },
+                                                      child: Image.asset(
+                                                        'images/eye.png',
+                                                        height: 15,
+                                                        width: 22,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                        contract.doccreatedAt.toString(),
+                                                        textAlign: TextAlign.center,
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: Color(0xff686464),
+                                                          decoration: TextDecoration.none,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        contract.docname.toString().capitalizeFirst!,
+                                                        textAlign: TextAlign.center,
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: Color(0xff686464),
+                                                          decoration: TextDecoration.none,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        showDialog(context: context, builder: (BuildContext context){
+                                                          return ContractAddDialog(contractNmaeController: contractNameController, contractIdController: contractIdController,
+                                                            onSubmitPressed: () {  }, title: 'Edit Contract',);
+                                                        });
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.edit_outlined,
+                                                        size:18,
+                                                        color: ColorManager.blueprime,
+                                                      )),
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        showDialog(context: context, builder: (context) => DeletePopup(
+                                                            title: 'Delete Insurance',
+                                                            onCancel: (){
+                                                          Navigator.pop(context);
+                                                        }, onDelete: (){setState(() async{
+                                                          await deleteDocument(
+                                                              context,
+                                                              snapshot.data![index].docId!);
+                                                          getManageCorporate(context, widget.officeId, widget.docID, widget.subDocID, 1, 20).then((data) {
+                                                            _controller.add(data);
+                                                          }).catchError((error) {
+                                                            // Handle error
+                                                          });
+                                                        });}));
 
-                                        //  Text(''),
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                                onPressed: () {
-                                                  showDialog(context: context, builder: (BuildContext context){
-                                                    return ContractAddDialog(contractNmaeController: contractNameController, contractIdController: contractIdController,
-                                                      onSubmitPressed: () {  }, title: 'Edit Contract',);
-                                                  });
-                                                },
-                                                icon: Icon(
-                                                  Icons.edit_outlined,
-                                                  size:18,
-                                                  color: ColorManager.blueprime,
-                                                )),
-                                            IconButton(
-                                                onPressed: () {
-                                                  showDialog(context: context, builder: (context) => DeletePopup(
-                                                      title: 'Delete Insurance',
-                                                      onCancel: (){
-                                                    Navigator.pop(context);
-                                                  }, onDelete: (){setState(() async{
-                                                    await deleteDocument(
-                                                        context,
-                                                        snapshot.data![index].docId!);
-                                                    orgSubDocumentGet(context, 1, 1, 2, 3).then((data) {
-                                                      _controller.add(data);
-                                                    }).catchError((error) {
-                                                      // Handle error
-                                                    });
-                                                  });}));
-
-                                                },
-                                                icon: Icon(
-                                                  Icons.delete_outline,
-                                                  size:18,
-                                                  color: ColorManager.red,
-                                                )),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        );
-                      });
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.delete_outline,
+                                                        size:18,
+                                                        color: ColorManager.red,
+                                                      )),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )),
+                                  ),
+                                ],
+                              );
+                            }),
+                      ),
+                      PaginationControlsWidget(
+                        currentPage: currentPage,
+                        items: snapshot.data!,
+                        itemsPerPage: itemsPerPage,
+                        onPreviousPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                          });
+                        },
+                        onPageNumberPressed: (pageNumber) {
+                          setState(() {
+                            currentPage = pageNumber;
+                          });
+                        },
+                        onNextPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                          });
+                        },
+                      ),
+                    ],
+                  );
                 }
                 return Offstage();
               }
             ),
           ),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          // PaginationControlsWidget(
-          //   currentPage: currentPage,
-          //   items: items,
-          //   itemsPerPage: itemsPerPage,
-          //   onPreviousPagePressed: () {
-          //     /// Handle previous page button press
-          //     setState(() {
-          //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-          //     });
-          //   },
-          //   onPageNumberPressed: (pageNumber) {
-          //     /// Handle page number tap
-          //     setState(() {
-          //       currentPage = pageNumber;
-          //     });
-          //   },
-          //   onNextPagePressed: () {
-          //     /// Handle next page button press
-          //     setState(() {
-          //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
-          //           ? currentPage + 1
-          //           : (items.length / itemsPerPage).ceil();
-          //     });
-          //   },
-          // ),
+
         ],
       ),
     );

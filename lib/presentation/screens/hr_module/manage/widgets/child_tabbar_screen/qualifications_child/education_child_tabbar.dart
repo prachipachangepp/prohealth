@@ -51,7 +51,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
           children: [
             Container(
               width: 100,
-              margin: EdgeInsets.only(right: 20),
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
                   icon: Icons.add,

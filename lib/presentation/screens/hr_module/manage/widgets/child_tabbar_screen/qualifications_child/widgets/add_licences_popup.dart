@@ -402,8 +402,8 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: MediaQuery.of(context).size.width / 1.5,
-        height: MediaQuery.of(context).size.height / 1.7,
+        width: MediaQuery.of(context).size.width / 1.6,
+        height: MediaQuery.of(context).size.height / 2.0, //1.7
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -447,9 +447,9 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 ],
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
             Padding(
-              padding: const EdgeInsets.only(right: 60),
+              padding: const EdgeInsets.only(right: 50),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -539,9 +539,9 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 10),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
             Padding(
-              padding: const EdgeInsets.only(right: 40),
+              padding: const EdgeInsets.only(right: 50),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

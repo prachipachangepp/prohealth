@@ -866,6 +866,7 @@ Widget buildDropdownButton(BuildContext context) {
         //   );
         // }
       },
+      isDense: true,
       items: <String>[
         'Sort By',
         'For all zones',

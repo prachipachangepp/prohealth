@@ -442,7 +442,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 15),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 60),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

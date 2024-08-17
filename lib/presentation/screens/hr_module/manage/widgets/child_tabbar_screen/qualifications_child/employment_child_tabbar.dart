@@ -8,7 +8,6 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employeement_data.dart';
@@ -60,8 +59,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              width: AppSize.s100,
-              margin: EdgeInsets.only(right: 40),
+              width: 100,
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
                   icon: Icons.add,
@@ -122,7 +121,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
 
                               },
                               checkBoxTile: Container(
-                                  width: AppSize.s300,
+                                  width: 300,
                                   child: Center(
                                     child: CheckboxTile(
                                       title: 'Currently work here',
@@ -130,7 +129,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       onChanged: (value) {},
                                     ),
                                   )),
-                              tite: 'Add Employeement', onpressedClose: () {Navigator.pop(context);},
+                              tite: 'Add Employment', onpressedClose: () {Navigator.pop(context);},
                             );
                           },
                         );
@@ -196,7 +195,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                               offset: Offset(0, 4),
                             ),
                           ],
-                          color: ColorManager.white,
+                          color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
                         height: MediaQuery.of(context).size.height/3.3,
@@ -212,9 +211,9 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                               Text('Employment #${snapshot.data![index].employmentId}',
                                 style: GoogleFonts.firaSans(
                                   // fontFamily: 'FiraSans',
-                                  fontSize: FontSize.s13,
-                                  color: ColorManager.black,
-                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: 13,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
                                 ),),
                               Row(
                                 children: [
@@ -229,20 +228,20 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text(AppString.startdate,
+                                          Text('Start Date',
                                               style: ThemeManager.customTextStyle(context)),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
-                                          Text(AppString.enddate,
+                                          Text('End Date',
                                               style: ThemeManager.customTextStyle(context)),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text('Employer',
                                               style: ThemeManager.customTextStyle(context)),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text('Emergency Contact',
                                               style: ThemeManager.customTextStyle(context)),
@@ -257,28 +256,28 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                             style: ThemeManagerDark.customTextStyle(context),
                                           ),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].dateOfJoining,
                                             style: ThemeManagerDark.customTextStyle(context),
                                           ),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].endDate,
                                             style: ThemeManagerDark.customTextStyle(context),
                                           ),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].employer,
                                             style: ThemeManagerDark.customTextStyle(context),
                                           ),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].emgMobile,
@@ -298,24 +297,24 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                           Text('Reason of Leaving',
                                               style: ThemeManager.customTextStyle(context)),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text('Last Supervisor’s Name',
                                               style: ThemeManager.customTextStyle(context)),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text('SuperVisor\'s Phone No.',
                                               style: ThemeManager.customTextStyle(context)),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
-                                          Text(AppString.city,
+                                          Text('City',
                                               style: ThemeManager.customTextStyle(context)),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
-                                          Text(AppString.country,
+                                          Text('Country',
                                               style: ThemeManager.customTextStyle(context)),
                                         ],
                                       ),
@@ -328,28 +327,28 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                             style: ThemeManagerDark.customTextStyle(context),
                                           ),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].supervisor,
                                             style: ThemeManagerDark.customTextStyle(context),
                                           ),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].supMobile,
                                             style: ThemeManagerDark.customTextStyle(context),
                                           ),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].city,
                                             style: ThemeManagerDark.customTextStyle(context),
                                           ),
                                           const SizedBox(
-                                            height: AppSize.s10,
+                                            height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].country,
@@ -436,10 +435,10 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                               }, checkBoxTile:  Padding(
                                                 padding:  EdgeInsets.only(left: 25.0),
                                                 child: Container(
-                                                    width: AppSize.s300,
+                                                    width: 300,
                                                     child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
                                                     },)),
-                                              ), tite: 'Edit Employeement', onpressedClose: () {Navigator.pop(context);  },);
+                                              ), tite: 'Edit Employment', onpressedClose: () {Navigator.pop(context);  },);
                                           }
                                       );
                                     });

@@ -1,8 +1,14 @@
+// import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:prohealth/app/resources/color.dart';
+// import 'package:prohealth/app/resources/value_manager.dart';
+// import '../../../../../app/resources/font_manager.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import '../../../../../app/resources/font_manager.dart';
 
 ///saloni///
 class SchedularIconButtonConst extends StatelessWidget {
@@ -47,7 +53,7 @@ class SchedularIconButtonConst extends StatelessWidget {
           ),
         ),
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: AppSize.s10, vertical: AppSize.s10),
+          padding: const EdgeInsets.symmetric(horizontal: AppSize.s10, vertical: AppSize.s10),
           backgroundColor: ColorManager.blueprime,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

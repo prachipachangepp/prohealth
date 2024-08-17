@@ -428,10 +428,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   ),
                                 ],
                               )
-
-
-
-
                               // Row(
                               //   mainAxisAlignment: MainAxisAlignment.center,
                               //   children: [

@@ -188,6 +188,13 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                               context: context,
                               builder: (BuildContext context) {
                                 return Dialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(8),
+                                      topRight: Radius.circular(8)
+                                    ),
+                                  ),
+
                                   backgroundColor: Colors.white,
                                   child: Container(
                                     height: 440,
@@ -204,7 +211,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                             width: 820,
                                             padding: EdgeInsets.all(5),
                                             decoration: BoxDecoration(
-                                              color: Colors.blue,
+                                              color: ColorManager.blueprime,
                                               borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(8),
                                                 topRight: Radius.circular(8),
