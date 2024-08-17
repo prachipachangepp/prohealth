@@ -4,6 +4,8 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_related_party_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../sm_scheduler/widget/schedular_create/widget/assign_visit_pop_up.dart';
@@ -11,17 +13,38 @@ import '../../../../../sm_scheduler/widget/schedular_create/widget/edit_appointm
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
+import '../../../../../widgets/constant_widgets/button_constant.dart';
 import '../../../intake_physician_info/widget/physician_info_info/physician_info_info.dart';
 import '../../../intake_referral/widget/referral_agency_info/intake_referral_submit_popup.dart';
 
 class IntakeRelatedPartiesScreen extends StatefulWidget {
-  const IntakeRelatedPartiesScreen({super.key});
+  final int patientId;
+
+  const IntakeRelatedPartiesScreen({super.key, required this.patientId, });
 
   @override
   State<IntakeRelatedPartiesScreen> createState() => _RelatedPartiesScreenstate();
 }
 
 class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
+   TextEditingController ctlrEmgContact = TextEditingController();
+   TextEditingController ctlrTelphoneNo = TextEditingController();
+  TextEditingController ctlrEmgContactAddress = TextEditingController();
+ TextEditingController ctlrCity = TextEditingController();
+   TextEditingController ctlrCityy = TextEditingController();
+  TextEditingController ctlrComment = TextEditingController();
+   TextEditingController ctlrSuffix = TextEditingController();
+   TextEditingController ctlrPreffix = TextEditingController();
+   TextEditingController ctlrFirstname = TextEditingController();
+   TextEditingController ctlrLastName = TextEditingController();
+   TextEditingController ctlrMi = TextEditingController();
+   TextEditingController ctlrAddress = TextEditingController();
+   TextEditingController ctlrPhoneNo = TextEditingController();
+   TextEditingController ctlrZipCode = TextEditingController();
+   TextEditingController ctlrApartment = TextEditingController();
+   TextEditingController ctlrCell = TextEditingController();
+   TextEditingController ctlrAddInfo = TextEditingController();
+   TextEditingController ctlrEmail = TextEditingController();
   bool isOptForCAHPSSurvey = false;
   String? status = 'Active';
 
@@ -34,7 +57,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 40.0),
+                padding:  EdgeInsets.only(right: 40.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -47,38 +70,42 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width/60),
-                    Container(
-                      height: AppSize.s32,
-                      width: AppSize.s165,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (BuildContext context) {
-                          //     return AssignVisitPopUp();
-                          //   },
-                          // );
-                        },
-                        icon: Icon(Icons.add,
-                            color: ColorManager.white,
-                            size: FontSize.s20),
-                        label: Text(
-                          'Add Related Parties',
-                          style: GoogleFonts.firaSans(
-                            color: ColorManager.white,
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.bold,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorManager.blueprime,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        ),
-                      ),
-                    ),
+                   Container(
+                     height: 30,
+                     width: 170,
+                     child:SchedularIconButtonConst(
+                       icon: Icons.add,
+                       text: 'Add Related Parties',
+                       onPressed: () async {
+                         await IntakeRelatedPartyAdd(context,
+                             1,
+                             ctlrEmgContact.text,
+                             ctlrTelphoneNo.text,
+                             "emg_relationship",
+                             ctlrEmgContactAddress.text,
+                             ctlrCity.text,
+                             "emg_State",
+                             ctlrZipCode.text,
+                             "emg_priorityDisasterCode",
+                             ctlrComment.text,
+                             ctlrPreffix.text,
+                             ctlrFirstname.text,
+                             ctlrMi.text,
+                             ctlrLastName.text,
+                             ctlrSuffix.text,
+                             "pcg_OptforCAHPS",
+                             ctlrAddress.text,
+                             ctlrApartment.text,
+                             ctlrCityy.text,
+                             "pcg_State",
+                             ctlrZipCode.text,
+                             ctlrPhoneNo.text,
+                             ctlrCell.text,
+                             ctlrEmail.text,
+                             "pcg_Relationship",
+                             ctlrAddInfo.text);
+                       },)
+                   )
                   ],
                 ),
               ),
@@ -116,11 +143,13 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
+                                controller: ctlrEmgContact,
                               labelText: 'Emergency Contact')
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrTelphoneNo,
                               labelText: 'Telephone Number' )
                         ),
                         SizedBox(width: AppSize.s35),
@@ -132,6 +161,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrEmgContactAddress,
                               labelText: 'Emergency Contact Address',)
                         ),
                       ],
@@ -141,17 +171,20 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrCity,
                               labelText: AppString.city)
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
+
                               labelText: AppString.state,
                                 items: ['Option 1', 'Option 2', 'Option 3'])
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextFieldWithButton(
+                              controller: ctlrZipCode,
                                 labelText: AppString.zip_code,
                                 initialValue: '26586845121',
                                 buttonText: 'View Zone')
@@ -168,6 +201,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                     Row(
                       children: [
                         Flexible(child: SchedularTextField(
+                          controller: ctlrComment,
                             labelText: AppString.comments)
                         ),
                         SizedBox(width: AppSize.s35),
@@ -196,20 +230,24 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                     Row(
                       children: [
                         Flexible(child: SchedularTextField(
+                          controller:  ctlrPreffix,
                             labelText: 'Prefix')
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrFirstname,
                               labelText: 'First Name', initialValue: 'Erica',)
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrMi,
                               labelText: 'M.I.', initialValue: 'A',)
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(child: SchedularTextField(
+                          controller: ctlrLastName,
                             labelText: 'Last Name')
                         ),
                       ],
@@ -219,6 +257,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrSuffix,
                                 labelText: 'Suffix')
                         ),
                         SizedBox(width: AppSize.s35),
@@ -241,11 +280,13 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrAddress,
                                 labelText: AppString.address)
                         ),
                         SizedBox(width: 35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrApartment,
                                 labelText: 'Suite/ Apt.')
                         ),
                       ],
@@ -255,6 +296,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrCityy,
                                 labelText: AppString.city)
                         ),
                         SizedBox(width: AppSize.s35),
@@ -272,6 +314,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                         SizedBox(width: 35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrPhoneNo,
                                 labelText: 'Phone')
                         ),
                       ],
@@ -281,11 +324,13 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrCell,
                                 labelText: 'Cell')
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrEmail,
                                 labelText: AppString.email)
                         ),
                         SizedBox(width: 35),
@@ -298,6 +343,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrAddInfo,
                                 labelText: 'Additional Information')
                         ), // Empty container for alignment
                       ],

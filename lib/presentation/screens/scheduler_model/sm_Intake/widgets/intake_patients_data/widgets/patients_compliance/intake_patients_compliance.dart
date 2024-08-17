@@ -70,185 +70,10 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                         color: ColorManager.burnt_red),
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width / 60),
+                  ///add button
                   Container(
                     height: AppSize.s32,
                     width: AppSize.s105,
-                    // SchedularIconButtonConst(
-                    //     icon: CupertinoIcons.plus,
-                    //     text: "Add Compliance",
-                    //     onPressed: () async{
-                    //       String? selectedDocType;
-                    //       String? selectedSubDocType;
-                    //        // String? selectedExpiryType = expiryType;
-                    //
-                    //       showDialog(
-                    //           context: context,
-                    //           builder: (context) {
-                    //             return  StatefulBuilder(
-                    //               builder: (BuildContext context, void Function(void Function()) setState) {
-                    //                 return CCScreenEditPopup(
-                    //                   height: AppSize.s350,
-                    //                   idDocController: docIdController,
-                    //                   nameDocController: docNamecontroller,
-                    //                   loadingDuration: _isLoading,
-                    //                   onSavePressed: () async{
-                    //                     setState(() {
-                    //                       _isLoading = true;
-                    //                     });
-                    //                     try {
-                    //                       await addComplianceDocumentPost(
-                    //                         context: context,
-                    //                         patientId: 4,
-                    //                         docTypeId: docTypeMetaId,
-                    //                         docName: docNamecontroller.text,
-                    //                         docUrl:"url",
-                    //                         expDate: calenderController.text,
-                    //                         // name: docNamecontroller.text,
-                    //                         // docTypeID: docTypeMetaId,
-                    //                         // docSubTypeID: docTypeMetaId == 10 ?0:docSubTypeMetaId,
-                    //                         // docCreated: DateTime.now().toString(),
-                    //                          // url: "url",
-                    //                         // expiryType: expiryType.toString(),
-                    //                         // expiryDate: calenderController.text,
-                    //                         // expiryReminder: "Schedule",
-                    //                         // officeId: widget.officeId,
-                    //                       );
-                    //                       setState(() async {
-                    //                         await fetchPatientDataCompliance(
-                    //                           context,
-                    //                           // patientId,
-                    //                           // docTypeId,
-                    //                           // // docTypeMetaId,
-                    //                           // // docSubTypeMetaId,
-                    //                           // 1,
-                    //                           // 15,
-                    //                         );
-                    //                         Navigator.pop(context);
-                    //
-                    //                         calenderController.clear();
-                    //                         docIdController.clear();
-                    //                         docNamecontroller.clear();
-                    //                       });
-                    //                     } finally {
-                    //                       setState(() {
-                    //                         _isLoading = false;
-                    //                       });
-                    //                     }
-                    //                   },
-                    //                   child:  FutureBuilder<List<PatientDataComplianceDoc>>(
-                    //                       future: getpatientDataComplianceDoc(context),
-                    //                       builder: (context,snapshot) {
-                    //                         if(snapshot.connectionState == ConnectionState.waiting){
-                    //                           return Shimmer.fromColors(
-                    //                               baseColor: Colors.grey[300]!,
-                    //                               highlightColor: Colors.grey[100]!,
-                    //                               child: Container(
-                    //                                 width: 350,
-                    //                                 height: 30,
-                    //                                 decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                    //                               )
-                    //                           );
-                    //                         }
-                    //                         if (snapshot.data!.isEmpty) {
-                    //                           return Center(
-                    //                             child: Text(
-                    //                               AppString.dataNotFound,
-                    //                               style: CustomTextStylesCommon.commonStyle(
-                    //                                 fontWeight: FontWeightManager.medium,
-                    //                                 fontSize: FontSize.s12,
-                    //                                 color: ColorManager.mediumgrey,
-                    //                               ),
-                    //                             ),
-                    //                           );
-                    //                         }
-                    //                         if(snapshot.hasData){
-                    //                           List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
-                    //                               .map((doc) => DropdownMenuItem<String>(
-                    //                             value: doc.docType,
-                    //                             child: Text(doc.docType!),
-                    //                           ))
-                    //                               .toList();
-                    //                           // List dropDown = [];
-                    //                           // int docType = 0;
-                    //                           // List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                    //                           // for(var i in snapshot.data!){
-                    //                           //   dropDownMenuItems.add(
-                    //                           //     DropdownMenuItem<String>(
-                    //                           //       child: Text(i.docType),
-                    //                           //       value: i.docType,
-                    //                           //     ),
-                    //                           //   );
-                    //                           // }
-                    //                           return CICCDropdown(
-                    //                               initialValue: selectedDocType ?? dropDownMenuItems[0].value,
-                    //                               onChange: (val){
-                    //                                 setState(() {
-                    //                                   selectedDocType = val;
-                    //                                   for(var doc in snapshot.data!){
-                    //                                     if(doc.docType == val){
-                    //                                       // docType = a.docID;
-                    //                                       // docTypeMetaId = doc.docID;
-                    //
-                    //                                     }
-                    //                                   }
-                    //                                   fetchPatientDataCompliance(context).then((data) {
-                    //                                     _compliancePatientDataController.add(data);
-                    //                                   }).catchError((error) {
-                    //                                     // Handle error
-                    //                                   });
-                    //                                 });
-                    //                               },
-                    //                               items:dropDownMenuItems
-                    //                           );
-                    //                         }else{
-                    //                           return SizedBox();
-                    //                         }
-                    //                       }
-                    //                   ),
-                    //
-                    //                   // radioButton: Column(
-                    //                   //   mainAxisAlignment: MainAxisAlignment.start,
-                    //                   //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //                   //   children: [
-                    //                   //     CustomRadioListTile(
-                    //                   //       value: "Not Applicable",
-                    //                   //       groupValue: expiryType.toString(),
-                    //                   //       onChanged: (value) {
-                    //                   //         setState(() {
-                    //                   //           expiryType = value!;
-                    //                   //         });
-                    //                   //       },
-                    //                   //       title: "Not Applicable",
-                    //                   //     ),
-                    //                   //     CustomRadioListTile(
-                    //                   //       value: 'Scheduled',
-                    //                   //       groupValue: expiryType.toString(),
-                    //                   //       onChanged: (value) {
-                    //                   //         setState(() {
-                    //                   //           expiryType = value!;
-                    //                   //         });
-                    //                   //       },
-                    //                   //       title: 'Scheduled',
-                    //                   //     ),
-                    //                   //     CustomRadioListTile(
-                    //                   //       value: 'Issuer Expiry',
-                    //                   //       groupValue: expiryType.toString(),
-                    //                   //       onChanged: (value) {
-                    //                   //         setState(() {
-                    //                   //           expiryType = value!;
-                    //                   //         });
-                    //                   //       },
-                    //                   //       title: 'Issuer Expiry',
-                    //                   //     ),
-                    //                   //   ],
-                    //                   // ),
-                    //                   title: 'Add Compliance', child1: SizedBox(),
-                    //                 );
-                    //               },
-                    //
-                    //             );
-                    //           });
-                    //     }),
                     child: SchedularIconButtonConst(
                         text: AppString.add_new,
                         icon: Icons.add,
@@ -284,24 +109,11 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                         docName: docNamecontroller.text,
                                         docUrl: 'url',
                                         expDate: "2024-08-16T09:39:48.030Z",
-                                        // name: docNamecontroller.text,
-                                        // docTypeID: docTypeMetaId,
-                                        // docSubTypeID: docTypeMetaId == 10 ? 0 : docSubTypeMetaId,
-                                        // docCreated: DateTime.now().toString(),
-                                        // url: "url",
-                                        // expiryType: selectedExpiryType.toString(),
-                                        // expiryDate: expiryTypeToSend,
-                                        // expiryReminder: selectedExpiryType.toString(),
-                                        // officeId: widget.officeId,
-
                                       );
                                       print("DocName${docNamecontroller.text}");
                                       fetchPatientDataCompliance(
                                         context,
-                                        // docTypeMetaId,
-                                        // docSubTypeMetaId,
-                                        // 1,
-                                        // 15,
+
                                       );
                                       Navigator.pop(context);
                                       setState(() {
@@ -322,17 +134,12 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
-                                        return Shimmer.fromColors(
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.grey[100]!,
-                                          child: Container(
-                                            width: 350,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              color: ColorManager.faintGrey,
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                            ),
+                                        return Container(
+                                          width: 350,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
                                           ),
                                         );
                                       }
@@ -387,55 +194,52 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                       }
                                     },
                                   ),
-                                  radioButton: Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Expiry Type",
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorManager.mediumgrey,
-                                            decoration: TextDecoration.none,
-                                          ),
+                                  radioButton: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Expiry Type",
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w700,
+                                          color: ColorManager.mediumgrey,
+                                          decoration: TextDecoration.none,
                                         ),
-                                        CustomRadioListTile(
-                                          value: "Not Applicable",
-                                          groupValue: selectedExpiryType,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              selectedExpiryType = value;
-                                            });
-                                          },
-                                          title: "Not Applicable",
-                                        ),
-                                        CustomRadioListTile(
-                                          value: 'Scheduled',
-                                          groupValue: selectedExpiryType,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              selectedExpiryType = value;
-                                            });
-                                          },
-                                          title: 'Scheduled',
-                                        ),
-                                        CustomRadioListTile(
-                                          value: 'Issuer Expiry',
-                                          groupValue: selectedExpiryType,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              selectedExpiryType = value;
-                                            });
-                                          },
-                                          title: 'Issuer Expiry',
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                      CustomRadioListTile(
+                                        value: "Not Applicable",
+                                        groupValue: selectedExpiryType,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedExpiryType = value;
+                                          });
+                                        },
+                                        title: "Not Applicable",
+                                      ),
+                                      CustomRadioListTile(
+                                        value: 'Scheduled',
+                                        groupValue: selectedExpiryType,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedExpiryType = value;
+                                          });
+                                        },
+                                        title: 'Scheduled',
+                                      ),
+                                      CustomRadioListTile(
+                                        value: 'Issuer Expiry',
+                                        groupValue: selectedExpiryType,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedExpiryType = value;
+                                          });
+                                        },
+                                        title: 'Issuer Expiry',
+                                      ),
+                                    ],
                                   ),
                                   child2: Visibility(
                                     visible: selectedExpiryType ==
@@ -891,3 +695,179 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
     );
   }
 }
+// SchedularIconButtonConst(
+//     icon: CupertinoIcons.plus,
+//     text: "Add Compliance",
+//     onPressed: () async{
+//       String? selectedDocType;
+//       String? selectedSubDocType;
+//        // String? selectedExpiryType = expiryType;
+//
+//       showDialog(
+//           context: context,
+//           builder: (context) {
+//             return  StatefulBuilder(
+//               builder: (BuildContext context, void Function(void Function()) setState) {
+//                 return CCScreenEditPopup(
+//                   height: AppSize.s350,
+//                   idDocController: docIdController,
+//                   nameDocController: docNamecontroller,
+//                   loadingDuration: _isLoading,
+//                   onSavePressed: () async{
+//                     setState(() {
+//                       _isLoading = true;
+//                     });
+//                     try {
+//                       await addComplianceDocumentPost(
+//                         context: context,
+//                         patientId: 4,
+//                         docTypeId: docTypeMetaId,
+//                         docName: docNamecontroller.text,
+//                         docUrl:"url",
+//                         expDate: calenderController.text,
+//                         // name: docNamecontroller.text,
+//                         // docTypeID: docTypeMetaId,
+//                         // docSubTypeID: docTypeMetaId == 10 ?0:docSubTypeMetaId,
+//                         // docCreated: DateTime.now().toString(),
+//                          // url: "url",
+//                         // expiryType: expiryType.toString(),
+//                         // expiryDate: calenderController.text,
+//                         // expiryReminder: "Schedule",
+//                         // officeId: widget.officeId,
+//                       );
+//                       setState(() async {
+//                         await fetchPatientDataCompliance(
+//                           context,
+//                           // patientId,
+//                           // docTypeId,
+//                           // // docTypeMetaId,
+//                           // // docSubTypeMetaId,
+//                           // 1,
+//                           // 15,
+//                         );
+//                         Navigator.pop(context);
+//
+//                         calenderController.clear();
+//                         docIdController.clear();
+//                         docNamecontroller.clear();
+//                       });
+//                     } finally {
+//                       setState(() {
+//                         _isLoading = false;
+//                       });
+//                     }
+//                   },
+//                   child:  FutureBuilder<List<PatientDataComplianceDoc>>(
+//                       future: getpatientDataComplianceDoc(context),
+//                       builder: (context,snapshot) {
+//                         if(snapshot.connectionState == ConnectionState.waiting){
+//                           return Shimmer.fromColors(
+//                               baseColor: Colors.grey[300]!,
+//                               highlightColor: Colors.grey[100]!,
+//                               child: Container(
+//                                 width: 350,
+//                                 height: 30,
+//                                 decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+//                               )
+//                           );
+//                         }
+//                         if (snapshot.data!.isEmpty) {
+//                           return Center(
+//                             child: Text(
+//                               AppString.dataNotFound,
+//                               style: CustomTextStylesCommon.commonStyle(
+//                                 fontWeight: FontWeightManager.medium,
+//                                 fontSize: FontSize.s12,
+//                                 color: ColorManager.mediumgrey,
+//                               ),
+//                             ),
+//                           );
+//                         }
+//                         if(snapshot.hasData){
+//                           List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
+//                               .map((doc) => DropdownMenuItem<String>(
+//                             value: doc.docType,
+//                             child: Text(doc.docType!),
+//                           ))
+//                               .toList();
+//                           // List dropDown = [];
+//                           // int docType = 0;
+//                           // List<DropdownMenuItem<String>> dropDownMenuItems = [];
+//                           // for(var i in snapshot.data!){
+//                           //   dropDownMenuItems.add(
+//                           //     DropdownMenuItem<String>(
+//                           //       child: Text(i.docType),
+//                           //       value: i.docType,
+//                           //     ),
+//                           //   );
+//                           // }
+//                           return CICCDropdown(
+//                               initialValue: selectedDocType ?? dropDownMenuItems[0].value,
+//                               onChange: (val){
+//                                 setState(() {
+//                                   selectedDocType = val;
+//                                   for(var doc in snapshot.data!){
+//                                     if(doc.docType == val){
+//                                       // docType = a.docID;
+//                                       // docTypeMetaId = doc.docID;
+//
+//                                     }
+//                                   }
+//                                   fetchPatientDataCompliance(context).then((data) {
+//                                     _compliancePatientDataController.add(data);
+//                                   }).catchError((error) {
+//                                     // Handle error
+//                                   });
+//                                 });
+//                               },
+//                               items:dropDownMenuItems
+//                           );
+//                         }else{
+//                           return SizedBox();
+//                         }
+//                       }
+//                   ),
+//
+//                   // radioButton: Column(
+//                   //   mainAxisAlignment: MainAxisAlignment.start,
+//                   //   crossAxisAlignment: CrossAxisAlignment.start,
+//                   //   children: [
+//                   //     CustomRadioListTile(
+//                   //       value: "Not Applicable",
+//                   //       groupValue: expiryType.toString(),
+//                   //       onChanged: (value) {
+//                   //         setState(() {
+//                   //           expiryType = value!;
+//                   //         });
+//                   //       },
+//                   //       title: "Not Applicable",
+//                   //     ),
+//                   //     CustomRadioListTile(
+//                   //       value: 'Scheduled',
+//                   //       groupValue: expiryType.toString(),
+//                   //       onChanged: (value) {
+//                   //         setState(() {
+//                   //           expiryType = value!;
+//                   //         });
+//                   //       },
+//                   //       title: 'Scheduled',
+//                   //     ),
+//                   //     CustomRadioListTile(
+//                   //       value: 'Issuer Expiry',
+//                   //       groupValue: expiryType.toString(),
+//                   //       onChanged: (value) {
+//                   //         setState(() {
+//                   //           expiryType = value!;
+//                   //         });
+//                   //       },
+//                   //       title: 'Issuer Expiry',
+//                   //     ),
+//                   //   ],
+//                   // ),
+//                   title: 'Add Compliance', child1: SizedBox(),
+//                 );
+//               },
+//
+//             );
+//           });
+//     }),

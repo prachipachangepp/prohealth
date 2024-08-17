@@ -751,8 +751,6 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       if (result.success) {
 
                         patientId = result.patientId!;
-
-
                         ctlrMedicalRecord.clear();
                         ctlrfirstName.clear();
                         ctlrLastName.clear();
@@ -792,66 +790,6 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ),
                   ),
 
-                  /// working api
-                  // ElevatedButton(
-                  //   onPressed: () async {
-                  //
-                  //     final companyId = await TokenManager.getCompanyId();
-                  //      ApiData result = await IntakeInfoSave(
-                  //       context,
-                  //       "14/12/2024",
-                  //       ctlrMedicalRecord.text,
-                  //       'Pending',
-                  //       ctlrfirstName.text,
-                  //       ctlrLastName.text,
-                  //       ctlrMI.text,
-                  //       ctlrSuffix.text,
-                  //       statusType.toString(),
-                  //       "14/12/2024",
-                  //       ctlrStreet.text,
-                  //       'California',
-                  //       ctlrZipCode.text,
-                  //       ctlrApartment.text,
-                  //       ctlrCity.text,
-                  //       'county',
-                  //       ctlrMajorStreet.text,
-                  //       ctlrPrimeNo.text,
-                  //       ctlrSecNo.text,
-                  //       ctlrEmail.text,
-                  //       ctlrSocialSec.text,
-                  //       'English',
-                  //       ctlrDischargeResaon.text,
-                  //       'Race',
-                  //       'Christian',
-                  //       'Single',
-                  //       "14/08/2024",
-                  //       1,
-                  //       'At Land OSC',
-                  //       'case',
-                  //       'Type',
-                  //       companyId,
-                  //     );
-                  //      patientId = result.patientId!;
-                  //   },
-                  //   child: Text(
-                  //     AppString.save,
-                  //     style: GoogleFonts.firaSans(
-                  //       fontSize: FontSize.s12,
-                  //       fontWeight: FontWeightManager.bold,
-                  //       color: ColorManager.white,
-                  //     ),
-                  //   ),
-                  //   style: ElevatedButton.styleFrom(
-                  //     padding: const EdgeInsets.symmetric(
-                  //       horizontal: 25,
-                  //       vertical: 10,
-                  //     ),
-                  //     backgroundColor: ColorManager.blueprime,
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(12),
-                  //     ),
-                  //   ),
-                  // ),
                 ),
               )
             else
@@ -977,7 +915,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   ),
                   IntakePComplianceScreen(patientId: patientId),
                   IntakePlanCareScreen(),
-                  IntakeRelatedPartiesScreen(),
+                  IntakeRelatedPartiesScreen(patientId: patientId,),
                   IntakePatientsStayInfoScreen(),
                 ],
               ),

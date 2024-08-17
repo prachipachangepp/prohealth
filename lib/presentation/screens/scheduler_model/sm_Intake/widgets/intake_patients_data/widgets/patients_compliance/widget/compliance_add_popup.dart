@@ -97,14 +97,14 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
         ),
       ),
       content: Container(
-        height: 475,
+        height: 480,
         width: AppSize.s350,
-        color: ColorManager.white,
+        color: Colors.white,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height / 60),
+            SizedBox(height: 10),
             Column(
               children: [
                 Row(
@@ -120,9 +120,9 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 80),
+                SizedBox(height: 10),
                 widget.child ?? SizedBox(),
-                SizedBox(height: MediaQuery.of(context).size.height / 30),
+                SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -136,7 +136,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 120),
+                SizedBox(height: 10),
                 Container(
                   height: AppSize.s30,
                   child: TextFormField(
@@ -168,11 +168,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     ),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 30),
+                SizedBox(height: 5),
                 widget.radioButton ?? Offstage(),
-                SizedBox(height: MediaQuery.of(context).size.height / 30),
+                SizedBox(height: MediaQuery.of(context).size.height / 20),
                 widget.child2 ?? Offstage(),
-                SizedBox(height: MediaQuery.of(context).size.height / 30),
+                SizedBox(height:10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -186,10 +186,11 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 120),
+                SizedBox(height: 10,),
                 Container(
                   height: AppSize.s30,
                   width: AppSize.s360,
+                  margin: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: ColorManager.containerBorderGrey,
@@ -197,11 +198,12 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     ),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
                           _fileName,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
@@ -209,27 +211,27 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                             color: ColorManager.lightgreyheading,
                           ),
                         ),
-                      ),
-                      IconButton(
-                        padding: EdgeInsets.only(top: 6),
-                        onPressed: _pickFile,
-                        icon: Icon(
-                          Icons.file_upload_outlined,
-                          color: ColorManager.black,
-                          size: 20,
+                        IconButton(
+                          padding: EdgeInsets.only(top: 6),
+                          onPressed: _pickFile,
+                          icon: Icon(
+                            Icons.file_upload_outlined,
+                            color: ColorManager.black,
+                            size: 20,
+                          ),
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
                         ),
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(height: 10,),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: Center(
                 child: widget.loadingDuration == true
                     ? SizedBox(

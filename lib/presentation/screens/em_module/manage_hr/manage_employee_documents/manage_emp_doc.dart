@@ -306,7 +306,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                               : Colors.transparent,
                         ),
                         child: Text(
-                          'Certification',
+                          'Certifications',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
