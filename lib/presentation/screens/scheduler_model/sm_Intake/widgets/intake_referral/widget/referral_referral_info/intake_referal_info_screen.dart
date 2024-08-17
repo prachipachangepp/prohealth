@@ -19,6 +19,10 @@ class IntakeReferralInfoScreen extends StatefulWidget {
 
 class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
   String? status = '';
+  String? selectedReferalSource;
+  String? selectedCompanyName;
+  String? selectedFax;
+  String? selectedPhone;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +83,12 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                         Flexible(
                             child: SchedularDropdown(
                               labelText: 'Referral Source',
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                                items: ['Option 1', 'Option 2', 'Option 3'],
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedReferalSource = newValue;
+                                });
+                              },)
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
@@ -99,19 +108,32 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                         Flexible(
                             child: SchedularDropdown(
                               labelText: 'Referee’s Company Name',
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                                items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                              setState(() {
+                                selectedCompanyName = newValue;
+                              });
+                            },)
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
                               labelText: 'Phone',
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                                items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                              setState(() {
+                                selectedPhone = newValue;
+                              });
+                            },)
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
                               labelText: AppString.fax,
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                                items: ['Option 1', 'Option 2', 'Option 3'],
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    selectedFax = newValue;
+                                  });
+                                },)
                         ),
                       ],
                     ),

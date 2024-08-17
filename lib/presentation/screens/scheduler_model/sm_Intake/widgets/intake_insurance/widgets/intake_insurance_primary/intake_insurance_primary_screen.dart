@@ -127,7 +127,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           Flexible(
                               child: SchedularDropdown(
                                 labelText: AppString.category,
-                                  items: ['Option 1', 'Option 2', 'Option 3']
+                                  items: ['Option 1', 'Option 2', 'Option 3'], onChanged: (newValue) {  },
                               )
                           ),
                           SizedBox(width: AppSize.s35),
@@ -167,7 +167,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           Flexible(
                               child: SchedularDropdown(
                                 labelText: 'Eligibility Status',
-                                  items: ['Option 1', 'Option 2', 'Option 3'])
+                                  items: ['Option 1', 'Option 2', 'Option 3'], onChanged: (newValue) {  },)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(

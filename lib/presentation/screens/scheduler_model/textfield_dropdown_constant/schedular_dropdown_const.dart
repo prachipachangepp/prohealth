@@ -86,7 +86,7 @@ class SchedularDropdown extends StatefulWidget {
     super.key,
     required this.labelText,
     this.items,
-    this.initialValue,
+    this.initialValue, required  Function(dynamic newValue) onChanged,
     // this.controller,
   });
 

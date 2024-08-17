@@ -22,6 +22,8 @@ class PhysicianInfoInfoScreen extends StatefulWidget {
 class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
   bool isOptForCAHPSSurvey = false;
   String? status = 'Active';
+  String? selectedState;
+  String? selectedStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +129,12 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         Flexible(
                             child: SchedularDropdown(
                               labelText: AppString.state,
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                                items: ['Option 1', 'Option 2', 'Option 3'],
+                              onChanged: (newValue) {
+                              setState(() {
+                                selectedState = newValue;
+                              });
+                            },)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
@@ -231,7 +238,12 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         Flexible(
                             child: SchedularDropdown(
                               labelText: AppString.state,
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                                items: ['Option 1', 'Option 2', 'Option 3'],
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    selectedState = newValue;
+                                  });
+                                },)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(

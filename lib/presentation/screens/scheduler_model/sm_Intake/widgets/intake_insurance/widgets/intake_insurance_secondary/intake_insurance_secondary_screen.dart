@@ -165,7 +165,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                         children: [
                           Flexible(
                               child: SchedularDropdown(
-                                labelText: 'Eligibility Status', )
+                                labelText: 'Eligibility Status', onChanged: (newValue) {  }, )
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(

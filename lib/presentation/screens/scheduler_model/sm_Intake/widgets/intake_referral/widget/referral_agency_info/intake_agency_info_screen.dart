@@ -19,7 +19,9 @@ class IntakeAgencyInfoScreen extends StatefulWidget {
 }
 
 class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
-
+  String? selectedState;
+  String? selectedRate;
+  String? selectedCity;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +81,11 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         Flexible(
                             child: SchedularDropdown(
                               labelText: 'Rate',
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                                items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                              setState(() {
+                                selectedRate = newValue;
+                              });
+                            },)
                         ),
                         SizedBox(width: 35),
                         Flexible(
@@ -100,13 +106,21 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         Flexible(
                             child: SchedularDropdown(
                               labelText: AppString.city,
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                                items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                              setState(() {
+                                selectedCity = newValue;
+                              });
+                            },)
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
                               labelText: AppString.state,
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                                items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                              setState(() {
+                                selectedState = newValue;
+                              });
+                            },)
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(

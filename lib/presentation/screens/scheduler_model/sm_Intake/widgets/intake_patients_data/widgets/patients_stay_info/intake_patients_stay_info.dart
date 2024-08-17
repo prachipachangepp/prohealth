@@ -10,9 +10,17 @@ import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dar
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 import '../patients_info/intake_patients_info.dart';
 
-class IntakePatientsStayInfoScreen extends StatelessWidget {
+class IntakePatientsStayInfoScreen extends StatefulWidget {
   const IntakePatientsStayInfoScreen({Key? key}) : super(key: key);
 
+  @override
+  State<IntakePatientsStayInfoScreen> createState() => _IntakePatientsStayInfoScreenState();
+}
+
+class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScreen> {
+  String? selectedFacility;
+  String? selectedState;
+  String? selectedStatus;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +100,12 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularDropdown(
                     labelText: 'Facility',
-                    items: ['Option 1', 'Option 2', 'Option 3'])
+                    items: ['Option 1', 'Option 2', 'Option 3'],
+                    onChanged: (newValue) {
+                  setState(() {
+                    selectedFacility = newValue;
+                  });
+                },)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
@@ -103,7 +116,11 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularDropdown(
                     labelText: AppString.status,
-                    items: ['Option 1', 'Option 2', 'Option 3']
+                    items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                  setState(() {
+                    selectedStatus = newValue;
+                  });
+                },
                     )
             ),
             SizedBox(width: AppSize.s35),
@@ -134,7 +151,11 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularDropdown(
                     labelText:  AppString.state,
-                    items: ['Option 1', 'Option 2', 'Option 3'])
+                    items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                  setState(() {
+                    selectedState = newValue;
+                  });
+                },)
             ),
           ],
         ),
@@ -182,7 +203,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
-                child: Container()),             // Empty container for alignment
+                child: Container()),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: Container()),
@@ -191,7 +212,6 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
       ],
     );
   }
-
 
   Widget _buildLocationOfCareSection() {
     return Column(
@@ -239,7 +259,12 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularDropdown(
                     labelText: AppString.state,
-                    items: ['Option 1', 'Option 2', 'Option 3']
+                    items: ['Option 1', 'Option 2', 'Option 3'],
+                  onChanged: (newValue) {
+                  setState(() {
+                    selectedState = newValue;
+                  });
+                },
                 )
             ),
             SizedBox(width: AppSize.s35),
@@ -271,7 +296,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                 child: Container()),
             SizedBox(width: AppSize.s35),
             Flexible(
-                child: Container()), // Empty container for alignment
+                child: Container()),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: Container()),

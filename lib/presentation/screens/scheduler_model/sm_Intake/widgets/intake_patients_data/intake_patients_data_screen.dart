@@ -556,6 +556,16 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
   }
 
  int patientId = 0;
+
+  String? statustype;
+  String? selectedStatus;
+  String? selectedCountry;
+  String? selectedRace;
+  String? selectedState;
+  String? selectedLanguage;
+  String? selectedReligion;
+  String? selectedMaritalStatus;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -722,24 +732,24 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         ctlrLastName.text,
                         ctlrMI.text,
                         ctlrSuffix.text,
-                        statusType.toString(),
+                        statusType ?? '',
                         "14/12/2024",
                         ctlrStreet.text,
-                        'California',
+                        selectedState ?? '',
                         ctlrZipCode.text,
                         ctlrApartment.text,
                         ctlrCity.text,
-                        'county',
+                        selectedCountry ?? '',
                         ctlrMajorStreet.text,
                         ctlrPrimeNo.text,
                         ctlrSecNo.text,
                         ctlrEmail.text,
                         ctlrSocialSec.text,
-                        'English',
+                        selectedLanguage ?? '',
                         ctlrDischargeResaon.text,
-                        'Race',
-                        'Christian',
-                        'Single',
+                        selectedRace ?? '',
+                        selectedReligion ?? '',
+                        selectedMaritalStatus ?? '',
                         "14/08/2024",
                         1,
                         'At Land OSC',
@@ -912,6 +922,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ctlrSocialSec: ctlrSocialSec,
                     ctlrDischargeResaon: ctlrDischargeResaon,
                     ctlrDateOfDeath: ctlrDateOfDeath,
+
                   ),
                   IntakePComplianceScreen(patientId: patientId),
                   IntakePlanCareScreen(),

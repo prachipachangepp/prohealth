@@ -67,7 +67,7 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                           Flexible(
                               child: SchedularDropdown(
                                   labelText: 'Supplies/ DME',
-                                  items: ['Option 1', 'Option 2', 'Option 3'])
+                                  items: ['Option 1', 'Option 2', 'Option 3'], onChanged: (newValue) {  },)
                           ),
                           SizedBox(width: 35),
                           Flexible(
@@ -110,7 +110,7 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                           Flexible(
                               child: SchedularDropdown(
                                   labelText: 'Pharmacy',
-                                  items: ['Option 1', 'Option 2', 'Option 3'])
+                                  items: ['Option 1', 'Option 2', 'Option 3'], onChanged: (newValue) {  },)
                           ),
                           SizedBox(width: 35),
                           Flexible(
