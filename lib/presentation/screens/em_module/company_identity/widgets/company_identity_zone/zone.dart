@@ -272,39 +272,36 @@ class _CiOrgDocumentState extends State<CiZone> {
 
               ///button
               _selectedIndex == 0
-                  ? Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: CustomIconButtonConst(
-                                    width: 79,
-                        icon: Icons.add,
-                        text: "Add",
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return CIZoneAddPopup(
-                                  title: 'Add County',
-                                  onSavePressed: () async {
-                                    await addCounty(
-                                        context,
-                                        countynameController.text,
-                                        stateController.text,
-                                        countyController.text,
-                                        "37.0902°",
-                                        "95.7129°",
-                                        widget.officeId);
-                                    Navigator.pop(context);
-                                  },
-                                  title1: 'State Name',
-                                  countynameController: stateController,
-                                  title2: 'Country Name',
-                                  zipcodeController: countyController,
-                                  title3: 'County Name',
-                                  mapController: countynameController,
-                                );
-                              });
-                        }),
-                  )
+                  ? CustomIconButtonConst(
+                                  width: 79,
+                      icon: Icons.add,
+                      text: "Add",
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return CIZoneAddPopup(
+                                title: 'Add County',
+                                onSavePressed: () async {
+                                  await addCounty(
+                                      context,
+                                      countynameController.text,
+                                      stateController.text,
+                                      countyController.text,
+                                      "37.0902°",
+                                      "95.7129°",
+                                      widget.officeId);
+                                  Navigator.pop(context);
+                                },
+                                title1: 'State Name',
+                                countynameController: stateController,
+                                title2: 'Country Name',
+                                zipcodeController: countyController,
+                                title3: 'County Name',
+                                mapController: countynameController,
+                              );
+                            });
+                      })
                   : _selectedIndex == 1
                       ? CustomIconButtonConst(
                   width: 79,
