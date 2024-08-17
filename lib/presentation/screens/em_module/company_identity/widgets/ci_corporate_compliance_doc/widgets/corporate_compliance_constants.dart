@@ -108,13 +108,13 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                         AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           //decoration: TextDecoration.none,
                         ),
                       ),
                       SizedBox(
-                        height: 5,
+                        height: AppSize.s5,
                       ),
                       widget.child
                     ],
@@ -127,13 +127,13 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                         'Sub Type of the Document',
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           decoration: TextDecoration.none,
                         ),
                       ),
                       SizedBox(
-                        height: 5,
+                        height: AppSize.s5,
                       ),
                       widget.child1
                     ],
@@ -249,7 +249,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
                   _selectedValue ?? '',
                   style: GoogleFonts.firaSans(
                     fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeightManager.medium,
                     color: ColorManager.mediumgrey,
                     decoration: TextDecoration.none,
                   ),
@@ -321,7 +321,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -360,28 +360,28 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     // readOnly: true,
                     controller: widget.idDocController,
                     keyboardType: TextInputType.text,
-                    text: 'ID of the Document',
+                    text: AppString.id_of_the_document,
                   ),
                   SizedBox(height: AppSize.s10),
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
-                    text: 'Name of the Document',
+                    text: AppString.name_of_the_document,
                   ),
                   SizedBox(height: AppSize.s10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Type of the Document',
+                        AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           //decoration: TextDecoration.none,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: AppSize.s5),
                       widget.child!,
                     ],
                   ),
@@ -393,12 +393,12 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                         'Sub Type of the Document',
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           decoration: TextDecoration.none,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: AppSize.s5),
                       widget.child1!,
                     ],
                   ),
@@ -422,7 +422,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                           'Expiry Type',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             color: ColorManager.mediumgrey,
                             decoration: TextDecoration.none,
                           ),
@@ -444,7 +444,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     'Expiry Date',
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeightManager.bold,
                       color: ColorManager.mediumgrey,
                       decoration: TextDecoration.none,
                     ),
@@ -456,11 +456,11 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     builder: (FormFieldState<String> field) {
                       return SizedBox(
                         width: 354,
-                        height: 30,
+                        height: AppSize.s30,
                         child: TextFormField(
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             color: ColorManager.mediumgrey,
                             //decoration: TextDecoration.none,
                           ),
