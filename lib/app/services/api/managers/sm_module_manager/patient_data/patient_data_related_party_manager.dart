@@ -173,7 +173,7 @@ Future<ApiData> IntakeRelatedPartyAdd(
                   ),
                   SizedBox(height: 20.0),
                   Text(
-                    "Successfully saved !",
+                    "Successfully Add !",
                     style: GoogleFonts.firaSans(
                         fontSize: 16.0,
                         color: Colors.black,
