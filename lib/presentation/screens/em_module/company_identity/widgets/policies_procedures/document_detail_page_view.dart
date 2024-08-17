@@ -9,7 +9,9 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 
 class DocumentPageView extends StatefulWidget {
   final int docID;
-  const DocumentPageView({super.key, required this.docID});
+  final int companyID;
+  final String officeId;
+  const DocumentPageView({super.key, required this.docID, required this.companyID, required this.officeId});
 
   @override
   State<DocumentPageView> createState() => _DocumentPageViewState();
@@ -187,11 +189,11 @@ class _DocumentPageViewState extends State<DocumentPageView> {
               });
             },
             children: [
-              CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,),
-              CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,),
-              CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,),
-              CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,),
-              CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,)
+              CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId, companyID: widget.companyID,officeId: widget.officeId,),
+              // CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,),
+              // CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,),
+              // CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,),
+              // CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,)
             ],
           ),
         ),

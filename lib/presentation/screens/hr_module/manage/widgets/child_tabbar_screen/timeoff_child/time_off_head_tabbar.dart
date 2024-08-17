@@ -8,7 +8,6 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/timeoff_manager.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/timeoff_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/timeoff_child/edit_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/timeoff_child/inkewell_text_const.dart';
@@ -22,7 +21,6 @@ class TimeOffHeadTabbar extends StatefulWidget {
 }
 
 class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
-  late CompanyIdentityManager _companyManager;
   TextEditingController ptoController = TextEditingController();
   TextEditingController _controllerStartDate = TextEditingController();
   TextEditingController _controllerEndDate = TextEditingController();
@@ -45,7 +43,6 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
     currentPage = 1;
     itemsPerPage = 20;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    _companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
 

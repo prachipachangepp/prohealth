@@ -273,8 +273,8 @@ class CCScreenEditPopup extends StatefulWidget {
   final TextEditingController nameDocController;
   final TextEditingController? calenderController;
   final VoidCallback? onSavePressed;
-  final Widget child;
-  final Widget child1;
+  final Widget? child;
+  final Widget? child1;
   final double? height;
   final Widget? radioButton;
    bool? loadingDuration;
@@ -285,8 +285,8 @@ class CCScreenEditPopup extends StatefulWidget {
     required this.idDocController,
     required this.nameDocController,
     this.onSavePressed,
-    required this.child,
-    required this.child1,
+    this.child,
+    this.child1,
     this.id,
     this.radioButton,  this.calenderController, this.loadingDuration, required this.title, this.height,
   });
@@ -381,7 +381,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      widget.child,
+                      widget.child!,
                     ],
                   ),
                   SizedBox(height: AppSize.s12),
@@ -398,7 +398,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      widget.child1,
+                      widget.child1!,
                     ],
                   ),
                 ],
@@ -567,6 +567,7 @@ class AddOrgDocButton extends StatefulWidget {
   final TextEditingController nameDocController;
   final TextEditingController calenderController;
   final VoidCallback onPressed;
+  final double? height;
   Widget? child;
   Widget? child1;
   final String title;
@@ -582,25 +583,20 @@ class AddOrgDocButton extends StatefulWidget {
         required this.onPressed,
         required this.calenderController,
         this.radioButton,
-        this.loadingDuration, required this.title,this.child2});
+        this.loadingDuration, required this.title,this.child2, this.height});
 
   @override
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
 }
 
 class _AddOrgDocButtonState extends State<AddOrgDocButton> {
-  String? _expiryType;
-  // bool _isLoading = false;
-  bool _showExpiryDate = true;
-  var _selectedDate = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: AppSize.s550,
+        height: widget.height ?? AppSize.s550,
         //height: MediaQuery.of(context).size.height/1.2,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -622,6 +618,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 // mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  ///title
                   Text(
                     widget.title,
                     textAlign: TextAlign.center,
@@ -652,12 +649,14 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  ///ID of the Document
                   SMTextFConst(
                     controller: widget.idDocController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
                   ),
                   SizedBox(height: AppSize.s13),
+                  ///Name of the Document
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
@@ -667,6 +666,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      ///Type of the Document
                       Text(
                         'Type of the Document',
                         style: GoogleFonts.firaSans(
@@ -684,6 +684,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      ///Sub Type of the Document
                       Text(
                         'Sub Type of the Document',
                         style: GoogleFonts.firaSans(

@@ -1,20 +1,33 @@
-///get doc type : /document-type
-class GetManageDetailsHeadData{
-  final int? id;
-  final String? docName;
+class ManageCCDoc {
+  final int docId;
+  final int documentTypeId;
+  final int documentSubTypeId;
+  final String? docname;
+  final String doccreatedAt;
+  final String url;
+  final String? expiryType;
+  final String? expiryDate;
+  final String expiryReminder;
+  final int companyId;
+  final String officeId;
   final bool sucess;
   final String message;
 
-  GetManageDetailsHeadData({this.id, this.docName, required this.sucess, required this.message,});
+  ManageCCDoc(
+      {required this.documentTypeId,
+        required this.documentSubTypeId,
+        required this.url,
+        required this.expiryReminder,
+        required this.companyId,
+        required this.officeId,
+        required this.sucess,
+        required this.message,
+        required this.doccreatedAt,
+        required this.docId,
+        this.docname,
+        this.expiryType,
+        this.expiryDate,
+      });
 }
 
-///get document subtype: /identity/GetDocType/{document_type_id}
-class GetManageDetailsSubHeadData{
-  final int docTypeId;
-  final String docType;
-  final int subDocTypeId;
-  final String subDocType;
-  final bool sucess;
-  final String message;
-  GetManageDetailsSubHeadData({required this.docTypeId, required this.docType,required this.subDocTypeId,required this.subDocType,required this.sucess,required this.message, });
-}
+

@@ -106,7 +106,7 @@ Future<ApiData> patchCompanyVendor(
     String zone) async {
   try {
     var response = await Api(context).patch(
-        path: EstablishmentManagerRepository.companyOfficeVendorPatch(
+        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(
             vendorId: vendorId),
         data: {
           "officeId": officeId,
@@ -137,5 +137,65 @@ Future<ApiData> patchCompanyVendor(
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///delete vendor
+Future<ApiData> deleteVendor(
+    BuildContext context, int vendorId) async {
+  try {
+    var response = await Api(context).delete(
+        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(vendorId: vendorId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Deleted Document :::${vendorId}");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// GET prefill vendor
+Future<ManageVendorPrefill> getPrefillVendor(
+    BuildContext context, int vendorId) async {
+  var itemsList;
+  try {
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(vendorId: vendorId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Document type Response:::::${itemsList}");
+      itemsList = ManageVendorPrefill(
+        vendorId: response.data['vendorId'],
+        officeId: response.data['officeId'],
+        vendorName: response.data['vendorName'],
+        address: response.data['address'],
+        city: response.data['city'],
+        email: response.data['email'],
+        phone: response.data['phone'],
+        workEmail: response.data['work_email'],
+        workPhone: response.data['work_phone'],
+        zone: response.data['zone'],
+      );
+    } else {
+      print('Api Error');
+      //return itemsList;
+    }
+    print("vendor Prefill Response:::::${itemsList}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
   }
 }

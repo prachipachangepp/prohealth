@@ -198,7 +198,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               style: GoogleFonts.firaSans(
                 fontSize: 12,
                 fontWeight: FontWeightManager.bold,
-                color: Color(0xff50B5E5),
+                color: const Color(0xff50B5E5),
                 decoration: TextDecoration.none,
               ),
               icon: const Icon(
@@ -222,12 +222,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(
-                      value, style: TextStyle(
-                    color: _selectedValue == value
-                        ? ColorManager.blueprime
-                        : ColorManager.granitegray,),
-                  ),
+                  child: Text(value, style: TextStyle(color: ColorManager.blueprime)),
                 );
               }).toList(),
             ),
@@ -369,6 +364,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
+
                           //  const url = "http://localhost:61508/#/onBordingWelcome";
                           const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
@@ -469,5 +465,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+
 }
-//

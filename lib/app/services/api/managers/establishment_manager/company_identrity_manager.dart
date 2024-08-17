@@ -124,7 +124,7 @@ Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
       'primary_phone': primaryPhone,
       'secondary_phone': secondaryPhone,
       'company_id': companyId,
-      'primary_fax': name,
+      'primary_fax': "NA",
       'secondary_fax': secondaryPhone,
       'office_id': name,
       'alternative_phone': primaryPhone

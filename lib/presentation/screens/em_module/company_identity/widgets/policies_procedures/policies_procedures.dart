@@ -7,9 +7,10 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -18,13 +19,16 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'widgets/add_policies_popup.dart';
 
 class CiPoliciesAndProcedures extends StatefulWidget {
   final int docID;
   final int subDocID;
-  const CiPoliciesAndProcedures({super.key, required this.docID, required this.subDocID});
+  final int companyID;
+  final String officeId;
+  const CiPoliciesAndProcedures({super.key, required this.docID, required this.subDocID, required this.companyID, required this.officeId});
 
   @override
   State<CiPoliciesAndProcedures> createState() => _CiPoliciesAndProceduresState();
@@ -35,7 +39,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   TextEditingController idOfDocController = TextEditingController();
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+  final StreamController<List<ManageCCDoc>> _controller = StreamController<List<ManageCCDoc>>();
   TextEditingController calenderController = TextEditingController();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
 
@@ -44,21 +48,17 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   int docSubTypeMetaId =0;
   String? expiryType;
   bool _isLoading = false;
-  late CompanyIdentityManager _companyManager;
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
 
-  @override
-  void initState() {
-    super.initState();
-    currentPage = 1;
-    itemsPerPage = 5;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
-    _companyManager = CompanyIdentityManager();
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
 
-    // companyAllApi(context);
+  void onPageNumberPressed(int pageNumber) {
+    setState(() {
+      currentPage = pageNumber;
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -81,6 +81,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                             return  StatefulBuilder(
                               builder: (BuildContext context, void Function(void Function()) setState) {
                                 return AddOrgDocButton(
+                                  height: AppSize.s400,
                                   calenderController: calenderController,
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
@@ -103,13 +104,11 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         officeId: "Office 1",
                                       );
                                       setState(() async {
-                                        await orgSubDocumentGet(
-                                          context,
-                                          docTypeMetaId,
-                                          docSubTypeMetaId,
-                                          1,
-                                          15,
-                                        );
+                                        await getManageCorporate(context,
+                                            widget.officeId,
+                                            widget.docID,
+                                            widget.subDocID,
+                                            1, 20);
                                         Navigator.pop(context);
                                         expiryType = '';
                                         calenderController.clear();
@@ -243,43 +242,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         }
                                       }
                                   ),
-                                  radioButton: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      CustomRadioListTile(
-                                        value: "Not Applicable",
-                                        groupValue: expiryType.toString(),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            expiryType = value!;
-                                          });
-                                        },
-                                        title: "Not Applicable",
-                                      ),
-                                      CustomRadioListTile(
-                                        value: 'Scheduled',
-                                        groupValue: expiryType.toString(),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            expiryType = value!;
-                                          });
-                                        },
-                                        title: 'Scheduled',
-                                      ),
-                                      CustomRadioListTile(
-                                        value: 'Issuer Expiry',
-                                        groupValue: expiryType.toString(),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            expiryType = value!;
-                                          });
-                                        },
-                                        title: 'Issuer Expiry',
-                                      ),
-                                    ],
-                                  ),
-                                  title: '',
+                                  title: 'Add Policies',
                                 );
                               },
 
@@ -292,10 +255,10 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
           SizedBox(height: 10,),
           Expanded(
             child:
-            StreamBuilder<List<CiOrgDocumentCC>>(
+            StreamBuilder<List<ManageCCDoc>>(
               stream: _controller.stream,
               builder: (context,snapshot) {
-                orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 6).then((data) {
+                getManageCorporate(context, widget.officeId, widget.docID, widget.subDocID, 1, 20).then((data) {
                   _controller.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -320,162 +283,160 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                   );
                 }
                 if(snapshot.hasData){
-                  return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        // int serialNumber =
-                        //     index + 1 + (currentPage - 1) * itemsPerPage;
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // SizedBox(height: 5),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(4),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: const Color(0xff000000).withOpacity(0.25),
-                                        spreadRadius: 0,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  height: 50,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,color: ColorManager.blueprime,)),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  snapshot.data![index].createdAt.toString(),textAlign:TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: const Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  snapshot.data![index].name.toString(),textAlign:TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: const Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
-                                                ),
-                                              ],
+                  int totalItems = snapshot.data!.length;
+                  int totalPages = (totalItems / itemsPerPage).ceil();
+                  List<ManageCCDoc> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: paginatedData.length,
+                            itemBuilder: (context, index) {
+                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                              String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                              ManageCCDoc policiesdata = paginatedData[index];
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // SizedBox(height: 5),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(4),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: const Color(0xff000000).withOpacity(0.25),
+                                              spreadRadius: 0,
+                                              blurRadius: 4,
+                                              offset: const Offset(0, 2),
                                             ),
                                           ],
                                         ),
+                                        height: 50,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,color: ColorManager.blueprime,)),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                       policiesdata.doccreatedAt.toString(),textAlign:TextAlign.center,
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: const Color(0xff686464),
+                                                          decoration: TextDecoration.none,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        policiesdata.docname.toString(),textAlign:TextAlign.center,
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: const Color(0xff686464),
+                                                          decoration: TextDecoration.none,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
 
-                                        //  Text(''),
-                                        Row(
-                                          children: [
-                                            // IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.blueprime,)),
-                                            // IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.blueprime,)),
-                                            // IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.blueprime,)),
-                                            IconButton(onPressed: (){
-                                              showDialog(context: context, builder: (context){
-                                                return CCScreenEditPopup(
-                                                  height: 350,
-                                                  title: "Edit Policies & Procedures",
-                                                  idDocController: docIdController,
-                                                  nameDocController: docNamecontroller,
-
-                                                  child:  const CICCDropdown(
-                                                    initialValue: 'Corporate & Compliance Documents',
-                                                    items: [
-                                                      DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
-                                                      DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                                      DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                                      DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                                    ],),
-                                                  child1:   const CICCDropdown(
-                                                    initialValue: 'Policies and Procedures',
-                                                    items: [
-                                                      DropdownMenuItem(value: 'Policies and Procedures', child: Text('Licenses')),
-                                                      DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                                      DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                                      DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                                    ],),
-                                                    );
-                                              });
-                                            }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                            IconButton(onPressed: (){
-                                              showDialog(context: context, builder: (context) => DeletePopup(
-                                                  title: 'Delete Policies Procedure',
-                                                  onCancel: (){
-                                                Navigator.pop(context);
-                                              }, onDelete: (){
-                                                Navigator.pop(context);
-                                                    setState(() async{
-                                                await deleteDocument(
-                                                    context,
-                                                    snapshot.data![index].docId!);
-                                                orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 6).then((data) {
-                                                  _controller.add(data);
-                                                }).catchError((error) {
-                                                  // Handle error
-                                                });
-                                              });
-                                                  }));
-                                            }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        );
-                      });
+                                              //  Text(''),
+                                              Row(
+                                                children: [
+                                                  IconButton(onPressed: (){
+                                                    showDialog(context: context, builder: (context){
+                                                      return CCScreenEditPopup(
+                                                        height: 350,
+                                                        title: "Edit Policies & Procedures",
+                                                        idDocController: docIdController,
+                                                        nameDocController: docNamecontroller,
+                                                        child:  const CICCDropdown(
+                                                          initialValue: 'Corporate & Compliance Documents',
+                                                          items: [
+                                                            DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                                          ],),
+                                                        child1:   const CICCDropdown(
+                                                          initialValue: 'Policies and Procedures',
+                                                          items: [
+                                                            DropdownMenuItem(value: 'Policies and Procedures', child: Text('Licenses')),
+                                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                                          ],),
+                                                          );
+                                                    });
+                                                  }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                                  IconButton(onPressed: (){
+                                                    showDialog(context: context, builder: (context) => DeletePopup(
+                                                        title: 'Delete Policies Procedure',
+                                                        onCancel: (){
+                                                      Navigator.pop(context);
+                                                    }, onDelete: (){
+                                                      Navigator.pop(context);
+                                                          setState(() async{
+                                                      await deleteDocument(
+                                                          context,
+                                                          policiesdata.docId);
+                                                      getManageCorporate(context, widget.officeId, widget.docID, widget.subDocID, 1, 20).then((data) {
+                                                        _controller.add(data);
+                                                      }).catchError((error) {
+                                                        // Handle error
+                                                      });
+                                                    });
+                                                        }));
+                                                  }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )),
+                                  ),
+                                ],
+                              );
+                            }),
+                      ),
+                      PaginationControlsWidget(
+                        currentPage: currentPage,
+                        items: snapshot.data!,
+                        itemsPerPage: itemsPerPage,
+                        onPreviousPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                          });
+                        },
+                        onPageNumberPressed: (pageNumber) {
+                          setState(() {
+                            currentPage = pageNumber;
+                          });
+                        },
+                        onNextPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                          });
+                        },
+                      ),
+                    ],
+                  );
                 }
                 return const Offstage();
               }
             ),
           ),
-          // const SizedBox(
-          //   height: 10,
-          // ),
-          // PaginationControlsWidget(
-          //   currentPage: currentPage,
-          //   items: items,
-          //   itemsPerPage: itemsPerPage,
-          //   onPreviousPagePressed: () {
-          //     /// Handle previous page button press
-          //     setState(() {
-          //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-          //     });
-          //   },
-          //   onPageNumberPressed: (pageNumber) {
-          //     /// Handle page number tap
-          //     setState(() {
-          //       currentPage = pageNumber;
-          //     });
-          //   },
-          //   onNextPagePressed: () {
-          //     /// Handle next page button press
-          //     setState(() {
-          //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
-          //           ? currentPage + 1
-          //           : (items.length / itemsPerPage).ceil();
-          //     });
-          //   },
-          // ),
         ],),
       ),
     );

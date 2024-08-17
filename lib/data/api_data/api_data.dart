@@ -5,12 +5,14 @@ class ApiData {
   final Object? data;
   final String? imageUrl;
   final int? employeeId;
+  final int? patientId;
 
   ApiData(
       {required this.statusCode,
       required this.success,
       required this.message,
-      this.data, this.imageUrl, this.employeeId });
+      this.data, this.imageUrl, this.employeeId ,
+        this.patientId,});
 }
 
 class ApiDataFilter {
