@@ -130,60 +130,56 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Logos",
+                  Text(
+                    "Logos",
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.semiBold,
+                      color: ColorManager.mediumgrey,
+                    ),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width / 4.3),
+                  Expanded(
+                    child: Text(
+                      "Details",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: ColorManager.mediumgrey,
-                      )),
-                  // SizedBox(width: MediaQuery.of(context).size.width / 5),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 4.3),
-                    child: Text("Details",
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.semiBold,
-                          color: ColorManager.mediumgrey,
-                        )),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 2.2), //2.2
-                    child: Container(
-                      height: 30,
-                      width: 90,
-                      child: CustomButton(
-                        borderRadius: 12,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeightManager.medium,
-                          color: ColorManager.white,
-                          decoration: TextDecoration.none,
-                        ),
-                        text: "Save",
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CCSuccessPopup();
-                            },
-                          );
-                        },
                       ),
                     ),
                   ),
-                  // SizedBox(width: MediaQuery.of(context).size.width / 5),
+                  Container(
+                    height: 30,
+                    width: 90,
+                    child: CustomButton(
+                      borderRadius: 12,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                      text: "Save",
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CCSuccessPopup();
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width / 50),
                   Padding(
-                    padding: EdgeInsets.only(left: 20
-                        // MediaQuery.of(context).size.width/3
-                        ),
+                    padding: const EdgeInsets.only(right: 30),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: CustomIconButton(
                           icon: Icons.edit_outlined,
                           text: "Edit Details",
-                          onPressed: () async{
+                          onPressed: () async {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -192,8 +188,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(8),
                                       topRight: Radius.circular(8),
-                                      bottomLeft: Radius.circular(8),
                                       bottomRight: Radius.circular(8),
+                                      bottomLeft: Radius.circular(8),
                                     ),
                                   ),
 
