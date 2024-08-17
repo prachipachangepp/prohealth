@@ -60,6 +60,7 @@ class AppString {
   static const String fname = "First Name";
   static const String lname = "Last Name";
   static const String zone = "Zone";
+  static const String role = "Role";
   static const String typeClinician = "Type of Clinician";
   static const String reportingOffice = "Reporting Office";
   static const String employment = "Employment";
@@ -77,6 +78,7 @@ class AppString {
   static const String verify_user = "Verify User";
   static const String upload_signature = "Upload Signature";
   static const String draw = "Draw";
+  static const String delete = "Delete";
   static const String upload ="Upload";
   static const String cancel ="Cancel";
   static const String reset ="Reset";
