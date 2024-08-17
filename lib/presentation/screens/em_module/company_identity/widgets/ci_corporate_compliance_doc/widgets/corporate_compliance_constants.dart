@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 
@@ -54,7 +55,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: AppSize.s40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -91,20 +92,20 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                   SMTextFConst(
                     controller: widget.countynameController,
                     keyboardType: TextInputType.text,
-                    text: 'Name of the Document',
+                    text: AppString.name_of_the_document,
                   ),
                   SizedBox(height: AppSize.s15),
                   SMTextFConst(
                     controller: widget.zipcodeController,
                     keyboardType: TextInputType.text,
-                    text: 'ID of the Document',
+                    text: AppString.id_of_the_document,
                   ),
                   SizedBox(height: AppSize.s15),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Type of the Document',
+                        AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeight.w700,

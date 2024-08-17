@@ -214,6 +214,8 @@ class AppString {
   static String no ="No";
   static String other ="other";
   static String name_of_the_document ="Name of the Document";
+  static String id_of_the_document = "ID of the Document";
+
   static String add_new ="Add New";
   static String street ="street";
   static String create ="Create";
