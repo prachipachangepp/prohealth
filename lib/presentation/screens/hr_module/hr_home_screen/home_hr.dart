@@ -395,7 +395,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   padding: const EdgeInsets.symmetric(
                                                       horizontal: 7),
                                                   child: Container(
-                                                    width: AppSize.s250,
+                                                    width: AppSize.s150,
                                                     height: 31,
                                                     decoration: BoxDecoration(
                                                         color: Colors.grey[300]),
@@ -417,7 +417,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                               print("Zone: ");
                                               return Container(
                                                 height: 31,
-                                                width: 300,
+                                                width: 150,
                                                 // margin: EdgeInsets.symmetric(horizontal: 20),
                                                 padding:
                                                 const EdgeInsets.symmetric(vertical: 6, horizontal: 15),

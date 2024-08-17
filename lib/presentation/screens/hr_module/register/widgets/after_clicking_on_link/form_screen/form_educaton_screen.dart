@@ -650,7 +650,7 @@ class _EducationFormState extends State<EducationForm> {
                   ],
                 ),
               ),
-              SizedBox(width: MediaQuery.of(context).size.width / 15),
+              SizedBox(width: MediaQuery.of(context).size.width / 5),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

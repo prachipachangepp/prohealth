@@ -518,7 +518,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                   ],
                 ),
               ),
-              SizedBox(width: MediaQuery.of(context).size.width / 15),
+              SizedBox(width: MediaQuery.of(context).size.width / 7),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

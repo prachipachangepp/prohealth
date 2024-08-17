@@ -405,7 +405,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                               ),
                             ),
                             SizedBox(
-                                width: MediaQuery.of(context).size.width / 15),
+                                width: MediaQuery.of(context).size.width / 5),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

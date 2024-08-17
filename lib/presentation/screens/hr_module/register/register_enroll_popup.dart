@@ -35,12 +35,18 @@ class RegisterEnrollPopup extends StatefulWidget {
 
   // final TextEditingController position;
   final VoidCallback onPressed;
-  RegisterEnrollPopup({super.key,
-    required this.firstName, required this.lastName,
+  RegisterEnrollPopup({
+    super.key,
+    required this.firstName,
+    required this.lastName,
     //required this.phone,
     required this.email,
     //required this.position,
-    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId,
+    required this.onPressed,
+    required this.userId,
+    required this.role,
+    required this.status,
+    required this.employeeId,
     //required this.empId,
   });
 
@@ -52,121 +58,120 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   // final TextEditingController controller = TextEditingController();
   // final TextEditingController firstName = TextEditingController();
   // final TextEditingController lastName = TextEditingController();
-   final TextEditingController phone = TextEditingController();
-   final TextEditingController position = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+  final TextEditingController position = TextEditingController();
   // final TextEditingController email = TextEditingController();
   FocusNode _focusNode = FocusNode();
   int? _selectedItemIndex;
-   int country = 0;
-   int zoneId = 0;
-   int countyId =0;
-   String reportingOfficeId ='';
-   String specialityName = '';
-   String clinicialName ='';
-   String cityName = '';
-   String serviceVal ='';
-   String generatedURL = '';
-   bool _isLoading = false;
+  int country = 0;
+  int zoneId = 0;
+  int countyId = 0;
+  String reportingOfficeId = '';
+  String specialityName = '';
+  String clinicialName = '';
+  String cityName = '';
+  String serviceVal = '';
+  String generatedURL = '';
+  bool _isLoading = false;
 
-   Future<String> _generateUrlLink(String email, String Id) async {
-     final String user = email;
-     final String id = Id;
-     final String url = 'https://staging.symmetry.care/$id';
-     generatedURL = url;
-     print('Generated URL: $generatedURL');
-     return url;
-   }
+  Future<String> _generateUrlLink(String email, String Id) async {
+    final String user = email;
+    final String id = Id;
+    final String url = 'https://staging.symmetry.care/$id';
+    generatedURL = url;
+    print('Generated URL: $generatedURL');
+    return url;
+  }
 
-   Future<void> performEnroll({
-     required BuildContext context,
-     required int employeeId,
-     required String code,
-     required int userId,
-     required String firstName,
-     required String lastName,
-     required String phoneNbr,
-     required String email,
-     required String link,
-     required String status,
-     required int departmentId,
-     required String position,
-     required String speciality,
-     required int clinicianTypeId,
-     required String reportingOfficeId,
-     required int cityId,
-     required int countryId,
-     required int countyId,
-     required int zoneId,
-     required String employment,
-     required String service
-   }) async {
-     setState(() {
-       _isLoading = true;
-     });
-     ApiData result = await addEmpEnroll(
-       context: context,
-       employeeId: employeeId,
-       code: code,
-       userId: userId,
-       firstName: firstName,
-       lastName: lastName,
-       phoneNbr: phoneNbr,
-       email: email,
-       link: link,
-       status: status,
-       departmentId: departmentId,
-       position: position,
-       speciality: speciality,
-       clinicianTypeId: clinicianTypeId,
-       reportingOfficeId: reportingOfficeId,
-       cityId: cityId,
-       countryId: countryId,
-       countyId: countyId,
-       zoneId: zoneId,
-       employment: employment,
-       service: service,
-     );
-     setState(() {
-       _isLoading = false;
-     });
-     if (result.success) {
-       Navigator.pop(context);
-       Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
-         apiData: result,
-         employeeId: widget.employeeId,
-         email: widget.email.text,
-         userId: widget.userId,
-         status: widget.status,
-         firstName: widget.firstName.text,
-         lastName: widget.lastName.text,
-         role: widget.role,
-         position: position,
-         phone: phone.text,
-         reportingOffice: reportingOfficeId,
-         services: serviceVal,
-         employement: 'Full Time',
-         clinicalName: clinicialName,
-         soecalityName: specialityName,
-       )));
-     } else {
-       ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(content: Text('Error: ${result.message}')),
-       );
-     }
-   }
+  Future<void> performEnroll(
+      {required BuildContext context,
+      required int employeeId,
+      required String code,
+      required int userId,
+      required String firstName,
+      required String lastName,
+      required String phoneNbr,
+      required String email,
+      required String link,
+      required String status,
+      required int departmentId,
+      required String position,
+      required String speciality,
+      required int clinicianTypeId,
+      required String reportingOfficeId,
+      required int cityId,
+      required int countryId,
+      required int countyId,
+      required int zoneId,
+      required String employment,
+      required String service}) async {
+    setState(() {
+      _isLoading = true;
+    });
+    ApiData result = await addEmpEnroll(
+      context: context,
+      employeeId: employeeId,
+      code: code,
+      userId: userId,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNbr: phoneNbr,
+      email: email,
+      link: link,
+      status: status,
+      departmentId: departmentId,
+      position: position,
+      speciality: speciality,
+      clinicianTypeId: clinicianTypeId,
+      reportingOfficeId: reportingOfficeId,
+      cityId: cityId,
+      countryId: countryId,
+      countyId: countyId,
+      zoneId: zoneId,
+      employment: employment,
+      service: service,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if (result.success) {
+      Navigator.pop(context);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OfferLetterScreen(
+                    apiData: result,
+                    employeeId: widget.employeeId,
+                    email: widget.email.text,
+                    userId: widget.userId,
+                    status: widget.status,
+                    firstName: widget.firstName.text,
+                    lastName: widget.lastName.text,
+                    role: widget.role,
+                    position: position,
+                    phone: phone.text,
+                    reportingOffice: reportingOfficeId,
+                    services: serviceVal,
+                    employement: 'Full Time',
+                    clinicalName: clinicialName,
+                    soecalityName: specialityName,
+                  )));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${result.message}')),
+      );
+    }
+  }
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
-    double textFieldWidth = MediaQuery.of(context).size.width/10;
+    double textFieldWidth = MediaQuery.of(context).size.width / 10;
     double textFieldHeight = 38;
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12)
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
-          height:  500,
+          height: 500,
           // MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -201,7 +206,10 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.close,color: ColorManager.white,),
+                      icon: Icon(
+                        Icons.close,
+                        color: ColorManager.white,
+                      ),
                     ),
                   ],
                 ),
@@ -225,12 +233,46 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: widget.firstName,//firstname
+                            controller: widget.firstName, //firstname
                             labelFontSize: 12,
                           ),
+                          // CustomTextFieldRegister(
+                          //   height: AppSize.s30,
+                          //   width: MediaQuery.of(context).size.width / 7,
+                          //   controller: firstName,
+                          //   labelText: AppString.fname,
+                          //   keyboardType: TextInputType.text,
+                          //   padding: EdgeInsets.only(
+                          //       bottom: AppPadding.p5, left: AppPadding.p20),
+                          //   onChanged: (value) {},
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return AppString.enterText;
+                          //     }
+                          //     return null;
+                          //   },
+                          // ),
                           SizedBox(
                             height: AppSize.s10,
                           ),
+                          // SizedBox(
+                          //   width: MediaQuery.of(context).size.width/7,
+                          //   height: AppSize.s30,
+                          //   //alignment: Alignment.center,
+                          //   //color: Colors.cyan,
+                          //
+                          //   child: MyDropdownTextField(
+                          //     hint: AppString.speciality,
+                          //
+                          //     //width: MediaQuery.of(context).size.width/7,
+                          //     // height: AppSize.s25,
+                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                          //     onChanged: (String? newValue) {
+                          //
+                          //       print('Selected item: $newValue');
+                          //     },
+                          //   ),
+                          // ),
                           FutureBuilder<List<AEClinicalDiscipline>>(
                             future: HrAddEmplyClinicalDisciplinApi(context, 1),
                             builder: (context, snapshot) {
@@ -253,7 +295,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
-                      
+
                                 for (var i in snapshot.data!) {
                                   dropDownList.add(i.empType!);
                                 }
@@ -282,6 +324,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           SizedBox(
                             height: AppSize.s10,
                           ),
+
                           ///email
                           CustomTextField(
                             width: textFieldWidth,
@@ -296,9 +339,26 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: widget.email,
                             labelFontSize: 12,
                           ),
+                          // CustomTextFieldRegister(
+                          //   height: AppSize.s30,
+                          //   width: MediaQuery.of(context).size.width / 7,
+                          //   controller: email,
+                          //   labelText: AppString.email,
+                          //   keyboardType: TextInputType.text,
+                          //   padding: EdgeInsets.only(
+                          //       bottom: AppPadding.p5, left: AppPadding.p20),
+                          //   onChanged: (value) {},
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return AppString.enterText;
+                          //     }
+                          //     return null;
+                          //   },
+                          // ),
                           SizedBox(
                             height: AppPadding.p10,
                           ),
+
                           ///zone
                           FutureBuilder<List<AEClinicalZone>>(
                             future: HrAddEmplyClinicalZoneApi(
@@ -364,11 +424,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               }
                             },
                           ),
-                      
                         ],
                       ),
                     ),
-
 
                     ///
                     Flexible(
@@ -387,9 +445,26 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: widget.lastName,
                             labelFontSize: 12,
                           ),
+                          // CustomTextFieldRegister(
+                          //   height: AppSize.s30,
+                          //   width: MediaQuery.of(context).size.width / 7,
+                          //   controller: lastName,
+                          //   labelText: AppString.lname,
+                          //   keyboardType: TextInputType.text,
+                          //   padding: EdgeInsets.only(
+                          //       bottom: AppPadding.p5, left: AppPadding.p20),
+                          //   onChanged: (value) {},
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return AppString.enterText;
+                          //     }
+                          //     return null;
+                          //   },
+                          // ),
                           SizedBox(
                             height: AppSize.s10,
                           ),
+
                           ///clinician
                           FutureBuilder<List<AEClinicalDiscipline>>(
                             future: HrAddEmplyClinicalDisciplinApi(context, 1),
@@ -440,11 +515,45 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               }
                             },
                           ),
-                      
+                          // SizedBox(
+                          //   width: MediaQuery.of(context).size.width/7,
+                          //   height: AppSize.s30,
+                          //   //alignment: Alignment.center,
+                          //   //color: Colors.cyan,
+                          //
+                          //   child: MyDropdownTextField(
+                          //     hint: AppString.clinician,
+                          //
+                          //     //width: MediaQuery.of(context).size.width/7,
+                          //     // height: AppSize.s25,
+                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                          //     onChanged: (String? newValue) {
+                          //       print('Selected item: $newValue');
+                          //     },
+                          //   ),
+                          // ),
+
                           SizedBox(
                             height: AppSize.s10,
                           ),
 
+                          // SizedBox(
+                          //   width: MediaQuery.of(context).size.width/7,
+                          //   height: AppSize.s30,
+                          //   //alignment: Alignment.center,
+                          //   //color: Colors.cyan,
+                          //
+                          //   child: MyDropdownTextField(
+                          //     hint: AppString.city,
+                          //
+                          //     //width: MediaQuery.of(context).size.width/7,
+                          //     // height: AppSize.s25,
+                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                          //     onChanged: (String? newValue) {
+                          //       print('Selected item: $newValue');
+                          //     },
+                          //   ),
+                          // ),
                           FutureBuilder<List<AEClinicalCity>>(
                             future: HrAddEmplyClinicalCityApi(context),
                             builder: (context, snapshot) {
@@ -471,7 +580,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   dropDownList.add(i.cityName!);
                                 }
                                 return CustomDropdownTextField(
-                                  onChanged: (val){
+                                  onChanged: (val) {
                                     cityName = val!;
                                   },
                                   labelText: 'City',
@@ -507,6 +616,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         ],
                       ),
                     ),
+
                     ///
                     Flexible(
                       child: Column(
@@ -543,9 +653,10 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           SizedBox(
                             height: AppSize.s10,
                           ),
+
                           ///reporting office
                           FutureBuilder<List<CompanyIdentityModel>>(
-                            future: companyOfficeListGet(context, 1,20),
+                            future: companyOfficeListGet(context, 1, 20),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -593,7 +704,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               }
                             },
                           ),
-                      
+
                           SizedBox(
                             height: AppSize.s10,
                           ),
@@ -656,7 +767,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
                                       if (a.name == newValue) {
-                                       //country = a
+                                        //country = a
                                         // int? docType = a.companyOfficeID;
                                       }
                                     }
@@ -676,6 +787,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   ],
                 ),
               ),
+
               ///
               Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16),
@@ -690,17 +802,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
 
               Container(
                 height: 60,
-
                 child: Padding(
                   padding: EdgeInsets.only(left: 16.0),
                   child: McqWidget(
                     title: 'Employment',
-                    items: [
-                      'Full Time',
-                      'Contract',
-                      'Part Time',
-                      'Per Diem'
-                    ],
+                    items: ['Full Time', 'Contract', 'Part Time', 'Per Diem'],
                     onChanged: (selectedIndex) {
                       print('Selected index: $selectedIndex');
                       _selectedItemIndex = selectedIndex;
@@ -709,55 +815,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 ),
               ),
 
-              //
-              //
-              //
-              // Container(
-              //   height: 100,
-              //   child: FutureBuilder<List<AEClinicalService>>(
-              //     future: HrAddEmplyClinicalServiceRadioButtonApi(context, 1),
-              //     builder: (context, snap) {
-              //       if (snap.connectionState == ConnectionState.waiting) {
-              //         return Center(
-              //           child: SizedBox(
-              //             height: 20,
-              //             width: 20,
-              //             child: CircularProgressIndicator(
-              //               color: ColorManager.blueprime,
-              //             ),
-              //           ),
-              //         );
-              //       }
-              //       if (snap.hasData) {
-              //         List<String> serviceName = [];
-              //         for (var i in snap.data!) {
-              //           serviceName.add(i.serviceName!);
-              //         }
-              //
-              //         final selectedItemIndex = RxInt(-1); // Initialize state
-              //
-              //         return Padding(
-              //           padding: EdgeInsets.only(left: 16.0),
-              //           child: McqWidgetEnroll(
-              //             title: 'Service',
-              //             items: serviceName,
-              //             selectedItemIndex: selectedItemIndex,
-              //             onChanged: (val) {
-              //               serviceVal = serviceName[val].toString();
-              //               print('Service data $serviceVal');
-              //             },
-              //           ),
-              //         );
-              //       }
-              //       return SizedBox();
-              //     },
-              //   ),
-              // ),
-
-
               Container(
-
                 height: 100,
+                width: double.infinity,
                 child: FutureBuilder<List<AEClinicalService>>(
                   future: HrAddEmplyClinicalServiceRadioButtonApi(context, 1),
                   builder: (context, snap) {
@@ -777,15 +837,18 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                       for (var i in snap.data!) {
                         serviceName.add(i.serviceName!);
                       }
-                      return Padding(
-                        padding: EdgeInsets.only(left: 16.0),
-                        child: McqWidget(
-                          title: 'Service',
-                          items: serviceName,
-                          onChanged: (val) {
-                            serviceVal = serviceName[val].toString();
-                            print('Service data $serviceVal');
-                          },
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 16.0),
+                          child: McqWidget(
+                            title: 'Service',
+                            items: serviceName,
+                            onChanged: (val) {
+                              serviceVal = serviceName[val].toString();
+                              print('Service data $serviceVal');
+                            },
+                          ),
                         ),
                       );
                     }
@@ -793,53 +856,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   },
                 ),
               ),
-
-
-              // Container(
-              //   color: Colors.blue,
-              //   height: 100,
-              //   child: FutureBuilder<
-              //       List<AEClinicalService>>(
-              //       future:
-              //       HrAddEmplyClinicalServiceRadioButtonApi(
-              //           context, 1),
-              //       builder: (context, snap) {
-              //         if (snap.connectionState ==
-              //             ConnectionState.waiting) {
-              //           return Center(
-              //             child: SizedBox(
-              //                 height: 20,
-              //                 width: 20,
-              //                 child:
-              //                 CircularProgressIndicator(
-              //                   color:
-              //                   ColorManager.blueprime,
-              //                 )),
-              //           );
-              //         }
-              //         if (snap.hasData) {
-              //           List<String> serviceName = [];
-              //           for (var i in snap.data!) {
-              //             serviceName.add(i.serviceName!);
-              //           }
-              //           return Padding(
-              //             padding: EdgeInsets.only(left: 16.0),
-              //             child: McqWidget(
-              //               title: 'Service',
-              //               items: serviceName,
-              //               onChanged: (val) {
-              //                 serviceVal =  serviceName[val].toString();
-              //                 print('Service data ${serviceVal}');
-              //               },
-              //             ),
-              //           );
-              //         }
-              //         return SizedBox();
-              //       }),
-              //
-              // ),
-
-
 
               // Expanded(
               //   child: Column(
@@ -922,46 +938,46 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 children: [
                   _isLoading
                       ? SizedBox(
-                    height: 25,
-                      width: 25,
-                      child: CircularProgressIndicator(color: ColorManager.blueprime,))  // Show loader when _isLoading is true
-                      :  CustomIconButtonConst(
-                      text: AppString.next,
-                  onPressed: () async{
-                    print("${widget.employeeId}");
-                    await _generateUrlLink(widget.email.text, widget.userId.toString());
-                    await performEnroll(
-                    context: context,
-                    employeeId: widget.employeeId,
-                    code: "",
-                    userId: widget.userId,
-                    firstName: widget.firstName.text,
-                    lastName: widget.lastName.text,
-                    phoneNbr: phone.text,
-                    email: widget.email.text,
-                    link: generatedURL,
-                    status: widget.status,
-                    departmentId: 1,
-                    position: position.text,
-                    speciality: specialityName.toString(),
-                    clinicianTypeId: 1,
-                    reportingOfficeId: reportingOfficeId,
-                    cityId: 1,
-                    countryId: 1,
-                    countyId: 9,
-                    zoneId: 18,
-                    employment: "Full Time",
-                    service: serviceVal
-                    );
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator(
+                            color: ColorManager.blueprime,
+                          )) // Show loader when _isLoading is true
+                      : CustomIconButtonConst(
+                          text: AppString.next,
+                          onPressed: () async {
+                            print("${widget.employeeId}");
+                            await _generateUrlLink(
+                                widget.email.text, widget.userId.toString());
+                            await performEnroll(
+                                context: context,
+                                employeeId: widget.employeeId,
+                                code: "",
+                                userId: widget.userId,
+                                firstName: widget.firstName.text,
+                                lastName: widget.lastName.text,
+                                phoneNbr: phone.text,
+                                email: widget.email.text,
+                                link: generatedURL,
+                                status: widget.status,
+                                departmentId: 1,
+                                position: position.text,
+                                speciality: specialityName.toString(),
+                                clinicianTypeId: 1,
+                                reportingOfficeId: reportingOfficeId,
+                                cityId: 1,
+                                countryId: 1,
+                                countyId: 9,
+                                zoneId: 18,
+                                employment: "Full Time",
+                                service: serviceVal);
 
-
-                        print("${widget.employeeId}");
-
-                  },
-                  ),
+                            print("${widget.employeeId}");
+                          },
+                        ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height/40)
+              SizedBox(height: MediaQuery.of(context).size.height / 40)
             ],
           )),
     );
@@ -978,7 +994,6 @@ class RegisterEnrollAlertDialog {
   FocusNode _focusNode = FocusNode();
   int? _selectedItemIndex;
 
-
   void show(BuildContext context) {
     showDialog(
       context: context,
@@ -994,12 +1009,9 @@ class RegisterEnrollAlertDialog {
             height: 35,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8)
-                ),
-                color: ColorManager.bluebottom
-            ),
-            child:Padding(
+                    topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                color: ColorManager.bluebottom),
+            child: Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1017,7 +1029,10 @@ class RegisterEnrollAlertDialog {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.close, color: ColorManager.white,))
+                      icon: Icon(
+                        Icons.close,
+                        color: ColorManager.white,
+                      ))
                 ],
               ),
             ),
@@ -1034,9 +1049,7 @@ class RegisterEnrollAlertDialog {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomTextFieldRegister(
-
-
+                    CustomTextFieldEnroll(
                       height: AppSize.s35,
                       width: MediaQuery.of(context).size.width / 6,
                       controller: firstName,
@@ -1053,11 +1066,10 @@ class RegisterEnrollAlertDialog {
                         return null;
                       },
                     ),
-                    CustomTextFieldRegister(
+                    CustomTextFieldEnroll(
                       height: AppSize.s35,
                       width: MediaQuery.of(context).size.width / 6,
                       controller: lastName,
-
                       labelText: AppString.lname,
                       keyboardType: TextInputType.text,
                       padding: EdgeInsets.only(
@@ -1085,8 +1097,9 @@ class RegisterEnrollAlertDialog {
                         }
                         return null;
                       },
+
                     ),
-                    CustomTextFieldRegister(
+                    CustomTextFieldEnroll(
                       height: AppSize.s35,
                       width: MediaQuery.of(context).size.width / 6,
                       controller: phone,
@@ -1104,9 +1117,9 @@ class RegisterEnrollAlertDialog {
                     ),
                     Center(
                       child: CustomIconButtonConst(
-                        width: AppSize.s100,
-                          text: AppString.enroll, onPressed: () {
-
+                          width: AppSize.s100,
+                          text: AppString.enroll,
+                          onPressed: () {
                             // showDialog(context: context, builder: (BuildContext context) {
                             //   return ConfirmationPopup(onConfirm: (){}, title: 'Confirm Enrollment',
                             //     onCancel: () {
@@ -1114,9 +1127,8 @@ class RegisterEnrollAlertDialog {
                             //   },);
                             //     //OfferLetterScreen();
                             // });
-                        //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
-
-                      }),
+                            //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+                          }),
                     ),
                   ],
                 )),
