@@ -165,7 +165,7 @@ int listIndex = 0 ;
                   elevation: 4,
                   borderRadius: BorderRadius.circular(14),
                   child: Container(
-                    width: MediaQuery.of(context).size.width/1.18,
+                    width: MediaQuery.of(context).size.width/1.1814,
                     height: 30,
                   decoration: BoxDecoration(
                       color: ColorManager.blueprime,

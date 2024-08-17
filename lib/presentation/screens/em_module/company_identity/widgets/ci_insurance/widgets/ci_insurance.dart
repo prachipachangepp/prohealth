@@ -204,144 +204,148 @@ class _CiOrgDocumentState extends State<CIInsurance> {
       
                 ///button
                 _selectedIndex == 0
-                    ? CustomIconButtonConst(
-                        icon: Icons.add,
-                        text: "Add",
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return CustomPopup(
-                                  title: 'Add Vendor',
-                                  namecontroller: vendorNameController,
-                                  addressController: addresscontroller,
-                                  emailController: emailController,
-                                  workemailController: workemailController,
-                                  phoneController: phoneController,
-                                  workPhoneController: workphoneController,
-                                  childZone: FutureBuilder<List<AEClinicalZone>>(
-                                    future: HrAddEmplyClinicalZoneApi(context),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
-                                        return Shimmer.fromColors(
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.grey[100]!,
-                                          child: Container(
-                                            width: 350,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              color: ColorManager.faintGrey,
-                                              borderRadius: BorderRadius.circular(10),
-                                            ),
-                                          ),
-                                        );
-                                      }
-
-                                      if (snapshot.hasData) {
-                                        List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                        for (var i in snapshot.data!) {
-                                          dropDownMenuItems.add(
-                                            DropdownMenuItem<String>(
-                                              child: Text(i.zoneName!),
-                                              value: i.zoneName,
+                    ? Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: CustomIconButtonConst(
+                                        width: 79,
+                          icon: Icons.add,
+                          text: "Add",
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return CustomPopup(
+                                    title: 'Add Vendor',
+                                    namecontroller: vendorNameController,
+                                    addressController: addresscontroller,
+                                    emailController: emailController,
+                                    workemailController: workemailController,
+                                    phoneController: phoneController,
+                                    workPhoneController: workphoneController,
+                                    childZone: FutureBuilder<List<AEClinicalZone>>(
+                                      future: HrAddEmplyClinicalZoneApi(context),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState == ConnectionState.waiting) {
+                                          return Shimmer.fromColors(
+                                            baseColor: Colors.grey[300]!,
+                                            highlightColor: Colors.grey[100]!,
+                                            child: Container(
+                                              width: 350,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.faintGrey,
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
                                             ),
                                           );
                                         }
-                                        return CICCDropdown(
-                                          initialValue: AppString.zone,
-                                          onChange: (val) {
-                                            selectedZoneName = val;
-                                            print("Selected Zone Name: $selectedZoneName");
-                                          },
-                                          items: dropDownMenuItems,
-                                        );
-                                      } else if (snapshot.data!.isEmpty) {
-                                        return Center(
-                                          child: Text(
-                                            AppString.dataNotFound,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              fontWeight: FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                          ),
-                                        );
-                                      } else {
-                                        return SizedBox();
-                                      }
-                                    },
-                                  ),
-                                  childCity: FutureBuilder<List<AEClinicalCity>>(
-                                    future: HrAddEmplyClinicalCityApi(context),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
-                                        return Shimmer.fromColors(
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.grey[100]!,
-                                          child: Container(
-                                            width: 350,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              color: ColorManager.faintGrey,
-                                              borderRadius: BorderRadius.circular(10),
-                                            ),
-                                          ),
-                                        );
-                                      }
 
-                                      if (snapshot.hasData) {
-                                        List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                        for (var i in snapshot.data!) {
-                                          dropDownMenuItems.add(
-                                            DropdownMenuItem<String>(
-                                              child: Text(i.cityName!),
-                                              value: i.cityName,
+                                        if (snapshot.hasData) {
+                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                          for (var i in snapshot.data!) {
+                                            dropDownMenuItems.add(
+                                              DropdownMenuItem<String>(
+                                                child: Text(i.zoneName!),
+                                                value: i.zoneName,
+                                              ),
+                                            );
+                                          }
+                                          return CICCDropdown(
+                                            initialValue: AppString.zone,
+                                            onChange: (val) {
+                                              selectedZoneName = val;
+                                              print("Selected Zone Name: $selectedZoneName");
+                                            },
+                                            items: dropDownMenuItems,
+                                          );
+                                        } else if (snapshot.data!.isEmpty) {
+                                          return Center(
+                                            child: Text(
+                                              AppString.dataNotFound,
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                fontWeight: FontWeightManager.medium,
+                                                fontSize: FontSize.s12,
+                                                color: ColorManager.mediumgrey,
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          return SizedBox();
+                                        }
+                                      },
+                                    ),
+                                    childCity: FutureBuilder<List<AEClinicalCity>>(
+                                      future: HrAddEmplyClinicalCityApi(context),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState == ConnectionState.waiting) {
+                                          return Shimmer.fromColors(
+                                            baseColor: Colors.grey[300]!,
+                                            highlightColor: Colors.grey[100]!,
+                                            child: Container(
+                                              width: 350,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.faintGrey,
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
                                             ),
                                           );
                                         }
-                                        return CICCDropdown(
-                                          initialValue: AppString.city,
-                                          onChange: (val) {
-                                            selectedCityName = val;
-                                            print("Selected City Name: $selectedCityName");
-                                          },
-                                          items: dropDownMenuItems,
-                                        );
-                                      } else if (snapshot.data!.isEmpty) {
-                                        return Center(
-                                          child: Text(
-                                            AppString.dataNotFound,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              fontWeight: FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
+
+                                        if (snapshot.hasData) {
+                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                          for (var i in snapshot.data!) {
+                                            dropDownMenuItems.add(
+                                              DropdownMenuItem<String>(
+                                                child: Text(i.cityName!),
+                                                value: i.cityName,
+                                              ),
+                                            );
+                                          }
+                                          return CICCDropdown(
+                                            initialValue: AppString.city,
+                                            onChange: (val) {
+                                              selectedCityName = val;
+                                              print("Selected City Name: $selectedCityName");
+                                            },
+                                            items: dropDownMenuItems,
+                                          );
+                                        } else if (snapshot.data!.isEmpty) {
+                                          return Center(
+                                            child: Text(
+                                              AppString.dataNotFound,
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                fontWeight: FontWeightManager.medium,
+                                                fontSize: FontSize.s12,
+                                                color: ColorManager.mediumgrey,
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      } else {
-                                        return SizedBox();
-                                      }
+                                          );
+                                        } else {
+                                          return SizedBox();
+                                        }
+                                      },
+                                    ),
+                                    onPressed: () async {
+                                      await addVendors(
+                                        context,
+                                        widget.officeId,
+                                        vendorNameController.text,
+                                        addresscontroller.text,
+                                        selectedZoneName!,
+                                        emailController.text,
+                                        phoneController.text,
+                                        workemailController.text,
+                                        workphoneController.text,
+                                        selectedZoneName!,
+                                      );
                                     },
-                                  ),
-                                  onPressed: () async {
-                                    await addVendors(
-                                      context,
-                                      widget.officeId,
-                                      vendorNameController.text,
-                                      addresscontroller.text,
-                                      selectedZoneName!,
-                                      emailController.text,
-                                      phoneController.text,
-                                      workemailController.text,
-                                      workphoneController.text,
-                                      selectedZoneName!,
-                                    );
-                                  },
-                                );
-                              });
-                        })
+                                  );
+                                });
+                          }),
+                    )
                     : CustomIconButtonConst(
-                        width: 150,
+                        width: 130,
                         icon: Icons.add,
                         text: "Add Doctype",
                         onPressed: () {
