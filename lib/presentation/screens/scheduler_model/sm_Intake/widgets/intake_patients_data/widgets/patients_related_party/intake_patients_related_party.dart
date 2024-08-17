@@ -72,7 +72,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                     SizedBox(width: MediaQuery.of(context).size.width/60),
                    Container(
                      height: 30,
-                     width: 140,
+                     width: 170,
                      child:SchedularIconButtonConst(
                        icon: Icons.add,
                        text: 'Add Related Parties',
