@@ -547,7 +547,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                       ],
                                     ),
                                   ),
-                                  title: '',
+                                  title: 'Add New Compliance Document',
                                 );
                               });
                             },
