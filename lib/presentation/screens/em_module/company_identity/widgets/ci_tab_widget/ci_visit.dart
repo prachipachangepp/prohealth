@@ -117,7 +117,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
           children: [
             Container(
               width: AppSize.s150,
-              margin: EdgeInsets.only(right: AppMargin.m30),
+              margin: EdgeInsets.only(right: AppMargin.m70),
               child: CustomIconButtonConst(
                   // heightContainer: 30,
                   //   widthContainer: 120,

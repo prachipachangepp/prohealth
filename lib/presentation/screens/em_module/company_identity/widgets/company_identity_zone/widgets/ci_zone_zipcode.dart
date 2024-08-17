@@ -290,7 +290,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     countynameController = TextEditingController(text:snapshotPrefill.data!.countyName.toString());
                                                     cityController = TextEditingController(text: snapshotPrefill.data!.city.toString());
                                                     zipcodeController = TextEditingController(text: snapshotPrefill.data!.zipcode.toString());
-                                                    return AddZipCodePopup(title: 'Edit Zip Code',
+                                                    return EditZipCodePopup(title: 'Edit Zip Code',
                                                       countynameController: countynameController,
                                                       cityNameController: cityController,
                                                       zipcodeController: zipcodeController,
