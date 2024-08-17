@@ -516,7 +516,7 @@ class _generalFormState extends State<generalForm> {
                           ],
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 15),
+                      SizedBox(width: MediaQuery.of(context).size.width / 5),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
