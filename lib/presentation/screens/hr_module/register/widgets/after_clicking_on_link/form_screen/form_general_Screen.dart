@@ -19,6 +19,7 @@ import '../../../../../../../app/services/api/managers/hr_module_manager/manage_
 import '../../../../../../../app/services/token/token_manager.dart';
 import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../../../add_employee/widget/mcq_widget_add-employee.dart';
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../../manage/widgets/custom_icon_button_constant.dart';
 import '../../../taxtfield_constant.dart';
@@ -65,6 +66,7 @@ class _generalFormState extends State<generalForm> {
   String? _selectedDegree;
   late bool _passwordVisible = false;
   String? gendertype;
+  //int? gendertype;
 
   String? racetype;
 
@@ -115,30 +117,53 @@ class _generalFormState extends State<generalForm> {
       throw Exception('File not found');
     }
   }
+  //
+  // void _pickFiles() async {
+  //   setState(() {
+  //     _loading = true; // Show loader
+  //     _fileNames.clear(); // Clear previous file names if any
+  //   });
+  //
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //     allowMultiple: true,
+  //   );
+  //
+  //   if (result != null) {
+  //     setState(() {
+  //       _fileNames.addAll(result.files.map((file) => file.name!));
+  //       _loading = false; // Hide loader
+  //     });
+  //     print('Files picked: $_fileNames');
+  //   } else {
+  //     setState(() {
+  //       _loading = false; // Hide loader on cancel
+  //     });
+  //     print('User canceled the picker');
+  //   }
+  // }
 
-  void _pickFiles() async {
-    setState(() {
-      _loading = true; // Show loader
-      _fileNames.clear(); // Clear previous file names if any
-    });
-
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
-    );
-
+  Future<void> _pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
-      setState(() {
+      try {
+        Uint8List? bytes = result.files.first.bytes;
+        XFile xlfile = XFile(result.xFiles.first.path);
+        xfileToFile = File(xlfile.path);
+
+        XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
         _fileNames.addAll(result.files.map((file) => file.name!));
-        _loading = false; // Hide loader
-      });
-      print('Files picked: $_fileNames');
-    } else {
-      setState(() {
-        _loading = false; // Hide loader on cancel
-      });
-      print('User canceled the picker');
+        fileName = result.files.first.name;
+        finalPath = result.files.first.bytes;
+       // setState(() {
+          _documentUploaded = true;
+       // });
+      } catch (e) {
+        print(e);
+      }
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -220,105 +245,112 @@ class _generalFormState extends State<generalForm> {
                             const SizedBox(
                               height: AppSize.s5,
                             ),
-                            Text(
-                              "Upload Photo",
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff686464)),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 60),
-                            ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff50B5E5),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Upload Photo",
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: const Color(0xff686464)),
                                 ),
-                              ),
-                              onPressed: () async {
-                                // FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                //   allowMultiple: false,
-                                // );
-                                FilePickerResult? result =
-                                    await FilePicker.platform.pickFiles();
-                                if (result != null) {
-                                  print("Result::: ${result}");
-
-                                  try {
-                                    Uint8List? bytes = result.files.first.bytes;
-                                    XFile xlfile =
-                                        XFile(result.xFiles.first.path);
-                                    xfileToFile = File(xlfile.path);
-
-                                    print(
-                                        "::::XFile To File ${xfileToFile.toString()}");
-                                    XFile xFile = await convertBytesToXFile(
-                                        bytes!, result.xFiles.first.name);
-                                    // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-                                    // html.File file = webFile.file;
-                                    //  print("XFILE ${xFile.path}");
-                                    //  //filePath = xfileToFile as XFile?;
-                                    //  print("L::::::${filePath}");
-                                    _fileNames.addAll(
-                                        result.files.map((file) => file.name!));
-                                    print('File picked: ${_fileNames}');
-                                    //print(String.fromCharCodes(file));
-                                    fileName = result.files.first.name;
-                                    finalPath = result.files.first.bytes;
-                                    setState(() {
-                                      _fileNames;
-                                      _documentUploaded = true;
-                                    });
-                                  } catch (e) {
-                                    print(e);
-                                  }
-                                }
-                              }, //_pickFiles,
-
-                              label: Text(
-                                "Choose File",
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              icon: const Icon(Icons.file_upload_outlined),
-                            ),
-                            _loading
-                                ? SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: CircularProgressIndicator(
-                                      color: ColorManager
-                                          .blueprime, // Loader color
-                                      // Loader size
+                                SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height / 60),
+                                ElevatedButton.icon(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Color(0xff50B5E5),
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                  )
-                                : _fileNames.isNotEmpty
-                                    ? Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: _fileNames
-                                            .map((fileName) => Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    'File picked: $fileName',
-                                                    style: GoogleFonts.firaSans(
-                                                        fontSize: 12.0,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: const Color(
-                                                            0xff686464)),
-                                                  ),
-                                                ))
-                                            .toList(),
+                                  ),
+                                  onPressed: _pickFile,
+                                  //
+                                  //     () async {
+                                  //   // FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                  //   //   allowMultiple: false,
+                                  //   // );
+                                  //   FilePickerResult? result =
+                                  //       await FilePicker.platform.pickFiles();
+                                  //   if (result != null) {
+                                  //     print("Result::: ${result}");
+                                  //
+                                  //     try {
+                                  //       Uint8List? bytes = result.files.first.bytes;
+                                  //       XFile xlfile =
+                                  //           XFile(result.xFiles.first.path);
+                                  //       xfileToFile = File(xlfile.path);
+                                  //
+                                  //       print(
+                                  //           "::::XFile To File ${xfileToFile.toString()}");
+                                  //       XFile xFile = await convertBytesToXFile(
+                                  //           bytes!, result.xFiles.first.name);
+                                  //       // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
+                                  //       // html.File file = webFile.file;
+                                  //       //  print("XFILE ${xFile.path}");
+                                  //       //  //filePath = xfileToFile as XFile?;
+                                  //       //  print("L::::::${filePath}");
+                                  //       _fileNames.addAll(
+                                  //           result.files.map((file) => file.name!));
+                                  //       print('File picked: ${_fileNames}');
+                                  //       //print(String.fromCharCodes(file));
+                                  //       fileName = result.files.first.name;
+                                  //       finalPath = result.files.first.bytes;
+                                  //       setState(() {
+                                  //         _fileNames;
+                                  //         _documentUploaded = true;
+                                  //       });
+                                  //     } catch (e) {
+                                  //       print(e);
+                                  //     }
+                                  //   }
+                                  // }, //_pickFiles,
+
+                                  label: Text(
+                                    "Choose File",
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  icon: const Icon(Icons.file_upload_outlined),
+                                ),
+                                _loading
+                                    ? SizedBox(
+                                        width: 25,
+                                        height: 25,
+                                        child: CircularProgressIndicator(
+                                          color: ColorManager
+                                              .blueprime, // Loader color
+                                          // Loader size
+                                        ),
                                       )
-                                    : const SizedBox(), // Display file names if picked
+                                    : _fileNames.isNotEmpty
+                                        ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: _fileNames
+                                                .map((fileName) => Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(8.0),
+                                                      child: Text(
+                                                        'File picked: $fileName',
+                                                        style: GoogleFonts.firaSans(
+                                                            fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color: const Color(
+                                                                0xff686464)),
+                                                      ),
+                                                    ))
+                                                .toList(),
+                                          )
+                                        : const SizedBox(),
+                              ],
+                            ), // Display file names if picked
 
                             SizedBox(
                                 height:
@@ -363,6 +395,7 @@ class _generalFormState extends State<generalForm> {
                                 height:
                                     MediaQuery.of(context).size.height / 60),
                             CustomTextFieldRegister(
+
                               controller: lastname,
                               hintText: 'Enter Text',
                               hintStyle: GoogleFonts.firaSans(
@@ -531,6 +564,22 @@ class _generalFormState extends State<generalForm> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height / 60),
+                            // Container(
+                            //   height: 60,
+                            //   child: Padding(
+                            //     padding: EdgeInsets.only(left: 16.0),
+                            //     child: McqWidget(
+                            //       title: 'Gender',
+                            //       items: ['Male', 'Female', 'Other', ],
+                            //       onChanged: (selectedIndex) {
+                            //         print('Selected index: $selectedIndex');
+                            //         gendertype = selectedIndex as String?;
+                            //       },
+                            //     ),
+                            //   ),
+                            // ),
+
+
                             Container(
                               width: 400,
                               child: Row(
