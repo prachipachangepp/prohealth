@@ -149,7 +149,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 2.2),
+                        left: MediaQuery.of(context).size.width / 2.2), //2.2
                     child: Container(
                       height: 30,
                       width: 90,
@@ -191,7 +191,9 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(8),
-                                      topRight: Radius.circular(8)
+                                      topRight: Radius.circular(8),
+                                      bottomLeft: Radius.circular(8),
+                                      bottomRight: Radius.circular(8),
                                     ),
                                   ),
 
@@ -585,10 +587,10 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 children: [
-                                                  CustomElevatedButton(
+                                                  CustomButtonTransparent(
                                                     width: 105,
-                                                    height: 31,
-                                                    text: 'Cancel',
+                                                    height: 35,
+                                                    text: "Cancel",
                                                     onPressed: () {
                                                       Navigator.pop(context);
                                                     },
@@ -596,7 +598,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   SizedBox(width: 10),
                                                   CustomElevatedButton(
                                                     width: 105,
-                                                    height: 31,
+                                                    height: 35,
                                                     text: 'Submit',
                                                     onPressed: () async {
                                                       await postWhitelabellingAdd(
@@ -638,202 +640,205 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    height: 320,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: ColorManager.blueprime,
-                        ),
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(20))),
-                    child:
-                      ///old code
-                    StreamBuilder<WhiteLabellingCompanyDetailModal>(
-                      stream: Stream.fromFuture(getWhiteLabellingData(context)),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          var data = snapshot.data!;
-                          var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
-                              orElse: () => WLLogoModal(
-                                  companyLogoId: 3,
-                                  companyId: 1,
-                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
-                                  type: ''));
-                          var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
-                              orElse: () => WLLogoModal(
-                                  companyLogoId: 4,
-                                  companyId: 1,
-                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
-                                  type: ''));
-                          var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
-                              orElse: () => WLLogoModal(
-                                  companyLogoId: 4,
-                                  companyId: 1,
-                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
-                                  type: ''));
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    flex: 2, //2
+                    child: Container(
+                      height: 320,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.blueprime,
+                          ),
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(20))),
+                      child:
+                        ///old code
+                      StreamBuilder<WhiteLabellingCompanyDetailModal>(
+                        stream: Stream.fromFuture(getWhiteLabellingData(context)),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            var data = snapshot.data!;
+                            var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
+                                orElse: () => WLLogoModal(
+                                    companyLogoId: 3,
+                                    companyId: 1,
+                                    url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                    type: ''));
+                            var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
+                                orElse: () => WLLogoModal(
+                                    companyLogoId: 4,
+                                    companyId: 1,
+                                    url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                                    type: ''));
+                            var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
+                                orElse: () => WLLogoModal(
+                                    companyLogoId: 4,
+                                    companyId: 1,
+                                    url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                                    type: ''));
 
-                          return Column(
-                            children: [
-                              Container(
-                                height: 100,
-                                child: mainLogo.url.isNotEmpty
-                                    ? Image.asset(
-                                  'images/formainlogoprohealth.png',
-                                  // mainLogo.url,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                    return Center(
-                                      child: Icon(Icons.error, color: Colors.red),
-                                    );
-                                  },
-                                )
-                                    : Container(),
-                              ),
-                              Container(
-                                height: 100,
-                                child: webLogo.url.isNotEmpty
-                                    ?     Image.network(
-                        "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
-                        // webLogo.url,
-                        fit: BoxFit.cover,
-                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                        return Center(
-                        child: Icon(Icons.error, color: Colors.red),
-                        );
-                        },
-                        )
-                            : Container(),),
-                              Container(
-                                height: 100,
-                                child:
-                                appLogo.url.isNotEmpty
-                                    ? Image.network(
-                                      'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                    return Center(
-                                      child: Icon(Icons.error, color: Colors.red),
-                                    );
-                                  },
-                                )
-                                    : Container(),
-                              ),
-                            ],
+                            return Column(
+                              children: [
+                                Container(
+                                  height: 100,
+                                  child: mainLogo.url.isNotEmpty
+                                      ? Image.asset(
+                                    'images/formainlogoprohealth.png',
+                                    // mainLogo.url,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                      return Center(
+                                        child: Icon(Icons.error, color: Colors.red),
+                                      );
+                                    },
+                                  )
+                                      : Container(),
+                                ),
+                                Container(
+                                  height: 100,
+                                  child: webLogo.url.isNotEmpty
+                                      ?     Image.network(
+                          "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
+                          // webLogo.url,
+                          fit: BoxFit.cover,
+                          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                          return Center(
+                          child: Icon(Icons.error, color: Colors.red),
                           );
-                        } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else {
-                          return Center(child: CircularProgressIndicator());
-                        }
-                      },
+                          },
+                          )
+                              : Container(),),
+                                Container(
+                                  height: 100,
+                                  child:
+                                  appLogo.url.isNotEmpty
+                                      ? Image.network(
+                                        'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                      return Center(
+                                        child: Icon(Icons.error, color: Colors.red),
+                                      );
+                                    },
+                                  )
+                                      : Container(),
+                                ),
+                              ],
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  flex: 6,
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(15.0),
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: ColorManager.blueprime,
-                            ),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        height: 320,
-                        // color: ColorManager.red,
-                        child: StreamBuilder<WhiteLabellingCompanyDetailModal>(
-                            stream: Stream.fromFuture(
-                                getWhiteLabellingData(context)),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                var data = snapshot.data!;
-                                nameController.text = data.companyDetail.name;
-                                secNumberController.text = data.contactDetail.secondaryPhone;
-                                faxController.text = data.contactDetail.primaryFax;
-                                addressController.text = data.companyDetail.address;
-                                primNumController.text = data.contactDetail.primaryPhone;
-                                altNumController.text = data.contactDetail.alternativePhone;
-                                emailController.text = data.contactDetail.email;
-                              } else if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              }
+                  Expanded(
+                    flex: 6, //6
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(15.0),
+                          padding: const EdgeInsets.all(3.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: ColorManager.blueprime,
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          height: 320,
+                          // color: ColorManager.red,
+                          child: StreamBuilder<WhiteLabellingCompanyDetailModal>(
+                              stream: Stream.fromFuture(
+                                  getWhiteLabellingData(context)),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  var data = snapshot.data!;
+                                  nameController.text = data.companyDetail.name;
+                                  secNumberController.text = data.contactDetail.secondaryPhone;
+                                  faxController.text = data.contactDetail.primaryFax;
+                                  addressController.text = data.companyDetail.address;
+                                  primNumController.text = data.contactDetail.primaryPhone;
+                                  altNumController.text = data.contactDetail.alternativePhone;
+                                  emailController.text = data.contactDetail.email;
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                }
 
-                              return Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      EditTextField(
-                                        controller: nameController,
-                                        keyboardType: TextInputType.text,
-                                        text: AppStringEM.companyName,
-                                      ),
-                                      SizedBox(height: AppSize.s9),
-                                      EditTextField(
-                                        controller: secNumberController,
-                                        keyboardType: TextInputType.number,
-                                        text: AppStringEM.secNum,
-                                      ),
-                                      SizedBox(height: AppSize.s9),
-                                      EditTextField(
-                                        controller: faxController,
-                                        keyboardType: TextInputType.text,
-                                        text: AppStringEM.fax,
-                                      ),
-                                      SizedBox(height: AppSize.s9),
-                                      EditTextField(
-                                        controller: emailController,
-                                        keyboardType: TextInputType.text,
-                                        text: AppStringEM.primarymail,
-                                      ),
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        EditTextField(
+                                          controller: nameController,
+                                          keyboardType: TextInputType.text,
+                                          text: AppStringEM.companyName,
+                                        ),
+                                        SizedBox(height: AppSize.s9),
+                                        EditTextField(
+                                          controller: secNumberController,
+                                          keyboardType: TextInputType.number,
+                                          text: AppStringEM.secNum,
+                                        ),
+                                        SizedBox(height: AppSize.s9),
+                                        EditTextField(
+                                          controller: faxController,
+                                          keyboardType: TextInputType.text,
+                                          text: AppStringEM.fax,
+                                        ),
+                                        SizedBox(height: AppSize.s9),
+                                        EditTextField(
+                                          controller: emailController,
+                                          keyboardType: TextInputType.text,
+                                          text: AppStringEM.primarymail,
+                                        ),
 
-                                    ],
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      EditTextField(
-                                        controller: primNumController,
-                                        keyboardType: TextInputType.number,
-                                        text: AppStringEM.primNum,
-                                      ),
-                                      SizedBox(height: AppSize.s9),
-                                      EditTextField(
-                                        controller: altNumController,
-                                        keyboardType: TextInputType.number,
-                                        text: AppStringEM.alternatephone,
-                                      ),
-                                      SizedBox(height: AppSize.s9),
+                                      ],
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        EditTextField(
+                                          controller: primNumController,
+                                          keyboardType: TextInputType.number,
+                                          text: AppStringEM.primNum,
+                                        ),
+                                        SizedBox(height: AppSize.s9),
+                                        EditTextField(
+                                          controller: altNumController,
+                                          keyboardType: TextInputType.number,
+                                          text: AppStringEM.alternatephone,
+                                        ),
+                                        SizedBox(height: AppSize.s9),
 
-                                      EditTextField(
-                                        controller: addressController,
-                                        keyboardType: TextInputType.text,
-                                        text: "Street Address",
-                                      ),
-                                      SizedBox(
-                                        width: 354,
-                                        height: 30,
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              );
-                            }),
-                      )
-                    ],
-                  ),
-                )
-              ],
+                                        EditTextField(
+                                          controller: addressController,
+                                          keyboardType: TextInputType.text,
+                                          text: "Street Address",
+                                        ),
+                                        SizedBox(
+                                          width: 354,
+                                          height: 60,
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              }),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ),
