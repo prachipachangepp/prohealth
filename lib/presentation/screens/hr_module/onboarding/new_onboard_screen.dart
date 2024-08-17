@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/qual
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/value_manager.dart';
 import '../manage/widgets/bottom_row.dart';
 
 class NewOnboardScreen extends StatefulWidget {
@@ -160,7 +161,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
+      color: ColorManager.white,
       child: Column(
         children: [
           if (widget.selectedIndex != 0)
@@ -190,7 +191,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                         elevation: 4,
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
-                          height: 28,
+                          height: AppSize.s28,
                           width: MediaQuery.of(context).size.width / 2.1, //1.68
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -204,7 +205,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                 .map(
                                   (entry) => InkWell(
                                 child: Container(
-                                  height: 30,
+                                  height: AppSize.s30,
                                   width: MediaQuery.of(context).size.width / 8.42,
                                   padding: EdgeInsets.symmetric(vertical: 6),
                                   decoration: BoxDecoration(
@@ -217,11 +218,11 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.firaSans(
                                       textStyle: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.semiBold,
                                         color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
                                             ? ColorManager.mediumgrey
-                                            : Colors.white,
+                                            : ColorManager.white,
                                       ),
                                     ),
                                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 class BottomBarRow extends StatelessWidget {
@@ -23,8 +24,8 @@ class BottomBarRow extends StatelessWidget {
             ///text
             Text('#2031ABC01BA',
                 style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
+                  fontSize: FontSize.s12,
+                  fontWeight: FontWeightManager.regular,
                   color: ColorManager.grey,
                   decoration: TextDecoration.none,
                 )),
@@ -35,20 +36,20 @@ class BottomBarRow extends StatelessWidget {
                 Text(
                   'Washington DC',
                   style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
+                    fontSize: FontSize.s12,
+                    fontWeight: FontWeightManager.bold,
                     color: ColorManager.darkgrey,
                     decoration: TextDecoration.none,
                   ),
                 ),
                 SizedBox(
-                  width: 10,
+                  width: AppSize.s10,
                 ),
                 Text(
                   '198.168.1.231',
                   style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                    fontSize: FontSize.s12,
+                    fontWeight: FontWeightManager.regular,
                     color: ColorManager.grey,
                     decoration: TextDecoration.none,
                   ),
@@ -68,8 +69,8 @@ class BottomBarRow extends StatelessWidget {
                 Text(
                   'Powered by',
                   style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                    fontSize: FontSize.s12,
+                    fontWeight: FontWeightManager.regular,
                     color: ColorManager.grey,
                     decoration: TextDecoration.none,
                   ),

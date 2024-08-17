@@ -39,8 +39,292 @@ class AddReferencePopup extends StatefulWidget {
   State<AddReferencePopup> createState() => _AddReferencePopupState();
 }
 
+//
+// class _AddReferencePopupState extends State<AddReferencePopup> {
+//   bool isLoading = false;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Dialog(
+//       backgroundColor: Colors.transparent,
+//       child: Container(
+//         width: MediaQuery.of(context).size.width / 1.5,
+//         height: MediaQuery.of(context).size.height / 1.7,
+//         decoration: BoxDecoration(
+//           color: ColorManager.white,
+//           borderRadius: BorderRadius.circular(12),
+//         ),
+//         child: Column(
+//           children: [
+//             Container(
+//               height: 50,
+//               decoration: BoxDecoration(
+//                 color: Color(0xff50B5E5),
+//                 borderRadius: BorderRadius.only(
+//                   topLeft: Radius.circular(12),
+//                   topRight: Radius.circular(12),
+//                 ),
+//               ),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Padding(
+//                     padding: const EdgeInsets.symmetric(
+//                         vertical: 15, horizontal: 15),
+//                     child: Text(
+//                       widget.title,
+//                       style: GoogleFonts.firaSans(
+//                         fontSize: FontSize.s14,
+//                         fontWeight: FontWeight.w700,
+//                         color: Colors.white,
+//                         decoration: TextDecoration.none,
+//                       ),
+//                     ),
+//                   ),
+//                   IconButton(
+//                     onPressed: () {
+//                       Navigator.pop(context);
+//                     },
+//                     icon: const Icon(
+//                       Icons.close,
+//                       color: Colors.white,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: MediaQuery.of(context).size.height / 20),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//               children: [
+//                 CustomTextFieldRegister(
+//                   height: AppSize.s30,
+//                   width: MediaQuery.of(context).size.width / 6,
+//                   controller: widget.nameController,
+//                   labelText: "Name",
+//                   keyboardType: TextInputType.text,
+//                   padding: const EdgeInsets.only(
+//                       bottom: AppPadding.p5, left: AppPadding.p20),
+//                   onChanged: (value) {},
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) {
+//                       return AppString.enterText;
+//                     }
+//                     return null;
+//                   },
+//                 ),
+//                 CustomTextFieldForEmail(
+//                   height: AppSize.s30,
+//                   width: MediaQuery.of(context).size.width / 6,
+//                   controller: widget.emailController,
+//                   labelText: "Email",
+//                   keyboardType: TextInputType.text,
+//                   padding: const EdgeInsets.only(
+//                       bottom: AppPadding.p5, left: AppPadding.p20),
+//                   onChanged: (value) {},
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) {
+//                       return AppString.enterText;
+//                     }
+//                     return null;
+//                   },
+//                 ),
+//                 CustomTextFieldRegister(
+//                   height: AppSize.s30,
+//                   width: MediaQuery.of(context).size.width / 6,
+//                   controller: widget.titlePositionController,
+//                   labelText: "Title/Position",
+//                   keyboardType: TextInputType.text,
+//                   padding: const EdgeInsets.only(
+//                       bottom: AppPadding.p5, left: AppPadding.p20),
+//                   onChanged: (value) {},
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) {
+//                       return AppString.enterText;
+//                     }
+//                     return null;
+//                   },
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: MediaQuery.of(context).size.height / 20),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//               children: [
+//                 CustomTextFieldRegister(
+//                   height: AppSize.s30,
+//                   width: MediaQuery.of(context).size.width / 6,
+//                   controller: widget.knowPersonController,
+//                   labelText: "How do you know this person ?",
+//                   keyboardType: TextInputType.text,
+//                   padding: const EdgeInsets.only(
+//                       bottom: AppPadding.p5, left: AppPadding.p20),
+//                   onChanged: (value) {},
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) {
+//                       return AppString.enterText;
+//                     }
+//                     return null;
+//                   },
+//                 ),
+//                 CustomTextFieldRegister(
+//                   height: AppSize.s30,
+//                   width: MediaQuery.of(context).size.width / 6,
+//                   controller: widget.companyNameController,
+//                   labelText: "Company",
+//                   keyboardType: TextInputType.text,
+//                   padding: const EdgeInsets.only(
+//                       bottom: AppPadding.p5, left: AppPadding.p20),
+//                   onChanged: (value) {},
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) {
+//                       return AppString.enterText;
+//                     }
+//                     return null;
+//                   },
+//                 ),
+//                 CustomTextFieldRegister(
+//                   height: AppSize.s30,
+//                   width: MediaQuery.of(context).size.width / 6,
+//                   controller: widget.associationLengthController,
+//                   labelText: "Length of Association",
+//                   keyboardType: TextInputType.text,
+//                   padding: const EdgeInsets.only(
+//                       bottom: AppPadding.p5, left: AppPadding.p20),
+//                   onChanged: (value) {},
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) {
+//                       return AppString.enterText;
+//                     }
+//                     return null;
+//                   },
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: MediaQuery.of(context).size.height / 20),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//               children: [
+//                 CustomTextFieldRegister(
+//                   height: AppSize.s30,
+//                   width: MediaQuery.of(context).size.width / 6,
+//                   controller: widget.mobileNumberController,
+//                   labelText: "Mobile Number",
+//                   keyboardType: TextInputType.text,
+//                   padding: const EdgeInsets.only(
+//                       bottom: AppPadding.p5, left: AppPadding.p20),
+//                   onChanged: (value) {},
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) {
+//                       return AppString.enterText;
+//                     }
+//                     return null;
+//                   },
+//                 ),
+//                 CustomTextFieldRegister(
+//                   height: AppSize.s30,
+//                   width: MediaQuery.of(context).size.width / 6,
+//                   controller: widget.referredBy,
+//                   labelText: "Referred By",
+//                   keyboardType: TextInputType.text,
+//                   padding: const EdgeInsets.only(
+//                       bottom: AppPadding.p5, left: AppPadding.p20),
+//                   onChanged: (value) {},
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) {
+//                       return AppString.enterText;
+//                     }
+//                     return null;
+//                   },
+//                 ),
+//                 SizedBox(
+//                   width: MediaQuery.of(context).size.width / 6,
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: MediaQuery.of(context).size.height / 15),
+//             Padding(
+//               padding: const EdgeInsets.symmetric(horizontal: 10),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.end,
+//                 children: [
+//                   CustomButtonTransparent(text: "Cancel", onPressed: () {}),
+//                   const SizedBox(
+//                     width: 10,
+//                   ),
+//                   isLoading
+//                       ? SizedBox(
+//                           height: 25,
+//                           width: 25,
+//                           child: CircularProgressIndicator(
+//                             color: ColorManager.blueprime,
+//                           ))
+//                       : CustomElevatedButton(
+//                     width: 100,
+//                           text: "Save",
+//                           onPressed: () async {
+//                             setState(() {
+//                               isLoading = true;
+//                             });
+//                             try {
+//                               await widget.onpressedSave();
+//                             } finally {
+//                               setState(() {
+//                                 isLoading = false;
+//                               });
+//                               Navigator.pop(context);
+//                               showDialog(
+//                                 context: context,
+//                                 builder: (BuildContext context) {
+//                                   Future.delayed(Duration(seconds: 3), () {
+//                                     if (Navigator.of(context).canPop()) {
+//                                       Navigator.of(context).pop();
+//                                     }
+//                                   });
+//                                   return AddSuccessPopup(
+//                                     message: 'Added Successfully',
+//                                   );
+//                                 },
+//                               );
+//                               widget.nameController.clear();
+//                               widget.emailController.clear();
+//                               widget.companyNameController.clear();
+//                               widget.titlePositionController.clear();
+//                               widget.mobileNumberController.clear();
+//                               widget.associationLengthController.clear();
+//                               widget.knowPersonController.clear();
+//                               widget.referredBy.clear();
+//                             }
+//                           }),
+//                 ],
+//               ),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 class _AddReferencePopupState extends State<AddReferencePopup> {
   bool isLoading = false;
+
+  // Error states
+  Map<String, bool> errorStates = {
+    'name': false,
+    'email': false,
+    'titlePosition': false,
+    'knowPerson': false,
+    'companyName': false,
+    'associationLength': false,
+    'mobileNumber': false,
+    'referredBy': false,
+  };
+
+  // Email validation
+  bool _isEmailValid(String email) {
+    return RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(email);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -55,9 +339,9 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
         child: Column(
           children: [
             Container(
-              height: 50,
+              height: AppSize.s50,
               decoration: BoxDecoration(
-                color: Color(0xff50B5E5),
+                color: ColorManager.blueprime,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
@@ -73,8 +357,8 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                       widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s14,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
                     ),
@@ -95,53 +379,24 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.nameController,
                   labelText: "Name",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'name',
                 ),
-                CustomTextFieldForEmail(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.emailController,
                   labelText: "Email",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'email',
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) => !_isEmailValid(value)
+                      ? 'Please enter a valid email'
+                      : null,
                 ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.titlePositionController,
                   labelText: "Title/Position",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'titlePosition',
                 ),
               ],
             ),
@@ -149,53 +404,20 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.knowPersonController,
-                  labelText: "How do you know this person ?",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  labelText: "How do you know this person?",
+                  errorKey: 'knowPerson',
                 ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.companyNameController,
                   labelText: "Company",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'companyName',
                 ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.associationLengthController,
                   labelText: "Length of Association",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'associationLength',
                 ),
               ],
             ),
@@ -203,37 +425,16 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.mobileNumberController,
                   labelText: "Mobile Number",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'mobileNumber',
+                  keyboardType: TextInputType.number,
                 ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.referredBy,
                   labelText: "Referred By",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'referredBy',
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 6,
@@ -246,54 +447,22 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  CustomButtonTransparent(text: "Cancel", onPressed: () {}),
+                  CustomButtonTransparent(text: AppString.cancel, onPressed: () {}),
                   const SizedBox(
-                    width: 10,
+                    width: AppSize.s10,
                   ),
                   isLoading
                       ? SizedBox(
-                          height: 25,
-                          width: 25,
-                          child: CircularProgressIndicator(
-                            color: ColorManager.blueprime,
-                          ))
+                      height: AppSize.s25,
+                      width: AppSize.s25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ))
                       : CustomElevatedButton(
-                    width: 100,
-                          text: "Save",
-                          onPressed: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            try {
-                              await widget.onpressedSave();
-                            } finally {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              Navigator.pop(context);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  Future.delayed(Duration(seconds: 3), () {
-                                    if (Navigator.of(context).canPop()) {
-                                      Navigator.of(context).pop();
-                                    }
-                                  });
-                                  return AddSuccessPopup(
-                                    message: 'Added Successfully',
-                                  );
-                                },
-                              );
-                              widget.nameController.clear();
-                              widget.emailController.clear();
-                              widget.companyNameController.clear();
-                              widget.titlePositionController.clear();
-                              widget.mobileNumberController.clear();
-                              widget.associationLengthController.clear();
-                              widget.knowPersonController.clear();
-                              widget.referredBy.clear();
-                            }
-                          }),
+                    width: AppSize.s100,
+                    text: AppString.save,
+                    onPressed: _handleSave,
+                  ),
                 ],
               ),
             )
@@ -302,7 +471,113 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
       ),
     );
   }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String labelText,
+    required String errorKey,
+    TextInputType? keyboardType,
+    String? Function(String)? validator,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomTextFieldRegister(
+          height: AppSize.s30,
+          width: MediaQuery.of(context).size.width / 6,
+          controller: controller,
+          labelText: labelText,
+          keyboardType: keyboardType ?? TextInputType.text,
+          padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
+          onChanged: (value) {
+            setState(() {
+              if (validator != null) {
+                errorStates[errorKey] = validator(value) != null;
+              } else {
+                errorStates[errorKey] = value.isEmpty;
+              }
+              if (errorKey == 'mobileNumber') {
+                errorStates[errorKey] = value.length != 10;
+              }
+            });
+          },
+        ),
+        if (errorStates[errorKey]!)
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Text(
+              errorKey == 'mobileNumber'
+                  ? 'Please Enter a valid mobile number'
+                  : errorKey == 'email'
+                  ? 'Please Enter a valid email'
+                  : 'Please Enter $labelText',
+              style: TextStyle(
+                color: ColorManager.red,
+                fontSize: FontSize.s10,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  void _handleSave() async {
+    setState(() {
+      errorStates['name'] = widget.nameController.text.isEmpty;
+      errorStates['email'] = !_isEmailValid(widget.emailController.text);
+      errorStates['titlePosition'] = widget.titlePositionController.text.isEmpty;
+      errorStates['knowPerson'] = widget.knowPersonController.text.isEmpty;
+      errorStates['companyName'] = widget.companyNameController.text.isEmpty;
+      errorStates['associationLength'] = widget.associationLengthController.text.isEmpty;
+      errorStates['mobileNumber'] = widget.mobileNumberController.text.length != 10;
+      errorStates['referredBy'] = widget.referredBy.text.isEmpty;
+    });
+
+    if (!errorStates.values.contains(true)) {
+      try {
+        setState(() {
+          isLoading = true;
+        });
+        await widget.onpressedSave();
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
+        Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            Future.delayed(Duration(seconds: 3), () {
+              if (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
+            });
+            return AddSuccessPopup(
+              message: 'Added Successfully',
+            );
+          },
+        );
+        _clearControllers();
+      }
+    }
+  }
+
+  void _clearControllers() {
+    widget.nameController.clear();
+    widget.emailController.clear();
+    widget.companyNameController.clear();
+    widget.titlePositionController.clear();
+    widget.mobileNumberController.clear();
+    widget.associationLengthController.clear();
+    widget.knowPersonController.clear();
+    widget.referredBy.clear();
+  }
 }
+
+
+
+//////
+
 
 //
 // import 'package:flutter/material.dart';

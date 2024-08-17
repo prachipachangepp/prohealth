@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -88,7 +89,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
   Widget build(BuildContext context) {
     return isLoading
         ? CircularProgressIndicator( color: ColorManager.blueprime,)
-        :SizedBox(height: 35,width: 100,
+        :SizedBox(height: AppSize.s35,width: AppSize.s100,
 
           child: ElevatedButton(
                 onPressed: () async{
@@ -106,7 +107,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
           },
                 style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-          backgroundColor: Colors.white,
+          backgroundColor: ColorManager.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: const BorderSide(color: Color(0xFF50B5E5)),
@@ -116,8 +117,8 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
           widget.text,
           style: const TextStyle(
             fontFamily: 'FiraSans',
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
+            fontSize: FontSize.s12,
+            fontWeight: FontWeightManager.bold,
             color: Color(0xFF50B5E5),
           ),
                 ),
@@ -197,7 +198,7 @@ class CustomButton extends StatelessWidget {
     final defaultTextStyle = GoogleFonts.firaSans(
       color: textColor,
       fontSize: MediaQuery.of(context).size.width / 90,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeightManager.bold,
     );
     final mergedTextStyle = defaultTextStyle.merge(style);
     return Container(
@@ -257,7 +258,7 @@ class CustomTitleButton extends StatelessWidget {
     return Material(
       elevation: isSelected ? 4 : 0,
       borderRadius: BorderRadius.circular(12),
-      color: Colors.white,
+      color: ColorManager.white,
       child: AppClickableWidget(
         onTap: onPressed,
         onHover: (bool val) {},
@@ -281,8 +282,8 @@ class CustomTitleButton extends StatelessWidget {
             text,
             style: GoogleFonts.firaSans(
               fontSize: FontSize.s12,
-              fontWeight: FontWeight.w700,
-              color: isSelected ? Colors.white : ColorManager.textPrimaryColor,
+              fontWeight: FontWeightManager.bold,
+              color: isSelected ? ColorManager.white : ColorManager.textPrimaryColor,
             ),
           ),
         ),
@@ -300,8 +301,8 @@ class DZoneButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 32,
-      height: 25,
+      width: AppSize.s32,
+      height: AppSize.s25,
       decoration: BoxDecoration(
         color: isSelected ? ColorManager.blueprime : ColorManager.white,
         borderRadius: BorderRadius.circular(8),
@@ -372,8 +373,8 @@ class CustomDropdownButton extends StatelessWidget {
             onChanged: onChanged,
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
+              fontSize: FontSize.s13,
+              fontWeight: FontWeightManager.bold,
             ),
             dropdownColor: ColorManager.white,
             borderRadius: BorderRadius.circular(borderRadius),
@@ -397,7 +398,7 @@ class CustomDropdownButton extends StatelessWidget {
                         color: value == selectedItem
                             ? ColorManager.white
                             : ColorManager.mediumgrey,
-                        fontSize: 12,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.bold),
                   ),
                 ),

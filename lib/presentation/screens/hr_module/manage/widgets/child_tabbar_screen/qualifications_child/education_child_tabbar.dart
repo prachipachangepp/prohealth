@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/education_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -192,9 +193,9 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                              Text('Education #${snapshot.data![index].educationId}',
                                style: GoogleFonts.firaSans(
                                  // fontFamily: 'FiraSans',
-                                 fontSize: 13,
-                                 color: Colors.black,
-                                 fontWeight: FontWeight.w500,
+                                 fontSize: FontSize.s13,
+                                 color: ColorManager.black,
+                                 fontWeight: FontWeightManager.medium,
                                ),),
                           ],),
                           SizedBox(height: MediaQuery.of(context).size.height/50,),
@@ -206,13 +207,13 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                 children: [
                                   Text('Degree',
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(height: AppSize.s10,),
                                   Text('Graduate',
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(height: AppSize.s10),
                                   Text('Educational Institute',
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(height: AppSize.s10),
                                   Text('Major Subject',
                                       style: ThemeManager.customTextStyle(context)),
                                 ],
@@ -222,13 +223,13 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                 children: [
                                   Text(snapshot.data![index].degree,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(height: AppSize.s10,),
                                   Text(snapshot.data![index].graduate,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(height: AppSize.s10,),
                                   Text(snapshot.data![index].college,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(height: AppSize.s10),
                                   Text(snapshot.data![index].major,
                                     style: ThemeManagerDark.customTextStyle(context),),
                                 ],
@@ -239,14 +240,14 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                 children: [
                                   Text('Phone',
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('City',
+                                  const SizedBox(height: AppSize.s10,),
+                                  Text(AppString.city,
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('State',
+                                  const SizedBox(height: AppSize.s10),
+                                  Text(AppString.state,
                                       style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('Country',
+                                  const SizedBox(height: AppSize.s10),
+                                  Text(AppString.country,
                                       style: ThemeManager.customTextStyle(context)),
                                 ],
                               ),
@@ -255,13 +256,13 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                 children: [
                                   Text(snapshot.data![index].phone,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(height: AppSize.s10),
                                   Text(snapshot.data![index].city,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(height: AppSize.s10),
                                   Text(snapshot.data![index].state,
                                       style: ThemeManagerDark.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
+                                  const SizedBox(height: AppSize.s10),
                                   Text(snapshot.data![index].country,
                                       style: ThemeManagerDark.customTextStyle(context)),
                                 ],
@@ -338,7 +339,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                               expiryType = '';
                                             },
                                             radioButton:Container(
-                                              width: 280,
+                                              width: AppSize.s280,
                                               child: Row(
                                                 children: [
                                                   Expanded(

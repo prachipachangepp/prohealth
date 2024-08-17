@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+
+import '../../../../../app/resources/value_manager.dart';
 ///done by saloni
 class IconButtonWidget extends StatelessWidget {
   final IconData? iconData;
@@ -31,7 +34,7 @@ class IconButtonWidget extends StatelessWidget {
               horizontal: MediaQuery.of(context).size.width/100), // Adjust vertical padding
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
-            side: BorderSide(width: 1, color: Color(0xFF50B5E5)),
+            side: BorderSide(width: 1, color: ColorManager.calandercolour),
           ),
         ),
         onPressed: () => onPressed(),
@@ -51,7 +54,7 @@ class IconButtonWidget extends StatelessWidget {
               buttonText,
               style: TextStyle(
                 fontFamily: 'FiraSans',
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeightManager.bold,
                 fontSize: MediaQuery.of(context).size.width / 145,
                 color: textColor,
               ),
@@ -83,9 +86,11 @@ class BorderIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 25,
-      width: 70,
-      decoration: BoxDecoration(border: Border.all(color: ColorManager.blueprime),borderRadius:BorderRadius.circular(8)),
+      height: AppSize.s25,
+      width: AppSize.s70,
+      decoration: BoxDecoration(border: Border.all(
+          color: ColorManager.blueprime
+      ),borderRadius:BorderRadius.circular(8)),
       child: InkWell(
         onTap: onPressed,
         child: Center(
@@ -95,7 +100,7 @@ class BorderIconButton extends StatelessWidget {
               iconData == null ? Offstage():
               Icon(
                 iconData,
-                color: Color(0xFF1696C8),
+                color: ColorManager.bluebottom,
                 size: MediaQuery.of(context).size.width/100,
               ),
               SizedBox(
@@ -105,9 +110,9 @@ class BorderIconButton extends StatelessWidget {
                 buttonText,
                 style: TextStyle(
                   fontFamily: 'FiraSans',
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeightManager.bold,
                   fontSize: MediaQuery.of(context).size.width / 145,
-                  color: Color(0xFF1696C8),
+                  color: ColorManager.bluebottom,
                 ),
               ),
               SizedBox(

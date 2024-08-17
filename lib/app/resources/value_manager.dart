@@ -80,11 +80,15 @@ class AppSize {
   static const double s25 = 25.0;
   static const double s25p38 =25.38;
   static const double s26 = 26.0;
+  static const double s28 = 28.0;
   static const double s29 = 29.0;
   static const double s30 = 30.0;
+  static const double s31 = 31.0;
   static const double s33 = 33.0;
+  static const double s34 = 34.0;
   static const double s36 = 36.0;
   static const double s37 = 37.0;
+  static const double s41 = 41.0;
   static const double s46 = 46.0;
   static const double s47 = 47.0;
   static const double s54 = 54.0;
@@ -125,6 +129,7 @@ class AppSize {
   static const double s162 = 162.0;
   static const double s165 = 165.0;
   static const double s166 = 166.0;
+  static const double s170 = 170.0;
   static const double s172 = 172.0;
   static const double s181 = 181.0;
   static const double s200 = 200.0;
@@ -136,6 +141,7 @@ class AppSize {
   static const double s250 = 250.0;
   static const double s267 = 267.0;
   static const double s275 = 275.0;
+  static const double s280 = 280.0;
   static const double s282 = 282.0;
   static const double s300 = 300.0;
   static const double s317 = 317.0;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 class TwoContainersRow extends StatelessWidget {
   final Widget child1;
@@ -49,7 +50,7 @@ class TwoContainersRow extends StatelessWidget {
                   offset: Offset(0, 4),
                 ),
               ],
-              color: Colors.white,
+              color: ColorManager.white,
               borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
             height: height == null ? 200 : height,
