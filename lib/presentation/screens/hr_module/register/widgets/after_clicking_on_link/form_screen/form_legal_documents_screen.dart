@@ -106,16 +106,6 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
       throw Exception('File not found');
     }
   }
-
-
-
-  ////////////////////////////
-  ///////
-  //
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -190,11 +180,6 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
 
                             print("::::XFile To File ${xfileToFile.toString()}");
                             XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-                            // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-                            // html.File file = webFile.file;
-                            //  print("XFILE ${xFile.path}");
-                            //  //filePath = xfileToFile as XFile?;
-                            //  print("L::::::${filePath}");
                             _fileNames.addAll(result.files.map((file) => file.name!));
                             print('File picked: ${_fileNames}');
                             //print(String.fromCharCodes(file));

@@ -185,14 +185,14 @@ class _EducationScreenState extends State<EducationScreen> {
                                 print("Loading");
                             } else {
                               try {
-                                await uploadDocuments(
-                                  context: context,
-                                  employeeDocumentMetaId: 10,
-                                  employeeDocumentTypeSetupId: 48,
-                                  employeeId: widget.employeeID,
-                                  documentFile: st.finalPath,
-                                  documentName: 'education data',
-                                );
+                                // await uploadDocuments(
+                                //   context: context,
+                                //   employeeDocumentMetaId: 10,
+                                //   employeeDocumentTypeSetupId: 48,
+                                //   employeeId: widget.employeeID,
+                                //   documentFile: st.finalPath,
+                                //   documentName: 'education data',
+                                // );
 
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -300,7 +300,7 @@ class _EducationFormState extends State<EducationForm> {
           city.text = data.city ?? '';
           state.text = data.state ?? '';
           graduatetype = data.graduate ?? '';
-          selectedDegree = data.degree ?? '';
+         // selectedDegree = data.degree ?? '';
           educationIndex = data.educationID ?? 0;
 
         });
