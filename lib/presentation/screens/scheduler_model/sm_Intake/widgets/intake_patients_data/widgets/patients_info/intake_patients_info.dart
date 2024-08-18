@@ -51,7 +51,6 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
   String? selectedMaritalStatus;
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
