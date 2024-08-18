@@ -41,6 +41,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
       child: Container(
         width: AppSize.s400,
         height: AppSize.s420,
+
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
