@@ -1346,7 +1346,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 100),
+        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
         child: Column(
           children: [
             Row(
@@ -1482,10 +1482,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   children: containers.asMap().entries.map((entry) {
                     int index = entry.key;
                     GlobalKey<_DynamicConatinerState> key = entry.value;
-                    return DynamicConatiner(
-              
-              
-                    );
+                    return DynamicConatiner();
                   }).toList(),
                 ),
               ),

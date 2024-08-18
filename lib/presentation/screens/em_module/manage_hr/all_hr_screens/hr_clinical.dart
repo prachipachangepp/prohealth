@@ -49,6 +49,12 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
     getAllHrDeptWise(context,widget.deptId).then((data){
     _controller.add(data);
     }).catchError((error){});
+    shorthandController.addListener(() {
+      shorthandController.text = shorthandController.text.toUpperCase();
+      shorthandController.selection = TextSelection.fromPosition(
+        TextPosition(offset: shorthandController.text.length),
+      );
+    });
   }
 
   void _loadColors() async {
@@ -116,7 +122,12 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                             docTypeMetaId,
                             typeController.text,
                             color,
-                            shorthandController.text,
+                            // shorthandController.text,
+                            //   shorthandController.text = shorthandController.text.toUpperCase());
+                            //   shorthandController.selection = TextSelection.fromPosition(
+                            //   TextPosition(offset: shorthandController.text.length),
+                            shorthandController == shorthandController.text ?
+                            shorthandController.toString() : shorthandController.text.toUpperCase(),
                           );
                           await getAllHrDeptWise(context, widget.deptId).then((data) {
                             _controller.add(data);
@@ -323,7 +334,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                 Expanded(
                                   flex: 3,
                                   child: Text(
-                                      hrdata.empType.toString(),
+                                      hrdata.empType.toString().capitalizeFirst!,
                                     textAlign: TextAlign.center,
                                     style: AllHRTableData.customTextStyle(context)
                                   ),
@@ -331,7 +342,8 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                 Expanded(
                                   flex: 3,
                                   child: Text(
-                                      hrdata.abbrivation.toString(),
+                                      hrdata.abbrivation.toString().toUpperCase(),
+                                      // hrdata.abbrivation.toString().capitalizeFirst!,
                                       textAlign: TextAlign.center,
                                     style: AllHRTableData.customTextStyle(context)
                                   ),

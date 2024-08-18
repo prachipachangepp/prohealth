@@ -456,7 +456,7 @@ class AppBarWeb extends StatelessWidget {
                                         onTap: () {},
                                         onHover: (bool val) {},
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                                           child: const Center(
                                             child: Icon(
                                               Icons.notifications_none_outlined,
@@ -466,13 +466,13 @@ class AppBarWeb extends StatelessWidget {
                                         ),
                                       ),
 
-                                      SizedBox(width: AppSize.s18), //width between the notifications_none_outlined & settings_outlined icon
+                                      SizedBox(width: AppSize.s15), //width between the notifications_none_outlined & settings_outlined icon
 
                                       AppClickableWidget(
                                         onTap: () {},
                                         onHover: (bool val) {},
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
                                           child: const Center(
                                             child: Icon(
                                               Icons.settings_outlined,
@@ -504,9 +504,10 @@ class AppBarWeb extends StatelessWidget {
                                           }
                                           return Text(
                                             loginName!,
+                                            textAlign: TextAlign.center,
                                             style: GoogleFonts.firaSans(
                                               color: Colors.white,
-                                              fontSize: FontSize.s9,
+                                              fontSize: FontSize.s8,
                                               fontWeight: FontWeightManager.regular,
                                             ),
                                           );

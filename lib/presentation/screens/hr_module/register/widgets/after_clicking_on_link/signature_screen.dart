@@ -154,7 +154,7 @@ class _SignaturePageState extends State<SignaturePage> {
                       Center(
                         child: Text(
                           _isDrawing
-                              ? 'Sign your name using mouse or touchpad'
+                              ? 'Sign your name using mouse or touchpad in center of the signature box'
                               : 'Uploaded signature',
                           style: GoogleFonts.firaSans(
                             color: Color(0xff68646480),
