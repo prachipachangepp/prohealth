@@ -65,7 +65,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
           ),
           color: Color(0xff50B5E5),
         ),
-        height: AppSize.s30,
+        height: AppSize.s36,
         width: 408,
         child: Row(
           children: [

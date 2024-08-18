@@ -45,7 +45,45 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
-class CustomRadioListTile extends StatelessWidget {
+// class CustomRadioListTile extends StatelessWidget {
+//   final String value;
+//   final String? groupValue;
+//   final ValueChanged<String?> onChanged;
+//   final String title;
+//
+//   const CustomRadioListTile({
+//     Key? key,
+//     required this.value,
+//     required this.groupValue,
+//     required this.onChanged,
+//     required this.title,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         Radio<String>(
+//           value: value,
+//           groupValue: groupValue,
+//           onChanged: onChanged,
+//         ),
+//         SizedBox(width: 0,),
+//         Text(
+//           title,
+//           style: GoogleFonts.firaSans(
+//             fontSize: FontSize.s10,
+//             fontWeight: FontWeightManager.medium,
+//             color: ColorManager.mediumgrey,
+//             decoration: TextDecoration.none,
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+class CustomRadioListTile extends StatefulWidget {
   final String value;
   final String? groupValue;
   final ValueChanged<String?> onChanged;
@@ -60,21 +98,26 @@ class CustomRadioListTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _CustomRadioListTileState createState() => _CustomRadioListTileState();
+}
+
+class _CustomRadioListTileState extends State<CustomRadioListTile> {
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Radio<String>(
-          value: value,
-          groupValue: groupValue,
-          onChanged: onChanged,
+          value: widget.value,
+          groupValue: widget.groupValue,
+          onChanged: widget.onChanged,
         ),
-        SizedBox(width: 0,),
+        const SizedBox(width: 0),
         Text(
-          title,
+          widget.title,
           style: GoogleFonts.firaSans(
-            fontSize: FontSize.s10,
-            fontWeight: FontWeightManager.medium,
-            color: ColorManager.mediumgrey,
+            fontSize: 10.0,
+            fontWeight: FontWeight.w500,
+            color: const Color(0xff9B9B9B),
             decoration: TextDecoration.none,
           ),
         ),

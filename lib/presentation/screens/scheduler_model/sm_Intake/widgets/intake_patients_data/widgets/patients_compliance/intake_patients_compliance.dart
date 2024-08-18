@@ -103,7 +103,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
 
                                         context: context,
                                         // patientId: widget.patientId,
-                                        patientId: 24,
+                                        patientId: widget.patientId,
                                         docTypeId: docTypeId,
                                         // docTypeId: 24,
                                         docName: docNamecontroller.text,
