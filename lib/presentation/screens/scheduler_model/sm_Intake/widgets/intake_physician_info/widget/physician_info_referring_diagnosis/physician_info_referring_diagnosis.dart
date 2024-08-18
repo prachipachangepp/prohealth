@@ -224,6 +224,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month_outlined,
+                                    size: 18,
+                                  )
                                   ),
                             ),
                           ],
@@ -324,6 +328,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month_outlined,
+                                    size: 18,
+                                  )
                               ),
                             ),
                           ],
@@ -422,6 +430,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month_outlined,
+                                    size: 18,
+                                  )
                                  ),
                             ),
                           ],
@@ -521,6 +533,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month_outlined,
+                                    size: 18,
+                                  )
                                   ),
                             ),
                           ],
@@ -638,6 +654,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month_outlined,
+                                    size: 18,
+                                  )
                                  ),
                             ),
                           ],
@@ -688,6 +708,10 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               width: AppSize.s267,
                               child: SchedularTextField(
                                   labelText: '',
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month_outlined,
+                                    size: 18,
+                                  )
                                 ),
                             ),
                           ],
