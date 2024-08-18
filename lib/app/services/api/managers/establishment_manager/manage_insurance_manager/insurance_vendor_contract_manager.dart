@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/main.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
@@ -10,28 +12,16 @@ import '../../../repository/establishment_manager/establishment_repository.dart'
 Future<ApiData> addVendors(
   BuildContext context,
   String officeId,
-  String name,
-  String address,
-  String city,
-  String email,
-  String phone,
-  String workEmail,
-  String workPhone,
-  String zone,
+  String vendorName,
 ) async {
   try {
+    final companyId= await TokenManager.getCompanyId();
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.companyOfficeVendorPost(),
         data: {
+          "vendorName": vendorName,
           "officeId": officeId,
-          "vendorName": name,
-          "address": address,
-          "city": city,
-          "email": email,
-          "phone": phone,
-          "work_email": workEmail,
-          "work_phone": workPhone,
-          "zone": zone,
+          "companyId": companyId,
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Vendor Addded");
@@ -53,12 +43,13 @@ Future<ApiData> addVendors(
   }
 }
 
-/// get vendor
-Future<List<ManageVendorData>> companyVendorGet(BuildContext context) async {
+/// get vendor /insurance-vendor/{CompanyId}/{officeId}/{pageNbr}/{NbrofRows}
+Future<List<ManageVendorData>> companyVendorGet(BuildContext context, String officeId, int pageNo, int rowNo,) async {
   List<ManageVendorData> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.companyOfficeVendorGet());
+        .get(path: EstablishmentManagerRepository.companyOfficeVendorGet(companyId: companyId, officeId: officeId, pageNo: pageNo, rowNo: rowNo));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Companyy vendor get:::::${itemsList}");
       for (var item in response.data) {
@@ -66,16 +57,12 @@ Future<List<ManageVendorData>> companyVendorGet(BuildContext context) async {
           ManageVendorData(
             sucess: true,
             message: response.statusMessage!,
-            vendorId: item['vendorId'],
+            insuranceVendorId: item['insuranceVendorId'],
             officeId: item['officeId'],
             vendorName: item['vendorName'],
-            address: item['address'],
-            city: item['city'],
-            email: item['email'],
-            phone: item['phone'],
-            workEmail: item['work_email'],
-            workPhone: item['work_phone'],
-            zone: item['zone'],
+            address: item['vendorAddress'],
+            phone: item['vendorPhone'],
+            companyId: companyId,
           ),
         );
       }
@@ -94,30 +81,19 @@ Future<List<ManageVendorData>> companyVendorGet(BuildContext context) async {
 /// patch vendor
 Future<ApiData> patchCompanyVendor(
     BuildContext context,
-    int vendorId,
+    int insuranceVendorId,
     String officeId,
     String vendorName,
-    String address,
-    String city,
-    String email,
-    String phone,
-    String workEmail,
-    String workPhone,
-    String zone) async {
+    ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(
-            vendorId: vendorId),
+            insuranceVendorId: insuranceVendorId),
         data: {
-          "officeId": officeId,
           "vendorName": vendorName,
-          "address": address,
-          "city": city,
-          "email": email,
-          "phone": phone,
-          "work_email": workEmail,
-          "work_phone": workPhone,
-          "zone": zone
+          "officeId": officeId,
+          "companyId": companyId,
         });
 
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -145,7 +121,7 @@ Future<ApiData> deleteVendor(
     BuildContext context, int vendorId) async {
   try {
     var response = await Api(context).delete(
-        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(vendorId: vendorId));
+        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(insuranceVendorId: vendorId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Deleted Document :::${vendorId}");
       return ApiData(
@@ -173,7 +149,7 @@ Future<ManageVendorPrefill> getPrefillVendor(
   var itemsList;
   try {
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(vendorId: vendorId));
+        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(insuranceVendorId: vendorId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Document type Response:::::${itemsList}");
       itemsList = ManageVendorPrefill(

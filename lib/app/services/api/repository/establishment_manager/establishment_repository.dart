@@ -41,6 +41,8 @@ class EstablishmentManagerRepository {
   static String addAppRoleModule ="/app-role-module";
   static String companyDetail ="/CompanyDetail";
   static String vendors ="/vendors";
+  static String insurancevendors ="/insurance-vendor";
+  //static String add ="/add";
 
 
   static String companyAll(){
@@ -86,18 +88,19 @@ class EstablishmentManagerRepository {
   static String companyOfficeServiceGet(){
     return "$companyOfficeService";
   }
-  ///manage insurance-vendor
-  static String companyOfficeVendorGet(){
-    return "$vendors";
-  }
-  ///vendors/{vendorId}
-  static String companyOfficeVendorPatchDelete({required int vendorId}){
-    return "$vendors/$vendorId";
-  }
-  ///post
+  ///insurance-vendor/add
   static String companyOfficeVendorPost(){
-    return "$vendors$add";
+    return "$insurancevendors/$add";
   }
+  ///manage insurance-vendor /insurance-vendor/{CompanyId}/{officeId}/{pageNbr}/{NbrofRows}
+  static String companyOfficeVendorGet({required int companyId, required String officeId,required int pageNo,required int rowNo}){
+    return "$insurancevendors/$companyId/$officeId/$pageNo/$rowNo";
+  }
+  ///insurance-vendor/{insuranceVendorId}
+  static String companyOfficeVendorPatchDelete({required int insuranceVendorId}){
+    return "$insurancevendors/$insuranceVendorId";
+  }
+
   static String postCompanyOffice(){
     return "$companyOffice/$add";
   }
