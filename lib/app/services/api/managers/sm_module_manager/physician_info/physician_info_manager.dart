@@ -8,57 +8,84 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/sm_repository/medications/medications_repo.dart';
 import '../../../repository/sm_repository/patient_data/patient_data_info_repo.dart';
-///Info save Post API
-Future<ApiData> postMedicationScreen(
-    BuildContext context,
-    int patientId,
-    String SuppliesDME,
-    String DMEContact,
-    String DMEPhone,
-    String DMEDeliverBy,
-    String DMEFax,
-    String pharmacy,
-    String DME_Contact1,
-    String pharma_Phone,
-    String pharma_Address,
-    String pharma_City,
-    String pharma_State,
-    String pharma_Zipcode,
-    String pharma_DeliverBy,
-    String pharma_Fax,
-    String pharma_Contact2,
+import '../../../repository/sm_repository/physician_info/physician_info_repo.dart';
 
-    ) async {
+///Info save Post API
+Future<ApiData> postPhysicianInfoScreen(
+  BuildContext context,
+  int patientId,
+  int companyId,
+  String primaryPhysician,
+  String pr_FirstName,
+  String pr_LastName,
+  String pr_PECOSStatus,
+  String pr_UPINNbr,
+  String pr_NPINbr,
+  String pr_Street,
+  String pr_SuiteApt,
+  String pr_City,
+  String pr_State,
+  String pr_Zipcode,
+  String pr_Phone,
+  String pr_Fax,
+  String pr_Protocol,
+  String contractF2FPhysician,
+  String f2f_FirstName,
+  String f2f_LastName,
+  String f2f_PECOSStatus,
+  String f2f_UPINNbr,
+  String f2f_NPINbr,
+  String f2f_Street,
+  String f2f_SuiteApt,
+  String f2f_City,
+  String f2f_State,
+  String f2f_Zipcode,
+  String f2f_Phone,
+  String f2f_Fax,
+  String f2f_Protocol,
+) async {
   try {
     var response = await Api(context).post(
-      path: MedicationDataRepo.addPharmacyv(),
+      path: physicianInfo.addPIinfo(),
       data: {
         "patientId": patientId,
-        "SuppliesDME": SuppliesDME,
-        "DMEContact": DMEContact,
-        "DMEPhone": DMEPhone,
-        "DMEDeliverBy":   "${DMEDeliverBy}T00:00:00Z",           //"2024-08-17T17:02:19.623Z",
-        "DMEFax": DMEFax,
-        "pharmacy": pharmacy,
-        "DME_Contact1": DME_Contact1,
-        "pharma_Phone": pharma_Phone,
-        "pharma_Address": pharma_Address,
-        "pharma_City": pharma_City,
-        "pharma_State": pharma_State,
-        "pharma_Zipcode": pharma_Zipcode,
-        "pharma_DeliverBy": "${pharma_DeliverBy}T00:00:00Z",              //  "2024-08-17T17:02:19.623Z",
-        "pharma_Fax": pharma_Fax,
-        "pharma_Contact2": pharma_Contact2
-
-
-             },
+        "companyId": companyId,
+        "primaryPhysician": primaryPhysician,
+        "pr_FirstName": pr_FirstName,
+        "pr_LastName": pr_LastName,
+        "pr_PECOSStatus": pr_PECOSStatus,
+        "pr_UPINNbr": pr_UPINNbr,
+        "pr_NPINbr": pr_NPINbr,
+        "pr_Street": pr_Street,
+        "pr_SuiteApt": pr_SuiteApt,
+        "pr_City": pr_City,
+        "pr_State": pr_State,
+        "pr_Zipcode": pr_Zipcode,
+        "pr_Phone": pr_Phone,
+        "pr_Fax": pr_Fax,
+        "pr_Protocol": pr_Protocol,
+        "contractF2FPhysician": contractF2FPhysician,
+        "f2f_FirstName": f2f_FirstName,
+        "f2f_LastName": f2f_LastName,
+        "f2f_PECOSStatus": f2f_PECOSStatus,
+        "f2f_UPINNbr": f2f_UPINNbr,
+        "f2f_NPINbr": f2f_NPINbr,
+        "f2f_Street": f2f_Street,
+        "f2f_SuiteApt": f2f_SuiteApt,
+        "f2f_City": f2f_City,
+        "f2f_State": f2f_State,
+        "f2f_Zipcode": f2f_Zipcode,
+        "f2f_Phone": f2f_Phone,
+        "f2f_Fax": f2f_Fax,
+        "f2f_Protocol": f2f_Protocol
+      },
     );
     print(response);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Pharmacy vendor data Saved");
+      print("physician info data Saved");
       var patientIdresponse = response.data;
-       int idPatient = patientIdresponse["patientId"];
+      int idPatient = patientIdresponse["patientId"];
 
       // orgDocumentGet(context);
       showDialog(
@@ -120,7 +147,6 @@ Future<ApiData> postMedicationScreen(
           success: true,
           message: response.statusMessage!,
           patientId: idPatient);
-
     } else {
       print("Error 1");
       showDialog(
