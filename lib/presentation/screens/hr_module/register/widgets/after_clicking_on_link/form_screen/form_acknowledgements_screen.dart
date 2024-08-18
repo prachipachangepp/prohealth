@@ -360,7 +360,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                                           ),
                                         ),
                                         child: Text(
-                                          'Sign',
+                                          'Upload File',
                                           style: GoogleFonts.firaSans(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w700,
