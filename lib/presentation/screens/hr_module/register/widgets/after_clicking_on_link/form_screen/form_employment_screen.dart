@@ -171,7 +171,16 @@ class _Employment_screenState extends State<Employment_screen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
+              CustomButton(
+                width: 117,
+                height: 30,
+                text: 'Save',
+                style: TextStyle(
+                  fontFamily: 'FiraSans',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+                borderRadius: 12,
                 onPressed: () async {
                   for (var key in employmentFormKeys) {
                     final state = key.currentState!;
@@ -217,11 +226,14 @@ class _Employment_screenState extends State<Employment_screen> {
 
                   }
                 },
-                child: Text('Save',style: GoogleFonts.firaSans(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),),
+                child: Text(
+                  'Save',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),
