@@ -57,44 +57,46 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
       ),
       backgroundColor: ColorManager.white,
       titlePadding: EdgeInsets.zero,
-      title: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
-          color: Color(0xff50B5E5),
-        ),
-        height: AppSize.s30,
-        width: 408,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                widget.title,
-                style: GoogleFonts.firaSans(
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.bold,
-                  color: ColorManager.white,
+      title: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+      border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.circular(4),
+              color: Color(0xff50B5E5),
+            ),
+            height: AppSize.s40,
+            width: 408,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Text(
+                    widget.title,
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s14,
+                      fontWeight: FontWeightManager.bold,
+                      color: ColorManager.white,
+                    ),
+                  ),
                 ),
-              ),
+                Spacer(),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: ColorManager.white,
+                  ),
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                ),
+              ],
             ),
-            Spacer(),
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.close,
-                color: ColorManager.white,
-              ),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
       content: Container(
         height: 480,
@@ -137,6 +139,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                   ],
                 ),
                 SizedBox(height: 10),
+                ///name of doc
                 Container(
                   height: AppSize.s30,
                   child: TextFormField(
@@ -187,16 +190,17 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                   ],
                 ),
                 SizedBox(height: 10,),
+                /// upload  doc
                 Container(
                   height: AppSize.s30,
                   width: AppSize.s360,
-                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.symmetric(horizontal: 5),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: ColorManager.containerBorderGrey,
-                      width: 1.0,
+                      width: 1,
                     ),
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
@@ -212,12 +216,12 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                           ),
                         ),
                         IconButton(
-                          padding: EdgeInsets.only(top: 6),
+                          padding: EdgeInsets.all(4),
                           onPressed: _pickFile,
                           icon: Icon(
                             Icons.file_upload_outlined,
                             color: ColorManager.black,
-                            size: 20,
+                            size: 17,
                           ),
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,

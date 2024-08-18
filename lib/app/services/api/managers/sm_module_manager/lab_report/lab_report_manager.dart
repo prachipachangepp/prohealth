@@ -8,7 +8,11 @@ import '../../../../../resources/const_string.dart';
 
 ///Get
 Future<List<LabReportModal>> GetLabReport(
-    BuildContext context, int patientId) async {
+    BuildContext context,
+
+    int patientId
+
+    ) async {
   List<LabReportModal> itemsList = [];
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -29,9 +33,9 @@ Future<List<LabReportModal>> GetLabReport(
             expDate: item['expDate']));
       }
       // print('${response.data['DocumentList']}');
-      print("Compliance response:::::${itemsList}");
+      print("La Report response:::::${itemsList}");
     } else {
-      print('Compliance Data Added');
+      print('Lab Result Added');
       return itemsList;
     }
     // print("Org response:::::${response}");
@@ -91,6 +95,33 @@ Future<ApiData> addLabReport(
     print('Lab Report Add ::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Compliance addded ");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///delete api
+Future<ApiData> deleteIntakeLabReport(
+    BuildContext context, int labReportId) async {
+  try {
+    var response = await Api(context).delete(
+        path:PatientDataInfoRepo.labReportDelete(labReportId: labReportId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Lab Report :::${labReportId}");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,

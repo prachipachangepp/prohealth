@@ -11,12 +11,16 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/lab_report/lab_report_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_lab_result/widget/lab_result_add_pop_up.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_compliance/widget/compliance_add_popup.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/services/api/managers/sm_module_manager/patient_data/patient_data_compliance.dart';
+import '../../../../../../data/api_data/sm_data/patient_data/patient_data_compliance.dart';
+import '../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../../widgets/constant_widgets/button_constant.dart';
 
 class IntakeLabResultScreen extends StatefulWidget {
@@ -34,6 +38,9 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
   TextEditingController patientIdcontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
+  final StreamController<List<PDComplianceModal>>
+  _compliancePatientDataController =
+  StreamController<List<PDComplianceModal>>();
   int docTypeId = 0;
   bool _isLoading = false;
   String? expiryType;
@@ -90,7 +97,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                       await addLabReport(
                                         context: context,
                                         patientId: 1,
-                                        docTypeId: docTypeId,
+                                        docTypeId: 1,
                                         docType: docTypecontroller.text,
                                         name: namecontroller.text,
                                         docUrl: "url",
@@ -119,73 +126,73 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                       });
                                     }
                                   },
-                                  // child: FutureBuilder<List<PatientDataComplianceDoc>>(
-                                  //   future:
-                                  //   getpatientDataComplianceDoc(context),
-                                  //   builder: (context, snapshot) {
-                                  //     if (snapshot.connectionState ==
-                                  //         ConnectionState.waiting) {
-                                  //       return Container(
-                                  //         width: 350,
-                                  //         height: 30,
-                                  //         decoration: BoxDecoration(
-                                  //           borderRadius:
-                                  //           BorderRadius.circular(10),
-                                  //         ),
-                                  //       );
-                                  //     }
-                                  //     if (snapshot.data!.isEmpty) {
-                                  //       return Center(
-                                  //         child: Text(
-                                  //           AppString.dataNotFound,
-                                  //           style: CustomTextStylesCommon
-                                  //               .commonStyle(
-                                  //             fontWeight:
-                                  //             FontWeightManager.medium,
-                                  //             fontSize: FontSize.s12,
-                                  //             color: ColorManager.mediumgrey,
-                                  //           ),
-                                  //         ),
-                                  //       );
-                                  //     }
-                                  //     if (snapshot.hasData) {
-                                  //       List<DropdownMenuItem<String>>
-                                  //       dropDownMenuItems = snapshot.data!
-                                  //           .map((doc) =>
-                                  //           DropdownMenuItem<String>(
-                                  //             value: doc.docType,
-                                  //             child: Text(doc.docType!),
-                                  //           ))
-                                  //           .toList();
-                                  //       return CICCDropdown(
-                                  //         initialValue: selectedDocType ??
-                                  //             dropDownMenuItems[0].value,
-                                  //         onChange: (val) {
-                                  //           setState(() {
-                                  //             selectedDocType = val;
-                                  //             for (var doc in snapshot.data!) {
-                                  //               if (doc.docType == val) {
-                                  //                 docTypeId = doc.docTypeId!;
-                                  //               }
-                                  //             }
-                                  //             getComplianceByPatientId(
-                                  //                 context,
-                                  //                 1
-                                  //             ).then((data) {
-                                  //               _compliancePatientDataController
-                                  //                   .add(data!);
-                                  //             }).catchError((error) {
-                                  //               // Handle error
-                                  //             });
-                                  //           });
-                                  //         },
-                                  //         items: dropDownMenuItems,
-                                  //       );
-                                  //     } else {
-                                  //       return SizedBox();
-                                  //     }
-                                  //   },
-                                  // ),
+                                  child: FutureBuilder<List<PatientDataComplianceDoc>>(
+                                    future:
+                                    getpatientDataComplianceDoc(context),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Container(
+                                          width: 350,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                          ),
+                                        );
+                                      }
+                                      if (snapshot.data!.isEmpty) {
+                                        return Center(
+                                          child: Text(
+                                            AppString.dataNotFound,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              fontWeight:
+                                              FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      if (snapshot.hasData) {
+                                        List<DropdownMenuItem<String>>
+                                        dropDownMenuItems = snapshot.data!
+                                            .map((doc) =>
+                                            DropdownMenuItem<String>(
+                                              value: doc.docType,
+                                              child: Text(doc.docType!),
+                                            ))
+                                            .toList();
+                                        return CICCDropdown(
+                                          initialValue: selectedDocType ??
+                                              dropDownMenuItems[0].value,
+                                          onChange: (val) {
+                                            setState(() {
+                                              selectedDocType = val;
+                                              for (var doc in snapshot.data!) {
+                                                if (doc.docType == val) {
+                                                  docTypeId = doc.docTypeId!;
+                                                }
+                                              }
+                                              getComplianceByPatientId(
+                                                  context,
+                                                  1
+                                              ).then((data) {
+                                                _compliancePatientDataController
+                                                    .add(data!);
+                                              }).catchError((error) {
+                                                // Handle error
+                                              });
+                                            });
+                                          },
+                                          items: dropDownMenuItems,
+                                        );
+                                      } else {
+                                        return SizedBox();
+                                      }
+                                    },
+                                  ),
                                   radioButton: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -342,7 +349,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                       ],
                                     ),
                                   ),
-                                  title: 'Add New Compliance Document',
+                                  title: 'Add New Lab Report',
                                 );
                               });
                             },
@@ -378,7 +385,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                         child: StreamBuilder<List<LabReportModal>>(
                             stream: _lapReportController.stream,
                             builder: (context, snapshot) {
-                              GetLabReport(context, 1).then((data) {
+                              GetLabReport(context, 1, ).then((data) {
                                 _lapReportController.add(data);
                               }).catchError((error) {
                                 // Handle error
@@ -405,19 +412,10 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                 );
                               }
                               if (snapshot.hasData) {
-                                // int totalItems = snapshot.data!.length;
-                                // int totalPages = (totalItems / itemsPerPage).ceil();
-                                // List<PatientDataComplianceModal>
-                                //     currentPageItems = snapshot.data!.sublist(
-                                //   (currentPage - 1) * itemsPerPage,
-                                //   (currentPage * itemsPerPage) > totalItems
-                                //       ? totalItems
-                                //       : (currentPage * itemsPerPage),
-                                // );
                                 return ListView.builder(
-                                  itemCount: 20,
+                                  itemCount: snapshot.data!.length,
                                   itemBuilder:
-                                      (BuildContext context, int index) {
+                                      (BuildContext context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 8.0, horizontal: 40),
@@ -482,8 +480,12 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
+                                                          //  snapshot
+                                                          //                                                                 .data![index]
+                                                          //                                                                 .complianceId
+                                                          //                                                                 .toString(),
                                                           Text(
-                                                      snapshot.data![index].labReportId as String,
+                                                            snapshot.data![index].docType.toString(),
                                                             style: GoogleFonts.firaSans(
                                                                 decoration:
                                                                     TextDecoration
@@ -499,7 +501,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                           ),
                                                           SizedBox(height: 3.5),
                                                           Text(
-                                                            'Compliance 1',
+                                                            snapshot.data![index].labReportId.toString(),
                                                             style: GoogleFonts.firaSans(
                                                                 decoration:
                                                                     TextDecoration
@@ -517,7 +519,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                               height:
                                                                   AppSize.s1),
                                                           Text(
-                                                            'Expiry 10 months',
+                                                              snapshot.data![index].expDate.toString(),
                                                             style: GoogleFonts.firaSans(
                                                                 decoration:
                                                                     TextDecoration
@@ -608,13 +610,53 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                                   .width /
                                                               120),
                                                       IconButton(
-                                                        icon: Icon(
-                                                          Icons.delete_outline,
-                                                          color: ColorManager
-                                                              .granitegray,
-                                                        ),
-                                                        onPressed: () {},
-                                                      ),
+                                                          onPressed: () {
+                                                            showDialog(
+                                                                context:
+                                                                context,
+                                                                builder:
+                                                                    (context) =>
+                                                                    StatefulBuilder(
+                                                                      builder:
+                                                                          (BuildContext context, void Function(void Function()) setState) {
+                                                                        return DeletePopup(
+                                                                            title: 'Delete license',
+                                                                            loadingDuration: _isLoading,
+                                                                            onCancel: () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            onDelete: () async {
+                                                                              setState(() {
+                                                                                _isLoading = true;
+                                                                              });
+                                                                              try {
+                                                                                await deleteIntakeLabReport(context, snapshot.data![index].labReportId!);
+                                                                                setState(() async {
+                                                                                  await GetLabReport(
+                                                                                      context, 1
+                                                                                  ).then((data) {
+                                                                                    _lapReportController.add(data);
+                                                                                  }).catchError((error) {
+                                                                                    // Handle error
+                                                                                  });
+                                                                                  Navigator.pop(context);
+                                                                                });
+                                                                              } finally {
+                                                                                setState(() {
+                                                                                  _isLoading = false;
+                                                                                });
+                                                                              }
+                                                                            });
+                                                                      },
+                                                                    ));
+                                                          },
+                                                          icon: Icon(
+                                                            Icons
+                                                                .delete_outline,
+                                                            size: 18,
+                                                            color: ColorManager
+                                                                .red,
+                                                          )),
                                                     ],
                                                   ),
                                                 ),
