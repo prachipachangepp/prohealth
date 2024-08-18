@@ -38,23 +38,24 @@ static String verifyuserpopup = "/auth/Otp";
  static  String licensesformprifill ="/employee-licenses";
 
 
-   String getEmployeeByEmpID({required int employeeID} ){
+   static String getEmployeeByEmpID({required int employeeID} ){
     return "$educationformprifill/ByemployeeId/$employeeID/no";
   }
 
-  String getEmploymentByEmpID({required int employeeID} ){
+  static String getEmploymentByEmpID({required int employeeID} ){
     return "$employmentformprifill/ByemployeeId/$employeeID/no";
   }
 
-  String getReferenceByEmpID({required int employeeID} ){
+  static String getReferenceByEmpID({required int employeeID} ){
     return "$referenceformprifill/ByemployeeId/$employeeID/no";
   }
 
-  String getBankingByEmpID({required int employeeID} ){
+  static String getBankingByEmpID({required int employeeID} ){
     return "$bankingformprifill/ByemployeeId/$employeeID/no";
 
 
-  }  String getLicensesByEmpID({required int employeeID} ){
+  }
+  static String getLicensesByEmpID({required int employeeID} ){
     return "$licensesformprifill/ByemployeeId/$employeeID/no";
   }
 
@@ -113,7 +114,7 @@ static String postverifyuser(){
 
  ///degree dropdown
 
-  static String patchEmployeeDegree(){
+  static String patchEmployeeDegree({required int degreeId}){
     return "$educationdegree";
   }
 

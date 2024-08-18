@@ -4,15 +4,45 @@ import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_related_party_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_stay_info_manager.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
-import '../patients_info/intake_patients_info.dart';
+import '../../../../../widgets/constant_widgets/button_constant.dart';
 
-class IntakePatientsStayInfoScreen extends StatelessWidget {
+
+class IntakePatientsStayInfoScreen extends StatefulWidget {
   const IntakePatientsStayInfoScreen({Key? key}) : super(key: key);
 
+  @override
+  State<IntakePatientsStayInfoScreen> createState() => _IntakePatientsStayInfoScreenState();
+}
+
+class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScreen> {
+
+  TextEditingController ctlrMedicalRecord = TextEditingController();
+  TextEditingController ctlrHospital = TextEditingController();
+  TextEditingController ctlrPhone = TextEditingController();
+  TextEditingController ctlrAddress = TextEditingController();
+  TextEditingController ctlrCity = TextEditingController();
+  TextEditingController ctlrViewZone = TextEditingController();
+  TextEditingController ctlrAdmitDate = TextEditingController();
+  TextEditingController ctlrDC = TextEditingController();
+  TextEditingController ctlrRecentSurgery = TextEditingController();
+  TextEditingController ctlrDateSurgery = TextEditingController();
+  TextEditingController ctlrComment = TextEditingController();
+  TextEditingController ctlrStartDate = TextEditingController();
+  TextEditingController ctlrStreet = TextEditingController();
+  TextEditingController ctlrSuiteApt = TextEditingController();
+  TextEditingController ctlrZipCode = TextEditingController();
+  TextEditingController ctlrFax = TextEditingController();
+
+  String? selectedFacility;
+  String? selectedState;
+  String? selectedStatus;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,9 +64,44 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                           color: ColorManager.greenDark
                       ),
                     ),
-                  ],
-                ),
-              ),
+                    Container(
+                      height: 30,
+                      width: 140,
+                      child: SchedularIconButtonConst(
+                        text: 'Add Stay Info',
+                        icon: Icons.add,
+                        onPressed: () async {
+                         await  InfoStayPatientData(context,
+                             1,
+                             selectedFacility ?? "",
+                             ctlrMedicalRecord.text,
+                             selectedStatus ?? "",
+                             ctlrHospital.text,
+                             ctlrPhone.text,
+                             ctlrAddress.text,
+                             ctlrCity.text,
+                             selectedState ?? "",
+                             ctlrZipCode.text,
+                             "2024-08-17T17:18:58.618Z",
+                             "2024-08-17T17:18:58.618Z",
+                             ctlrRecentSurgery.text,
+                             ctlrDateSurgery.text,
+                             ctlrComment.text,
+                             "2024-08-17T17:18:58.618Z",
+                             "2024-08-17T17:18:58.618Z",
+                             ctlrStreet.text,
+                             ctlrSuiteApt.text,
+                             ctlrCity.text,
+                             selectedState ?? "",
+                             ctlrZipCode.text,
+                             ctlrPhone.text,
+                             ctlrFax.text
+                             );
+                        },),
+                      )
+                   ],
+                 ),
+               ),
               SizedBox(height: 19.5),
               Container(
                 // height: 423,
@@ -92,23 +157,34 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularDropdown(
                     labelText: 'Facility',
-                    items: ['Option 1', 'Option 2', 'Option 3'])
+                    items: ['Option 1', 'Option 2', 'Option 3'],
+                    onChanged: (newValue) {
+                  setState(() {
+                    selectedFacility = newValue;
+                  });
+                },)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrMedicalRecord,
                     labelText: 'Medical Record #')
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularDropdown(
                     labelText: AppString.status,
-                    items: ['Option 1', 'Option 2', 'Option 3']
+                    items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                  setState(() {
+                    selectedStatus = newValue;
+                  });
+                },
                     )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrHospital,
                     labelText: 'Hospital')
             ),
           ],
@@ -118,23 +194,30 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
           children: [
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrPhone,
                     labelText: 'Phone')
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrAddress,
                     labelText: AppString.address)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrCity,
                     labelText:  AppString.city)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularDropdown(
                     labelText:  AppString.state,
-                    items: ['Option 1', 'Option 2', 'Option 3'])
+                    items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                  setState(() {
+                    selectedState = newValue;
+                  });
+                },)
             ),
           ],
         ),
@@ -142,6 +225,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
         Row(
           children: [
             Flexible(child: SchedularTextFieldWithButton(
+              controller: ctlrViewZone,
               labelText: AppString.zip_code,
               initialValue: '2656845121',
               buttonText: 'View Zone',
@@ -149,18 +233,21 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrAdmitDate,
                     labelText: 'Admit Date',
                     )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrDC,
                     labelText: 'D/C',
                    )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrRecentSurgery,
                     labelText: 'Recent Surgery/ Procedure'
                 )
             ),
@@ -171,18 +258,20 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
           children: [
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrDateSurgery,
                     labelText: 'Date of Surgery/ Procedure',
                  )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrComment,
                     labelText: AppString.comments
                 )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
-                child: Container()),             // Empty container for alignment
+                child: Container()),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: Container()),
@@ -192,15 +281,14 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
     );
   }
 
-
   Widget _buildLocationOfCareSection() {
     return Column(
       children: [
         Row(
           children: [
-
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrStartDate ,
                     labelText: AppString.startdate,
 
                 )
@@ -216,12 +304,14 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrStreet,
                     labelText: 'Street'
                 )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrSuiteApt,
                     labelText: 'Suite/ Apt#'
                 )
             ),
@@ -232,6 +322,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
           children: [
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrCity,
                     labelText: AppString.city
                 )
             ),
@@ -239,12 +330,18 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
             Flexible(
                 child: SchedularDropdown(
                     labelText: AppString.state,
-                    items: ['Option 1', 'Option 2', 'Option 3']
+                    items: ['Option 1', 'Option 2', 'Option 3'],
+                  onChanged: (newValue) {
+                  setState(() {
+                    selectedState = newValue;
+                  });
+                },
                 )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextFieldWithButton(
+                  controller: ctlrZipCode,
                   labelText: AppString.zip_code,
                   initialValue: '2656845121',
                   buttonText: 'View Zone',
@@ -263,6 +360,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
           children: [
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrFax,
                     labelText: 'Fax'
                 )
             ),
@@ -271,7 +369,7 @@ class IntakePatientsStayInfoScreen extends StatelessWidget {
                 child: Container()),
             SizedBox(width: AppSize.s35),
             Flexible(
-                child: Container()), // Empty container for alignment
+                child: Container()),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: Container()),

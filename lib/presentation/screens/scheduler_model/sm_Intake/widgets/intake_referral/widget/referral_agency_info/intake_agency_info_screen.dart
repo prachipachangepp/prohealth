@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/referral_data/agency_info_manager.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/button_constant.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../../app/resources/font_manager.dart';
@@ -19,7 +20,18 @@ class IntakeAgencyInfoScreen extends StatefulWidget {
 }
 
 class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
-
+  String? selectedState;
+  String? selectedRate;
+  String? selectedCity;
+  TextEditingController ctlrAgency = TextEditingController();
+  TextEditingController ctlrAgencyName = TextEditingController();
+  TextEditingController ctlrStreet = TextEditingController();
+  TextEditingController ctlrSuitApt = TextEditingController();
+  TextEditingController ctlrZipCode = TextEditingController();
+  TextEditingController ctlrPhone = TextEditingController();
+  TextEditingController ctlrFax = TextEditingController();
+  TextEditingController ctlrEmail = TextEditingController();
+  TextEditingController ctlrUnites = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,14 +45,33 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Status Completed',
+                    Text(
+                      'Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.bold,
-                          color: ColorManager.greenDark
-                      ),
+                          color: ColorManager.greenDark),
                     ),
+                    SizedBox(width: 8,),
+                    SchedularIconButtonConst(
+                        text: AppString.save,
+                        onPressed: () async {
+                       await AddAgencyInfo(context,
+                           1,
+                           ctlrAgency.text,
+                           ctlrAgencyName.text,
+                           1,
+                           ctlrStreet.text,
+                           ctlrSuitApt.text,
+                           selectedCity.toString(),
+                           selectedState.toString(),
+                           ctlrZipCode.text,
+                           ctlrPhone.text,
+                           ctlrFax.text,
+                           ctlrEmail.text,
+                           ctlrUnites.text);
+                        }),
                   ],
                 ),
               ),
@@ -68,25 +99,32 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                              labelText: 'Agency',)
-                        ),
+                              controller: ctlrAgency,
+                          labelText: 'Agency',
+                        )),
                         SizedBox(width: 35),
                         Flexible(
                             child: SchedularTextField(
-                              labelText: 'Agency Name', )
-                        ),
+                              controller: ctlrAgencyName,
+                          labelText: 'Agency Name',
+                        )),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
-                              labelText: 'Rate',
-                                items: ['Option 1', 'Option 2', 'Option 3'])
-                        ),
+                          labelText: 'Rate',
+                          items: ['Option 1', 'Option 2', 'Option 3'],
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedRate = newValue;
+                            });
+                          },
+                        )),
                         SizedBox(width: 35),
                         Flexible(
                             child: SchedularTextField(
-                              labelText: AppString.street,
-                            )
-                        ),
+                              controller: ctlrStreet,
+                          labelText: AppString.street,
+                        )),
                       ],
                     ),
                     SizedBox(height: AppSize.s20),
@@ -94,48 +132,66 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
-                              labelText: AppString.suite_Apt, )
+                              controller: ctlrSuitApt,
+                          labelText: AppString.suite_Apt,
+                        )),
+                        SizedBox(width: AppSize.s35),
+                        Flexible(
+                            child: SchedularDropdown(
+                          labelText: AppString.city,
+                          items: ['Option 1', 'Option 2', 'Option 3'],
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedCity = newValue;
+                            });
+                          },
+                        )
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularDropdown(
-                              labelText: AppString.city,
-                                items: ['Option 1', 'Option 2', 'Option 3'])
-                        ),
-                        SizedBox(width: AppSize.s35),
-                        Flexible(
-                            child: SchedularDropdown(
-                              labelText: AppString.state,
-                                items: ['Option 1', 'Option 2', 'Option 3'])
-                        ),
+                          labelText: AppString.state,
+                          items: ['Option 1', 'Option 2', 'Option 3'],
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedState = newValue;
+                            });
+                          },
+                        )),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextFieldWithButton(
+                              controller: ctlrZipCode,
                                 labelText: AppString.zip_code,
-                                initialValue: '26586845121', buttonText: 'View Zone')
-                        ),
+                                initialValue: '26586845121',
+                                buttonText: 'View Zone')),
                       ],
                     ),
                     SizedBox(height: AppSize.s20),
                     Row(
                       children: [
-                        Flexible(child: SchedularTextField(
-                            labelText: AppString.phone)
-                        ),
+                        Flexible(
+                            child:
+                                SchedularTextField(
+                                    controller: ctlrPhone,
+                                    labelText: AppString.phone)),
+                        SizedBox(width: AppSize.s35),
+                        Flexible(
+                            child:
+                                SchedularTextField(
+                                    controller: ctlrFax,
+                                    labelText: AppString.fax)),
+                        SizedBox(width: AppSize.s35),
+                        Flexible(
+                            child:
+                                SchedularTextField(
+                                    controller: ctlrEmail,
+                                    labelText: AppString.email)),
                         SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
-                              labelText: AppString.fax )
-                        ),
-                        SizedBox(width: AppSize.s35),
-                        Flexible(
-                            child: SchedularTextField(
-                              labelText:AppString.email )
-                        ),
-                        SizedBox(width: AppSize.s35),
-                        Flexible(child: SchedularTextField(
-                            labelText: 'Unites')
-                        ),
+                                controller: ctlrUnites,
+                                labelText: 'Unites')),
                       ],
                     ),
                   ],
@@ -148,4 +204,3 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
     );
   }
 }
-

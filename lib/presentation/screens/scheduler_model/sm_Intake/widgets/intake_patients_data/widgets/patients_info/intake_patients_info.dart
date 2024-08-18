@@ -42,6 +42,14 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
   String? status = '';
 
   String? statustype;
+  String? selectedStatus;
+  String? selectedCountry;
+  String? selectedRace;
+  String? selectedState;
+  String? selectedLanguage;
+  String? selectedReligion;
+  String? selectedMaritalStatus;
+
 
 
   @override
@@ -105,7 +113,13 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           Flexible(
                               child: SchedularDropdown(
                                   labelText: AppString.status,
-                                  items: ['Option 1', 'Option 2', 'Option 3'])),
+                                  items: ['Option 1', 'Option 2', 'Option 3'],
+                                onChanged: (newValue) {
+                                setState(() {
+                                  selectedStatus = newValue;
+                                  print(selectedState);
+                                });
+                              },)),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -191,7 +205,11 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           Flexible(
                               child: SchedularDropdown(
                                   labelText: AppString.state,
-                                  items: ['Option 1', 'Option 2', 'Option 3'])),
+                                  items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                                setState(() {
+                                  selectedState = newValue;
+                                });
+                              },)),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextFieldWithButton(
@@ -216,9 +234,13 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularDropdown(
-                            // controller: ctlrCountry,
                             labelText: AppString.country,
                             items: ['Option 1', 'Option 2', 'Option 3'],
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    selectedCountry = newValue;
+                                  });
+                                },
                           )),
                           SizedBox(width: AppSize.s35),
                           Flexible(
@@ -255,11 +277,20 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularDropdown(
+                              child:
+
+
+                              SchedularDropdown(
                             // controller: CtlrLanguageS,
                             labelText: 'Language Spoken',
-                            items: ['Option 1', 'Option 2', 'Option 3'],
-                          )),
+                            items: ['Asian', 'African', 'European'],
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    selectedLanguage = newValue;
+                                  });
+                                },
+                          )
+                          ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -270,14 +301,24 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               child: SchedularDropdown(
                             // controller: ctlrRace,
                             labelText: 'Race / Ethnicity',
-                            items: ['Option 1', 'Option 2', 'Option 3'],
+                            items: ['Hispanic', 'Latino American', 'Asian People'],
+                                onChanged: (newValue) {
+                                setState(() {
+                                  selectedRace = newValue;
+                                });
+                              },
                           )),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularDropdown(
                             // controller: ctlrReligion,
                             labelText: 'Religion',
-                            items: ['Option 1', 'Option 2', 'Option 3'],
+                            items: ['Christianity', 'Judaism', 'Islam'],
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    selectedReligion = newValue;
+                                  });
+                                },
                           )),
                         ],
                       ),
@@ -288,7 +329,11 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               child: SchedularDropdown(
                                   // controller: ctlrMaritalStatus,
                                   labelText: 'Marital Status',
-                                  items: ['Option 1', 'Option 2', 'Option 3'])),
+                                  items: ['Married', 'Single', 'Separated'],  onChanged: (newValue) {
+                                setState(() {
+                                  selectedMaritalStatus = newValue;
+                                });
+                              },)),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(

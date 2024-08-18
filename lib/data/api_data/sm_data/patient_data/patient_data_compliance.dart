@@ -33,3 +33,15 @@ class PatientDataComplianceDoc{
     this.expDate
 });
 }
+
+class PDComplianceModal{
+  final int? complianceId;
+  final int? patientId;
+  final int? docTypeId;
+  final String? docName;
+  final String? docUrl;
+  final String? expDate;
+
+  PDComplianceModal({this.complianceId,
+    this.patientId, this.docTypeId, this.docName, this.docUrl, this.expDate});
+}

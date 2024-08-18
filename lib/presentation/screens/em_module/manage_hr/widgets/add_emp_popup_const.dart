@@ -146,7 +146,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                     vertical: AppPadding.p3, horizontal: AppPadding.p25),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -155,10 +155,11 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SMTextFConst(
+                        FirstSMTextFConst(
                           controller: widget.typeController,
                           keyboardType: TextInputType.text,
                           text: 'Employee Type',
+
                         ),
                         if (_typeError != null)
                           Text(
@@ -171,7 +172,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SMTextFConst(
+                        CapitalSMTextFConst(
                           controller: widget.abbreviationController,
                           keyboardType: TextInputType.streetAddress,
                           text: 'Abbreviation',

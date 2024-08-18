@@ -39,9 +39,9 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
-  final StreamController<List<PatientDataComplianceModal>>
+  final StreamController<List<PDComplianceModal>>
       _compliancePatientDataController =
-      StreamController<List<PatientDataComplianceModal>>();
+      StreamController<List<PDComplianceModal>>();
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController patientIdcontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
@@ -103,7 +103,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
 
                                         context: context,
                                         // patientId: widget.patientId,
-                                        patientId: 24,
+                                        patientId: 1,
                                         docTypeId: docTypeId,
                                         // docTypeId: 24,
                                         docName: docNamecontroller.text,
@@ -177,11 +177,12 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                   docTypeId = doc.docTypeId!;
                                                 }
                                               }
-                                              fetchPatientDataCompliance(
+                                              getComplianceByPatientId(
                                                 context,
+                                                1
                                               ).then((data) {
                                                 _compliancePatientDataController
-                                                    .add(data);
+                                                    .add(data!);
                                               }).catchError((error) {
                                                 // Handle error
                                               });
@@ -384,10 +385,10 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                   child: Column(
                     children: [
                       Expanded(
-                        child: StreamBuilder<List<PatientDataComplianceModal>>(
+                        child: StreamBuilder<List<PDComplianceModal>>(
                             stream: _compliancePatientDataController.stream,
                             builder: (context, snapshot) {
-                              fetchPatientDataCompliance(context).then((data) {
+                              getComplianceByPatientId(context, 1).then((data) {
                                 _compliancePatientDataController.add(data);
                               }).catchError((error) {
                                 // Handle error
@@ -644,8 +645,8 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                                                   try {
                                                                                     await deleteDocumentCompliance(context, snapshot.data![index].complianceId!);
                                                                                     setState(() async {
-                                                                                      await fetchPatientDataCompliance(
-                                                                                        context,
+                                                                                      await getComplianceByPatientId(
+                                                                                        context, 1
                                                                                       ).then((data) {
                                                                                         _compliancePatientDataController.add(data);
                                                                                       }).catchError((error) {

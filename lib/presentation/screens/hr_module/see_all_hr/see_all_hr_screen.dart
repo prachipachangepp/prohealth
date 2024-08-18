@@ -607,30 +607,40 @@ class _PopUpState extends State<ProfilePatientPopUp> {
             SizedBox(height: MediaQuery.of(context).size.height / 60),
             Row(
               children: [
-                Center(
-                  child: CustomDropDown(
-                    width: 96,
-                    height: 27,
-                    items: ['San Joes', 'Austin'],
-                    labelText: 'Office Location',
-                    labelStyle: GoogleFonts.firaSans(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff737373),
+
+
+
+                Column(
+crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Office Location',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff737373),
+                      ),
                     ),
-                    onChanged: (value) {
-                      setState(() {
-                        dropdownOfficeLocation = value;
-                      });
-                    },
-                  ),
-                  // Text(
-                  //   'San Jose',
-                  //   style: GoogleFonts.firaSans(
-                  //     fontSize: 10,
-                  //     fontWeight: FontWeight.w400,
-                  //   ),
-                  // ),
+                    Center(
+                      child: PatientCustomDropDown(
+                        width: 96,
+                        height: 27,
+                        items: ['San Joes', 'Austin'],
+                        labelText: 'Office Location',
+                        labelStyle: GoogleFonts.firaSans(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xff737373),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            dropdownOfficeLocation = value;
+                          });
+                        },
+                      ),
+
+                    ),
+                  ],
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 20),
                 Center(
@@ -667,13 +677,13 @@ class _PopUpState extends State<ProfilePatientPopUp> {
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 60),
+
             Row(
               children: [
                 Center(
-                    child:  CustomDropDown(
-            width: 96,
-              height: 27,
+                    child:  PatientCustomDropDown(
+            // width: 96,
+            //   height: 27,
               items: ['Active', 'Expired'],
               labelText: 'License Status',
               labelStyle: GoogleFonts.firaSans(
@@ -711,11 +721,11 @@ class _PopUpState extends State<ProfilePatientPopUp> {
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 60),
+         
             Row(
               children: [
                 Center(
-                    child:  CustomDropDown(
+                    child:  PatientCustomDropDown(
             width: 96,
               height: 27,
               items: ['Full-Time', 'Part-Time'],

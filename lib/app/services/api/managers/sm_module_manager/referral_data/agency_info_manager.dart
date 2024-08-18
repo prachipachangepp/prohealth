@@ -1,116 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
-import '../../../../../../data/api_data/api_data.dart';
-import '../../../../../../presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/sm_repository/patient_data/patient_data_info_repo.dart';
-///Info save Post API
-Future<ApiData> IntakeRelatedPartyAdd(
-    BuildContext context,
-    int patientId,
-    String emergencyContact,
-    String emg_telephoneNbr,
-    String emg_relationship,
-    String emg_contactAddress,
-    String emg_City,
-    String emg_State,
-    String emg_Zipcode,
-    String emg_priorityDisasterCode,
-    String emg_comments,
-    String pcg_Prefix,
-    String pcg_FirstName,
-    String pcg_MI,
-    String pcg_LastName,
-    String pcg_suffix,
-    String pcg_OptforCAHPS,
-    String pcg_Address,
-    String pcg_SuiteApt,
-    String pcg_City,
-    String pcg_State,
-    String pcg_Zipcode,
-    String pcg_Phone,
-    String pcg_Cell,
-    String pcg_Email,
-    String pcg_Relationship,
-    String pcg_AdditionalInfo
 
+
+Future<ApiData> AddAgencyInfo(
+    BuildContext context,
+   int patientId,
+   String agency,
+   String agencyName,
+   int rate,
+   String street,
+   String suiteApt,
+   String city,
+   String state,
+   String zipcode,
+   String phone,
+   String fax,
+   String email,
+   String unites
     ) async {
   try {
     var response = await Api(context).post(
-      path: PatientDataInfoRepo.relatedPartyAdd(),
+      path: PatientDataInfoRepo.agencyInfoAdd(),
       data: {
-        "patientId": patientId,
-        "emergencyContact": emergencyContact,
-        "emg_telephoneNbr": emg_telephoneNbr,
-        "emg_relationship": emg_relationship,
-        "emg_contactAddress": emg_contactAddress,
-        "emg_City": emg_City,
-        "emg_State": emg_State,
-        "emg_Zipcode": emg_Zipcode,
-        "emg_priorityDisasterCode": emg_priorityDisasterCode,
-        "emg_comments": emg_comments,
-        "pcg_Prefix": pcg_Prefix,
-        "pcg_FirstName": pcg_FirstName,
-        "pcg_MI": pcg_MI,
-        "pcg_LastName": pcg_LastName,
-        "pcg_suffix": pcg_suffix,
-        "pcg_OptforCAHPS": pcg_OptforCAHPS,
-        "pcg_Address": pcg_Address,
-        "pcg_SuiteApt": pcg_SuiteApt,
-        "pcg_City": pcg_City,
-        "pcg_State": pcg_State,
-        "pcg_Zipcode": pcg_Zipcode,
-        "pcg_Phone": pcg_Phone,
-        "pcg_Cell": pcg_Cell,
-        "pcg_Email": pcg_Email,
-        "pcg_Relationship": pcg_Relationship,
-        "pcg_AdditionalInfo": pcg_AdditionalInfo
-
-        ///
-        // 'spcdate':"${date}T00:00:00Z",
-        // 'spcdate': "2024-08-14T00:00:00Z",
-        // 'medicalRecord': medicalRecord,
-        // 'status': status,
-        // 'firstName': firstName,
-        // 'lastName': lastName,
-        // 'mi': mi,
-        // 'suffix': suffix,
-        // 'activeTraineeStatus': activeTraineeStatus,
-        // // 'dateofbirth':"${dateofbirth}T00:00:00",
-        // 'dateofbirth': "1985-05-15T00:00:00Z",
-        // 'street': street,
-        // 'state': state,
-        // 'zipcode': zipcode,
-        // 'suiteApt': suiteApt,
-        // 'city': city,
-        // 'county': county,
-        // 'majorCrossStreet': majorCrossStreet,
-        // 'primaryPhoneNbr': primaryPhoneNbr,
-        // 'secondaryPhoneNbr': secondaryPhoneNbr,
-        // 'email': email,
-        // 'socSecNbr': socSecNbr,
-        // 'langaugeSpoken': langaugeSpoken,
-        // 'dischargeReason': dischargeReason,
-        // 'raceEthinicity': raceEthinicity,
-        // 'religion': religion,
-        // 'maritalStatus': maritalStatus,
-        // // 'dateofdeath':"${dateofdeath}T00:00:00Z",
-        // 'dateofdeath':"2024-08-14T00:00:00Z",
-        // 'clinicianId': clinicianId,
-        // 'location': location,
-        // 'case': casee,
-        // 'Type': Type,
-        // 'companyId': companyId,
+        "patientId": patientId ?? "",
+        "agency": agency ?? "",
+        "agencyName": agencyName ?? "",
+        "rate": rate ?? "",
+        "street": street ?? "",
+        "suiteApt": suiteApt ?? "",
+        "city": city ?? "",
+        "state": state ?? "",
+        "zipcode": zipcode ?? "",
+        "phone": phone ?? "",
+        "fax": fax ?? "",
+        "email": email ?? "" ,
+        "unites": unites ?? ""
       },
     );
     print(response);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Related Party Saved");
+      print("Agency Info Added");
       var patientIdresponse = response.data;
       int idPatient = patientIdresponse["patientId"];
 
@@ -166,25 +103,6 @@ Future<ApiData> IntakeRelatedPartyAdd(
           );
         },
       );
-
-      ///
-      // showDialog(
-      //   context: context,
-      //   builder: (BuildContext context) {
-      //     return AlertDialog(
-      //       title: Text("Success"),
-      //       content: Text("Successfully saved patient data."),
-      //       actions: [
-      //         TextButton(
-      //           child: Text("OK"),
-      //           onPressed: () {
-      //             Navigator.of(context).pop(); // Close the dialog
-      //           },
-      //         ),
-      //       ],
-      //     );
-      //   },
-      // );
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
