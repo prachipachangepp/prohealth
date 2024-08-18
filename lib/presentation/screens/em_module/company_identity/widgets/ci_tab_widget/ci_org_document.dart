@@ -244,6 +244,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             return StatefulBuilder(
                               builder: (BuildContext context, void Function(void Function()) setState) {
                                 return AddOrgDocButton(
+                                  title:"Add Document",
                                   calenderController: calenderController,
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
@@ -531,7 +532,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                       ],
                                     ),
                                   ),
-                                  title: '',
                                 );
                               },
                             );
