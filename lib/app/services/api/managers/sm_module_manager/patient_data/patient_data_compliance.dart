@@ -33,16 +33,6 @@ Future<List<PatientDataComplianceModal>> fetchPatientDataCompliance(BuildContext
                 docUrl: item['docUrl'] ?? '',
                 expDate: item['expDate'] ?? ''
             )
-          // CiOrgDocumentCC(
-          //     docId: item['document_id'],
-          //     createdAt: item['doc_created_at'],
-          //     name: item["doc_name"],
-          //     expiry: item["expiry_date"],
-          //     reminderThreshold: item["expiry_type"],
-          //     sucess: true, message: response.statusMessage!, documentTypeId: item['document_type_id'],
-          //     documentSubTypeId: item['document_subtype_id'], url: item['url'], expirtReminder: item['expiry_reminder'],
-          //     companyId: item['company_id'], officeId: item['office_id']
-          // ),
         );
       }
       // print('${response.data['DocumentList']}');
@@ -92,15 +82,6 @@ Future<ApiData> deleteDocumentCompliance(
 ///Add Compliance
 Future<ApiData> addComplianceDocumentPost({
   required BuildContext context,
-  // required String name,
-  // required int docTypeID,
-  // required int docSubTypeID,
-  // required String docCreated,
-  // required String url,
-  // required String expiryType,
-  // required String expiryDate,
-  // required String expiryReminder,
-  // required String officeId,
    required int patientId,
    required int docTypeId,
    required String docName,
@@ -164,6 +145,46 @@ Future<List<PatientDataComplianceDoc>> getpatientDataComplianceDoc(BuildContext 
                 expireType: item['expireType'] ?? '',
                 expDate: item['expDate'] ?? ''
 
+            )
+        );
+      }
+      // print('${response.data['DocumentList']}');
+      print("Compliance response:::::${itemsList}");
+    } else {
+      print('Compliance Data Added');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error for add $e");
+    return itemsList;
+  }
+}
+
+///Get
+Future<List<PDComplianceModal>> getComplianceByPatientId(BuildContext context,
+    int patientId,
+
+    ) async {
+  List<PDComplianceModal> itemsList = [];
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context)
+        .get(path: PatientDataInfoRepo.complianceByPatientIdGet(patientId: patientId
+    ));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("1");
+      for(var item in response.data){
+        itemsList.add(
+            PDComplianceModal(
+                complianceId: item['ComplianceId'],
+                patientId : item['patientId'] ,
+                docTypeId: item['docTypeId'],
+                docName: item['docName'],
+                docUrl: item['docUrl'],
+                expDate: item['expDate'],
             )
         );
       }

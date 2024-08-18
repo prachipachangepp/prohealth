@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -178,6 +179,21 @@ class _Employment_screenState extends State<Employment_screen> {
                       print("Loading");
                     } else {
                       try {
+                        await postemploymentscreenData(
+                            context,
+                            state.widget.employeeID,
+                            state.employerController.text,
+                            state.cityController.text,
+                            state.reasonForLeavingController.text,
+                            state.supervisorNameController.text,
+                            state.supervisorMobileNumberController.text,
+                            state.finalPositionController.text,
+                            state.startDateController.text,
+                            state.isChecked
+                                ? 'Present'
+                                : state.endDateController.text,
+                            "NA",
+                            "USA");
                         await uploadEmployeeResume(
                           context: context,
                           employeementId: widget.employeeID,
@@ -195,21 +211,10 @@ class _Employment_screenState extends State<Employment_screen> {
                         print(e);
                       }
                     }
-                    await postemploymentscreenData(
-                        context,
-                        state.widget.employeeID,
-                        state.employerController.text,
-                        state.cityController.text,
-                        state.reasonForLeavingController.text,
-                        state.supervisorNameController.text,
-                        state.supervisorMobileNumberController.text,
-                        state.finalPositionController.text,
-                        state.startDateController.text,
-                        state.isChecked
-                            ? 'Present'
-                            : state.endDateController.text,
-                        "NA",
-                        "USA");
+
+                    // Replace with your actual API call for saving the employment data
+
+
                   }
                 },
                 child: Text('Save',style: GoogleFonts.firaSans(
@@ -325,21 +330,25 @@ class _EmploymentFormState extends State<EmploymentForm> {
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 20),
-                ElevatedButton(
-                  onPressed: _handleFileUpload,
-                  child: Text('Upload File',style: GoogleFonts.firaSans(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    color: ColorManager.white,
-                  ),),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _handleFileUpload,
+                      child: Text('Upload File',style: GoogleFonts.firaSans(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w600,
+                        color: ColorManager.white,
+                      ),),
+                    ),
+                    if (fileName != null)
+                      AutoSizeText('Selected file: $fileName',style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        color: ColorManager.mediumgrey,
+                      )),
+                  ],
                 ),
-              if (fileName != null)
-                Text('Selected file: $fileName',style: GoogleFonts.firaSans(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                  color: ColorManager.mediumgrey,
-                )),
-
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -518,7 +527,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                   ],
                 ),
               ),
-              SizedBox(width: MediaQuery.of(context).size.width / 7),
+              SizedBox(width: MediaQuery.of(context).size.width / 15),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

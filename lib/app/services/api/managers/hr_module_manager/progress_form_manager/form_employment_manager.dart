@@ -86,7 +86,7 @@ Future<List<EmploymentDataForm>> getEmployeeHistoryForm(
   List<EmploymentDataForm> itemsData = [];
   try {
     final response = await ApiOffer(context).get(
-        path: ProgressBarRepository()
+        path: ProgressBarRepository
             .getEmploymentByEmpID(employeeID: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {

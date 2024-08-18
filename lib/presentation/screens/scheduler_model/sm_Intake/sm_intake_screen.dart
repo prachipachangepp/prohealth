@@ -10,10 +10,6 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import '../../../../../../app/resources/value_manager.dart';
 import '../widgets/constant_widgets/page_view_menu_button_const.dart';
 
-
-
-
-
 class SMIntakeScreen extends StatefulWidget {
   const SMIntakeScreen({super.key});
 

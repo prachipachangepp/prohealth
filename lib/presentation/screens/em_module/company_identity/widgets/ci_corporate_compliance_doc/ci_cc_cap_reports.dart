@@ -62,7 +62,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SizedBox(
-            height: 5,
+            height: AppSize.s5,
           ),
           Expanded(
             child:
@@ -128,7 +128,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                               ),
                                             ],
                                           ),
-                                          height: 50,
+                                          height: AppSize.s50,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 15),
                                             child: Row(
@@ -142,12 +142,12 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                       },
                                                       child: Image.asset(
                                                         'images/eye.png',
-                                                        height: 15,
-                                                        width: 22,
+                                                        height: AppSize.s15,
+                                                        width: AppSize.s22,
                                                       ),
                                                     ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(width: 10,),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -155,18 +155,18 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                         Text(
                                                           CapReports.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts.firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: Color(0xff686464),
+                                                            fontSize: FontSize.s10,
+                                                            fontWeight: FontWeightManager.regular,
+                                                            color: ColorManager.granitegray,
                                                             decoration: TextDecoration.none,
                                                           ),
                                                         ),
                                                         Text(
                                                           CapReports.docname.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts.firaSans(
-                                                            fontSize: 10,
+                                                            fontSize: FontSize.s10,
                                                             fontWeight: FontWeight.bold,
-                                                            color: Color(0xff686464),
+                                                            color: ColorManager.granitegray,
                                                             decoration: TextDecoration.none,
                                                           ),
                                                         ),

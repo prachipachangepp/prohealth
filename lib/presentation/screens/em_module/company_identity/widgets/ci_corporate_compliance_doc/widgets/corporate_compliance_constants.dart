@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 
@@ -54,7 +55,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: AppSize.s40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -91,29 +92,29 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                   SMTextFConst(
                     controller: widget.countynameController,
                     keyboardType: TextInputType.text,
-                    text: 'Name of the Document',
+                    text: AppString.name_of_the_document,
                   ),
                   SizedBox(height: AppSize.s15),
                   SMTextFConst(
                     controller: widget.zipcodeController,
                     keyboardType: TextInputType.text,
-                    text: 'ID of the Document',
+                    text: AppString.id_of_the_document,
                   ),
                   SizedBox(height: AppSize.s15),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Type of the Document',
+                        AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           //decoration: TextDecoration.none,
                         ),
                       ),
                       SizedBox(
-                        height: 5,
+                        height: AppSize.s5,
                       ),
                       widget.child
                     ],
@@ -123,16 +124,16 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Sub Type of the Document',
+                        AppString.sub_type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           decoration: TextDecoration.none,
                         ),
                       ),
                       SizedBox(
-                        height: 5,
+                        height: AppSize.s5,
                       ),
                       widget.child1
                     ],
@@ -237,18 +238,18 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
           width: widget.width == null ?354:widget.width,
           height: 30,
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+            border: Border.all(color: ColorManager.containerBorderGrey, width: AppSize.s1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             children: [
-              SizedBox(width: 8),
+              SizedBox(width: AppSize.s8),
               Expanded(
                 child: Text(
                   _selectedValue ?? '',
                   style: GoogleFonts.firaSans(
                     fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeightManager.medium,
                     color: ColorManager.mediumgrey,
                     decoration: TextDecoration.none,
                   ),
@@ -320,7 +321,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -359,28 +360,28 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     // readOnly: true,
                     controller: widget.idDocController,
                     keyboardType: TextInputType.text,
-                    text: 'ID of the Document',
+                    text: AppString.id_of_the_document,
                   ),
                   SizedBox(height: AppSize.s10),
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
-                    text: 'Name of the Document',
+                    text: AppString.name_of_the_document,
                   ),
                   SizedBox(height: AppSize.s10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Type of the Document',
+                        AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           //decoration: TextDecoration.none,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: AppSize.s5),
                       widget.child!,
                     ],
                   ),
@@ -389,15 +390,15 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Sub Type of the Document',
+                       AppString.sub_type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           decoration: TextDecoration.none,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: AppSize.s5),
                       widget.child1!,
                     ],
                   ),
@@ -421,7 +422,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                           'Expiry Type',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             color: ColorManager.mediumgrey,
                             decoration: TextDecoration.none,
                           ),
@@ -439,27 +440,26 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Expiry Date',
+                  Text(AppString.expiry_date,
                     style: GoogleFonts.firaSans(
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeightManager.bold,
                       color: ColorManager.mediumgrey,
                       decoration: TextDecoration.none,
                     ),
                   ),
                   SizedBox(
-                    height: 4,
+                    height: AppSize.s4,
                   ),
                   FormField<String>(
                     builder: (FormFieldState<String> field) {
                       return SizedBox(
-                        width: 354,
-                        height: 30,
+                        width: AppSize.s354,
+                        height: AppSize.s30,
                         child: TextFormField(
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeightManager.bold,
                             color: ColorManager.mediumgrey,
                             //decoration: TextDecoration.none,
                           ),
@@ -470,7 +470,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                             hintText: 'mm-dd-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeightManager.bold,
                               color: ColorManager.mediumgrey,
                               //decoration: TextDecoration.none,
                             ),
@@ -482,16 +482,14 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(
-                                  width: 1,
-                                  color: ColorManager
-                                      .mediumgrey), // Set focused border color to red
+                                  width: AppSize.s1,
+                                  color: ColorManager.mediumgrey), // Set focused border color to red
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(
-                                  width: 1,
-                                  color: ColorManager
-                                      .mediumgrey), // Set enabled border color to red
+                                  width: AppSize.s1,
+                                  color: ColorManager.mediumgrey), // Set enabled border color to red
                             ),
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 16),
@@ -519,7 +517,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'please select date';
+                              return 'Please select date';
                             }
                             return null;
                           },
@@ -530,15 +528,15 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                 ],
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: AppSize.s20),
             ///button
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(
                 child:  widget.loadingDuration == true
                     ? SizedBox(
-                  height: 25,
-                  width: 25,
+                  height: AppSize.s25,
+                  width: AppSize.s25,
                   child: CircularProgressIndicator(
                     color: ColorManager.blueprime,
                   ),
@@ -605,7 +603,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
         child: Column(
           children: [
             Container(
-              height: 40,
+              height: AppSize.s40,
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: ColorManager.bluebottom,
@@ -623,7 +621,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     widget.title,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
-                      fontSize: 13,
+                      fontSize: FontSize.s13,
                       fontWeight:
                       FontWeightManager.semiBold,
                       color: ColorManager.white,
@@ -653,14 +651,14 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   SMTextFConst(
                     controller: widget.idDocController,
                     keyboardType: TextInputType.text,
-                    text: 'ID of the Document',
+                    text: AppString.id_of_the_document,
                   ),
                   SizedBox(height: AppSize.s13),
                   ///Name of the Document
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
-                    text: 'Name of the Document',
+                    text: AppString.name_of_the_document
                   ),
                   SizedBox(height: AppSize.s13),
                   Column(
@@ -668,15 +666,15 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     children: [
                       ///Type of the Document
                       Text(
-                        'Type of the Document',
+                        AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           //decoration: TextDecoration.none,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: AppSize.s5),
                       widget.child ?? SizedBox(),
                     ],
                   ),
@@ -685,16 +683,15 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ///Sub Type of the Document
-                      Text(
-                        'Sub Type of the Document',
+                      Text(AppString.sub_type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           decoration: TextDecoration.none,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: AppSize.s5),
                       widget.child1 ?? SizedBox(),
                     ],
                   ),
@@ -727,10 +724,10 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               child: Center(
                 child: widget.loadingDuration == true
                     ? SizedBox(
-                  height: 25,
-                  width: 25,
+                  height: AppSize.s25,
+                  width: AppSize.s25,
                   child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
+                    color: ColorManager.blueprime
                   ),
                 )
                     : CustomElevatedButton(

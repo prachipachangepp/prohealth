@@ -272,8 +272,12 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                           SizedBox(height: MediaQuery.of(context).size.height/40,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              BorderIconButton(iconData: Icons.edit_outlined,
+                            children: [snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(
+                              fontSize: MediaQuery.of(context).size.width/120,
+                              color: ColorManager.mediumgrey,
+                              fontWeight: FontWeight.w600,
+                            )):
+                            BorderIconButton(iconData: Icons.edit_outlined,
                                   buttonText: 'Edit', onPressed: (){
                                 showDialog(context: context, builder: (BuildContext context){
                                   return FutureBuilder<EducationPrefillData>(

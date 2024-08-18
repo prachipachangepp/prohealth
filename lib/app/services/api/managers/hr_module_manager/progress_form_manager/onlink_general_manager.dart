@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/api_offer.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 
@@ -9,6 +10,18 @@ import '../../../repository/hr_module_repository/form_repository/onlinj_general_
 
 Future<OnlinkGeneralData> getGeneralIdPrefill(
     BuildContext context, int employeeId) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
   var itemsList;
   try {
     final companyId = TokenManager.getCompanyId();
@@ -17,8 +30,9 @@ Future<OnlinkGeneralData> getGeneralIdPrefill(
         ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("onlink general response:::::${itemsList}");
+      String formatedDOBDate = convertIsoToDayMonthYear(response.data['dateOfBirth']);
       itemsList = OnlinkGeneralData(
-        employeeId: response.data['employeeId'] ?? 1,
+        employeeId: response.data['employeeId'] ?? 0,
         userId: response.data['userId'] ?? 0,
         code: response.data['code'] ?? '--',
         firstName: response.data['firstName'] ?? "--",
@@ -35,7 +49,7 @@ Future<OnlinkGeneralData> getGeneralIdPrefill(
         regOfficId: response.data['regOfficId'] ?? "--",
         personalEmail: response.data['personalEmail'] ?? '--',
         workEmail: response.data['workEmail'] ?? '--',
-        dateOfBirth: response.data['dateOfBirth'] ?? "--",
+        dateOfBirth: formatedDOBDate,
         emergencyContact: response.data['emergencyContact'] ?? "--",
         covreage: response.data['covreage'] ?? "--",
         employment: response.data['employment'] ?? "--",
