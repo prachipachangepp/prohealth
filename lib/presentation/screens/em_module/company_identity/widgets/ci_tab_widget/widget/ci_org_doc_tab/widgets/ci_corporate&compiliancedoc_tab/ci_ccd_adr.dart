@@ -507,7 +507,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                                     try {
                                                       await deleteDocument(
                                                           context,
-                                                          snapshot.data![index].docId!);
+                                                          snapshot.data![index].docId);
                                                       setState(() async {
                                                         await orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 6).then((data) {
                                                           _controller.add(data);

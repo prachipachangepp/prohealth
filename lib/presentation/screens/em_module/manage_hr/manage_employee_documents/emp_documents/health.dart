@@ -464,6 +464,26 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                             },
                           ),
                         ),
+                        PaginationControlsWidget(
+                          currentPage: currentPage,
+                          items: snapshot.data!,
+                          itemsPerPage: itemsPerPage,
+                          onPreviousPagePressed: () {
+                            setState(() {
+                              currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                            });
+                          },
+                          onPageNumberPressed: (pageNumber) {
+                            setState(() {
+                              currentPage = pageNumber;
+                            });
+                          },
+                          onNextPagePressed: () {
+                            setState(() {
+                              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                            });
+                          },
+                        ),
                       ],
                     );
                   }

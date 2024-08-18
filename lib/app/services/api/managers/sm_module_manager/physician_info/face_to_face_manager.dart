@@ -1,96 +1,43 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/services/api/repository/sm_repository/patient_data/patient_data_info_repo.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
-import '../../../../../../data/api_data/sm_data/patient_data/patient_data_info_data.dart';
+import '../../../../../../presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
-
+import '../../../repository/sm_repository/medications/medications_repo.dart';
+import '../../../repository/sm_repository/patient_data/patient_data_info_repo.dart';
+import '../../../repository/sm_repository/physician_info/physician_info_repo.dart';
 
 ///Info save Post API
-Future<ApiData> IntakeInfoSave(
+Future<ApiData> postFaceToFaceScreen(
   BuildContext context,
-  String date,
-  String medicalRecord,
-  String status,
-  String firstName,
-  String lastName,
-  String mi,
-  String suffix,
-  String activeTraineeStatus,
-  String dateofbirth,
-  String street,
-  String state,
-  String zipcode,
-  String suiteApt,
-  String city,
-  String county,
-  String majorCrossStreet,
-  String primaryPhoneNbr,
-  String secondaryPhoneNbr,
-  String email,
-  String socSecNbr,
-  String langaugeSpoken,
-  String dischargeReason,
-  String raceEthinicity,
-  String religion,
-  String maritalStatus,
-  String dateofdeath,
-  int clinicianId,
-  String location,
-  String casee,
-  String Type,
-  int companyId,
+  int patientId,
+  String f2fRequired,
+  String startEffectiveDate,
+  String seenBy,
+  String encounterDate,
+  String visitScheduled30,
 ) async {
   try {
     var response = await Api(context).post(
-      path: PatientDataInfoRepo.addInfoPatientData(),
+      path: physicianInfo.addPIftof(),
       data: {
-        // 'spcdate':"${date}T00:00:00Z",
-        'spcdate': "2024-08-14T00:00:00Z",
-        'medicalRecord': medicalRecord,
-        'status': status,
-        'firstName': firstName,
-        'lastName': lastName,
-        'mi': mi,
-        'suffix': suffix,
-        'activeTraineeStatus': activeTraineeStatus,
-        // 'dateofbirth':"${dateofbirth}T00:00:00",
-        'dateofbirth': "1985-05-15T00:00:00Z",
-       'street': street,
-        'state': state,
-        'zipcode': zipcode,
-        'suiteApt': suiteApt,
-        'city': city,
-        'county': county,
-        'majorCrossStreet': majorCrossStreet,
-        'primaryPhoneNbr': primaryPhoneNbr,
-        'secondaryPhoneNbr': secondaryPhoneNbr,
-        'email': email,
-        'socSecNbr': socSecNbr,
-        'langaugeSpoken': langaugeSpoken,
-        'dischargeReason': dischargeReason,
-        'raceEthinicity': raceEthinicity,
-        'religion': religion,
-        'maritalStatus': maritalStatus,
-        // 'dateofdeath':"${dateofdeath}T00:00:00Z",
-        'dateofdeath':"2024-08-14T00:00:00Z",
-        'clinicianId': clinicianId,
-        'location': location,
-        'case': casee,
-        'Type': Type,
-        'companyId': companyId,
+        "patientId": patientId,
+        "f2fRequired": f2fRequired,
+        "startEffectiveDate":
+            "${startEffectiveDate}T00:00:00Z", //"2024-08-18T05:51:50.586Z",
+        "seenBy": seenBy,
+        "encounterDate":
+            "${startEffectiveDate}T00:00:00Z", //"2024-08-18T05:51:50.586Z",
+        "visitScheduled30": visitScheduled30
       },
     );
     print(response);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Patient Info Saved");
+      print("face to face data Saved");
       var patientIdresponse = response.data;
       int idPatient = patientIdresponse["patientId"];
 
@@ -119,14 +66,12 @@ Future<ApiData> IntakeInfoSave(
                     size: 80.0,
                   ),
                   SizedBox(height: 20.0),
-
                   Text(
-                    "Successfully saved !",
+                    "Successfully Add !",
                     style: GoogleFonts.firaSans(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700
-                    ),
+                        fontSize: 16.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 30.0),
@@ -134,10 +79,12 @@ Future<ApiData> IntakeInfoSave(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CustomButton(
-                        height: 30,
+                          height: 30,
                           width: 130,
                           text: 'Continue',
-                          onPressed: (){Navigator.pop(context);})
+                          onPressed: () {
+                            Navigator.pop(context);
+                          })
                     ],
                   ),
                 ],
@@ -146,12 +93,14 @@ Future<ApiData> IntakeInfoSave(
           );
         },
       );
+
+      ///
+
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!,
-          patientId: idPatient
-      );
+          patientId: idPatient);
     } else {
       print("Error 1");
       showDialog(
@@ -178,14 +127,12 @@ Future<ApiData> IntakeInfoSave(
                     size: 80.0,
                   ),
                   SizedBox(height: 20.0),
-
                   Text(
                     "Failed, Please Try Again !",
                     style: GoogleFonts.firaSans(
                         fontSize: 16.0,
                         color: Colors.black,
-                        fontWeight: FontWeight.w700
-                    ),
+                        fontWeight: FontWeight.w700),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 30.0),
@@ -196,7 +143,9 @@ Future<ApiData> IntakeInfoSave(
                           height: 30,
                           width: 130,
                           text: 'Back',
-                          onPressed: (){Navigator.pop(context);})
+                          onPressed: () {
+                            Navigator.pop(context);
+                          })
                     ],
                   ),
                 ],
@@ -237,14 +186,12 @@ Future<ApiData> IntakeInfoSave(
                   size: 80.0,
                 ),
                 SizedBox(height: 20.0),
-
                 Text(
                   "Please Try Again !",
                   style: GoogleFonts.firaSans(
                       fontSize: 16.0,
                       color: Colors.black,
-                      fontWeight: FontWeight.w700
-                  ),
+                      fontWeight: FontWeight.w700),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 30.0),
@@ -255,7 +202,9 @@ Future<ApiData> IntakeInfoSave(
                         height: 30,
                         width: 130,
                         text: 'Back',
-                        onPressed: (){Navigator.pop(context);})
+                        onPressed: () {
+                          Navigator.pop(context);
+                        })
                   ],
                 ),
               ],
@@ -266,67 +215,5 @@ Future<ApiData> IntakeInfoSave(
     );
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
-  }
-}
-String formatDate(DateTime date) {
-  return DateFormat('yyyy-MM-dd').format(date);
-}
-
-
-
-///get Employee API
-Future<List<PatientDataInfoModal>> PatientDataInfoGet(
-  BuildContext context,
-) async {
-  List<PatientDataInfoModal> itemsList = [];
-  try {
-    final response = await Api(context).get(path: PatientDataInfoRepo.infoGet);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      for (var item in response.data) {
-        itemsList.add(
-          PatientDataInfoModal(
-            patientId: item['patientId'],
-            spcdate: item['spcdate'],
-            medicalRecord: item['medicalRecord'],
-            status: item['status'],
-            firstName: item['firstName'],
-            lastName: item['lastName'],
-            mi: item['mi'],
-            suffix: item['suffix'],
-            activeTraineeStatus: item['activeTraineeStatus'],
-            dateofbirth: item['dateofbirth'],
-            street: item['street'],
-            state: item['state'],
-            zipcode: item['zipcode'],
-            suiteApt: item['suiteApt'],
-            city: item['city'],
-            county: item['county'],
-            majorCrossStreet: item['majorCrossStreet'],
-            primaryPhoneNbr: item['primaryPhoneNbr'],
-            secondaryPhoneNbr: item['secondaryPhoneNbr'],
-            email: item['email'],
-            socSecNbr: item['socSecNbr'],
-            langaugeSpoken: item['langaugeSpoken'],
-            dischargeReason: item['dischargeReason'],
-            raceEthinicity: item['raceEthinicity'],
-            religion: item['religion'],
-            maritalStatus: item[' maritalStatus'],
-            dateofdeath: item['dateofdeath'],
-            clinicianId: item['clinicianId'],
-            location: item['location'],
-            Type: item['Type'],
-            companyId: item['companyId'],
-          ),
-        );
-      }
-      print("Response:::::${response}");
-    } else {
-      print('Api Error');
-    }
-    print("Response:::::${response}");
-    return itemsList;
-  } catch (e) {
-    print("Error $e");
-    return itemsList;
   }
 }

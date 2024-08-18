@@ -6,6 +6,7 @@ import '../../../../../../data/api_data/establishment_data/company_identity/ci_o
 import '../../../api.dart';
 import '../../../repository/establishment_manager/establishment_repository.dart';
 
+///manage cc,vendor,policies,contract get
 Future<List<ManageCCDoc>> getManageCorporate(BuildContext context, String officeId,
     int docTypeID, int docSubTypeID, int pageNo, int rowsNO) async {
   List<ManageCCDoc> itemsList = [];

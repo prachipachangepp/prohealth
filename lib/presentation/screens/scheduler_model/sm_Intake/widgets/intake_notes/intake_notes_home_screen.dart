@@ -11,7 +11,8 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 
 class SmIntakeNotesScreen extends StatefulWidget {
-  SmIntakeNotesScreen({super.key});
+  final int patientId;
+  SmIntakeNotesScreen({super.key, required this.patientId});
 
   @override
   State<SmIntakeNotesScreen> createState() => _SmIntakeNotesScreenState();
@@ -255,7 +256,7 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                     Container(color: Colors.grey),
                     Container(color: Colors.yellow),
                     Container(color: Colors.brown),
-                    IntakeNotesMiscellaneousScreen(),
+                    IntakeNotesMiscellaneousScreen(patientId: widget.patientId,),
                   ]),
             ),
           ),
