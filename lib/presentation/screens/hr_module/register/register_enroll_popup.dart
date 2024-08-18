@@ -330,22 +330,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: widget.email,
                             labelFontSize: 12,
                           ),
-                          // CustomTextFieldRegister(
-                          //   height: AppSize.s30,
-                          //   width: MediaQuery.of(context).size.width / 7,
-                          //   controller: email,
-                          //   labelText: AppString.email,
-                          //   keyboardType: TextInputType.text,
-                          //   padding: EdgeInsets.only(
-                          //       bottom: AppPadding.p5, left: AppPadding.p20),
-                          //   onChanged: (value) {},
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return AppString.enterText;
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
                           SizedBox(
                             height: AppPadding.p10,
                           ),
@@ -437,22 +421,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: widget.lastName,
                             labelFontSize: 12,
                           ),
-                          // CustomTextFieldRegister(
-                          //   height: AppSize.s30,
-                          //   width: MediaQuery.of(context).size.width / 7,
-                          //   controller: lastName,
-                          //   labelText: AppString.lname,
-                          //   keyboardType: TextInputType.text,
-                          //   padding: EdgeInsets.only(
-                          //       bottom: AppPadding.p5, left: AppPadding.p20),
-                          //   onChanged: (value) {},
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return AppString.enterText;
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
+
                           SizedBox(
                             height: AppSize.s10,
                           ),
@@ -682,6 +651,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                     for (var a in snapshot.data!) {
                                       if (a.officeName == newValue) {
                                         reportingOfficeId = a.officeName;
+                                        print('Office Name : ${reportingOfficeId}');
                                         // int docType = a.employeeTypesId;
                                         // Do something with docType
                                       }
@@ -1051,7 +1021,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     countyId: 9,
                     zoneId: 18,
                     employment: "Full Time",
-                    service: serviceVal
+                    service: "Home Health"
                     );
 
 

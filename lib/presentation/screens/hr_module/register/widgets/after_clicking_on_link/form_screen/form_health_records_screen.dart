@@ -312,109 +312,115 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                     ),
                                   ),
                                   SizedBox(width: 20),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: const Color(0xffB1B1B1)),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: ElevatedButton(
-                                      onPressed: () async {
-                                        FilePickerResult? result = await FilePicker.platform.pickFiles();
-                                        if (result != null) {
-                                          try {
-                                            Uint8List? bytes = result.files.first.bytes;
-                                            if (bytes != null) {
-                                              setState(() {
-                                                if (_fileNames.length <= index) {
-                                                  _fileNames.add(result.files.first.name!);
-                                                } else {
-                                                  _fileNames[index] = result.files.first.name!;
-                                                }
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: const Color(0xffB1B1B1)),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: ElevatedButton(
+                                          onPressed: () async {
+                                            FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                            if (result != null) {
+                                              try {
+                                                Uint8List? bytes = result.files.first.bytes;
+                                                if (bytes != null) {
+                                                  setState(() {
+                                                    if (_fileNames.length <= index) {
+                                                      _fileNames.add(result.files.first.name!);
+                                                    } else {
+                                                      _fileNames[index] = result.files.first.name!;
+                                                    }
 
-                                                if (finalPaths.length <= index) {
-                                                  finalPaths.add(bytes);
-                                                } else {
-                                                  finalPaths[index] = bytes;
+                                                    if (finalPaths.length <= index) {
+                                                      finalPaths.add(bytes);
+                                                    } else {
+                                                      finalPaths[index] = bytes;
+                                                    }
+                                                  });
                                                 }
-                                              });
+                                              } catch (e) {
+                                                print(e);
+                                              }
                                             }
-                                          } catch (e) {
-                                            print(e);
-                                          }
-                                        }
-                                        // FilePickerResult? result =
-                                        //     await FilePicker.platform
-                                        //         .pickFiles();
-                                        // if (result != null) {
-                                        //   try {
-                                        //     Uint8List? bytes =
-                                        //         result.files.first.bytes;
-                                        //     XFile xlfile =
-                                        //         XFile(result.xFiles.first.path);
-                                        //     File xfileToFile =
-                                        //         File(xlfile.path);
-                                        //     XFile xFile =
-                                        //         await convertBytesToXFile(
-                                        //       bytes!,
-                                        //       result.xFiles.first.name,
-                                        //     );
-                                        //     if (_fileNames.length <= index) {
-                                        //       _fileNames.add(
-                                        //           result.files.first.name!);
-                                        //     } else {
-                                        //       _fileNames[index] =
-                                        //           result.files.first.name!;
-                                        //     }
-                                        //     finalPath =
-                                        //         result.files.first.bytes;
-                                        //     // setState(() {
-                                        //     //   _documentUploaded = true;
-                                        //     // });
-                                        //   } catch (e) {
-                                        //     print(e);
-                                        //   }
-                                        // }
-                                      },
-                                      child: Text(
-                                        "Upload file",
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color(0xff50B5E5),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  _loading
-                                      ? SizedBox(
-                                          width: 25,
-                                          height: 25,
-                                          child: CircularProgressIndicator(
-                                            color: ColorManager.blueprime,
+                                            // FilePickerResult? result =
+                                            //     await FilePicker.platform
+                                            //         .pickFiles();
+                                            // if (result != null) {
+                                            //   try {
+                                            //     Uint8List? bytes =
+                                            //         result.files.first.bytes;
+                                            //     XFile xlfile =
+                                            //         XFile(result.xFiles.first.path);
+                                            //     File xfileToFile =
+                                            //         File(xlfile.path);
+                                            //     XFile xFile =
+                                            //         await convertBytesToXFile(
+                                            //       bytes!,
+                                            //       result.xFiles.first.name,
+                                            //     );
+                                            //     if (_fileNames.length <= index) {
+                                            //       _fileNames.add(
+                                            //           result.files.first.name!);
+                                            //     } else {
+                                            //       _fileNames[index] =
+                                            //           result.files.first.name!;
+                                            //     }
+                                            //     finalPath =
+                                            //         result.files.first.bytes;
+                                            //     // setState(() {
+                                            //     //   _documentUploaded = true;
+                                            //     // });
+                                            //   } catch (e) {
+                                            //     print(e);
+                                            //   }
+                                            // }
+                                          },
+                                          child: Text(
+                                            "Upload file",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                            ),
                                           ),
-                                        )
-                                      : fileName != null
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Color(0xff50B5E5),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      _loading
+                                          ? SizedBox(
+                                        width: 25,
+                                        height: 25,
+                                        child: CircularProgressIndicator(
+                                          color: ColorManager.blueprime,
+                                        ),
+                                      )
+                                          : fileName != null
                                           ? Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                'File picked: $fileName',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Color(0xff686464),
-                                                ),
-                                              ),
-                                            )
+                                        padding:
+                                        const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'File picked: $fileName',
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xff686464),
+                                          ),
+                                        ),
+                                      )
                                           : SizedBox(),
+                                    ],
+                                  )
+
                                 ],
                               ),
                             ),

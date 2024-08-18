@@ -707,7 +707,7 @@ class _licensesFormState extends State<licensesForm> {
             children: [
               Expanded(
                 child: Text(
-                  'Upload your degree / certifications as a docx or pdf',
+                  'Upload your licensure / certifications as a docx or pdf',
                   style: GoogleFonts.firaSans(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w500,

@@ -492,8 +492,8 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
+                    //Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF50B5E5),
