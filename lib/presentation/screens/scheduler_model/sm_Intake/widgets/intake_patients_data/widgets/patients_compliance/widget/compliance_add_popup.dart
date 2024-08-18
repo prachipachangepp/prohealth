@@ -62,7 +62,14 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
           Container(
             decoration: BoxDecoration(
       border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(
+                  12,
+                ),
+                topLeft: Radius.circular(
+                  12,
+                ),
+              ),
               color: Color(0xff50B5E5),
             ),
             height: AppSize.s40,
