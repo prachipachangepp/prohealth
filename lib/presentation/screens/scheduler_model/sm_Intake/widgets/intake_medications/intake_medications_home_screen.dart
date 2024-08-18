@@ -7,7 +7,8 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 class IntakeMedicationScreen extends StatefulWidget {
-  const IntakeMedicationScreen({super.key});
+
+  const IntakeMedicationScreen({super.key,});
 
   @override
   State<IntakeMedicationScreen> createState() => _IntakeMedicationScreenState();
