@@ -179,6 +179,7 @@ Future<ApiData> addEmpEnrollOffers(
   BuildContext context,
   int employeeEnrollId,
   int employeeId,
+  int nbrOfPatient,
   String issueDate,
   String lastDate,
   String startDate,
@@ -190,6 +191,7 @@ Future<ApiData> addEmpEnrollOffers(
       data: {
         "employeeEnrollId": employeeEnrollId,
         "employeeId": employeeId,
+        "nbrOfpatient": nbrOfPatient,
         "issueDate": "${issueDate}T00:00:00Z",  //issueDate,
         "lastDate": "${lastDate}T00:00:00Z",//lastDate,
         "startDate": "${startDate}T00:00:00Z",//startDate,

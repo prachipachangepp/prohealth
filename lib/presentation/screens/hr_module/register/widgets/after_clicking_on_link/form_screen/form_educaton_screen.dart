@@ -300,7 +300,7 @@ class _EducationFormState extends State<EducationForm> {
           city.text = data.city ?? '';
           state.text = data.state ?? '';
           graduatetype = data.graduate ?? '';
-          selectedDegree = data.degree ?? '';
+         // selectedDegree = data.degree ?? '';
           educationIndex = data.educationID ?? 0;
 
         });
