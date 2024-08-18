@@ -42,19 +42,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
    final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   int _selectedIndex = 0;
-  // String _selectedItem = 'Corporate & Compliance Documents';
-  // void _onDropdownItemSelected(String newValue) {
-  //   setState(() {
-  //     _selectedItem = newValue;
-  //   });
-  // }
-  // String _selectedItem1 = 'Licenses';
-  //
-  // void _onDropdownItemSelected1(String newValue) {
-  //   setState(() {
-  //     _selectedItem1 = newValue;
-  //   });
-  // }
 
   void _selectButton(int index) {
     setState(() {
