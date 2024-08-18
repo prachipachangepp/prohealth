@@ -69,9 +69,9 @@ class _MultiStepFormState extends State<MultiStepForm> {
   @override
   Widget build(BuildContext context) {
     return
-      // isCompleted
-      //   ? OnBoardingThankYou()
-      //   :
+      isCompleted
+        ? OnBoardingThankYou()
+        :
     Scaffold(
             backgroundColor: Colors.white,
             appBar: const PreferredSize(
@@ -572,7 +572,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
 //         )
 //       ];
 }
-
+//
 // ElevatedButton.icon(
 //   style: ElevatedButton.styleFrom(
 //     backgroundColor: const Color(0xff1696C8),
