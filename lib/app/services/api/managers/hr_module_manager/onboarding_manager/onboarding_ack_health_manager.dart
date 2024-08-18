@@ -113,7 +113,7 @@ Future<ApiData> batchApproveOnboardAckHealthPatch(BuildContext context,List<int>
     var response = await Api(context).patch(
       path: OnboardingQualificationRepo.batchApproveAckHealthRecord(),
       data:  {
-        "Ids": employeeDocumentId.map((id) => id.toString()).toList(),
+        "Ids": employeeDocumentId.map((id) => id).toList(),
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
