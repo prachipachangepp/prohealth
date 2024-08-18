@@ -4,11 +4,15 @@ import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_related_party_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_stay_info_manager.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
-import '../patients_info/intake_patients_info.dart';
+import '../../../../../widgets/constant_widgets/button_constant.dart';
+
 
 class IntakePatientsStayInfoScreen extends StatefulWidget {
   const IntakePatientsStayInfoScreen({Key? key}) : super(key: key);
@@ -18,6 +22,24 @@ class IntakePatientsStayInfoScreen extends StatefulWidget {
 }
 
 class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScreen> {
+
+  TextEditingController ctlrMedicalRecord = TextEditingController();
+  TextEditingController ctlrHospital = TextEditingController();
+  TextEditingController ctlrPhone = TextEditingController();
+  TextEditingController ctlrAddress = TextEditingController();
+  TextEditingController ctlrCity = TextEditingController();
+  TextEditingController ctlrViewZone = TextEditingController();
+  TextEditingController ctlrAdmitDate = TextEditingController();
+  TextEditingController ctlrDC = TextEditingController();
+  TextEditingController ctlrRecentSurgery = TextEditingController();
+  TextEditingController ctlrDateSurgery = TextEditingController();
+  TextEditingController ctlrComment = TextEditingController();
+  TextEditingController ctlrStartDate = TextEditingController();
+  TextEditingController ctlrStreet = TextEditingController();
+  TextEditingController ctlrSuiteApt = TextEditingController();
+  TextEditingController ctlrZipCode = TextEditingController();
+  TextEditingController ctlrFax = TextEditingController();
+
   String? selectedFacility;
   String? selectedState;
   String? selectedStatus;
@@ -42,9 +64,44 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                           color: ColorManager.greenDark
                       ),
                     ),
-                  ],
-                ),
-              ),
+                    Container(
+                      height: 30,
+                      width: 140,
+                      child: SchedularIconButtonConst(
+                        text: 'Add Stay Info',
+                        icon: Icons.add,
+                        onPressed: () async {
+                         await  InfoStayPatientData(context,
+                             1,
+                             selectedFacility ?? "",
+                             ctlrMedicalRecord.text,
+                             selectedStatus ?? "",
+                             ctlrHospital.text,
+                             ctlrPhone.text,
+                             ctlrAddress.text,
+                             ctlrCity.text,
+                             selectedState ?? "",
+                             ctlrZipCode.text,
+                             "2024-08-17T17:18:58.618Z",
+                             "2024-08-17T17:18:58.618Z",
+                             ctlrRecentSurgery.text,
+                             ctlrDateSurgery.text,
+                             ctlrComment.text,
+                             "2024-08-17T17:18:58.618Z",
+                             "2024-08-17T17:18:58.618Z",
+                             ctlrStreet.text,
+                             ctlrSuiteApt.text,
+                             ctlrCity.text,
+                             selectedState ?? "",
+                             ctlrZipCode.text,
+                             ctlrPhone.text,
+                             ctlrFax.text
+                             );
+                        },),
+                      )
+                   ],
+                 ),
+               ),
               SizedBox(height: 19.5),
               Container(
                 // height: 423,
@@ -110,6 +167,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrMedicalRecord,
                     labelText: 'Medical Record #')
             ),
             SizedBox(width: AppSize.s35),
@@ -126,6 +184,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrHospital,
                     labelText: 'Hospital')
             ),
           ],
@@ -135,16 +194,19 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
           children: [
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrPhone,
                     labelText: 'Phone')
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrAddress,
                     labelText: AppString.address)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrCity,
                     labelText:  AppString.city)
             ),
             SizedBox(width: AppSize.s35),
@@ -163,6 +225,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
         Row(
           children: [
             Flexible(child: SchedularTextFieldWithButton(
+              controller: ctlrViewZone,
               labelText: AppString.zip_code,
               initialValue: '2656845121',
               buttonText: 'View Zone',
@@ -170,18 +233,21 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrAdmitDate,
                     labelText: 'Admit Date',
                     )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrDC,
                     labelText: 'D/C',
                    )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrRecentSurgery,
                     labelText: 'Recent Surgery/ Procedure'
                 )
             ),
@@ -192,12 +258,14 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
           children: [
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrDateSurgery,
                     labelText: 'Date of Surgery/ Procedure',
                  )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrComment,
                     labelText: AppString.comments
                 )
             ),
@@ -218,9 +286,9 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
       children: [
         Row(
           children: [
-
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrStartDate ,
                     labelText: AppString.startdate,
 
                 )
@@ -236,12 +304,14 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrStreet,
                     labelText: 'Street'
                 )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrSuiteApt,
                     labelText: 'Suite/ Apt#'
                 )
             ),
@@ -252,6 +322,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
           children: [
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrCity,
                     labelText: AppString.city
                 )
             ),
@@ -270,6 +341,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextFieldWithButton(
+                  controller: ctlrZipCode,
                   labelText: AppString.zip_code,
                   initialValue: '2656845121',
                   buttonText: 'View Zone',
@@ -288,6 +360,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
           children: [
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrFax,
                     labelText: 'Fax'
                 )
             ),
