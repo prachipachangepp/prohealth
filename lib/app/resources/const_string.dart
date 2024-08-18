@@ -60,6 +60,7 @@ class AppString {
   static const String fname = "First Name";
   static const String lname = "Last Name";
   static const String zone = "Zone";
+  static const String role = "Role";
   static const String typeClinician = "Type of Clinician";
   static const String reportingOffice = "Reporting Office";
   static const String employment = "Employment";
@@ -77,6 +78,7 @@ class AppString {
   static const String verify_user = "Verify User";
   static const String upload_signature = "Upload Signature";
   static const String draw = "Draw";
+  static const String delete = "Delete";
   static const String upload ="Upload";
   static const String cancel ="Cancel";
   static const String reset ="Reset";
@@ -206,12 +208,16 @@ class AppString {
   static String location ="Location";
   static String type ="Type";
   static String upload_document ="Upload Document";
-  static String type_of_the_document ="Type of the Document";
   static String fax ="Fax";
   static String yes ="Yes";
   static String no ="No";
   static String other ="other";
+  static String type_of_the_document ="Type of the Document";
+  static String sub_type_of_the_document ="Sub Type of the Document";
   static String name_of_the_document ="Name of the Document";
+  static String id_of_the_document = "ID of the Document";
+  static String expiry_date ="Expiry Date";
+
   static String add_new ="Add New";
   static String street ="street";
   static String create ="Create";

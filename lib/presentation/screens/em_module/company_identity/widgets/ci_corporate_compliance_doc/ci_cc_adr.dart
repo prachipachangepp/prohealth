@@ -56,7 +56,7 @@ class _CICCADRState extends State<CICCADR> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SizedBox(
-            height: 5,
+            height: AppSize.s5,
           ),
           Expanded(
             child:
@@ -111,18 +111,18 @@ class _CICCADRState extends State<CICCADR> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
                                           decoration: BoxDecoration(
-                                            color: Colors.white,
+                                            color: ColorManager.white,
                                             borderRadius: BorderRadius.circular(4),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Color(0xff000000).withOpacity(0.25),
+                                                color: ColorManager.black.withOpacity(0.25),
                                                 spreadRadius: 0,
                                                 blurRadius: 4,
                                                 offset: Offset(0, 2),
                                               ),
                                             ],
                                           ),
-                                          height: 50,
+                                          height: AppSize.s50,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 15),
                                             child: Row(
@@ -136,12 +136,12 @@ class _CICCADRState extends State<CICCADR> {
                                                       },
                                                       child: Image.asset(
                                                         'images/eye.png',
-                                                        height: 15,
-                                                        width: 22,
+                                                        height: AppSize.s15,
+                                                        width: AppSize.s22,
                                                       ),
                                                     ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(width: 10,),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -149,18 +149,18 @@ class _CICCADRState extends State<CICCADR> {
                                                         Text(
                                                           manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts.firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w400,
-                                                            color: Color(0xff686464),
+                                                            fontSize: FontSize.s10,
+                                                            fontWeight: FontWeightManager.regular,
+                                                            color: ColorManager.granitegray,
                                                             decoration: TextDecoration.none,
                                                           ),
                                                         ),
                                                         Text(
                                                           manageCCADR.docname.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts.firaSans(
-                                                            fontSize: 10,
+                                                            fontSize: FontSize.s10,
                                                             fontWeight: FontWeight.bold,
-                                                            color: Color(0xff686464),
+                                                            color: ColorManager.granitegray,
                                                             decoration: TextDecoration.none,
                                                           ),
                                                         ),

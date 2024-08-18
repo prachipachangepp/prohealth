@@ -66,13 +66,13 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                 //color: Colors.greenAccent,
                 padding: EdgeInsets.only(top: 5),
                 width: MediaQuery.of(context).size.width/1.7,
-                height: 50,
+                height: AppSize.s50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     InkWell(
                       child: Container(
-                        height: 50,
+                        height: AppSize.s50,
                         width: MediaQuery.of(context).size.width / 12,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
@@ -84,10 +84,10 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                         child: Column(
                           children: [
                             Text(
-                              'Licenses',
+                              AppString.licenses,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                                 fontWeight: _selectedIndex == 0
                                     ? FontWeightManager.bold
                                     : FontWeightManager.regular,
@@ -105,7 +105,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                     ),
                     InkWell(
                       child: Container(
-                        height: 50,
+                        height: AppSize.s50,
                         width: MediaQuery.of(context).size.width / 12,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
@@ -120,7 +120,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                               'ADR',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                                 fontWeight: _selectedIndex == 1
                                     ? FontWeightManager.bold
                                     : FontWeightManager.regular,
@@ -138,7 +138,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                     ),
                     InkWell(
                       child: Container(
-                        height: 50,
+                        height: AppSize.s50,
                         width: MediaQuery.of(context).size.width / 8.62,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
@@ -153,7 +153,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                               'Medical Cost Reports',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                                 fontWeight: _selectedIndex == 2
                                     ? FontWeightManager.bold
                                     : FontWeightManager.regular,
@@ -171,7 +171,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                     ),
                     InkWell(
                       child: Container(
-                        height: 50,
+                        height: AppSize.s50,
                         width: MediaQuery.of(context).size.width / 8.62,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
@@ -186,7 +186,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                               'CAP Reports',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                                 fontWeight: _selectedIndex == 3
                                     ? FontWeightManager.bold
                                     : FontWeightManager.regular,
@@ -204,7 +204,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                     ),
                     InkWell(
                       child: Container(
-                        height: 50,
+                        height: AppSize.s50,
                         width: MediaQuery.of(context).size.width / 8,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
@@ -219,7 +219,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                               'Quarterly Balance Reports',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
+                                fontSize: FontSize.s12,
                                 fontWeight: _selectedIndex == 4
                                     ? FontWeightManager.bold
                                     : FontWeightManager.regular,
@@ -306,8 +306,8 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                               baseColor: Colors.grey[300]!,
                                               highlightColor: Colors.grey[100]!,
                                               child: Container(
-                                                width: 350,
-                                                height: 30,
+                                                width: AppSize.s350,
+                                                height: AppSize.s30,
                                                 decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
                                               )
                                           );
@@ -365,8 +365,8 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                               baseColor: Colors.grey[300]!,
                                               highlightColor: Colors.grey[100]!,
                                               child: Container(
-                                                width: 350,
-                                                height: 30,
+                                                width: AppSize.s350,
+                                                height: AppSize.s30,
                                                 decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
                                               )
                                           );
@@ -411,7 +411,9 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                               items:dropDownMenuItems
                                           );
                                         }else{
-                                          return SizedBox(height:1,width: 1,);
+                                          return SizedBox(
+                                            height:AppSize.s1,
+                                            width: AppSize.s1);
                                         }
                                       }
                                   ),
@@ -427,7 +429,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
           ),
         ),
         SizedBox(
-          height: 20,
+          height: AppSize.s20,
         ),
         Expanded(
           child:

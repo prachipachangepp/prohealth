@@ -769,11 +769,11 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
                                 width: 2,
-                                color: Colors.black.withOpacity(0.2),
+                                color: ColorManager.black.withOpacity(0.2),
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.15),
+                                  color: ColorManager.black.withOpacity(0.15),
                                   offset: const Offset(0, 4),
                                   blurRadius: 4,
                                   spreadRadius: 0,
@@ -1005,7 +1005,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                       ),
                     ),
 
-                  SizedBox(height: 10),
+                  SizedBox(height: AppSize.s10),
 
                   /// Button
                   Row(
