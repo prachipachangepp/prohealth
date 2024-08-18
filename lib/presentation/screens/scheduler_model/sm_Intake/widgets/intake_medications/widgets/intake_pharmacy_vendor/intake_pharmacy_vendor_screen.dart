@@ -5,18 +5,38 @@ import 'package:intl/intl.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../../app/services/api/managers/sm_module_manager/medications/pharmacy_vendor_manager.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakePharmacyVendorScreen extends StatefulWidget {
-  const IntakePharmacyVendorScreen({super.key});
+
+  IntakePharmacyVendorScreen({super.key, });
 
   @override
-  State<IntakePharmacyVendorScreen> createState() => _IntakePharmacyVendorScreenState();
+  State<IntakePharmacyVendorScreen> createState() =>
+      _IntakePharmacyVendorScreenState();
 }
 
-class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen> {
+class _IntakePharmacyVendorScreenState
+    extends State<IntakePharmacyVendorScreen> {
+  TextEditingController dmeContact = TextEditingController();
+  TextEditingController dmephone = TextEditingController();
+  TextEditingController dmeDeliverby = TextEditingController();
+  TextEditingController dmefax = TextEditingController();
+  TextEditingController pharmacycontact = TextEditingController();
+  TextEditingController pharmacyphone = TextEditingController();
+  TextEditingController pharmacyaddress = TextEditingController();
+  TextEditingController pharmacycity = TextEditingController();
+  TextEditingController pharmacystate = TextEditingController();
+  TextEditingController pharmacyzipcode = TextEditingController();
+  TextEditingController pharmacydeliverby = TextEditingController();
+  TextEditingController pharmacyfax = TextEditingController();
+  TextEditingController pharmacycontactsecond = TextEditingController();
+
+  String? dmeSupplies;
+  String? pharmacydd;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +51,56 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Status Completed',
+                    Text(
+                      'Status Completed',
                       style: GoogleFonts.firaSans(
                           decoration: TextDecoration.none,
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.bold,
-                          color: ColorManager.greenDark
+                          color: ColorManager.greenDark),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await postMedicationScreen(
+                            context,
+                            1,
+                            //widget.patientId,
+                            dmeSupplies.toString(),
+                            dmeContact.text,
+                            dmephone.text,
+                            dmeDeliverby.text,
+                            dmefax.text,
+                            pharmacydd.toString(),
+                            pharmacycontact.text,
+                            pharmacyphone.text,
+                            pharmacyaddress.text,
+                            pharmacycity.text,
+                            pharmacystate.text,
+                            pharmacyzipcode.text,
+                            pharmacydeliverby.text,
+                            pharmacyfax.text,
+                            pharmacycontactsecond.text);
+                      },
+                      child: Text(
+                        AppString.save,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.white,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 10,
+                        ),
+                        backgroundColor: ColorManager.blueprime,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
                   ],
@@ -66,18 +130,20 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                         children: [
                           Flexible(
                               child: SchedularDropdown(
-                                  labelText: 'Supplies/ DME',
-                                  items: ['Option 1', 'Option 2', 'Option 3'], onChanged: (newValue) {  },)
-                          ),
+                            labelText: 'Supplies/ DME',
+                            items: ['Option 1', 'Option 2', 'Option 3'],
+                            onChanged: (newValue) {
+                              setState(() {
+                                dmeSupplies = newValue;
+                              });
+                            },
+                          )),
                           SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
+                          Flexible(child: Container()),
                           SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
+                          Flexible(child: Container()),
                           SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
+                          Flexible(child: Container()),
                         ],
                       ),
                       SizedBox(height: 16),
@@ -85,42 +151,46 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                         children: [
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Contact')
-                          ),
+                                  controller: dmeContact,
+                                  labelText: 'Contact')),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'Phone')
-                          ),
+                                  controller: dmephone, labelText: 'Phone')),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Deliver by', )
-                          ),
+                                  controller: dmeDeliverby,
+                                  labelText: 'Deliver by',
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month_outlined,
+                                    size: 18,
+                                  ))),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'Fax')
-                          ),
-                      ],
+                                  controller: dmefax, labelText: 'Fax')),
+                        ],
                       ),
                       SizedBox(height: 32),
                       Row(
                         children: [
                           Flexible(
                               child: SchedularDropdown(
-                                  labelText: 'Pharmacy',
-                                  items: ['Option 1', 'Option 2', 'Option 3'], onChanged: (newValue) {  },)
-                          ),
+                            labelText: 'Pharmacy',
+                            items: ['Option 1', 'Option 2', 'Option 3'],
+                            onChanged: (newValue) {
+                              setState(() {
+                                pharmacydd = newValue;
+                              });
+                            },
+                          )),
                           SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
+                          Flexible(child: Container()),
                           SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
+                          Flexible(child: Container()),
                           SizedBox(width: 35),
-                          Flexible(
-                              child: Container()),
+                          Flexible(child: Container()),
                         ],
                       ),
                       SizedBox(height: 16),
@@ -128,23 +198,22 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                         children: [
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Contact')
-                          ),
+                                  controller: pharmacycontact,
+                                  labelText: 'Contact')),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'Phone')
-                          ),
+                                  controller: pharmacyphone,
+                                  labelText: 'Phone')),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Address')
-                          ),
+                                  controller: pharmacyaddress,
+                                  labelText: 'Address')),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'City')
-                          ),
+                                  controller: pharmacycity, labelText: 'City')),
                         ],
                       ),
                       SizedBox(height: 16),
@@ -152,70 +221,72 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
                         children: [
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'State')
-                          ),
+                                  controller: pharmacystate,
+                                  labelText: 'State')),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'Zip Code')
-                          ),
+                                  controller: pharmacyzipcode,
+                                  labelText: 'Zip Code')),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Deliver by',)
-                          ),
+                                  controller: pharmacydeliverby,
+                                  labelText: 'Deliver by',
+                                  suffixIcon: Icon(
+                                    Icons.calendar_month_outlined,
+                                    size: 18,
+                                  ))),
                           SizedBox(width: 35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'Fax')
-                          ),
+                                  controller: pharmacyfax, labelText: 'Fax')),
                         ],
                       ),
                       SizedBox(height: 16),
                       Row(
                         children: [
                           Flexible(
-                              child: Container(
-                                height: 99,
-                                child: TextFormField(
-                                  maxLines: 3,
-                                  cursorColor: Colors.black,
-                                  decoration: InputDecoration(
-                                    labelText: 'Contact',
-                                    labelStyle: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.greylight,
+                            child: Container(
+                              height: 99,
+                              child: TextFormField(
+                                controller: pharmacycontactsecond,
+                                maxLines: 3,
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  labelText: 'Contact',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeightManager.regular,
+                                    color: ColorManager.greylight,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
                                     ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1.0,
-                                      ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
                                     ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1.0,
-                                      ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
                                     ),
                                   ),
                                 ),
                               ),
+                            ),
                           ),
-          
                         ],
                       ),
-          
                     ],
                   ),
                 ),
@@ -227,5 +298,3 @@ class _IntakePharmacyVendorScreenState extends State<IntakePharmacyVendorScreen>
     );
   }
 }
-
-
