@@ -327,7 +327,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                 Expanded(
                                   flex: 3,
                                   child: Text(
-                                      hrdata.empType.toString().capitalizeFirst!,
+                                      hrdata.empType.toString(),
                                     textAlign: TextAlign.center,
                                     style: AllHRTableData.customTextStyle(context)
                                   ),
@@ -335,7 +335,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                 Expanded(
                                   flex: 3,
                                   child: Text(
-                                      hrdata.abbrivation.toString().capitalizeFirst!,
+                                      hrdata.abbrivation.toString(),
                                     textAlign: TextAlign.center,
                                     style: AllHRTableData.customTextStyle(context)
                                   ),

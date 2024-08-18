@@ -287,14 +287,14 @@ class _CapitalSMTextFConstState extends State<CapitalSMTextFConst> {
             inputFormatters: [UppercaseTextFormatter()],
             //validator: widget.validator,
             onTap: widget.onChange,
-            textCapitalization:  TextCapitalization.characters,
+            //textCapitalization:  TextCapitalization.characters,
           ),
         ),
       ],
     );
   }
 }
-
+////////////////////////////////
 
 class UppercaseTextFormatter extends TextInputFormatter {
   @override
