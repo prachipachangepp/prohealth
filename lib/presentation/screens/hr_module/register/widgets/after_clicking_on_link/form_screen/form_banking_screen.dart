@@ -87,7 +87,7 @@ class _BankingScreenState extends State<BankingScreen> {
     required String documentName,
   }) async {
         try {
-          ApiDataRegister result = await postbankingscreen(
+          ApiDataRegister result = await postbankingscreenData(
               context,
               employeeId,
               accountNumber,
