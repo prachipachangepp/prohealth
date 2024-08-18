@@ -213,12 +213,12 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                           ),
                         ),
                         IconButton(
-                          padding: EdgeInsets.only(top: 6),
+
                           onPressed: _pickFile,
                           icon: Icon(
                             Icons.file_upload_outlined,
                             color: ColorManager.black,
-                            size: 20,
+                            size: 18,
                           ),
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,

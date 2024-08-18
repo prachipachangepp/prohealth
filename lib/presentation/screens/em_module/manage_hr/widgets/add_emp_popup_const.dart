@@ -168,6 +168,9 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                           ),
                       ],
                     ),
+
+
+              /////////////////////////////////////////////////////////////////////
                     SizedBox(height: AppSize.s16),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
