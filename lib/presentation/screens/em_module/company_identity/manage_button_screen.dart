@@ -166,7 +166,7 @@ int listIndex = 0 ;
                   borderRadius: BorderRadius.circular(14),
                   child: Container(
                     width: MediaQuery.of(context).size.width/1.1814,
-                    height: 30,
+                    height: AppSize.s30,
                   decoration: BoxDecoration(
                       color: ColorManager.blueprime,
                     borderRadius: BorderRadius.circular(14)
@@ -206,7 +206,7 @@ int listIndex = 0 ;
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20),
                                           color: _selectedIndex == 1
-                                              ? Colors.white
+                                              ? ColorManager.white
                                               : null,
                                         ),
                                         child: Text(

@@ -587,204 +587,14 @@ class AddOrgDocButton extends StatefulWidget {
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
 }
 
-class _AddOrgDocButtonState extends State<AddOrgDocButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        width: AppSize.s420,
-        height: widget.height ?? AppSize.s550,
-        //height: MediaQuery.of(context).size.height/1.2,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            Container(
-              height: AppSize.s40,
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: ColorManager.bluebottom,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-              ),
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ///title
-                  Text(
-                    widget.title,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s13,
-                      fontWeight:
-                      FontWeightManager.semiBold,
-                      color: ColorManager.white,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close,
-                      color: ColorManager.white,),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ///ID of the Document
-                  SMTextFConst(
-                    controller: widget.idDocController,
-                    keyboardType: TextInputType.text,
-                    text: AppString.id_of_the_document,
-                  ),
-                  SizedBox(height: AppSize.s13),
-                  ///Name of the Document
-                  SMTextFConst(
-                    controller: widget.nameDocController,
-                    keyboardType: TextInputType.text,
-                    text: AppString.name_of_the_document
-                  ),
-                  SizedBox(height: AppSize.s13),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ///Type of the Document
-                      Text(
-                        AppString.type_of_the_document,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.mediumgrey,
-                          //decoration: TextDecoration.none,
-                        ),
-                      ),
-                      SizedBox(height: AppSize.s5),
-                      widget.child ?? SizedBox(),
-                    ],
-                  ),
-                  SizedBox(height: AppSize.s13),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ///Sub Type of the Document
-                      Text(AppString.sub_type_of_the_document,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                      SizedBox(height: AppSize.s5),
-                      widget.child1 ?? SizedBox(),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: AppSize.s10,
-            ),
-            ///radio
-
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppPadding.p25,
-              ),
-              child:  widget.radioButton,
-            ),
-            SizedBox(height: AppSize.s13),
-            // if (_showExpiryDate)
-            Padding(
-                padding: const EdgeInsets.only(
-                  top: AppPadding.p3,
-                  left: AppPadding.p20,
-                  right: AppPadding.p20,
-                ),
-                child: widget.child2
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
-              child: Center(
-                child: widget.loadingDuration == true
-                    ? SizedBox(
-                  height: AppSize.s25,
-                  width: AppSize.s25,
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime
-                  ),
-                )
-                    : CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.save,
-                  onPressed: () {
-                    widget.onPressed();
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
- }
-///
-// class AddOrgDocButton extends StatefulWidget {
-//   final TextEditingController idDocController;
-//   final TextEditingController nameDocController;
-//   final TextEditingController calenderController;
-//   final VoidCallback onPressed;
-//    Widget? child;
-//    Widget? child1;
-//   final String title;
-//   final Widget? radioButton;
-//   final bool? loadingDuration;
-//    AddOrgDocButton(
-//       {super.key,
-//       required this.idDocController,
-//       required this.nameDocController,
-//        this.child,
-//        this.child1,
-//       required this.onPressed,
-//       required this.calenderController,
-//       this.radioButton,
-//       this.loadingDuration, required this.title});
-//
-//   @override
-//   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
-// }
-//
 // class _AddOrgDocButtonState extends State<AddOrgDocButton> {
-//   String? _expiryType;
-//   // bool _isLoading = false;
-//   bool _showExpiryDate = true;
-//   var _selectedDate = DateTime.now();
-//
 //   @override
 //   Widget build(BuildContext context) {
 //     return Dialog(
 //       backgroundColor: Colors.transparent,
 //       child: Container(
 //         width: AppSize.s420,
-//         height: AppSize.s550,
+//         height: widget.height ?? AppSize.s550,
 //         //height: MediaQuery.of(context).size.height/1.2,
 //         decoration: BoxDecoration(
 //           color: ColorManager.white,
@@ -793,7 +603,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
 //         child: Column(
 //           children: [
 //             Container(
-//               height: 40,
+//               height: AppSize.s40,
 //               padding: EdgeInsets.all(5),
 //               decoration: BoxDecoration(
 //                 color: ColorManager.bluebottom,
@@ -806,11 +616,12 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
 //                 // mainAxisAlignment: MainAxisAlignment.end,
 //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //                 children: [
+//                   ///title
 //                   Text(
 //                     widget.title,
 //                     textAlign: TextAlign.center,
 //                     style: GoogleFonts.firaSans(
-//                       fontSize: 13,
+//                       fontSize: FontSize.s13,
 //                       fontWeight:
 //                       FontWeightManager.semiBold,
 //                       color: ColorManager.white,
@@ -836,31 +647,34 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 //                 children: [
+//                   ///ID of the Document
 //                   SMTextFConst(
 //                     controller: widget.idDocController,
 //                     keyboardType: TextInputType.text,
-//                     text: 'ID of the Document',
+//                     text: AppString.id_of_the_document,
 //                   ),
 //                   SizedBox(height: AppSize.s13),
+//                   ///Name of the Document
 //                   SMTextFConst(
 //                     controller: widget.nameDocController,
 //                     keyboardType: TextInputType.text,
-//                     text: 'Name of the Document',
+//                     text: AppString.name_of_the_document
 //                   ),
 //                   SizedBox(height: AppSize.s13),
 //                   Column(
 //                     crossAxisAlignment: CrossAxisAlignment.start,
 //                     children: [
+//                       ///Type of the Document
 //                       Text(
-//                         'Type of the Document',
+//                         AppString.type_of_the_document,
 //                         style: GoogleFonts.firaSans(
 //                           fontSize: FontSize.s12,
-//                           fontWeight: FontWeight.w700,
+//                           fontWeight: FontWeightManager.bold,
 //                           color: ColorManager.mediumgrey,
 //                           //decoration: TextDecoration.none,
 //                         ),
 //                       ),
-//                       SizedBox(height: 5),
+//                       SizedBox(height: AppSize.s5),
 //                       widget.child ?? SizedBox(),
 //                     ],
 //                   ),
@@ -868,16 +682,16 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
 //                   Column(
 //                     crossAxisAlignment: CrossAxisAlignment.start,
 //                     children: [
-//                       Text(
-//                         'Sub Type of the Document',
+//                       ///Sub Type of the Document
+//                       Text(AppString.sub_type_of_the_document,
 //                         style: GoogleFonts.firaSans(
 //                           fontSize: FontSize.s12,
-//                           fontWeight: FontWeight.w700,
+//                           fontWeight: FontWeightManager.bold,
 //                           color: ColorManager.mediumgrey,
 //                           decoration: TextDecoration.none,
 //                         ),
 //                       ),
-//                       SizedBox(height: 5),
+//                       SizedBox(height: AppSize.s5),
 //                       widget.child1 ?? SizedBox(),
 //                     ],
 //                   ),
@@ -896,115 +710,34 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
 //               child:  widget.radioButton,
 //             ),
 //             SizedBox(height: AppSize.s13),
-//             if (_showExpiryDate)
+//             // if (_showExpiryDate)
 //             Padding(
-//               padding: const EdgeInsets.only(
-//                 top: AppPadding.p3,
-//                 left: AppPadding.p20,
-//                 right: AppPadding.p20,
-//               ),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text(
-//                     'Expiry Date',
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: FontSize.s12,
-//                       fontWeight: FontWeight.w700,
-//                       color: ColorManager.mediumgrey,
-//                       decoration: TextDecoration.none,
-//                     ),
-//                   ),
-//                   FormField<String>(
-//                     builder: (FormFieldState<String> field) {
-//                       return SizedBox (
-//                         width: 354,
-//                         height: 30,
-//                         child: TextFormField(
-//                           cursorColor: ColorManager.black,
-//                           style: GoogleFonts.firaSans(
-//                             fontSize: FontSize.s12,
-//                             fontWeight: FontWeight.w700,
-//                             color: ColorManager.mediumgrey,
-//                             //decoration: TextDecoration.none,
-//                           ),
-//                           controller: widget.calenderController,
-//                           decoration: InputDecoration(
-//                             enabledBorder: OutlineInputBorder(
-//                               borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-//                               borderRadius: BorderRadius.circular(8),
-//                             ),
-//                             focusedBorder: OutlineInputBorder(
-//                               borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-//                               borderRadius: BorderRadius.circular(8),
-//                             ),
-//                             hintText: 'mm-dd-yyyy',
-//                             hintStyle: GoogleFonts.firaSans(
-//                               fontSize: FontSize.s12,
-//                               fontWeight: FontWeight.w700,
-//                               color: ColorManager.mediumgrey,
-//                               //decoration: TextDecoration.none,
-//                             ),
-//                             border: OutlineInputBorder(
-//                               borderRadius: BorderRadius.circular(8),
-//                               borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
-//                             ),
-//                             contentPadding:
-//                                 EdgeInsets.symmetric(horizontal: 16),
-//                             suffixIcon: Icon(Icons.calendar_month_outlined,
-//                                 color: ColorManager.blueprime),
-//                             errorText: field.errorText,
-//                           ),
-//                           //readOnly: true,
-//                           onTap: () async {
-//                             DateTime? date = await showDatePicker(
-//                               context: context,
-//                               initialDate: _selectedDate,
-//                               firstDate: DateTime(2024),
-//                               lastDate: DateTime(2025),
-//                             );
-//                             if (date != null) {
-//                               String formattedDate =
-//                                   DateFormat('MM-dd-yyyy').format(date);
-//                               widget.calenderController.text = formattedDate;
-//                               field.didChange(formattedDate);
-//                               // birthdayController.text =
-//                               // date.toLocal().toString().split(' ')[0];
-//                               // field.didChange(date.toLocal().toString().split(' ')[0]);
-//                             }
-//                           },
-//                           validator: (value) {
-//                             if (value == null || value.isEmpty) {
-//                               return 'please select birth date';
-//                             }
-//                             return null;
-//                           },
-//                         ),
-//                       );
-//                     },
-//                   ),
-//                 ],
-//               ),
+//                 padding: const EdgeInsets.only(
+//                   top: AppPadding.p3,
+//                   left: AppPadding.p20,
+//                   right: AppPadding.p20,
+//                 ),
+//                 child: widget.child2
 //             ),
 //             Padding(
 //               padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
 //               child: Center(
 //                 child: widget.loadingDuration == true
 //                     ? SizedBox(
-//                         height: 25,
-//                         width: 25,
-//                         child: CircularProgressIndicator(
-//                           color: ColorManager.blueprime,
-//                         ),
-//                       )
+//                   height: AppSize.s25,
+//                   width: AppSize.s25,
+//                   child: CircularProgressIndicator(
+//                     color: ColorManager.blueprime
+//                   ),
+//                 )
 //                     : CustomElevatedButton(
-//                         width: AppSize.s105,
-//                         height: AppSize.s30,
-//                         text: AppStringEM.save,
-//                         onPressed: () {
-//                           widget.onPressed();
-//                         },
-//                       ),
+//                   width: AppSize.s105,
+//                   height: AppSize.s30,
+//                   text: AppStringEM.add,
+//                   onPressed: () {
+//                     widget.onPressed();
+//                   },
+//                 ),
 //               ),
 //             ),
 //           ],
@@ -1012,4 +745,212 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
 //       ),
 //     );
 //   }
-// }
+//  }
+
+class _AddOrgDocButtonState extends State<AddOrgDocButton> {
+  bool _isFormValid = true;
+
+  // Error messages for each text field
+  String? _idDocError;
+  String? _nameDocError;
+
+  String? _validateTextField(String value, String fieldName) {
+    if (value.isEmpty) {
+      _isFormValid = false;
+      return "Please Enter $fieldName";
+    }
+    if (value[0] != value[0].toUpperCase()) {
+      _isFormValid = false;
+      return "$fieldName must start with a capital letter";
+    }
+    return null;
+  }
+
+  void _validateForm() {
+    setState(() {
+      _isFormValid = true;
+      _idDocError = _validateTextField(widget.idDocController.text, 'ID of the Document');
+      _nameDocError = _validateTextField(widget.nameDocController.text, 'Name of the Document');
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        width: AppSize.s420,
+        height: widget.height ?? AppSize.s560,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: AppSize.s40,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.title,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s13,
+                      fontWeight: FontWeightManager.semiBold,
+                      color: ColorManager.white,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.close,
+                      color: ColorManager.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppPadding.p3,
+                horizontal: AppPadding.p20,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  /// ID of the Document
+                  SMTextFConst(
+                    controller: widget.idDocController,
+                    keyboardType: TextInputType.text,
+                    text: AppString.id_of_the_document,
+                  ),
+                  if (_idDocError != null) // Display error if any
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        _idDocError!,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: FontSize.s12,
+                        ),
+                      ),
+                    ),
+                  SizedBox(height: AppSize.s13),
+
+                  /// Name of the Document
+                  SMTextFConst(
+                    controller: widget.nameDocController,
+                    keyboardType: TextInputType.text,
+                    text: AppString.name_of_the_document,
+                  ),
+                  if (_nameDocError != null) // Display error if any
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        _nameDocError!,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: FontSize.s12,
+                        ),
+                      ),
+                    ),
+                  SizedBox(height: AppSize.s13),
+
+                  /// Type of the Document
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppString.type_of_the_document,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.mediumgrey,
+                        ),
+                      ),
+                      SizedBox(height: AppSize.s5),
+                      widget.child ?? SizedBox(),
+                    ],
+                  ),
+                  SizedBox(height: AppSize.s13),
+
+                  /// Sub Type of the Document
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppString.sub_type_of_the_document,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.mediumgrey,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      SizedBox(height: AppSize.s5),
+                      widget.child1 ?? SizedBox(),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: AppSize.s10),
+
+            /// Radio Button Section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
+              child: widget.radioButton,
+            ),
+            SizedBox(height: AppSize.s13),
+
+            Padding(
+              padding: const EdgeInsets.only(
+                top: AppPadding.p3,
+                left: AppPadding.p20,
+                right: AppPadding.p20,
+              ),
+              child: widget.child2,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
+              child: Center(
+                child: widget.loadingDuration == true
+                    ? SizedBox(
+                  height: AppSize.s25,
+                  width: AppSize.s25,
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                )
+                    : CustomElevatedButton(
+                  width: AppSize.s105,
+                  height: AppSize.s30,
+                  text: AppStringEM.add,
+                  onPressed: () {
+                    _validateForm(); // Validate the form on button press
+                    if (_isFormValid) {
+                      widget.onPressed();
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

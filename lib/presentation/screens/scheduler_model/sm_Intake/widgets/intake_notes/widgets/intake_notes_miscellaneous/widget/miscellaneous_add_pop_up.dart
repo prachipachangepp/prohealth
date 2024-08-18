@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 
@@ -61,9 +62,9 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
               child: Text(
                 'Add New Notes',
                 style: GoogleFonts.firaSans(
-                  fontSize: 14,
+                  fontSize: FontSize.s14,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  color: ColorManager.white,
                 ),
               ),
             ),
@@ -191,7 +192,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                       style: GoogleFonts.firaSans(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff575757)
+                          color: ColorManager.lightgreyheading
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
