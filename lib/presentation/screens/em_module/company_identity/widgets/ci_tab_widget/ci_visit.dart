@@ -65,7 +65,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     return perceivedBrightness <
         128; // If perceived brightness is less than 128, color is considered dark
   }
-
+//
   void deleteChip(String chip, int chipId) {
     //setState(() {
     selectedChips.remove(chip);
