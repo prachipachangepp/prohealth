@@ -220,9 +220,6 @@ Future<ApiData> addVendorContract(
   }
 }
 
-///insurance-vendor-contract
-
-
 /// get contract /insurance-vendor-contract/{CompanyId}/{officeId}/{insuranceVendorId}/{pageNbr}/{NbrofRows}
 Future<List<ManageInsuranceContractData>> companyContractGetByVendorId(BuildContext context,
     String officeId, int insuranceVendorId ,int pageNo, int rowNo,) async {
@@ -290,3 +287,76 @@ Future<ApiData> deleteContract(BuildContext context, int insuranceVendorContracI
 }
 
 ///prefill contract
+Future<ManageContractPrefill> getPrefillContract(
+    BuildContext context, int insuranceVendorContracId) async {
+  var itemsList;
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.companyOfficeContractPatchDeleteprefill(insuranceVendorContracId: insuranceVendorContracId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Document type Response:::::${itemsList}");
+      itemsList = ManageContractPrefill(
+        insuranceVendorContracId: response.data['insuranceVendorContracId'],
+        insuranceVendorId: response.data['insuranceVendorId'],
+        companyId: companyId,
+        officeId: response.data['officeId'],
+        contractName: response.data['contractName'],
+        contractId: response.data['contractId'],
+        expiryType: response.data['expiry_type'] ?? "",
+        expiryDate: response.data['expiry_date'] ?? "",
+        expiryReminder: response.data['expiry_reminder'] ?? "",
+      );
+    } else {
+      print('Api Error');
+      //return itemsList;
+    }
+    print("contract Prefill Response:::::${itemsList}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+///patch contract
+Future<ApiData> patchCompanyContract(
+    BuildContext context,
+    int insuranceVendorId,
+    String officeId,
+    String contractName,
+    String expirType,
+    String contractId,
+    ) async {
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var response = await Api(context).patch(
+        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(
+            insuranceVendorId: insuranceVendorId),
+        data: {
+          "contractName": contractName,
+          "officeId": officeId,
+          "companyId": companyId,
+          "expiry_type": companyId,
+          "contractId": companyId,
+        });
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("contract Updated");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}

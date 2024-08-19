@@ -9,6 +9,7 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'widgets/contract_add_dialog.dart';
 
@@ -37,7 +38,8 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
 
   int currentPage = 1;
   final int itemsPerPage = 10;
-
+  String? expiryType;
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -185,18 +187,127 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                           children: [
                                             IconButton(
                                               onPressed: () {
+                                                String? selectedExpiryType = expiryType;
                                                 showDialog(
                                                   context: context,
                                                   builder: (BuildContext context) {
-                                                    return ContractAddDialog(
+                                                    return  FutureBuilder<ManageContractPrefill>(
+                                                        future: getPrefillContract(context,snapshot.data![index].insuranceVendorContracId),
+                                                        builder: (context,snapshotPrefill) {
+                                                          if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                            return Center(
+                                                              child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                                            );
+                                                          }
+                                                          var contractPrefName = snapshotPrefill.data!.contractName;
+                                                          contractNameController = TextEditingController(text: snapshotPrefill.data!.contractName);
+
+                                                          var contractIDPrefName = snapshotPrefill.data!.contractId;
+                                                          contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
+
+
+                                                          return StatefulBuilder(
+                                                      builder: (BuildContext context, void Function(void Function()) setState) {
+                                                        return ContractAddDialog(
+                                                          title: 'Edit Contract',
                                                       contractNmaeController: contractNameController,
                                                       contractIdController: contractIdController,
-                                                      onSubmitPressed: () {
-                                                        // Implement the edit action
+                                                      onSubmitPressed:() async{
+                                                        setState(() {
+                                                          _isLoading = true;
+                                                        });
+                                                        try {
+                                                          //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
+                                                          await patchCompanyContract(context,
+                                                          snapshot.data![index].insuranceVendorId,
+                                                        widget.officeId,
+                                                        contractPrefName ?? contractNameController.text,
+                                                        selectedExpiryType.toString(),
+                                                        contractIDPrefName ?? contractIdController.text);
+                                                          setState(() async {
+                                                            await  companyContractGetByVendorId(
+                                                              context,
+                                                              widget.officeId,
+                                                              widget.insuranceVendorId,
+                                                              currentPage,
+                                                              itemsPerPage,
+                                                            ).then((data) {
+                                                              _controller.add(data);
+                                                            }).catchError((error) {
+                                                              // Handle error
+                                                              _controller.addError(error);
+                                                            });
+                                                            Navigator.pop(context);
+                                                          });
+                                                        } finally {
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                          });
+                                                        }
                                                       },
-                                                      title: 'Edit Contract',
-                                                      radiobutton: Container(),
+
+                                                      //     ()async {
+                                                      //    await patchCompanyContract(context,
+                                                      //        snapshot.data![index].insuranceVendorId,
+                                                      //        widget.officeId,
+                                                      //        contractPrefName ?? contractNameController.text,
+                                                      //        selectedExpiryType.toString(),
+                                                      //        contractIDPrefName ?? contractIdController.text);
+                                                      // },
+                                                      radiobutton:  Padding(
+                                                        padding: const EdgeInsets.only(left: 10.0),
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              "Expiry Type",
+                                                              style: GoogleFonts.firaSans(
+                                                                fontSize: FontSize.s12,
+                                                                fontWeight: FontWeight.w700,
+                                                                color: ColorManager.mediumgrey,
+                                                                decoration: TextDecoration.none,
+                                                              ),
+                                                            ),
+                                                            CustomRadioListTile(
+                                                              value: "Not Applicable",
+                                                              groupValue: selectedExpiryType,
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  selectedExpiryType = value;
+                                                                });
+                                                              },
+                                                              title: "Not Applicable",
+                                                            ),
+                                                            CustomRadioListTile(
+                                                              value: 'Scheduled',
+                                                              groupValue: selectedExpiryType,
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  selectedExpiryType = value;
+                                                                });
+                                                              },
+                                                              title: 'Scheduled',
+                                                            ),
+                                                            CustomRadioListTile(
+                                                              value: 'Issuer Expiry',
+                                                              groupValue: selectedExpiryType,
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  selectedExpiryType = value;
+                                                                });
+                                                              },
+                                                              title: 'Issuer Expiry',
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     );
+
+                          },
+                          );
+                          }
+                          );
                                                   },
                                                 );
                                               },

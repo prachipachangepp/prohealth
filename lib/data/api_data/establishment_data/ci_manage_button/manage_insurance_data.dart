@@ -59,3 +59,24 @@ class ManageInsuranceContractData{
     required this.expiryReminder,
     this.sucess, this.message,});
 }
+
+///prefill contract
+class ManageContractPrefill{
+  final int insuranceVendorContracId;
+  final int insuranceVendorId;
+  final int companyId;
+  final String officeId;
+  final String? contractName;
+  final String? contractId;
+  final String? expiryType;
+  final String? expiryDate;
+  final String? expiryReminder;
+  ManageContractPrefill({
+    required this.insuranceVendorContracId,
+    required this.insuranceVendorId,
+    required this.companyId,
+    required this.officeId,
+    this.contractName, this.contractId,
+    this.expiryType, this.expiryDate,
+    this.expiryReminder,});
+}
