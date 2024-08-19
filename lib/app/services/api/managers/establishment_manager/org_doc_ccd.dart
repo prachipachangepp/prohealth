@@ -31,14 +31,14 @@ Future<List<CiOrgDocumentCC>> orgSubDocumentGet(BuildContext context,
       for(var item in response.data["DocumentList"]){
         itemsList.add(
           CiOrgDocumentCC(
-              docId: item['document_id'],
-              createdAt: item['doc_created_at'],
-              name: item["doc_name"],
-              expiry: item["expiry_date"],
-              reminderThreshold: item["expiry_type"],
-              sucess: true, message: response.statusMessage!, documentTypeId: item['document_type_id'],
-              documentSubTypeId: item['document_subtype_id'], url: item['url'], expirtReminder: item['expiry_reminder'],
-              companyId: item['company_id'], officeId: item['office_id']
+              docId: item['document_id'] ?? "",
+              createdAt: item['doc_created_at'] ?? "",
+              name: item["doc_name"]  ?? "",
+              expiry: item["expiry_date"] ?? "",
+              reminderThreshold: item["expiry_type"] ?? "",
+              sucess: true, message: response.statusMessage!, documentTypeId: item['document_type_id'] ?? "",
+              documentSubTypeId: item['document_subtype_id'], url: item['url'], expirtReminder: item['expiry_reminder'] ?? "",
+              companyId: item['company_id'], officeId: item['office_id'] ?? "",
           ),
         );
       }

@@ -13,6 +13,8 @@ Future<ApiData> addCorporateDocumentPost({
   required String name,
   required int docTypeID,
   required int docSubTypeID,
+  required String docCreated,
+  required String url,
   required String expiryType,
   required String expiryDate,
   required String expiryReminder,
@@ -24,6 +26,8 @@ Future<ApiData> addCorporateDocumentPost({
       "doc_name": name,
       "document_type_id": docTypeID,
       "document_subtype_id": docSubTypeID,
+      "doc_created_at": docCreated,
+      "url": url,
       "expiry_type": expiryType,
       "expiry_date": expiryDate,
       "expiry_reminder": expiryReminder,
@@ -73,8 +77,8 @@ Future<CorporatePrefillDocumentData> getPrefillCorporateDocument(
           documentTypeId: response.data['document_type_id'],
           documentSubTypeId: response.data['document_subtype_id'],
           docName: response.data['doc_name'],
-          docCreated: response.data['doc_created_at'] ?? "",
-          url: response.data['url'] ?? "",
+          docCreated: response.data['doc_created_at'],
+          url: response.data['url'],
           expiryType: response.data['expiry_type'],
           expiryDate: response.data['expiry_date'],
           expiryReminder: response.data['expiry_reminder'],
@@ -146,45 +150,45 @@ Future<ApiData> updateCorporateDocumentPost({
 }
 
 /// get
-// Future<List<IdentityData>> getOrgDocfetch(BuildContext context, int companyId,
-//     int docTypeID, int docSubTypeID, int pageNo, int rowsNO) async {
-//   List<IdentityData> itemsList = [];
-//   try {
-//     final response = await Api(context).get(
-//         path: EstablishmentManagerRepository.getCiOrgDLicense(
-//             companyId: companyId,
-//             docTypeID: docSubTypeID,
-//             docSubTypeID: docSubTypeID,
-//             pageNo: pageNo,
-//             rowsNo: rowsNO));
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       print("Org Document Tab bar response:::::${itemsList}");
-//       print("111");
-//       for (var item in response.data) {
-//         itemsList.add(
-//           IdentityData(
-//             docId: item["document_type_id"],
-//             companyId: item["company_id"],
-//             docSubId: item["document_sub_type_id"],
-//             pageNo: item["pageNbr"],
-//             rowsNo: item["NbrofRows"],
-//             sucess: true,
-//             message: response.statusMessage!,
-//           ),
-//         );
-//       }
-//       // print("Org Document response:::::${itemsList}");
-//     } else {
-//       print('Org Api Error');
-//       return itemsList;
-//     }
-//     // print("Org response:::::${response}");
-//     return itemsList;
-//   } catch (e) {
-//     print("Error $e");
-//     return itemsList;
-//   }
-// }
+Future<List<IdentityData>> getOrgDocfetch(BuildContext context, int companyId,
+    int docTypeID, int docSubTypeID, int pageNo, int rowsNO) async {
+  List<IdentityData> itemsList = [];
+  try {
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.getCiOrgDLicense(
+            companyId: companyId,
+            docTypeID: docSubTypeID,
+            docSubTypeID: docSubTypeID,
+            pageNo: pageNo,
+            rowsNo: rowsNO));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Org Document Tab bar response:::::${itemsList}");
+      print("111");
+      for (var item in response.data) {
+        itemsList.add(
+          IdentityData(
+            docId: item["document_type_id"],
+            companyId: item["company_id"],
+            docSubId: item["document_sub_type_id"],
+            pageNo: item["pageNbr"],
+            rowsNo: item["NbrofRows"],
+            sucess: true,
+            message: response.statusMessage!,
+          ),
+        );
+      }
+      // print("Org Document response:::::${itemsList}");
+    } else {
+      print('Org Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
 
 /// document type GET
 Future<List<DocumentTypeData>> documentTypeGet(
