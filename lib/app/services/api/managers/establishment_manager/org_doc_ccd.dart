@@ -38,7 +38,7 @@ Future<List<CiOrgDocumentCC>> orgSubDocumentGet(BuildContext context,
               reminderThreshold: item["expiry_type"],
               sucess: true, message: response.statusMessage!, documentTypeId: item['document_type_id'],
               documentSubTypeId: item['document_subtype_id'], url: item['url'], expirtReminder: item['expiry_reminder'],
-              companyId: item['company_id'], officeId: item['office_id']
+              companyId: companyId, officeId: item['office_id']
           ),
         );
       }
@@ -106,7 +106,7 @@ Future<ApiData> updateOrgDocument(
   try {
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.
-        updateOrgCocument(docId: docId),
+        updatePrefillPatchCCVCPP(docId: docId),
         data: {
       'document_id':docId,
       "doc_name": docName,
@@ -141,7 +141,7 @@ Future<ApiData> deleteDocument(
     BuildContext context, int docId) async {
   try {
     var response = await Api(context).delete(
-        path: EstablishmentManagerRepository.updateOrgCocument(docId: docId));
+        path: EstablishmentManagerRepository.updatePrefillPatchCCVCPP(docId: docId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Deleted Document :::${docId}");
       return ApiData(

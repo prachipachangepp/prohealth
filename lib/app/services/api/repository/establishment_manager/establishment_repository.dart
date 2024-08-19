@@ -25,7 +25,7 @@ class EstablishmentManagerRepository {
   static String getlistByCompany = "/officeListByCompany";
   static String corporateDocument = "/corporate-document";
   static String addOrgDoc = "/addOrgDocument";
- // static String CorporateDocument = "/corporate-document";
+  static String addOfficeDoc = "/addOfficeDocument";
   static String workWeekSchedule = "/work-week-schedule";
   static String workWeekShiftSchedule = "/work-week-shift-schedule";
   static String holidays = "/holidays";
@@ -80,7 +80,7 @@ class EstablishmentManagerRepository {
   static String addOrgDocumentPost(){
     return "$addDocument";
   }
-  static String updateOrgCocument({required int docId}){
+  static String updatePrefillPatchCCVCPP({required int docId}){
     return "$corporateDocument/$docId";
   }
   ///company-office-service/{Office_service_id}
@@ -138,6 +138,10 @@ class EstablishmentManagerRepository {
   ///identity/GetDocumentListByCompanyAndOffice/{company_id}/{office_id}/{document_type_id}/{document_sub_type_id}/{pageNbr}/{NbrofRows}
   static String corporateGetListbyCompany({required int companyId,required String officeId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
     return "$identity/$getDocListCompanyOffice/$companyId/$officeId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
+  }
+  ///corporate-document/addOfficeDocument
+  static String addManageCCVCPPPost(){
+    return "$corporateDocument/$addOfficeDoc";
   }
   ///org doc
   static String getCiOrgDLicense({required int companyId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
