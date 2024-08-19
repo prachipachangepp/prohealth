@@ -230,7 +230,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                              //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
                                                                              await patchCompanyVendor(
                                                                               context,
-                                                                              vendorData.insuranceVendorId!,
+                                                                              vendorData.insuranceVendorId,
                                                                               widget.officeId,
                                                                               name == nameController.text ? name.toString() : nameController.text,
                                                                              );
@@ -247,7 +247,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                                _isLoading = false;
                                                                              });
                                                                            }
-                                                                          },
+                                                                          }, buttontxt: "Save", successpopuptext: 'Edited Successfully',
                                                                           );
 
                                                                   }

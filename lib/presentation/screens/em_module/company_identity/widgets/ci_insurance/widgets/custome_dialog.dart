@@ -20,9 +20,11 @@ class CustomPopup extends StatefulWidget {
   // final Widget? childCity;
    final VoidCallback onPressed;
    final String title;
+   final String buttontxt;
+   final String successpopuptext;
    CustomPopup({Key? key,
      required this.onPressed,
-     required this.title, required this.namecontroller,
+     required this.title, required this.namecontroller, required this.buttontxt, required this.successpopuptext,
      // this.addressController,
      // this.emailController, this.workemailController,
      // this.phoneController, this.workPhoneController,
@@ -107,14 +109,14 @@ class _CustomPopupState extends State<CustomPopup> {
                 child: CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.Add,
+                  text: widget.buttontxt,
                   onPressed: () {
                     widget.onPressed();
                     Navigator.pop(context);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AddSuccessPopup(message: 'Added Successfully',);
+                        return AddSuccessPopup(message: widget.successpopuptext,);
                       },
                     );
                   },
