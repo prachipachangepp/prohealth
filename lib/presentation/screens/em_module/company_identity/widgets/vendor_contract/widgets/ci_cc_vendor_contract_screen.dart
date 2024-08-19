@@ -279,8 +279,6 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                       name: docNamecontroller.text,
                                       docTypeID: docTypeMetaId,
                                       docSubTypeID: docTypeMetaId == 10 ? 0:docSubTypeMetaId,
-                                      docCreated: DateTime.now().toString(),
-                                      url: "url",
                                       expiryType: expiryType.toString(),
                                       expiryDate: calenderController.text,
                                       expiryReminder: "Schedule",

@@ -96,12 +96,10 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         name: docNamecontroller.text,
                                         docTypeID: docTypeMetaId,
                                         docSubTypeID: docSubTypeMetaId,
-                                        docCreated: DateTime.now().toString(),
-                                        url: "url",
                                         expiryType: expiryType.toString(),
                                         expiryDate: calenderController.text,
                                         expiryReminder: "Schedule",
-                                        officeId: "Office 1",
+                                        officeId: widget.officeId,
                                       );
                                       setState(() async {
                                         await getManageCorporate(context,

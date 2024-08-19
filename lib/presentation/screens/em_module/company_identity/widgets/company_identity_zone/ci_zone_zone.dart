@@ -270,10 +270,8 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                         showDialog(
                                                             context: context,
                                                             builder: (context) {
-                                                              return FutureBuilder<
-                                                                      CountyZonePrefillGet>(
-                                                                  future:
-                                                                      getZoneByCountyPrefill(
+                                                              return FutureBuilder<CountyZonePrefillGet>(
+                                                                  future: getZoneByCountyPrefill(
                                                                           context,
                                                                         zone.zoneId),
                                                                   builder: (context,
@@ -349,8 +347,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                         countyId = 0;
                                                                       },
                                                                       child: FutureBuilder<
-                                                                              List<
-                                                                                  AllCountyGetList>>(
+                                                                          List<AllCountyGetList>>(
                                                                           future: getCountyZoneList(
                                                                               context),
                                                                           builder:

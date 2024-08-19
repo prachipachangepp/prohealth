@@ -44,7 +44,8 @@ Future<ApiData> addVendors(
 }
 
 /// get vendor /insurance-vendor/{CompanyId}/{officeId}/{pageNbr}/{NbrofRows}
-Future<List<ManageVendorData>> companyVendorGet(BuildContext context, String officeId, int pageNo, int rowNo,) async {
+Future<List<ManageVendorData>> companyVendorGet(BuildContext context,
+    String officeId, int pageNo, int rowNo,) async {
   List<ManageVendorData> itemsList = [];
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -175,3 +176,117 @@ Future<ManageVendorPrefill> getPrefillVendor(
     return itemsList;
   }
 }
+
+
+
+///Add contract
+Future<ApiData> addVendorContract(
+    BuildContext context,
+    int insuranceVendorId,
+    String contractName,
+    String expiryType,
+    String officeId,
+    String contractId,
+    ) async {
+  try {
+    final companyId= await TokenManager.getCompanyId();
+    var response = await Api(context).post(
+        path: EstablishmentManagerRepository.companyOfficeContractPost(),
+        data: {
+          "insuranceVendorId": insuranceVendorId,
+          "contractName": contractName,
+          "expiry_type": expiryType,
+          "companyId": companyId,
+          "officeId": officeId,
+          "contractId": contractId,
+        });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Contract Addded");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///insurance-vendor-contract
+
+
+/// get contract /insurance-vendor-contract/{CompanyId}/{officeId}/{insuranceVendorId}/{pageNbr}/{NbrofRows}
+Future<List<ManageInsuranceContractData>> companyContractGetByVendorId(BuildContext context,
+    String officeId, int insuranceVendorId ,int pageNo, int rowNo,) async {
+  List<ManageInsuranceContractData> itemsList = [];
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.companyOfficeContractGet(companyId: companyId, officeId: officeId,
+        pageNo: pageNo, rowNo: rowNo, insuranceVendorId: insuranceVendorId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Companyy contract get:::::${itemsList}");
+      for (var item in response.data) {
+        itemsList.add(
+          ManageInsuranceContractData(
+            sucess: true,
+            message: response.statusMessage!,
+            insuranceVendorContracId: item['insuranceVendorContracId'],
+            insuranceVendorId: item['insuranceVendorId'],
+            contractName: item['contractName'],
+            contractId: item['contractId'],
+            expiryType: item['expiry_type'],
+            officeId: item['officeId'],
+            expiryDate: item['expiry_date'] ?? "",
+            expiryReminder: item['expiry_reminder'] ?? "",
+            companyId: companyId,
+          ),
+        );
+      }
+      print("Companyy contract data:::::${itemsList}");
+    } else {
+      print('Api Error');
+      //return itemsList;
+    }
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+///delete contract
+Future<ApiData> deleteContract(BuildContext context, int insuranceVendorContracId) async {
+  try {
+    var response = await Api(context)
+        .delete(path: EstablishmentManagerRepository.companyOfficeContractPatchDeleteprefill(insuranceVendorContracId: insuranceVendorContracId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Delete contract");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///prefill contract
