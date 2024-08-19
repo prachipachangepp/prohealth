@@ -282,7 +282,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const FormNineScreen()));
+                                       FormNineScreen(employeeID: widget.employeeID,)));
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xff50B5E5),
