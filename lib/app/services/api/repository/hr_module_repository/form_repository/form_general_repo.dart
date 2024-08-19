@@ -2,13 +2,15 @@ class ProgressBarRepository{
 
   static String grneralpage ="/employees/add";
 
+  static String educationDocument = "/employee-educations/attach-documentbase64";
+
  static String employmentpage ="/employee-employment-histories/add";
 
  static String educationpage ="/employee-educations/add";
 
  static String  referencepage  ="/reference/add";
 
-
+ static String empI9 = "/employee-i9/add";
  static String licensespage   = "/employee-licenses/add";
 
  static String   bankingpage  = "/employee-bankings/add";
@@ -83,6 +85,9 @@ static String postlicensesscreen(){
  static String postbankingscreen(){
     return "$bankingpage";
  }
+  static String uploadEducationDocument({required int educationId, required String documentName}){
+    return "$educationDocument/$educationId/$documentName";
+  }
 
 
 
@@ -123,6 +128,9 @@ static String postverifyuser(){
 
   static String educationformget({required int educationId }){
     return "$educationformprifill/$educationId";
+  }
+  static String addEmployeeI9Form(){
+    return "$empI9";
   }
 }
 
