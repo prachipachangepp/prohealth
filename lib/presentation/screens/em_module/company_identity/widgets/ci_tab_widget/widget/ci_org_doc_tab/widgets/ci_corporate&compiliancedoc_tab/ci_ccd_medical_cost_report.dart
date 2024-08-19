@@ -31,8 +31,8 @@ class CiCcdMedicalCostReport extends StatefulWidget {
 }
 
 class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
-  // late int currentPage;
-  // late int itemsPerPage;
+  late int currentPage;
+  late int itemsPerPage;
   late List<String> items;
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
@@ -44,27 +44,11 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
   String? expiryType;
   bool _isLoading = false;
 
-  int itemsPerPage = 10; // Define how many items you want to show per page
 
-  int currentPage = 1;
-
-  late int totalPages;
-
-  void calculateTotalPages() {
-    int itemsPerPage = 10; // Number of items to display per page
-    totalPages = (items.length / itemsPerPage).ceil();
-  }
 
   String? selectedValue;
   late List<Color> hrcontainerColors;
 
-  void _fetchData() {
-    orgSubDocumentGet(context, widget.docID, widget.subDocID, currentPage, itemsPerPage).then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
-  }
   @override
   void initState() {
     super.initState();
@@ -74,15 +58,9 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);
     _loadColors();
-    _fetchData();
-    calculateTotalPages();
 
   }
-  @override
-  void dispose() {
-    _controller.close();
-    super.dispose();
-  }
+
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -177,7 +155,7 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
           child: StreamBuilder<List<CiOrgDocumentCC>>(
             stream: _controller.stream,
             builder: (context, snapshot) {
-              orgSubDocumentGet(context, widget.docID, widget.subDocID, currentPage, itemsPerPage).then((data) {
+              orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 15).then((data) {
                 _controller.add(data);
               }).catchError((error) {
                 // Handle error
@@ -202,28 +180,23 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                   ),
                 );
               }
-              List<CiOrgDocumentCC> data = snapshot.data ?? [];
               if (snapshot.hasData) {
-                // int totalItems = snapshot.data!.length;
-
-                List<CiOrgDocumentCC> data = snapshot.data ?? [];
-
-                int totalItems = data.length;
-
-
-                // Calculate items for the current page
-                List<CiOrgDocumentCC> currentPageItems = data.sublist(
+                int totalItems = snapshot.data!.length;
+                // int totalPages = (totalItems / itemsPerPage).ceil();
+                List<CiOrgDocumentCC> currentPageItems = snapshot.data!.sublist(
                   (currentPage - 1) * itemsPerPage,
-                  currentPage * itemsPerPage > totalItems ? totalItems : currentPage * itemsPerPage,
+                  (currentPage * itemsPerPage) > totalItems
+                      ? totalItems
+                      : (currentPage * itemsPerPage),
                 );
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: currentPageItems.length,
                   itemBuilder: (context, index) {
-
-                    int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                    String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                    var item = currentPageItems[index];
+                    int serialNumber =
+                        index + 1 + (currentPage - 1) * itemsPerPage;
+                    String formattedSerialNumber =
+                    serialNumber.toString().padLeft(2, '0');
                     return Column(
                       children: [
                         SizedBox(height: AppSize.s5),
@@ -263,7 +236,6 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                 child: Center(
                                   child: Text(
                                     currentPageItems[index].name.toString().capitalizeFirst!,
-                                    // item.name.toString().capitalizeFirst!,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -275,7 +247,6 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    // item.expiry.toString(),
                                     currentPageItems[index].expiry.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
@@ -288,7 +259,6 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    // item.reminderThreshold.toString().capitalizeFirst!,
                                     currentPageItems[index]
                                         .reminderThreshold
                                         .toString().capitalizeFirst!,
@@ -580,57 +550,26 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
         ),
         PaginationControlsWidget(
           currentPage: currentPage,
-          itemsPerPage: (itemsPerPage / itemsPerPage).ceil(),
+          items: items,
+          itemsPerPage: itemsPerPage,
           onPreviousPagePressed: () {
             setState(() {
               currentPage = currentPage > 1 ? currentPage - 1 : 1;
-              _fetchData(); // Fetch new page data
             });
           },
           onPageNumberPressed: (pageNumber) {
             setState(() {
               currentPage = pageNumber;
-              _fetchData(); // Fetch new page data
             });
           },
           onNextPagePressed: () {
             setState(() {
-              currentPage = currentPage < (itemsPerPage).ceil()
-                  ? currentPage + 1
-                  : currentPage;
-              _fetchData(); // Fetch new page data
+              int totalPages = (items.length / itemsPerPage).ceil();
+              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
             });
-          }, items: items,
+          },
         ),
-
-
-        ///
-        // PaginationControlsWidget(
-        //   currentPage: currentPage,
-        //
-        //   onPreviousPagePressed: () {
-        //     setState(() {
-        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-        //       // Re-fetch data for the new page if necessary
-        //     });
-        //   },
-        //   onPageNumberPressed: (pageNumber) {
-        //     setState(() {
-        //       currentPage = pageNumber;
-        //       // Re-fetch data for the new page if necessary
-        //     });
-        //   },
-        //   onNextPagePressed: () {
-        //     setState(() {
-        //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-        //       // Re-fetch data for the new page if necessary
-        //     });
-        //   },
-        //   items: items, itemsPerPage: itemsPerPage,
-        // ),
-
       ],
     );
   }
 }
-

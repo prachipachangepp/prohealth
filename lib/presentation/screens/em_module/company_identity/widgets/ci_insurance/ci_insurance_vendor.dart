@@ -276,8 +276,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                     });
                                                                     try {
                                                                       await deleteVendor(
-                                                                          context,
-                                                                          vendorData.insuranceVendorId!);
+                                                                          context, vendorData.insuranceVendorId!);
                                                                       setState(() async {
                                                                         companyVendorGet(context,widget.officeId,1,30).then((data) {
                                                                           _companyVendor.add(data);
