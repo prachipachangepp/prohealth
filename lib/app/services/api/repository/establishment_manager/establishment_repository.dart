@@ -136,15 +136,21 @@ class EstablishmentManagerRepository {
     return "$identity/$getDocType";
   }
   ///identity/GetDocumentListByCompanyAndOffice/{company_id}/{office_id}/{document_type_id}/{document_sub_type_id}/{pageNbr}/{NbrofRows}
-  static String corporateGetListbyCompany({required int companyId,required String officeId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
+  static String corporateGetListbyCompany({required int companyId,
+    required String officeId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
     return "$identity/$getDocListCompanyOffice/$companyId/$officeId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
   }
   ///corporate-document/addOfficeDocument
   static String addManageCCVCPPPost(){
     return "$corporateDocument/$addOfficeDoc";
   }
+
   ///org doc
-  static String getCiOrgDLicense({required int companyId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
+  static String getCiOrgDLicense({required int companyId,
+    required int docTypeID,
+    required int docSubTypeID,
+    required int pageNo,
+    required int rowsNo}){
     return "$identity/$getDocListCompany/$companyId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
   }
   static String getOrgDocument(){

@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
@@ -236,7 +235,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    snapData[index].name.toString().capitalizeFirst!,
+                                    snapData[index].name.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -262,7 +261,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                   child: Text(
                                     snapData[index]
                                         .reminderThreshold
-                                        .toString().capitalizeFirst!,
+                                        .toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
