@@ -20,15 +20,13 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
-import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
-import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
-import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import '../../company_identity_screen.dart';
 
 class CiOrgDocument extends StatefulWidget {
   final String officeId;
-  const CiOrgDocument({super.key, required this.officeId});
+  final int? companyId;
+  const CiOrgDocument({super.key,
+    required this.officeId, this.companyId});
 
   @override
   State<CiOrgDocument> createState() => _CiOrgDocumentState();
@@ -42,20 +40,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
    final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   int _selectedIndex = 0;
-  // String _selectedItem = 'Corporate & Compliance Documents';
-  // void _onDropdownItemSelected(String newValue) {
-  //   setState(() {
-  //     _selectedItem = newValue;
-  //   });
-  // }
-  // String _selectedItem1 = 'Licenses';
-  //
-  // void _onDropdownItemSelected1(String newValue) {
-  //   setState(() {
-  //     _selectedItem1 = newValue;
-  //   });
-  // }
-
   void _selectButton(int index) {
     setState(() {
       _selectedIndex = index;
@@ -115,9 +99,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                   child:InkWell(
                           onTap: () {
                             _selectButton(0);
-                            // identityDocumentTypeGet(
-                            //     context, docTypeData[index].docID);
-                            // docID = docTypeData[index].docID;
                           },
                           child: Container(
                             height: 30,
@@ -257,17 +238,18 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                         ? "--"
                                         :calenderController.text;
                                     try {
-                                      await addCorporateDocumentPost(
+                                      await addOrgCorporateDocumentPost(
                                         context: context,
                                         name: docNamecontroller.text,
                                         docTypeID: docTypeMetaId,
                                         docSubTypeID: docTypeMetaId == 10 ? 0 : docSubTypeMetaId,
-                                        docCreated: DateTime.now().toString(),
-                                        url: "url",
+                                        // docCreated: DateTime.now().toString(),
+                                        // url: "url",
                                         expiryType: selectedExpiryType.toString(),
                                         expiryDate: expiryTypeToSend,
                                         expiryReminder: selectedExpiryType.toString(),
-                                        officeId: widget.officeId,
+                                        // companyId: widget.companyId,
+                                        // officeId: widget.officeId,
                                       );
                                       await orgSubDocumentGet(
                                         context,
