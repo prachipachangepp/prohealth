@@ -345,11 +345,13 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                       children: [
                         Flexible(
                             child: SchedularTextField(
+                              controller: ffCity,
                                 labelText: AppString.city)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
                             child: SchedularDropdown(
+                              initialValue: selectedStateff,
                               labelText: AppString.state,
                                 items: ['Option 1', 'Option 2', 'Option 3'],
                                 onChanged: (newValue) {

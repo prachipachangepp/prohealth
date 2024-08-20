@@ -170,7 +170,7 @@ class _CustomDialogState extends State<CustomDialog> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextField(
+                  child: HRManageTextFieldEmail(
                     controller: widget.passwordController,
                     keyboardType: TextInputType.phone,
                     text: "Password",

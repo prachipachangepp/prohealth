@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../../app/services/api/managers/sm_module_manager/notes_manager/notes_misc_manager.dart';
 import '../../../../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 
 
 class MiscellaneousEditPopUp extends StatefulWidget {
+
   const MiscellaneousEditPopUp({super.key});
 
   @override
@@ -35,6 +37,29 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
   //     });
   //   }
   // }
+
+  Future<void> _submit() async {
+    final String typeDocument = _typeDocumentController.text;
+    final String nameDocument = _nameDocumentController.text;
+
+    // Call the API
+    await NotesMiscPatch(
+      context,
+      1,
+      //widget.miscNoteId ,
+      1,
+      //widget.patientId,
+      1,
+      //  widget.docTypeId,
+      _typeDocumentController.text,
+      " docUrl",
+      _nameDocumentController.text,
+      "createdAt",
+      " expDate",
+    );
+  }  // Handle the result
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -280,14 +305,17 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return SchedularSuccessPopup(title: 'Success',);
-                        },
-                      );
-                    },
+                    onPressed: _submit,
+
+                    //     () {
+                    //
+                    //   showDialog(
+                    //     context: context,
+                    //     builder: (BuildContext context) {
+                    //       return SchedularSuccessPopup(title: 'Success',);
+                    //     },
+                    //   );
+                    // },
                     child: Text(
                       'Submit',
                       style: GoogleFonts.firaSans(

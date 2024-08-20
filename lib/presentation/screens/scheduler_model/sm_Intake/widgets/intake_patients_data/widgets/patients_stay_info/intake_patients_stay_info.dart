@@ -64,6 +64,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                           color: ColorManager.greenDark
                       ),
                     ),
+                    SizedBox(width: 15,),
                     Container(
                       height: 30,
                       width: 140,

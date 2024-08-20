@@ -60,6 +60,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
                       ),),
+                    SizedBox(width: 15,),
                 SchedularIconButtonConst(
                   text: AppString.save,
                   onPressed: () async {

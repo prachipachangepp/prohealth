@@ -137,46 +137,48 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                         SizedBox(height: MediaQuery.of(context).size.height/40),
                         Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 40.0),
-                              child: Text(
-                                  'Primary Diagnosis',
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.regular
-                              ),
-                              ),
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 40.0),
+                                  child: Text(
+                                      'Primary Diagnosis',
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeightManager.regular
+                                  ),
+                                  ),
+                                ),
+                              ],
                             ),
 
 
                             SizedBox(width: MediaQuery.of(context).size.width/10),
-                            Flexible(
-                              child: Container(
-                                height: AppSize.s25,
-                                width: MediaQuery.of(context).size.width/7,
-                                child: TextFormField(
-                                  cursorColor: ColorManager.black,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1.0,
-                                      ),
+                            Container(
+                              height: AppSize.s25,
+                              width: MediaQuery.of(context).size.width/7,
+                              child: TextFormField(
+                                cursorColor: ColorManager.black,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
                                     ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1.0,
-                                      ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(
-                                        color: ColorManager.containerBorderGrey,
-                                        width: 1.0,
-                                      ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.containerBorderGrey,
+                                      width: 1.0,
                                     ),
                                   ),
                                 ),
@@ -247,7 +249,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
                                     fontWeight: FontWeightManager.regular,
-                                  color: Colors.transparent
+                                  color: Colors.black
                                 ),
                               ),
                             ),
@@ -259,6 +261,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                 height: AppSize.s25,
                                 width: MediaQuery.of(context).size.width/7,
                                 child: TextFormField(
+
                                   cursorColor: ColorManager.black,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
@@ -346,7 +349,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                             Padding(
                               padding: const EdgeInsets.only(left: 40.0),
                               child: Text(
-                                'Primary Diagnosis',
+                                'Secondary Diagnosis',
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
                                     fontWeight: FontWeightManager.regular

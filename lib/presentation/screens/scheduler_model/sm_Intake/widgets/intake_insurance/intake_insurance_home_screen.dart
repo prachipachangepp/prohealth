@@ -171,34 +171,34 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
                 child: Container(
                   height: AppSize.s26,
                   width: AppSize.s102,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return SchedularSuccessPopup(title: 'Success',);
-                        },
-                      );
-                    },
-                    child: Text(
-                      'Save',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 25,
-                        vertical: 10,
-                      ),
-                      backgroundColor: ColorManager.blueprime,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
+                  // child: ElevatedButton(
+                  //   onPressed: () {
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (BuildContext context) {
+                  //         return SchedularSuccessPopup(title: 'Success',);
+                  //       },
+                  //     );
+                  //   },
+                  //   child: Text(
+                  //     'Save',
+                  //     style: GoogleFonts.firaSans(
+                  //       fontSize: FontSize.s12,
+                  //       fontWeight: FontWeightManager.bold,
+                  //       color: ColorManager.white,
+                  //     ),
+                  //   ),
+                  //   style: ElevatedButton.styleFrom(
+                  //     padding: const EdgeInsets.symmetric(
+                  //       horizontal: 25,
+                  //       vertical: 10,
+                  //     ),
+                  //     backgroundColor: ColorManager.blueprime,
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(12),
+                  //     ),
+                  //   ),
+                  // ),
                 ),
               ),
             ],
