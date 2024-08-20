@@ -231,7 +231,7 @@ class _CiSnfState extends State<CiSnf> {
                                                                   builder: (BuildContext context,
                                                                       void Function(void Function()) setState) {
                                                                     return CCScreenEditPopup(
-                                                                      title: 'Edit Leases & Services',
+                                                                      title: 'Edit SNF',
                                                                       id: documentPreId,
                                                                       idDocController: docIdController,
                                                                       nameDocController: docNameController,

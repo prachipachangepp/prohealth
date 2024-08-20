@@ -233,7 +233,7 @@ class _CiMdState extends State<CiMd> {
                                                                   builder: (BuildContext context,
                                                                       void Function(void Function()) setState) {
                                                                     return CCScreenEditPopup(
-                                                                      title: 'Edit Leases & Services',
+                                                                      title: 'Edit MD',
                                                                       id: documentPreId,
                                                                       idDocController: docIdController,
                                                                       nameDocController: docNameController,

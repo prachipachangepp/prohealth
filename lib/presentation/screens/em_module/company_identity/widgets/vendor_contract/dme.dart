@@ -237,7 +237,7 @@ class _CiDmeState extends State<CiDme> {
                                                                   builder: (BuildContext context,
                                                                       void Function(void Function()) setState) {
                                                                     return CCScreenEditPopup(
-                                                                      title: 'Edit Leases & Services',
+                                                                      title: 'Edit DME',
                                                                       id: documentPreId,
                                                                       idDocController: docIdController,
                                                                       nameDocController: docNameController,

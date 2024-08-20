@@ -228,7 +228,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                   builder: (BuildContext context,
                                                                       void Function(void Function()) setState) {
                                                                     return CCScreenEditPopup(
-                                                                      title: 'Edit Leases & Services',
+                                                                      title: 'Edit Medical Cost Report',
                                                                       id: documentPreId,
                                                                       idDocController: docIdController,
                                                                       nameDocController: docNameController,

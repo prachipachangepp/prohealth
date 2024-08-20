@@ -228,7 +228,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                               builder: (BuildContext context,
                                                                   void Function(void Function()) setState) {
                                                                 return CCScreenEditPopup(
-                                                                  title: 'Edit Leases & Services',
+                                                                  title: 'Edit Licence',
                                                                   id: documentPreId,
                                                                   idDocController: docIdController,
                                                                   nameDocController: docNameController,
