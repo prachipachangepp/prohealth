@@ -49,7 +49,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
   @override
   void initState() {
     super.initState();
-    }
+  }
 
   int currentPage = 1;
   final int itemsPerPage = 10;
@@ -244,7 +244,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                 Expanded(
                                   child: Center(
                                     child: Text(
-                                    snapshot.data![index].expirtReminder.toString().capitalizeFirst!,
+                                      snapshot.data![index].expirtReminder.toString().capitalizeFirst!,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
