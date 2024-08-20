@@ -71,7 +71,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
    Future<String> _generateUrlLink(String email, String Id) async {
      final String user = email;
      final String id = Id;
-     final String url = 'https://staging.symmetry.care/$id';
+     final String url = 'https://staging.symmetry.care/#/onBordingWelcome';
      generatedURL = url;
      print('Generated URL: $generatedURL');
      return url;

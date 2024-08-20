@@ -107,9 +107,10 @@ class _OfferLetterDescriptionScreenState
             FutureBuilder<OfferLetterData>(
               future:GetOfferLetter(context, widget.employeeId, 1 ),
               builder: (context, snapshot) {
-                // if(snapshot.connectionState == ConnectionState.waiting){
-                //   return CircularProgressIndicator(color: Colors.blue,);
-                // }
+                if(snapshot.connectionState == ConnectionState.waiting){
+                  return Container(width: 1032,
+                    height: 1190,);
+                }
                 if (snapshot.hasData) {
                   return Container(
                     color: Colors.white,
@@ -273,9 +274,8 @@ class _OfferLetterDescriptionScreenState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      Future<ApiData> _updateOfferFuture = updateOfferLetter(
+                  onPressed: () async{
+                      ApiData updateOfferFuture = await updateOfferLetter(
                         context,
                          1,
                          1,
@@ -287,75 +287,57 @@ class _OfferLetterDescriptionScreenState
                          true,
                          "2023-11-05",
                       );
-
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return FutureBuilder<ApiData>(
-                            future: _updateOfferFuture,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return Center(child: CircularProgressIndicator());
-                              } else if (snapshot.hasData) {
-                                if (snapshot.data!.success) {
-                                  return AlertDialog(
-                                    title: Text('Offer Accepted Succefully', style: GoogleFonts.firaSans(
-                                      color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w700
-                                    ),),
-                                    content: Text( ""
-                                        // snapshot.data!.message
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () async {
-                                          //String userid= await TokenManager.getUserID();
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId!,)),
-                                          );
-                                        },
-                                        child: Text('OK', style: GoogleFonts.firaSans(
-                                            color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w700
-                                        ),),
-                                      ),
-                                    ],
+                      if(updateOfferFuture.statusCode == 200 || updateOfferFuture.statusCode == 201){
+                        showDialog(context: context, builder: (BuildContext context){
+                          return AlertDialog(
+                            title: Text('Offer Accepted Succefully', style: GoogleFonts.firaSans(
+                                color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w700
+                            ),),
+                            content: Text( ""
+                              // snapshot.data!.message
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () async {
+                                  //String userid= await TokenManager.getUserID();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
                                   );
-                                } else {
-                                  return AlertDialog(
-                                    title: Text('Error', style: GoogleFonts.firaSans(
-                                        color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w700
-                                    ),),
-                                    content: Text(snapshot.data!.message),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                           Navigator.pop(context);
-
-                                        },
-                                        child: Text('OK'),
-                                      ),
-                                    ],
-                                  );
-                                }
-                              } else {
-                                return AlertDialog(
-                                  title: Text('Error'),
-                                  content: Text('Something went wrong'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text('OK'),
-                                    ),
-                                  ],
-                                );
-                              }
-                            },
+                                },
+                                child: Text('OK', style: GoogleFonts.firaSans(
+                                    color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w700
+                                ),),
+                              ),
+                            ],
                           );
-                        },
-                      );
-                    });
+                        });
+                      }else{
+                        showDialog(context: context, builder: (BuildContext context){
+                          return AlertDialog(
+                            title: Text('Offer Already Accepted', style: GoogleFonts.firaSans(
+                                color: ColorManager.primary, fontSize: 12, fontWeight: FontWeight.w700
+                            ),),
+                            content: Text( ""
+                              // snapshot.data!.message
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () async {
+                                  //String userid= await TokenManager.getUserID();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: widget.employeeId,)),
+                                  );
+                                },
+                                child: Text('OK', style: GoogleFonts.firaSans(
+                                    color: ColorManager.black, fontSize: 12, fontWeight: FontWeight.w700
+                                ),),
+                              ),
+                            ],
+                          );
+                        });
+                      }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff50B5E5),

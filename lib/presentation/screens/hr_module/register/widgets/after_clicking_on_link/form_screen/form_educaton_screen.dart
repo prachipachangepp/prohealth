@@ -523,7 +523,7 @@ class _EducationFormState extends State<EducationForm> {
                             ),
                             height: 32,
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 30),
+                          SizedBox(height: MediaQuery.of(context).size.height / 45),
                           Text(
                             'State',
                             style: GoogleFonts.firaSans(
@@ -583,6 +583,7 @@ class _EducationFormState extends State<EducationForm> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 8,),
                         if (fileName != null)
                           AutoSizeText(
                             'File picked: $fileName',
