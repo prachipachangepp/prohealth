@@ -2102,23 +2102,23 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                       ),
                       SizedBox(width: 15),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff1696C8),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          'Add New Coverage',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
+                      // ElevatedButton(
+                      //   onPressed: () {},
+                      //   style: ElevatedButton.styleFrom(
+                      //     backgroundColor: const Color(0xff1696C8),
+                      //     foregroundColor: Colors.white,
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(12),
+                      //     ),
+                      //   ),
+                      //   child: Text(
+                      //     'Add New Coverage',
+                      //     style: GoogleFonts.firaSans(
+                      //       fontSize: 10.0,
+                      //       fontWeight: FontWeight.w500,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],
