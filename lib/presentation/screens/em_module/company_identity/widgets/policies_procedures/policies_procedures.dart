@@ -72,6 +72,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+
                 CustomIconButton(
                     icon: CupertinoIcons.plus,
                     text: "Add Doctype",
