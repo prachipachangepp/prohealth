@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -227,17 +228,18 @@ class _CICCADRState extends State<CICCADR> {
                                                                   builder: (BuildContext context,
                                                                       void Function(void Function()) setState) {
                                                                     return CCScreenEditPopup(
-                                                                      title: 'Edit Leases & Services',
+                                                                      title: 'Edit License',
                                                                       id: documentPreId,
                                                                       idDocController: docIdController,
                                                                       nameDocController: docNameController,
+                                                                      calenderController: calenderController,
                                                                       loadingDuration: _isLoading,
-                                                                      onSavePressed: () async {
+                                                                      onSavePressed: ()async{
                                                                         setState(() {
                                                                           _isLoading = true;
                                                                         });
                                                                         try {
-                                                                          await updateManageCCVVPP(
+                                                                          await updateCorporateDocumentPost(
                                                                             context: context,
                                                                             docId: documentPreId,
                                                                             name: name == docNameController.text ? name.toString() : docNameController.text,
@@ -257,44 +259,24 @@ class _CICCADRState extends State<CICCADR> {
                                                                           Navigator.pop(context);
                                                                         }
                                                                       },
-
-                                                                      // Document Type Dropdown
                                                                       child: FutureBuilder<List<DocumentTypeData>>(
                                                                         future: documentTypeGet(context),
                                                                         builder: (context, snapshot) {
-                                                                          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                                                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                                            for (var i in snapshot.data!) {
-                                                                              dropDownMenuItems.add(
-                                                                                DropdownMenuItem<String>(
-                                                                                  child: Text(i.docType),
-                                                                                  value: i.docType,
+                                                                          if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                            return Shimmer.fromColors(
+                                                                              baseColor: Colors.grey[300]!,
+                                                                              highlightColor: Colors.grey[100]!,
+                                                                              child: Container(
+                                                                                width: 350,
+                                                                                height: 30,
+                                                                                decoration: BoxDecoration(
+                                                                                  color: ColorManager.faintGrey,
+                                                                                  borderRadius: BorderRadius.circular(10),
                                                                                 ),
-                                                                              );
-                                                                            }
-                                                                            return CICCDropdown(
-                                                                              initialValue: snapshot.data!
-                                                                                  .firstWhere((item) => item.docID == documentTypePreId)
-                                                                                  .docType,
-                                                                              onChange: (val) {
-                                                                                for (var a in snapshot.data!) {
-                                                                                  if (a.docType == val) {
-                                                                                    docTypeMetaId = a.docID;
-                                                                                  }
-                                                                                }
-                                                                                identityDocumentTypeGet(context, docTypeMetaId)
-                                                                                    .then((data) {
-                                                                                  _identityDataController.add(data);
-                                                                                }).catchError((error) {
-                                                                                  // Handle error
-                                                                                });
-                                                                              },
-                                                                              items: dropDownMenuItems,
+                                                                              ),
                                                                             );
-                                                                          } else if (snapshot.connectionState ==
-                                                                              ConnectionState.waiting) {
-                                                                            return SizedBox(); // Optional placeholder
-                                                                          } else {
+                                                                          }
+                                                                          if (snapshot.data!.isEmpty) {
                                                                             return Center(
                                                                               child: Text(
                                                                                 AppString.dataNotFound,
@@ -306,39 +288,80 @@ class _CICCADRState extends State<CICCADR> {
                                                                               ),
                                                                             );
                                                                           }
+                                                                          if (snapshot.hasData) {
+                                                                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                                                            int docType = snapshot.data![0].docID; // Set initial docType
+                                                                            docTypeMetaId = docType; // Set initial docTypeMetaId
+
+                                                                            for (var i in snapshot.data!) {
+                                                                              dropDownMenuItems.add(
+                                                                                DropdownMenuItem<String>(
+                                                                                  child: Text(i.docType),
+                                                                                  value: i.docType,
+                                                                                ),
+                                                                              );
+                                                                            }
+                                                                            return CICCDropdown(
+                                                                              initialValue: dropDownMenuItems[0].value,
+                                                                              onChange: (val) {
+                                                                                for (var a in snapshot.data!) {
+                                                                                  if (a.docType == val) {
+                                                                                    docType = a.docID;
+                                                                                    docTypeMetaId = docType;
+                                                                                  }
+                                                                                }
+                                                                                identityDocumentTypeGet(context, docTypeMetaId).then((data) {
+                                                                                  _identityDataController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                              },
+                                                                              items: dropDownMenuItems,
+                                                                            );
+                                                                          } else {
+                                                                            return SizedBox();
+                                                                          }
                                                                         },
                                                                       ),
-
-                                                                      // Sub-Document Type Dropdown
                                                                       child1: StreamBuilder<List<IdentityDocumentIdData>>(
                                                                         stream: _identityDataController.stream,
                                                                         builder: (context, snapshot) {
                                                                           if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                                                                             List<DropdownMenuItem<String>> dropDownMenuItems = [];
+
+                                                                            // Add a placeholder item for "Select Subdocument"
+                                                                            dropDownMenuItems.add(
+                                                                              DropdownMenuItem<String>(
+                                                                                value: "Select Sub Document",
+                                                                                child: Text("Select Sub Document"),
+                                                                              ),
+                                                                            );
+
                                                                             for (var i in snapshot.data!) {
                                                                               dropDownMenuItems.add(
                                                                                 DropdownMenuItem<String>(
-                                                                                  child: Text(i.subDocType),
                                                                                   value: i.subDocType,
+                                                                                  child: Text(i.subDocType),
                                                                                 ),
                                                                               );
                                                                             }
+
                                                                             return CICCDropdown(
-                                                                              initialValue: snapshot.data!
-                                                                                  .firstWhere((item) => item.subDocID == documentSubPreId)
-                                                                                  .subDocType, // Set initial value from API data
+                                                                              initialValue: "Select Sub Document",  // Set initial value to the placeholder
                                                                               onChange: (val) {
-                                                                                for (var a in snapshot.data!) {
-                                                                                  if (a.subDocType == val) {
-                                                                                    docSubTypeMetaId = a.subDocID;
+                                                                                if (val != "Select Sub Document") {
+                                                                                  for (var a in snapshot.data!) {
+                                                                                    if (a.subDocType == val) {
+                                                                                      docSubTypeMetaId = a.subDocID;
+                                                                                    }
                                                                                   }
                                                                                 }
                                                                               },
                                                                               items: dropDownMenuItems,
                                                                             );
-                                                                          } else if (snapshot.connectionState ==
-                                                                              ConnectionState.waiting) {
-                                                                            return SizedBox(); // Optional placeholder
+                                                                          } else if (snapshot.connectionState == ConnectionState.waiting) {
+                                                                            // Optionally, you can still show a placeholder or nothing here
+                                                                            return SizedBox();
                                                                           } else {
                                                                             return Center(
                                                                               child: Text(
