@@ -23,8 +23,9 @@ class EstablishmentManagerRepository {
   static String documentType = "/document-type";
   static String identityDocumentType = "/identity/GetDocType";
   static String getlistByCompany = "/officeListByCompany";
-  static String addCorporateDocument = "/corporate-document/addDocument";
-  static String CorporateDocument = "/corporate-document";
+  static String corporateDocument = "/corporate-document";
+  static String addOrgDoc = "/addOrgDocument";
+  static String addOfficeDoc = "/addOfficeDocument";
   static String workWeekSchedule = "/work-week-schedule";
   static String workWeekShiftSchedule = "/work-week-shift-schedule";
   static String holidays = "/holidays";
@@ -41,6 +42,9 @@ class EstablishmentManagerRepository {
   static String addAppRoleModule ="/app-role-module";
   static String companyDetail ="/CompanyDetail";
   static String vendors ="/vendors";
+  static String insurancevendors ="/insurance-vendor";
+  static String insurancevendorsContract ="/insurance-vendor-contract";
+  //static String add ="/add";
 
 
   static String companyAll(){
@@ -76,8 +80,8 @@ class EstablishmentManagerRepository {
   static String addOrgDocumentPost(){
     return "$addDocument";
   }
-  static String updateOrgCocument({required int docId}){
-    return "$CorporateDocument/$docId";
+  static String updatePrefillPatchCCVCPP({required int docId}){
+    return "$corporateDocument/$docId";
   }
   ///company-office-service/{Office_service_id}
   static String companyofficeservicepatch({required int Office_service_id}){
@@ -86,18 +90,32 @@ class EstablishmentManagerRepository {
   static String companyOfficeServiceGet(){
     return "$companyOfficeService";
   }
-  ///manage insurance-vendor
-  static String companyOfficeVendorGet(){
-    return "$vendors";
-  }
-  ///vendors/{vendorId}
-  static String companyOfficeVendorPatchDelete({required int vendorId}){
-    return "$vendors/$vendorId";
-  }
-  ///post
+  ///insurance-vendor/add
   static String companyOfficeVendorPost(){
-    return "$vendors$add";
+    return "$insurancevendors/$add";
   }
+  ///manage insurance-vendor /insurance-vendor/{CompanyId}/{officeId}/{pageNbr}/{NbrofRows}
+  static String companyOfficeVendorGet({required int companyId, required String officeId,required int pageNo,required int rowNo}){
+    return "$insurancevendors/$companyId/$officeId/$pageNo/$rowNo";
+  }
+  ///insurance-vendor/{insuranceVendorId}
+  static String companyOfficeVendorPatchDelete({required int insuranceVendorId}){
+    return "$insurancevendors/$insuranceVendorId";
+  }
+
+///insurance-vendor-contract/add
+  static String companyOfficeContractPost(){
+    return "$insurancevendorsContract/$add";
+  }
+  ///insurance-vendor-contract/{CompanyId}/{officeId}/{insuranceVendorId}/{pageNbr}/{NbrofRows}
+  static String companyOfficeContractGet({required int companyId, required String officeId,required int insuranceVendorId,required int pageNo,required int rowNo}){
+    return "$insurancevendorsContract/$companyId/$officeId/$insuranceVendorId/$pageNo/$rowNo";
+  }
+  ///insurance-vendor-contract/{insuranceVendorContracId}
+  static String companyOfficeContractPatchDeleteprefill({required int insuranceVendorContracId}){
+    return "$insurancevendorsContract/$insuranceVendorContracId";
+  }
+
   static String postCompanyOffice(){
     return "$companyOffice/$add";
   }
@@ -120,6 +138,10 @@ class EstablishmentManagerRepository {
   ///identity/GetDocumentListByCompanyAndOffice/{company_id}/{office_id}/{document_type_id}/{document_sub_type_id}/{pageNbr}/{NbrofRows}
   static String corporateGetListbyCompany({required int companyId,required String officeId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
     return "$identity/$getDocListCompanyOffice/$companyId/$officeId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
+  }
+  ///corporate-document/addOfficeDocument
+  static String addManageCCVCPPPost(){
+    return "$corporateDocument/$addOfficeDoc";
   }
   ///org doc
   static String getCiOrgDLicense({required int companyId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
@@ -157,14 +179,15 @@ class EstablishmentManagerRepository {
     required int pageNo, required int rowsNo }){
     return "/$identity$getlistByCompany/$companyId/$pageNo/$rowsNo";
   }
+  ///corporate-document/addOrgDocument
   static String addCorporateDocumentPost(){
-    return "$addCorporateDocument";
+    return "$corporateDocument/$addOrgDoc";
   }
   static String getPrefillCorporateDocument({required int documentId}){
-    return "$CorporateDocument/$documentId";
+    return "$corporateDocument/$documentId";
   }
   static String updateCorporateDocumentPost({required int docID}){
-    return "$CorporateDocument/$docID";
+    return "$corporateDocument/$docID";
   }
   /// Work Schedule
   static String workWeekScheduleGet(){

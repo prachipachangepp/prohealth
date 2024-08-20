@@ -86,162 +86,146 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
                                   loadingDuration: _isLoading,
-                                  onPressed: () async{
+                                  onPressed: () async {
                                     setState(() {
                                       _isLoading = true;
                                     });
                                     try {
-                                      await addCorporateDocumentPost(
+                                      await addManageCCVCPPPost(
                                         context: context,
                                         name: docNamecontroller.text,
                                         docTypeID: docTypeMetaId,
                                         docSubTypeID: docSubTypeMetaId,
-                                        docCreated: DateTime.now().toString(),
-                                        url: "url",
                                         expiryType: expiryType.toString(),
                                         expiryDate: calenderController.text,
-                                        expiryReminder: "Schedule",
-                                        officeId: "Office 1",
+                                        expiryReminder: "Not Applied",
+                                        officeId: widget.officeId,
                                       );
-                                      setState(() async {
-                                        await getManageCorporate(context,
-                                            widget.officeId,
-                                            widget.docID,
-                                            widget.subDocID,
-                                            1, 20);
-                                        Navigator.pop(context);
-                                        expiryType = '';
-                                        calenderController.clear();
-                                        docIdController.clear();
-                                        docNamecontroller.clear();
-                                      });
+                                      Navigator.pop(context);
                                     } finally {
                                       setState(() {
                                         _isLoading = false;
                                       });
                                     }
                                   },
-                                  child:  FutureBuilder<List<DocumentTypeData>>(
-                                      future: documentTypeGet(context),
-                                      builder: (context,snapshot) {
-                                        if(snapshot.connectionState == ConnectionState.waiting){
-                                          return Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: 350,
-                                                height: 30,
-                                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                              )
-                                          );
-                                        }
-                                        if (snapshot.data!.isEmpty) {
-                                          return Center(
-                                            child: Text(
-                                              AppString.dataNotFound,
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                fontWeight: FontWeightManager.medium,
-                                                fontSize: FontSize.s12,
-                                                color: ColorManager.mediumgrey,
-                                              ),
+                                  child: FutureBuilder<List<DocumentTypeData>>(
+                                    future: documentTypeGet(context),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                        return Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.grey[100]!,
+                                          child: Container(
+                                            width: 350,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey,
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      if (snapshot.data!.isEmpty) {
+                                        return Center(
+                                          child: Text(
+                                            AppString.dataNotFound,
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      if (snapshot.hasData) {
+                                        List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                        int docType = snapshot.data![0].docID; // Set initial docType
+                                        docTypeMetaId = docType; // Set initial docTypeMetaId
+
+                                        for (var i in snapshot.data!) {
+                                          dropDownMenuItems.add(
+                                            DropdownMenuItem<String>(
+                                              child: Text(i.docType),
+                                              value: i.docType,
                                             ),
                                           );
                                         }
-                                        if(snapshot.hasData){
-                                          List dropDown = [];
-                                          int docType = 0;
-                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                          for(var i in snapshot.data!){
-                                            dropDownMenuItems.add(
-                                              DropdownMenuItem<String>(
-                                                child: Text(i.docType),
-                                                value: i.docType,
-                                              ),
-                                            );
-                                          }
-                                          return CICCDropdown(
-                                              initialValue: dropDownMenuItems[0].value,
-                                              onChange: (val){
-                                                for(var a in snapshot.data!){
-                                                  if(a.docType == val){
-                                                    docType = a.docID;
-                                                    docTypeMetaId = docType;
-
-                                                  }
-                                                }
-                                                identityDocumentTypeGet(context,docTypeMetaId).then((data) {
-                                                  _identityDataController.add(data);
-                                                }).catchError((error) {
-                                                  // Handle error
-                                                });
-
-                                                print(":::${docType}");
-                                                print(":::<>${docTypeMetaId}");
-                                              },
-                                              items:dropDownMenuItems
-                                          );
-                                        }else{
-                                          return SizedBox();
-                                        }
+                                        return CICCDropdown(
+                                          initialValue: dropDownMenuItems[0].value,
+                                          onChange: (val) {
+                                            for (var a in snapshot.data!) {
+                                              if (a.docType == val) {
+                                                docType = a.docID;
+                                                docTypeMetaId = docType;
+                                              }
+                                            }
+                                            identityDocumentTypeGet(context, docTypeMetaId).then((data) {
+                                              _identityDataController.add(data);
+                                            }).catchError((error) {
+                                              // Handle error
+                                            });
+                                          },
+                                          items: dropDownMenuItems,
+                                        );
+                                      } else {
+                                        return SizedBox();
                                       }
+                                    },
                                   ),
                                   child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                                      stream: _identityDataController.stream,
-                                      builder: (context,snapshot) {
-                                        if(snapshot.connectionState == ConnectionState.waiting){
-                                          return Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: 350,
-                                                height: 30,
-                                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                              )
-                                          );
-                                        }
-                                        if (snapshot.data!.isEmpty) {
-                                          return Center(
-                                            child: Text(
-                                              AppString.dataNotFound,
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                fontWeight: FontWeightManager.medium,
-                                                fontSize: FontSize.s12,
-                                                color: ColorManager.mediumgrey,
-                                              ),
+                                    stream: _identityDataController.stream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                        List<DropdownMenuItem<String>> dropDownMenuItems = [];
+
+                                        // Add a placeholder item for "Select Subdocument"
+                                        dropDownMenuItems.add(
+                                          DropdownMenuItem<String>(
+                                            value: "Select Sub Document",
+                                            child: Text("Select Sub Document"),
+                                          ),
+                                        );
+
+                                        for (var i in snapshot.data!) {
+                                          dropDownMenuItems.add(
+                                            DropdownMenuItem<String>(
+                                              value: i.subDocType,
+                                              child: Text(i.subDocType),
                                             ),
                                           );
                                         }
-                                        if(snapshot.hasData){
-                                          List dropDown = [];
-                                          int docType = 0;
-                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                          for(var i in snapshot.data!){
-                                            dropDownMenuItems.add(
-                                              DropdownMenuItem<String>(
-                                                value: i.subDocType,
-                                                child: Text(i.subDocType),
-                                              ),
-                                            );
-                                          }
-                                          return CICCDropdown(
-                                              initialValue: dropDownMenuItems[0].value,
-                                              onChange: (val){
-                                                for(var a in snapshot.data!){
-                                                  if(a.subDocType == val){
-                                                    docType = a.subDocID;
-                                                    docSubTypeMetaId = docType;
-                                                  }
+
+                                        return CICCDropdown(
+                                          initialValue: "Select Sub Document",  // Set initial value to the placeholder
+                                          onChange: (val) {
+                                            if (val != "Select Sub Document") {
+                                              for (var a in snapshot.data!) {
+                                                if (a.subDocType == val) {
+                                                  docSubTypeMetaId = a.subDocID;
                                                 }
-                                                print(":::${docType}");
-                                                print(":::<>${docSubTypeMetaId}");
-                                              },
-                                              items:dropDownMenuItems
-                                          );
-                                        }else{
-                                          return SizedBox(height:1,width: 1,);
-                                        }
+                                              }
+                                            }
+                                          },
+                                          items: dropDownMenuItems,
+                                        );
+                                      } else if (snapshot.connectionState == ConnectionState.waiting) {
+                                        // Optionally, you can still show a placeholder or nothing here
+                                        return SizedBox();
+                                      } else {
+                                        return Center(
+                                          child: Text(
+                                            AppString.dataNotFound,
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                        );
                                       }
+                                    },
                                   ),
+
                                   title: 'Add Policies',
                                 );
                               },
@@ -330,7 +314,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       Text(
-                                                       policiesdata.doccreatedAt.toString(),textAlign:TextAlign.center,
+                                                        "ID : ${ policiesdata.docId.toString()}",
+                                                      // policiesdata.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                         style: GoogleFonts.firaSans(
                                                           fontSize: 10,
                                                           fontWeight: FontWeight.w400,
@@ -355,33 +340,199 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                               //  Text(''),
                                               Row(
                                                 children: [
-                                                  IconButton(onPressed: (){
-                                                    showDialog(context: context, builder: (context){
-                                                      return CCScreenEditPopup(
-                                                        height: 350,
-                                                        title: "Edit Policies & Procedures",
-                                                        idDocController: docIdController,
-                                                        nameDocController: docNamecontroller,
-                                                        child:  const CICCDropdown(
-                                                          initialValue: 'Corporate & Compliance Documents',
-                                                          items: [
-                                                            DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
-                                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                                          ],),
-                                                        child1:   const CICCDropdown(
-                                                          initialValue: 'Policies and Procedures',
-                                                          items: [
-                                                            DropdownMenuItem(value: 'Policies and Procedures', child: Text('Licenses')),
-                                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                                          ],),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return FutureBuilder<CorporatePrefillCCVVPP>(
+                                                            future: getManageCCPrefill(context, policiesdata.docId),
+                                                            builder: (context, snapshotPrefill) {
+                                                              if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                                return Center(
+                                                                  child: CircularProgressIndicator(
+                                                                    color: ColorManager.blueprime,
+                                                                  ),
+                                                                );
+                                                              }
+
+                                                              // Prefill values from API
+                                                              var documentPreId = snapshotPrefill.data!.documentId;
+                                                              docIdController = TextEditingController(
+                                                                text: snapshotPrefill.data!.documentId.toString(),
+                                                              );
+
+                                                              var documentTypePreId = snapshotPrefill.data!.documentTypeId;
+                                                              docTypeMetaId = documentTypePreId;
+
+                                                              var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;
+                                                              docSubTypeMetaId = documentSubPreId;
+
+                                                              var name = snapshotPrefill.data!.docName;
+                                                              nameOfDocController = TextEditingController(
+                                                                text: snapshotPrefill.data!.docName,
+                                                              );
+
+                                                              var calender = snapshotPrefill.data!.expiryDate;
+                                                              calenderController = TextEditingController(
+                                                                text: snapshotPrefill.data!.expiryDate,
+                                                              );
+
+                                                              var expiry = snapshotPrefill.data!.expiryType;
+                                                              expiryType = expiry;
+
+                                                              // Fetch sub-document types based on the document type
+                                                              identityDocumentTypeGet(context, documentTypePreId).then((data) {
+                                                                _identityDataController.add(data);
+                                                              }).catchError((error) {
+                                                                // Handle error
+                                                              });
+
+                                                              return StatefulBuilder(
+                                                                builder: (BuildContext context,
+                                                                    void Function(void Function()) setState) {
+                                                                  return CCScreenEditPopup(
+                                                                    height: AppSize.s350,
+                                                                    title: 'Edit Leases & Services',
+                                                                    id: documentPreId,
+                                                                    idDocController: docIdController,
+                                                                    nameDocController: nameOfDocController,
+                                                                    loadingDuration: _isLoading,
+                                                                    onSavePressed: () async {
+                                                                      setState(() {
+                                                                        _isLoading = true;
+                                                                      });
+                                                                      try {
+                                                                        await updateManageCCVVPP(
+                                                                          context: context,
+                                                                          docId: documentPreId,
+                                                                          name: nameOfDocController.text,
+                                                                          docTypeID: docTypeMetaId,
+                                                                          docSubTypeID: docSubTypeMetaId,
+                                                                          docCreated: snapshotPrefill.data!.docCreated.toString(),
+                                                                          url: "url",
+                                                                          expiryType: expiry.toString(),
+                                                                          expiryDate: calender.toString(),
+                                                                          expiryReminder: "Schedule",
+                                                                          officeId: widget.officeId,
+                                                                        );
+                                                                      } finally {
+                                                                        setState(() {
+                                                                          _isLoading = false;
+                                                                        });
+                                                                        Navigator.pop(context);
+                                                                      }
+                                                                    },
+
+                                                                    // Document Type Dropdown
+                                                                    child: FutureBuilder<List<DocumentTypeData>>(
+                                                                      future: documentTypeGet(context),
+                                                                      builder: (context, snapshot) {
+                                                                        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                                                          for (var i in snapshot.data!) {
+                                                                            dropDownMenuItems.add(
+                                                                              DropdownMenuItem<String>(
+                                                                                child: Text(i.docType),
+                                                                                value: i.docType,
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                          return CICCDropdown(
+                                                                            initialValue: snapshot.data!
+                                                                                .firstWhere((item) => item.docID == documentTypePreId)
+                                                                                .docType,
+                                                                            onChange: (val) {
+                                                                              for (var a in snapshot.data!) {
+                                                                                if (a.docType == val) {
+                                                                                  docTypeMetaId = a.docID;
+                                                                                }
+                                                                              }
+                                                                              identityDocumentTypeGet(context, docTypeMetaId)
+                                                                                  .then((data) {
+                                                                                _identityDataController.add(data);
+                                                                              }).catchError((error) {
+                                                                                // Handle error
+                                                                              });
+                                                                            },
+                                                                            items: dropDownMenuItems,
+                                                                          );
+                                                                        } else if (snapshot.connectionState ==
+                                                                            ConnectionState.waiting) {
+                                                                          return SizedBox(); // Optional placeholder
+                                                                        } else {
+                                                                          return Center(
+                                                                            child: Text(
+                                                                              AppString.dataNotFound,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                fontWeight: FontWeightManager.medium,
+                                                                                fontSize: FontSize.s12,
+                                                                                color: ColorManager.mediumgrey,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                      },
+                                                                    ),
+
+                                                                    // Sub-Document Type Dropdown
+                                                                    child1: StreamBuilder<List<IdentityDocumentIdData>>(
+                                                                      stream: _identityDataController.stream,
+                                                                      builder: (context, snapshot) {
+                                                                        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                                                          for (var i in snapshot.data!) {
+                                                                            dropDownMenuItems.add(
+                                                                              DropdownMenuItem<String>(
+                                                                                child: Text(i.subDocType),
+                                                                                value: i.subDocType,
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                          return CICCDropdown(
+                                                                            initialValue: snapshot.data!
+                                                                                .firstWhere((item) => item.subDocID == documentSubPreId)
+                                                                                .subDocType, // Set initial value from API data
+                                                                            onChange: (val) {
+                                                                              for (var a in snapshot.data!) {
+                                                                                if (a.subDocType == val) {
+                                                                                  docSubTypeMetaId = a.subDocID;
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            items: dropDownMenuItems,
+                                                                          );
+                                                                        } else if (snapshot.connectionState ==
+                                                                            ConnectionState.waiting) {
+                                                                          return SizedBox(); // Optional placeholder
+                                                                        } else {
+                                                                          return Center(
+                                                                            child: Text(
+                                                                              AppString.dataNotFound,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                fontWeight: FontWeightManager.medium,
+                                                                                fontSize: FontSize.s12,
+                                                                                color: ColorManager.mediumgrey,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                      },
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
                                                           );
-                                                    });
-                                                  }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                                  IconButton(onPressed: (){
+                                                        },
+                                                      );
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.edit_outlined,
+                                                      size: 18,
+                                                      color: ColorManager.bluebottom,
+                                                    ),
+                                                  ),                                                  IconButton(onPressed: (){
                                                     showDialog(context: context, builder: (context) => DeletePopup(
                                                         title: 'Delete Policies Procedure',
                                                         onCancel: (){
@@ -389,7 +540,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                     }, onDelete: (){
                                                       Navigator.pop(context);
                                                           setState(() async{
-                                                      await deleteDocument(
+                                                      await deleteManageCorporate(
                                                           context,
                                                           policiesdata.docId);
                                                       getManageCorporate(context, widget.officeId, widget.docID, widget.subDocID, 1, 20).then((data) {

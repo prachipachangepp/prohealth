@@ -11,21 +11,25 @@ import '../../whitelabelling/success_popup.dart';
 
 class CustomPopup extends StatefulWidget {
   final TextEditingController namecontroller;
-  final TextEditingController? addressController;
-  final TextEditingController? emailController;
-  final TextEditingController? workemailController;
-  final TextEditingController? phoneController;
-  final TextEditingController? workPhoneController;
-  final Widget? childZone;
-  final Widget? childCity;
+  // final TextEditingController? addressController;
+  // final TextEditingController? emailController;
+  // final TextEditingController? workemailController;
+  // final TextEditingController? phoneController;
+  // final TextEditingController? workPhoneController;
+  // final Widget? childZone;
+  // final Widget? childCity;
    final VoidCallback onPressed;
    final String title;
-   CustomPopup({Key? key, required this.onPressed,
-     required this.title, required this.namecontroller,
-     this.addressController,
-     this.emailController, this.workemailController,
-     this.phoneController, this.workPhoneController,
-     this.childZone, this.childCity}) : super(key: key);
+   final String buttontxt;
+   final String successpopuptext;
+   CustomPopup({Key? key,
+     required this.onPressed,
+     required this.title, required this.namecontroller, required this.buttontxt, required this.successpopuptext,
+     // this.addressController,
+     // this.emailController, this.workemailController,
+     // this.phoneController, this.workPhoneController,
+     // this.childZone, this.childCity
+   }) : super(key: key);
 
   @override
   State<CustomPopup> createState() => _CustomPopupState();
@@ -38,7 +42,7 @@ class _CustomPopupState extends State<CustomPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: widget.childZone == null ? AppSize.s250 : AppSize.s550,
+        height: AppSize.s200,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -81,14 +85,14 @@ class _CustomPopupState extends State<CustomPopup> {
                 ],
               ),
             ),
-            SizedBox(height: AppSize.s5),
+            SizedBox(height: AppSize.s24),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
                 horizontal: AppPadding.p20,
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
@@ -99,154 +103,20 @@ class _CustomPopupState extends State<CustomPopup> {
                 ],
               ),
             ),
-            SizedBox(height: AppSize.s5),
-            widget.addressController == null ? Offstage() :
             Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SMTextFConst(
-                    controller: widget.addressController!,
-                    keyboardType: TextInputType.text,
-                    text: AppString.address,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: AppSize.s5),
-            widget.childCity == null ? Offstage() :
-            Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppString.city,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color:ColorManager.granitegray,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  widget.childCity!,
-                ]
-            ),
-            SizedBox(height: AppSize.s5),
-            widget.emailController == null ? Offstage() :
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SMTextFConst(
-                    controller: widget.emailController!,
-                    keyboardType: TextInputType.text,
-                    text: AppString.email,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: AppSize.s5),
-            widget.phoneController == null ? Offstage() :
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SMTextFConst(
-                    controller: widget.phoneController!,
-                    keyboardType: TextInputType.text,
-                    text: AppString.phone,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: AppSize.s5),
-            widget.workemailController == null ? Offstage() :
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SMTextFConst(
-                    controller: widget.workemailController!,
-                    keyboardType: TextInputType.text,
-                    text: AppString.workemail,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: AppSize.s5),
-            widget.workPhoneController == null ? Offstage() :
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SMTextFConst(
-                    controller: widget.workPhoneController!,
-                    keyboardType: TextInputType.text,
-                    text:"Work Phone",
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: AppSize.s5),
-            widget.childZone == null ? Offstage() :
-            Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppString.zone,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color:ColorManager.granitegray,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                   widget.childZone!,
-                ]
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
+              padding: const EdgeInsets.only(bottom: AppPadding.p24,top: AppPadding.p24),
               child: Center(
                 child: CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.Add,
+                  text: widget.buttontxt,
                   onPressed: () {
                     widget.onPressed();
                     Navigator.pop(context);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AddSuccessPopup(message: 'Added Successfully',);
+                        return AddSuccessPopup(message: widget.successpopuptext,);
                       },
                     );
                   },

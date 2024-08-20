@@ -11,13 +11,14 @@ class CustomIconButtonConst extends StatelessWidget {
   final IconData? icon;
   final VoidCallback onPressed;
   final double? width;
+  final bool? enabled;
 
   const CustomIconButtonConst({
     this.text,
     this.icon,
     required this.onPressed,
     this.width,
-    Key? key,
+    Key? key, this.enabled,
   }) : super(key: key);
 
   @override

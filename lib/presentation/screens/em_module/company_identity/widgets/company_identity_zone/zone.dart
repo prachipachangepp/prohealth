@@ -320,7 +320,6 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           zoneNumberController.text,
                                           countyId,
                                           widget.officeId);
-                                      Navigator.pop(context);
                                     },
                                     child: FutureBuilder<
                                             List<AllCountyGetList>>(

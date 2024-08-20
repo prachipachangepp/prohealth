@@ -86,16 +86,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
       stream: _controller.stream,
       builder: (context, snapshot) {
         snapData.clear();
-        orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 20).then((data) {
-          _controller.add(data);
-        }).catchError((error) {
-          // Handle error
-        });
-        // Future.delayed(Duration(milliseconds: 1000), () {
-        //   CircularProgressIndicator(color: ColorManager.blueprime,);
-        //
-        //
-        // });
+        getORGDoc(context, docTypeMetaId, docSubTypeMetaId, 1, 20);
         print('1111111');
         print(":::SUBDOCID${widget.subDocID} + ${widget.docID}");
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -338,18 +329,12 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                               expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                               officeId: widget.officeId,
                                                             );
-                                                            setState(() async {
-                                                              await orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 20).then((data) {
-                                                                _controller.add(data);
-                                                              }).catchError((error) {
-                                                                // Handle error
-                                                              });
-                                                              Navigator.pop(context);
-                                                            });
+
                                                           } finally {
                                                             setState(() {
                                                               _isLoading = false;
                                                             });
+                                                            Navigator.pop(context);
                                                           }
 
 
@@ -524,18 +509,11 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                       await deleteDocument(
                                                           context,
                                                           snapshot.data![index].docId!);
-                                                      setState(() async {
-                                                        await orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 6).then((data) {
-                                                          _controller.add(data);
-                                                        }).catchError((error) {
-                                                          // Handle error
-                                                        });
-                                                        Navigator.pop(context);
-                                                      });
                                                     } finally {
                                                       setState(() {
                                                         _isLoading = false;
                                                       });
+                                                      Navigator.pop(context);
                                                     }
 
                                                   });

@@ -368,12 +368,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                            await launch(url);
-                             // Navigator.push(
-                             //   context,
-                             //   MaterialPageRoute(
-                             //    builder: (context) => OnBoardingWelcome(),
-                             //  ),
-                             // );
+                          //    Navigator.push(
+                          //      context,
+                          //      MaterialPageRoute(
+                          //       builder: (context) => OnBoardingWelcome(),
+                          //     ),
+                          //    );
                            } else {
                             throw 'Could not launch $url';
                           }

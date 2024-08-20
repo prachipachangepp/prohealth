@@ -137,8 +137,8 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                               child: Center(
                                 child: Text(AppStringHr.inventoryid,
                                     style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeightManager.bold,
                                       color: Colors.white,
                                       decoration: TextDecoration.none,
                                     )),

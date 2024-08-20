@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/thank_you_screen.dart';
 
@@ -12,7 +14,8 @@ import 'certificate_screen.dart';
 import 'offer_letter_description_screen.dart';
 
 class FormNineScreen extends StatefulWidget {
-  const FormNineScreen({Key? key}) : super(key: key);
+  final int? employeeID;
+  const FormNineScreen({Key? key, this.employeeID}) : super(key: key);
 
   @override
   State<FormNineScreen> createState() => _FormNineScreenState();
@@ -39,6 +42,10 @@ class _FormNineScreenState extends State<FormNineScreen> {
   TextEditingController foreignPassportNumber = TextEditingController();
   TextEditingController countryOfIssuance = TextEditingController();
   TextEditingController _controller = TextEditingController();
+  bool isUSCitizen = false;
+  bool isNonUSCitizen = false;
+  bool isAuthoRiseToWork = false;
+  bool isLawFullResidence = false;
 
   List<bool> _checkboxValues = List<bool>.generate(4, (index) => false);
 
@@ -53,11 +60,11 @@ class _FormNineScreenState extends State<FormNineScreen> {
             label,
             style: GoogleFonts.firaSans(
               fontSize: 12,
-              color: Color(0xFF686464).withOpacity(0.50),
-              fontWeight: FontWeight.w400,
+              color: ColorManager.mediumgrey,
+              fontWeight: FontWeight.w500,
             ),
           ),
-        SizedBox(height: 4),
+        SizedBox(height: 7),
         CustomTextFieldRegister(
           height: AppSize.s30,
           width: width ?? MediaQuery.of(context).size.width / 2.8,
@@ -86,6 +93,15 @@ class _FormNineScreenState extends State<FormNineScreen> {
           onChanged: (bool? value) {
             setState(() {
               _checkboxValues[index] = value!;
+              isUSCitizen = _checkboxValues[0];
+              isNonUSCitizen = _checkboxValues[1];
+              isLawFullResidence =  _checkboxValues[2];
+              isAuthoRiseToWork =  _checkboxValues[3];
+
+              print('isUSCitized ${isUSCitizen}');
+              print('isNonUSCitized ${isNonUSCitizen}');
+              print('isLawFulWork ${isLawFullResidence}');
+              print('IsAuthoriseWork ${isAuthoRiseToWork}');
             });
           },
         ),
@@ -145,7 +161,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Row(
               children: [
                 Expanded(
@@ -165,7 +181,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Row(
               children: [
                 Expanded(
@@ -186,7 +202,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Row(
               children: [
                 Expanded(
@@ -207,7 +223,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Row(
               children: [
                 Expanded(
@@ -224,7 +240,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Row(
               children: [
                 Expanded(
@@ -242,7 +258,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -261,8 +277,8 @@ class _FormNineScreenState extends State<FormNineScreen> {
                         lastDate: DateTime(2101),
                       );
                       if (pickedDate != null) {
-                        String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
-                        _controller.text = formattedDate;
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                        dob.text = formattedDate;
                       }
                     },
                   ),
@@ -290,12 +306,15 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
                 SizedBox(width: 100),
                 Expanded(
-                  child: _buildLabeledTextField(
-                      '',
-                      alienRegistrationNumber,
-                      'Enter Text',
-                      TextInputType.text,
-                      width: MediaQuery.of(context).size.width/5
+                  child: Visibility(
+                    visible: isLawFullResidence,
+                    child: _buildLabeledTextField(
+                        '',
+                        alienRegistrationNumber,
+                        'Enter Text',
+                        TextInputType.text,
+                        width: MediaQuery.of(context).size.width/5
+                    ),
                   ),
                 ),
               ],
@@ -310,12 +329,30 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
                 SizedBox(width: 100),
                 Expanded(
-                  child: _buildLabeledTextField(
-                      '',
-                      workAuthorizationExpirationDate,
-                      'Enter Text',
-                      TextInputType.text,
-                      width: MediaQuery.of(context).size.width/5
+                  child: Visibility(
+                    visible: isAuthoRiseToWork,
+                    child: _buildLabeledTextField(
+                        '',
+                        workAuthorizationExpirationDate,
+                        'Enter Text',
+                        TextInputType.text,
+                        width: MediaQuery.of(context).size.width/5,
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.calendar_month_outlined, color: Color(0xff50B5E5), size: 16,),
+                        onPressed: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2101),
+                          );
+                          if (pickedDate != null) {
+                            String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                            workAuthorizationExpirationDate.text = formattedDate;
+                          }
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -491,9 +528,21 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 ),
                 SizedBox(width: 10),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
+                  onPressed: () async{
+                    //Navigator.pop(context);
+                    var response =  await addEmployeeI9Form(context: context, employeeId: widget.employeeID!, firstName: firstName.text,
+                        middleName: middleInitial.text, lastName: lastName.text, lastNameOther: otherLastNames.text, phonrNumber: phoneNumber.text,
+                        city: cityTown.text, state: state.text, address: address.text, zipCode: zipCode.text, SSNNbr: ssn.text, email: email.text,
+                        DOB: dob.text, isUSACitizen: isUSCitizen, isNonUSACitizen: isNonUSCitizen, isLawfullResident: isLawFullResidence,
+                        alienRegNbr: isLawFullResidence == false ? "--" :alienRegistrationNumber.text, isAuthorizedToWork: isAuthoRiseToWork, unthorizedToWorkDate: isAuthoRiseToWork == false ?"0000-00-00":workAuthorizationExpirationDate.text,
+                        I94AdmissionNbr: formI94AdmissionNumber.text, foreignPassportNbr: foreignPassportNumber.text, countryOfIssue: countryOfIssuance.text,
+                        officeId: "");
+                    if(response.statusCode == 200 || response.statusCode == 201){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
+                    }else{
+
+                    }
+
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF50B5E5),

@@ -42,19 +42,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
    final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   int _selectedIndex = 0;
-  // String _selectedItem = 'Corporate & Compliance Documents';
-  // void _onDropdownItemSelected(String newValue) {
-  //   setState(() {
-  //     _selectedItem = newValue;
-  //   });
-  // }
-  // String _selectedItem1 = 'Licenses';
-  //
-  // void _onDropdownItemSelected1(String newValue) {
-  //   setState(() {
-  //     _selectedItem1 = newValue;
-  //   });
-  // }
 
   void _selectButton(int index) {
     setState(() {
@@ -244,6 +231,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                             return StatefulBuilder(
                               builder: (BuildContext context, void Function(void Function()) setState) {
                                 return AddOrgDocButton(
+                                  title:"Add Document",
                                   calenderController: calenderController,
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
@@ -261,20 +249,16 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                         name: docNamecontroller.text,
                                         docTypeID: docTypeMetaId,
                                         docSubTypeID: docTypeMetaId == 10 ? 0 : docSubTypeMetaId,
-                                        docCreated: DateTime.now().toString(),
-                                        url: "url",
+                                        // docCreated: DateTime.now().toString(),
+                                        // url: "url",
                                         expiryType: selectedExpiryType.toString(),
                                         expiryDate: expiryTypeToSend,
                                         expiryReminder: selectedExpiryType.toString(),
                                         officeId: widget.officeId,
                                       );
-                                      await orgSubDocumentGet(
-                                        context,
-                                        docTypeMetaId,
-                                        docSubTypeMetaId,
-                                        1,
-                                        15,
-                                      );
+                                    //  await getORGDoc(context, docID, docSubTypeMetaId, 1, 20);
+                                      await getORGDoc(context, docTypeMetaId,
+                                          docSubTypeMetaId, 1, 20);
                                       Navigator.pop(context);
                                       setState(() {
                                         expiryType = '';
@@ -531,7 +515,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                       ],
                                     ),
                                   ),
-                                  title: '',
                                 );
                               },
                             );

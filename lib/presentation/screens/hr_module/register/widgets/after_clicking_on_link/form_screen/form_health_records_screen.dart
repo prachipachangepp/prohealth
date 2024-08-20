@@ -41,8 +41,8 @@ class HealthRecordsScreen extends StatefulWidget {
 }
 
 class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
-  final StreamController<List<HREmployeeDocumentModal>> healthrecord =
-      StreamController<List<HREmployeeDocumentModal>>();
+
+  final StreamController<List<HREmployeeDocumentModal>> healthrecord = StreamController<List<HREmployeeDocumentModal>>();
   @override
   void initState() {
     // TODO: implement initState
@@ -52,10 +52,11 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
       AppConfig.empdocumentTypeMetaDataId,
       1,
       20,
-    ).then((data) {
-      healthrecord.add(data);
-    }).catchError((error) {});
+    ).then((data){healthrecord.add(data);}).catchError((error){});
   }
+
+
+
 
   List<String> _fileNames = [];
   bool _loading = false;
@@ -137,7 +138,11 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
     }
   }
 
+
+
   List<Uint8List?> finalPaths = [];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -215,214 +220,217 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
 
-          Container(
-            height: 600,
-            // height: MediaQuery.of(context).size.height / 1,
-            // width: MediaQuery.of(context).size.width / 1,
+          SingleChildScrollView(
+            child: Container(
+              height: 500,
+              child:
+              StreamBuilder<List<HREmployeeDocumentModal>>(
+                stream: healthrecord.stream,
+                // builder: getHREmployeeDoc(
+                //     context, AppConfig.empdocumentTypeMetaDataId, 1, 20),
 
-            child: StreamBuilder<List<HREmployeeDocumentModal>>(
-              stream: healthrecord.stream,
-              // builder: getHREmployeeDoc(
-              //     context, AppConfig.empdocumentTypeMetaDataId, 1, 20),
 
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<HREmployeeDocumentModal>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Text("Error :${snapshot.error}");
-                } else {
-                  List<HREmployeeDocumentModal> documents = snapshot.data!;
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<HREmployeeDocumentModal>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text("Error :${snapshot.error}");
+                  } else {
+                    List<HREmployeeDocumentModal> documents = snapshot.data!;
 
-                  // Ensure _fileNames is at least as long as documents
-                  if (_fileNames.length < documents.length) {
-                    _fileNames.addAll(List.generate(
-                      documents.length - _fileNames.length,
-                      (index) => '', // Or any default value
-                    ));
-                  }
+                    // Ensure _fileNames is at least as long as documents
+                    if (_fileNames.length < documents.length) {
+                      _fileNames.addAll(List.generate(
+                        documents.length - _fileNames.length,
+                        (index) => '', // Or any default value
+                      ));
+                    }
 
-                  if (finalPaths.length < documents.length) {
-                    finalPaths.addAll(
-                      List.generate(
-                          documents.length - finalPaths.length, (_) => null),
-                    );
-                  }
-                  return ListView.builder(
-                    itemCount: documents.length,
-                    itemBuilder: (context, index) {
-                      final document = documents[index];
-                      final fileName =
-                          _fileNames.isNotEmpty && index < _fileNames.length
-                              ? _fileNames[index]
-                              : null;
+                    if (finalPaths.length < documents.length) {
+                      finalPaths.addAll(
+                        List.generate(documents.length - finalPaths.length, (_) => null),
+                      );
+                    }
+                    return ListView.builder(
+                      itemCount: documents.length,
+                      itemBuilder: (context, index) {
+                        final document = documents[index];
+                        final fileName =
+                            _fileNames.isNotEmpty && index < _fileNames.length
+                                ? _fileNames[index]
+                                : null;
 
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 150, vertical: 10),
-                        child: Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: ColorManager.white,
-                            borderRadius: BorderRadius.circular(4),
-                            boxShadow: [
-                              BoxShadow(
-                                color: ColorManager.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        document.docName,
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          color: const Color(0xff686464),
-                                        ),
-                                      ),
-                                      SizedBox(height: 8),
-                                      Flexible(
-                                        child: Text(
-                                          'Upload Physical Exam records in pdf, jpg or png format',
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 150, vertical: 10),
+                          child: Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              color: ColorManager.white,
+                              borderRadius: BorderRadius.circular(4),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: ColorManager.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          document.docName,
                                           style: GoogleFonts.firaSans(
                                             fontSize: 12,
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w600,
                                             color: const Color(0xff686464),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                        SizedBox(height: 8),
+                                        Flexible(
+                                          child: Text(
+                                            'Upload Physical Exam records in pdf, jpg or png format',
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xff686464),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 20),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: const Color(0xffB1B1B1)),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      FilePickerResult? result =
-                                          await FilePicker.platform.pickFiles();
-                                      if (result != null) {
-                                        try {
-                                          Uint8List? bytes =
-                                              result.files.first.bytes;
-                                          if (bytes != null) {
-                                            setState(() {
-                                              if (_fileNames.length <= index) {
-                                                _fileNames.add(
-                                                    result.files.first.name!);
-                                              } else {
-                                                _fileNames[index] =
-                                                    result.files.first.name!;
-                                              }
+                                  SizedBox(width: 20),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: const Color(0xffB1B1B1)),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: ElevatedButton(
+                                          onPressed: () async {
+                                            FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                            if (result != null) {
+                                              try {
+                                                Uint8List? bytes = result.files.first.bytes;
+                                                if (bytes != null) {
+                                                  setState(() {
+                                                    if (_fileNames.length <= index) {
+                                                      _fileNames.add(result.files.first.name!);
+                                                    } else {
+                                                      _fileNames[index] = result.files.first.name!;
+                                                    }
 
-                                              if (finalPaths.length <= index) {
-                                                finalPaths.add(bytes);
-                                              } else {
-                                                finalPaths[index] = bytes;
+                                                    if (finalPaths.length <= index) {
+                                                      finalPaths.add(bytes);
+                                                    } else {
+                                                      finalPaths[index] = bytes;
+                                                    }
+                                                  });
+                                                }
+                                              } catch (e) {
+                                                print(e);
                                               }
-                                            });
-                                          }
-                                        } catch (e) {
-                                          print(e);
-                                        }
-                                      }
-                                      // FilePickerResult? result =
-                                      //     await FilePicker.platform
-                                      //         .pickFiles();
-                                      // if (result != null) {
-                                      //   try {
-                                      //     Uint8List? bytes =
-                                      //         result.files.first.bytes;
-                                      //     XFile xlfile =
-                                      //         XFile(result.xFiles.first.path);
-                                      //     File xfileToFile =
-                                      //         File(xlfile.path);
-                                      //     XFile xFile =
-                                      //         await convertBytesToXFile(
-                                      //       bytes!,
-                                      //       result.xFiles.first.name,
-                                      //     );
-                                      //     if (_fileNames.length <= index) {
-                                      //       _fileNames.add(
-                                      //           result.files.first.name!);
-                                      //     } else {
-                                      //       _fileNames[index] =
-                                      //           result.files.first.name!;
-                                      //     }
-                                      //     finalPath =
-                                      //         result.files.first.bytes;
-                                      //     // setState(() {
-                                      //     //   _documentUploaded = true;
-                                      //     // });
-                                      //   } catch (e) {
-                                      //     print(e);
-                                      //   }
-                                      // }
-                                    },
-                                    child: Text(
-                                      "Upload file",
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white,
+                                            }
+                                            // FilePickerResult? result =
+                                            //     await FilePicker.platform
+                                            //         .pickFiles();
+                                            // if (result != null) {
+                                            //   try {
+                                            //     Uint8List? bytes =
+                                            //         result.files.first.bytes;
+                                            //     XFile xlfile =
+                                            //         XFile(result.xFiles.first.path);
+                                            //     File xfileToFile =
+                                            //         File(xlfile.path);
+                                            //     XFile xFile =
+                                            //         await convertBytesToXFile(
+                                            //       bytes!,
+                                            //       result.xFiles.first.name,
+                                            //     );
+                                            //     if (_fileNames.length <= index) {
+                                            //       _fileNames.add(
+                                            //           result.files.first.name!);
+                                            //     } else {
+                                            //       _fileNames[index] =
+                                            //           result.files.first.name!;
+                                            //     }
+                                            //     finalPath =
+                                            //         result.files.first.bytes;
+                                            //     // setState(() {
+                                            //     //   _documentUploaded = true;
+                                            //     // });
+                                            //   } catch (e) {
+                                            //     print(e);
+                                            //   }
+                                            // }
+                                          },
+                                          child: Text(
+                                            "Upload file",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Color(0xff50B5E5),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color(0xff50B5E5),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                _loading
-                                    ? SizedBox(
+                                      _loading
+                                          ? SizedBox(
                                         width: 25,
                                         height: 25,
                                         child: CircularProgressIndicator(
                                           color: ColorManager.blueprime,
                                         ),
                                       )
-                                    : fileName != null
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              'File picked: $fileName',
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 12.0,
-                                                fontWeight: FontWeight.w400,
-                                                color: Color(0xff686464),
-                                              ),
-                                            ),
-                                          )
-                                        : SizedBox(),
-                              ],
+                                          : fileName != null
+                                          ? Padding(
+                                        padding:
+                                        const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'File picked: $fileName',
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xff686464),
+                                          ),
+                                        ),
+                                      )
+                                          : SizedBox(),
+                                    ],
+                                  )
+
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                }
-              },
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
             ),
           ),
           // SizedBox(height: MediaQuery.of(context).size.height / 20),
@@ -494,16 +502,6 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 // Expanded(
 //   child: FutureBuilder<List<HREmployeeDocumentModal>>(

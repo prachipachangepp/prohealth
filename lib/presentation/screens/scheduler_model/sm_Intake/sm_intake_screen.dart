@@ -121,7 +121,7 @@ class _SMIntakeScreenState extends State<SMIntakeScreen> {
             IntakeMedicationScreen(),
             IntakeLabResultScreen(),
             SMIntakeInsuranceScreen(),
-            SmIntakeNotesScreen()
+            SmIntakeNotesScreen(patientId: 1,)
           ],
         ),
       ),

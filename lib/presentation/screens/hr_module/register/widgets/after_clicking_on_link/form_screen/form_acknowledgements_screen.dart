@@ -273,127 +273,98 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                         return Column(
                           children: [
                             SizedBox(
-                              height: 50,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    document.docName,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff686464),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      ElevatedButton(
-                                        onPressed: () async {
-                                          FilePickerResult? result = await FilePicker.platform.pickFiles();
-                                          if (result != null) {
-                                            try {
-                                              Uint8List? bytes = result.files.first.bytes;
-                                              if (bytes != null) {
-                                                setState(() {
-                                                  if (_fileNames.length <= index) {
-                                                    _fileNames.add(result.files.first.name!);
-                                                  } else {
-                                                    _fileNames[index] = result.files.first.name!;
-                                                  }
-
-                                                  if (finalPaths.length <= index) {
-                                                    finalPaths.add(bytes);
-                                                  } else {
-                                                    finalPaths[index] = bytes;
-                                                  }
-                                                });
-                                              }
-                                            } catch (e) {
-                                              print(e);
-                                            }
-                                          }
-
-
-
-
-
-                                          ///no setstate
-                                          // FilePickerResult? result =
-                                          //     await FilePicker.platform
-                                          //         .pickFiles();
-                                          // if (result != null) {
-                                          //   try {
-                                          //     Uint8List? bytes =
-                                          //         result.files.first.bytes;
-                                          //     XFile xlfile = XFile(
-                                          //         result.xFiles.first.path);
-                                          //     File xfileToFile =
-                                          //         File(xlfile.path);
-                                          //     XFile xFile =
-                                          //         await convertBytesToXFile(
-                                          //       bytes!,
-                                          //       result.xFiles.first.name,
-                                          //     );
-                                          //     if (_fileNames.length <= index) {
-                                          //       _fileNames.add(
-                                          //           result.files.first.name!);
-                                          //     } else {
-                                          //       _fileNames[index] =
-                                          //           result.files.first.name!;
-                                          //     }
-                                          //     finalPath =
-                                          //         result.files.first.bytes;
-                                          //     // setState(() {
-                                          //     //   _documentUploaded = true;
-                                          //     // });
-                                          //   } catch (e) {
-                                          //     print(e);
-                                          //   }
-                                          // }
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xff50B5E5),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          'Sign',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                              height: 80,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      document.docName,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xff686464),
                                       ),
-                                      _loading
-                                          ? SizedBox(
+                                    ),
+                                    Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            ElevatedButton(
+                                              onPressed: () async {
+                                                FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                                if (result != null) {
+                                                  try {
+                                                    Uint8List? bytes = result.files.first.bytes;
+                                                    if (bytes != null) {
+                                                      setState(() {
+                                                        if (_fileNames.length <= index) {
+                                                          _fileNames.add(result.files.first.name!);
+                                                        } else {
+                                                          _fileNames[index] = result.files.first.name!;
+                                                        }
+
+                                                        if (finalPaths.length <= index) {
+                                                          finalPaths.add(bytes);
+                                                        } else {
+                                                          finalPaths[index] = bytes;
+                                                        }
+                                                      });
+                                                    }
+                                                  } catch (e) {
+                                                    print(e);
+                                                  }
+                                                }
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Color(0xff50B5E5),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                'Upload File',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                            _loading
+                                                ? SizedBox(
                                               width: 25,
                                               height: 25,
                                               child: CircularProgressIndicator(
                                                 color: ColorManager.blueprime,
                                               ),
                                             )
-                                          : fileName != null
-                                              ? Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    'File picked: $fileName',
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 12.0,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Color(0xff686464),
-                                                    ),
-                                                  ),
-                                                )
-                                              : SizedBox(),
-                                    ],
-                                  ),
-                                ],
+                                                : fileName != null
+                                                ? Padding(
+                                              padding:
+                                              const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'File picked: $fileName',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12.0,
+                                                  fontWeight:
+                                                  FontWeight.w400,
+                                                  color: Color(0xff686464),
+                                                ),
+                                              ),
+                                            )
+                                                : SizedBox(),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             const Divider(

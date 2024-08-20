@@ -159,7 +159,8 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
           child:StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context, snapshot) {
-                orgSubDocumentGet(context, widget.docId, widget.subDocID, 1, 15).then((data) {
+                getORGDoc(context,widget.docId,widget.subDocID,1,15
+                ).then((data) {
                   _controller.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -252,7 +253,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                 Expanded(
                                   child: Center(
                                       child: Text(
-                                        snapshot.data![index].expiry.toString(),
+                                        snapshot.data![index].expiryType.toString(),
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -264,7 +265,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                 Expanded(
                                   child: Center(
                                       child: Text(
-                                        snapshot.data![index].reminderThreshold.toString().capitalizeFirst!,
+                                        snapshot.data![index].expirtReminder.toString().capitalizeFirst!,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -331,18 +332,11 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                                             expiryReminder: "Schedule",
                                                             officeId: widget.officeId,
                                                           );
-                                                          setState(() async {
-                                                            await orgSubDocumentGet(context, widget.docId, widget.subDocID, 1, 15).then((data) {
-                                                              _controller.add(data);
-                                                            }).catchError((error) {
-                                                              // Handle error
-                                                            });
-                                                            Navigator.pop(context);
-                                                          });
                                                         } finally {
                                                           setState(() {
                                                             _isLoading = false;
                                                           });
+                                                          Navigator.pop(context);
                                                         }
 
 
@@ -517,18 +511,11 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                                         await deleteDocument(
                                                             context,
                                                             snapshot.data![index].docId);
-                                                        setState(() async {
-                                                          await orgSubDocumentGet(context, widget.docId, widget.subDocID, 1, 15).then((data) {
-                                                            _controller.add(data);
-                                                          }).catchError((error) {
-                                                            // Handle error
-                                                          });
-                                                          Navigator.pop(context);
-                                                        });
                                                       } finally {
                                                         setState(() {
                                                           _isLoading = false;
                                                         });
+                                                        Navigator.pop(context);
                                                       }
 
                                                     });

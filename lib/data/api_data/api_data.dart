@@ -37,8 +37,9 @@ class ApiDataRegister{
   final Object? data;
   final int? licenses;
   final int? banckingId;
+  final int? educationId;
 
-  ApiDataRegister({
+  ApiDataRegister({this.educationId,
     this.banckingId,
     this.licenses,
     required this.success,

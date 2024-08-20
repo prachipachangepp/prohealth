@@ -676,7 +676,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.transparent),
                           child: Text(
-                            'Pick Location',
+                            'Change Location',
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeightManager.bold,

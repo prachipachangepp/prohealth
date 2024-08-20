@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../../app/services/api/managers/sm_module_manager/insurance/secondary_manager.dart';
 import '../../../../../textfield_dropdown_constant/double_date_picker_textfield.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
@@ -20,6 +21,37 @@ class IntakeInsuranceSecondaryScreen extends StatefulWidget {
 }
 
 class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondaryScreen> {
+
+
+
+  String? varifiedinsurance;
+  String? eligiblityStatus;
+
+
+
+  TextEditingController secondaryinsuranceController =TextEditingController();
+  TextEditingController srnameController =TextEditingController();
+  TextEditingController srstreetController =TextEditingController();
+  TextEditingController srcodeController =TextEditingController();
+  TextEditingController suiteAptController =TextEditingController();
+  TextEditingController cityController =TextEditingController();
+  TextEditingController stateController =TextEditingController();
+  TextEditingController zipcodeController =TextEditingController();
+  TextEditingController typeController =TextEditingController();
+  TextEditingController phoneController =TextEditingController();
+  TextEditingController categoryController =TextEditingController();
+  TextEditingController authorisationController =TextEditingController();
+  TextEditingController effectiveFromController =TextEditingController();
+  TextEditingController effectiveToController =TextEditingController();
+  TextEditingController groupNbrController =TextEditingController();
+  TextEditingController groupNameController =TextEditingController();
+  TextEditingController policyHICNbrController =TextEditingController();
+  //TextEditingController eligiblityStatusController =TextEditingController();
+  TextEditingController insuranceVerifiedController =TextEditingController();
+  TextEditingController commentController =TextEditingController();
+
+
+
   String? status = '';
   @override
   Widget build(BuildContext context) {
@@ -40,6 +72,58 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await postISecondaryScreen(
+                          context,
+                          1,
+                          secondaryinsuranceController.text,
+                          srnameController.text,
+                          srstreetController.text,
+                          srcodeController.text,
+                          suiteAptController.text,
+                          cityController.text,
+                          stateController.text,
+                          zipcodeController.text,
+                          typeController.text,
+                          phoneController.text,
+                          categoryController.text,
+                          authorisationController.text,
+                          "2024-08-09",       //effectiveFromController.text,
+                          "2024-08-09",                      // effectiveFromController.text,
+                          // effectiveToController.text,
+                          groupNbrController.text,
+                          groupNameController.text,
+                          policyHICNbrController.text,
+                          eligiblityStatus.toString(),
+                          varifiedinsurance.toString(),
+                          commentController.text,
+
+
+                        );
+                      },
+                      child: Text(
+                        AppString.save,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.white,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 10,
+                        ),
+                        backgroundColor: ColorManager.blueprime,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
                   ],
@@ -69,21 +153,25 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                         children: [
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Primary Insurance')
+                                controller: secondaryinsuranceController,
+                                  labelText: 'Secondary Insurance')
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: srnameController,
                                   labelText: AppString.name)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: srstreetController,
                                   labelText: AppString.street)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: srcodeController,
                                   labelText: AppString.code)
                           ),
                         ],
@@ -93,21 +181,25 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                         children: [
                           Flexible(
                               child: SchedularTextField(
+                                controller: suiteAptController,
                                   labelText: AppString.suite_Apt)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: cityController,
                                   labelText:AppString.city)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: stateController,
                                 labelText: AppString.state,)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: zipcodeController,
                                   labelText:AppString.zip_code)
                           ),
                         ],
@@ -117,21 +209,25 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                         children: [
                           Flexible(
                               child: SchedularTextField(
+                                controller: typeController,
                                   labelText:AppString.type)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: phoneController,
                                   labelText:'Phone')
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: categoryController,
                                 labelText:'Category',)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: authorisationController,
                                   labelText:'Authorisation')
                           ),
                         ],
@@ -141,21 +237,32 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                         children: [
                           Flexible(
                               child: DoubleDatePickerTextField(
+                                onDateRangeSelected: (startDate, endDate){
+
+                                }
+
+                                ,
+
+
+
                                 labelText: 'Effective from', isDate: true,)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: groupNbrController,
                                   labelText:'Group #')
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: groupNameController,
                                   labelText: 'Group Name')
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: policyHICNbrController,
                                   labelText:'Policy/ HIC #')
                           ),
                         ],
@@ -165,7 +272,12 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                         children: [
                           Flexible(
                               child: SchedularDropdown(
-                                labelText: 'Eligibility Status', onChanged: (newValue) {  }, )
+
+                                labelText: 'Eligibility Status', onChanged: (newValue) {
+                                setState(() {
+                                  eligiblityStatus = newValue;
+                                });
+                              }, )
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
@@ -196,8 +308,8 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                   children: [
                                     Radio<String>(
                                       value: 'Yes',
-                                      groupValue: status,
-                                      onChanged: (value) => setState(() => status = value),
+                                      groupValue: varifiedinsurance,
+                                      onChanged: (value) => setState(() => varifiedinsurance = value),
                                     ),
                                     Text(AppString.yes,
                                         style: GoogleFonts.firaSans(
@@ -207,8 +319,8 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                     SizedBox(width: AppSize.s35),
                                     Radio<String>(
                                       value: 'No',
-                                      groupValue: status,
-                                      onChanged: (value) => setState(() => status = value),
+                                      groupValue: varifiedinsurance,
+                                      onChanged: (value) => setState(() => varifiedinsurance = value),
                                     ),
                                     Text(AppString.no,
                                         style: GoogleFonts.firaSans(
@@ -216,7 +328,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                     ),
                                     SizedBox(width: AppSize.s20),
                                     TextButton(
-                                      onPressed: () => setState(() => status = null), // Clear selection
+                                      onPressed: () => setState(() => varifiedinsurance = null), // Clear selection
                                       child: Text(
                                         'Clear',
                                         style: GoogleFonts.firaSans(
@@ -249,10 +361,11 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                             child: Container(
                               height: AppSize.s99,
                               child: TextFormField(
+                                controller: commentController,
                                 maxLines: 3,
                                 cursorColor: ColorManager.black,
                                 decoration: InputDecoration(
-                                  labelText: AppString.contact,
+                                  labelText: AppString.comment,
                                   labelStyle: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
                                     fontWeight: FontWeightManager.regular,
