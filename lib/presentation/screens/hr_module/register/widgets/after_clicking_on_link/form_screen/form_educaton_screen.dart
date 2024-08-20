@@ -589,13 +589,11 @@ class _EducationFormState extends State<EducationForm> {
                             'File picked: $fileName',
                             style: GoogleFonts.firaSans(
                                 fontSize: 12.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff686464)),
+                                fontWeight: FontWeight.w600,
+                                color: ColorManager.mediumgrey),
                           ),
                       ],
                     ),
-
-
                     SizedBox(height: MediaQuery.of(context).size.height / 20),
                   ],
                 ),

@@ -164,18 +164,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       future: RegisterGetData(context),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
-            child: Container(
+          return Container(
               width: 300,
               height: 30,
               decoration: BoxDecoration(
-                color: ColorManager.faintGrey,
                 borderRadius: BorderRadius.circular(10),
               ),
-            ),
-          );
+            );
         }
         if (snapshot.hasData) {
           return Container(
@@ -364,19 +359,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          //const url = "http://localhost:54716/#/onBordingWelcome";
-                          // const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                          // if (await canLaunch(url)) {
-                          //  await launch(url);
-                             Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                builder: (context) => OnBoardingWelcome(),
-                              ),
-                             );
-                          //  } else {
-                          //   throw 'Could not launch $url';
-                          // }
+                          // const url = "http://localhost:54716/#/onBordingWelcome";
+                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          if (await canLaunch(url)) {
+                           await launch(url);
+                             // Navigator.push(
+                             //   context,
+                             //   MaterialPageRoute(
+                             //    builder: (context) => OnBoardingWelcome(),
+                             //  ),
+                             // );
+                           } else {
+                            throw 'Could not launch $url';
+                          }
                         },
                         child: Text(
                           data.link!,

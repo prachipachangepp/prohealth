@@ -305,7 +305,7 @@ class _generalFormState extends State<generalForm> {
                                                 ))
                                             .toList(),
                                       )
-                                    : const SizedBox(), // Display file names if picked
+                                    :  SizedBox(height: 40,width: 10,), // Display file names if picked
 
                             SizedBox(
                                 height:

@@ -353,8 +353,8 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: 12.0,
                                                   fontWeight:
-                                                  FontWeight.w400,
-                                                  color: Color(0xff686464),
+                                                  FontWeight.w600,
+                                                  color: ColorManager.mediumgrey,
                                                 ),
                                               ),
                                             )

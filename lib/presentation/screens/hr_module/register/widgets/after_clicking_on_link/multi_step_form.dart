@@ -130,6 +130,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         data: Theme.of(context).copyWith(
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent
                         ),
                         child: Stepper(
                           physics: const ScrollPhysics(),

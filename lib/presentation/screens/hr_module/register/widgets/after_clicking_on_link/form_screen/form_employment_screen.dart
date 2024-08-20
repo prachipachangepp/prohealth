@@ -434,6 +434,9 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       height: 32.0,
                       //width: MediaQuery.of(context).size.width / 5,
                       suffixIcon: IconButton(
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         icon: Icon(
                           Icons.calendar_month_outlined,
                           color: Color(0xff50B5E5),
@@ -473,6 +476,9 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       height: 32.0,
                       //width: MediaQuery.of(context).size.width / 5,
                       suffixIcon: IconButton(
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
                         icon: Icon(
                           Icons.calendar_month_outlined,
                           color: Color(0xff50B5E5),
