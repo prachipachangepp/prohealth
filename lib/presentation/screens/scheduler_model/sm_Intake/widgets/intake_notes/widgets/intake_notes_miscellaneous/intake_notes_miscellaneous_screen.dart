@@ -262,11 +262,12 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                       },
                     ),
                       onPressed: () async {
+
                         try {
                            await addNotesMiscPost(
                             context: context,
-                            patientId: widget.patientId,
-                            docTypeId: docTypeId,
+                            patientId:1,             //widget.patientId,
+                            docTypeId: 1,          //  docTypeId,
                             docName: nameController.text,
                             docUrl: "some_doc_url",
                             createdAt: calenderController.text,

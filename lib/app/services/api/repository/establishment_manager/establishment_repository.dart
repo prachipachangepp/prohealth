@@ -44,7 +44,10 @@ class EstablishmentManagerRepository {
   static String vendors ="/vendors";
   static String insurancevendors ="/insurance-vendor";
   static String insurancevendorsContract ="/insurance-vendor-contract";
+  static String zonedropdown ="/zone/zoneDropdown";
+
   //static String add ="/add";
+
 
 
   static String companyAll(){
@@ -347,5 +350,13 @@ class EstablishmentManagerRepository {
   {required int companyId}
       ){
     return "$identity$companyDetail/$companyId";
+  }
+
+
+
+
+  ///zone dropdown
+  static String getzonedropdown({required int companyID, required String officeId}){
+    return "$zonedropdown$companyID/$officeId";
   }
 }

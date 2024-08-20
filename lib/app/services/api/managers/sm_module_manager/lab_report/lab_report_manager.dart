@@ -46,6 +46,9 @@ Future<List<LabReportModal>> GetLabReport(
   }
 }
 
+
+
+
 class LabReportModal {
   final int? labReportId;
   final int? patientId;
@@ -113,6 +116,8 @@ Future<ApiData> addLabReport(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+
 
 ///delete api
 Future<ApiData> deleteIntakeLabReport(

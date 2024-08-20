@@ -27,10 +27,10 @@ import '../../widgets/button_constant.dart';
 import '../../widgets/table_constant.dart';
 import '../../widgets/text_form_field_const.dart';
 
-
-
 class FinanceScreen extends StatefulWidget {
-  FinanceScreen({super.key,});
+  FinanceScreen({
+    super.key,
+  });
 
   @override
   State<FinanceScreen> createState() => _FinanceScreenState();
@@ -41,17 +41,19 @@ class _FinanceScreenState extends State<FinanceScreen> {
   TextEditingController addressController = TextEditingController();
   TextEditingController payRatesController = TextEditingController();
   TextEditingController perMilesController = TextEditingController();
-  final StreamController<List<PayRateFinanceData>> _payRatesController = StreamController<List<PayRateFinanceData>>();
+  final StreamController<List<PayRateFinanceData>> _payRatesController =
+      StreamController<List<PayRateFinanceData>>();
 
   String _selectedOption = 'Option 1';
   int docZoneId = 0;
   int docAddVisitTypeId = 0;
-  int docVisitTypeId =0;
-  int empTypeId =0;
+  int docVisitTypeId = 0;
+  int empTypeId = 0;
   @override
   void initState() {
     super.initState();
   }
+
   int currentPage = 1;
   final int itemsPerPage = 10;
   final int totalPages = 5;
@@ -61,7 +63,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
       currentPage = pageNumber;
     });
   }
- bool _isLoading = false;
+
+  String? selectedZone;
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -108,35 +112,37 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height/100),
+                SizedBox(height: MediaQuery.of(context).size.height / 100),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     FutureBuilder<List<HRClinical>>(
                         future: companyAllHrClinicApi(context),
-                        builder: (context,snapshot) {
-                          if(snapshot.connectionState == ConnectionState.waiting){
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
-                                width: 300,
-                                height: 30,
-                                decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                              )
-                            );
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 300,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                      color: ColorManager.faintGrey,
+                                      borderRadius: BorderRadius.circular(10)),
+                                ));
                           }
-                          if(snapshot.hasData){
+                          if (snapshot.hasData) {
                             int docType = 0;
-                            List<DropdownMenuItem<String>> dropDownList =[];
-                            List<DropdownMenuItem<String>> dropDownAbbreviation =[];
-                            for(var i in snapshot.data!){
+                            List<DropdownMenuItem<String>> dropDownList = [];
+                            List<DropdownMenuItem<String>>
+                                dropDownAbbreviation = [];
+                            for (var i in snapshot.data!) {
                               dropDownList.add(DropdownMenuItem<String>(
                                 child: Text(i.empType!),
                                 value: i.empType,
                               ));
-                              dropDownAbbreviation.add(
-                                  DropdownMenuItem<String>(
+                              dropDownAbbreviation.add(DropdownMenuItem<String>(
                                 child: Text(i.abbrivation!),
                                 value: i.abbrivation,
                               ));
@@ -148,15 +154,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   height: 31,
                                   width: 200,
                                   // margin: EdgeInsets.symmetric(horizontal: 20),
-                                  padding:
-                                  const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 6, horizontal: 15),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     border: Border.all(
-                                        color: const Color(0xff686464).withOpacity(0.5),
+                                        color: const Color(0xff686464)
+                                            .withOpacity(0.5),
                                         width: 1), // Black border
-                                    borderRadius:
-                                    BorderRadius.circular(12), // Rounded corners
+                                    borderRadius: BorderRadius.circular(
+                                        12), // Rounded corners
                                   ),
                                   child: DropdownButtonFormField<String>(
                                     focusColor: Colors.transparent,
@@ -164,11 +171,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       Icons.arrow_drop_down_sharp,
                                       color: Color(0xff686464),
                                     ),
-                                    decoration: const InputDecoration.collapsed(hintText: ''),
+                                    decoration: const InputDecoration.collapsed(
+                                        hintText: ''),
                                     items: dropDownList,
                                     onChanged: (newValue) {
-                                      for(var a in snapshot.data!){
-                                        if(a.empType == newValue){
+                                      for (var a in snapshot.data!) {
+                                        if (a.empType == newValue) {
                                           docType = a.employeeTypesId;
                                           empTypeId = docType;
                                         }
@@ -187,20 +195,22 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 const SizedBox(
                                   width: 20,
                                 ),
+
                                 /// Abbrevation dropdown
                                 Container(
                                   height: 31,
                                   width: 187,
                                   // margin: EdgeInsets.symmetric(horizontal: 20),
-                                  padding:
-                                  const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 6, horizontal: 15),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     border: Border.all(
-                                        color: const Color(0xff686464).withOpacity(0.5),
+                                        color: const Color(0xff686464)
+                                            .withOpacity(0.5),
                                         width: 1), // Black border
-                                    borderRadius:
-                                    BorderRadius.circular(12), // Rounded corners
+                                    borderRadius: BorderRadius.circular(
+                                        12), // Rounded corners
                                   ),
                                   child: DropdownButtonFormField<String>(
                                     focusColor: Colors.transparent,
@@ -208,11 +218,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       Icons.arrow_drop_down_sharp,
                                       color: Color(0xff686464),
                                     ),
-                                    decoration: const InputDecoration.collapsed(hintText: ''),
+                                    decoration: const InputDecoration.collapsed(
+                                        hintText: ''),
                                     items: dropDownAbbreviation,
                                     onChanged: (newValue) {
-                                      for(var a in snapshot.data!){
-                                        if(a.abbrivation == newValue){
+                                      for (var a in snapshot.data!) {
+                                        if (a.abbrivation == newValue) {
                                           docType = a.employeeTypesId;
                                           empTypeId = docType;
                                         }
@@ -229,164 +240,180 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 ),
                               ],
                             );
-                          }else{
+                          } else {
                             return const Offstage();
                           }
-
-                          }
-                        ),
+                        }),
 
                     ///add payrate button
-                Container(
-                width: 130,
-                height: 32,
-                child: CustomIconButtonConst(
-                    text: 'Add Payrate',
-                    icon: Icons.add,
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return PayRatesPopup(
-                            title: 'Add Payrates',
-                            child1: FutureBuilder<List<VisitListData>>(
-                                future: getVisitList(context),
-                              builder: (context,snapshot) {
-                                if(snapshot.connectionState == ConnectionState.waiting){
-                                  return Shimmer.fromColors(
-                                      baseColor: Colors.grey[300]!,
-                                      highlightColor: Colors.grey[100]!,
-                                      child: Container(
-                                        width: 354,
-                                        height: 30,
-                                        decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                      )
-                                  );
-                                }
-                                if (snapshot.data!.isEmpty) {
-                                  return Center(
-                                    child: Text(
-                                      AppString.dataNotFound,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: FontSize.s12,
-                                        color: ColorManager.mediumgrey,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                if(snapshot.hasData){
-                                  List dropDown = [];
-                                  int docType = 0;
-                                  List<DropdownMenuItem<String>> dropDownZoneList = [];
-                                  for(var i in snapshot.data!){
-                                    dropDownZoneList.add(
-                                      DropdownMenuItem<String>(
-                                        child: Text(i.visitType),
-                                        value: i.visitType,
-
-                                      ),
-                                    );
-                                  }
-                                  return CICCDropdown(
-                                      initialValue: dropDownZoneList[0].value,
-                                      onChange: (val){
-                                        for(var a in snapshot.data!){
-                                          if(a.visitType == val){
-                                            docType = a.visitId;
-                                            docAddVisitTypeId = docType;
-                                          }
+                    Container(
+                      width: 130,
+                      height: 32,
+                      child: CustomIconButtonConst(
+                          text: 'Add Payrate',
+                          icon: Icons.add,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return PayRatesPopup(
+                                  title: 'Add Payrates',
+                                  child1: FutureBuilder<List<VisitListData>>(
+                                      future: getVisitList(context),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Shimmer.fromColors(
+                                              baseColor: Colors.grey[300]!,
+                                              highlightColor: Colors.grey[100]!,
+                                              child: Container(
+                                                width: 354,
+                                                height: 30,
+                                                decoration: BoxDecoration(
+                                                    color:
+                                                        ColorManager.faintGrey,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ));
                                         }
-                                        print(":::${docType}");
-                                        print(":::<>${docAddVisitTypeId}");
-                                      },
-                                      items:dropDownZoneList
-                                  );
-                                }
-                                return const SizedBox();
-                              }
-                            ),
-                            child2:  FutureBuilder<List<AllZoneData>>(
-                              future: getAllZone(context),
-                              builder: (context,snapshotZone) {
-                                if(snapshotZone.connectionState == ConnectionState.waiting){
-                                  return Shimmer.fromColors(
-                                      baseColor: Colors.grey[300]!,
-                                      highlightColor: Colors.grey[100]!,
-                                      child: Container(
-                                        width: 354,
-                                        height: 30,
-                                        decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                      )
-                                  );
-                                }
-                                if (snapshotZone.data!.isEmpty) {
-                                  return Center(
-                                    child: Text(
-                                      AppString.dataNotFound,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: FontSize.s12,
-                                        color: ColorManager.mediumgrey,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                if(snapshotZone.hasData){
-                                  List dropDown = [];
-                                  int docType = 0;
-                                  List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                  for(var i in snapshotZone.data!){
-                                    dropDownTypesList.add(
-                                      DropdownMenuItem<String>(
-                                        value: i.zoneName,
-                                        child: Text(i.zoneName),
-                                      ),
-                                    );
-                                  }
-                                  return CICCDropdown(
-                                      initialValue: dropDownTypesList[0].value,
-                                      onChange: (val){
-                                        for(var a in snapshotZone.data!){
-                                          if(a.zoneName == val){
-                                            docType = a.zoneId;
-                                            print("ZONE id :: ${a.zoneId}");
-                                            docZoneId = docType;
-                                          }
+                                        if (snapshot.data!.isEmpty) {
+                                          return Center(
+                                            child: Text(
+                                              AppString.dataNotFound,
+                                              style: CustomTextStylesCommon
+                                                  .commonStyle(
+                                                fontWeight:
+                                                    FontWeightManager.medium,
+                                                fontSize: FontSize.s12,
+                                                color: ColorManager.mediumgrey,
+                                              ),
+                                            ),
+                                          );
                                         }
-                                        print(":::${docType}");
-                                        print(":::<>${docZoneId}");
-                                      },
-                                      items:dropDownTypesList
-                                  );
-                                }
-                               return const SizedBox();
-                              }
-                            ),
-                            payRatesController: payRatesController,
-                              perMilesController: perMilesController,
-                            onPressed: () async{
-                              await addPayRatesSetupPost(
-                                context,
-                                  1,
-                                  1,
-                                  int.parse(perMilesController.text),
-                                  docAddVisitTypeId,
-                                  docZoneId,
-                              int.parse(payRatesController.text),
-                              );
-                              payRatesDataGet(context,1,1,30).then((data) {
-                                _payRatesController.add(data);
-                              }).catchError((error) {
-                                // Handle error
-                              });
-                              payRatesController.clear();
-                              perMilesController.clear();
-                            },);
-                        },
-                      );
-                    }),
-              ),
+                                        if (snapshot.hasData) {
+                                          List dropDown = [];
+                                          int docType = 0;
+                                          List<DropdownMenuItem<String>>
+                                              dropDownZoneList = [];
+                                          for (var i in snapshot.data!) {
+                                            dropDownZoneList.add(
+                                              DropdownMenuItem<String>(
+                                                child: Text(i.visitType),
+                                                value: i.visitType,
+                                              ),
+                                            );
+                                          }
+                                          return CICCDropdown(
+                                              initialValue:
+                                                  dropDownZoneList[0].value,
+                                              onChange: (val) {
+                                                for (var a in snapshot.data!) {
+                                                  if (a.visitType == val) {
+                                                    docType = a.visitId;
+                                                    docAddVisitTypeId = docType;
+                                                  }
+                                                }
+                                                print(":::${docType}");
+                                                print(
+                                                    ":::<>${docAddVisitTypeId}");
+                                              },
+                                              items: dropDownZoneList);
+                                        }
+                                        return const SizedBox();
+                                      }),
+                                  child2: FutureBuilder<List<AllZoneData>>(
+                                      future: getAllZone(context),
+                                      builder: (context, snapshotZone) {
+                                        if (snapshotZone.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Shimmer.fromColors(
+                                              baseColor: Colors.grey[300]!,
+                                              highlightColor: Colors.grey[100]!,
+                                              child: Container(
+                                                width: 354,
+                                                height: 30,
+                                                decoration: BoxDecoration(
+                                                    color:
+                                                        ColorManager.faintGrey,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ));
+                                        }
+                                        if (snapshotZone.data!.isEmpty) {
+                                          return Center(
+                                            child: Text(
+                                              AppString.dataNotFound,
+                                              style: CustomTextStylesCommon
+                                                  .commonStyle(
+                                                fontWeight:
+                                                    FontWeightManager.medium,
+                                                fontSize: FontSize.s12,
+                                                color: ColorManager.mediumgrey,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        if (snapshotZone.hasData) {
+                                          List dropDown = [];
+                                          int docType = 0;
+                                          List<DropdownMenuItem<String>>
+                                              dropDownTypesList = [];
+                                          for (var i in snapshotZone.data!) {
+                                            dropDownTypesList.add(
+                                              DropdownMenuItem<String>(
+                                                value: i.zoneName,
+                                                child: Text(i.zoneName),
+                                              ),
+                                            );
+                                          }
+                                          return CICCDropdown(
+                                              initialValue:
+                                                  dropDownTypesList[0].value,
+                                              onChange: (val) {
+                                                for (var a
+                                                    in snapshotZone.data!) {
+                                                  if (a.zoneName == val) {
+                                                    docType = a.zoneId;
+                                                    print(
+                                                        "ZONE id :: ${a.zoneId}");
+                                                    docZoneId = docType;
+                                                  }
+                                                }
+                                                print(":::${docType}");
+                                                print(":::<>${docZoneId}");
+                                              },
+                                              items: dropDownTypesList);
+                                        }
+                                        return const SizedBox();
+                                      }),
+                                  payRatesController: payRatesController,
+                                  perMilesController: perMilesController,
+                                  onPressed: () async {
+                                    await addPayRatesSetupPost(
+                                      context,
+                                      1,
+                                      1,
+                                      int.parse(perMilesController.text),
+                                      docAddVisitTypeId,
+                                      docZoneId,
+                                      int.parse(payRatesController.text),
+                                    );
+                                    payRatesDataGet(context, 1, 1, 30)
+                                        .then((data) {
+                                      _payRatesController.add(data);
+                                    }).catchError((error) {
+                                      // Handle error
+                                    });
+                                    payRatesController.clear();
+                                    perMilesController.clear();
+                                  },
+                                );
+                              },
+                            );
+                          }),
+                    ),
                   ],
                 ),
               ],
@@ -398,7 +425,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
             const TableHeadConstant(
               items: [
                 TableHeadItem(text: 'Sr No.', textAlign: TextAlign.center),
-                TableHeadItem(text: 'Type of Visit', textAlign: TextAlign.center),
+                TableHeadItem(
+                    text: 'Type of Visit', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Rate', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Permiles', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Zone', textAlign: TextAlign.center),
@@ -411,11 +439,10 @@ class _FinanceScreenState extends State<FinanceScreen> {
 
             ///list
             Expanded(
-              child:
-              StreamBuilder<List<PayRateFinanceData>>(
-                stream:_payRatesController.stream,
+              child: StreamBuilder<List<PayRateFinanceData>>(
+                stream: _payRatesController.stream,
                 builder: (context, snapshot) {
-                  payRatesDataGet(context,1,1,30).then((data) {
+                  payRatesDataGet(context, 1, 1, 30).then((data) {
                     _payRatesController.add(data);
                   }).catchError((error) {
                     // Handle error
@@ -443,288 +470,404 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   if (snapshot.hasData) {
                     int totalItems = snapshot.data!.length;
                     int totalPages = (totalItems / itemsPerPage).ceil();
-                    List<PayRateFinanceData> paginatedData =
-                    snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                    List<PayRateFinanceData> paginatedData = snapshot.data!
+                        .skip((currentPage - 1) * itemsPerPage)
+                        .take(itemsPerPage)
+                        .toList();
 
                     return Column(
                       children: [
                         Expanded(
                           child: ListView.builder(
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: paginatedData.length,
-                                            itemBuilder: (context, index) {
-                                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                                              String formattedSerialNumber =
-                                              serialNumber.toString().padLeft(2, '0');
-                                              PayRateFinanceData finance = paginatedData[index];
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 5),
-                              Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(4),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: const Color(0xff000000).withOpacity(0.25),
-                                        spreadRadius: 0,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  height: 50,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            formattedSerialNumber,
-                                            //textAlign: TextAlign.end,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0xff686464),
-                                              decoration: TextDecoration.none,
+                              scrollDirection: Axis.vertical,
+                              itemCount: paginatedData.length,
+                              itemBuilder: (context, index) {
+                                int serialNumber = index +
+                                    1 +
+                                    (currentPage - 1) * itemsPerPage;
+                                String formattedSerialNumber =
+                                    serialNumber.toString().padLeft(2, '0');
+                                PayRateFinanceData finance =
+                                    paginatedData[index];
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 5),
+                                    Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: const Color(0xff000000)
+                                                  .withOpacity(0.25),
+                                              spreadRadius: 0,
+                                              blurRadius: 4,
+                                              offset: const Offset(0, 2),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            finance.typeVisit,
-                                            //textAlign: TextAlign.end,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0xff686464),
-                                              decoration: TextDecoration.none,
+                                        height: 50,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  formattedSerialNumber,
+                                                  //textAlign: TextAlign.end,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        const Color(0xff686464),
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            '\$${finance.payRates}',
-                                            //textAlign: TextAlign.end,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0xff686464),
-                                              decoration: TextDecoration.none,
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  finance.typeVisit,
+                                                  //textAlign: TextAlign.end,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        const Color(0xff686464),
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            '${finance.permile}',
-                                            //textAlign: TextAlign.end,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0xff686464),
-                                              decoration: TextDecoration.none,
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  '\$${finance.payRates}',
+                                                  //textAlign: TextAlign.end,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        const Color(0xff686464),
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            '${finance.zone!}' ,
-                                           // textAlign: TextAlign.start,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0xff686464),
-                                              decoration: TextDecoration.none,
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  '${finance.permile}',
+                                                  //textAlign: TextAlign.end,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        const Color(0xff686464),
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              IconButton(
-                                                onPressed: () {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (BuildContext context) {
-                                                      return FutureBuilder<PayRatePrefillFinanceData>(
-                                                        future:payPrefillRatesDataGet(context,finance.payRatesSetupId),
-                                                        builder: (context,snapshotPrefill) {
-                                                          if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                            return Center(
-                                                              child: CircularProgressIndicator(
-                                                                color: ColorManager.blueprime,
-                                                              ),
-                                                            );
-                                                          }
-                                                          var payRates = snapshotPrefill.data?.payRates;
-                                                          var visitTypeId = snapshotPrefill.data?.typeOfVisitId;
-                                                          var perMile = snapshotPrefill.data?.perMiles;
-                                                          print(":::PAYRATESTYPE${visitTypeId}");
-                                                          var zoneTypeId = snapshotPrefill.data?.zoneId;
-                                                          payRatesController = TextEditingController(text: snapshotPrefill.data?.payRates.toString());
-                                                          perMilesController = TextEditingController(text: snapshotPrefill.data?.perMiles.toString());
-                                                          return PayRatesPopup(
-                                                            title: 'Edit Payrate',
-                                                            child1: SMTextFConst(
-                                                              enable: false,
-                                                              readOnly: true,
-                                                              controller: TextEditingController(text: visitTypeId.toString(),),
-                                                              keyboardType: TextInputType.number,
-                                                              text: 'Type of Visit',
-                                                            ),
-                                                            child2:  FutureBuilder<List<AllZoneData>>(
-                                                                future: getAllZone(context),
-                                                                builder: (context,snapshot) {
-                                                                  if(snapshot.connectionState == ConnectionState.waiting){
-                                                                    return Shimmer.fromColors(
-                                                                        baseColor: Colors.grey[300]!,
-                                                                        highlightColor: Colors.grey[100]!,
-                                                                        child: Container(
-                                                                          width: 354,
-                                                                          height: 30,
-                                                                          decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                        )
-                                                                    );
-                                                                  }
-                                                                  if (snapshot.data!.isEmpty) {
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  '${finance.zone!}',
+                                                  // textAlign: TextAlign.start,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        const Color(0xff686464),
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Center(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return FutureBuilder<
+                                                                    PayRatePrefillFinanceData>(
+                                                                future: payPrefillRatesDataGet(
+                                                                    context,
+                                                                    finance
+                                                                        .payRatesSetupId),
+                                                                builder: (context,
+                                                                    snapshotPrefill) {
+                                                                  if (snapshotPrefill
+                                                                          .connectionState ==
+                                                                      ConnectionState
+                                                                          .waiting) {
                                                                     return Center(
-                                                                      child: Text(
-                                                                        AppString.dataNotFound,
-                                                                        style: CustomTextStylesCommon.commonStyle(
-                                                                          fontWeight: FontWeightManager.medium,
-                                                                          fontSize: FontSize.s12,
-                                                                          color: ColorManager.mediumgrey,
-                                                                        ),
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        color: ColorManager
+                                                                            .blueprime,
                                                                       ),
                                                                     );
                                                                   }
-                                                                  if(snapshot.hasData){
-                                                                    List dropDown = [];
-                                                                    int docType = 0;
-                                                                    List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                                                    for(var i in snapshot.data!){
-                                                                      dropDownTypesList.add(
-                                                                        DropdownMenuItem<String>(
-                                                                          child: Text(i.zoneName),
-                                                                          value: i.zoneName,
-                                                                        ),
-                                                                      );
-                                                                    }
-                                                                    return CICCDropdown(
-                                                                        initialValue: dropDownTypesList[0].value,
-                                                                        onChange: (val){
-                                                                          for(var a in snapshot.data!){
-                                                                            if(a.zoneName == val){
-                                                                              docType = a.zoneId;
-                                                                              docZoneId = docType;
-                                                                            }
+                                                                  var payRates =
+                                                                      snapshotPrefill
+                                                                          .data
+                                                                          ?.payRates;
+                                                                  var visitTypeId =
+                                                                      snapshotPrefill
+                                                                          .data
+                                                                          ?.typeOfVisitId;
+                                                                  var perMile =
+                                                                      snapshotPrefill
+                                                                          .data
+                                                                          ?.perMiles;
+                                                                  print(
+                                                                      ":::PAYRATESTYPE${visitTypeId}");
+                                                                  var zoneTypeId =
+                                                                      snapshotPrefill
+                                                                          .data
+                                                                          ?.zoneId;
+                                                                  payRatesController = TextEditingController(
+                                                                      text: snapshotPrefill
+                                                                          .data
+                                                                          ?.payRates
+                                                                          .toString());
+                                                                  perMilesController = TextEditingController(
+                                                                      text: snapshotPrefill
+                                                                          .data
+                                                                          ?.perMiles
+                                                                          .toString());
+                                                                  return PayRatesPopup(
+                                                                    title:
+                                                                        'Edit Payrate',
+                                                                    child1:
+                                                                        SMTextFConst(
+                                                                      enable:
+                                                                          false,
+                                                                      readOnly:
+                                                                          true,
+                                                                      controller:
+                                                                          TextEditingController(
+                                                                        text: visitTypeId
+                                                                            .toString(),
+                                                                      ),
+                                                                      keyboardType:
+                                                                          TextInputType
+                                                                              .number,
+                                                                      text:
+                                                                          'Type of Visit',
+                                                                    ),
+                                                                    child2: FutureBuilder<
+                                                                            List<
+                                                                                AllZoneData>>(
+                                                                        future: getAllZone(
+                                                                            context),
+                                                                        builder:
+                                                                            (context,
+                                                                                snapshot) {
+                                                                          if (snapshot.connectionState ==
+                                                                              ConnectionState.waiting) {
+                                                                            return Shimmer.fromColors(
+                                                                                baseColor: Colors.grey[300]!,
+                                                                                highlightColor: Colors.grey[100]!,
+                                                                                child: Container(
+                                                                                  width: 354,
+                                                                                  height: 30,
+                                                                                  decoration: BoxDecoration(color: ColorManager.faintGrey, borderRadius: BorderRadius.circular(10)),
+                                                                                ));
                                                                           }
-                                                                          print(":::${docType}");
-                                                                          print(":::<>${docZoneId}");
-                                                                        },
-                                                                        items:dropDownTypesList
-                                                                    );
-                                                                  }
-                                                                  return const SizedBox();
-                                                                }
-                                                            ),
-                                                            payRatesController: payRatesController,
-                                                            perMilesController: perMilesController,
-                                                            onPressed: () async{
-                                                              await updatePayRatesSetupPost(
-                                                                  context,
-                                                                  1,
-                                                                  1,
-                                                                  perMile == int.parse(perMilesController.text) ? perMile! : int.parse(perMilesController.text),
-                                                                  visitTypeId!,
-                                                                  zoneTypeId == docZoneId ? zoneTypeId! : docZoneId,
-                                                                   payRates == int.parse(payRatesController.text) ? payRates! : int.parse(payRatesController.text),
-                                                                snapshot.data![index].payRatesSetupId,);
-                                                              print("ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
-                                                              payRatesDataGet(context,1,1,30).then((data) {
-                                                                _payRatesController.add(data);
-                                                              }).catchError((error) {
-                                                                // Handle error
-                                                              });
-                                                              docZoneId = 0;
-                                                              zoneTypeId = 0;
-                                                              visitTypeId = 0;
-                                                              payRatesController.clear();
-                                                              perMilesController.clear();
-                                                            },);
-                                                        }
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                                icon: Icon(
-                                                  Icons.edit_outlined,size: 18,
-                                                  color: ColorManager.blueprime,
+                                                                          if (snapshot
+                                                                              .data!
+                                                                              .isEmpty) {
+                                                                            return Center(
+                                                                              child: Text(
+                                                                                AppString.dataNotFound,
+                                                                                style: CustomTextStylesCommon.commonStyle(
+                                                                                  fontWeight: FontWeightManager.medium,
+                                                                                  fontSize: FontSize.s12,
+                                                                                  color: ColorManager.mediumgrey,
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                          if (snapshot
+                                                                              .hasData) {
+                                                                            List
+                                                                                dropDown =
+                                                                                [];
+                                                                            int docType =
+                                                                                0;
+                                                                            List<DropdownMenuItem<String>>
+                                                                                dropDownTypesList =
+                                                                                [];
+                                                                            for (var i
+                                                                                in snapshot.data!) {
+                                                                              dropDownTypesList.add(
+                                                                                DropdownMenuItem<String>(
+                                                                                  child: Text(i.zoneName),
+                                                                                  value: i.zoneName,
+                                                                                ),
+                                                                              );
+                                                                            }
+                                                                            return CICCDropdown(
+                                                                                initialValue: dropDownTypesList[0].value,
+                                                                                onChange: (val) {
+                                                                                  for (var a in snapshot.data!) {
+                                                                                    if (a.zoneName == val) {
+                                                                                      docType = a.zoneId;
+                                                                                      docZoneId = docType;
+                                                                                    }
+                                                                                  }
+                                                                                  print(":::${docType}");
+                                                                                  print(":::<>${docZoneId}");
+                                                                                },
+                                                                                items: dropDownTypesList);
+                                                                          }
+                                                                          return const SizedBox();
+                                                                        }),
+                                                                    payRatesController:
+                                                                        payRatesController,
+                                                                    perMilesController:
+                                                                        perMilesController,
+                                                                    onPressed:
+                                                                        () async {
+                                                                      await updatePayRatesSetupPost(
+                                                                        context,
+                                                                        1,
+                                                                        1,
+                                                                        perMile ==
+                                                                                int.parse(perMilesController.text)
+                                                                            ? perMile!
+                                                                            : int.parse(perMilesController.text),
+                                                                        visitTypeId!,
+                                                                        zoneTypeId ==
+                                                                                docZoneId
+                                                                            ? zoneTypeId!
+                                                                            : docZoneId,
+                                                                        payRates ==
+                                                                                int.parse(payRatesController.text)
+                                                                            ? payRates!
+                                                                            : int.parse(payRatesController.text),
+                                                                        snapshot
+                                                                            .data![index]
+                                                                            .payRatesSetupId,
+                                                                      );
+                                                                      print(
+                                                                          "ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
+                                                                      payRatesDataGet(
+                                                                              context,
+                                                                              1,
+                                                                              1,
+                                                                              30)
+                                                                          .then(
+                                                                              (data) {
+                                                                        _payRatesController
+                                                                            .add(data);
+                                                                      }).catchError(
+                                                                              (error) {
+                                                                        // Handle error
+                                                                      });
+                                                                      docZoneId =
+                                                                          0;
+                                                                      zoneTypeId =
+                                                                          0;
+                                                                      visitTypeId =
+                                                                          0;
+                                                                      payRatesController
+                                                                          .clear();
+                                                                      perMilesController
+                                                                          .clear();
+                                                                    },
+                                                                  );
+                                                                });
+                                                          },
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.edit_outlined,
+                                                        size: 18,
+                                                        color: ColorManager
+                                                            .blueprime,
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (context) =>
+                                                                  StatefulBuilder(
+                                                                    builder: (BuildContext
+                                                                            context,
+                                                                        void Function(void Function())
+                                                                            setState) {
+                                                                      return DeletePopup(
+                                                                          title:
+                                                                              'Delete Pay Rates',
+                                                                          loadingDuration:
+                                                                              _isLoading,
+                                                                          onCancel:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          onDelete:
+                                                                              () async {
+                                                                            setState(() {
+                                                                              _isLoading = true;
+                                                                            });
+                                                                            try {
+                                                                              await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
+                                                                              setState(() async {
+                                                                                await payRatesDataGet(context, 1, 1, 30).then((data) {
+                                                                                  _payRatesController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                                Navigator.pop(context);
+                                                                              });
+                                                                            } finally {
+                                                                              setState(() {
+                                                                                _isLoading = false;
+                                                                              });
+                                                                            }
+                                                                          });
+                                                                    },
+                                                                  ));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons
+                                                              .delete_outline_outlined,
+                                                          size: 18,
+                                                          color:
+                                                              ColorManager.red,
+                                                        ))
+                                                  ],
                                                 ),
                                               ),
-                                              IconButton(onPressed: (){
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        StatefulBuilder(
-                                                          builder: (BuildContext context, void Function(void Function()) setState) {
-                                                            return  DeletePopup(
-                                                                title: 'Delete Pay Rates',
-                                                                loadingDuration: _isLoading,
-                                                                onCancel: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                }, onDelete: () async {
-                                                              setState(() {
-                                                                _isLoading = true;
-                                                              });
-                                                              try {
-                                                                await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
-                                                                setState(() async {
-                                                                  await payRatesDataGet(context,1,1,30).then((data) {
-                                                                    _payRatesController.add(data);
-                                                                  }).catchError((error) {
-                                                                    // Handle error
-                                                                  });
-                                                                  Navigator.pop(context);
-                                                                });
-                                                              } finally {
-                                                                setState(() {
-                                                                  _isLoading = false;
-                                                                });
-                                                              }
-
-
-
-                                                            });
-                                                          },
-
-                                                        ));
-                                              }, icon: Icon(
-                                                Icons.delete_outline_outlined,
-                                                size: 18,color: ColorManager.red,))
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: 30,)
-                                    ],
-                                  )),
-                            ],
-                          );
-                                            }),
+                                            ),
+                                            SizedBox(
+                                              width: 30,
+                                            )
+                                          ],
+                                        )),
+                                  ],
+                                );
+                              }),
                         ),
                         PaginationControlsWidget(
                           currentPage: currentPage,
@@ -732,7 +875,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                           itemsPerPage: itemsPerPage,
                           onPreviousPagePressed: () {
                             setState(() {
-                              currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                              currentPage =
+                                  currentPage > 1 ? currentPage - 1 : 1;
                             });
                           },
                           onPageNumberPressed: (pageNumber) {
@@ -742,17 +886,19 @@ class _FinanceScreenState extends State<FinanceScreen> {
                           },
                           onNextPagePressed: () {
                             setState(() {
-                              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                              currentPage = currentPage < totalPages
+                                  ? currentPage + 1
+                                  : totalPages;
                             });
                           },
                         ),
                         SizedBox(height: AppSize.s10),
                       ],
                     );
-  }
-  return const Offstage();
-},
-),
+                  }
+                  return const Offstage();
+                },
+              ),
             ),
           ],
         ),
@@ -762,131 +908,286 @@ class _FinanceScreenState extends State<FinanceScreen> {
 }
 
 Widget buildDropdownButton(BuildContext context) {
-  return Container(
-    height: 31,
-    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-      borderRadius: BorderRadius.circular(12.0),
-      boxShadow: [
-        BoxShadow(
-          color: const Color(0xff000000).withOpacity(0.25),
-          blurRadius: 2,
-          offset: const Offset(0, 2),
-        ),
-      ],
-    ),
-    child: DropdownButton<String>(
-      value: 'Sort By',
-      style: GoogleFonts.firaSans(
-        fontSize: 12,
-        fontWeight: FontWeightManager.bold,
-        color: const Color(0xff50B5E5),
-        decoration: TextDecoration.none,
-      ),
-      icon: const Icon(
-        Icons.arrow_drop_down,
-        color: Color(0xff50B5E5),
-      ),
+  ///pay_rates_manager line no203  and data fiele name pay rate finacnce data  line no 59
 
-      iconSize: 20,
-      underline: const SizedBox(),
-      onChanged: (String? newValue) {
-        // Show popup or AlertDialog
-        // if (newValue != null) {
-        //   showDialog(
-        //     context: context,
-        //     builder: (BuildContext context) {
-        //       TextEditingController nameController = TextEditingController();
-        //       TextEditingController addressController = TextEditingController();
-        //       TextEditingController emailController = TextEditingController();
-        //       return AlertDialog(
-        //           backgroundColor: Colors.white,
-        //           content: Container(
-        //             height: 343,
-        //             width: 409,
-        //             child: Column(
-        //               mainAxisAlignment: MainAxisAlignment.start,
-        //               children: [
-        //                 Row(
-        //                   mainAxisAlignment: MainAxisAlignment.end,
-        //                   crossAxisAlignment: CrossAxisAlignment.end,
-        //                   children: [
-        //                     IconButton(
-        //                         onPressed: () {
-        //                           Navigator.pop(context);
-        //                         },
-        //                         icon: const Icon(Icons.close))
-        //                   ],
-        //                 ),
-        //                 Column(
-        //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //                   children: [
-        //                     SMTextFConst(
-        //                       controller: nameController,
-        //                       keyboardType: TextInputType.text,
-        //                       text: 'Type of Visit',
-        //                     ),
-        //                     const SizedBox(
-        //                       height: 25,
-        //                     ),
-        //                     SMTextFConst(
-        //                       controller: addressController,
-        //                       keyboardType: TextInputType.streetAddress,
-        //                       text: 'Zone',
-        //                     ),
-        //                     const SizedBox(
-        //                       height: 25,
-        //                     ),
-        //                     SMTextFConst(
-        //                       controller: emailController,
-        //                       keyboardType: TextInputType.emailAddress,
-        //                       text: 'Rate',
-        //                     ),
-        //                   ],
-        //                 ),
-        //                 const SizedBox(
-        //                   height: 60,
-        //                 ),
-        //                 CustomElevatedButton(
-        //                     width: 105,
-        //                     height: 31,
-        //                     text: 'Submit',
-        //                     onPressed: () {
-        //                       // Navigator.push(
-        //                       //     context,
-        //                       //     MaterialPageRoute(
-        //                       //         builder: (context) =>
-        //                       //             LoginScreen()));
-        //                     })
-        //               ],
-        //             ),
-        //           ));
-        //     },
-        //   );
-        // }
-      },
-      isDense: true,
-      items: <String>[
-        'Sort By',
-        'For all zones',
-        'San Jose z4',
-        'San Jose z4',
-        'San Jose z4',
-        'San Jose z4',
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(
-            value,
-            style: TextStyle(color: ColorManager.blueprime),
+  return FutureBuilder<List<SortByZoneData>>(
+    future:
+        PayRateZoneDropdoen(context, 1, " "), // Change this to a stream method
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 7),
+            child: Container(
+              width: AppSize.s250,
+              height: AppSize.s40,
+              decoration: BoxDecoration(
+                color: ColorManager.faintGrey,
+              ),
+            ),
           ),
         );
-      }).toList(),
-    ),
+      }
+
+      if (snapshot.hasError) {
+        return Center(child: Text('Error: ${snapshot.error}'));
+      }
+
+      if (snapshot.hasData) {
+        List<String> dropDownList = [];
+
+        for (var i in snapshot.data!) {
+          if (i.zoneName != null) {
+            dropDownList.add(i.zoneName!);
+          }
+        }
+        return Container(
+            height: 31,
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+              borderRadius: BorderRadius.circular(12.0),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xff000000).withOpacity(0.25),
+                  blurRadius: 2,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: DropdownButton<String>(
+              value: 'Sort By',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeightManager.bold,
+                color: const Color(0xff50B5E5),
+                decoration: TextDecoration.none,
+              ),
+              icon: const Icon(
+                Icons.arrow_drop_down,
+                color: Color(0xff50B5E5),
+              ),
+              iconSize: 20,
+              underline: const SizedBox(),
+              onChanged: (String? newValue) {
+                // for (var a in snapshot.data!) {
+                //   if (a.zoneName == newValue) {
+                //     selectedZone = a.zoneName!;
+                //   }
+                // }
+              },
+              items: dropDownList.map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      color: Color(0xff575757),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ));
+      } else {
+        return const Offstage();
+      }
+    },
   );
 }
+
+// items: dropDownList.map((String value) {
+//   return DropdownMenuItem<String>(
+//     value: value,
+//     child: Text(
+//       value,
+//       style: GoogleFonts.firaSans(
+//         fontSize: 12,
+//         color: Color(0xff575757),
+//         fontWeight: FontWeight.w400,
+//       ),
+//     ),
+//   );
+// }).toList(),
+// )
+
+// return SizedBox(
+//   height: 32,
+//   child: DropdownButtonFormField<String>(
+//     decoration: InputDecoration(
+//       hintStyle: GoogleFonts.firaSans(
+//         fontSize: 10.0,
+//         fontWeight: FontWeight.w400,
+//         color: const Color(0xff9B9B9B),
+//       ),
+//       border: OutlineInputBorder(
+//         borderRadius: BorderRadius.circular(4.0),
+//         borderSide:
+//         const BorderSide(color: Colors.grey),
+//       ),
+//       contentPadding: const EdgeInsets.symmetric(
+//           horizontal: 12),
+//     ),
+//     icon: Icon(Icons.arrow_drop_down,
+//         color: Color(0xff9B9B9B)),
+//     iconSize: 24,
+//     elevation: 16,
+//     style: GoogleFonts.firaSans(
+//       fontSize: 10.0,
+//       fontWeight: FontWeight.w400,
+//       color: const Color(0xff686464),
+//     ),
+//     onChanged: (newValue) {
+//       for (var a in snapshot.data!) {
+//         if (a.degree == newValue) {
+//           selectedDegree = a.degree!;
+//         }
+//       }
+//     },
+//     items: dropDownList.map((String value) {
+//       return DropdownMenuItem<String>(
+//         value: value,
+//         child: Text(
+//           value,
+//           style: GoogleFonts.firaSans(
+//             fontSize: 12,
+//             color: Color(0xff575757),
+//             fontWeight: FontWeight.w400,
+//           ),
+//         ),
+//       );
+//     }).toList(),
+//   ),
+// );
+
+//return Container(
+//   height: 31,
+//   padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+//   decoration: BoxDecoration(
+//     color: Colors.white,
+//     border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+//     borderRadius: BorderRadius.circular(12.0),
+//     boxShadow: [
+//       BoxShadow(
+//         color: const Color(0xff000000).withOpacity(0.25),
+//         blurRadius: 2,
+//         offset: const Offset(0, 2),
+//       ),
+//     ],
+//   ),
+//   child: DropdownButton<String>(
+//     value: 'Sort By',
+//     style: GoogleFonts.firaSans(
+//       fontSize: 12,
+//       fontWeight: FontWeightManager.bold,
+//       color: const Color(0xff50B5E5),
+//       decoration: TextDecoration.none,
+//     ),
+//     icon: const Icon(
+//       Icons.arrow_drop_down,
+//       color: Color(0xff50B5E5),
+//     ),
+//
+//     iconSize: 20,
+//     underline: const SizedBox(),
+//     onChanged: (String? newValue) {
+//       // Show popup or AlertDialog
+//       // if (newValue != null) {
+//       //   showDialog(
+//       //     context: context,
+//       //     builder: (BuildContext context) {
+//       //       TextEditingController nameController = TextEditingController();
+//       //       TextEditingController addressController = TextEditingController();
+//       //       TextEditingController emailController = TextEditingController();
+//       //       return AlertDialog(
+//       //           backgroundColor: Colors.white,
+//       //           content: Container(
+//       //             height: 343,
+//       //             width: 409,
+//       //             child: Column(
+//       //               mainAxisAlignment: MainAxisAlignment.start,
+//       //               children: [
+//       //                 Row(
+//       //                   mainAxisAlignment: MainAxisAlignment.end,
+//       //                   crossAxisAlignment: CrossAxisAlignment.end,
+//       //                   children: [
+//       //                     IconButton(
+//       //                         onPressed: () {
+//       //                           Navigator.pop(context);
+//       //                         },
+//       //                         icon: const Icon(Icons.close))
+//       //                   ],
+//       //                 ),
+//       //                 Column(
+//       //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//       //                   children: [
+//       //                     SMTextFConst(
+//       //                       controller: nameController,
+//       //                       keyboardType: TextInputType.text,
+//       //                       text: 'Type of Visit',
+//       //                     ),
+//       //                     const SizedBox(
+//       //                       height: 25,
+//       //                     ),
+//       //                     SMTextFConst(
+//       //                       controller: addressController,
+//       //                       keyboardType: TextInputType.streetAddress,
+//       //                       text: 'Zone',
+//       //                     ),
+//       //                     const SizedBox(
+//       //                       height: 25,
+//       //                     ),
+//       //                     SMTextFConst(
+//       //                       controller: emailController,
+//       //                       keyboardType: TextInputType.emailAddress,
+//       //                       text: 'Rate',
+//       //                     ),
+//       //                   ],
+//       //                 ),
+//       //                 const SizedBox(
+//       //                   height: 60,
+//       //                 ),
+//       //                 CustomElevatedButton(
+//       //                     width: 105,
+//       //                     height: 31,
+//       //                     text: 'Submit',
+//       //                     onPressed: () {
+//       //                       // Navigator.push(
+//       //                       //     context,
+//       //                       //     MaterialPageRoute(
+//       //                       //         builder: (context) =>
+//       //                       //             LoginScreen()));
+//       //                     })
+//       //               ],
+//       //             ),
+//       //           ));
+//       //     },
+//       //   );
+//       // }
+//     },
+//     isDense: true,
+//     items: <String>[
+//       'Sort By',
+//       'For all zones',
+//       'San Jose z4',
+//       'San Jose z4',
+//       'San Jose z4',
+//       'San Jose z4',
+//     ].map<DropdownMenuItem<String>>((String value) {
+//       return DropdownMenuItem<String>(
+//         value: value,
+//         child: Text(
+//           value,
+//           style: TextStyle(color: ColorManager.blueprime),
+//         ),
+//       );
+//     }).toList(),
+//   ),
+// );
 
 ///change color dropdown
 // Widget buildDropdownButton(BuildContext context) {

@@ -7,17 +7,24 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 
 Future<List<PayRateFinanceData>> payRatesDataGet(
-    BuildContext context,int empTypeId,int pageNo,int noOfRows,  ) async {
+  BuildContext context,
+  int empTypeId,
+  int pageNo,
+  int noOfRows,
+) async {
   List<PayRateFinanceData> itemsData = [];
   try {
     final companyId = await TokenManager.getCompanyId();
-    final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.payRatesSetupGet(pageNo: pageNo, noOfRows: noOfRows, empTypeId: empTypeId, companyId: companyId));
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.payRatesSetupGet(
+            pageNo: pageNo,
+            noOfRows: noOfRows,
+            empTypeId: empTypeId,
+            companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print(":::::LIST${response.data}");
       for (var item in response.data) {
-        itemsData.add(
-            PayRateFinanceData(
+        itemsData.add(PayRateFinanceData(
             department: item['department'] ?? "--",
             employeeType: item['employeeType'] ?? "--",
             abbreviation: item['abbreviation'] ?? "--",
@@ -28,8 +35,8 @@ Future<List<PayRateFinanceData>> payRatesDataGet(
             typeOfVisitId: item['typeOfVisitId'] ?? 0,
             typeVisit: item['typeOfVisit'] ?? "--",
             zone: item['zone'] ?? "--",
-                payRatesSetupId: item['PayratesSetupId'] ?? 0,
-                permile: item['permiles'] ?? 0));
+            payRatesSetupId: item['PayratesSetupId'] ?? 0,
+            permile: item['permiles'] ?? 0));
       }
     } else {
       print("Api Pay rates Data Error");
@@ -40,30 +47,31 @@ Future<List<PayRateFinanceData>> payRatesDataGet(
     return itemsData;
   }
 }
+
 /// Get pre fill api
 Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
-    BuildContext context,int payRatesId) async {
+    BuildContext context, int payRatesId) async {
   var itemsData;
   try {
     final companyId = await TokenManager.getCompanyId();
-    final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.updatePayRatesSetup(payRatesId: payRatesId));
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.updatePayRatesSetup(
+            payRatesId: payRatesId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print(":::::LIST${response.data}");
-        itemsData =
-            PayRatePrefillFinanceData(
-                department: response.data['department'] ?? "--",
-                employeeType: response.data['employeeType'] ?? "--",
-                abbreviation: response.data['abbreviation'] ?? "--",
-                payRates: response.data['rates'] ?? 0,
-                zoneId: response.data['zoneId'] ?? 0,
-                departmentId: response.data['departmentId'] ?? 0,
-                employeeTypeId: response.data['employeeTypeId'] ?? 0,
-                typeOfVisitId: response.data['typeOfVisitId'] ?? 0,
-                typeVisit: response.data['typeOfVisit'] ?? "--",
-                perMiles: response.data['permile'] ?? 0,
-                zone: response.data['zone'] ?? "--", payRatesSetupId: response.data['PayratesSetupId'] ?? 0) ;
-
+      itemsData = PayRatePrefillFinanceData(
+          department: response.data['department'] ?? "--",
+          employeeType: response.data['employeeType'] ?? "--",
+          abbreviation: response.data['abbreviation'] ?? "--",
+          payRates: response.data['rates'] ?? 0,
+          zoneId: response.data['zoneId'] ?? 0,
+          departmentId: response.data['departmentId'] ?? 0,
+          employeeTypeId: response.data['employeeTypeId'] ?? 0,
+          typeOfVisitId: response.data['typeOfVisitId'] ?? 0,
+          typeVisit: response.data['typeOfVisit'] ?? "--",
+          perMiles: response.data['permile'] ?? 0,
+          zone: response.data['zone'] ?? "--",
+          payRatesSetupId: response.data['PayratesSetupId'] ?? 0);
     } else {
       print("Api Pay rates Data Error");
     }
@@ -73,23 +81,29 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
     return itemsData;
   }
 }
+
 /// Add pay rates setup POST
 Future<ApiData> addPayRatesSetupPost(
-    BuildContext context, int deptId, int empTypeId,int permile,int typeOfVisitId, int zoneId, int payRates,) async {
+  BuildContext context,
+  int deptId,
+  int empTypeId,
+  int permile,
+  int typeOfVisitId,
+  int zoneId,
+  int payRates,
+) async {
   try {
     final companyId = await TokenManager.getCompanyId();
-    var response = await Api(context).post(
-        path: EstablishmentManagerRepository.
-        payRatesSetupPost(),
-        data: {
-          'departmentId': deptId,
-          'employeeTypeId': empTypeId,
-          'typeOfVisitId':typeOfVisitId,
-          'zoneId':zoneId,
-          'rates':payRates,
-          'permile':permile,
-          'companyId':companyId
-        });
+    var response = await Api(context)
+        .post(path: EstablishmentManagerRepository.payRatesSetupPost(), data: {
+      'departmentId': deptId,
+      'employeeTypeId': empTypeId,
+      'typeOfVisitId': typeOfVisitId,
+      'zoneId': zoneId,
+      'rates': payRates,
+      'permile': permile,
+      'companyId': companyId
+    });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Pay Rates added");
       return ApiData(
@@ -110,22 +124,30 @@ Future<ApiData> addPayRatesSetupPost(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
 /// Update pay rates
 Future<ApiData> updatePayRatesSetupPost(
-    BuildContext context, int deptId, int empTypeId,int permile,int typeOfVisitId, int zoneId, int payRates, int payRatesId) async {
+    BuildContext context,
+    int deptId,
+    int empTypeId,
+    int permile,
+    int typeOfVisitId,
+    int zoneId,
+    int payRates,
+    int payRatesId) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
-        path: EstablishmentManagerRepository.
-        updatePayRatesSetup(payRatesId: payRatesId),
+        path: EstablishmentManagerRepository.updatePayRatesSetup(
+            payRatesId: payRatesId),
         data: {
           'departmentId': deptId,
           'employeeTypeId': empTypeId,
-          'typeOfVisitId':typeOfVisitId,
-          'zoneId':zoneId,
-          'rates':payRates,
-          'permile':permile,
-          'companyId':companyId
+          'typeOfVisitId': typeOfVisitId,
+          'zoneId': zoneId,
+          'rates': payRates,
+          'permile': permile,
+          'companyId': companyId
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Pay Rates updates");
@@ -150,9 +172,13 @@ Future<ApiData> updatePayRatesSetupPost(
 
 /// Delete pay rates setup PATCH
 Future<ApiData> deletePayRatesSetupPost(
-    BuildContext context,int payRatesId,) async {
+  BuildContext context,
+  int payRatesId,
+) async {
   try {
-    var response = await Api(context).delete(path: EstablishmentManagerRepository.deletePayRatesSetup(payRatesId: payRatesId));
+    var response = await Api(context).delete(
+        path: EstablishmentManagerRepository.deletePayRatesSetup(
+            payRatesId: payRatesId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Pay Rates Deleted");
       return ApiData(
@@ -171,5 +197,36 @@ Future<ApiData> deletePayRatesSetupPost(
     print("Error 2");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+///zone sort by dropdown
+Future<List<SortByZoneData>> PayRateZoneDropdoen(
+    BuildContext context, int companyID, String officeId) async {
+  List<SortByZoneData> itemsList = [];
+  try {
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.getzonedropdown(
+            companyID: companyID, officeId: officeId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(
+          SortByZoneData(
+            zone_id: item['zone_id'],
+            zoneName: item['zoneName'],
+            county_id: item['county_id'],
+            officeId: item['officeId'],
+            companyId: item['companyId'],
+          ),
+        );
+     }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
   }
 }
