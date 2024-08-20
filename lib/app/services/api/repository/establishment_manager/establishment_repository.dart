@@ -144,6 +144,7 @@ class EstablishmentManagerRepository {
   static String addManageCCVCPPPost(){
     return "$corporateDocument/$addOfficeDoc";
   }
+
   ///org doc
   static String getCiOrgDLicense({required int companyId,
     required int docTypeID,
