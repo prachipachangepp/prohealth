@@ -75,15 +75,21 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
 }
 /// Add pay rates setup POST
 Future<ApiData> addPayRatesSetupPost(
-    BuildContext context, int deptId, int empTypeId,int permile,int typeOfVisitId, int zoneId, int payRates,) async {
+    BuildContext context,
+    // int deptId,
+    // int empTypeId,
+    int zoneId,
+    int permile,
+    int typeOfVisitId,
+    int payRates,) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.
         payRatesSetupPost(),
         data: {
-          'departmentId': deptId,
-          'employeeTypeId': empTypeId,
+          // 'departmentId': deptId,
+          // 'employeeTypeId': empTypeId,
           'typeOfVisitId':typeOfVisitId,
           'zoneId':zoneId,
           'rates':payRates,
@@ -110,6 +116,7 @@ Future<ApiData> addPayRatesSetupPost(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
 /// Update pay rates
 Future<ApiData> updatePayRatesSetupPost(
     BuildContext context, int deptId, int empTypeId,int permile,int typeOfVisitId, int zoneId, int payRates, int payRatesId) async {
