@@ -9,8 +9,10 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 
 class CompanyIdentityScreen extends StatefulWidget {
   final VoidCallback? onWhitelabellingPressed;
-  final String? officeId;
-  const CompanyIdentityScreen({super.key, this.onWhitelabellingPressed, this.officeId});
+   final String? officeId;
+  final int? companyId;
+  const CompanyIdentityScreen({super.key, this.onWhitelabellingPressed,
+    this.officeId, this.companyId});
   @override
   State<CompanyIdentityScreen> createState() => _CompanyIdentityScreenState();
 }
@@ -87,7 +89,10 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                 // Page 1
                 CiVisitScreen(),
                 // Page 2
-                CiOrgDocument(officeId: widget.officeId ?? 'Office 01',),
+                CiOrgDocument
+                  (
+                  officeId: widget.officeId ?? 'Office 01',
+                  companyId: widget.companyId,),
                 // Page 3
                 CiRoleManager()
               ],
