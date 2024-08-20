@@ -205,6 +205,7 @@ Future<List<SortByZoneData>> PayRateZoneDropdoen(
     BuildContext context, int companyID, String officeId) async {
   List<SortByZoneData> itemsList = [];
   try {
+    final companyID= await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getzonedropdown(
             companyID: companyID, officeId: officeId));
