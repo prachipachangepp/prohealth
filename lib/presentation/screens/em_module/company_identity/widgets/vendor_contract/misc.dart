@@ -231,7 +231,7 @@ class _CiMiscState extends State<CiMisc> {
                                                                       void Function(void Function()) setState) {
                                                                     return CCScreenEditPopup(
                                                                       height: AppSize.s350,
-                                                                      title: 'Edit Leases & Services',
+                                                                      title: 'Edit MISC',
                                                                       id: documentPreId,
                                                                       idDocController: docIdController,
                                                                       nameDocController: docNameController,

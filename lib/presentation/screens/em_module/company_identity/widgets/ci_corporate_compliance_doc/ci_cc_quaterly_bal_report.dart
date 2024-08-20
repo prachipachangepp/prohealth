@@ -230,7 +230,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                                       void Function(void Function()) setState) {
                                                                     return CCScreenEditPopup(
                                                                       height: AppSize.s350,
-                                                                      title: 'Edit Leases & Services',
+                                                                      title: 'Edit Quaterly Balance Reports',
                                                                       id: documentPreId,
                                                                       idDocController: docIdController,
                                                                       nameDocController: docNameController,

@@ -93,7 +93,6 @@ class _CICCADRState extends State<CICCADR> {
                     int totalItems = snapshot.data!.length;
                     int totalPages = (totalItems / itemsPerPage).ceil();
                     List<ManageCCDoc> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
-
                     return Column(
                       children: [
                         Expanded(
@@ -226,7 +225,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                       void Function(void Function()) setState) {
                                                                     return CCScreenEditPopup(
                                                                       height: AppSize.s350,
-                                                                      title: 'Edit Leases & Services',
+                                                                      title: 'Edit ADR',
                                                                       id: documentPreId,
                                                                       idDocController: docIdController,
                                                                       nameDocController: docNameController,

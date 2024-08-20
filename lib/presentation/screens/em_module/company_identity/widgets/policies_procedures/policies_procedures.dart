@@ -393,7 +393,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                     void Function(void Function()) setState) {
                                                                   return CCScreenEditPopup(
                                                                     height: AppSize.s350,
-                                                                    title: 'Edit Leases & Services',
+                                                                    title: 'Edit Policies & Procedures',
                                                                     id: documentPreId,
                                                                     idDocController: docIdController,
                                                                     nameDocController: nameOfDocController,

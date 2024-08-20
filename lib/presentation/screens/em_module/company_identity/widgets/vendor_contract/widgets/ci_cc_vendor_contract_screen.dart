@@ -406,7 +406,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                   },
                                 ),
 
-                                title: 'Add Policies',
+                                title: 'Add Vendor Contracts',
                               );
 
                               //   AddOrgDocButton(

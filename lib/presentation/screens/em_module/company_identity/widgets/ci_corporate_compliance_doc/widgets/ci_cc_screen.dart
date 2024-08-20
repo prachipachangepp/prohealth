@@ -396,7 +396,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                     },
                                   ),
 
-                                  title: 'Add Policies',
+                                  title: 'Add Corporate & Compliance',
                                 );
                               },
 
