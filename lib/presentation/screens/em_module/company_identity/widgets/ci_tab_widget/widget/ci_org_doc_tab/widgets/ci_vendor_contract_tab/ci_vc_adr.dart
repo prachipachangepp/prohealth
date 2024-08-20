@@ -130,7 +130,8 @@ class _VendorContractADRState extends State<VendorContractADR> {
           child: StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context, snapshot) {
-                orgSubDocumentGet(context,widget.docId, widget.subDocId, 1, 15).then((data) {
+                getORGDoc(context,widget.docId,widget.subDocId,1,15
+                ).then((data) {
                   _controller.add(data);
                 }).catchError((error) {
                   // Handle error
@@ -223,7 +224,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                 Expanded(
                                   child: Center(
                                       child: Text(
-                                        snapshot.data![index].expiry.toString(),
+                                        snapshot.data![index].expiryType.toString(),
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -235,7 +236,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                 Expanded(
                                   child: Center(
                                       child: Text(
-                                        snapshot.data![index].reminderThreshold.toString().capitalizeFirst!,
+                                        snapshot.data![index].expirtReminder.toString().capitalizeFirst!,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -302,21 +303,12 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                                             expiryReminder: "Schedule",
                                                             officeId: widget.officeId,
                                                           );
-                                                          setState(() async {
-                                                            await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
-                                                              _controller.add(data);
-                                                            }).catchError((error) {
-                                                              // Handle error
-                                                            });
-                                                            Navigator.pop(context);
-                                                          });
                                                         } finally {
                                                           setState(() {
                                                             _isLoading = false;
                                                           });
+                                                          Navigator.pop(context);
                                                         }
-
-
                                                       },
                                                       child1: StreamBuilder<List<IdentityDocumentIdData>>(
                                                           stream: _identityDataController.stream,
@@ -488,18 +480,11 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                                         await deleteDocument(
                                                             context,
                                                             snapshot.data![index].docId);
-                                                        setState(() async {
-                                                          await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
-                                                            _controller.add(data);
-                                                          }).catchError((error) {
-                                                            // Handle error
-                                                          });
-                                                          Navigator.pop(context);
-                                                        });
                                                       } finally {
                                                         setState(() {
                                                           _isLoading = false;
                                                         });
+                                                        Navigator.pop(context);
                                                       }
 
                                                     });
