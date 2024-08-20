@@ -2,12 +2,11 @@ class CiOrgDocumentCC {
   final int docId;
   final int documentTypeId;
   final int documentSubTypeId;
-  final String? name;
+  final String name;
   final String createdAt;
   final String url;
-  final String? expiry;
-  final String? reminderThreshold;
-  final String? calenderData;
+  final String? expiryType;
+  final String? expirtDate;
   final String expirtReminder;
   final int companyId;
   final String officeId;
@@ -30,7 +29,6 @@ class CiOrgDocumentCC {
       {required this.documentTypeId,
       required this.documentSubTypeId,
       required this.url,
-      this.calenderData,
       required this.expirtReminder,
       required this.companyId,
       required this.officeId,
@@ -38,9 +36,9 @@ class CiOrgDocumentCC {
       required this.message,
       required this.createdAt,
       required this.docId,
-      this.name,
-      this.expiry,
-      this.reminderThreshold});
+      required this.name,
+      this.expiryType,
+      this.expirtDate});
 }
 
 class OrgDocModal {

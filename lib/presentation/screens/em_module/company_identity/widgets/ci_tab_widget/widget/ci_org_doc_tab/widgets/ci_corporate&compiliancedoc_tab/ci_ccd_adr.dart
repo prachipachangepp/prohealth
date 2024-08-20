@@ -150,7 +150,8 @@ class _CICcdADRState extends State<CICcdADR> {
           child: StreamBuilder<List<CiOrgDocumentCC>>(
             stream: _controller.stream,
             builder: (context, snapshot) {
-              orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 15).then((data) {
+              getORGDoc(context,widget.docID,widget.subDocID,1,15
+              ).then((data) {
                 _controller.add(data);
               }).catchError((error) {
                 // Handle error
@@ -242,7 +243,7 @@ class _CICcdADRState extends State<CICcdADR> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    currentPageItems[index].expiry.toString(),
+                                    currentPageItems[index].expiryType.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -255,7 +256,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                 child: Center(
                                   child: Text(
                                     currentPageItems[index]
-                                        .reminderThreshold!.toString().capitalizeFirst!,
+                                        .expirtReminder!.toString().capitalizeFirst!,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -322,18 +323,11 @@ class _CICcdADRState extends State<CICcdADR> {
                                                           expiryReminder: "Schedule",
                                                           officeId: widget.officeId,
                                                         );
-                                                        setState(() async {
-                                                          await orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 15).then((data) {
-                                                            _controller.add(data);
-                                                          }).catchError((error) {
-                                                            // Handle error
-                                                          });
-                                                          Navigator.pop(context);
-                                                        });
                                                       } finally {
                                                         setState(() {
                                                           _isLoading = false;
                                                         });
+                                                        Navigator.pop(context);
                                                       }
 
 
@@ -508,18 +502,11 @@ class _CICcdADRState extends State<CICcdADR> {
                                                       await deleteDocument(
                                                           context,
                                                           snapshot.data![index].docId);
-                                                      setState(() async {
-                                                        await orgSubDocumentGet(context, widget.docID, widget.subDocID, 1, 6).then((data) {
-                                                          _controller.add(data);
-                                                        }).catchError((error) {
-                                                          // Handle error
-                                                        });
-                                                        Navigator.pop(context);
-                                                      });
                                                     } finally {
                                                       setState(() {
                                                         _isLoading = false;
                                                       });
+                                                      Navigator.pop(context);
                                                     }
 
                                                   });

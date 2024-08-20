@@ -31,3 +31,36 @@ class ManageCCDoc {
 }
 
 
+///prefill
+class CorporatePrefillCCVVPP {
+  final int documentId;
+  final int documentTypeId;
+  final int documentSubTypeId;
+  final String docName;
+  final String docCreated;
+  final String url;
+  final String expiryType;
+  final String expiryDate;
+  final String expiryReminder;
+  final int companyId;
+  final String officeId;
+  final bool sucess;
+  final String message;
+  CorporatePrefillCCVVPP({
+    required this.documentId,
+    required this.documentTypeId,
+    required this.documentSubTypeId,
+    required this.docName,
+    required this.docCreated,
+    required this.url,
+    required this.expiryType,
+    required this.expiryDate,
+    required this.expiryReminder,
+    required this.companyId,
+    required this.officeId,
+    required this.sucess,
+    required this.message,
+  });
+
+}
+

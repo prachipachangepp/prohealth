@@ -212,48 +212,49 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                           title: 'Edit Contract',
                                                       contractNmaeController: contractNameController,
                                                       contractIdController: contractIdController,
-                                                      onSubmitPressed:() async{
-                                                        setState(() {
-                                                          _isLoading = true;
-                                                        });
-                                                        try {
-                                                          //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
-                                                          await patchCompanyContract(context,
-                                                          snapshot.data![index].insuranceVendorId,
-                                                        widget.officeId,
-                                                        contractPrefName ?? contractNameController.text,
-                                                        selectedExpiryType.toString(),
-                                                        contractIDPrefName ?? contractIdController.text);
-                                                          setState(() async {
-                                                            await  companyContractGetByVendorId(
-                                                              context,
-                                                              widget.officeId,
-                                                              widget.insuranceVendorId,
-                                                              currentPage,
-                                                              itemsPerPage,
-                                                            ).then((data) {
-                                                              _controller.add(data);
-                                                            }).catchError((error) {
-                                                              // Handle error
-                                                              _controller.addError(error);
-                                                            });
-                                                            Navigator.pop(context);
-                                                          });
-                                                        } finally {
-                                                          setState(() {
-                                                            _isLoading = false;
-                                                          });
-                                                        }
-                                                      },
-
-                                                      //     ()async {
-                                                      //    await patchCompanyContract(context,
-                                                      //        snapshot.data![index].insuranceVendorId,
-                                                      //        widget.officeId,
-                                                      //        contractPrefName ?? contractNameController.text,
-                                                      //        selectedExpiryType.toString(),
-                                                      //        contractIDPrefName ?? contractIdController.text);
+                                                      onSubmitPressed:
+                                                            //() async{
+                                                        // setState(() {
+                                                        //   _isLoading = true;
+                                                        // });
+                                                        // try {
+                                                        //   //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
+                                                        //   await patchCompanyContract(context,
+                                                        //   snapshot.data![index].insuranceVendorId,
+                                                        // widget.officeId,
+                                                        // contractPrefName ?? contractNameController.text,
+                                                        // selectedExpiryType.toString(),
+                                                        // contractIDPrefName ?? contractIdController.text);
+                                                          // setState(() async {
+                                                          //   await  companyContractGetByVendorId(
+                                                          //     context,
+                                                          //     widget.officeId,
+                                                          //     widget.insuranceVendorId,
+                                                          //     currentPage,
+                                                          //     itemsPerPage,
+                                                          //   ).then((data) {
+                                                          //     _controller.add(data);
+                                                          //   }).catchError((error) {
+                                                          //     // Handle error
+                                                          //     _controller.addError(error);
+                                                          //   });
+                                                          //   Navigator.pop(context);
+                                                          // });
+                                                      //   } finally {
+                                                      //     setState(() {
+                                                      //       _isLoading = false;
+                                                      //     });
+                                                      //   }
                                                       // },
+
+                                                          ()async {
+                                                         await patchCompanyContract(context,
+                                                             snapshot.data![index].insuranceVendorId,
+                                                             widget.officeId,
+                                                             contractPrefName ?? contractNameController.text,
+                                                             selectedExpiryType.toString(),
+                                                             contractIDPrefName ?? contractIdController.text);
+                                                      },
                                                       radiobutton:  Padding(
                                                         padding: const EdgeInsets.only(left: 10.0),
                                                         child: Column(

@@ -33,9 +33,6 @@ class CIPoliciesProcedure extends StatefulWidget {
 }
 
 class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
@@ -52,26 +49,18 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 20;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
-    hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    // orgDocumentGet(context);
-    _loadColors();
+    }
 
-  }
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
 
-  void _loadColors() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  void onPageNumberPressed(int pageNumber) {
     setState(() {
-      for (int i = 0; i < hrcontainerColors.length; i++) {
-        int? colorValue = prefs.getInt('containerColor$i');
-        if (colorValue != null) {
-          hrcontainerColors[i] = Color(colorValue);
-        }
-      }
+      currentPage = pageNumber;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +68,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
       StreamBuilder<List<CiOrgDocumentCC>>(
         stream: _policiesandprocedureController.stream,
         builder: (context, snapshot) {
-          orgSubDocumentGet(context,widget.docId,widget.subDocId,1,15
+          getORGDoc(context,widget.docId,widget.subDocId,1,15
           ).then((data) {
             _policiesandprocedureController.add(data);
           }).catchError((error) {
@@ -107,14 +96,8 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
           }
           if (snapshot.hasData) {
             int totalItems = snapshot.data!.length;
-            // int totalPages = (totalItems / itemsPerPage).ceil();
-            List<CiOrgDocumentCC> currentPageItems = snapshot.data!.sublist(
-              (currentPage - 1) * itemsPerPage,
-              (currentPage * itemsPerPage) > totalItems
-                  ? totalItems
-                  : (currentPage * itemsPerPage),
-            );
-
+            int totalPages = (totalItems / itemsPerPage).ceil();
+            List<CiOrgDocumentCC> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
             return Column(
               children: [
                 Container(
@@ -194,12 +177,11 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                 Expanded(
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: currentPageItems.length,
+                    itemCount: paginatedData.length,
                     itemBuilder: (context, index) {
-                      int serialNumber =
-                          index + 1 + (currentPage - 1) * itemsPerPage;
-                      String formattedSerialNumber =
-                      serialNumber.toString().padLeft(2, '0');
+                      int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                      String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                      CiOrgDocumentCC policiesdata = paginatedData[index];
                       return Column(
                         children: [
                           SizedBox(height: AppSize.s5),
@@ -238,7 +220,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                 Expanded(
                                   child: Center(
                                     child: Text(
-                                      currentPageItems[index].name.toString().capitalizeFirst!,
+                                      snapshot.data![index].name.toString().capitalizeFirst!,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
@@ -250,7 +232,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                 Expanded(
                                   child: Center(
                                     child: Text(
-                                      currentPageItems[index].expiry.toString(),
+                                      snapshot.data![index].expirtDate.toString(),
                                       style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
@@ -262,9 +244,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                 Expanded(
                                   child: Center(
                                     child: Text(
-                                      currentPageItems[index]
-                                          .reminderThreshold
-                                          .toString().capitalizeFirst!,
+                                    snapshot.data![index].expirtReminder.toString().capitalizeFirst!,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
@@ -331,18 +311,11 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                             expiryReminder: "Schedule",
                                                             officeId: widget.officeId,
                                                           );
-                                                          setState(() async {
-                                                            await orgSubDocumentGet(context, widget.docId, widget.subDocId, 1, 15).then((data) {
-                                                              _policiesandprocedureController.add(data);
-                                                            }).catchError((error) {
-                                                              // Handle error
-                                                            });
-                                                            Navigator.pop(context);
-                                                          });
                                                         } finally {
                                                           setState(() {
                                                             _isLoading = false;
                                                           });
+                                                          Navigator.pop(context);
                                                         }
 
 
@@ -440,7 +413,6 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                           ),
                                                         ],
                                                       ),
-
                                                       child:  FutureBuilder<List<DocumentTypeData>>(
                                                           future: documentTypeGet(context),
                                                           builder: (context,snapshot) {
@@ -517,18 +489,11 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                         await deleteDocument(
                                                             context,
                                                             snapshot.data![index].docId);
-                                                        setState(() async {
-                                                          await orgSubDocumentGet(context, widget.docId, 21, 1, 15).then((data) {
-                                                            _policiesandprocedureController.add(data);
-                                                          }).catchError((error) {
-                                                            // Handle error
-                                                          });
-                                                          Navigator.pop(context);
-                                                        });
                                                       } finally {
                                                         setState(() {
                                                           _isLoading = false;
                                                         });
+                                                        Navigator.pop(context);
                                                       }
 
                                                     });
@@ -548,27 +513,27 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                   ),
                 ),
 
-                PaginationControlsWidget(
-                  currentPage: currentPage,
-                  items: items,
-                  itemsPerPage: itemsPerPage,
-                  onPreviousPagePressed: () {
-                    setState(() {
-                      currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                    });
-                  },
-                  onPageNumberPressed: (pageNumber) {
-                    setState(() {
-                      currentPage = pageNumber;
-                    });
-                  },
-                  onNextPagePressed: () {
-                    setState(() {
-                      int totalPages = (items.length / itemsPerPage).ceil();
-                      currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-                    });
-                  },
-                ),
+                // PaginationControlsWidget(
+                //   currentPage: currentPage,
+                //   items: items,
+                //   itemsPerPage: itemsPerPage,
+                //   onPreviousPagePressed: () {
+                //     setState(() {
+                //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                //     });
+                //   },
+                //   onPageNumberPressed: (pageNumber) {
+                //     setState(() {
+                //       currentPage = pageNumber;
+                //     });
+                //   },
+                //   onNextPagePressed: () {
+                //     setState(() {
+                //       int totalPages = (items.length / itemsPerPage).ceil();
+                //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                //     });
+                //   },
+                // ),
               ],
             );
           }

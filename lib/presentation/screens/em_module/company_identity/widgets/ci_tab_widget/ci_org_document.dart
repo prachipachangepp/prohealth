@@ -251,13 +251,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                         // companyId: widget.companyId,
                                         // officeId: widget.officeId,
                                       );
-                                      await orgSubDocumentGet(
-                                        context,
-                                        docTypeMetaId,
-                                        docSubTypeMetaId,
-                                        1,
-                                        15,
-                                      );
+                                    //  await getORGDoc(context, docID, docSubTypeMetaId, 1, 20);
+                                      await getORGDoc(context, docTypeMetaId,
+                                          docSubTypeMetaId, 1, 20);
                                       Navigator.pop(context);
                                       setState(() {
                                         expiryType = '';
