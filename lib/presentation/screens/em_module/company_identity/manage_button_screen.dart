@@ -58,7 +58,9 @@ class _ManageWidgetState extends State<ManageWidget> {
       curve: Curves.ease,
     );
   }
-int listIndex = 0 ;
+
+  int listIndex = 0;
+
   void _listButton(int index) {
     setState(() {
       listIndex = index;
@@ -70,6 +72,7 @@ int listIndex = 0 ;
       curve: Curves.ease,
     );
   }
+
   @override
   void initState() {
     super.initState();
@@ -88,18 +91,18 @@ int listIndex = 0 ;
           _selectedIndex != 0
               ? Container(height: 15)
               : Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppPadding.p160, vertical: AppPadding.p10),
-                  child: Row(
-                    children: [
-                      Text(
-                        widget.officeName,
-                        style: CompanyIdentityManageHeadings.customTextStyle(
-                            context),
-                      ),
-                    ],
-                  ),
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppPadding.p160, vertical: AppPadding.p10),
+            child: Row(
+              children: [
+                Text(
+                  widget.officeName,
+                  style: CompanyIdentityManageHeadings.customTextStyle(
+                      context),
                 ),
+              ],
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 35),
             child: Row(
@@ -129,74 +132,89 @@ int listIndex = 0 ;
                   ],
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 50,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width / 50,
                 ),
                 Material(
                   elevation: 4,
                   borderRadius: BorderRadius.circular(14),
                   child: Container(
-                    width: MediaQuery.of(context).size.width/1.1814,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 1.1814,
                     height: AppSize.s30,
-                  decoration: BoxDecoration(
-                      color: ColorManager.blueprime,
-                    borderRadius: BorderRadius.circular(14)
-                  ),
+                    decoration: BoxDecoration(
+                        color: ColorManager.blueprime,
+                        borderRadius: BorderRadius.circular(14)
+                    ),
                     child: Row(
                       children: [
                         InkWell(
                           child: Container(
-                                        height: 30,
-                                        width: MediaQuery.of(context).size.width / 8.4,
-                                        padding: EdgeInsets.symmetric(vertical: 6),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          color: _selectedIndex == 0
-                                              ? Colors.white
-                                              : null,
-                                        ),
-                                        child: Text(
-                                          'Details',
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: AppSize.s12,
-                                            fontWeight: FontWeightManager.semiBold,
-                                            color: _selectedIndex == 0
-                                                ? ColorManager.mediumgrey
-                                                : ColorManager.white,
-                                          ),
-                                        ),
-                                      ),
+                            height: 30,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 8.4,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 0
+                                  ? Colors.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Details',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: AppSize.s12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 0
+                                    ? ColorManager.mediumgrey
+                                    : ColorManager.white,
+                              ),
+                            ),
+                          ),
                           onTap: () => _selectButton(0),
-                                  ),
-                        InkWell(
-                                      child: Container(
-                                        height: AppSize.s30,
-                                        width: MediaQuery.of(context).size.width / 8.9,
-                                        padding: EdgeInsets.symmetric(vertical: 6),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          color: _selectedIndex == 1
-                                              ? ColorManager.white
-                                              : null,
-                                        ),
-                                        child: Text(
-                                          'Zones',
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s12,
-                                            fontWeight: FontWeightManager.semiBold,
-                                            color: _selectedIndex == 1
-                                                ? ColorManager.mediumgrey
-                                                : Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                          onTap: () => _selectButton(1),
-                                  ),
+                        ),
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 7,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 8.9,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 1
+                                  ? ColorManager.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Zones',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 1
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => _selectButton(1),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: AppSize.s30,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 7,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -221,7 +239,10 @@ int listIndex = 0 ;
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 8.7,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 8.7,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -246,7 +267,10 @@ int listIndex = 0 ;
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 8.4,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -271,7 +295,10 @@ int listIndex = 0 ;
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 8.4,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -296,7 +323,10 @@ int listIndex = 0 ;
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery.of(context).size.width / 8.4,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -334,24 +364,27 @@ int listIndex = 0 ;
               _selectedIndex == 0
                   ? const Offstage()
                   : Container(
-                      height: MediaQuery.of(context).size.height / 3,
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFF2F9FC),
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorManager.mediumgrey.withOpacity(0.5),
-                              blurRadius: 2,
-                              spreadRadius: -3,
-                              offset: const Offset(0, -6),
-                            ),
-                          ]),
-                    ),
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 3,
+                decoration: BoxDecoration(
+                    color: const Color(0xFFF2F9FC),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorManager.mediumgrey.withOpacity(0.5),
+                        blurRadius: 2,
+                        spreadRadius: -3,
+                        offset: const Offset(0, -6),
+                      ),
+                    ]),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                    //horizontal: MediaQuery.of(context).size.width / 45,
+                  //horizontal: MediaQuery.of(context).size.width / 45,
                     vertical: 5),
                 child: PageView(
                     controller: _managePageController,
@@ -359,10 +392,14 @@ int listIndex = 0 ;
                     children: [
                       CIDetailsScreen(
                         companyID: widget.companyID,
-                        officeId: widget.officeID, docTD: docID,
-                        companyId: widget.companyID, companyOfficeid: widget.companyOfficeId,
+                        officeId: widget.officeID,
+                        docTD: docID,
+                        companyId: widget.companyID,
+                        companyOfficeid: widget.companyOfficeId,
                       ),
-                      CiZone(companyID: widget.companyID, officeId: widget.officeID, docId: docID,),
+                      CiZone(companyID: widget.companyID,
+                        officeId: widget.officeID,
+                        docId: docID,),
                       // CiPageview(
                       //   docId: 5,
                       //     managePageController: _managePageController,
@@ -372,10 +409,19 @@ int listIndex = 0 ;
                       //     nameList: ['County', 'Zone'],
                       //     screenList: [CIZoneCountry(), CIZoneZone()],
                       //     mediaQueryWidth: 3.5,),
-                      CiCorporateComplianceScreen(docId: AppConfig.docId8, officeId: widget.officeID,),
-                      CIInsurance(officeId: widget.officeID,docID: AppConfig.docId10, subDocID: AppConfig.subDocId0, companyID: widget.companyID,),
-                      CiCcVendorContractScreen(companyID: widget.companyID, officeId: widget.officeID, docId: AppConfig.docId9,),
-                      CiPoliciesAndProcedures(docID: AppConfig.docId10, subDocID: AppConfig.subDocId0, companyID: widget.companyID, officeId: widget.officeID,),
+                      CiCorporateComplianceScreen(
+                        docId: AppConfig.docId8, officeId: widget.officeID,),
+                      CIInsurance(officeId: widget.officeID,
+                        docID: AppConfig.docId10,
+                        subDocID: AppConfig.subDocId0,
+                        companyID: widget.companyID,),
+                      CiCcVendorContractScreen(companyID: widget.companyID,
+                        officeId: widget.officeID,
+                        docId: AppConfig.docId9,),
+                      CiPoliciesAndProcedures(docID: AppConfig.docId10,
+                        subDocID: AppConfig.subDocId0,
+                        companyID: widget.companyID,
+                        officeId: widget.officeID,),
                       CiTempalets()
                     ]),
               ),
@@ -385,8 +431,7 @@ int listIndex = 0 ;
       ),
     );
   }
-
-
+}
 class CustomButtonList extends StatelessWidget {
   final String buttonText;
   final int isSelected;
