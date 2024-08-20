@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../widgets/button_constant.dart';
@@ -1029,7 +1030,14 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             nameController.text,
                             addressController.text,
                           );
-                        // for (int i = 0; i < snapshot.data!.serviceDetails!.length; i++) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SuccessPopup();
+                            }
+                        );
+
+                          // for (int i = 0; i < snapshot.data!.serviceDetails!.length; i++) {
                         // if (checkboxValues[i]) {
                         // var serviceDetail = snapshot.data!.serviceDetails![i];
                         // await patchCompanyOfficeService(context,
