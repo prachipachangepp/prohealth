@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/form_legal_documents_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/thank_you_screen.dart';
 
 import '../../../../../../app/resources/const_string.dart';
@@ -538,7 +539,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                         I94AdmissionNbr: formI94AdmissionNumber.text, foreignPassportNbr: foreignPassportNumber.text, countryOfIssue: countryOfIssuance.text,
                         officeId: "");
                     if(response.statusCode == 200 || response.statusCode == 201){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
+                      Navigator.pop(context);
                     }else{
 
                     }
