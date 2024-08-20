@@ -134,23 +134,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     );
                   }),
                 );
-              //////////////////////////////////////////////
-              /////////////////
-              //   Container(
-              //   height: double.maxFinite,
-              //   child: WrapWidget(
-              //     childern: List.generate(snapshot.data!.length, (index) {
-              //       return Padding(
-              //         padding: const EdgeInsets.only(
-              //             left: AppPadding.p10,
-              //             right: AppPadding.p10,
-              //             top: AppPadding.p5,
-              //             bottom: AppPadding.p40),
-              //         child: buildDataContainer(snapshot.data![index]),
-              //       );
-              //     }),
-              //   ),
-              // );
             },
           ),
         ],
