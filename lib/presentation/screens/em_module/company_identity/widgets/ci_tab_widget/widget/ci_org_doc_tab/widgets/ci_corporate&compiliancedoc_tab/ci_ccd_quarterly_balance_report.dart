@@ -432,7 +432,6 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                                         ),
                                                       ],
                                                     ),
-
                                                     child:  FutureBuilder<List<DocumentTypeData>>(
                                                         future: documentTypeGet(context),
                                                         builder: (context,snapshot) {
