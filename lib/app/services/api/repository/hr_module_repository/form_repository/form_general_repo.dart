@@ -20,7 +20,8 @@ class ProgressBarRepository{
 
 static String verifyuserpopup = "/auth/Otp";
 
-
+static String addLegalDocument = "/employee-legal-document/add";
+static String uploadLegalDocument = "/employee-legal-document/attach-docbase64";
 ///patch api
   ///
   static String educationscreen  ="/employee-educations";
@@ -87,6 +88,12 @@ static String postlicensesscreen(){
  }
   static String uploadEducationDocument({required int educationId, required String documentName}){
     return "$educationDocument/$educationId/$documentName";
+  }
+  static String uploadLegalDocumentBase64({required int legalDocumentId}){
+    return "$uploadLegalDocument/$legalDocumentId";
+  }
+  static String addLegalDocumentForm(){
+    return "$addLegalDocument";
   }
 
 

@@ -738,7 +738,7 @@ class _generalFormState extends State<generalForm> {
                             ),
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height / 30),
+                                    MediaQuery.of(context).size.height / 8),
                             Text(
                               'Type of Clinician',
                               style: GoogleFonts.firaSans(
