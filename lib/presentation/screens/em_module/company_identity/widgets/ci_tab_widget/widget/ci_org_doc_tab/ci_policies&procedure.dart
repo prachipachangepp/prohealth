@@ -310,7 +310,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                             url: "url",
                                                             expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                             expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                            expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
+                                                            expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
                                                             officeId: widget.officeId,
                                                           );
                                                         } finally {
@@ -570,7 +570,9 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                               }
                                           );
                                         });
-                                      }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
+                                      },
+                                          icon: Icon(Icons.edit_outlined,
+                                            size:18,color: ColorManager.bluebottom,)),
                                       IconButton(
                                           onPressed: (){
                                             showDialog(context: context,

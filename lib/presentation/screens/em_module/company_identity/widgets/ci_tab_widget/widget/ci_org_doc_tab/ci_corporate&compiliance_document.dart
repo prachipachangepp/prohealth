@@ -267,57 +267,39 @@ class _CICorporateCompilianceDocumentState
           ),
         )),
         Expanded(
-            child: Stack(children: [
-          Container(
-                  height: MediaQuery.of(context).size.height / 3.5,
-                  decoration: BoxDecoration(
-                      color: Color(0xFFF2F9FC),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: ColorManager.faintGrey,
-                          blurRadius: 2,
-                          spreadRadius: -2,
-                          offset: Offset(0, -4),
-                        ),
-                      ]),
-                ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: NonScrollablePageView(
-              controller: _tabPageController,
-              onPageChanged: (index) {
-                // setState(() {
-                _selectedIndex = index;
-                // });
-              },
-              children: [
-                CICcdLicense(
-                  subDocID: AppConfig.subDocId1,
-                  docID: widget.docID,officeId: widget.officeId,
-                ),
-                CICcdADR(
-                  subDocID: AppConfig.subDocId2,
-                  docID: widget.docID,officeId: widget.officeId,
-                ),
-                CiCcdMedicalCostReport(
-                  subDocID: AppConfig.subDocId3,
-                  docID: widget.docID,officeId: widget.officeId,
-                ),
-                CiCcdCapReports(
-                  docID: widget.docID,
-                  subDocId: AppConfig.subDocId4,officeId: widget.officeId,
-                ),
-                CICcdQuarteryBalanceReport(
-                  docId: widget.docID,
-                  subDocID: AppConfig.subDocId5,officeId: widget.officeId,
-                )
-              ],
-            ),
-          ),
-        ])),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: NonScrollablePageView(
+                controller: _tabPageController,
+                onPageChanged: (index) {
+                  // setState(() {
+                  _selectedIndex = index;
+                  // });
+                },
+                children: [
+                  CICcdLicense(
+                    subDocID: AppConfig.subDocId1,
+                    docID: widget.docID,officeId: widget.officeId,
+                  ),
+                  CICcdADR(
+                    subDocID: AppConfig.subDocId2,
+                    docID: widget.docID,officeId: widget.officeId,
+                  ),
+                  CiCcdMedicalCostReport(
+                    subDocID: AppConfig.subDocId3,
+                    docID: widget.docID,officeId: widget.officeId,
+                  ),
+                  CiCcdCapReports(
+                    docID: widget.docID,
+                    subDocId: AppConfig.subDocId4,officeId: widget.officeId,
+                  ),
+                  CICcdQuarteryBalanceReport(
+                    docId: widget.docID,
+                    subDocID: AppConfig.subDocId5,officeId: widget.officeId,
+                  )
+                ],
+              ),
+            )),
       ],
     );
   }

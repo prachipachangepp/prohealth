@@ -309,7 +309,6 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                       }
                                                                     },
                                                                   ),
-
                                                                   // Sub-Document Type Dropdown
                                                                   child1: StreamBuilder<List<IdentityDocumentIdData>>(
                                                                     stream: _identityDataController.stream,
