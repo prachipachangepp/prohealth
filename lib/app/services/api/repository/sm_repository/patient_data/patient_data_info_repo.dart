@@ -12,6 +12,7 @@ class PatientDataInfoRepo{
   static String addAgencyInfo = "/intake-referral-agency-info/add";
   static String getlabReport = "/intake-lab-report/ByPatientId/";
   static String addlabReport = "/intake-lab-report/add";
+  static String deletelabReport = "/intake-lab-report/";
 
   static  String getInfoPatientData({required int patientId} ){
     return "$infoGet$patientId";
@@ -52,5 +53,8 @@ class PatientDataInfoRepo{
   static String labReportAdd(){
     return "$addlabReport";
   }
+  static String labReportDelete({required int labReportId}){
+    return "$deletelabReport$labReportId";
+}
 }
 

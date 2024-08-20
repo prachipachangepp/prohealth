@@ -108,7 +108,8 @@ class HomeScreenWeb extends StatelessWidget {
                                   IconButton(
                                       onPressed: () async{
                                          TokenManager.removeAccessToken();
-                                         Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName,(route) => false);
+                                         Navigator.pushNamedAndRemoveUntil(context,
+                                             LoginScreen.routeName,(route) => false);
                                         // Navigator.pushNamedAndRemoveUntil(
                                         //     context, '/', (route) => false);
                                       },

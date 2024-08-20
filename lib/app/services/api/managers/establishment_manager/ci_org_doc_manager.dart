@@ -77,13 +77,13 @@ Future<CorporatePrefillDocumentData> getPrefillCorporateDocument(
           documentTypeId: response.data['document_type_id'],
           documentSubTypeId: response.data['document_subtype_id'],
           docName: response.data['doc_name'],
-          docCreated: response.data['doc_created_at'],
-          url: response.data['url'],
+          docCreated: response.data['doc_created_at'] ?? "",
+          url: response.data['url'] ?? "",
           expiryType: response.data['expiry_type'],
           expiryDate: response.data['expiry_date'],
           expiryReminder: response.data['expiry_reminder'],
           companyId: response.data['company_id'],
-          officeId: response.data['office_id']);
+          officeId: response.data['office_id'] ?? "");
     } else {
       print('Api Error');
       //return itemsList;
@@ -150,45 +150,45 @@ Future<ApiData> updateCorporateDocumentPost({
 }
 
 /// get
-// Future<List<IdentityData>> getOrgDocfetch(BuildContext context, int companyId,
-//     int docTypeID, int docSubTypeID, int pageNo, int rowsNO) async {
-//   List<IdentityData> itemsList = [];
-//   try {
-//     final response = await Api(context).get(
-//         path: EstablishmentManagerRepository.getCiOrgDLicense(
-//             companyId: companyId,
-//             docTypeID: docSubTypeID,
-//             docSubTypeID: docSubTypeID,
-//             pageNo: pageNo,
-//             rowsNo: rowsNO));
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       print("Org Document Tab bar response:::::${itemsList}");
-//       print("111");
-//       for (var item in response.data) {
-//         itemsList.add(
-//           IdentityData(
-//             docId: item["document_type_id"],
-//             companyId: item["company_id"],
-//             docSubId: item["document_sub_type_id"],
-//             pageNo: item["pageNbr"],
-//             rowsNo: item["NbrofRows"],
-//             sucess: true,
-//             message: response.statusMessage!,
-//           ),
-//         );
-//       }
-//       // print("Org Document response:::::${itemsList}");
-//     } else {
-//       print('Org Api Error');
-//       return itemsList;
-//     }
-//     // print("Org response:::::${response}");
-//     return itemsList;
-//   } catch (e) {
-//     print("Error $e");
-//     return itemsList;
-//   }
-// }
+Future<List<IdentityData>> getOrgDocfetch(BuildContext context, int companyId,
+    int docTypeID, int docSubTypeID, int pageNo, int rowsNO) async {
+  List<IdentityData> itemsList = [];
+  try {
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.getCiOrgDLicense(
+            companyId: companyId,
+            docTypeID: docSubTypeID,
+            docSubTypeID: docSubTypeID,
+            pageNo: pageNo,
+            rowsNo: rowsNO));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Org Document Tab bar response:::::${itemsList}");
+      print("111");
+      for (var item in response.data) {
+        itemsList.add(
+          IdentityData(
+            docId: item["document_type_id"],
+            companyId: item["company_id"],
+            docSubId: item["document_sub_type_id"],
+            pageNo: item["pageNbr"],
+            rowsNo: item["NbrofRows"],
+            sucess: true,
+            message: response.statusMessage!,
+          ),
+        );
+      }
+      // print("Org Document response:::::${itemsList}");
+    } else {
+      print('Org Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
 
 /// document type GET
 Future<List<DocumentTypeData>> documentTypeGet(
@@ -247,5 +247,61 @@ Future<List<IdentityDocumentIdData>> identityDocumentTypeGet(
   } catch (e) {
     print("Error $e");
     return itemsList;
+  }
+}
+///
+Future<ApiData> addOrgCorporateDocumentPost({
+  required BuildContext context,
+  required String name,
+  required int docTypeID,
+  required int docSubTypeID,
+  required String expiryType,
+  required String expiryDate,
+  required String expiryReminder,
+
+
+}) async {
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var data = {
+      // "doc_name": "string",
+      // "document_type_id": 0,
+      // "document_subtype_id": 0,
+      // "expiry_type": "string",
+      // "expiry_date": "string",
+      // "expiry_reminder": "string",
+      // "company_id": 0
+      ///
+      "doc_name": name,
+      "document_type_id": docTypeID,
+      "document_subtype_id": docSubTypeID,
+      "expiry_type": expiryType,
+      "expiry_date": expiryDate,
+      "expiry_reminder": expiryReminder,
+      "company_id": companyId,
+    };
+    print('Org Corporate Doc $data');
+    var response = await Api(context).post(
+        path: EstablishmentManagerRepository.addCorporateDocumentPost(),
+        data: data);
+    print('ORG Doc Post::::$response ');
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Org Corporate Doc addded ");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

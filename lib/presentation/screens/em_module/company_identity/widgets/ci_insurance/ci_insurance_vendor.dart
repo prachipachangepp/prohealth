@@ -116,7 +116,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
             child: StreamBuilder<List<ManageVendorData>>(
                 stream: _companyVendor.stream,
                 builder: (context, snapshot) {
-                  companyVendorGet(context).then((data) {
+                  companyVendorGet(context,widget.officeId,1,20).then((data) {
                     _companyVendor.add(data);
                   }).catchError((error) {
                     // Handle error
@@ -149,7 +149,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                               scrollDirection: Axis.vertical,
                               itemCount: paginatedData.length,
                               itemBuilder: (context, index) {
-                                int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                int serialNumber = totalItems - (index + (currentPage - 1)* itemsPerPage);
                                 String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                                 ManageVendorData vendorData = paginatedData[index];
                                 return Column(
@@ -210,7 +210,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                               builder: (BuildContext
                                                                   context) {
                                                                 return FutureBuilder<ManageVendorPrefill>(
-                                                                  future: getPrefillVendor(context,vendorData.vendorId!),
+                                                                  future: getPrefillVendor(context,vendorData.insuranceVendorId!),
                                                                   builder: (context, snapshotPrefill) {
                                                                     if(snapshotPrefill.connectionState == ConnectionState.waiting){
                                                                       return Center(
@@ -222,115 +222,6 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                     return CustomPopup(
                                                                         title: 'Edit Vendor',
                                                                         namecontroller: nameController,
-                                                                        // addressController: addresscontroller,
-                                                                        // emailController: emailController,
-                                                                        // workemailController: workemailController,
-                                                                        // phoneController: phoneController,
-                                                                        // workPhoneController: workphoneController,
-                                                                        // childZone: FutureBuilder<List<AEClinicalZone>>(
-                                                                        //   future: HrAddEmplyClinicalZoneApi(context),
-                                                                        //   builder: (context, snapshot) {
-                                                                        //     if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                        //       return Shimmer.fromColors(
-                                                                        //         baseColor: Colors.grey[300]!,
-                                                                        //         highlightColor: Colors.grey[100]!,
-                                                                        //         child: Container(
-                                                                        //           width: 350,
-                                                                        //           height: 30,
-                                                                        //           decoration: BoxDecoration(
-                                                                        //             color: ColorManager.faintGrey,
-                                                                        //             borderRadius: BorderRadius.circular(10),
-                                                                        //           ),
-                                                                        //         ),
-                                                                        //       );
-                                                                        //     }
-                                                                        //
-                                                                        //     if (snapshot.hasData) {
-                                                                        //       List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                                        //       for (var i in snapshot.data!) {
-                                                                        //         dropDownMenuItems.add(
-                                                                        //           DropdownMenuItem<String>(
-                                                                        //             child: Text(i.zoneName!),
-                                                                        //             value: i.zoneName,
-                                                                        //           ),
-                                                                        //         );
-                                                                        //       }
-                                                                        //       return CICCDropdown(
-                                                                        //         initialValue: AppString.zone,
-                                                                        //         onChange: (val) {
-                                                                        //           selectedZoneName = val;
-                                                                        //           print("Selected Zone Name: $selectedZoneName");
-                                                                        //         },
-                                                                        //         items: dropDownMenuItems,
-                                                                        //       );
-                                                                        //     } else if (snapshot.data!.isEmpty) {
-                                                                        //       return Center(
-                                                                        //         child: Text(
-                                                                        //           AppString.dataNotFound,
-                                                                        //           style: CustomTextStylesCommon.commonStyle(
-                                                                        //             fontWeight: FontWeightManager.medium,
-                                                                        //             fontSize: FontSize.s12,
-                                                                        //             color: ColorManager.mediumgrey,
-                                                                        //           ),
-                                                                        //         ),
-                                                                        //       );
-                                                                        //     } else {
-                                                                        //       return SizedBox();
-                                                                        //     }
-                                                                        //   },
-                                                                        // ),
-                                                                        // childCity: FutureBuilder<List<AEClinicalCity>>(
-                                                                        //   future: HrAddEmplyClinicalCityApi(context),
-                                                                        //   builder: (context, snapshot) {
-                                                                        //     if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                        //       return Shimmer.fromColors(
-                                                                        //         baseColor: Colors.grey[300]!,
-                                                                        //         highlightColor: Colors.grey[100]!,
-                                                                        //         child: Container(
-                                                                        //           width: 350,
-                                                                        //           height: 30,
-                                                                        //           decoration: BoxDecoration(
-                                                                        //             color: ColorManager.faintGrey,
-                                                                        //             borderRadius: BorderRadius.circular(10),
-                                                                        //           ),
-                                                                        //         ),
-                                                                        //       );
-                                                                        //     }
-                                                                        //
-                                                                        //     if (snapshot.hasData) {
-                                                                        //       List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                                        //       for (var i in snapshot.data!) {
-                                                                        //         dropDownMenuItems.add(
-                                                                        //           DropdownMenuItem<String>(
-                                                                        //             child: Text(i.cityName!),
-                                                                        //             value: i.cityName,
-                                                                        //           ),
-                                                                        //         );
-                                                                        //       }
-                                                                        //       return CICCDropdown(
-                                                                        //         initialValue: AppString.city,
-                                                                        //         onChange: (val) {
-                                                                        //           selectedCityName = val;
-                                                                        //           print("Selected City Name: $selectedCityName");
-                                                                        //         },
-                                                                        //         items: dropDownMenuItems,
-                                                                        //       );
-                                                                        //     } else if (snapshot.data!.isEmpty) {
-                                                                        //       return Center(
-                                                                        //         child: Text(
-                                                                        //           AppString.dataNotFound,
-                                                                        //           style: CustomTextStylesCommon.commonStyle(
-                                                                        //             fontWeight: FontWeightManager.medium,
-                                                                        //             fontSize: FontSize.s12,
-                                                                        //             color: ColorManager.mediumgrey,
-                                                                        //           ),
-                                                                        //         ),
-                                                                        //       );
-                                                                        //     } else {
-                                                                        //       return SizedBox();
-                                                                        //     }
-                                                                        //   },
-                                                                        // ),
                                                                          onPressed: () async{
                                                                            setState(() {
                                                                              _isLoading = true;
@@ -339,18 +230,12 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                              //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
                                                                              await patchCompanyVendor(
                                                                               context,
-                                                                              vendorData.vendorId!,
+                                                                              vendorData.insuranceVendorId,
                                                                               widget.officeId,
                                                                               name == nameController.text ? name.toString() : nameController.text,
-                                                                              vendorData.address!,
-                                                                              vendorData.city!,
-                                                                              vendorData.email!,
-                                                                              vendorData.phone!,
-                                                                              vendorData.workEmail!,
-                                                                              vendorData.workPhone!,
-                                                                              vendorData.zone!);
+                                                                             );
                                                                           setState(() async {
-                                                                            await companyVendorGet(context).then((data) {
+                                                                            await companyVendorGet(context,widget.officeId,1,20).then((data) {
                                                                               _companyVendor.add(data);
                                                                             }).catchError((error) {
                                                                               // Handle error
@@ -362,7 +247,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                                _isLoading = false;
                                                                              });
                                                                            }
-                                                                          },
+                                                                          }, buttontxt: "Save", successpopuptext: 'Edited Successfully',
                                                                           );
 
                                                                   }
@@ -391,10 +276,9 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                     });
                                                                     try {
                                                                       await deleteVendor(
-                                                                          context,
-                                                                          vendorData.vendorId!);
+                                                                          context, vendorData.insuranceVendorId!);
                                                                       setState(() async {
-                                                                        companyVendorGet(context).then((data) {
+                                                                        companyVendorGet(context,widget.officeId,1,30).then((data) {
                                                                           _companyVendor.add(data);
                                                                         }).catchError((error) {
                                                                           // Handle error

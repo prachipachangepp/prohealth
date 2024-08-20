@@ -8,24 +8,30 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import '../../whitelabelling/success_popup.dart';
 
 class ContractAddDialog extends StatefulWidget {
   final TextEditingController contractNmaeController;
   final TextEditingController contractIdController;
   final VoidCallback onSubmitPressed;
   final String title;
+  final Widget radiobutton;
+  Widget? child1;
+  final Visibility? child2;
 
-  const ContractAddDialog({Key? key,required this.contractNmaeController, required this.onSubmitPressed, required this.contractIdController, required this.title,}) : super(key: key);
+  ContractAddDialog({Key? key,
+    required this.contractNmaeController,
+    required this.onSubmitPressed,
+    required this.contractIdController,
+    required this.title, required this.radiobutton, this.child2,}) : super(key: key);
 
   @override
   State<ContractAddDialog> createState() => _ContractAddDialogState();
 }
 class _ContractAddDialogState extends State<ContractAddDialog> {
-  String? expiryType;
   TextEditingController birthdayController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    String selectedOption = '';
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -94,55 +100,8 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                     text: 'Contract ID',
                   ),
                   SizedBox(height: AppSize.s8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Expiry Type',
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          //decoration: TextDecoration.none,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                     Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomRadioListTile(
-                            value: "Not Applicable",
-                            groupValue: expiryType.toString(),
-                            onChanged: (value) {
-                              setState(() {
-                                expiryType = value!;
-                              });
-                            },
-                            title: "Not Applicable",
-                          ),
-                          CustomRadioListTile(
-                            value: 'Scheduled',
-                            groupValue: expiryType.toString(),
-                            onChanged: (value) {
-                              setState(() {
-                                expiryType = value!;
-                              });
-                            },
-                            title: 'Scheduled',
-                          ),
-                          CustomRadioListTile(
-                            value: 'Issuer Expiry',
-                            groupValue: expiryType.toString(),
-                            onChanged: (value) {
-                              setState(() {
-                                expiryType = value!;
-                              });
-                            },
-                            title: 'Issuer Expiry',
-                          ),
-                        ],
-                      ),
-                    ],),
+
+                    widget.radiobutton
 
 
                 ],
@@ -159,6 +118,12 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                   onPressed: () {
                     widget.onSubmitPressed();
                     Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(message: 'Added Successfully',);
+                      },
+                    );
                   },
                 ),
               ),

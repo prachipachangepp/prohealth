@@ -43,4 +43,9 @@ class AppConfig {
   static const int compensationDocId = 11;
   static const int performanceDocId = 12;
 
+  /// All From HR EM
+  static const int clinicalId = 1;
+  static const int salesId = 2;
+  static const int AdministrationId = 3;
+
 }

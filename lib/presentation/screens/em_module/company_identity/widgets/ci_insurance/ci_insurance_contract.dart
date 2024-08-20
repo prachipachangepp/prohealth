@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,22 +6,26 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
-import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
-
-import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
-import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
+import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
+import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'widgets/contract_add_dialog.dart';
 
 class CiInsuranceContract extends StatefulWidget {
-  final int docID;
-  final int subDocID;
-  final int companyID;
+  final int insuranceVendorId;
+ // final int subDocID;
+ // final int companyID;
   final String officeId;
-  const CiInsuranceContract({super.key, required this.docID, required this.subDocID, required this.companyID, required this.officeId});
+
+  const CiInsuranceContract({
+    super.key,
+    required this.insuranceVendorId,
+    //required this.subDocID,
+   // required this.companyID,
+    required this.officeId,
+  });
 
   @override
   State<CiInsuranceContract> createState() => _CiInsuranceContractState();
@@ -31,23 +34,17 @@ class CiInsuranceContract extends StatefulWidget {
 class _CiInsuranceContractState extends State<CiInsuranceContract> {
   TextEditingController contractNameController = TextEditingController();
   TextEditingController contractIdController = TextEditingController();
-  final StreamController<List<ManageCCDoc>> _controller = StreamController<List<ManageCCDoc>>();
+  final StreamController<List<ManageInsuranceContractData>> _controller = StreamController<List<ManageInsuranceContractData>>();
 
   int currentPage = 1;
   final int itemsPerPage = 10;
-  final int totalPages = 5;
-
-  void onPageNumberPressed(int pageNumber) {
-    setState(() {
-      currentPage = pageNumber;
-    });
-  }
-
+  String? expiryType;
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
+    //_fetchContracts();
   }
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -55,13 +52,20 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
       child: Column(
         children: [
           Expanded(
-            child: StreamBuilder<List<ManageCCDoc>>(
+            child: StreamBuilder<List<ManageInsuranceContractData>>(
               stream: _controller.stream,
-              builder: (context,snapshot) {
-                getManageCorporate(context, widget.officeId, widget.docID, widget.subDocID, 1, 20).then((data) {
+              builder: (context, snapshot) {
+                companyContractGetByVendorId(
+                  context,
+                  widget.officeId,
+                  widget.insuranceVendorId,
+                  currentPage,
+                  itemsPerPage,
+                ).then((data) {
                   _controller.add(data);
                 }).catchError((error) {
                   // Handle error
+                  _controller.addError(error);
                 });
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -70,7 +74,19 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                     ),
                   );
                 }
-                if (snapshot.data!.isEmpty) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      'Failed to load data',
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.red,
+                      ),
+                    ),
+                  );
+                }
+                if (snapshot.data == null || snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
                       AppString.dataNotFound,
@@ -82,167 +98,298 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                     ),
                   );
                 }
-                if(snapshot.hasData){
-                  int totalItems = snapshot.data!.length;
-                  int totalPages = (totalItems / itemsPerPage).ceil();
-                  List<ManageCCDoc> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
 
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: paginatedData.length,
-                            itemBuilder: (context, index) {
-                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                              String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                              ManageCCDoc contract = paginatedData[index];
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // SizedBox(height: 5),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(4),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0xff000000).withOpacity(0.25),
-                                              spreadRadius: 0,
-                                              blurRadius: 4,
-                                              offset: Offset(0, 2),
+                int totalItems = snapshot.data!.length;
+                int totalPages = (totalItems / itemsPerPage).ceil();
+                List<ManageInsuranceContractData> paginatedData = snapshot.data!
+                    .skip((currentPage - 1) * itemsPerPage)
+                    .take(itemsPerPage)
+                    .toList();
+
+                return Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: paginatedData.length,
+                        itemBuilder: (context, index) {
+                          int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                          String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                          ManageInsuranceContractData contract = paginatedData[index];
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(4),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0xff000000).withOpacity(0.25),
+                                        spreadRadius: 0,
+                                        blurRadius: 4,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  height: 50,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  // Implement the view action
+                                                },
+                                                child: Image.asset(
+                                                  'images/eye.png',
+                                                  height: 15,
+                                                  width: 22,
+                                                ),
+                                              ),
+                                            ),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  contract.insuranceVendorContracId.toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  contract.contractName.toString().capitalizeFirst!,
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                        height: 50,
-                                        child: Padding(
-                                          padding:
-                                          const EdgeInsets.symmetric(horizontal: 15),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                      },
-                                                      child: Image.asset(
-                                                        'images/eye.png',
-                                                        height: 15,
-                                                        width: 22,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    children: [
-                                                      Text(
-                                                        contract.doccreatedAt.toString(),
-                                                        textAlign: TextAlign.center,
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 10,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: Color(0xff686464),
-                                                          decoration: TextDecoration.none,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        contract.docname.toString().capitalizeFirst!,
-                                                        textAlign: TextAlign.center,
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 10,
-                                                          fontWeight: FontWeight.bold,
-                                                          color: Color(0xff686464),
-                                                          decoration: TextDecoration.none,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  IconButton(
-                                                      onPressed: () {
-                                                        showDialog(context: context, builder: (BuildContext context){
-                                                          return ContractAddDialog(contractNmaeController: contractNameController, contractIdController: contractIdController,
-                                                            onSubmitPressed: () {  }, title: 'Edit Contract',);
-                                                        });
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.edit_outlined,
-                                                        size:18,
-                                                        color: ColorManager.blueprime,
-                                                      )),
-                                                  IconButton(
-                                                      onPressed: () {
-                                                        showDialog(context: context, builder: (context) => DeletePopup(
-                                                            title: 'Delete Insurance',
-                                                            onCancel: (){
-                                                          Navigator.pop(context);
-                                                        }, onDelete: (){setState(() async{
-                                                          await deleteDocument(
-                                                              context,
-                                                              snapshot.data![index].docId!);
-                                                          getManageCorporate(context, widget.officeId, widget.docID, widget.subDocID, 1, 20).then((data) {
-                                                            _controller.add(data);
-                                                          }).catchError((error) {
-                                                            // Handle error
-                                                          });
-                                                        });}));
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {
+                                                String? selectedExpiryType = expiryType;
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return  FutureBuilder<ManageContractPrefill>(
+                                                        future: getPrefillContract(context,snapshot.data![index].insuranceVendorContracId),
+                                                        builder: (context,snapshotPrefill) {
+                                                          if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                            return Center(
+                                                              child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                                            );
+                                                          }
+                                                          var contractPrefName = snapshotPrefill.data!.contractName;
+                                                          contractNameController = TextEditingController(text: snapshotPrefill.data!.contractName);
 
+                                                          var contractIDPrefName = snapshotPrefill.data!.contractId;
+                                                          contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
+
+
+                                                          return StatefulBuilder(
+                                                      builder: (BuildContext context, void Function(void Function()) setState) {
+                                                        return ContractAddDialog(
+                                                          title: 'Edit Contract',
+                                                      contractNmaeController: contractNameController,
+                                                      contractIdController: contractIdController,
+                                                      onSubmitPressed:() async{
+                                                        setState(() {
+                                                          _isLoading = true;
+                                                        });
+                                                        try {
+                                                          //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
+                                                          await patchCompanyContract(context,
+                                                          snapshot.data![index].insuranceVendorId,
+                                                        widget.officeId,
+                                                        contractPrefName ?? contractNameController.text,
+                                                        selectedExpiryType.toString(),
+                                                        contractIDPrefName ?? contractIdController.text);
+                                                          setState(() async {
+                                                            await  companyContractGetByVendorId(
+                                                              context,
+                                                              widget.officeId,
+                                                              widget.insuranceVendorId,
+                                                              currentPage,
+                                                              itemsPerPage,
+                                                            ).then((data) {
+                                                              _controller.add(data);
+                                                            }).catchError((error) {
+                                                              // Handle error
+                                                              _controller.addError(error);
+                                                            });
+                                                            Navigator.pop(context);
+                                                          });
+                                                        } finally {
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                          });
+                                                        }
                                                       },
-                                                      icon: Icon(
-                                                        Icons.delete_outline,
-                                                        size:18,
-                                                        color: ColorManager.red,
-                                                      )),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        )),
+
+                                                      //     ()async {
+                                                      //    await patchCompanyContract(context,
+                                                      //        snapshot.data![index].insuranceVendorId,
+                                                      //        widget.officeId,
+                                                      //        contractPrefName ?? contractNameController.text,
+                                                      //        selectedExpiryType.toString(),
+                                                      //        contractIDPrefName ?? contractIdController.text);
+                                                      // },
+                                                      radiobutton:  Padding(
+                                                        padding: const EdgeInsets.only(left: 10.0),
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              "Expiry Type",
+                                                              style: GoogleFonts.firaSans(
+                                                                fontSize: FontSize.s12,
+                                                                fontWeight: FontWeight.w700,
+                                                                color: ColorManager.mediumgrey,
+                                                                decoration: TextDecoration.none,
+                                                              ),
+                                                            ),
+                                                            CustomRadioListTile(
+                                                              value: "Not Applicable",
+                                                              groupValue: selectedExpiryType,
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  selectedExpiryType = value;
+                                                                });
+                                                              },
+                                                              title: "Not Applicable",
+                                                            ),
+                                                            CustomRadioListTile(
+                                                              value: 'Scheduled',
+                                                              groupValue: selectedExpiryType,
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  selectedExpiryType = value;
+                                                                });
+                                                              },
+                                                              title: 'Scheduled',
+                                                            ),
+                                                            CustomRadioListTile(
+                                                              value: 'Issuer Expiry',
+                                                              groupValue: selectedExpiryType,
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  selectedExpiryType = value;
+                                                                });
+                                                              },
+                                                              title: 'Issuer Expiry',
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    );
+
+                          },
+                          );
+                          }
+                          );
+                                                  },
+                                                );
+                                              },
+                                              icon: Icon(
+                                                Icons.edit_outlined,
+                                                size: 18,
+                                                color: ColorManager.blueprime,
+                                              ),
+                                            ),
+                                            IconButton(
+                                                onPressed: () {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          DeletePopup(
+                                                              title: 'Delete Contract',
+                                                              onCancel: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              }, onDelete:
+                                                              () async {
+                                                                print("${contract.insuranceVendorContracId}");
+                                                            await deleteContract(context, contract.insuranceVendorContracId);
+                                                            // companyContractGetByVendorId(
+                                                            //   context,
+                                                            //   widget.officeId,
+                                                            //   widget.insuranceVendorId,
+                                                            //   currentPage,
+                                                            //   itemsPerPage,
+                                                            // ).then((data) {
+                                                            //   _controller.add(data);
+                                                            // }).catchError((error) {
+                                                            //   // Handle error
+                                                            //   _controller.addError(error);
+                                                            // });
+                                                            Navigator.pop(
+                                                                context);
+                                                          }));
+                                                },
+                                                icon: Icon(
+                                                  Icons.delete_outline,
+                                                  size: 18,
+                                                  color:
+                                                  ColorManager.faintOrange,
+                                                )),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ],
-                              );
-                            }),
-                      ),
-                      PaginationControlsWidget(
-                        currentPage: currentPage,
-                        items: snapshot.data!,
-                        itemsPerPage: itemsPerPage,
-                        onPreviousPagePressed: () {
-                          setState(() {
-                            currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                          });
-                        },
-                        onPageNumberPressed: (pageNumber) {
-                          setState(() {
-                            currentPage = pageNumber;
-                          });
-                        },
-                        onNextPagePressed: () {
-                          setState(() {
-                            currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-                          });
+                                ),
+                              ),
+                            ],
+                          );
                         },
                       ),
-                    ],
-                  );
-                }
-                return Offstage();
-              }
+                    ),
+                    PaginationControlsWidget(
+                      currentPage: currentPage,
+                      items: snapshot.data!,
+                      itemsPerPage: itemsPerPage,
+                      onPreviousPagePressed: () {
+                        setState(() {
+                          currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                        });
+                      },
+                      onPageNumberPressed: (pageNumber) {
+                        setState(() {
+                          currentPage = pageNumber;
+                        });
+                      },
+                      onNextPagePressed: () {
+                        setState(() {
+                          currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                        });
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
           ),
-
         ],
       ),
     );

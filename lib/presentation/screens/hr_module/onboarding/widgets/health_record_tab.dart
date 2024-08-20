@@ -87,7 +87,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
 
   Future<void> _fetchData() async {
     try {
-      var data = await getAckHealthRecord(context, 10, 48, widget.employeeId, 'no');
+      var data = await getAckHealthRecord(context, 1, 10, widget.employeeId, 'no');
       data.sort((a, b) {
         if (a.approved == true && b.approved != true) {
           return -1;

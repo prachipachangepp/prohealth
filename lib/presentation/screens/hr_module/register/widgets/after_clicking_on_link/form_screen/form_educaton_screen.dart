@@ -185,23 +185,7 @@ class _EducationScreenState extends State<EducationScreen> {
                                 print("Loading");
                             } else {
                               try {
-                                await uploadDocuments(
-                                  context: context,
-                                  employeeDocumentMetaId: 10,
-                                  employeeDocumentTypeSetupId: 48,
-                                  employeeId: widget.employeeID,
-                                  documentFile: st.finalPath,
-                                  documentName: 'education data',
-                                );
-
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content:
-                                        Text('Document uploaded successfully!'),
-                                    backgroundColor: Colors.green,
-                                  ),
-                                );
-                                await FormEducationManager().posteducationscreen(
+                               ApiDataRegister result =  await FormEducationManager().posteducationscreen(
                                     context,
                                     st.widget.employeeID,
                                     st.graduatetype.toString(),
@@ -213,6 +197,20 @@ class _EducationScreenState extends State<EducationScreen> {
                                     st.state.text,
                                     "USA",
                                     "2024-08-09");
+                                await uploadEducationDocument(
+                                  context,
+                                    result.educationId!,
+                                  st.finalPath,
+                                  st.fileName!
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content:
+                                        Text('Document uploaded successfully!'),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+
                               } catch (e) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -300,7 +298,7 @@ class _EducationFormState extends State<EducationForm> {
           city.text = data.city ?? '';
           state.text = data.state ?? '';
           graduatetype = data.graduate ?? '';
-          selectedDegree = data.degree ?? '';
+         // selectedDegree = data.degree ?? '';
           educationIndex = data.educationID ?? 0;
 
         });

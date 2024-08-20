@@ -102,7 +102,10 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     onAddPressed: () async {
                       await addEmployeeTypePost(context,docMetaId,
                           typeController.text,
-                          color,shorthandController.text);
+                          color,
+
+                          shorthandController.text
+                      );
                       getAllHrDeptWise(context,widget.deptId).then((data){
                         _controller.add(data);
                       }).catchError((error){});
@@ -325,7 +328,8 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                   Expanded(
                                     flex: 3,
                                     child: Text(
-                                      hrdata.abbrivation.toString(),
+                                      hrdata.abbrivation.toString().toUpperCase(),
+                                      // hrdata.abbrivation.toString(),
                                       textAlign: TextAlign.center,
                                       style: AllHRTableData.customTextStyle(context),
                                     ),
