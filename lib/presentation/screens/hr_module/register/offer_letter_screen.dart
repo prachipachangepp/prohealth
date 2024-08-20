@@ -1264,7 +1264,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   @override
   void initState() {
     super.initState();
-
+    _addContainer();
     _initAppLinks();
     _pageController.addListener(() {
       setState(() {
@@ -3037,10 +3037,14 @@ class _DynamicConatinerState extends State<DynamicConatiner> {
                 ),
               ),
             ),
+            //SizedBox(height: 10,),
           ],
         ),
+
       ),
+
     );
+
   }
 }
 
