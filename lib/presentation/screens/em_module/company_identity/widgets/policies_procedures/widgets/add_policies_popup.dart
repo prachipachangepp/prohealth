@@ -43,7 +43,7 @@ class _AddPoliciesPopupState extends State<AddPoliciesPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: AppSize.s40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -93,15 +93,14 @@ class _AddPoliciesPopupState extends State<AddPoliciesPopup> {
                       Text('Type of the Document',
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeightManager.bold,
                           color: ColorManager.mediumgrey,
                           //decoration: TextDecoration.none,
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height: AppSize.s5),
                       widget.child
                     ],),
-
                 ],
               ),
             ),

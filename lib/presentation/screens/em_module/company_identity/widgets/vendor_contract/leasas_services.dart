@@ -146,12 +146,12 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                       },
                                                       child: Image.asset(
                                                         'images/eye.png',
-                                                        height: 15,
-                                                        width: 22,
+                                                        height: AppSize.s15,
+                                                        width: AppSize.s22,
                                                       ),
                                                     ),
                                                     //IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                                    SizedBox(width: 10,),
+                                                    SizedBox(width: AppSize.s10),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       mainAxisAlignment: MainAxisAlignment.center,

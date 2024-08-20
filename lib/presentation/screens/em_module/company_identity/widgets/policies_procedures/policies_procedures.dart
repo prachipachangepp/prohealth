@@ -354,7 +354,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                       ],
                                     ),
                                   ),
-                                  title: 'Add Policies',
+                                  title: 'Add Policies And Procedure',
                                 );
                               },
 
@@ -364,7 +364,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
               ],
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10),
           Expanded(
             child:
             StreamBuilder<List<ManageCCDoc>>(
@@ -467,6 +467,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
 
                                               //  Text(''),
                                               Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   IconButton(
                                                     onPressed: () {
@@ -521,7 +522,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                 builder: (BuildContext context,
                                                                     void Function(void Function()) setState) {
                                                                   return  CCScreenEditPopup(
-                                                                    title: 'Edit License',
+                                                                    title: 'Edit Policies And Procedure',
                                                                     id: documentPreId,
                                                                     idDocController: docIdController,
                                                                     nameDocController: nameOfDocController,
