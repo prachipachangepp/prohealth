@@ -64,9 +64,10 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                           color: ColorManager.greenDark
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width/80),
                     Container(
                       height: 30,
-                      width: 140,
+                      width: 130,
                       child: SchedularIconButtonConst(
                         text: 'Add Stay Info',
                         icon: Icons.add,
