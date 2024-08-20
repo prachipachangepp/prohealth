@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/widgets/intake_notes_miscellaneous/widget/miscellaneous_add_pop_up.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/widgets/intake_notes_miscellaneous/widget/miscellaneous_edit_pop_up.dart';
@@ -59,18 +60,18 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                     'Status: Not Completed',
                     style: GoogleFonts.firaSans(
                       decoration: TextDecoration.none,
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xffDE0909),
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.bold,
+                      color: ColorManager.burnt_red,
                     ),
                   ),
 
                   SizedBox(width: MediaQuery.of(context).size.width / 60),
         Container(
-          height: 32,
-          width: 105,
+          height: AppSize.s32,
+          width: AppSize.s105,
           child: SchedularIconButtonConst(
-            text: 'Add New',
+            text: AppString.add_new,
             icon: Icons.add,
             onPressed: () async {
               String? selectedDocType;
@@ -90,8 +91,8 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return Container(
-                            width: 350,
-                            height: 30,
+                            width: AppSize.s350,
+                            height: AppSize.s30,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -142,10 +143,10 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Expiry Type",
+                              AppString.expiry_type,
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s12,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeightManager.bold,
                                 color: ColorManager.mediumgrey,
                                 decoration: TextDecoration.none,
                               ),
@@ -189,10 +190,10 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Expiry Date",
+                                   AppString.expiry_date,
                                     style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
+                                      fontWeight: FontWeightManager.bold,
                                       color: ColorManager.mediumgrey,
                                       decoration: TextDecoration.none,
                                     ),
@@ -200,34 +201,34 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                   FormField<String>(
                                     builder: (FormFieldState<String> field) {
                                       return SizedBox(
-                                        width: 354,
-                                        height: 30,
+                                        width: AppSize.s354,
+                                        height: AppSize.s30,
                                         child: TextFormField(
                                           controller: calenderController,
                                           cursorColor: ColorManager.black,
                                           style: GoogleFonts.firaSans(
                                             fontSize: FontSize.s12,
-                                            fontWeight: FontWeight.w700,
+                                            fontWeight: FontWeightManager.bold,
                                             color: ColorManager.mediumgrey,
                                           ),
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: AppSize.s1),
                                               borderRadius: BorderRadius.circular(8),
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: AppSize.s1),
                                               borderRadius: BorderRadius.circular(8),
                                             ),
                                             hintText: 'mm-dd-yyyy',
                                             hintStyle: GoogleFonts.firaSans(
                                               fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
+                                              fontWeight: FontWeightManager.bold,
                                               color: ColorManager.mediumgrey,
                                             ),
                                             border: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(8),
-                                              borderSide: BorderSide(width: 1, color: ColorManager.fmediumgrey),
+                                              borderSide: BorderSide(width: AppSize.s1, color: ColorManager.fmediumgrey),
                                             ),
                                             contentPadding: EdgeInsets.symmetric(horizontal: 16),
                                             suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
@@ -246,7 +247,7 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                           },
                                           validator: (value) {
                                             if (value == null || value.isEmpty) {
-                                              return 'please select date';
+                                              return 'Please select date';
                                             }
                                             return null;
                                           },
@@ -291,7 +292,7 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: ColorManager.white,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
@@ -340,13 +341,13 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                   child: Column(
                                     children: [
                                       Container(
-                                        height: 65,
+                                        height: AppSize.s65,
                                         decoration: BoxDecoration(
-                                          color: Colors.white,
+                                          color: ColorManager.white,
                                           borderRadius: BorderRadius.circular(8.0),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.black.withOpacity(0.2),
+                                              color: ColorManager.black.withOpacity(0.2),
                                               spreadRadius: 1,
                                               blurRadius: 5,
                                               offset: Offset(0, 4),
@@ -362,13 +363,13 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                                 Padding(
                                                   padding: const EdgeInsets.only(left: 10.0),
                                                   child: Container(
-                                                    color: Color(0xff50B5E5),
-                                                    height: 45,
-                                                    width: 62,
+                                                    color: ColorManager.blueprime,
+                                                    height: AppSize.s45,
+                                                    width: AppSize.s62,
                                                     child: Icon(
                                                       Icons.remove_red_eye_outlined,
-                                                      color: Colors.white,
-                                                      size: 24,
+                                                      color: ColorManager.white,
+                                                      size: AppSize.s24,
                                                     ),
                                                   ),
                                                 ),
@@ -382,9 +383,9 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                                         'ID: ${snapshot.data![index].miscNoteId}',
                                                         style: GoogleFonts.firaSans(
                                                           decoration: TextDecoration.none,
-                                                          fontSize: 10.0,
-                                                          fontWeight: FontWeight.w500,
-                                                          color: Color(0xff686464),
+                                                          fontSize: FontSize.s10,
+                                                          fontWeight: FontWeightManager.medium,
+                                                          color: ColorManager.granitegray
                                                         ),
                                                       ),
                                                       SizedBox(height: 3.5),
@@ -392,19 +393,19 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                                         snapshot.data![index].docType,
                                                         style: GoogleFonts.firaSans(
                                                           decoration: TextDecoration.none,
-                                                          fontSize: 12.0,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: Color(0xff686464),
+                                                          fontSize: FontSize.s12,
+                                                          fontWeight: FontWeightManager.bold,
+                                                          color:  ColorManager.granitegray
                                                         ),
                                                       ),
-                                                      SizedBox(height: 1),
+                                                      SizedBox(height: AppSize.s1),
                                                       Text(
                                                         'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
                                                         style: GoogleFonts.firaSans(
                                                           decoration: TextDecoration.none,
-                                                          fontSize: 10.0,
-                                                          fontWeight: FontWeight.w300,
-                                                          color: Color(0xff686464),
+                                                          fontSize: FontSize.s10,
+                                                          fontWeight: FontWeightManager.lightbold,
+                                                            color:  ColorManager.granitegray
                                                         ),
                                                       ),
                                                     ],
@@ -419,7 +420,7 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                                   IconButton(
                                                     icon: Icon(
                                                       Icons.history,
-                                                      color: Color(0xff686464),
+                                                      color: ColorManager.granitegray
                                                     ),
                                                     onPressed: () {},
                                                   ),
@@ -427,7 +428,7 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                                   IconButton(
                                                     icon: Icon(
                                                       Icons.print_outlined,
-                                                      color: Color(0xff686464),
+                                                        color:  ColorManager.granitegray
                                                     ),
                                                     onPressed: () async {
                                                       final pdf = pw.Document();
@@ -444,12 +445,12 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                                                 pw.Text(
                                                                   'Miscellaneous Note',
                                                                   style: pw.TextStyle(
-                                                                    fontSize: 18,
+                                                                    fontSize: FontSize.s18,
                                                                     fontWeight: pw.FontWeight.bold,
                                                                   ),
                                                                 ),
                                                                 pw.Divider(),
-                                                                pw.SizedBox(height: 20),
+                                                                pw.SizedBox(height: AppSize.s20),
                                                                 pw.Table(
                                                                   border: pw.TableBorder.all(),
                                                                   children: [
@@ -636,7 +637,7 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                                     icon: Icon(
                                                       Icons.delete_outline,
                                                       size: 22,
-                                                      color: Colors.red,
+                                                      color: ColorManager.red,
                                                     ),
                                                   ),
 
@@ -654,22 +655,22 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                                       children: [
                                                         Icon(
                                                           Icons.mode_edit_outlined,
-                                                          color: Colors.white,
+                                                          color: ColorManager.white,
                                                         ),
                                                         SizedBox(width: MediaQuery.of(context).size.width / 160),
                                                         Text(
                                                           'Edit',
                                                           style: GoogleFonts.firaSans(
-                                                            fontSize: 12,
-                                                            fontWeight: FontWeight.w700,
-                                                            color: Colors.white,
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeightManager.bold,
+                                                            color: ColorManager.white,
                                                           ),
                                                         ),
                                                       ],
                                                     ),
                                                     style: ElevatedButton.styleFrom(
                                                       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                                                      backgroundColor: Color(0xff50B5E5),
+                                                      backgroundColor: ColorManager.blueprime,
                                                     ),
                                                   ),
                                                 ],

@@ -242,8 +242,8 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                             child: SchedularTextFieldWithButton(
                               controller: prZipcode,
                                 labelText: AppString.zip_code,
-                                initialValue: '26586845121',
-                                buttonText: 'View Zone')
+
+                                buttonText: AppString.viewzone)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
@@ -363,7 +363,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                             child: SchedularTextFieldWithButton(
                               controller: ffZipcode,
                                 labelText: AppString.zip_code,
-                                initialValue: '26586845121', buttonText: 'View Zone')
+                                buttonText: AppString.viewzone)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(

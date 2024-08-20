@@ -259,7 +259,7 @@ class _IntakeProfileBarState extends State<IntakeProfileBar> {
                               }
                             },
                             child: Text(
-                              'View Zone',
+                              AppString.viewzone,
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s10,
                                 fontWeight: FontWeightManager.regular,

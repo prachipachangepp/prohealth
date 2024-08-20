@@ -54,7 +54,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: ColorManager.white,
       titlePadding: EdgeInsets.zero,
       title: Container(
         decoration: BoxDecoration(
@@ -62,10 +62,10 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
-          color: Color(0xff50B5E5),
+          color: ColorManager.blueprime,
         ),
-        height: 47,
-        width: 408,
+        height: AppSize.s47,
+        width: AppSize.s408,
         child: Row(
           children: [
             Padding(
@@ -73,9 +73,9 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
               child: Text(
                 widget.title,
                 style: GoogleFonts.firaSans(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  fontSize: FontSize.s14,
+                  fontWeight: FontWeightManager.bold,
+                  color: ColorManager.white,
                 ),
               ),
             ),
@@ -86,7 +86,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
               },
               icon: Icon(
                 Icons.close,
-                color: Colors.white,
+                color: ColorManager.white,
               ),
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
@@ -96,14 +96,14 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
         ),
       ),
       content: Container(
-        height: 475,
-        width: 350,
+        height: AppSize.s475,
+        width: AppSize.s350,
         color: ColorManager.white,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10),
+            SizedBox(height: AppSize.s10),
             Column(
               children: [
                 Row(
@@ -119,9 +119,9 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: AppSize.s10),
                 widget.child ?? Offstage(),
-                SizedBox(height: 10),
+                SizedBox(height: AppSize.s10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -135,7 +135,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: AppSize.s10),
                 Container(
                   height: AppSize.s30,
                   child: TextFormField(
@@ -167,11 +167,11 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: AppSize.s5),
                 widget.radioButton ?? Offstage(),
-                SizedBox(height: 10),
+                SizedBox(height: AppSize.s10),
                 widget.child2 ?? Offstage(),
-                SizedBox(height: 10),
+                SizedBox(height: AppSize.s10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -185,12 +185,10 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: AppSize.s10),
                 Container(
                   height: AppSize.s30,
-                  width: AppSize.s360,
+                  width: AppSize.s650,
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -213,7 +211,6 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                           ),
                         ),
                         IconButton(
-
                           onPressed: _pickFile,
                           icon: Icon(
                             Icons.file_upload_outlined,

@@ -764,7 +764,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                               borderRadius: BorderRadius.circular(12.0),
                               borderSide: BorderSide(
                                 color: ColorManager.containerBorderGrey,
-                                width: 1.0,
+                                width:  AppSize.s1,
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -778,7 +778,7 @@ class _SearchPatientPopUpState extends State<SearchPatientPopUp> {
                               borderRadius: BorderRadius.circular(12.0),
                               borderSide: BorderSide(
                                 color: ColorManager.containerBorderGrey,
-                                width: 1.0,
+                                width:  AppSize.s1,
                               ),
                             ),
                             suffixIcon: Icon(

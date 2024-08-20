@@ -197,8 +197,8 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           Flexible(
                               child: SchedularTextField(
                                   controller: widget.ctlrStreet,
-                                  labelText: 'Street',
-                                  initialValue: '290,' ' Farewell Ave')),
+                                  labelText:  AppString.street,
+                                  )),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularDropdown(
@@ -213,8 +213,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               child: SchedularTextFieldWithButton(
                                   controller: widget.ctlrZipCode,
                                   labelText: AppString.zip_code,
-                                  initialValue: '26586845121',
-                                  buttonText: 'View Zone')),
+                                  buttonText: AppString.viewzone)),
                         ],
                       ),
                       SizedBox(height: AppSize.s16),
