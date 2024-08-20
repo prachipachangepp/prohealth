@@ -366,16 +366,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             payRatesController: payRatesController,
                               perMilesController: perMilesController,
                             onPressed: () async{
-                              await addPayRatesSetupPost(
-                                context,
-                                  1,
-                                  1,
-                                  int.parse(perMilesController.text),
-                                  docAddVisitTypeId,
-                                  docZoneId,
-                              int.parse(payRatesController.text),
-                              );
-                              payRatesDataGet(context,1,1,30).then((data) {
+                              // await addPayRatesSetupPost(
+                              //   context,
+                              //     1,
+                              //     1,
+                              //     int.parse(perMilesController.text),
+                              //     docAddVisitTypeId,
+                              //     docZoneId,
+                              // int.parse(payRatesController.text),
+                              // );
+                              payRatesDataGet(context,empTypeId,1,30).then((data) {
                                 _payRatesController.add(data);
                               }).catchError((error) {
                                 // Handle error
@@ -793,79 +793,6 @@ Widget buildDropdownButton(BuildContext context) {
       iconSize: 20,
       underline: const SizedBox(),
       onChanged: (String? newValue) {
-        // Show popup or AlertDialog
-        // if (newValue != null) {
-        //   showDialog(
-        //     context: context,
-        //     builder: (BuildContext context) {
-        //       TextEditingController nameController = TextEditingController();
-        //       TextEditingController addressController = TextEditingController();
-        //       TextEditingController emailController = TextEditingController();
-        //       return AlertDialog(
-        //           backgroundColor: Colors.white,
-        //           content: Container(
-        //             height: 343,
-        //             width: 409,
-        //             child: Column(
-        //               mainAxisAlignment: MainAxisAlignment.start,
-        //               children: [
-        //                 Row(
-        //                   mainAxisAlignment: MainAxisAlignment.end,
-        //                   crossAxisAlignment: CrossAxisAlignment.end,
-        //                   children: [
-        //                     IconButton(
-        //                         onPressed: () {
-        //                           Navigator.pop(context);
-        //                         },
-        //                         icon: const Icon(Icons.close))
-        //                   ],
-        //                 ),
-        //                 Column(
-        //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //                   children: [
-        //                     SMTextFConst(
-        //                       controller: nameController,
-        //                       keyboardType: TextInputType.text,
-        //                       text: 'Type of Visit',
-        //                     ),
-        //                     const SizedBox(
-        //                       height: 25,
-        //                     ),
-        //                     SMTextFConst(
-        //                       controller: addressController,
-        //                       keyboardType: TextInputType.streetAddress,
-        //                       text: 'Zone',
-        //                     ),
-        //                     const SizedBox(
-        //                       height: 25,
-        //                     ),
-        //                     SMTextFConst(
-        //                       controller: emailController,
-        //                       keyboardType: TextInputType.emailAddress,
-        //                       text: 'Rate',
-        //                     ),
-        //                   ],
-        //                 ),
-        //                 const SizedBox(
-        //                   height: 60,
-        //                 ),
-        //                 CustomElevatedButton(
-        //                     width: 105,
-        //                     height: 31,
-        //                     text: 'Submit',
-        //                     onPressed: () {
-        //                       // Navigator.push(
-        //                       //     context,
-        //                       //     MaterialPageRoute(
-        //                       //         builder: (context) =>
-        //                       //             LoginScreen()));
-        //                     })
-        //               ],
-        //             ),
-        //           ));
-        //     },
-        //   );
-        // }
       },
       isDense: true,
       items: <String>[

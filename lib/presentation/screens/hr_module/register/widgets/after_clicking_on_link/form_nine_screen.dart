@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_screen/form_legal_documents_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/thank_you_screen.dart';
 
 import '../../../../../../app/resources/const_string.dart';
@@ -110,7 +111,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
             text,
             style: GoogleFonts.firaSans(
               fontSize: 12,
-              color: Color(0xFF686464).withOpacity(0.50),
+              color: Color(0xFF605F5FF).withOpacity(0.50),
             ),
           ),
         ),
@@ -156,7 +157,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   child: _buildLabeledTextField(
                       "U.S. Social Security Number",
                       ssn,
-                      "Enter Text",
+                      "Enter Socal Security Number",
                       TextInputType.number),
                 ),
               ],
@@ -176,7 +177,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   child: _buildLabeledTextField(
                       "Employee's Email",
                       email,
-                      "Enter Text",
+                      "Enter Email",
                       TextInputType.emailAddress),
                 ),
               ],
@@ -197,7 +198,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   child: _buildLabeledTextField(
                       "Employee's Phone Number",
                       phoneNumber,
-                      "Enter Text",
+                      "Enter Phone Number",
                       TextInputType.phone),
                 ),
               ],
@@ -209,7 +210,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   child: _buildLabeledTextField(
                       "Other Last Names Used (if any)",
                       otherLastNames,
-                      "Enter Text",
+                      "Enter Other Last Names",
                       TextInputType.text,
                       isRequired: false),
                 ),
@@ -218,7 +219,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   child: _buildLabeledTextField(
                       "City or Town",
                       cityTown,
-                      "Enter Text",
+                      "Enter City or Town",
                       TextInputType.text),
                 ),
               ],
@@ -230,7 +231,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   child: _buildLabeledTextField(
                       "Address (Street Number & Name)",
                       address,
-                      "Enter Text",
+                      "Enter Address",
                       TextInputType.streetAddress),
                 ),
                 SizedBox(width: 100),
@@ -247,7 +248,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                   child: _buildLabeledTextField(
                       "Apt. Number",
                       aptNumber,
-                      "Enter Text",
+                      "Enter Apt number",
                       TextInputType.text,
                       isRequired: false),
                 ),
@@ -538,7 +539,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                         I94AdmissionNbr: formI94AdmissionNumber.text, foreignPassportNbr: foreignPassportNumber.text, countryOfIssue: countryOfIssuance.text,
                         officeId: "");
                     if(response.statusCode == 200 || response.statusCode == 201){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
+                      Navigator.pop(context);
                     }else{
 
                     }

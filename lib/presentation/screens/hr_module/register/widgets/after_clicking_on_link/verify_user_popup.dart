@@ -74,6 +74,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
           },
         );
       } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Authentication failed! Try again"),backgroundColor: ColorManager.red,),
+        );
         setState(() {
           _errorMessage = result.message;
         });
@@ -170,7 +173,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     //     const Icon(
                     //         Icons.verified_user_outlined,
                     //         color: Colors.white, size: 16),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 10),
                         Text(
                           AppString.verify_user,
                           style: GoogleFonts.firaSans(
