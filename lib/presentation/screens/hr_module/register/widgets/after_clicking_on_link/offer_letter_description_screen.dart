@@ -107,9 +107,12 @@ class _OfferLetterDescriptionScreenState
             FutureBuilder<OfferLetterData>(
               future:GetOfferLetter(context, widget.employeeId, 1 ),
               builder: (context, snapshot) {
-                // if(snapshot.connectionState == ConnectionState.waiting){
-                //   return CircularProgressIndicator(color: Colors.blue,);
-                // }
+                if(snapshot.connectionState == ConnectionState.waiting){
+                  return Container(
+                    width: 1032,
+                    height: 1190,
+                  );
+                }
                 if (snapshot.hasData) {
                   return Container(
                     color: Colors.white,

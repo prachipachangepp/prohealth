@@ -246,11 +246,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   data.firstName.capitalizeFirst!,
+                  style: GoogleFonts.firaSans(
+                    fontWeight: FontWeightManager.medium,
+                    color: const Color(0xff333333),
+                    fontSize: FontSize.s13,
+                  ),
+                ), SizedBox(width: 5,),
+                Text(
+                  data.lastName.capitalizeFirst!,
                   style: GoogleFonts.firaSans(
                     fontWeight: FontWeightManager.medium,
                     color: const Color(0xff333333),
@@ -347,8 +355,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          //const url = "http://localhost:54716/#/onBordingWelcome";
-                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          const url = "http://localhost:50494/#/onBordingWelcome";
+                          // const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                            await launch(url);
                           //    Navigator.push(
