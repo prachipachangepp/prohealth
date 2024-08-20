@@ -402,6 +402,10 @@ class _BankingFormState extends State<BankingForm> {
                                         fontWeight: FontWeight.w400,
                                         color: Color(0xff686464)),
                                   ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery.of(context).size.height /
+                                          30),
                                   Row(
                                     children: [
                                       Expanded(
@@ -671,14 +675,15 @@ class _BankingFormState extends State<BankingForm> {
                                       ),
                                     )
                                 ),
+                                SizedBox(height: 8,),
                                 checkUrl != null ? AutoSizeText(
                                   'Uploaded File: $checkUrl',
                                   style: GoogleFonts.firaSans(
                                       fontSize: 12.0,
                                       fontWeight:
-                                      FontWeight.w400,
+                                      FontWeight.w600,
                                       color:
-                                      Color(0xff686464)),
+                                      ColorManager.mediumgrey),
                                 ):
                                 fileName != null ?
                                 AutoSizeText(

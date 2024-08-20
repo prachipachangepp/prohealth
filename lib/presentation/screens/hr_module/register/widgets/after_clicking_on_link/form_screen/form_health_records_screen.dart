@@ -412,8 +412,8 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                                           'File picked: $fileName',
                                           style: GoogleFonts.firaSans(
                                             fontSize: 12.0,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff686464),
+                                            fontWeight: FontWeight.w600,
+                                            color:ColorManager.mediumgrey,
                                           ),
                                         ),
                                       )

@@ -111,7 +111,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
             text,
             style: GoogleFonts.firaSans(
               fontSize: 12,
-              color: Color(0xFF605F5FF).withOpacity(0.50),
+              color: Color(0xFF605F5F).withOpacity(0.50),
             ),
           ),
         ),

@@ -150,7 +150,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              height: 50,
+              height: 40,
               decoration: const BoxDecoration(
                 color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.only(
@@ -177,7 +177,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         Text(
                           AppString.verify_user,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: 13,
                             fontWeight: FontWeight.w700,
                             color: Colors.white,
                           ),

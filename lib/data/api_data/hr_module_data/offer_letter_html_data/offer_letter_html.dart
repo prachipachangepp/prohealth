@@ -4,8 +4,10 @@ class OfferLetterData{
   final String docUploadStatus;
   final String templateName;
   final String template;
+  final int? statusCode;
 
   OfferLetterData( {
+    this.statusCode,
     required this.docUploadStatus, required this.templateName, required this.template,
 
   });
