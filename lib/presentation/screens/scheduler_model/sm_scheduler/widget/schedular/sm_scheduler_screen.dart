@@ -117,8 +117,8 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                       children: [
                         Image.asset(
                           'images/group_schedular.png',
-                          height: 96.0,
-                          width: 96.0,
+                          height: AppSize.s96,
+                          width:  AppSize.s96,
                         ),
                         //SizedBox(height: 10),
                         Column(
@@ -199,14 +199,14 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 227.0,
+                  height:  AppSize.s227,
                   width: MediaQuery.of(context).size.width / 3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                     color: ColorManager.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.25),
+                        color: ColorManager.black.withOpacity(0.25),
                         spreadRadius: 2,
                         blurRadius: 10,
                         offset: Offset(0, 4),
