@@ -550,7 +550,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
   void _showErrorMessage(BuildContext context) {
     final snackBar = SnackBar(
       content: Text('Please fill out all required fields.'),
-      backgroundColor: Colors.red,
+      backgroundColor: ColorManager.red,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
@@ -579,7 +579,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Container(
               width: MediaQuery.of(context).size.width / 1.97,
-              height: 30,
+              height: AppSize.s30,
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -799,17 +799,14 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       ),
                     ),
                   ),
-
                 ),
               )
             else
               Padding(
                 padding: const EdgeInsets.only(right: 40.0),
-                child: SizedBox(width: 80),
+                child: SizedBox(width: AppSize.s80),
               ),
           ]),
-
-
           const SizedBox(height: AppSize.s10),
           Expanded(
             flex: 10,

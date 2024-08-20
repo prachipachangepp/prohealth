@@ -64,9 +64,10 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                           color: ColorManager.greenDark
                       ),
                     ),
+                    SizedBox(width: MediaQuery.of(context).size.width/80),
                     Container(
                       height: 30,
-                      width: 140,
+                      width: 130,
                       child: SchedularIconButtonConst(
                         text: 'Add Stay Info',
                         icon: Icons.add,
@@ -227,8 +228,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             Flexible(child: SchedularTextFieldWithButton(
               controller: ctlrViewZone,
               labelText: AppString.zip_code,
-              initialValue: '2656845121',
-              buttonText: 'View Zone',
+              buttonText: AppString.viewzone
             )),
             SizedBox(width: AppSize.s35),
             Flexible(
@@ -305,7 +305,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             Flexible(
                 child: SchedularTextField(
                   controller: ctlrStreet,
-                    labelText: 'Street'
+                    labelText: AppString.street
                 )
             ),
             SizedBox(width: AppSize.s35),
@@ -343,8 +343,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextFieldWithButton(
                   controller: ctlrZipCode,
                   labelText: AppString.zip_code,
-                  initialValue: '2656845121',
-                  buttonText: 'View Zone',
+                  buttonText:  AppString.zip_code,
                 )
             ),
             SizedBox(width: AppSize.s35),
@@ -361,7 +360,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             Flexible(
                 child: SchedularTextField(
                   controller: ctlrFax,
-                    labelText: 'Fax'
+                    labelText: AppString.fax
                 )
             ),
             SizedBox(width: AppSize.s35),
