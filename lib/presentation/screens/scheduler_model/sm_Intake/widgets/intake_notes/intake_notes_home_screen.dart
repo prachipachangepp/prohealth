@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_notes/widgets/intake_notes_miscellaneous/intake_notes_miscellaneous_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_compliance/intake_patients_compliance.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
@@ -42,14 +43,14 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
       borderRadius: BorderRadius.circular(14),
       child: Column(
         children: [
-          SizedBox(height: 15,),
+          SizedBox(height: AppSize.s15),
           Container(
             width: MediaQuery.of(context).size.width/1.405,
-            height: 30,
+            height: AppSize.s30,
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
+                    color: ColorManager.black.withOpacity(0.5),
                     offset: Offset(0, 4),
                     blurRadius: 4,
                     spreadRadius: 0,
@@ -62,25 +63,25 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
               children: [
                 InkWell(
                   child: Container(
-                    height: 30,
+                    height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 10,
                     padding: EdgeInsets.symmetric(vertical: 6),
                     decoration: BoxDecoration(
 
                       borderRadius: BorderRadius.circular(20),
                       color: selectedIndex == 0
-                          ? Colors.white
+                          ? ColorManager.white
                           : null,
                     ),
                     child: Text(
                       'Physician',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: selectedIndex == 0
                             ? ColorManager.mediumgrey
-                            : Colors.white,
+                            : ColorManager.white,
                       ),
                     ),
                   ),
@@ -88,24 +89,24 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                 ),
                 InkWell(
                   child: Container(
-                    height: 30,
+                    height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 10,
                     padding: EdgeInsets.symmetric(vertical: 6),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: selectedIndex == 1
-                          ? Colors.white
+                          ? ColorManager.white
                           : null,
                     ),
                     child: Text(
                       'Supervisory',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: selectedIndex == 1
                             ? ColorManager.mediumgrey
-                            : Colors.white,
+                            : ColorManager.white,
                       ),
                     ),
                   ),
@@ -113,24 +114,24 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                 ),
                 InkWell(
                   child: Container(
-                    height: 30,
+                    height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 10,
                     padding: EdgeInsets.symmetric(vertical: 6),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: selectedIndex == 2
-                          ? Colors.white
+                          ? ColorManager.white
                           : null,
                     ),
                     child: Text(
                       'Nurses Clinical',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: selectedIndex == 2
                             ? ColorManager.mediumgrey
-                            : Colors.white,
+                            : ColorManager.white,
                       ),
                     ),
                   ),
@@ -138,24 +139,24 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                 ),
                 InkWell(
                   child: Container(
-                    height: 30,
+                    height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 9.5,
                     padding: EdgeInsets.symmetric(vertical: 6),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: selectedIndex == 3
-                          ? Colors.white
+                          ? ColorManager.white
                           : null,
                     ),
                     child: Text(
                       'Speech Therapy',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: selectedIndex == 3
                             ? ColorManager.mediumgrey
-                            : Colors.white,
+                            : ColorManager.white,
                       ),
                     ),
                   ),
@@ -163,72 +164,72 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
                 ),
                 InkWell(
                   child: Container(
-                    height: 30,
+                    height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 9.8,
                     padding: EdgeInsets.symmetric(vertical: 6),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: selectedIndex == 4
-                          ? Colors.white
+                          ? ColorManager.white
                           : null,
                     ),
                     child: Text(
                       'Home Health Aid',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: selectedIndex == 4
                             ? ColorManager.mediumgrey
-                            : Colors.white,
+                            : ColorManager.white,
                       ),
                     ),
                   ),
                   onTap: () => selectButton(4),
                 ),InkWell(
                   child: Container(
-                    height: 30,
+                    height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 9.8,
                     padding: EdgeInsets.symmetric(vertical: 6),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: selectedIndex == 5
-                          ? Colors.white
+                          ? ColorManager.white
                           : null,
                     ),
                     child: Text(
                       'Spiritual',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: selectedIndex == 5
                             ? ColorManager.mediumgrey
-                            : Colors.white,
+                            : ColorManager.white,
                       ),
                     ),
                   ),
                   onTap: () => selectButton(5),
                 ),InkWell(
                   child: Container(
-                    height: 30,
+                    height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 9.8,
                     padding: EdgeInsets.symmetric(vertical: 6),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: selectedIndex == 6
-                          ? Colors.white
+                          ? ColorManager.white
                           : null,
                     ),
                     child: Text(
                       'Miscellaneous',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: selectedIndex == 6
                             ? ColorManager.mediumgrey
-                            : Colors.white,
+                            : ColorManager.white,
                       ),
                     ),
                   ),
@@ -238,7 +239,7 @@ class _SmIntakeNotesScreenState extends State<SmIntakeNotesScreen> {
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: AppSize.s10,
           ),
           Expanded(
             flex: 10,
