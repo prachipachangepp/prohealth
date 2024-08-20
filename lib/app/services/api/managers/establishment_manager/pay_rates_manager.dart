@@ -205,7 +205,7 @@ Future<List<SortByZoneData>> PayRateZoneDropdoen(
     BuildContext context, int companyID, String officeId) async {
   List<SortByZoneData> itemsList = [];
   try {
-    final companyID= await TokenManager.getCompanyId();
+    final companyID = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getzonedropdown(
             companyID: companyID, officeId: officeId));
@@ -220,7 +220,8 @@ Future<List<SortByZoneData>> PayRateZoneDropdoen(
             companyId: item['companyId'],
           ),
         );
-     }
+        print("$response");
+      }
     } else {
       print('Api Error');
     }
@@ -229,5 +230,46 @@ Future<List<SortByZoneData>> PayRateZoneDropdoen(
   } catch (e) {
     print("Error $e");
     return itemsList;
+  }
+}
+
+/// Add pay rates POST
+Future<ApiData> addButtonPayRatesSetupPost(
+  BuildContext context,
+  int zoneId,
+  int rate,
+  String typeOfVisitId,
+  int permile,
+  int serviceTypeId,
+) async {
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var response = await Api(context)
+        .post(path: EstablishmentManagerRepository.postPayrates(), data: {
+        'zoneId': zoneId,
+        "rate": rate,
+      "typeOfVisitId": typeOfVisitId,
+      'perMile': permile,
+      "serviceTypeId": serviceTypeId
+
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Pay Rates added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1 Not Added Payrates");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2 Not Added Payrates");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

@@ -64,7 +64,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
     });
   }
 
-  String? selectedZone;
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -76,7 +75,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [buildDropdownButton(context)],
+              children: [ buildDropdownButton(context)],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,303 +116,654 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     FutureBuilder<List<HRClinical>>(
-                        future: companyAllHrClinicApi(context),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  width: 300,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager.faintGrey,
-                                      borderRadius: BorderRadius.circular(10)),
-                                ));
-                          }
-                          if (snapshot.hasData) {
-                            int docType = 0;
-                            List<DropdownMenuItem<String>> dropDownList = [];
-                            List<DropdownMenuItem<String>>
-                                dropDownAbbreviation = [];
-                            for (var i in snapshot.data!) {
-                              dropDownList.add(DropdownMenuItem<String>(
+                      future: companyAllHrClinicApi(context),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Container(
+                            width: 300,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: ColorManager.faintGrey,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          int docType = 0;
+                          List<DropdownMenuItem<String>> dropDownList = [];
+                          List<DropdownMenuItem<String>> dropDownAbbreviation =
+                              [];
+
+                          for (var i in snapshot.data!) {
+                            dropDownList.add(
+                              DropdownMenuItem<String>(
                                 child: Text(i.empType!),
                                 value: i.empType,
-                              ));
-                              dropDownAbbreviation.add(DropdownMenuItem<String>(
+                              ),
+                            );
+                            dropDownAbbreviation.add(
+                              DropdownMenuItem<String>(
                                 child: Text(i.abbrivation!),
                                 value: i.abbrivation,
-                              ));
-                            }
-                            return Row(
-                              children: [
-                                ///home health dropdown
-                                Container(
-                                  height: 31,
-                                  width: 200,
-                                  // margin: EdgeInsets.symmetric(horizontal: 20),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 6, horizontal: 15),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                        color: const Color(0xff686464)
-                                            .withOpacity(0.5),
-                                        width: 1), // Black border
-                                    borderRadius: BorderRadius.circular(
-                                        12), // Rounded corners
-                                  ),
-                                  child: DropdownButtonFormField<String>(
-                                    focusColor: Colors.transparent,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down_sharp,
-                                      color: Color(0xff686464),
-                                    ),
-                                    decoration: const InputDecoration.collapsed(
-                                        hintText: ''),
-                                    items: dropDownList,
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.empType == newValue) {
-                                          docType = a.employeeTypesId;
-                                          empTypeId = docType;
-                                        }
-                                      }
-                                    },
-                                    value: dropDownList[0].value,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: const Color(0xff686464),
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
-
-                                const SizedBox(
-                                  width: 20,
-                                ),
-
-                                /// Abbrevation dropdown
-                                Container(
-                                  height: 31,
-                                  width: 187,
-                                  // margin: EdgeInsets.symmetric(horizontal: 20),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 6, horizontal: 15),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                        color: const Color(0xff686464)
-                                            .withOpacity(0.5),
-                                        width: 1), // Black border
-                                    borderRadius: BorderRadius.circular(
-                                        12), // Rounded corners
-                                  ),
-                                  child: DropdownButtonFormField<String>(
-                                    focusColor: Colors.transparent,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down_sharp,
-                                      color: Color(0xff686464),
-                                    ),
-                                    decoration: const InputDecoration.collapsed(
-                                        hintText: ''),
-                                    items: dropDownAbbreviation,
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.abbrivation == newValue) {
-                                          docType = a.employeeTypesId;
-                                          empTypeId = docType;
-                                        }
-                                      }
-                                    },
-                                    value: dropDownAbbreviation[0].value,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: const Color(0xff686464),
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             );
-                          } else {
-                            return const Offstage();
                           }
-                        }),
 
-                    ///add payrate button
+                          return Row(
+                            children: [
+                              /// Disabled Clinical dropdown
+                              Container(
+                                height: 31,
+                                width: 200,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 6, horizontal: 15),
+                                decoration: BoxDecoration(
+                                  color:
+                                      Colors.grey[300], // Set the color to grey
+                                  border: Border.all(
+                                    color: const Color(0xff686464)
+                                        .withOpacity(0.5),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: DropdownButtonFormField<String>(
+                                  focusColor: Colors.transparent,
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_sharp,
+                                    color: Color(0xff686464),
+                                  ),
+                                  decoration: const InputDecoration.collapsed(
+                                      hintText: ''),
+                                  hint: Text(
+                                    "Clinical",
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color:
+                                          Colors.grey[600], // Grey text color
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                  items: dropDownList,
+                                  onChanged:
+                                      null, // Disable the dropdown by setting onChanged to null
+                                  value: null,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey[600], // Grey text color
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              FutureBuilder<List<HRClinical>>(
+                                future: companyAllHrClinicApi(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    // Show loading indicator while waiting for data
+                                    return Container(
+                                      height: 31,
+                                      width: 187,
+                                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: const Color(0xff686464).withOpacity(0.5),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Container(
+                                        height: 31,
+                                        width: 187,
+                                      ),
+                                    );
+                                  }
+                                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                    // Populate the dropdown when data is available
+                                    List<DropdownMenuItem<String>> dropDownAbbreviation = [];
+                                    for (var i in snapshot.data!) {
+                                      dropDownAbbreviation.add(
+                                        DropdownMenuItem<String>(
+                                          child: Text(i.abbrivation!),
+                                          value: i.abbrivation,
+                                        ),
+                                      );
+                                    }
+
+                                    return Container(
+                                      height: 31,
+                                      width: 187,
+                                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: const Color(0xff686464).withOpacity(0.5),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: DropdownButtonFormField<String>(
+                                        isDense: true,
+                                        icon: const Icon(
+                                          Icons.arrow_drop_down_sharp,
+                                          color: Color(0xff686464),
+                                        ),
+                                        decoration: const InputDecoration.collapsed(hintText: ''),
+                                        hint: Text(
+                                          "Select",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            color: const Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        items: dropDownAbbreviation,
+                                        onChanged: (newValue) {
+                                          for (var a in snapshot.data!) {
+                                            if (a.abbrivation == newValue) {
+                                              docType = a.employeeTypesId;
+                                              empTypeId = docType;
+                                            }
+                                          }
+                                        },
+                                        value: null,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                          color: const Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),
+                                        menuMaxHeight: 200, // Limits the maximum height of the dropdown menu
+                                      ),
+                                    );
+                                  } else {
+                                    return Container(
+                                      height: 31,
+                                      width: 187,
+                                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: const Color(0xff686464).withOpacity(0.5),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "No data available",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            color: const Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                              )
+                              /// Abbreviation dropdown
+                              // FutureBuilder<List<HRClinical>>(
+                              //   future: companyAllHrClinicApi(context),
+                              //   builder: (context, snapshot) {
+                              //     if (snapshot.connectionState ==
+                              //         ConnectionState.waiting) {
+                              //       // Show loading indicator while waiting for data
+                              //       return Container(
+                              //         height: 31,
+                              //         width: 187,
+                              //         padding: const EdgeInsets.symmetric(
+                              //             vertical: 6, horizontal: 15),
+                              //         decoration: BoxDecoration(
+                              //           color: Colors.white,
+                              //           border: Border.all(
+                              //             color: const Color(0xff686464)
+                              //                 .withOpacity(0.5),
+                              //             width: 1,
+                              //           ),
+                              //           borderRadius: BorderRadius.circular(12),
+                              //         ),
+                              //         child: Center(
+                              //           child: CircularProgressIndicator(),
+                              //         ),
+                              //       );
+                              //     }
+                              //     if (snapshot.hasData &&
+                              //         snapshot.data!.isNotEmpty) {
+                              //       // Populate the dropdown when data is available
+                              //       List<DropdownMenuItem<String>>
+                              //           dropDownAbbreviation = [];
+                              //       for (var i in snapshot.data!) {
+                              //         dropDownAbbreviation.add(
+                              //           DropdownMenuItem<String>(
+                              //             child: Text(i.abbrivation!),
+                              //             value: i.abbrivation,
+                              //           ),
+                              //         );
+                              //       }
+                              //
+                              //       return Container(
+                              //         height: 31,
+                              //         width: 187,
+                              //         padding: const EdgeInsets.symmetric(
+                              //             vertical: 6, horizontal: 15),
+                              //         decoration: BoxDecoration(
+                              //           color: Colors.white,
+                              //           border: Border.all(
+                              //             color: const Color(0xff686464)
+                              //                 .withOpacity(0.5),
+                              //             width: 1,
+                              //           ),
+                              //           borderRadius: BorderRadius.circular(12),
+                              //         ),
+                              //         child: DropdownButtonFormField<String>(
+                              //           focusColor: Colors.transparent,
+                              //           icon: const Icon(
+                              //             Icons.arrow_drop_down_sharp,
+                              //             color: Color(0xff686464),
+                              //           ),
+                              //           decoration:
+                              //               const InputDecoration.collapsed(
+                              //                   hintText: ''),
+                              //           hint: Text(
+                              //             "Select",
+                              //             style: GoogleFonts.firaSans(
+                              //               fontSize: 12,
+                              //               fontWeight: FontWeight.w600,
+                              //               color: const Color(0xff686464),
+                              //               decoration: TextDecoration.none,
+                              //             ),
+                              //           ),
+                              //           items: dropDownAbbreviation,
+                              //           onChanged: (newValue) {
+                              //             for (var a in snapshot.data!) {
+                              //               if (a.abbrivation == newValue) {
+                              //                 docType = a.employeeTypesId;
+                              //                 empTypeId = docType;
+                              //               }
+                              //             }
+                              //           },
+                              //           value: null,
+                              //           style: GoogleFonts.firaSans(
+                              //             fontSize: 12,
+                              //             fontWeight: FontWeight.w600,
+                              //             color: const Color(0xff686464),
+                              //             decoration: TextDecoration.none,
+                              //           ),
+                              //         ),
+                              //       );
+                              //     } else {
+                              //       return Container(
+                              //         height: 31,
+                              //         width: 187,
+                              //         padding: const EdgeInsets.symmetric(
+                              //             vertical: 6, horizontal: 15),
+                              //         decoration: BoxDecoration(
+                              //           color: Colors.white,
+                              //           border: Border.all(
+                              //             color: const Color(0xff686464)
+                              //                 .withOpacity(0.5),
+                              //             width: 1,
+                              //           ),
+                              //           borderRadius: BorderRadius.circular(12),
+                              //         ),
+                              //         child: Center(
+                              //           child: Text(
+                              //             "No data available",
+                              //             style: GoogleFonts.firaSans(
+                              //               fontSize: 12,
+                              //               fontWeight: FontWeight.w600,
+                              //               color: const Color(0xff686464),
+                              //               decoration: TextDecoration.none,
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       );
+                              //     }
+                              //   },
+                              // )
+                            ],
+                          );
+                        } else {
+                          return const Offstage();
+                        }
+                      },
+                    ),
+
+
+                    ///trial
                     Container(
                       width: 130,
                       height: 32,
                       child: CustomIconButtonConst(
-                          text: 'Add Payrate',
-                          icon: Icons.add,
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return PayRatesPopup(
-                                  title: 'Add Payrates',
-                                  child1: FutureBuilder<List<VisitListData>>(
-                                      future: getVisitList(context),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: 354,
-                                                height: 30,
-                                                decoration: BoxDecoration(
-                                                    color:
-                                                        ColorManager.faintGrey,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                              ));
-                                        }
-                                        if (snapshot.data!.isEmpty) {
-                                          return Center(
-                                            child: Text(
-                                              AppString.dataNotFound,
-                                              style: CustomTextStylesCommon
-                                                  .commonStyle(
-                                                fontWeight:
-                                                    FontWeightManager.medium,
-                                                fontSize: FontSize.s12,
-                                                color: ColorManager.mediumgrey,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if (snapshot.hasData) {
-                                          List dropDown = [];
-                                          int docType = 0;
-                                          List<DropdownMenuItem<String>>
-                                              dropDownZoneList = [];
-                                          for (var i in snapshot.data!) {
-                                            dropDownZoneList.add(
-                                              DropdownMenuItem<String>(
-                                                child: Text(i.visitType),
-                                                value: i.visitType,
-                                              ),
-                                            );
+                        text: 'Add Payrate',
+                        icon: Icons.add,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return PayRatesPopup(
+                                title: 'Add Payrates',
+                                child1: FutureBuilder<List<VisitListData>>(
+                                  future: getVisitList(context),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                      return Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          width: 354,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            color: ColorManager.faintGrey,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                      return Center(
+                                        child: Text(
+                                          AppString.dataNotFound,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    if (snapshot.hasData) {
+                                      List<DropdownMenuItem<String>> dropDownZoneList = [];
+                                      for (var i in snapshot.data!) {
+                                        dropDownZoneList.add(
+                                          DropdownMenuItem<String>(
+                                            child: Text(i.visitType),
+                                            value: i.visitType,
+                                          ),
+                                        );
+                                      }
+                                      return CICCDropdown(
+                                        initialValue: dropDownZoneList.isNotEmpty
+                                            ? dropDownZoneList[0].value
+                                            : null,
+                                        onChange: (val) {
+                                          for (var a in snapshot.data!) {
+                                            if (a.visitType == val) {
+                                              docAddVisitTypeId = a.visitId;
+                                            }
                                           }
-                                          return CICCDropdown(
-                                              initialValue:
-                                                  dropDownZoneList[0].value,
-                                              onChange: (val) {
-                                                for (var a in snapshot.data!) {
-                                                  if (a.visitType == val) {
-                                                    docType = a.visitId;
-                                                    docAddVisitTypeId = docType;
-                                                  }
-                                                }
-                                                print(":::${docType}");
-                                                print(
-                                                    ":::<>${docAddVisitTypeId}");
-                                              },
-                                              items: dropDownZoneList);
-                                        }
-                                        return const SizedBox();
-                                      }),
-                                  child2: FutureBuilder<List<AllZoneData>>(
-                                      future: getAllZone(context),
-                                      builder: (context, snapshotZone) {
-                                        if (snapshotZone.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: 354,
-                                                height: 30,
-                                                decoration: BoxDecoration(
-                                                    color:
-                                                        ColorManager.faintGrey,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                              ));
-                                        }
-                                        if (snapshotZone.data!.isEmpty) {
-                                          return Center(
-                                            child: Text(
-                                              AppString.dataNotFound,
-                                              style: CustomTextStylesCommon
-                                                  .commonStyle(
-                                                fontWeight:
-                                                    FontWeightManager.medium,
-                                                fontSize: FontSize.s12,
-                                                color: ColorManager.mediumgrey,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if (snapshotZone.hasData) {
-                                          List dropDown = [];
-                                          int docType = 0;
-                                          List<DropdownMenuItem<String>>
-                                              dropDownTypesList = [];
-                                          for (var i in snapshotZone.data!) {
-                                            dropDownTypesList.add(
-                                              DropdownMenuItem<String>(
-                                                value: i.zoneName,
-                                                child: Text(i.zoneName),
-                                              ),
-                                            );
-                                          }
-                                          return CICCDropdown(
-                                              initialValue:
-                                                  dropDownTypesList[0].value,
-                                              onChange: (val) {
-                                                for (var a
-                                                    in snapshotZone.data!) {
-                                                  if (a.zoneName == val) {
-                                                    docType = a.zoneId;
-                                                    print(
-                                                        "ZONE id :: ${a.zoneId}");
-                                                    docZoneId = docType;
-                                                  }
-                                                }
-                                                print(":::${docType}");
-                                                print(":::<>${docZoneId}");
-                                              },
-                                              items: dropDownTypesList);
-                                        }
-                                        return const SizedBox();
-                                      }),
-                                  payRatesController: payRatesController,
-                                  perMilesController: perMilesController,
-                                  onPressed: () async {
-                                    await addPayRatesSetupPost(
-                                      context,
-                                      1,
-                                      1,
-                                      int.parse(perMilesController.text),
-                                      docAddVisitTypeId,
-                                      docZoneId,
-                                      int.parse(payRatesController.text),
-                                    );
-                                    payRatesDataGet(context, 1, 1, 30)
-                                        .then((data) {
-                                      _payRatesController.add(data);
-                                    }).catchError((error) {
-                                      // Handle error
-                                    });
-                                    payRatesController.clear();
-                                    perMilesController.clear();
+                                        },
+                                        items: dropDownZoneList,
+                                      );
+                                    }
+                                    return const SizedBox();
                                   },
-                                );
-                              },
-                            );
-                          }),
-                    ),
+                                ),
+                                child2: FutureBuilder<List<AllZoneData>>(
+                                  future: getAllZone(context),
+                                  builder: (context, snapshotZone) {
+                                    if (snapshotZone.connectionState == ConnectionState.waiting) {
+                                      return Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          width: 354,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            color: ColorManager.faintGrey,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    if (snapshotZone.hasData && snapshotZone.data!.isEmpty) {
+                                      return Center(
+                                        child: Text(
+                                          AppString.dataNotFound,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    if (snapshotZone.hasData) {
+                                      List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                      for (var i in snapshotZone.data!) {
+                                        dropDownTypesList.add(
+                                          DropdownMenuItem<String>(
+                                            value: i.zoneName,
+                                            child: Text(i.zoneName),
+                                          ),
+                                        );
+                                      }
+                                      return CICCDropdown(
+                                        initialValue: dropDownTypesList.isNotEmpty
+                                            ? dropDownTypesList[0].value
+                                            : null,
+                                        onChange: (val) {
+                                          for (var a in snapshotZone.data!) {
+                                            if (a.zoneName == val) {
+                                              docZoneId = a.zoneId;
+                                            }
+                                          }
+                                        },
+                                        items: dropDownTypesList,
+                                      );
+                                    }
+                                    return const SizedBox();
+                                  },
+                                ),
+                                payRatesController: payRatesController,
+                                perMilesController: perMilesController,
+                                onPressed: () async {
+                                  if (docAddVisitTypeId != null && docZoneId != null) {
+                                    try {
+                                      await addButtonPayRatesSetupPost(
+                                        context,
+                                        docZoneId!,
+                                        int.parse(payRatesController.text),
+                                        docAddVisitTypeId!.toString(),
+                                        int.parse(perMilesController.text,),
+                                        empTypeId,
+                                      );
+                                      payRatesController.clear();
+                                      perMilesController.clear();
+                                    } catch (e) {
+                                      print("Failed to add pay rates: $e");
+                                    }
+                                  } else {
+                                    print("Required data is missing.");
+                                  }
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    )
+
+
+                    ///add payrate button
+                    // Container(
+                    //   width: 130,
+                    //   height: 32,
+                    //   child: CustomIconButtonConst(
+                    //       text: 'Add Payrate',
+                    //       icon: Icons.add,
+                    //       onPressed: () {
+                    //         showDialog(
+                    //           context: context,
+                    //           builder: (BuildContext context) {
+                    //             return PayRatesPopup(
+                    //               title: 'Add Payrates',
+                    //               child1: FutureBuilder<List<VisitListData>>(
+                    //                   future: getVisitList(context),
+                    //                   builder: (context, snapshot) {
+                    //                     if (snapshot.connectionState ==
+                    //                         ConnectionState.waiting) {
+                    //                       return Shimmer.fromColors(
+                    //                           baseColor: Colors.grey[300]!,
+                    //                           highlightColor: Colors.grey[100]!,
+                    //                           child: Container(
+                    //                             width: 354,
+                    //                             height: 30,
+                    //                             decoration: BoxDecoration(
+                    //                                 color:
+                    //                                     ColorManager.faintGrey,
+                    //                                 borderRadius:
+                    //                                     BorderRadius.circular(
+                    //                                         10)),
+                    //                           ));
+                    //                     }
+                    //                     if (snapshot.data!.isEmpty) {
+                    //                       return Center(
+                    //                         child: Text(
+                    //                           AppString.dataNotFound,
+                    //                           style: CustomTextStylesCommon
+                    //                               .commonStyle(
+                    //                             fontWeight:
+                    //                                 FontWeightManager.medium,
+                    //                             fontSize: FontSize.s12,
+                    //                             color: ColorManager.mediumgrey,
+                    //                           ),
+                    //                         ),
+                    //                       );
+                    //                     }
+                    //                     if (snapshot.hasData) {
+                    //                       List dropDown = [];
+                    //                       int docType = 0;
+                    //                       List<DropdownMenuItem<String>>
+                    //                           dropDownZoneList = [];
+                    //                       for (var i in snapshot.data!) {
+                    //                         dropDownZoneList.add(
+                    //                           DropdownMenuItem<String>(
+                    //                             child: Text(i.visitType),
+                    //                             value: i.visitType,
+                    //                           ),
+                    //                         );
+                    //                       }
+                    //                       return CICCDropdown(
+                    //                           initialValue:
+                    //                               dropDownZoneList[0].value,
+                    //                           onChange: (val) {
+                    //                             for (var a in snapshot.data!) {
+                    //                               if (a.visitType == val) {
+                    //                                 docType = a.visitId;
+                    //                                 docAddVisitTypeId = docType;
+                    //                               }
+                    //                             }
+                    //                             print(":::${docType}");
+                    //                             print(
+                    //                                 ":::<>${docAddVisitTypeId}");
+                    //                           },
+                    //                           items: dropDownZoneList);
+                    //                     }
+                    //                     return const SizedBox();
+                    //                   }),
+                    //               child2: FutureBuilder<List<AllZoneData>>(
+                    //                   future: getAllZone(context),
+                    //                   builder: (context, snapshotZone) {
+                    //                     if (snapshotZone.connectionState ==
+                    //                         ConnectionState.waiting) {
+                    //                       return Shimmer.fromColors(
+                    //                           baseColor: Colors.grey[300]!,
+                    //                           highlightColor: Colors.grey[100]!,
+                    //                           child: Container(
+                    //                             width: 354,
+                    //                             height: 30,
+                    //                             decoration: BoxDecoration(
+                    //                                 color:
+                    //                                     ColorManager.faintGrey,
+                    //                                 borderRadius:
+                    //                                     BorderRadius.circular(
+                    //                                         10)),
+                    //                           ));
+                    //                     }
+                    //                     if (snapshotZone.data!.isEmpty) {
+                    //                       return Center(
+                    //                         child: Text(
+                    //                           AppString.dataNotFound,
+                    //                           style: CustomTextStylesCommon
+                    //                               .commonStyle(
+                    //                             fontWeight:
+                    //                                 FontWeightManager.medium,
+                    //                             fontSize: FontSize.s12,
+                    //                             color: ColorManager.mediumgrey,
+                    //                           ),
+                    //                         ),
+                    //                       );
+                    //                     }
+                    //                     if (snapshotZone.hasData) {
+                    //                       List dropDown = [];
+                    //                       int docType = 0;
+                    //                       List<DropdownMenuItem<String>>
+                    //                           dropDownTypesList = [];
+                    //                       for (var i in snapshotZone.data!) {
+                    //                         dropDownTypesList.add(
+                    //                           DropdownMenuItem<String>(
+                    //                             value: i.zoneName,
+                    //                             child: Text(i.zoneName),
+                    //                           ),
+                    //                         );
+                    //                       }
+                    //                       return CICCDropdown(
+                    //                           initialValue:
+                    //                               dropDownTypesList[0].value,
+                    //                           onChange: (val) {
+                    //                             for (var a
+                    //                                 in snapshotZone.data!) {
+                    //                               if (a.zoneName == val) {
+                    //                                 docType = a.zoneId;
+                    //                                 print(
+                    //                                     "ZONE id :: ${a.zoneId}");
+                    //                                 docZoneId = docType;
+                    //                               }
+                    //                             }
+                    //                             print(":::${docType}");
+                    //                             print(":::<>${docZoneId}");
+                    //                           },
+                    //                           items: dropDownTypesList);
+                    //                     }
+                    //                     return const SizedBox();
+                    //                   }),
+                    //               payRatesController: payRatesController,
+                    //               perMilesController: perMilesController,
+                    //               onPressed: () async {
+                    //                 // await addPayRatesSetupPost(
+                    //                 //   context,
+                    //                 //     1,
+                    //                 //     1,
+                    //                 //     int.parse(perMilesController.text),
+                    //                 //     docAddVisitTypeId,
+                    //                 //     docZoneId,
+                    //                 // int.parse(payRatesController.text),
+                    //                 // );
+                    //                 payRatesDataGet(context, empTypeId, 1, 30)
+                    //                     .then((data) {
+                    //                   _payRatesController.add(data);
+                    //                 }).catchError((error) {
+                    //                   // Handle error
+                    //                 });
+                    //                 payRatesController.clear();
+                    //                 perMilesController.clear();
+                    //               },
+                    //             );
+                    //           },
+                    //         );
+                    //       }),
+                    // ),
                   ],
                 ),
               ],
@@ -908,97 +1258,116 @@ class _FinanceScreenState extends State<FinanceScreen> {
 }
 
 Widget buildDropdownButton(BuildContext context) {
-  ///pay_rates_manager line no203  and data fiele name pay rate finacnce data  line no 59
-
-  return FutureBuilder<List<SortByZoneData>>(
-    future:
-        PayRateZoneDropdoen(context, 1, " "), // Change this to a stream method
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[100]!,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 7),
-            child: Container(
-              width: AppSize.s250,
-              height: AppSize.s40,
-              decoration: BoxDecoration(
-                color: ColorManager.faintGrey,
-              ),
-            ),
+  return Container(
+    height: 31,
+    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+      borderRadius: BorderRadius.circular(12.0),
+      boxShadow: [
+        BoxShadow(
+          color: const Color(0xff000000).withOpacity(0.25),
+          blurRadius: 2,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    ),
+    child: DropdownButton<String>(
+      value: 'Sort By',
+      style: GoogleFonts.firaSans(
+        fontSize: 12,
+        fontWeight: FontWeightManager.bold,
+        color: const Color(0xff50B5E5),
+        decoration: TextDecoration.none,
+      ),
+      icon: const Icon(
+        Icons.arrow_drop_down,
+        color: Color(0xff50B5E5),
+      ),
+      iconSize: 20,
+      underline: const SizedBox(),
+      onChanged: (String? newValue) {},
+      isDense: true,
+      items: <String>[
+        'Sort By',
+        'For all zones',
+        'San Jose z4',
+        'San Jose z4',
+        'San Jose z4',
+        'San Jose z4',
+      ].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(
+            value,
+            style: TextStyle(color: ColorManager.blueprime),
           ),
         );
-      }
-
-      if (snapshot.hasError) {
-        return Center(child: Text('Error: ${snapshot.error}'));
-      }
-
-      if (snapshot.hasData) {
-        List<String> dropDownList = [];
-
-        for (var i in snapshot.data!) {
-          if (i.zoneName != null) {
-            dropDownList.add(i.zoneName!);
-          }
-        }
-        return Container(
-            height: 31,
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-              borderRadius: BorderRadius.circular(12.0),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xff000000).withOpacity(0.25),
-                  blurRadius: 2,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: DropdownButton<String>(
-              value: 'Sort By',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeightManager.bold,
-                color: const Color(0xff50B5E5),
-                decoration: TextDecoration.none,
-              ),
-              icon: const Icon(
-                Icons.arrow_drop_down,
-                color: Color(0xff50B5E5),
-              ),
-              iconSize: 20,
-              underline: const SizedBox(),
-              onChanged: (String? newValue) {
-                // for (var a in snapshot.data!) {
-                //   if (a.zoneName == newValue) {
-                //     selectedZone = a.zoneName!;
-                //   }
-                // }
-              },
-              items: dropDownList.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      color: Color(0xff575757),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                );
-              }).toList(),
-            ));
-      } else {
-        return const Offstage();
-      }
-    },
+      }).toList(),
+    ),
   );
 }
+
+///change color dropdown
+// Widget buildDropdownButton(BuildContext context) {
+//   ValueNotifier<String> selectedValueNotifier = ValueNotifier<String>('Sort By');
+//
+//   return ValueListenableBuilder<String>(
+//     valueListenable: selectedValueNotifier,
+//     builder: (context, selectedValue, child) {
+//       return Container(
+//         height: 31,
+//         padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+//         decoration: BoxDecoration(
+//           color: Colors.white,
+//           border: Border.all(
+//             color: selectedValue == 'For all zones' ? Colors.red : Color(0xff50B5E5),
+//             width: 1.2,
+//           ),
+//           borderRadius: BorderRadius.circular(12.0),
+//           boxShadow: [
+//             BoxShadow(
+//               color: Color(0xff000000).withOpacity(0.25),
+//               blurRadius: 2,
+//               offset: Offset(0, 2),
+//             ),
+//           ],
+//         ),
+//         child: DropdownButton<String>(
+//           value: selectedValue,
+//           style: GoogleFonts.firaSans(
+//             fontSize: 10,
+//             fontWeight: FontWeight.w500,
+//             color: selectedValue == 'For all zones' ? Colors.red : Color(0xff50B5E5),
+//             decoration: TextDecoration.none,
+//           ),
+//           icon: Icon(
+//             Icons.arrow_drop_down,
+//             color: selectedValue == 'For all zones' ? Colors.red : Color(0xff50B5E5),
+//           ),
+//           iconSize: 20,
+//           underline: SizedBox(),
+//           onChanged: (newValue) {
+//             selectedValueNotifier.value = newValue!;
+//           },
+//           items: <String>['Sort By', 'For all zones', 'San Jose z4']
+//               .map<DropdownMenuItem<String>>((String value) {
+//             return DropdownMenuItem<String>(
+//               value: value,
+//               child: Text(
+//                 value,
+//                 style: TextStyle(
+//                   color: selectedValue == 'For all zones' ? Colors.red : Color(0xff50B5E5),
+//                 ),
+//               ),
+//             );
+//           }).toList(),
+//         ),
+//       );
+//     },
+//   );
+// }
 
 // items: dropDownList.map((String value) {
 //   return DropdownMenuItem<String>(
@@ -1248,3 +1617,130 @@ Widget buildDropdownButton(BuildContext context) {
 //     },
 //   );
 // }
+
+///dropdown 1 old
+//               FutureBuilder<List<HRClinical>>(
+//                   future: companyAllHrClinicApi(context),
+//                   builder: (context,snapshot) {
+//                     if(snapshot.connectionState == ConnectionState.waiting){
+//                       return Shimmer.fromColors(
+//                           baseColor: Colors.grey[300]!,
+//                           highlightColor: Colors.grey[100]!,
+//                           child: Container(
+//                             width: 300,
+//                             height: 30,
+//                             decoration: BoxDecoration(
+//                                 color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+//                           )
+//                       );
+//                     }
+//                     if(snapshot.hasData){
+//                       int docType = 0;
+//                       List<DropdownMenuItem<String>> dropDownList =[];
+//                       List<DropdownMenuItem<String>> dropDownAbbreviation =[];
+//                       for(var i in snapshot.data!){
+//                         dropDownList.add(DropdownMenuItem<String>(
+//                           child: Text(i.empType!),
+//                           value: i.empType,
+//                         ));
+//                         dropDownAbbreviation.add(
+//                             DropdownMenuItem<String>(
+//                               child: Text(i.abbrivation!),
+//                               value: i.abbrivation,
+//                             ));
+//                       }
+//                       return Row(
+//                         children: [
+//                           ///home health dropdown 1
+//                           Container(
+//                             height: 31,
+//                             width: 200,
+//                             // margin: EdgeInsets.symmetric(horizontal: 20),
+//                             padding:
+//                             const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+//                             decoration: BoxDecoration(
+//                               color: Colors.white,
+//                               border: Border.all(
+//                                   color: const Color(0xff686464).withOpacity(0.5),
+//                                   width: 1),
+//                               // Black border
+//                               borderRadius:
+//                               BorderRadius.circular(12), // Rounded corners
+//                             ),
+//                             child: DropdownButtonFormField<String>(
+//                               focusColor: Colors.transparent,
+//                               icon: const Icon(
+//                                 Icons.arrow_drop_down_sharp,
+//                                 color: Color(0xff686464),
+//                               ),
+//                               decoration: const InputDecoration.collapsed(hintText: ''),
+//                               items: dropDownList,
+//                               onChanged: (newValue) {
+//                                 for(var a in snapshot.data!){
+//                                   if(a.empType == newValue){
+//                                     docType = a.employeeTypesId;
+//                                     empTypeId = docType;
+//                                   }
+//                                 }
+//                               },
+//                               value: dropDownList[0].value,
+//                               style: GoogleFonts.firaSans(
+//                                 fontSize: 12,
+//                                 fontWeight: FontWeight.w600,
+//                                 color: const Color(0xff686464),
+//                                 decoration: TextDecoration.none,
+//                               ),
+//                             ),
+//                           ),
+//
+//                           const SizedBox(
+//                             width: 20,
+//                           ),
+//                           /// Abbrevation dropdown 2
+//                           Container(
+//                             height: 31,
+//                             width: 187,
+//                             // margin: EdgeInsets.symmetric(horizontal: 20),
+//                             padding:
+//                             const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+//                             decoration: BoxDecoration(
+//                               color: Colors.white,
+//                               border: Border.all(
+//                                   color: const Color(0xff686464).withOpacity(0.5),
+//                                   width: 1), // Black border
+//                               borderRadius:
+//                               BorderRadius.circular(12), // Rounded corners
+//                             ),
+//                             child: DropdownButtonFormField<String>(
+//                               focusColor: Colors.transparent,
+//                               icon: const Icon(
+//                                 Icons.arrow_drop_down_sharp,
+//                                 color: Color(0xff686464),
+//                               ),
+//                               decoration: const InputDecoration.collapsed(hintText: ''),
+//                               items: dropDownAbbreviation,
+//                               onChanged: (newValue) {
+//                                 for(var a in snapshot.data!){
+//                                   if(a.abbrivation == newValue){
+//                                     docType = a.employeeTypesId;
+//                                     empTypeId = docType;
+//                                   }
+//                                 }
+//                               },
+//                               value: dropDownAbbreviation[0].value,
+//                               style: GoogleFonts.firaSans(
+//                                 fontSize: 12,
+//                                 fontWeight: FontWeight.w600,
+//                                 color: const Color(0xff686464),
+//                                 decoration: TextDecoration.none,
+//                               ),
+//                             ),
+//                           ),
+//                         ],
+//                       );
+//                     }else{
+//                       return const Offstage();
+//                     }
+//
+//                   }
+//               ),

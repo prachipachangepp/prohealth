@@ -45,6 +45,7 @@ class EstablishmentManagerRepository {
   static String insurancevendors ="/insurance-vendor";
   static String insurancevendorsContract ="/insurance-vendor-contract";
   static String zonedropdown ="/zone/zoneDropdown";
+  static String addPayrates ="/payrates/add";
 
   //static String add ="/add";
 
@@ -359,4 +360,9 @@ class EstablishmentManagerRepository {
   static String getzonedropdown({required int companyID, required String officeId}){
     return "$zonedropdown$companyID/$officeId";
   }
+  static String postPayrates(){
+    return "$addPayrates";
+  }
 }
+
+// /zone/zoneDropdown/{companyId}/{officeId}
