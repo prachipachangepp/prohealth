@@ -35,7 +35,7 @@ class EstablishmentManagerRepository {
   static String payrates = "/payrates";
   static String employeeType = "/employee-types";
   static String user = "/users";
-  //static String zone = "/zone";
+  static String zone = "/zone";
   static String signUp="/signUp";
   static String companyDept ="/company-department";
   static String department ="/Department";
@@ -45,7 +45,7 @@ class EstablishmentManagerRepository {
   static String vendors ="/vendors";
   static String insurancevendors ="/insurance-vendor";
   static String insurancevendorsContract ="/insurance-vendor-contract";
-  static String zonedropdown ="/zone/zoneDropdown";
+  static String zonedropdown ="/zoneDropdownByCompany";
   static String addPayrates ="/payrates/add";
 
   //static String add ="/add";
@@ -359,12 +359,13 @@ class EstablishmentManagerRepository {
 
 
   ///zone dropdown
-  static String getzonedropdown({required int companyID, required String officeId}){
-    return "$zonedropdown$companyID/$officeId";
+  static String getzonedropdown({required int companyID,}){
+    return "$zone/$zonedropdown/$companyID";
   }
   static String postPayrates(){
     return "$addPayrates";
   }
 }
 
+// /zone/zoneDropdownByCompany/{companyId}
 // /zone/zoneDropdown/{companyId}/{officeId}

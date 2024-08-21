@@ -441,6 +441,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             // CheckboxConstant(
                             //   value: i + j == 0
@@ -506,6 +508,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
               }
 
               serviceRows.add(Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: rowChildren,
               ));
             }

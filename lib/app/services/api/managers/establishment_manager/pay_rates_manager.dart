@@ -201,26 +201,23 @@ Future<ApiData> deletePayRatesSetupPost(
 }
 
 ///zone sort by dropdown
-Future<List<SortByZoneData>> PayRateZoneDropdoen(
-    BuildContext context, int companyID, String officeId) async {
+Future<List<SortByZoneData>> PayRateZoneDropdown(
+    BuildContext context,) async {
   List<SortByZoneData> itemsList = [];
   try {
     final companyID = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getzonedropdown(
-            companyID: companyID, officeId: officeId));
+            companyID: companyID));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsList.add(
           SortByZoneData(
-            zone_id: item['zone_id'],
-            zoneName: item['zoneName'],
-            county_id: item['county_id'],
-            officeId: item['officeId'],
-            companyId: item['companyId'],
-          ),
+            zoneId: item['zone_id'] ?? 0,
+            zoneName: item['zoneName'] ?? "--",
+           ),
         );
-        print("$response");
+        print(" payrates dropdown$response");
       }
     } else {
       print('Api Error');
@@ -232,6 +229,36 @@ Future<List<SortByZoneData>> PayRateZoneDropdoen(
     return itemsList;
   }
 }
+
+///serviceby dropdown
+// Future<List<ServiceData>> PayRateServiceDropdown(
+//     BuildContext context,) async {
+//   List<ServiceData> itemsList = [];
+//   try {
+//     final companyID = await TokenManager.getCompanyId();
+//     final response = await Api(context).get(
+//         path: EstablishmentManagerRepository.getzonedropdown(
+//             companyID: companyID));
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       for (var item in response.data) {
+//         itemsList.add(
+//           SortByZoneData(
+//             zoneId: item['zone_id'] ?? 0,
+//             zoneName: item['zoneName'] ?? "--",
+//           ),
+//         );
+//         print(" payrates dropdown$response");
+//       }
+//     } else {
+//       print('Api Error');
+//     }
+//     print("Response:::::${response}");
+//     return itemsList;
+//   } catch (e) {
+//     print("Error $e");
+//     return itemsList;
+//   }
+// }
 
 /// Add pay rates POST
 Future<ApiData> addButtonPayRatesSetupPost(

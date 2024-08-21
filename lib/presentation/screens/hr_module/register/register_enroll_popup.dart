@@ -826,7 +826,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
 
 
               Container(
-
                 height: 100,
                 child: FutureBuilder<List<AEClinicalService>>(
                   future: HrAddEmplyClinicalServiceRadioButtonApi(context, 1),
