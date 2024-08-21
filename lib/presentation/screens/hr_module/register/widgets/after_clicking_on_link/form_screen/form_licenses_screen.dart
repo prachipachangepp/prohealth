@@ -745,6 +745,7 @@ class _licensesFormState extends State<licensesForm> {
                       ),
                     )
                   ),
+                  SizedBox(height: 8,),
                   licenseUrl != null ? AutoSizeText(
                     'Uploaded File: $licenseUrl',
                     style: GoogleFonts.firaSans(
@@ -760,9 +761,9 @@ class _licensesFormState extends State<licensesForm> {
                       style: GoogleFonts.firaSans(
                           fontSize: 12.0,
                           fontWeight:
-                          FontWeight.w400,
+                          FontWeight.w600,
                           color:
-                          Color(0xff686464)),
+                          ColorManager.mediumgrey),
                     ) : SizedBox(),
                 ],
               ),

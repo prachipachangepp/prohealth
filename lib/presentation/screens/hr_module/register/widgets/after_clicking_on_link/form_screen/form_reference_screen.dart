@@ -334,7 +334,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              30),
+                                              40),
                                   Text(
                                     AppString.company_organization,
                                     style: GoogleFonts.firaSans(
@@ -359,7 +359,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              30),
+                                              40),
                                   Text(
                                     AppString.mobile_number,
                                     style: GoogleFonts.firaSans(
@@ -414,7 +414,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              60),
+                                              40),
                                   Text(
                                     AppString.how_do_you_know_this_person,
                                     style: GoogleFonts.firaSans(
@@ -439,7 +439,7 @@ class _ReferencesFormState extends State<ReferencesForm> {
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              60),
+                                              40),
                                   Text(
                                     AppString.length_of_association,
                                     style: GoogleFonts.firaSans(

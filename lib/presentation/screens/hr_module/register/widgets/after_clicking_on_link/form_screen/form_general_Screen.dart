@@ -305,7 +305,7 @@ class _generalFormState extends State<generalForm> {
                                                 ))
                                             .toList(),
                                       )
-                                    : const SizedBox(), // Display file names if picked
+                                    :  SizedBox(height: 40,width: 10,), // Display file names if picked
 
                             SizedBox(
                                 height:
@@ -738,7 +738,7 @@ class _generalFormState extends State<generalForm> {
                             ),
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height / 30),
+                                    MediaQuery.of(context).size.height / 8),
                             Text(
                               'Type of Clinician',
                               style: GoogleFonts.firaSans(

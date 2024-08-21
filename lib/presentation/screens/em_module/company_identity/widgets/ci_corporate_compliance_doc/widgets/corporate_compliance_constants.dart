@@ -278,6 +278,7 @@ class CCScreenEditPopup extends StatefulWidget {
   final VoidCallback? onSavePressed;
   final Widget? child;
   final Widget? child1;
+  final Widget? child2;
   final double? height;
   final Widget? radioButton;
    bool? loadingDuration;
@@ -290,6 +291,7 @@ class CCScreenEditPopup extends StatefulWidget {
     this.onSavePressed,
     this.child,
     this.child1,
+    this.child2,
     this.id,
     this.radioButton,  this.calenderController, this.loadingDuration, required this.title, this.height,
   });
@@ -409,127 +411,116 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
             ),
 
             ///radio
-            widget.radioButton == null
-                ? Offstage()
-                : Padding(
-                    padding: const EdgeInsets.only(
-                      top: AppPadding.p3,
-                      left: AppPadding.p32,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Expiry Type',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        widget.radioButton!,
-                      ],
-                    ),
-                  ),
-            widget.calenderController == null ? Offstage() :
             Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p8,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(AppString.expiry_date,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  SizedBox(
-                    height: AppSize.s4,
-                  ),
-                  FormField<String>(
-                    builder: (FormFieldState<String> field) {
-                      return SizedBox(
-                        width: AppSize.s354,
-                        height: AppSize.s30,
-                        child: TextFormField(
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.mediumgrey,
-                            //decoration: TextDecoration.none,
-                          ),
-                          controller: widget.calenderController,
-                          decoration: InputDecoration(
-                            focusColor: ColorManager.mediumgrey,
-                            hoverColor: ColorManager.mediumgrey,
-                            hintText: 'mm-dd-yyyy',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                  width: 1, color: ColorManager.mediumgrey),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                  width: AppSize.s1,
-                                  color: ColorManager.mediumgrey), // Set focused border color to red
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                  width: AppSize.s1,
-                                  color: ColorManager.mediumgrey), // Set enabled border color to red
-                            ),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 16),
-                            suffixIcon: Icon(Icons.calendar_month_outlined,
-                                color: ColorManager.blueprime),
-                            errorText: field.errorText,
-                          ),
-                          readOnly: true,
-                          onTap: () async {
-                            DateTime? date = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1100),
-                              lastDate: DateTime(2026),
-                            );
-                            if (date != null) {
-                              String formattedDate =
-                                  DateFormat('MM-dd-yyyy').format(date);
-                              widget.calenderController!.text = formattedDate;
-                              field.didChange(formattedDate);
-                              // birthdayController.text =
-                              // date.toLocal().toString().split(' ')[0];
-                              // field.didChange(date.toLocal().toString().split(' ')[0]);
-                            }
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please select date';
-                            }
-                            return null;
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
+              child: widget.radioButton,
             ),
+            SizedBox(height: AppSize.s10),
+
+            Padding(
+              padding: const EdgeInsets.only(
+                left: AppPadding.p20,
+                right: AppPadding.p20,
+              ),
+              child: widget.child2,
+            ),
+            // widget.calenderController == null ? Offstage() :
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     vertical: AppPadding.p8,
+            //     horizontal: AppPadding.p20,
+            //   ),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(AppString.expiry_date,
+            //         style: GoogleFonts.firaSans(
+            //           fontSize: FontSize.s12,
+            //           fontWeight: FontWeightManager.bold,
+            //           color: ColorManager.mediumgrey,
+            //           decoration: TextDecoration.none,
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         height: AppSize.s4,
+            //       ),
+            //       FormField<String>(
+            //         builder: (FormFieldState<String> field) {
+            //           return SizedBox(
+            //             width: AppSize.s354,
+            //             height: AppSize.s30,
+            //             child: TextFormField(
+            //               style: GoogleFonts.firaSans(
+            //                 fontSize: FontSize.s12,
+            //                 fontWeight: FontWeightManager.bold,
+            //                 color: ColorManager.mediumgrey,
+            //                 //decoration: TextDecoration.none,
+            //               ),
+            //               controller: widget.calenderController,
+            //               decoration: InputDecoration(
+            //                 focusColor: ColorManager.mediumgrey,
+            //                 hoverColor: ColorManager.mediumgrey,
+            //                 hintText: 'mm-dd-yyyy',
+            //                 hintStyle: GoogleFonts.firaSans(
+            //                   fontSize: FontSize.s12,
+            //                   fontWeight: FontWeightManager.bold,
+            //                   color: ColorManager.mediumgrey,
+            //                   //decoration: TextDecoration.none,
+            //                 ),
+            //                 border: OutlineInputBorder(
+            //                   borderRadius: BorderRadius.circular(8),
+            //                   borderSide: BorderSide(
+            //                       width: 1, color: ColorManager.mediumgrey),
+            //                 ),
+            //                 focusedBorder: OutlineInputBorder(
+            //                   borderRadius: BorderRadius.circular(8),
+            //                   borderSide: BorderSide(
+            //                       width: AppSize.s1,
+            //                       color: ColorManager.mediumgrey), // Set focused border color to red
+            //                 ),
+            //                 enabledBorder: OutlineInputBorder(
+            //                   borderRadius: BorderRadius.circular(8),
+            //                   borderSide: BorderSide(
+            //                       width: AppSize.s1,
+            //                       color: ColorManager.mediumgrey), // Set enabled border color to red
+            //                 ),
+            //                 contentPadding:
+            //                     EdgeInsets.symmetric(horizontal: 16),
+            //                 suffixIcon: Icon(Icons.calendar_month_outlined,
+            //                     color: ColorManager.blueprime),
+            //                 errorText: field.errorText,
+            //               ),
+            //               readOnly: true,
+            //               onTap: () async {
+            //                 DateTime? date = await showDatePicker(
+            //                   context: context,
+            //                   initialDate: DateTime.now(),
+            //                   firstDate: DateTime(1100),
+            //                   lastDate: DateTime(2026),
+            //                 );
+            //                 if (date != null) {
+            //                   String formattedDate =
+            //                       DateFormat('MM-dd-yyyy').format(date);
+            //                   widget.calenderController!.text = formattedDate;
+            //                   field.didChange(formattedDate);
+            //                   // birthdayController.text =
+            //                   // date.toLocal().toString().split(' ')[0];
+            //                   // field.didChange(date.toLocal().toString().split(' ')[0]);
+            //                 }
+            //               },
+            //               validator: (value) {
+            //                 if (value == null || value.isEmpty) {
+            //                   return 'Please select date';
+            //                 }
+            //                 return null;
+            //               },
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
             SizedBox(height: AppSize.s20),
             ///button
             Padding(
@@ -589,166 +580,6 @@ class AddOrgDocButton extends StatefulWidget {
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
 }
 
-// class _AddOrgDocButtonState extends State<AddOrgDocButton> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Dialog(
-//       backgroundColor: Colors.transparent,
-//       child: Container(
-//         width: AppSize.s420,
-//         height: widget.height ?? AppSize.s550,
-//         //height: MediaQuery.of(context).size.height/1.2,
-//         decoration: BoxDecoration(
-//           color: ColorManager.white,
-//           borderRadius: BorderRadius.circular(8),
-//         ),
-//         child: Column(
-//           children: [
-//             Container(
-//               height: AppSize.s40,
-//               padding: EdgeInsets.all(5),
-//               decoration: BoxDecoration(
-//                 color: ColorManager.bluebottom,
-//                 borderRadius: BorderRadius.only(
-//                   topLeft: Radius.circular(8),
-//                   topRight: Radius.circular(8),
-//                 ),
-//               ),
-//               child: Row(
-//                 // mainAxisAlignment: MainAxisAlignment.end,
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   ///title
-//                   Text(
-//                     widget.title,
-//                     textAlign: TextAlign.center,
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: FontSize.s13,
-//                       fontWeight:
-//                       FontWeightManager.semiBold,
-//                       color: ColorManager.white,
-//                       decoration: TextDecoration.none,
-//                     ),
-//                   ),
-//                   IconButton(
-//                     onPressed: () {
-//                       Navigator.pop(context);
-//                     },
-//                     icon: Icon(Icons.close,
-//                       color: ColorManager.white,),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.symmetric(
-//                 vertical: AppPadding.p3,
-//                 horizontal: AppPadding.p20,
-//               ),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                 children: [
-//                   ///ID of the Document
-//                   SMTextFConst(
-//                     controller: widget.idDocController,
-//                     keyboardType: TextInputType.text,
-//                     text: AppString.id_of_the_document,
-//                   ),
-//                   SizedBox(height: AppSize.s13),
-//                   ///Name of the Document
-//                   SMTextFConst(
-//                     controller: widget.nameDocController,
-//                     keyboardType: TextInputType.text,
-//                     text: AppString.name_of_the_document
-//                   ),
-//                   SizedBox(height: AppSize.s13),
-//                   Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       ///Type of the Document
-//                       Text(
-//                         AppString.type_of_the_document,
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: FontSize.s12,
-//                           fontWeight: FontWeightManager.bold,
-//                           color: ColorManager.mediumgrey,
-//                           //decoration: TextDecoration.none,
-//                         ),
-//                       ),
-//                       SizedBox(height: AppSize.s5),
-//                       widget.child ?? SizedBox(),
-//                     ],
-//                   ),
-//                   SizedBox(height: AppSize.s13),
-//                   Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       ///Sub Type of the Document
-//                       Text(AppString.sub_type_of_the_document,
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: FontSize.s12,
-//                           fontWeight: FontWeightManager.bold,
-//                           color: ColorManager.mediumgrey,
-//                           decoration: TextDecoration.none,
-//                         ),
-//                       ),
-//                       SizedBox(height: AppSize.s5),
-//                       widget.child1 ?? SizedBox(),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             SizedBox(
-//               height: AppSize.s10,
-//             ),
-//             ///radio
-//
-//             Padding(
-//               padding: const EdgeInsets.symmetric(
-//                 horizontal: AppPadding.p25,
-//               ),
-//               child:  widget.radioButton,
-//             ),
-//             SizedBox(height: AppSize.s13),
-//             // if (_showExpiryDate)
-//             Padding(
-//                 padding: const EdgeInsets.only(
-//                   top: AppPadding.p3,
-//                   left: AppPadding.p20,
-//                   right: AppPadding.p20,
-//                 ),
-//                 child: widget.child2
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
-//               child: Center(
-//                 child: widget.loadingDuration == true
-//                     ? SizedBox(
-//                   height: AppSize.s25,
-//                   width: AppSize.s25,
-//                   child: CircularProgressIndicator(
-//                     color: ColorManager.blueprime
-//                   ),
-//                 )
-//                     : CustomElevatedButton(
-//                   width: AppSize.s105,
-//                   height: AppSize.s30,
-//                   text: AppStringEM.add,
-//                   onPressed: () {
-//                     widget.onPressed();
-//                   },
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//  }
-
 class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   bool _isFormValid = true;
 
@@ -782,7 +613,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: widget.height ?? AppSize.s560,
+        height: widget.height ?? AppSize.s550,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -824,6 +655,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
+            SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -916,11 +748,10 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
               child: widget.radioButton,
             ),
-            SizedBox(height: AppSize.s13),
+            SizedBox(height: AppSize.s10),
 
             Padding(
               padding: const EdgeInsets.only(
-                top: AppPadding.p3,
                 left: AppPadding.p20,
                 right: AppPadding.p20,
               ),

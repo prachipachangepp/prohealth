@@ -331,7 +331,7 @@ class EMDesktopScreen extends StatelessWidget {
                   ManageWorkSchedule(),
                   ManageEmployDocument(),
 
-                  FinanceScreen(),
+                  FinanceScreen( ),
 
                   SeeAllScreen(),
 

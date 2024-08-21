@@ -217,6 +217,7 @@ class AppString {
   static String name_of_the_document ="Name of the Document";
   static String id_of_the_document = "ID of the Document";
   static String expiry_date ="Expiry Date";
+  static String expiry_type ="Expiry Type";
 
   static String add_new ="Add New";
   static String street ="street";

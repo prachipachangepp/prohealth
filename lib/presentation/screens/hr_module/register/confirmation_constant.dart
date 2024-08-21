@@ -188,7 +188,7 @@ class SuccessPopup extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeHrScreen()));
+                      Navigator.pop(context);
                     },
                     icon: Icon(Icons.close,color: ColorManager.white,),
                   ),
@@ -217,3 +217,4 @@ class SuccessPopup extends StatelessWidget {
     );
   }
 }
+/////

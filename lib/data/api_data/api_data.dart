@@ -38,8 +38,10 @@ class ApiDataRegister{
   final int? licenses;
   final int? banckingId;
   final int? educationId;
+  final int? legalDocumentId;
 
   ApiDataRegister({this.educationId,
+    this.legalDocumentId,
     this.banckingId,
     this.licenses,
     required this.success,

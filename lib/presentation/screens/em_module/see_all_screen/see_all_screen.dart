@@ -22,7 +22,7 @@ class SeeAllScreen extends StatefulWidget {
 
 class _SeeAllScreenState extends State<SeeAllScreen> {
   final StreamController<List<CompanyModel>> _controller =
-  StreamController<List<CompanyModel>>();
+      StreamController<List<CompanyModel>>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController userIdController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -32,7 +32,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   TextEditingController companyIdController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final StreamController<List<UserModal>> _companyUsersList =
-  StreamController<List<UserModal>>();
+      StreamController<List<UserModal>>();
   final PageController _pageController = PageController();
 
   // late int currentPage;
@@ -142,6 +142,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   }
 
   @override
+
   ///old
   Widget build(BuildContext context) {
     return Scaffold(
@@ -203,12 +204,10 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               companyIdController.clear();
                               passwordController.clear();
                             },
-
                           );
                         },
                       );
                     },
-
                   ),
                 ),
               ],
@@ -341,7 +340,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               SizedBox(height: AppSize.s10),
             ],
           ),
-
           Expanded(
             child: StreamBuilder<List<UserModal>>(
               stream: _companyUsersList.stream,
@@ -368,7 +366,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                 if (snapshot.hasData) {
                   int totalItems = snapshot.data!.length;
                   int totalPages = (totalItems / itemsPerPage).ceil();
-                  List<UserModal> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                  List<UserModal> paginatedData = snapshot.data!
+                      .skip((currentPage - 1) * itemsPerPage)
+                      .take(itemsPerPage)
+                      .toList();
+
+                  // int totalItems = snapshot.data!.length;
+                  // int totalPages = (totalItems / itemsPerPage).ceil();
+                  // List<UserModal> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
 
                   return Column(
                     children: [
@@ -377,8 +382,10 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           scrollDirection: Axis.vertical,
                           itemCount: paginatedData.length,
                           itemBuilder: (context, index) {
-                            int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                            String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                            int serialNumber =
+                                index + 1 + (currentPage - 1) * itemsPerPage;
+                            String formattedSerialNumber =
+                                serialNumber.toString().padLeft(2, '0');
                             UserModal user = paginatedData[index];
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -404,9 +411,13 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                   height: AppSize.s56,
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 50),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            MediaQuery.of(context).size.width /
+                                                50),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Expanded(
                                           flex: 2,
@@ -414,7 +425,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             formattedSerialNumber,
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s10,
-                                              fontWeight: FontWeightManager.bold,
+                                              fontWeight:
+                                                  FontWeightManager.bold,
                                               color: ColorManager.granitegray,
                                             ),
                                             textAlign: TextAlign.center,
@@ -427,7 +439,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s10,
-                                              fontWeight: FontWeightManager.bold,
+                                              fontWeight:
+                                                  FontWeightManager.bold,
                                               color: ColorManager.granitegray,
                                             ),
                                           ),
@@ -439,7 +452,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s10,
-                                              fontWeight: FontWeightManager.bold,
+                                              fontWeight:
+                                                  FontWeightManager.bold,
                                               color: ColorManager.granitegray,
                                             ),
                                           ),
@@ -451,7 +465,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s10,
-                                              fontWeight: FontWeightManager.bold,
+                                              fontWeight:
+                                                  FontWeightManager.bold,
                                               color: ColorManager.granitegray,
                                             ),
                                           ),
@@ -463,7 +478,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s10,
-                                              fontWeight: FontWeightManager.bold,
+                                              fontWeight:
+                                                  FontWeightManager.bold,
                                               color: ColorManager.granitegray,
                                             ),
                                           ),
@@ -475,7 +491,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s10,
-                                              fontWeight: FontWeightManager.bold,
+                                              fontWeight:
+                                                  FontWeightManager.bold,
                                               color: ColorManager.granitegray,
                                             ),
                                           ),
@@ -487,7 +504,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s10,
-                                              fontWeight: FontWeightManager.bold,
+                                              fontWeight:
+                                                  FontWeightManager.bold,
                                               color: ColorManager.granitegray,
                                             ),
                                           ),
@@ -499,66 +517,131 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               /// Edit button
                                               InkWell(
                                                 child: Container(
-                                                  height: MediaQuery.of(context).size.height / 30,
-                                                  width: MediaQuery.of(context).size.width / 25,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      30,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      25,
                                                   decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    border: Border.all(color: ColorManager.bluebottom),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    border: Border.all(
+                                                        color: ColorManager
+                                                            .bluebottom),
                                                   ),
                                                   child: Center(
                                                     child: Text(
                                                       "Edit",
-                                                      style: TextStyle(fontSize: FontSize.s8),
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              FontSize.s8),
                                                     ),
                                                   ),
                                                 ),
                                                 onTap: () {
                                                   showDialog(
                                                     context: context,
-                                                    builder: (BuildContext context) {
-                                                      return FutureBuilder<UserModalPrefill>(
-                                                        future: getUserPrefill(context, user.userId),
-                                                        builder: (context, snapshotPrefill) {
-                                                          if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return FutureBuilder<
+                                                          UserModalPrefill>(
+                                                        future: getUserPrefill(
+                                                            context,
+                                                            user.userId),
+                                                        builder: (context,
+                                                            snapshotPrefill) {
+                                                          if (snapshotPrefill
+                                                                  .connectionState ==
+                                                              ConnectionState
+                                                                  .waiting) {
                                                             return Center(
-                                                              child: CircularProgressIndicator(color: ColorManager.blueprime),
+                                                              child: CircularProgressIndicator(
+                                                                  color: ColorManager
+                                                                      .blueprime),
                                                             );
                                                           }
                                                           // Populate the controllers with the prefetched data
-                                                          userIdController = TextEditingController(text: snapshotPrefill.data!.userId.toString());
-                                                          firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName);
-                                                          lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName);
-                                                          emailController = TextEditingController(text: snapshotPrefill.data!.email);
-                                                          companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString());
+                                                          userIdController =
+                                                              TextEditingController(
+                                                                  text: snapshotPrefill
+                                                                      .data!
+                                                                      .userId
+                                                                      .toString());
+                                                          firstNameController =
+                                                              TextEditingController(
+                                                                  text: snapshotPrefill
+                                                                      .data!
+                                                                      .firstName);
+                                                          lastNameController =
+                                                              TextEditingController(
+                                                                  text: snapshotPrefill
+                                                                      .data!
+                                                                      .lastName);
+                                                          emailController =
+                                                              TextEditingController(
+                                                                  text: snapshotPrefill
+                                                                      .data!
+                                                                      .email);
+                                                          companyIdController =
+                                                              TextEditingController(
+                                                                  text: snapshotPrefill
+                                                                      .data!
+                                                                      .companyId
+                                                                      .toString());
                                                           return EditUserPopUp(
                                                             title: "Edit User ",
-                                                            userIdController: userIdController,
-                                                            lastNameController: lastNameController,
-                                                            emailController: emailController,
-                                                            firstNameController: firstNameController,
-                                                            roleController: roleController,
-                                                            companyIdController: companyIdController,
+                                                            userIdController:
+                                                                userIdController,
+                                                            lastNameController:
+                                                                lastNameController,
+                                                            emailController:
+                                                                emailController,
+                                                            firstNameController:
+                                                                firstNameController,
+                                                            roleController:
+                                                                roleController,
+                                                            companyIdController:
+                                                                companyIdController,
                                                             onSubmit: () async {
                                                               await updateUserPatch(
                                                                 context,
                                                                 user.userId,
-                                                                firstNameController.text,
-                                                                lastNameController.text,
-                                                                roleController.text,
-                                                                emailController.text,
-                                                                int.parse(companyIdController.text),
+                                                                firstNameController
+                                                                    .text,
+                                                                lastNameController
+                                                                    .text,
+                                                                roleController
+                                                                    .text,
+                                                                emailController
+                                                                    .text,
+                                                                int.parse(
+                                                                    companyIdController
+                                                                        .text),
                                                               );
-                                                              getUser(context).then((data) {
-                                                                _companyUsersList.add(data);
-                                                              }).catchError((error) {
+                                                              getUser(context)
+                                                                  .then((data) {
+                                                                _companyUsersList
+                                                                    .add(data);
+                                                              }).catchError(
+                                                                      (error) {
                                                                 // Handle error
                                                               });
-                                                              Navigator.pop(context);
-                                                              firstNameController.clear();
-                                                              lastNameController.clear();
-                                                              roleController.clear();
-                                                              emailController.clear();
-                                                              companyIdController.clear();
+                                                              Navigator.pop(
+                                                                  context);
+                                                              firstNameController
+                                                                  .clear();
+                                                              lastNameController
+                                                                  .clear();
+                                                              roleController
+                                                                  .clear();
+                                                              emailController
+                                                                  .clear();
+                                                              companyIdController
+                                                                  .clear();
                                                             },
                                                           );
                                                         },
@@ -568,40 +651,61 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 },
                                               ),
                                               SizedBox(width: AppSize.s10),
+
                                               /// Delete button
                                               InkWell(
                                                 onTap: () async {
                                                   await showDialog(
                                                     context: context,
-                                                    builder: (context) => DeletePopup(
+                                                    builder: (context) =>
+                                                        DeletePopup(
                                                       title: 'Delete User',
                                                       onCancel: () {
                                                         Navigator.pop(context);
                                                       },
                                                       onDelete: () {
                                                         setState(() async {
-                                                          await deleteUser(context, user.userId);
-                                                          getUser(context).then((data) {
-                                                            _companyUsersList.add(data);
-                                                          }).catchError((error) {
+                                                          await deleteUser(
+                                                              context,
+                                                              user.userId);
+                                                          getUser(context)
+                                                              .then((data) {
+                                                            _companyUsersList
+                                                                .add(data);
+                                                          }).catchError(
+                                                                  (error) {
                                                             // Handle error
                                                           });
-                                                          Navigator.pop(context);
+                                                          Navigator.pop(
+                                                              context);
                                                         });
                                                       },
                                                     ),
                                                   );
                                                 },
                                                 child: Container(
-                                                  height: MediaQuery.of(context).size.height / 30,
-                                                  width: MediaQuery.of(context).size.width / 25,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      30,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      25,
                                                   decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    border: Border.all(color: ColorManager.bluebottom),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    border: Border.all(
+                                                        color: ColorManager
+                                                            .bluebottom),
                                                   ),
                                                   child: Center(
-                                                    child: Text(AppString.delete,
-                                                      style: TextStyle(fontSize: FontSize.s8),
+                                                    child: Text(
+                                                      AppString.delete,
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              FontSize.s8),
                                                     ),
                                                   ),
                                                 ),
@@ -634,11 +738,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         },
                         onNextPagePressed: () {
                           setState(() {
-                            currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                            currentPage = currentPage < totalPages
+                                ? currentPage + 1
+                                : totalPages;
                           });
                         },
-                      ),
-
+                      )
                     ],
                   );
                 }

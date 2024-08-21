@@ -32,6 +32,7 @@ class EstablishmentManagerRepository {
   static String employeedocSetup = "/employee-document-type-setup";
   static String getEmployeedocTab= "/employee-document-type-meta-data";
   static String payRatesSetup = "/payrates-setup";
+  static String payrates = "/payrates";
   static String employeeType = "/employee-types";
   static String user = "/users";
   //static String zone = "/zone";
@@ -45,6 +46,7 @@ class EstablishmentManagerRepository {
   static String insurancevendors ="/insurance-vendor";
   static String insurancevendorsContract ="/insurance-vendor-contract";
   static String zonedropdown ="/zone/zoneDropdown";
+  static String addPayrates ="/payrates/add";
 
   //static String add ="/add";
 
@@ -277,8 +279,9 @@ class EstablishmentManagerRepository {
   }){
     return "$payRatesSetup/$companyId/$empTypeId/$pageNo/$noOfRows";
   }
+  ///payrates/add
   static String payRatesSetupPost(){
-    return "$payRatesSetup$add";
+    return "$payrates$add";
   }
   static String deletePayRatesSetup({required int payRatesId}){
     return "$payRatesSetup/$payRatesId";
@@ -359,4 +362,9 @@ class EstablishmentManagerRepository {
   static String getzonedropdown({required int companyID, required String officeId}){
     return "$zonedropdown$companyID/$officeId";
   }
+  static String postPayrates(){
+    return "$addPayrates";
+  }
 }
+
+// /zone/zoneDropdown/{companyId}/{officeId}

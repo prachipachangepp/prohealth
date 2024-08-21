@@ -249,57 +249,39 @@ class _CIVendorContractState extends State<CIVendorContract> {
           ],
         ),
         Expanded(
-          child: Stack(children: [
-            Container(
-                    height: MediaQuery.of(context).size.height / 3.5,
-                    decoration: BoxDecoration(
-                        color: Color(0xFFF2F9FC),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorManager.faintGrey,
-                            blurRadius: 2,
-                            spreadRadius: -2,
-                            offset: Offset(0, -4),
-                          ),
-                        ]),
-                  ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: NonScrollablePageView(
-                controller: _tabPageController,
-                onPageChanged: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-                children: [
-                  VendorContractLicense(
-                    docId: widget.docId,
-                    subDocID: AppConfig.subDocId6, officeId: widget.officeId,
-                  ),
-                  VendorContractADR(
-                    docId: widget.docId,
-                    subDocId: AppConfig.subDocId7,
-                    officeId: widget.officeId,
-                  ),
-                  VendorContractMedicalCostReport(
-                    docId: widget.docId,
-                    subDocId: AppConfig.subDocId8,officeId: widget.officeId,
-                  ),
-                  VendorContractCapReport(
-                    docId: widget.docId,
-                    subDocId: AppConfig.subDocId9, officeId: widget.officeId,
-                  ),
-                  VendorContractQuarterlyBalanceReport(
-                      docId: widget.docId, subDocId: AppConfig.subDocId10,
-                    officeId: widget.officeId,)
-                ],
-              ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: NonScrollablePageView(
+              controller: _tabPageController,
+              onPageChanged: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              children: [
+                VendorContractLicense(
+                  docId: widget.docId,
+                  subDocID: AppConfig.subDocId6, officeId: widget.officeId,
+                ),
+                VendorContractADR(
+                  docId: widget.docId,
+                  subDocId: AppConfig.subDocId7,
+                  officeId: widget.officeId,
+                ),
+                VendorContractMedicalCostReport(
+                  docId: widget.docId,
+                  subDocId: AppConfig.subDocId8,officeId: widget.officeId,
+                ),
+                VendorContractCapReport(
+                  docId: widget.docId,
+                  subDocId: AppConfig.subDocId9, officeId: widget.officeId,
+                ),
+                VendorContractQuarterlyBalanceReport(
+                    docId: widget.docId, subDocId: AppConfig.subDocId10,
+                  officeId: widget.officeId,)
+              ],
             ),
-          ]),
+          ),
         ),
       ],
     );

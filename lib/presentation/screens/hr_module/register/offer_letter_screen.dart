@@ -1641,7 +1641,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                               height: 31,
                                               width: 250,
                                               decoration: BoxDecoration(
-                                                  color: Colors.grey[300]),
+                                                  color: ColorManager.white),
                                             ),
                                           );
 
@@ -2102,23 +2102,23 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                       ),
                       SizedBox(width: 15),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff1696C8),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          'Add New Coverage',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
+                      // ElevatedButton(
+                      //   onPressed: () {},
+                      //   style: ElevatedButton.styleFrom(
+                      //     backgroundColor: const Color(0xff1696C8),
+                      //     foregroundColor: Colors.white,
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(12),
+                      //     ),
+                      //   ),
+                      //   child: Text(
+                      //     'Add New Coverage',
+                      //     style: GoogleFonts.firaSans(
+                      //       fontSize: 10.0,
+                      //       fontWeight: FontWeight.w500,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],
@@ -2333,42 +2333,42 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
               //   ),
               // ),
               // SizedBox(height: MediaQuery.of(context).size.height / 80),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: ()  {
-                      // TextEditingController issueDateController = TextEditingController();
-                      // TextEditingController lastDateController = TextEditingController();
-                      // TextEditingController startDateController = TextEditingController();
-                      // TextEditingController verbalAcceptanceController = TextEditingController();
-                      // TextEditingController patientsController = TextEditingController();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff1696C8),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      'Compensation',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    'Not Defined',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 12, fontWeight: FontWeight.w600),
-                  )
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 40),
+              // Row(
+              //   children: [
+              //     ElevatedButton(
+              //       onPressed: ()  {
+              //         // TextEditingController issueDateController = TextEditingController();
+              //         // TextEditingController lastDateController = TextEditingController();
+              //         // TextEditingController startDateController = TextEditingController();
+              //         // TextEditingController verbalAcceptanceController = TextEditingController();
+              //         // TextEditingController patientsController = TextEditingController();
+              //       },
+              //       style: ElevatedButton.styleFrom(
+              //         backgroundColor: const Color(0xff1696C8),
+              //         foregroundColor: Colors.white,
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(8),
+              //         ),
+              //       ),
+              //       child: Text(
+              //         'Compensation',
+              //         style: GoogleFonts.firaSans(
+              //           fontSize: 12.0,
+              //           fontWeight: FontWeight.w800,
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: 15,
+              //     ),
+              //     Text(
+              //       'Not Defined',
+              //       style: GoogleFonts.firaSans(
+              //           fontSize: 12, fontWeight: FontWeight.w600),
+              //     )
+              //   ],
+              // ),
+              SizedBox(height: MediaQuery.of(context).size.height / 50),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -2422,7 +2422,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                  startDateController.text,
                                  verbalAcceptanceController.text,
                                 );
-
+                                print('County id : ${selectedCountyId}');
+                                print('Zone id : ${selectedZoneId}');
                                 await addEmpEnrollAddCoverage(
                                   context,
                                   0,

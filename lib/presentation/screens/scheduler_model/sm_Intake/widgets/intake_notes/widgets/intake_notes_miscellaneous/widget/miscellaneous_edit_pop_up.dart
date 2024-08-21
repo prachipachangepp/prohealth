@@ -1,15 +1,16 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
-import '../../../../../../../../../app/services/api/managers/sm_module_manager/notes_manager/notes_misc_manager.dart';
+import '../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 
 
 class MiscellaneousEditPopUp extends StatefulWidget {
-
   const MiscellaneousEditPopUp({super.key});
 
   @override
@@ -38,36 +39,13 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
   //   }
   // }
 
-  Future<void> _submit() async {
-    final String typeDocument = _typeDocumentController.text;
-    final String nameDocument = _nameDocumentController.text;
-
-    // Call the API
-    await NotesMiscPatch(
-      context,
-      1,
-      //widget.miscNoteId ,
-      1,
-      //widget.patientId,
-      1,
-      //  widget.docTypeId,
-      _typeDocumentController.text,
-      " docUrl",
-      _nameDocumentController.text,
-      "createdAt",
-      " expDate",
-    );
-  }  // Handle the result
-
-
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: ColorManager.white,
       titlePadding: EdgeInsets.zero,
       title: Container(
         decoration: BoxDecoration(
@@ -75,10 +53,10 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
-          color: Color(0xff50B5E5),
+          color: ColorManager.blueprime,
         ),
-        height: 47,
-        width: 408,
+        height: AppSize.s47,
+        width: AppSize.s408,
         child: Row(
           children: [
             Padding(
@@ -86,9 +64,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
               child: Text(
                 'Edit',
                 style: GoogleFonts.firaSans(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  fontSize: FontSize.s14,
+                  fontWeight: FontWeightManager.bold,
+                  color: ColorManager.white,
                 ),
               ),
             ),
@@ -99,7 +77,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
               },
               icon: Icon(
                 Icons.close,
-                color: Colors.white,
+                color: ColorManager.white,
               ),
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
@@ -110,8 +88,8 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
       ),
       content: SingleChildScrollView(
         child: Container(
-          height: 475,
-          width: 350,
+          height: AppSize.s475,
+          width: AppSize.s350,
           color: ColorManager.white,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -123,12 +101,11 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        'Type of the Document',
+                      Text(AppString.type_of_the_document,
                         style: GoogleFonts.firaSans(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xff686464)
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.granitegray
                         ),),
                     ],
                   ),
@@ -136,36 +113,36 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                     height: MediaQuery.of(context).size.height / 80,
                   ),
                   Container(
-                    height: 30,
+                    height: AppSize.s30,
                     child: TextFormField(
-                      cursorColor: Colors.black,
+                      cursorColor: ColorManager.black,
                       cursorHeight: 18,
                       controller: _typeDocumentController,
                       style: GoogleFonts.firaSans(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff575757)
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.regular,
+                          color: ColorManager.lightgreyheading
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                         labelText: 'Miscellaneous',
                         labelStyle: GoogleFonts.firaSans(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff575757)
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.regular,
+                            color: ColorManager.lightgreyheading
                         ),
                         border: OutlineInputBorder(),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: 1.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: 1.0),
                         ),
                         contentPadding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                         suffixIcon: PopupMenuButton<String>(
                           icon: Align(
                             alignment: Alignment.center,
-                              child: Icon(Icons.arrow_drop_down, color: Colors.black,size: 18,)),
+                              child: Icon(Icons.arrow_drop_down, color: ColorManager.black,size: 18)),
                           onSelected: (String value) {
                             setState(() {
                               _typeDocumentSelectedOption = value;
@@ -178,9 +155,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                                 value: value,
                                 child: Text(value,
                                   style: GoogleFonts.firaSans(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff575757)
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeightManager.regular,
+                                      color: ColorManager.lightgreyheading
                                   ),),
                               );
                             }).toList();
@@ -195,12 +172,11 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        'Name of the Document',
+                      Text(AppString.name_of_the_document,
                         style: GoogleFonts.firaSans(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xff686464)
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.textPrimaryColor
                         ),),
                     ],
                   ),
@@ -208,24 +184,24 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                     height: MediaQuery.of(context).size.height / 120,
                   ),
                   Container(
-                    height: 30,
+                    height: AppSize.s30,
                     child: TextFormField(
                       cursorColor: Colors.black,
                       cursorHeight: 18,
                       controller: _nameDocumentController,
                       style: GoogleFonts.firaSans(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff575757)
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.regular,
+                          color: ColorManager.lightgreyheading
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: AppSize.s1),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          borderSide: BorderSide(color: ColorManager.containerBorderGrey, width: AppSize.s1),
                         ),
                         contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                       ),
@@ -239,9 +215,9 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                       Text(
                         'Expiry Type',
                         style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xff686464)
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.regular,
+                            color: ColorManager.lightgreyheading
                         ),
                       ),
                       RadioListTile<String>(
@@ -250,8 +226,8 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                         title: Text(
                           'Not Applicable',
                           style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400
+                              fontSize: FontSize.s10,
+                              fontWeight: FontWeightManager.regular
                           ),),
                         value: 'Not Applicable',
                         groupValue: _selectedExpiryType,
@@ -267,8 +243,8 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                         title: Text(
                           'Scheduled',
                           style: GoogleFonts.firaSans(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
+                              fontSize: FontSize.s10,
+                              fontWeight: FontWeightManager.regular
                           ),),
                         value: 'Scheduled',
                         groupValue: _selectedExpiryType,
@@ -284,8 +260,8 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                         title: Text(
                           'Issuer Expiry',
                           style: GoogleFonts.firaSans(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
+                              fontSize: FontSize.s10,
+                              fontWeight: FontWeightManager.regular
                           ),),
                         value: 'Issuer Expiry',
                         groupValue: _selectedExpiryType,
@@ -305,23 +281,19 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: _submit,
-
-                    //     () {
-                    //
-                    //   showDialog(
-                    //     context: context,
-                    //     builder: (BuildContext context) {
-                    //       return SchedularSuccessPopup(title: 'Success',);
-                    //     },
-                    //   );
-                    // },
-                    child: Text(
-                      'Submit',
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SchedularSuccessPopup(title: 'Success',);
+                        },
+                      );
+                    },
+                    child: Text(AppString.submit,
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.white,
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
@@ -329,7 +301,7 @@ class _MiscellaneousEditPopUpState extends State<MiscellaneousEditPopUp> {
                         horizontal: 25,
                         vertical: 10,
                       ),
-                      backgroundColor: Color(0xff1696C8),
+                      backgroundColor: ColorManager.bluebottom,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
