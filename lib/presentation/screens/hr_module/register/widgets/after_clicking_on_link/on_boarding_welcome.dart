@@ -255,25 +255,25 @@ class OnBoardingCongratulation extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () async{
-                    OfferLetterData offerLetterData = await GetOfferLetter(context, employeeId, 1 );
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
-                    // );
-                    if(offerLetterData.statusCode == 409){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
-                      );
-                    }else if(offerLetterData.statusCode == 200 || offerLetterData.statusCode == 201){
+                    //OfferLetterData offerLetterData = await GetOfferLetter(context, employeeId, 1 );
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                 OfferLetterDescriptionScreen(employeeId: employeeId)));
-                    }else{
-                      print("Something went wrong!");
-                    }
+                      context,
+                      MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
+                    );
+                    // if(offerLetterData.statusCode == 409){
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => MultiStepForm(employeeID: employeeId,)),
+                    //   );
+                    // }else if(offerLetterData.statusCode == 200 || offerLetterData.statusCode == 201){
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) =>
+                    //              OfferLetterDescriptionScreen(employeeId: employeeId)));
+                    // }else{
+                    //   print("Something went wrong!");
+                    // }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF50B5E5),

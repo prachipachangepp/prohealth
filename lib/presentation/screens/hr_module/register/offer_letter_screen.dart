@@ -2458,7 +2458,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 //   ),
                                 // );
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Enrollment data save'))
+                                  SnackBar(content: Text('Enrollment data save',),backgroundColor: Colors.green,)
                                 );
                               } catch (e) {
                                 print("Error during enrollment: $e");

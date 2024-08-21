@@ -126,7 +126,7 @@ static String postverifyuser(){
 
  ///degree dropdown
 
-  static String patchEmployeeDegree({required int degreeId}){
+  static String getEmployeeDegreeDropDown(){
     return "$educationdegree";
   }
 
