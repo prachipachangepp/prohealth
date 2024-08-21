@@ -122,251 +122,255 @@ class _HrWidgetState extends State<HrWidget> {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.white,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                width: 170,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: AppPadding.p24),
-                child: FutureBuilder<List<HRHeadBar>>(
-                  future: companyHRHeadApi(context, deptId),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Material(
-                        elevation: 4,
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          height: AppSize.s30,
-                          width: MediaQuery.of(context).size.width / 2.8,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: ColorManager.blueprime,
-                            boxShadow: [
-                              BoxShadow(
-                                color: ColorManager.black.withOpacity(0.25),
-                                spreadRadius: 0,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-
-                                InkWell(
-                                    child: Container(
-                                      height: 30,
-                                      width:
-                                          MediaQuery.of(context).size.width / 8.421,
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 6),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: _selectedIndex == 0
-                                            ? ColorManager.white
-                                            : Colors.transparent,
-                                      ),
-                                      child: Text(
-                                        'Clinical',
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          fontWeight: FontWeightManager.semiBold,
-                                          color: _selectedIndex == 0
-                                              ? ColorManager.mediumgrey
-                                              : ColorManager.white,
-                                        ),
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      _selectButton(0);
-                                      // metaDocID = snapshot.data![index].employeeDocMetaDataId;
-                                    }),
-                                InkWell(
-                                    child: Container(
-                                      height: 30,
-                                      width:
-                                          MediaQuery.of(context).size.width / 8.421,
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 6),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: _selectedIndex == 1
-                                            ? ColorManager.white
-                                            : Colors.transparent,
-                                      ),
-                                      child: Text(
-                                        'Sales',
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          fontWeight: FontWeightManager.semiBold,
-                                          color: _selectedIndex == 1
-                                              ? ColorManager.mediumgrey
-                                              : ColorManager.white,
-                                        ),
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      _selectButton(1);
-                                      // metaDocID = snapshot.data![index].employeeDocMetaDataId;
-                                    }),
-                                InkWell(
-                                    child: Container(
-                                      height: 30,
-                                      width:
-                                          MediaQuery.of(context).size.width / 8.421,
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 6),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: _selectedIndex == 2
-                                            ? ColorManager.white
-                                            : Colors.transparent,
-                                      ),
-                                      child: Text(
-                                        'Administration',
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          fontWeight: FontWeightManager.semiBold,
-                                          color: _selectedIndex == 2
-                                              ? ColorManager.mediumgrey
-                                              : ColorManager.white,
-                                        ),
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      _selectButton(2);
-                                      // metaDocID = snapshot.data![index].employeeDocMetaDataId;
-                                    }),
-
-
-                              ]),
-                        ),
-                      );
-                    } else {
-                      return SizedBox(
-                        height: 1,
-                        width: 1,
-                      );
-                    }
-                  },
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width/70
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 180,
                 ),
-              ),
-              CustomIconButtonConst(
-                  width: 170,
-                  text: AppString.addemployeetype,
-                  icon: Icons.add,
-                  onPressed: () {
-                    typeController.clear();
-                    shorthandController.clear();
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CustomPopupWidget(
-                          typeController: typeController,
-                          abbreviationController: shorthandController,
-                          containerColor: containerColors[1],
-                          onAddPressed: () async {
-                            await addEmployeeTypePost(context,
-                                deptId,
-                                // docMetaId,
-                                typeController.text,
-                                color,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: AppPadding.p24),
+                  child: FutureBuilder<List<HRHeadBar>>(
+                    future: companyHRHeadApi(context, deptId),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Material(
+                          elevation: 4,
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            height: AppSize.s30,
+                            width: MediaQuery.of(context).size.width / 2.8,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: ColorManager.blueprime,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: ColorManager.black.withOpacity(0.25),
+                                  spreadRadius: 0,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
 
-                                shorthandController.text
-                            );
-                            getAllHrDeptWise(context,deptId).then((data){
-                              _controller.add(data);
-                            }).catchError((error){});
-
-                            Navigator.pop(context);
-                            typeController.clear();
-                            shorthandController.clear();
-                          },
-                          onColorChanged: (Color seletedColor) {
-                            setState(() {
-                              containerColors[1] = seletedColor;
-                              color = seletedColor.toString().substring(10,16);
-                              _saveColor(1, seletedColor);
-                            });
-                          },
-
-                          title: 'Add Administration',
-                          child: FutureBuilder<List<HRHeadBar>>(
-                              future: companyHRHeadApi(context,deptId),
-                              builder: (context,snapshot) {
-                                if(snapshot.connectionState == ConnectionState.waiting){
-                                  return Shimmer.fromColors(
-                                      baseColor: Colors.grey[300]!,
-                                      highlightColor: Colors.grey[100]!,
+                                  InkWell(
                                       child: Container(
-                                        width: 350,
                                         height: 30,
-                                        decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                      )
-                                  );
-                                }
-                                if (snapshot.data!.isEmpty) {
-                                  return Center(
-                                    child: Text(
-                                      AppString.dataNotFound,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: FontSize.s12,
-                                        color: ColorManager.mediumgrey,
+                                        width:
+                                            MediaQuery.of(context).size.width / 8.421,
+                                        padding:
+                                            const EdgeInsets.symmetric(vertical: 6),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: _selectedIndex == 0
+                                              ? ColorManager.white
+                                              : Colors.transparent,
+                                        ),
+                                        child: Text(
+                                          'Clinical',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeightManager.semiBold,
+                                            color: _selectedIndex == 0
+                                                ? ColorManager.mediumgrey
+                                                : ColorManager.white,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }
-                                if(snapshot.hasData){
-                                  List dropDown = [];
-                                  int docType = 0;
-                                  List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                  for(var i in snapshot.data!){
-                                    dropDownMenuItems.add(
-                                      DropdownMenuItem<String>(
-                                        child: Text(i.deptName),
-                                        value: i.deptName,
+                                      onTap: () {
+                                        _selectButton(0);
+                                        // metaDocID = snapshot.data![index].employeeDocMetaDataId;
+                                      }),
+                                  InkWell(
+                                      child: Container(
+                                        height: 30,
+                                        width:
+                                            MediaQuery.of(context).size.width / 8.421,
+                                        padding:
+                                            const EdgeInsets.symmetric(vertical: 6),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: _selectedIndex == 1
+                                              ? ColorManager.white
+                                              : Colors.transparent,
+                                        ),
+                                        child: Text(
+                                          'Sales',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeightManager.semiBold,
+                                            color: _selectedIndex == 1
+                                                ? ColorManager.mediumgrey
+                                                : ColorManager.white,
+                                          ),
+                                        ),
                                       ),
-                                    );
-                                  }
-                                  return CICCDropdown(
-                                      initialValue: dropDownMenuItems[1].value,
-                                      onChange: (val){
-                                        for(var a in snapshot.data!){
-                                          if(a.deptName == val){
-                                            docType = a.deptId;
-                                            deptId = docType;
-                                          }
-                                        }
-                                        print(":::${docType}");
-                                        print(":::<>${deptId}");
-                                      },
-                                      items:dropDownMenuItems
-                                  );
-                                }else{
-                                  return SizedBox();
-                                }
-                              }
+                                      onTap: () {
+                                        _selectButton(1);
+                                        // metaDocID = snapshot.data![index].employeeDocMetaDataId;
+                                      }),
+                                  InkWell(
+                                      child: Container(
+                                        height: 30,
+                                        width:
+                                            MediaQuery.of(context).size.width / 8.421,
+                                        padding:
+                                            const EdgeInsets.symmetric(vertical: 6),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: _selectedIndex == 2
+                                              ? ColorManager.white
+                                              : Colors.transparent,
+                                        ),
+                                        child: Text(
+                                          'Administration',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeightManager.semiBold,
+                                            color: _selectedIndex == 2
+                                                ? ColorManager.mediumgrey
+                                                : ColorManager.white,
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        _selectButton(2);
+                                        // metaDocID = snapshot.data![index].employeeDocMetaDataId;
+                                      }),
+
+
+                                ]),
                           ),
                         );
-                      },
-                    );
-                  }),
-            ],
-          ),
-          Expanded(
-            flex: 10,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 60),
+                      } else {
+                        return SizedBox(
+                          height: 1,
+                          width: 1,
+                        );
+                      }
+                    },
+                  ),
+                ),
+                Padding(
+                  padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width/24),
+                  child: CustomIconButtonConst(
+                      width: 180,
+                      text: AppString.addemployeetype,
+                      icon: Icons.add,
+                      onPressed: () {
+                        typeController.clear();
+                        shorthandController.clear();
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CustomPopupWidget(
+                              typeController: typeController,
+                              abbreviationController: shorthandController,
+                              containerColor: containerColors[1],
+                              onAddPressed: () async {
+                                await addEmployeeTypePost(context,
+                                    deptId,
+                                    // docMetaId,
+                                    typeController.text,
+                                    color,
+
+                                    shorthandController.text
+                                );
+                                getAllHrDeptWise(context,deptId).then((data){
+                                  _controller.add(data);
+                                }).catchError((error){});
+
+                                Navigator.pop(context);
+                                typeController.clear();
+                                shorthandController.clear();
+                              },
+                              onColorChanged: (Color seletedColor) {
+                                setState(() {
+                                  containerColors[1] = seletedColor;
+                                  color = seletedColor.toString().substring(10,16);
+                                  _saveColor(1, seletedColor);
+                                });
+                              },
+
+                              title: 'Add Administration',
+                              child: FutureBuilder<List<HRHeadBar>>(
+                                  future: companyHRHeadApi(context,deptId),
+                                  builder: (context,snapshot) {
+                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                      return Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.grey[100]!,
+                                          child: Container(
+                                            width: 350,
+                                            height: 30,
+                                            decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                          )
+                                      );
+                                    }
+                                    if (snapshot.data!.isEmpty) {
+                                      return Center(
+                                        child: Text(
+                                          AppString.dataNotFound,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    if(snapshot.hasData){
+                                      List dropDown = [];
+                                      int docType = 0;
+                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                      for(var i in snapshot.data!){
+                                        dropDownMenuItems.add(
+                                          DropdownMenuItem<String>(
+                                            child: Text(i.deptName),
+                                            value: i.deptName,
+                                          ),
+                                        );
+                                      }
+                                      return CICCDropdown(
+                                          initialValue: dropDownMenuItems[1].value,
+                                          onChange: (val){
+                                            for(var a in snapshot.data!){
+                                              if(a.deptName == val){
+                                                docType = a.deptId;
+                                                deptId = docType;
+                                              }
+                                            }
+                                            print(":::${docType}");
+                                            print(":::<>${deptId}");
+                                          },
+                                          items:dropDownMenuItems
+                                      );
+                                    }else{
+                                      return SizedBox();
+                                    }
+                                  }
+                              ),
+                            );
+                          },
+                        );
+                      }),
+                ),
+              ],
+            ),
+            Expanded(
+              flex: 10,
               child: PageView(
                 controller: _hrPageController,
                 physics: NeverScrollableScrollPhysics(),
@@ -386,8 +390,8 @@ class _HrWidgetState extends State<HrWidget> {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

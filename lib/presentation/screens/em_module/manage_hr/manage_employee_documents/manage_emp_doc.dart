@@ -109,8 +109,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
         children: [
           _selectedIndex == 0
               ? Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppPadding.p50,
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width/24,
                 vertical: AppPadding.p20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,

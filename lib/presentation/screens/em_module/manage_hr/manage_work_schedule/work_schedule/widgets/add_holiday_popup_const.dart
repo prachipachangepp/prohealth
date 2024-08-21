@@ -287,6 +287,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                 ],
               ),
             ),
+            SizedBox(height: 5,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,

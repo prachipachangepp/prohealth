@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/establishment_resources/establishment_st
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 
@@ -661,6 +662,12 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             emailController.text,
                             nameController.text,
                             addressController.text,
+                          );
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSuccessPopup(message: 'Edited successfully.',);
+                            },
                           );
                         },
                       ),
