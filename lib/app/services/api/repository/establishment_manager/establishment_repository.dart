@@ -48,6 +48,12 @@ class EstablishmentManagerRepository {
   static String zonedropdown ="/zoneDropdownByCompany";
   static String addPayrates ="/payrates/add";
   static String companyOfficeGetList ="/company-office";
+ // static String zonedropdown ="/zone/zoneDropdown";
+  //static String addPayrates ="/payrates/add";
+  static String newPayrates ="/payrates";
+  static String newPayratesdelete ="/payrates";
+  static String newPayratesedit ="/payrates";
+  static String newPayrateseprefill ="/payrates";
 
   //static String add ="/add";
 
@@ -373,6 +379,30 @@ class EstablishmentManagerRepository {
   }
   static String postPayrates(){
     return "$addPayrates";
+  }
+
+  ///zone dropdown
+  // static String getzonedropdown({required int companyID, required String officeId}){
+  //   return "$zonedropdown$companyID/$officeId";
+  // }
+  // static String postPayrates(){
+  //   return "$addPayrates";
+  // }
+
+  static String getPayrates(){
+    return "$newPayrates";
+  }
+
+  static String deletePayRates({required int payRatesId}){
+    return "$newPayratesdelete/$payRatesId";
+  }
+
+  static String editPayRates({required int payRatesId}){
+    return "$newPayratesedit/$payRatesId";
+  }
+
+  static String prefillPayRates({required int payRatesId}){
+    return "$newPayrateseprefill/$payRatesId";
   }
 }
 

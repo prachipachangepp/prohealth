@@ -115,328 +115,101 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    FutureBuilder<List<HRClinical>>(
-                      future: companyAllHrClinicApi(context),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Container(
-                            width: 300,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: ColorManager.faintGrey,
-                              borderRadius: BorderRadius.circular(10),
+                    ///disabled container
+                    Row(
+                      children: [
+                        Container(
+                          height: 30,
+                          width: 150,
+                          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: ColorManager.fmediumgrey, width: 1.2),
+                            borderRadius: BorderRadius.circular(4),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xff000000).withOpacity(0.25),
+                                blurRadius: 2,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Text(
+                            'Clinical',
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.fmediumgrey,
+                              decoration: TextDecoration.none,
                             ),
-                          );
-                        }
-                        if (snapshot.hasData) {
-                          int docType = 0;
-                          List<DropdownMenuItem<String>> dropDownList = [];
-                          List<DropdownMenuItem<String>> dropDownAbbreviation =
-                              [];
-
-                          for (var i in snapshot.data!) {
-                            dropDownList.add(
-                              DropdownMenuItem<String>(
-                                child: Text(i.empType!),
-                                value: i.empType,
-                              ),
-                            );
-                            dropDownAbbreviation.add(
-                              DropdownMenuItem<String>(
-                                child: Text(i.abbrivation!),
-                                value: i.abbrivation,
-                              ),
-                            );
-                          }
-
-                          return Row(
-                            children: [
-                              /// Disabled Clinical dropdown
-                              Container(
-                                height: 31,
-                                width: 200,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 6, horizontal: 15),
-                                decoration: BoxDecoration(
-                                  color:
-                                      Colors.grey[300], // Set the color to grey
-                                  border: Border.all(
-                                    color: const Color(0xff686464)
-                                        .withOpacity(0.5),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: DropdownButtonFormField<String>(
-                                  focusColor: Colors.transparent,
-                                  icon: const Icon(
-                                    Icons.arrow_drop_down_sharp,
-                                    color: Color(0xff686464),
-                                  ),
-                                  decoration: const InputDecoration.collapsed(
-                                      hintText: ''),
-                                  hint: Text(
-                                    "Clinical",
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color:
-                                          Colors.grey[600], // Grey text color
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                  items: dropDownList,
-                                  onChanged:
-                                      null, // Disable the dropdown by setting onChanged to null
-                                  value: null,
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+                        FutureBuilder<List<ServiceData>>(
+                          future: PayRateServiceDropdown(context),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              // Replace Shimmer with Loading text
+                              return Container(
+                                width: 180,
+                                height: 30,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Loading...',
                                   style: GoogleFonts.firaSans(
                                     fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey[600], // Grey text color
+                                    fontWeight: FontWeightManager.bold,
+                                    color: ColorManager.fmediumgrey,
                                     decoration: TextDecoration.none,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              FutureBuilder<List<HRClinical>>(
-                                future: companyAllHrClinicApi(context),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState == ConnectionState.waiting) {
-                                    // Show loading indicator while waiting for data
-                                    return Container(
-                                      height: 31,
-                                      width: 187,
-                                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color(0xff686464).withOpacity(0.5),
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Container(
-                                        height: 31,
-                                        width: 187,
-                                      ),
-                                    );
-                                  }
-                                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                    // Populate the dropdown when data is available
-                                    List<DropdownMenuItem<String>> dropDownAbbreviation = [];
-                                    for (var i in snapshot.data!) {
-                                      dropDownAbbreviation.add(
-                                        DropdownMenuItem<String>(
-                                          child: Text(i.abbrivation!),
-                                          value: i.abbrivation,
-                                        ),
-                                      );
+                              );
+                            }
+                            if (snapshot.hasData && snapshot.data!.isEmpty) {
+                              return Center(
+                                child: Text(
+                                  AppString.dataNotFound,
+                                  style: CustomTextStylesCommon.commonStyle(
+                                    fontWeight: FontWeightManager.medium,
+                                    fontSize: FontSize.s12,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ),
+                              );
+                            }
+                            if (snapshot.hasData) {
+                              List<DropdownMenuItem<String>> dropDownServiceList = [];
+                              for (var service in snapshot.data!) {
+                                dropDownServiceList.add(
+                                  DropdownMenuItem<String>(
+                                    child: Text(service.serviceName ?? ''),
+                                    value: service.serviceName,
+                                  ),
+                                );
+                              }
+                              return Container(
+                                width: 200,
+                                child: CICCDropdown(
+                                  initialValue: dropDownServiceList.isNotEmpty
+                                      ? dropDownServiceList[0].value
+                                      : null,
+                                  onChange: (val) {
+                                    for (var service in snapshot.data!) {
+                                      if (service.serviceName == val) {
+                                        // Assign the serviceId or other values as needed
+                                        int? selectedServiceId = service.officeServiceId;
+                                        print('Selected Service ID: $selectedServiceId');
+                                      }
                                     }
-
-                                    return Container(
-                                      height: 31,
-                                      width: 187,
-                                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color(0xff686464).withOpacity(0.5),
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: DropdownButtonFormField<String>(
-                                        isDense: true,
-                                        icon: const Icon(
-                                          Icons.arrow_drop_down_sharp,
-                                          color: Color(0xff686464),
-                                        ),
-                                        decoration: const InputDecoration.collapsed(hintText: ''),
-                                        hint: Text(
-                                          "Select",
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                            color: const Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                        items: dropDownAbbreviation,
-                                        onChanged: (newValue) {
-                                          for (var a in snapshot.data!) {
-                                            if (a.abbrivation == newValue) {
-                                              docType = a.employeeTypesId;
-                                              empTypeId = docType;
-                                            }
-                                          }
-                                        },
-                                        value: null,
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          color: const Color(0xff686464),
-                                          decoration: TextDecoration.none,
-                                        ),
-                                        menuMaxHeight: 200, // Limits the maximum height of the dropdown menu
-                                      ),
-                                    );
-                                  } else {
-                                    return Container(
-                                      height: 31,
-                                      width: 187,
-                                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color(0xff686464).withOpacity(0.5),
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "No data available",
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                            color: const Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                },
-                              )
-                              /// Abbreviation dropdown
-                              // FutureBuilder<List<HRClinical>>(
-                              //   future: companyAllHrClinicApi(context),
-                              //   builder: (context, snapshot) {
-                              //     if (snapshot.connectionState ==
-                              //         ConnectionState.waiting) {
-                              //       // Show loading indicator while waiting for data
-                              //       return Container(
-                              //         height: 31,
-                              //         width: 187,
-                              //         padding: const EdgeInsets.symmetric(
-                              //             vertical: 6, horizontal: 15),
-                              //         decoration: BoxDecoration(
-                              //           color: Colors.white,
-                              //           border: Border.all(
-                              //             color: const Color(0xff686464)
-                              //                 .withOpacity(0.5),
-                              //             width: 1,
-                              //           ),
-                              //           borderRadius: BorderRadius.circular(12),
-                              //         ),
-                              //         child: Center(
-                              //           child: CircularProgressIndicator(),
-                              //         ),
-                              //       );
-                              //     }
-                              //     if (snapshot.hasData &&
-                              //         snapshot.data!.isNotEmpty) {
-                              //       // Populate the dropdown when data is available
-                              //       List<DropdownMenuItem<String>>
-                              //           dropDownAbbreviation = [];
-                              //       for (var i in snapshot.data!) {
-                              //         dropDownAbbreviation.add(
-                              //           DropdownMenuItem<String>(
-                              //             child: Text(i.abbrivation!),
-                              //             value: i.abbrivation,
-                              //           ),
-                              //         );
-                              //       }
-                              //
-                              //       return Container(
-                              //         height: 31,
-                              //         width: 187,
-                              //         padding: const EdgeInsets.symmetric(
-                              //             vertical: 6, horizontal: 15),
-                              //         decoration: BoxDecoration(
-                              //           color: Colors.white,
-                              //           border: Border.all(
-                              //             color: const Color(0xff686464)
-                              //                 .withOpacity(0.5),
-                              //             width: 1,
-                              //           ),
-                              //           borderRadius: BorderRadius.circular(12),
-                              //         ),
-                              //         child: DropdownButtonFormField<String>(
-                              //           focusColor: Colors.transparent,
-                              //           icon: const Icon(
-                              //             Icons.arrow_drop_down_sharp,
-                              //             color: Color(0xff686464),
-                              //           ),
-                              //           decoration:
-                              //               const InputDecoration.collapsed(
-                              //                   hintText: ''),
-                              //           hint: Text(
-                              //             "Select",
-                              //             style: GoogleFonts.firaSans(
-                              //               fontSize: 12,
-                              //               fontWeight: FontWeight.w600,
-                              //               color: const Color(0xff686464),
-                              //               decoration: TextDecoration.none,
-                              //             ),
-                              //           ),
-                              //           items: dropDownAbbreviation,
-                              //           onChanged: (newValue) {
-                              //             for (var a in snapshot.data!) {
-                              //               if (a.abbrivation == newValue) {
-                              //                 docType = a.employeeTypesId;
-                              //                 empTypeId = docType;
-                              //               }
-                              //             }
-                              //           },
-                              //           value: null,
-                              //           style: GoogleFonts.firaSans(
-                              //             fontSize: 12,
-                              //             fontWeight: FontWeight.w600,
-                              //             color: const Color(0xff686464),
-                              //             decoration: TextDecoration.none,
-                              //           ),
-                              //         ),
-                              //       );
-                              //     } else {
-                              //       return Container(
-                              //         height: 31,
-                              //         width: 187,
-                              //         padding: const EdgeInsets.symmetric(
-                              //             vertical: 6, horizontal: 15),
-                              //         decoration: BoxDecoration(
-                              //           color: Colors.white,
-                              //           border: Border.all(
-                              //             color: const Color(0xff686464)
-                              //                 .withOpacity(0.5),
-                              //             width: 1,
-                              //           ),
-                              //           borderRadius: BorderRadius.circular(12),
-                              //         ),
-                              //         child: Center(
-                              //           child: Text(
-                              //             "No data available",
-                              //             style: GoogleFonts.firaSans(
-                              //               fontSize: 12,
-                              //               fontWeight: FontWeight.w600,
-                              //               color: const Color(0xff686464),
-                              //               decoration: TextDecoration.none,
-                              //             ),
-                              //           ),
-                              //         ),
-                              //       );
-                              //     }
-                              //   },
-                              // )
-                            ],
-                          );
-                        } else {
-                          return const Offstage();
-                        }
-                      },
+                                  },
+                                  items: dropDownServiceList,
+                                ),
+                              );
+                            }
+                            return const SizedBox();
+                          },
+                        ),
+                      ],
                     ),
 
 
