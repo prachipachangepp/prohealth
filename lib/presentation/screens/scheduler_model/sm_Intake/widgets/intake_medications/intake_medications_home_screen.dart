@@ -169,34 +169,34 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                 child: Container(
                   height: 26,
                   width: 102,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return SchedularSuccessPopup(title: 'Success',);
-                        },
-                      );
-                    },
-                    child: Text(
-                      'Save',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 25,
-                        vertical: 10,
-                      ),
-                      backgroundColor: ColorManager.blueprime,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
+                  // child: ElevatedButton(
+                  //   onPressed: () {
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (BuildContext context) {
+                  //         return SchedularSuccessPopup(title: 'Success',);
+                  //       },
+                  //     );
+                  //   },
+                  //   child: Text(
+                  //     'Save',
+                  //     style: GoogleFonts.firaSans(
+                  //       fontSize: FontSize.s12,
+                  //       fontWeight: FontWeightManager.bold,
+                  //       color: Colors.white,
+                  //     ),
+                  //   ),
+                  //   style: ElevatedButton.styleFrom(
+                  //     padding: const EdgeInsets.symmetric(
+                  //       horizontal: 25,
+                  //       vertical: 10,
+                  //     ),
+                  //     backgroundColor: ColorManager.blueprime,
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(12),
+                  //     ),
+                  //   ),
+                  // ),
                 ),
               ),
             ],

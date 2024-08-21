@@ -10,7 +10,9 @@ import '../../../repository/sm_repository/notes_repo/notes_repository.dart';
 import '../../../repository/sm_repository/patient_data/patient_data_info_repo.dart';
 
 ///get
-Future<List<IntakeNotesMiscData>> getIntakeNoteMiscByPatientsID(BuildContext context, {required int patientId}) async {
+Future<List<IntakeNotesMiscData>> getIntakeNoteMiscByPatientsID(
+    BuildContext context,
+    {required int patientId}) async {
   List<IntakeNotesMiscData> itemsList = [];
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -45,16 +47,15 @@ Future<List<IntakeNotesMiscData>> getIntakeNoteMiscByPatientsID(BuildContext con
 }
 
 ///post notes misc
-Future<ApiData> addNotesMiscPost({
-  required BuildContext context,
-  required int patientId,
-  required int docTypeId,
-  required String docName,
-  required String docUrl ,
-  required String createdAt ,
-  required String docType ,
-  required String expDate
-}) async {
+Future<ApiData> addNotesMiscPost(
+    {required BuildContext context,
+    required int patientId,
+    required int docTypeId,
+    required String docName,
+    required String docUrl,
+    required String createdAt,
+    required String docType,
+    required String expDate}) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var data = {
@@ -67,9 +68,8 @@ Future<ApiData> addNotesMiscPost({
       "expDate": expDate
     };
     print(' Post Intake Notes Misc $data');
-    var response = await Api(context).post(
-        path: NotesRepository.addMiscNote(),
-        data: data);
+    var response = await Api(context)
+        .post(path: NotesRepository.addMiscNote(), data: data);
     print('Compliance Add ::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Misc addded ");
@@ -92,15 +92,11 @@ Future<ApiData> addNotesMiscPost({
   }
 }
 
-
-
-
 ///delete api
-Future<ApiData> deleteMiscNoteAPI(
-    BuildContext context, int miscNoteId) async {
+Future<ApiData> deleteMiscNoteAPI(BuildContext context, int miscNoteId) async {
   try {
-    var response = await Api(context).delete(
-        path: NotesRepository.deleteMiscNote(miscNoteId: miscNoteId));
+    var response = await Api(context)
+        .delete(path: NotesRepository.deleteMiscNote(miscNoteId: miscNoteId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Misc Document :::${miscNoteId}");
       return ApiData(
@@ -121,3 +117,109 @@ Future<ApiData> deleteMiscNoteAPI(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+///patch
+
+
+Future<ApiData>NotesMiscPatch (
+    BuildContext context,
+    int miscNoteId,
+    int patientId,
+    int docTypeId,
+    String docType,
+    String docUrl,
+    String name,
+    String createdAt,
+    String expDate
+
+    ) async {
+  try {
+
+    var response = await Api(context).patch(
+      path: NotesRepository.patchMiscNote(miscNoteId: miscNoteId),
+         data : {
+    "patientId": patientId,
+    "docTypeId": docTypeId,
+    "docType": docType,
+    "docUrl": docUrl,
+    "name": name,
+    "createdAt": "${createdAt}T00:00:00Z", //"2024-08-20T09:59:38.760Z",
+    "expDate": "${expDate}T00:00:00Z", //"2024-08-20T09:59:38.760Z"
+    }
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("User updated");
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: true,
+        message: response.statusMessage!,
+      );
+    } else {
+      print("Error: ${response.data['message']}");
+      return ApiData(
+        statusCode: response.statusCode!,
+        success: false,
+        message: response.data['message'],
+      );
+    }
+  } catch (e) {
+    print("Error: $e");
+    return ApiData(
+      statusCode: 404,
+      success: false,
+      message: "Something went wrong",
+    );
+  }
+}
+
+
+
+
+
+
+// Future<ApiData> NotesMiscPatch(
+//      BuildContext context,
+//      int patientId,
+//      int docTypeId,
+//     String docType,
+//      String docUrl,
+//      String name,
+//      String createdAt,
+//      String expDate) async {
+//   try {
+//     // final companyId = await TokenManager.getCompanyId();
+//     var data = {
+//       "patientId": patientId,
+//       "docTypeId": docTypeId,
+//       "docType": docType,
+//       "docUrl": docUrl,
+//       "name": name,
+//       "createdAt": "${createdAt}T00:00:00Z", //"2024-08-20T09:59:38.760Z",
+//       "expDate": "${expDate}T00:00:00Z", //"2024-08-20T09:59:38.760Z"
+//     };
+//     print(' Patch Intake Notes Misc $data');
+//     var response = await Api(context)
+//         .post(path: NotesRepository.patchMiscNote(miscNoteId:miscNoteId), data: data);
+//     print('Compliance Add ::::$response ');
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("Misc addded ");
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: true,
+//           message: response.statusMessage!);
+//     } else {
+//       print("Error 1");
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: false,
+//           message: response.data['message']);
+//     }
+//   } catch (e) {
+//     print("Error $e");
+//     print("Error 2");
+//     return ApiData(
+//         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+//   }
+// }
+//
