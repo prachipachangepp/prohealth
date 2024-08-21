@@ -298,7 +298,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SMTextFConst(
+                    FirstSMTextFConst(
                       controller: widget.controller,
                       keyboardType: TextInputType.text,
                       text: 'Holiday Name',
@@ -367,7 +367,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                           DateTime? date = await showDatePicker(
                             context: context,
                             initialDate: _selectedDate,
-                            firstDate: DateTime(1100),
+                            firstDate: DateTime(1950),
                             lastDate: DateTime(2025),
                           );
                           if (date != null) {

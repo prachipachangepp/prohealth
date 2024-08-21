@@ -685,7 +685,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   SizedBox(height: AppSize.s13),
 
                   /// Name of the Document
-                  SMTextFConst(
+                  FirstSMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
                     text: AppString.name_of_the_document,

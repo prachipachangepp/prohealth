@@ -268,7 +268,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SMTextFConst(
+                        FirstSMTextFConst(
                           controller: widget.nameOfDocumentController,
                           keyboardType: TextInputType.text,
                           text: 'Type of Visit',
