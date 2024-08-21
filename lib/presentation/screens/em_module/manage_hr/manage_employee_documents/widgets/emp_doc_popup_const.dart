@@ -133,7 +133,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SMTextFConst(
+                      FirstSMTextFConst(
                         controller: widget.nameDocController,
                         keyboardType: TextInputType.text,
                         text: 'Name of the Document',

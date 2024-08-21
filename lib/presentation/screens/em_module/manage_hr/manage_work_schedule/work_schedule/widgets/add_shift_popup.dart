@@ -334,7 +334,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SMTextFConst(
+                  FirstSMTextFConst(
                     controller: widget.shiftNameController,
                     keyboardType: TextInputType.text,
                     text: 'Shift Name',
