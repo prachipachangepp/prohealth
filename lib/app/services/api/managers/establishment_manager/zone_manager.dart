@@ -688,3 +688,29 @@ Future<List<ZipcodeByCountyIdData>> getZipcodeByCountyId(
     return itemsList;
   }
 }
+
+
+/// Country get drop down
+Future<List<CountryGetData>> getCountry(
+    {required BuildContext context}) async {
+  List<CountryGetData> itemsList = [];
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path: AllZoneRepository.countryGet());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(CountryGetData(countryId: item['countryId'], name: item['name'], short: item['short']));
+      }
+     // print("country response:::::${itemsList}");
+    } else {
+      print('country Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}

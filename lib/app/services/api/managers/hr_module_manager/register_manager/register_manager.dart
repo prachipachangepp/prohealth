@@ -381,3 +381,31 @@ Future<ApiData> addEmpEnrollAddCoverage(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+/// Onboard User Patch
+Future<ApiData> onboardingUserPatch(BuildContext context, int employeeId) async {
+  try {
+    var response = await Api(context).patch(
+      path: AllRegisterRepository.patchOnboardingEmployee(employeeId: employeeId),
+      data: {},
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Employee Onboarded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}

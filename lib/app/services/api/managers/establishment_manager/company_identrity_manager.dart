@@ -60,11 +60,14 @@ Future<CompanyModel> companyByIdApi(BuildContext context) async {
 }
 
 /// Get company details
-Future<CompanyModel> companyDetailsApi(BuildContext context,) async {
+Future<CompanyModel> companyDetailsApi(
+  BuildContext context,
+) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).get(
-        path: EstablishmentManagerRepository.companyDetails(companyId: companyId));
+        path: EstablishmentManagerRepository.companyDetails(
+            companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Company Details id ::: ${response}");
       return CompanyModel(companyId: response.data['company_id']);
@@ -78,8 +81,7 @@ Future<CompanyModel> companyDetailsApi(BuildContext context,) async {
 }
 
 /// Get upload company logo
-Future<ApiData> uploadCompanyLogoApi(
-    BuildContext context,String type) async {
+Future<ApiData> uploadCompanyLogoApi(BuildContext context, String type) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
@@ -153,7 +155,7 @@ Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
 
 ///Get Company by office list by company
 Future<List<CompanyIdentityModel>> companyOfficeListGet(
-    BuildContext context,int pageNo, int rowsNo) async {
+    BuildContext context, int pageNo, int rowsNo) async {
   List<CompanyIdentityModel> itemsList = [];
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -173,6 +175,46 @@ Future<List<CompanyIdentityModel>> companyOfficeListGet(
           address: item['address'],
           officeId: item['office_id'],
           companyOfficeId: item['company_Office_id'],
+        ));
+      }
+      // print("ResponseList:::::${itemsList}");
+    } else {
+      print('Api Error');
+      //return itemsList;
+    }
+    // print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+///Get company office list
+Future<List<CompanyOfficeListData>> getCompanyOfficeList(
+  BuildContext context,
+) async {
+  List<CompanyOfficeListData> itemsList = [];
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.getCompanyOfficeList(
+            companyId: companyId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("ResponseList:::::${itemsList}");
+      for (var item in response.data["OfficeList"]) {
+        itemsList.add(CompanyOfficeListData(
+          name: item['name'],
+          companyId: companyId,
+          address: item['address'],
+          officeId: item['office_id'],
+          primaryNbr: item['primary_phone'],
+          secondaryNbr: item['secondary_phone'],
+          slternativeNbr: item['alternative_phone'],
+          email: item['email'],
+          companyOfficeId: item['company_Office_id'],
+          primaryFax: item['primary_fax'],
+          secondaryFax: item['secondary_fax'],
         ));
       }
       // print("ResponseList:::::${itemsList}");

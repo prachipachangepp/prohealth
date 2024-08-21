@@ -35,7 +35,7 @@ class EstablishmentManagerRepository {
   static String payrates = "/payrates";
   static String employeeType = "/employee-types";
   static String user = "/users";
-  //static String zone = "/zone";
+  static String zone = "/zone";
   static String signUp="/signUp";
   static String companyDept ="/company-department";
   static String department ="/Department";
@@ -44,16 +44,17 @@ class EstablishmentManagerRepository {
   static String companyDetail ="/CompanyDetail";
   static String vendors ="/vendors";
   static String insurancevendors ="/insurance-vendor";
+  static String insuranceVendorsContractPatch ="/insurance-vendor-contract";
   static String insurancevendorsContract ="/insurance-vendor-contract";
-  static String zonedropdown ="/zone/zoneDropdown";
+  static String zonedropdown ="/zoneDropdownByCompany";
   static String addPayrates ="/payrates/add";
+  static String companyOfficeGetList ="/company-office";
+ // static String zonedropdown ="/zone/zoneDropdown";
+  //static String addPayrates ="/payrates/add";
   static String newPayrates ="/payrates";
   static String newPayratesdelete ="/payrates";
   static String newPayratesedit ="/payrates";
   static String newPayrateseprefill ="/payrates";
-
-
-
 
   //static String add ="/add";
 
@@ -112,7 +113,7 @@ class EstablishmentManagerRepository {
   }
   ///insurance-vendor/{insuranceVendorId}
   static String companyOfficeVendorPatchDelete({required int insuranceVendorId}){
-    return "$insurancevendors/$insuranceVendorId";
+    return "$insuranceVendorsContractPatch/$insuranceVendorId";
   }
 
 ///insurance-vendor-contract/add
@@ -361,17 +362,33 @@ class EstablishmentManagerRepository {
       ){
     return "$identity$companyDetail/$companyId";
   }
+  ///company-office/{company_id}
+  static String getCompanyOfficeList({required int companyId}) {
+    return "$companyOfficeGetList/$companyId";
+  }
 
 
 
 
   ///zone dropdown
-  static String getzonedropdown({required int companyID, required String officeId}){
-    return "$zonedropdown$companyID/$officeId";
+  static String getzonedropdown({required int companyID,}){
+    return "$zone/$zonedropdown/$companyID";
+  }
+/// service dropdown
+  static String getServicedropdown(){
+    return "$companyOfficeService";
   }
   static String postPayrates(){
     return "$addPayrates";
   }
+
+  ///zone dropdown
+  // static String getzonedropdown({required int companyID, required String officeId}){
+  //   return "$zonedropdown$companyID/$officeId";
+  // }
+  // static String postPayrates(){
+  //   return "$addPayrates";
+  // }
 
   static String getPayrates(){
     return "$newPayrates";
@@ -390,4 +407,5 @@ class EstablishmentManagerRepository {
   }
 }
 
+// /zone/zoneDropdownByCompany/{companyId}
 // /zone/zoneDropdown/{companyId}/{officeId}

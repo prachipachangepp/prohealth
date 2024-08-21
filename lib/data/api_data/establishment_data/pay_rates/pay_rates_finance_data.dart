@@ -55,23 +55,35 @@ class PayRatePrefillFinanceData {
 }
 
 ///zone data file dropdown
-///
+
 class SortByZoneData {
-  final bool? success;
-  final String? message;
-  final int? zone_id;
-  final String? zoneName;
-  final int? county_id;
-  final String? officeId;
-  final int? companyId;
+  final int zoneId;
+  final String zoneName;
 
   SortByZoneData({
-    this.success,
-    this.message,
-    required this.zone_id,
+    required this.zoneId,
     required this.zoneName,
-    required this.county_id,
-    required this.officeId,
+  });
+}
+///get service dropdown
+class ServiceData {
+  final int officeServiceId;
+  final int companyId;
+  final String officeId;
+  final String serviceName;
+  final String serviceId;
+  final String npiNum;
+  final String medicareNum;
+  final String hcoNum;
+
+  ServiceData({
+    required this.officeServiceId,
     required this.companyId,
+    required this.officeId,
+    required this.serviceName,
+    required this.serviceId,
+    required this.npiNum,
+    required this.medicareNum,
+    required this.hcoNum,
   });
 }

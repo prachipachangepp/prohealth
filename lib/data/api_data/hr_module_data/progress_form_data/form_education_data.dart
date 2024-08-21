@@ -2,13 +2,12 @@
 class EduactionDegree {
   final bool? success;
   final String? message;
-
-  final int? degreeId;
-  final String? degree;
-  final int? companyId;
+  final int degreeId;
+  final String degree;
+  final int companyId;
 
   EduactionDegree(
-      {this.degreeId, this.degree, this.companyId, this.success, this.message});
+      {required this.degreeId, required this.degree, required this.companyId, this.success, this.message});
 }
 
 //"degreeId": 0,
