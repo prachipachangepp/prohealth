@@ -47,6 +47,7 @@ class EstablishmentManagerRepository {
   static String insurancevendorsContract ="/insurance-vendor-contract";
   static String zonedropdown ="/zoneDropdownByCompany";
   static String addPayrates ="/payrates/add";
+  static String companyOfficeGetList ="/company-office";
 
   //static String add ="/add";
 
@@ -353,6 +354,10 @@ class EstablishmentManagerRepository {
   {required int companyId}
       ){
     return "$identity$companyDetail/$companyId";
+  }
+  ///company-office/{company_id}
+  static String getCompanyOfficeList({required int companyId}) {
+    return "$companyOfficeGetList/$companyId";
   }
 
 
