@@ -231,34 +231,38 @@ Future<List<SortByZoneData>> PayRateZoneDropdown(
 }
 
 ///serviceby dropdown
-// Future<List<ServiceData>> PayRateServiceDropdown(
-//     BuildContext context,) async {
-//   List<ServiceData> itemsList = [];
-//   try {
-//     final companyID = await TokenManager.getCompanyId();
-//     final response = await Api(context).get(
-//         path: EstablishmentManagerRepository.getzonedropdown(
-//             companyID: companyID));
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       for (var item in response.data) {
-//         itemsList.add(
-//           SortByZoneData(
-//             zoneId: item['zone_id'] ?? 0,
-//             zoneName: item['zoneName'] ?? "--",
-//           ),
-//         );
-//         print(" payrates dropdown$response");
-//       }
-//     } else {
-//       print('Api Error');
-//     }
-//     print("Response:::::${response}");
-//     return itemsList;
-//   } catch (e) {
-//     print("Error $e");
-//     return itemsList;
-//   }
-// }
+Future<List<ServiceData>> PayRateServiceDropdown(
+    BuildContext context,) async {
+  List<ServiceData> itemsList = [];
+  try {
+    final companyID = await TokenManager.getCompanyId();
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.getServicedropdown());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(
+         ServiceData(
+             officeServiceId: item['Office_service_id'],
+             companyId: companyID,
+             officeId: item['office_id'],
+             serviceName: item['service_name'],
+             serviceId: item['service_id'],
+             npiNum: item['npi_number'],
+             medicareNum: item['medicare_provider_id'],
+             hcoNum: item['hco_num_id']),
+        );
+        print(" payrates dropdown$response");
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
 
 /// Add pay rates POST
 Future<ApiData> addButtonPayRatesSetupPost(

@@ -367,6 +367,10 @@ class EstablishmentManagerRepository {
   static String getzonedropdown({required int companyID,}){
     return "$zone/$zonedropdown/$companyID";
   }
+/// service dropdown
+  static String getServicedropdown(){
+    return "$companyOfficeService";
+  }
   static String postPayrates(){
     return "$addPayrates";
   }
