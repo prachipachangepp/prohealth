@@ -202,6 +202,7 @@ Future<ApiData> addVendorContract(
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Contract Addded");
+      print("Contract Response ${response.data}");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
@@ -337,8 +338,8 @@ Future<ApiData> patchCompanyContract(
           "contractName": contractName,
           "officeId": officeId,
           "companyId": companyId,
-          "expiry_type": companyId,
-          "contractId": companyId,
+          "expiry_type": expirType,
+          "contractId": contractId,
         });
 
     if (response.statusCode == 200 || response.statusCode == 201) {

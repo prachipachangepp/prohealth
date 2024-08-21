@@ -44,6 +44,7 @@ class EstablishmentManagerRepository {
   static String companyDetail ="/CompanyDetail";
   static String vendors ="/vendors";
   static String insurancevendors ="/insurance-vendor";
+  static String insuranceVendorsContractPatch ="/insurance-vendor-contract";
   static String insurancevendorsContract ="/insurance-vendor-contract";
   static String zonedropdown ="/zoneDropdownByCompany";
   static String addPayrates ="/payrates/add";
@@ -106,7 +107,7 @@ class EstablishmentManagerRepository {
   }
   ///insurance-vendor/{insuranceVendorId}
   static String companyOfficeVendorPatchDelete({required int insuranceVendorId}){
-    return "$insurancevendors/$insuranceVendorId";
+    return "$insuranceVendorsContractPatch/$insuranceVendorId";
   }
 
 ///insurance-vendor-contract/add

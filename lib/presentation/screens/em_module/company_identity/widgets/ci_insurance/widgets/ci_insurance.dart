@@ -51,9 +51,10 @@ class _CiOrgDocumentState extends State<CIInsurance> {
 
   bool isAddButtonEnabled = false;
 
-  void _selectButton(int index) {
+  void _selectButton(int index,[bool? selected]) {
     setState(() {
       _selectedIndex = index;
+      selected = false;
     });
     _tabPageController.animateToPage(
       index,
@@ -79,8 +80,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                 _selectedIndex == 0
                     ? SizedBox(width: 354)
                     : FutureBuilder<List<ManageVendorData>>(
-                        future:
-                            companyVendorGet(context, widget.officeId, 1, 20),
+                        future: companyVendorGet(context, widget.officeId, 1, 20),
                         builder: (context, snapshotZone) {
                           if (snapshotZone.connectionState ==
                                   ConnectionState.waiting &&
@@ -172,7 +172,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: () => _selectButton(0),
+                          onTap: () => _selectButton(0,isAddButtonEnabled),
                           child: Container(
                             height: 40,
                             width: 80,
@@ -233,7 +233,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                     ),
                   ),
                 ),
-
                 _selectedIndex == 0
                     ? Padding(
                         padding: const EdgeInsets.only(right: 8.0),
@@ -266,77 +265,80 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         width: 130,
                         icon: Icons.add,
                         text: "Add Doctype",
-                        onPressed: isAddButtonEnabled
-                            ? () {
-                                selectedExpiryType = expiryType;
+                        onPressed:isAddButtonEnabled?  () {
+                                //selectedExpiryType = expiryType;
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return ContractAddDialog(
-                                      contractNmaeController: contractNameController,
-                                      radiobutton:Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Expiry Type',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                            ),
+                                    return StatefulBuilder(
+                                      builder: (BuildContext context, void Function(void Function()) setState) {
+                                        return ContractAddDialog(
+                                          contractNmaeController: contractNameController,
+                                          radiobutton:Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Expiry Type',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: ColorManager.mediumgrey,
+                                                ),
+                                              ),
+                                              CustomRadioListTile(
+                                                value: "Not Applicable",
+                                                groupValue: selectedExpiryType,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    selectedExpiryType = value!;
+                                                  });
+                                                },
+                                                title: "Not Applicable",
+                                              ),
+                                              CustomRadioListTile(
+                                                value: 'Scheduled',
+                                                groupValue: selectedExpiryType,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    selectedExpiryType = value!;
+                                                  });
+                                                },
+                                                title: 'Scheduled',
+                                              ),
+                                              CustomRadioListTile(
+                                                value: 'Issuer Expiry',
+                                                groupValue: selectedExpiryType,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    selectedExpiryType = value!;
+                                                  });
+                                                },
+                                                title: 'Issuer Expiry',
+                                              ),
+                                            ],
                                           ),
-                                          CustomRadioListTile(
-                                            value: "Not Applicable",
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value!;
-                                              });
-                                            },
-                                            title: "Not Applicable",
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Scheduled',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value!;
-                                              });
-                                            },
-                                            title: 'Scheduled',
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Issuer Expiry',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value!;
-                                              });
-                                            },
-                                            title: 'Issuer Expiry',
-                                          ),
-                                        ],
-                                      ),
-                                      onSubmitPressed: () async {
-                                        //if (selectedVendorId == 0) {
-                                        await addVendorContract(
-                                          context,
-                                          selectedVendorId,
-                                          contractNameController.text,
-                                          selectedExpiryType!,
-                                          widget.officeId,
-                                          contractIdController.text,
-                                        );
-                                        // } else {
-                                        //   ScaffoldMessenger.of(context).showSnackBar(
-                                        //     SnackBar(content: Text("Please select a vendor")),
-                                        //   );
-                                        // }
-                                      },
-                                      contractIdController:
+                                          onSubmitPressed: () async {
+                                            //if (selectedVendorId == 0) {
+                                            await addVendorContract(
+                                              context,
+                                              selectedVendorId,
+                                              contractNameController.text,
+                                              selectedExpiryType!,
+                                              widget.officeId,
+                                              contractIdController.text,
+                                            );
+                                            // } else {
+                                            //   ScaffoldMessenger.of(context).showSnackBar(
+                                            //     SnackBar(content: Text("Please select a vendor")),
+                                            //   );
+                                            // }
+                                          },
+                                          contractIdController:
                                           contractIdController,
-                                      title: 'Add Contract',
+                                          title: 'Add Contract',
+                                        );
+                                      },
                                     );
                                   },
                                 );

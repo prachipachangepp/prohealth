@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -15,15 +16,15 @@ import 'widgets/contract_add_dialog.dart';
 
 class CiInsuranceContract extends StatefulWidget {
   final int insuranceVendorId;
- // final int subDocID;
- // final int companyID;
+  // final int subDocID;
+  // final int companyID;
   final String officeId;
 
   const CiInsuranceContract({
     super.key,
     required this.insuranceVendorId,
     //required this.subDocID,
-   // required this.companyID,
+    // required this.companyID,
     required this.officeId,
   });
 
@@ -34,7 +35,8 @@ class CiInsuranceContract extends StatefulWidget {
 class _CiInsuranceContractState extends State<CiInsuranceContract> {
   TextEditingController contractNameController = TextEditingController();
   TextEditingController contractIdController = TextEditingController();
-  final StreamController<List<ManageInsuranceContractData>> _controller = StreamController<List<ManageInsuranceContractData>>();
+  final StreamController<List<ManageInsuranceContractData>> _controller =
+      StreamController<List<ManageInsuranceContractData>>();
 
   int currentPage = 1;
   final int itemsPerPage = 10;
@@ -45,6 +47,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
     super.initState();
     //_fetchContracts();
   }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -65,7 +68,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                   _controller.add(data);
                 }).catchError((error) {
                   // Handle error
-                  _controller.addError(error);
+                  //_controller.addError(error);
                 });
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -86,7 +89,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                     ),
                   );
                 }
-                if (snapshot.data == null || snapshot.data!.isEmpty) {
+                if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
                       AppString.dataNotFound,
@@ -98,296 +101,394 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                     ),
                   );
                 }
+                if(snapshot.hasData){
+                  int totalItems = snapshot.data!.length;
+                  int totalPages = (totalItems / itemsPerPage).ceil();
+                  List<ManageInsuranceContractData> paginatedData = snapshot.data!
+                      .skip((currentPage - 1) * itemsPerPage)
+                      .take(itemsPerPage)
+                      .toList();
 
-                int totalItems = snapshot.data!.length;
-                int totalPages = (totalItems / itemsPerPage).ceil();
-                List<ManageInsuranceContractData> paginatedData = snapshot.data!
-                    .skip((currentPage - 1) * itemsPerPage)
-                    .take(itemsPerPage)
-                    .toList();
-
-                return Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: paginatedData.length,
-                        itemBuilder: (context, index) {
-                          int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                          String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                          ManageInsuranceContractData contract = paginatedData[index];
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(4),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0xff000000).withOpacity(0.25),
-                                        spreadRadius: 0,
-                                        blurRadius: 4,
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  height: 50,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                                              child: InkWell(
-                                                onTap: () {
-                                                  // Implement the view action
-                                                },
-                                                child: Image.asset(
-                                                  'images/eye.png',
-                                                  height: 15,
-                                                  width: 22,
-                                                ),
-                                              ),
-                                            ),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  contract.insuranceVendorContracId.toString(),
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  contract.contractName.toString().capitalizeFirst!,
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Color(0xff686464),
-                                                    decoration: TextDecoration.none,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                String? selectedExpiryType = expiryType;
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (BuildContext context) {
-                                                    return  FutureBuilder<ManageContractPrefill>(
-                                                        future: getPrefillContract(context,snapshot.data![index].insuranceVendorContracId),
-                                                        builder: (context,snapshotPrefill) {
-                                                          if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                            return Center(
-                                                              child: CircularProgressIndicator(color: ColorManager.blueprime,),
-                                                            );
-                                                          }
-                                                          var contractPrefName = snapshotPrefill.data!.contractName;
-                                                          contractNameController = TextEditingController(text: snapshotPrefill.data!.contractName);
-
-                                                          var contractIDPrefName = snapshotPrefill.data!.contractId;
-                                                          contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
-
-
-                                                          return StatefulBuilder(
-                                                      builder: (BuildContext context, void Function(void Function()) setState) {
-                                                        return ContractAddDialog(
-                                                          title: 'Edit Contract',
-                                                      contractNmaeController: contractNameController,
-                                                      contractIdController: contractIdController,
-                                                      onSubmitPressed:
-                                                            //() async{
-                                                        // setState(() {
-                                                        //   _isLoading = true;
-                                                        // });
-                                                        // try {
-                                                        //   //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
-                                                        //   await patchCompanyContract(context,
-                                                        //   snapshot.data![index].insuranceVendorId,
-                                                        // widget.officeId,
-                                                        // contractPrefName ?? contractNameController.text,
-                                                        // selectedExpiryType.toString(),
-                                                        // contractIDPrefName ?? contractIdController.text);
-                                                          // setState(() async {
-                                                          //   await  companyContractGetByVendorId(
-                                                          //     context,
-                                                          //     widget.officeId,
-                                                          //     widget.insuranceVendorId,
-                                                          //     currentPage,
-                                                          //     itemsPerPage,
-                                                          //   ).then((data) {
-                                                          //     _controller.add(data);
-                                                          //   }).catchError((error) {
-                                                          //     // Handle error
-                                                          //     _controller.addError(error);
-                                                          //   });
-                                                          //   Navigator.pop(context);
-                                                          // });
-                                                      //   } finally {
-                                                      //     setState(() {
-                                                      //       _isLoading = false;
-                                                      //     });
-                                                      //   }
-                                                      // },
-
-                                                          ()async {
-                                                         await patchCompanyContract(context,
-                                                             snapshot.data![index].insuranceVendorId,
-                                                             widget.officeId,
-                                                             contractPrefName ?? contractNameController.text,
-                                                             selectedExpiryType.toString(),
-                                                             contractIDPrefName ?? contractIdController.text);
-                                                      },
-                                                      radiobutton:  Padding(
-                                                        padding: const EdgeInsets.only(left: 10.0),
-                                                        child: Column(
-                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            Text(
-                                                              "Expiry Type",
-                                                              style: GoogleFonts.firaSans(
-                                                                fontSize: FontSize.s12,
-                                                                fontWeight: FontWeight.w700,
-                                                                color: ColorManager.mediumgrey,
-                                                                decoration: TextDecoration.none,
-                                                              ),
-                                                            ),
-                                                            CustomRadioListTile(
-                                                              value: "Not Applicable",
-                                                              groupValue: selectedExpiryType,
-                                                              onChanged: (value) {
-                                                                setState(() {
-                                                                  selectedExpiryType = value;
-                                                                });
-                                                              },
-                                                              title: "Not Applicable",
-                                                            ),
-                                                            CustomRadioListTile(
-                                                              value: 'Scheduled',
-                                                              groupValue: selectedExpiryType,
-                                                              onChanged: (value) {
-                                                                setState(() {
-                                                                  selectedExpiryType = value;
-                                                                });
-                                                              },
-                                                              title: 'Scheduled',
-                                                            ),
-                                                            CustomRadioListTile(
-                                                              value: 'Issuer Expiry',
-                                                              groupValue: selectedExpiryType,
-                                                              onChanged: (value) {
-                                                                setState(() {
-                                                                  selectedExpiryType = value;
-                                                                });
-                                                              },
-                                                              title: 'Issuer Expiry',
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    );
-
-                          },
-                          );
-                          }
-                          );
-                                                  },
-                                                );
-                                              },
-                                              icon: Icon(
-                                                Icons.edit_outlined,
-                                                size: 18,
-                                                color: ColorManager.blueprime,
-                                              ),
-                                            ),
-                                            IconButton(
-                                                onPressed: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          DeletePopup(
-                                                              title: 'Delete Contract',
-                                                              onCancel: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              }, onDelete:
-                                                              () async {
-                                                                print("${contract.insuranceVendorContracId}");
-                                                            await deleteContract(context, contract.insuranceVendorContracId);
-                                                            // companyContractGetByVendorId(
-                                                            //   context,
-                                                            //   widget.officeId,
-                                                            //   widget.insuranceVendorId,
-                                                            //   currentPage,
-                                                            //   itemsPerPage,
-                                                            // ).then((data) {
-                                                            //   _controller.add(data);
-                                                            // }).catchError((error) {
-                                                            //   // Handle error
-                                                            //   _controller.addError(error);
-                                                            // });
-                                                            Navigator.pop(
-                                                                context);
-                                                          }));
-                                                },
-                                                icon: Icon(
-                                                  Icons.delete_outline,
-                                                  size: 18,
-                                                  color:
-                                                  ColorManager.faintOrange,
-                                                )),
-                                          ],
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: paginatedData.length,
+                          itemBuilder: (context, index) {
+                            int serialNumber =
+                                index + 1 + (currentPage - 1) * itemsPerPage;
+                            String formattedSerialNumber =
+                            serialNumber.toString().padLeft(2, '0');
+                            ManageInsuranceContractData contract =
+                            paginatedData[index];
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(4),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                          Color(0xff000000).withOpacity(0.25),
+                                          spreadRadius: 0,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
                                         ),
                                       ],
                                     ),
+                                    height: 50,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 10),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    // Implement the view action
+                                                  },
+                                                  child: Image.asset(
+                                                    'images/eye.png',
+                                                    height: 15,
+                                                    width: 22,
+                                                  ),
+                                                ),
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    contract
+                                                        .insuranceVendorContracId
+                                                        .toString(),
+                                                    textAlign: TextAlign.center,
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 10,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: Color(0xff686464),
+                                                      decoration:
+                                                      TextDecoration.none,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    contract.contractName
+                                                        .toString()
+                                                        .capitalizeFirst!,
+                                                    textAlign: TextAlign.center,
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 10,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Color(0xff686464),
+                                                      decoration:
+                                                      TextDecoration.none,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  String? selectedExpiryType =
+                                                      expiryType;
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return FutureBuilder<
+                                                          ManageContractPrefill>(
+                                                          future: getPrefillContract(
+                                                              context,
+                                                              snapshot
+                                                                  .data![index]
+                                                                  .insuranceVendorContracId),
+                                                          builder: (context,
+                                                              snapshotPrefill) {
+                                                            if (snapshotPrefill
+                                                                .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return Center(
+                                                                child:
+                                                                CircularProgressIndicator(
+                                                                  color: ColorManager
+                                                                      .blueprime,
+                                                                ),
+                                                              );
+                                                            }
+                                                            var contractPrefName =
+                                                                snapshotPrefill
+                                                                    .data!
+                                                                    .contractName;
+                                                            contractNameController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .contractName);
+
+                                                            var contractIDPrefName =
+                                                                snapshotPrefill
+                                                                    .data!
+                                                                    .contractId;
+                                                            contractIdController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .contractId);
+
+                                                            return StatefulBuilder(
+                                                              builder: (BuildContext
+                                                              context,
+                                                                  void Function(
+                                                                      void
+                                                                      Function())
+                                                                  setState) {
+                                                                return ContractAddDialog(
+                                                                  title:
+                                                                  'Edit Contract',
+                                                                  contractNmaeController:
+                                                                  contractNameController,
+                                                                  contractIdController:
+                                                                  contractIdController,
+                                                                  onSubmitPressed:
+                                                                  () async{
+                                                                  setState(() {
+                                                                    _isLoading = true;
+                                                                  });
+                                                                  try {
+                                                                    //final updatedName = nameController.text.isNotEmpty ? nameController.text : vendorData.vendorName;
+                                                                  setState(() async {
+                                                                    print('Contract vendor Id ${snapshot
+                                                                        .data![
+                                                                    index]
+                                                                        .insuranceVendorContracId}');
+                                                                   var response =  await patchCompanyContract(
+                                                                        context,
+                                                                        snapshot
+                                                                            .data![
+                                                                        index]
+                                                                            .insuranceVendorContracId,
+                                                                        widget
+                                                                            .officeId,
+                                                                        contractPrefName ==
+                                                                            contractNameController
+                                                                                .text ? contractPrefName! : contractNameController
+                                                                            .text,
+                                                                        selectedExpiryType
+                                                                            .toString(),
+                                                                        contractIDPrefName ==
+                                                                            contractIdController
+                                                                                .text ? contractIDPrefName! : contractIdController
+                                                                            .text);
+                                                                   if(response.statusCode == 200 || response.statusCode == 201){
+                                                                     showDialog(
+                                                                       context: context,
+                                                                       builder: (BuildContext context) {
+                                                                         return AddSuccessPopup(message: 'Edited Successfully',);
+                                                                       },
+                                                                     );
+                                                                   }else{
+
+                                                                   }
+                                                                  });
+                                                                    } finally {
+                                                                      setState(() {
+                                                                        _isLoading = false;
+                                                                      });
+                                                                    }
+                                                                  },
+                                                                  radiobutton:
+                                                                  Padding(
+                                                                    padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                        10.0),
+                                                                    child: Column(
+                                                                      mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                      crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                      children: [
+                                                                        Text(
+                                                                          "Expiry Type",
+                                                                          style: GoogleFonts
+                                                                              .firaSans(
+                                                                            fontSize:
+                                                                            FontSize.s12,
+                                                                            fontWeight:
+                                                                            FontWeight.w700,
+                                                                            color:
+                                                                            ColorManager.mediumgrey,
+                                                                            decoration:
+                                                                            TextDecoration.none,
+                                                                          ),
+                                                                        ),
+                                                                        CustomRadioListTile(
+                                                                          value:
+                                                                          "Not Applicable",
+                                                                          groupValue:
+                                                                          selectedExpiryType,
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            setState(
+                                                                                    () {
+                                                                                  selectedExpiryType =
+                                                                                      value;
+                                                                                });
+                                                                          },
+                                                                          title:
+                                                                          "Not Applicable",
+                                                                        ),
+                                                                        CustomRadioListTile(
+                                                                          value:
+                                                                          'Scheduled',
+                                                                          groupValue:
+                                                                          selectedExpiryType,
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            setState(
+                                                                                    () {
+                                                                                  selectedExpiryType =
+                                                                                      value;
+                                                                                });
+                                                                          },
+                                                                          title:
+                                                                          'Scheduled',
+                                                                        ),
+                                                                        CustomRadioListTile(
+                                                                          value:
+                                                                          'Issuer Expiry',
+                                                                          groupValue:
+                                                                          selectedExpiryType,
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            setState(
+                                                                                    () {
+                                                                                  selectedExpiryType =
+                                                                                      value;
+                                                                                });
+                                                                          },
+                                                                          title:
+                                                                          'Issuer Expiry',
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          });
+                                                    },
+                                                  );
+                                                },
+                                                icon: Icon(
+                                                  Icons.edit_outlined,
+                                                  size: 18,
+                                                  color: ColorManager.blueprime,
+                                                ),
+                                              ),
+                                              IconButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            DeletePopup(
+                                                                title:
+                                                                'Delete Contract',
+                                                                onCancel: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                onDelete:
+                                                                    () async {
+                                                                  print(
+                                                                      "${contract.insuranceVendorContracId}");
+                                                                  await deleteContract(
+                                                                      context,
+                                                                      contract
+                                                                          .insuranceVendorContracId);
+                                                                  // companyContractGetByVendorId(
+                                                                  //   context,
+                                                                  //   widget.officeId,
+                                                                  //   widget.insuranceVendorId,
+                                                                  //   currentPage,
+                                                                  //   itemsPerPage,
+                                                                  // ).then((data) {
+                                                                  //   _controller.add(data);
+                                                                  // }).catchError((error) {
+                                                                  //   // Handle error
+                                                                  //   _controller.addError(error);
+                                                                  // });
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                }));
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete_outline,
+                                                    size: 18,
+                                                    color:
+                                                    ColorManager.faintOrange,
+                                                  )),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          );
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                      PaginationControlsWidget(
+                        currentPage: currentPage,
+                        items: snapshot.data!,
+                        itemsPerPage: itemsPerPage,
+                        onPreviousPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                          });
+                        },
+                        onPageNumberPressed: (pageNumber) {
+                          setState(() {
+                            currentPage = pageNumber;
+                          });
+                        },
+                        onNextPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage < totalPages
+                                ? currentPage + 1
+                                : totalPages;
+                          });
                         },
                       ),
-                    ),
-                    PaginationControlsWidget(
-                      currentPage: currentPage,
-                      items: snapshot.data!,
-                      itemsPerPage: itemsPerPage,
-                      onPreviousPagePressed: () {
-                        setState(() {
-                          currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                        });
-                      },
-                      onPageNumberPressed: (pageNumber) {
-                        setState(() {
-                          currentPage = pageNumber;
-                        });
-                      },
-                      onNextPagePressed: () {
-                        setState(() {
-                          currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-                        });
-                      },
-                    ),
-                  ],
-                );
+                    ],
+                  );
+                }
+                else{
+                  return SizedBox();
+                }
               },
             ),
           ),
