@@ -243,6 +243,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                         ),
                                       );
                                     }
+
                                     if (snapshot.hasData && snapshot.data!.isEmpty) {
                                       return Center(
                                         child: Text(
