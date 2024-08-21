@@ -111,7 +111,7 @@ Future<List<WorkWeekShiftScheduleData>> workWeekShiftScheduleGet(
     final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.workWeekShiftScheduleGet(
-            companyId: companyId, officeId: officeId.replaceAll("%20", ' '), weekDay: weekDay));
+            companyId: companyId, officeId: officeId, weekDay: weekDay));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsData.add(WorkWeekShiftScheduleData(
@@ -140,9 +140,9 @@ Future<ApiData> addWorkWeekShiftPost(
     String shiftName,
     String officeStartTime,
     String officeEndTime,
-    String officeId,
-    int compantId) async {
+    String officeId) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.addWorkWeekShiftPost(),
         data: {
@@ -150,7 +150,7 @@ Future<ApiData> addWorkWeekShiftPost(
           'shiftName': shiftName,
           'officeStartTime': officeStartTime,
           'officeEndTime': officeEndTime,
-          'companyId': compantId,
+          'companyId': companyId,
           'officeId': officeId
         });
     if (response.statusCode == 200 || response.statusCode == 201) {

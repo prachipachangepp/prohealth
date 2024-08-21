@@ -71,7 +71,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
               ));
             }
             if (snapshot.hasData) {
-
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -543,8 +542,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                 shiftnameController.text,
                                                                 shiftStartTimeController.text,
                                                                 shiftEndTimeController.text,
-                                                                snapshot.data![index].officeId,
-                                                                snapshot.data![index].companyId);
+                                                                snapshot.data![index].officeId);
                                                             workWeekShiftScheduleGet(
                                                                 context,
                                                                 //snapshot.data![index].companyId,

@@ -118,12 +118,6 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                   onPressed: () {
                     widget.onSubmitPressed();
                     Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(message: 'Added Successfully',);
-                      },
-                    );
                   },
                 ),
               ),
