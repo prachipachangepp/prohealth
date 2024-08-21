@@ -47,6 +47,13 @@ class EstablishmentManagerRepository {
   static String insurancevendorsContract ="/insurance-vendor-contract";
   static String zonedropdown ="/zone/zoneDropdown";
   static String addPayrates ="/payrates/add";
+  static String newPayrates ="/payrates";
+  static String newPayratesdelete ="/payrates";
+  static String newPayratesedit ="/payrates";
+  static String newPayrateseprefill ="/payrates";
+
+
+
 
   //static String add ="/add";
 
@@ -364,6 +371,22 @@ class EstablishmentManagerRepository {
   }
   static String postPayrates(){
     return "$addPayrates";
+  }
+
+  static String getPayrates(){
+    return "$newPayrates";
+  }
+
+  static String deletePayRates({required int payRatesId}){
+    return "$newPayratesdelete/$payRatesId";
+  }
+
+  static String editPayRates({required int payRatesId}){
+    return "$newPayratesedit/$payRatesId";
+  }
+
+  static String prefillPayRates({required int payRatesId}){
+    return "$newPayrateseprefill/$payRatesId";
   }
 }
 
