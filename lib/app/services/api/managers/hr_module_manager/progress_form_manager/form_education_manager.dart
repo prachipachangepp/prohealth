@@ -71,13 +71,8 @@ class FormEducationManager {
     }
   }
 
-  ///////////////////////
-  /// get prifillapi
-  ///
 
-  ///
-  ///
-  ///
+  /// get prifillapi
   // Future<ApiDataRegister> getEmployeeEducationForm(
   //     BuildContext context,
   //      int employeeID,
@@ -170,31 +165,7 @@ class FormEducationManager {
 
   ///
   ///
-  Future<List<EduactionDegree>> HrEmplyDegreedropdown(
 
-      BuildContext context, int degreeId) async {
-    List<EduactionDegree> itemsList = [];
-    try {
-      final response = await ApiOffer(context).get(
-          path: ProgressBarRepository.patchEmployeeDegree(degreeId: degreeId));
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        for (var item in response.data) {
-          itemsList.add(EduactionDegree(
-            degreeId: item['degreeId'],
-            degree: item['degree'],
-            companyId: item['companyId'],
-          ));
-        }
-      } else {
-        print('Api Error');
-      }
-      print("Response:::::${response}");
-      return itemsList;
-    } catch (e) {
-      print("Error $e");
-      return itemsList;
-    }
-  }
 }
 
 Future<List<EducationDataForm>> getEmployeeEducationForm(
@@ -249,7 +220,30 @@ Future<List<EducationDataForm>> getEmployeeEducationForm(
     return itemsData;
   }
 }
-
+Future<List<EduactionDegree>> getDegreeDropDown(
+    BuildContext context,) async {
+  List<EduactionDegree> itemsList = [];
+  try {
+    final response = await ApiOffer(context).get(
+        path: ProgressBarRepository.getEmployeeDegreeDropDown());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(EduactionDegree(
+          degreeId: item['degreeId'],
+          degree: item['degree'],
+          companyId: item['companyId'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
 Future<ApiDataRegister> uploadEducationDocument(
     BuildContext context,
     int educationId,

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
+import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
@@ -58,11 +60,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   FocusNode _focusNode = FocusNode();
   int? _selectedItemIndex;
    int country = 0;
-   int zoneId = 0;
    int countyId =0;
    String reportingOfficeId ='';
    String specialityName = '';
    String clinicialName ='';
+   int clinicalId = 1;
    String cityName = '';
    String serviceVal ='';
    String generatedURL = '';
@@ -154,6 +156,12 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
        );
      }
    }
+   String? selectedCountry;
+   int countryId = 0;
+   String? selectedCity;
+   int cityId = 0;
+   String? selectedZone;
+   int zoneId = 0;
 
 
    @override
@@ -228,62 +236,32 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: widget.firstName,//firstname
                             labelFontSize: 12,
                           ),
-                          // CustomTextFieldRegister(
-                          //   height: AppSize.s30,
-                          //   width: MediaQuery.of(context).size.width / 7,
-                          //   controller: firstName,
-                          //   labelText: AppString.fname,
-                          //   keyboardType: TextInputType.text,
-                          //   padding: EdgeInsets.only(
-                          //       bottom: AppPadding.p5, left: AppPadding.p20),
-                          //   onChanged: (value) {},
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return AppString.enterText;
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
                           SizedBox(
                             height: AppSize.s10,
                           ),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width/7,
-                          //   height: AppSize.s30,
-                          //   //alignment: Alignment.center,
-                          //   //color: Colors.cyan,
-                          //
-                          //   child: MyDropdownTextField(
-                          //     hint: AppString.speciality,
-                          //
-                          //     //width: MediaQuery.of(context).size.width/7,
-                          //     // height: AppSize.s25,
-                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                          //     onChanged: (String? newValue) {
-                          //
-                          //       print('Selected item: $newValue');
-                          //     },
-                          //   ),
-                          // ),
                           FutureBuilder<List<AEClinicalDiscipline>>(
                             future: HrAddEmplyClinicalDisciplinApi(context, 1),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Padding(
+                                return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 7),
                                     child: Container(
                                       width: AppSize.s250,
                                       height: AppSize.s40,
                                       decoration: BoxDecoration(
-                                          color: ColorManager.faintGrey),
+                                          color: ColorManager.white),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text('Loading...',style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: ColorManager.mediumgrey,
+                                            fontWeight: FontWeight.w400,
+                                          ),),
+                                        )
                                     ),
-                                  ),
-                                );
+                                  );
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -334,70 +312,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: AppPadding.p10,
                           ),
                           ///zone
-                          FutureBuilder<List<AEClinicalZone>>(
-                            future: HrAddEmplyClinicalZoneApi(
-                              context,
-                            ),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey[300]),
-                                    ),
-                                  ),
-                                );
-                              } else if (snapshot.hasError) {
-                                return CustomDropdownTextField(
-                                  labelText: 'Zone',
-                                  labelStyle: TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: ['Error'],
-                                );
-                              } else if (snapshot.hasData) {
-                                List<String> dropDownList = snapshot.data!
-                                    .map((zone) => zone.zoneName ?? '')
-                                    .toList();
-                                print("Zone: ");
-                                return CustomDropdownTextField(
-                                  labelText: 'Zone',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: dropDownList,
-                                  onChanged: (newValue) {
-                                    // Handle onChanged here if needed
-                                  },
-                                );
-                              } else {
-                                return CustomDropdownTextField(
-                                  labelText: 'Zone',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: ['No Data'],
-                                );
-                              }
-                            },
-                          ),
+                          buildZoneDropdownButton(context),
                       
                         ],
                       ),
@@ -431,20 +346,24 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Padding(
+                                return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 7),
                                     child: Container(
                                       width: AppSize.s250,
                                       height: AppSize.s40,
                                       decoration: BoxDecoration(
-                                          color: ColorManager.faintGrey),
+                                          color: ColorManager.white),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text('Loading...',style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: ColorManager.mediumgrey,
+                                            fontWeight: FontWeight.w400,
+                                          ),),
+                                        )
                                     ),
-                                  ),
-                                );
+                                  );
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -464,6 +383,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                     for (var a in snapshot.data!) {
                                       if (a.empType == newValue) {
                                         clinicialName = a.empType!;
+                                        clinicalId = a.deptID!;
+                                        print("Dept ID ${clinicalId}");
                                         // int docType = a.employeeTypesId;
                                         // Do something with docType
                                       }
@@ -475,88 +396,10 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               }
                             },
                           ),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width/7,
-                          //   height: AppSize.s30,
-                          //   //alignment: Alignment.center,
-                          //   //color: Colors.cyan,
-                          //
-                          //   child: MyDropdownTextField(
-                          //     hint: AppString.clinician,
-                          //
-                          //     //width: MediaQuery.of(context).size.width/7,
-                          //     // height: AppSize.s25,
-                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                          //     onChanged: (String? newValue) {
-                          //       print('Selected item: $newValue');
-                          //     },
-                          //   ),
-                          // ),
-                      
                           SizedBox(
                             height: AppSize.s10,
                           ),
-                      
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width/7,
-                          //   height: AppSize.s30,
-                          //   //alignment: Alignment.center,
-                          //   //color: Colors.cyan,
-                          //
-                          //   child: MyDropdownTextField(
-                          //     hint: AppString.city,
-                          //
-                          //     //width: MediaQuery.of(context).size.width/7,
-                          //     // height: AppSize.s25,
-                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                          //     onChanged: (String? newValue) {
-                          //       print('Selected item: $newValue');
-                          //     },
-                          //   ),
-                          // ),
-                          FutureBuilder<List<AEClinicalCity>>(
-                            future: HrAddEmplyClinicalCityApi(context),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.faintGrey),
-                                    ),
-                                  ),
-                                );
-                              }
-                              if (snapshot.hasData) {
-                                List<String> dropDownList = [];
-                                for (var i in snapshot.data!) {
-                                  dropDownList.add(i.cityName!);
-                                }
-                                return CustomDropdownTextField(
-                                  onChanged: (val){
-                                    cityName = val!;
-                                  },
-                                  labelText: 'City',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: dropDownList,
-                                );
-                              } else {
-                                return const Offstage();
-                              }
-                            },
-                          ),
+                          buildCityDropdownButton(context),
                           SizedBox(
                             height: AppSize.s10,
                           ),
@@ -593,50 +436,38 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: phone,
                             labelFontSize: 12,
                           ),
-                          // CustomTextFieldRegister(
-                          //   height: AppSize.s30,
-                          //   width: MediaQuery.of(context).size.width / 7,
-                          //   controller: phone,
-                          //   labelText: AppString.phoneNumber,
-                          //   keyboardType: TextInputType.text,
-                          //   padding: EdgeInsets.only(
-                          //       bottom: AppPadding.p5, left: AppPadding.p20),
-                          //   onChanged: (value) {},
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return AppString.enterText;
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
                           SizedBox(
                             height: AppSize.s10,
                           ),
                           ///reporting office
-                          FutureBuilder<List<CompanyIdentityModel>>(
-                            future: companyOfficeListGet(context, 1,20),
+                          FutureBuilder<List<CompanyOfficeListData>>(
+                            future: getCompanyOfficeList(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Padding(
+                                return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 7),
                                     child: Container(
                                       width: AppSize.s250,
                                       height: AppSize.s40,
                                       decoration: BoxDecoration(
-                                          color: ColorManager.faintGrey),
+                                          color: ColorManager.white),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text('Loading...',style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: ColorManager.mediumgrey,
+                                            fontWeight: FontWeight.w400,
+                                          ),),
+                                        )
                                     ),
-                                  ),
-                                );
+                                  );
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
                                 for (var i in snapshot.data!) {
-                                  dropDownList.add(i.officeName);
+                                  dropDownList.add(i.name);
                                 }
                                 return CustomDropdownTextField(
                                   labelText: 'Reporting Office',
@@ -649,8 +480,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   items: dropDownList,
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
-                                      if (a.officeName == newValue) {
-                                        reportingOfficeId = a.officeName;
+                                      if (a.name == newValue) {
+                                        reportingOfficeId = a.name;
                                         print('Office Name : ${reportingOfficeId}');
                                         // int docType = a.employeeTypesId;
                                         // Do something with docType
@@ -663,80 +494,11 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               }
                             },
                           ),
-                      
                           SizedBox(
                             height: AppSize.s10,
                           ),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width/7,
-                          //   height: AppSize.s30,
-                          //   //alignment: Alignment.center,
-                          //   //color: Colors.cyan,
-                          //
-                          //   child: MyDropdownTextField(
-                          //     hint: AppString.country,
-                          //
-                          //     //width: MediaQuery.of(context).size.width/7,
-                          //     // height: AppSize.s25,
-                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                          //     onChanged: (String? newValue) {
-                          //       print('Selected item: $newValue');
-                          //     },
-                          //   ),
-                          // ),
                           ///country
-                          FutureBuilder<List<AEClinicalReportingOffice>>(
-                            future: HrAddEmplyClinicalReportingOfficeApi(
-                                context, 11),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.faintGrey),
-                                    ),
-                                  ),
-                                );
-                              }
-                              if (snapshot.hasData) {
-                                List<String> dropDownList = [];
-                                for (var i in snapshot.data!) {
-                                  if (i.name != null) {
-                                    dropDownList.add(i.name!);
-                                    //print("Country: $ctlrCountry");
-                                  }
-                                }
-                                return CustomDropdownTextField(
-                                  labelText: 'Country',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: dropDownList,
-                                  onChanged: (newValue) {
-                                    for (var a in snapshot.data!) {
-                                      if (a.name == newValue) {
-                                       //country = a
-                                        // int? docType = a.companyOfficeID;
-                                      }
-                                    }
-                                  },
-                                );
-                              } else {
-                                return const Offstage();
-                              }
-                            },
-                          ),
+                          buildDropdownButton(context),
                           SizedBox(
                             height: AppSize.s50,
                           ),
@@ -778,53 +540,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   ),
                 ),
               ),
-
-              //
-              //
-              //
-              // Container(
-              //   height: 100,
-              //   child: FutureBuilder<List<AEClinicalService>>(
-              //     future: HrAddEmplyClinicalServiceRadioButtonApi(context, 1),
-              //     builder: (context, snap) {
-              //       if (snap.connectionState == ConnectionState.waiting) {
-              //         return Center(
-              //           child: SizedBox(
-              //             height: 20,
-              //             width: 20,
-              //             child: CircularProgressIndicator(
-              //               color: ColorManager.blueprime,
-              //             ),
-              //           ),
-              //         );
-              //       }
-              //       if (snap.hasData) {
-              //         List<String> serviceName = [];
-              //         for (var i in snap.data!) {
-              //           serviceName.add(i.serviceName!);
-              //         }
-              //
-              //         final selectedItemIndex = RxInt(-1); // Initialize state
-              //
-              //         return Padding(
-              //           padding: EdgeInsets.only(left: 16.0),
-              //           child: McqWidgetEnroll(
-              //             title: 'Service',
-              //             items: serviceName,
-              //             selectedItemIndex: selectedItemIndex,
-              //             onChanged: (val) {
-              //               serviceVal = serviceName[val].toString();
-              //               print('Service data $serviceVal');
-              //             },
-              //           ),
-              //         );
-              //       }
-              //       return SizedBox();
-              //     },
-              //   ),
-              // ),
-
-
               Container(
 
                 height: 100,
@@ -863,127 +578,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   },
                 ),
               ),
-
-
-              // Container(
-              //   color: Colors.blue,
-              //   height: 100,
-              //   child: FutureBuilder<
-              //       List<AEClinicalService>>(
-              //       future:
-              //       HrAddEmplyClinicalServiceRadioButtonApi(
-              //           context, 1),
-              //       builder: (context, snap) {
-              //         if (snap.connectionState ==
-              //             ConnectionState.waiting) {
-              //           return Center(
-              //             child: SizedBox(
-              //                 height: 20,
-              //                 width: 20,
-              //                 child:
-              //                 CircularProgressIndicator(
-              //                   color:
-              //                   ColorManager.blueprime,
-              //                 )),
-              //           );
-              //         }
-              //         if (snap.hasData) {
-              //           List<String> serviceName = [];
-              //           for (var i in snap.data!) {
-              //             serviceName.add(i.serviceName!);
-              //           }
-              //           return Padding(
-              //             padding: EdgeInsets.only(left: 16.0),
-              //             child: McqWidget(
-              //               title: 'Service',
-              //               items: serviceName,
-              //               onChanged: (val) {
-              //                 serviceVal =  serviceName[val].toString();
-              //                 print('Service data ${serviceVal}');
-              //               },
-              //             ),
-              //           );
-              //         }
-              //         return SizedBox();
-              //       }),
-              //
-              // ),
-
-
-
-              // Expanded(
-              //   child: Column(
-              //  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //     children: [
-              //
-              //       Expanded(
-              //         flex: 1,
-              //         child: Padding(
-              //           padding: EdgeInsets.only(left: 16.0),
-              //           child: McqWidget(
-              //             title: 'Employment',
-              //             items: [
-              //               'Full Time',
-              //               'Contract',
-              //               'Part Time',
-              //               'Per Diem'
-              //             ],
-              //             onChanged: (selectedIndex) {
-              //               print('Selected index: $selectedIndex');
-              //               _selectedItemIndex = selectedIndex;
-              //             },
-              //           ),
-              //         ),
-              //       ),
-              //
-              //       Expanded(
-              //
-              //         flex: 1,
-              //         child: FutureBuilder<
-              //             List<AEClinicalService>>(
-              //             future:
-              //             HrAddEmplyClinicalServiceRadioButtonApi(
-              //                 context, 1),
-              //             builder: (context, snap) {
-              //               if (snap.connectionState ==
-              //                   ConnectionState.waiting) {
-              //                 return Center(
-              //                   child: SizedBox(
-              //                       height: 20,
-              //                       width: 20,
-              //                       child:
-              //                       CircularProgressIndicator(
-              //                         color:
-              //                         ColorManager.blueprime,
-              //                       )),
-              //                 );
-              //               }
-              //               if (snap.hasData) {
-              //                 List<String> serviceName = [];
-              //                 for (var i in snap.data!) {
-              //                   serviceName.add(i.serviceName!);
-              //                 }
-              //                 return Padding(
-              //                   padding: EdgeInsets.only(left: 16.0),
-              //                   child: FittedBox(
-              //                     child: McqWidget(
-              //                       title: 'Service',
-              //                       items: serviceName,
-              //                       onChanged: (val) {
-              //                         serviceVal =  serviceName[val].toString();
-              //                        print('Service data ${serviceVal}');
-              //                       },
-              //                     ),
-              //                   ),
-              //                 );
-              //               }
-              //               return SizedBox();
-              //             }),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              ///////////////////////////////
               SizedBox(
                 height: AppSize.s6,
               ),
@@ -1011,15 +605,15 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     email: widget.email.text,
                     link: generatedURL,
                     status: widget.status,
-                    departmentId: 1,
+                    departmentId: clinicalId,
                     position: position.text,
                     speciality: specialityName.toString(),
                     clinicianTypeId: 1,
                     reportingOfficeId: reportingOfficeId,
-                    cityId: 1,
-                    countryId: 1,
-                    countyId: 9,
-                    zoneId: 18,
+                    cityId: cityId,
+                    countryId: countryId,
+                    countyId: countyId,
+                    zoneId: zoneId,
                     employment: "Full Time",
                     service: "Home Health"
                     );
@@ -1036,6 +630,271 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
           )),
     );
   }
+  /// Country dropdown
+   Widget buildDropdownButton(BuildContext context) {
+     return FutureBuilder<List<CountryGetData>>(
+       future: getCountry(context: context),
+       builder: (context, snapshot) {
+         if (snapshot.connectionState ==
+             ConnectionState.waiting) {
+           return Padding(
+             padding: const EdgeInsets.symmetric(
+                 horizontal: 7),
+             child: Container(
+               height: 31,
+               width: 250,
+               decoration: BoxDecoration(
+                   color: ColorManager.white),
+                 child: Align(
+                   alignment: Alignment.centerLeft,
+                   child: Text('Loading...',style: GoogleFonts.firaSans(
+                     fontSize: 12,
+                     color: ColorManager.mediumgrey,
+                     fontWeight: FontWeight.w400,
+                   ),),
+                 )
+             ),
+           );
+
+         } else if (snapshot.hasError) {
+           return const CustomDropdownTextField(
+             //width: MediaQuery.of(context).size.width / 5,
+             labelText: 'Country',
+             labelStyle: TextStyle(
+               fontSize: 12,
+               color: Color(0xff575757),
+               fontWeight: FontWeight.w400,
+             ),
+             labelFontSize: 12,
+             items: ['Error'],
+           );
+         } else if (snapshot.hasData) {
+           List<DropdownMenuItem<String>> dropDownList = [];
+           int degreeID = 0;
+           for(var i in snapshot.data!){
+             dropDownList.add(DropdownMenuItem<String>(
+               value: i.name,
+               child: Text(i.name, style: GoogleFonts.firaSans(
+                 fontSize: 12,
+                 color: Color(0xff575757),
+                 fontWeight: FontWeight.w400,
+               ),),
+               ));
+           }
+           return CustomDropdownTextField(
+             labelText: 'Country',
+             labelStyle: GoogleFonts.firaSans(
+               fontSize: 12,
+               color: Color(0xff575757),
+               fontWeight: FontWeight.w400,
+             ),
+             labelFontSize: 12,
+             dropDownMenuList: dropDownList,
+             onChanged: (newValue) {
+               for(var a in snapshot.data!){
+                 if(a.name == newValue){
+                   selectedCountry = a.name;
+                   countryId = a.countryId;
+                   print("country :: ${selectedCountry}");
+                   //empTypeId = docType;
+                 }
+               }
+             },
+           );
+         } else {
+           return CustomDropdownTextField(
+             // width: MediaQuery.of(context).size.width / 5,
+             labelText: 'Country',
+             labelStyle: GoogleFonts.firaSans(
+               fontSize: 12,
+               color: const Color(0xff575757),
+               fontWeight: FontWeight.w400,
+             ),
+             labelFontSize: 12,
+             items: ['No Data'],
+           );
+         }
+       },
+     );
+   }
+
+   /// City dropDown
+   Widget buildCityDropdownButton(BuildContext context) {
+     return FutureBuilder<List<AEClinicalCity>>(
+       future: HrAddEmplyClinicalCityApi(context),
+       builder: (context, snapshot) {
+         if (snapshot.connectionState ==
+             ConnectionState.waiting) {
+           return Padding(
+             padding: const EdgeInsets.symmetric(
+                 horizontal: 7),
+             child: Container(
+               height: 31,
+               width: 250,
+               decoration: BoxDecoration(
+                   color: ColorManager.white),
+               child: Align(
+                 alignment: Alignment.centerLeft,
+                 child: Text('Loading...',style: GoogleFonts.firaSans(
+                   fontSize: 12,
+                   color: ColorManager.mediumgrey,
+                   fontWeight: FontWeight.w400,
+                 ),),
+               )
+             ),
+           );
+
+         } else if (snapshot.hasError) {
+           return const CustomDropdownTextField(
+             //width: MediaQuery.of(context).size.width / 5,
+             labelText: 'City',
+             labelStyle: TextStyle(
+               fontSize: 12,
+               color: Color(0xff575757),
+               fontWeight: FontWeight.w400,
+             ),
+             labelFontSize: 12,
+             items: ['Error'],
+           );
+         } else if (snapshot.hasData) {
+           List<DropdownMenuItem<String>> dropDownList = [];
+           int degreeID = 0;
+           for(var i in snapshot.data!){
+             dropDownList.add(DropdownMenuItem<String>(
+               child: Text(i.cityName!, style: GoogleFonts.firaSans(
+                 fontSize: 12,
+                 color: Color(0xff575757),
+                 fontWeight: FontWeight.w400,
+               ),),
+               value: i.cityName!,
+             ));
+           }
+           return CustomDropdownTextField(
+             labelText: 'City',
+             labelStyle: GoogleFonts.firaSans(
+               fontSize: 12,
+               color: Color(0xff575757),
+               fontWeight: FontWeight.w400,
+             ),
+             labelFontSize: 12,
+             dropDownMenuList: dropDownList,
+             onChanged: (newValue) {
+               for(var a in snapshot.data!){
+                 if(a.cityName == newValue){
+                   selectedCity= a.cityName;
+                   cityId = a.cityID!;
+                   print("City :: ${selectedCity}");
+                   //empTypeId = docType;
+                 }
+               }
+             },
+           );
+         } else {
+           return CustomDropdownTextField(
+             // width: MediaQuery.of(context).size.width / 5,
+             labelText: 'City',
+             labelStyle: GoogleFonts.firaSans(
+               fontSize: 12,
+               color: const Color(0xff575757),
+               fontWeight: FontWeight.w400,
+             ),
+             labelFontSize: 12,
+             items: ['No Data'],
+           );
+         }
+       },
+     );
+   }
+
+   /// Zone dropDown
+   Widget buildZoneDropdownButton(BuildContext context) {
+     return FutureBuilder<List<AEClinicalZone>>(
+       future: HrAddEmplyClinicalZoneApi(context),
+       builder: (context, snapshot) {
+         if (snapshot.connectionState ==
+             ConnectionState.waiting) {
+           return Padding(
+             padding: const EdgeInsets.symmetric(
+                 horizontal: 7),
+             child: Container(
+               height: 31,
+               width: 250,
+               decoration: BoxDecoration(
+                   color: ColorManager.white),
+                 child: Align(
+                   alignment: Alignment.centerLeft,
+                   child: Text('Loading...',style: GoogleFonts.firaSans(
+                     fontSize: 12,
+                     color: ColorManager.mediumgrey,
+                     fontWeight: FontWeight.w400,
+                   ),),
+                 )
+             ),
+           );
+
+         } else if (snapshot.hasError) {
+           return const CustomDropdownTextField(
+             //width: MediaQuery.of(context).size.width / 5,
+             labelText: 'Zone',
+             labelStyle: TextStyle(
+               fontSize: 12,
+               color: Color(0xff575757),
+               fontWeight: FontWeight.w400,
+             ),
+             labelFontSize: 12,
+             items: ['Error'],
+           );
+         } else if (snapshot.hasData) {
+           List<DropdownMenuItem<String>> dropDownList = [];
+           int degreeID = 0;
+           for(var i in snapshot.data!){
+             dropDownList.add(DropdownMenuItem<String>(
+               child: Text(i.zoneName!, style: GoogleFonts.firaSans(
+                 fontSize: 12,
+                 color: Color(0xff575757),
+                 fontWeight: FontWeight.w400,
+               ),),
+               value: i.zoneName!,
+             ));
+           }
+           return CustomDropdownTextField(
+             labelText: 'Zone',
+             labelStyle: GoogleFonts.firaSans(
+               fontSize: 12,
+               color: Color(0xff575757),
+               fontWeight: FontWeight.w400,
+             ),
+             labelFontSize: 12,
+             dropDownMenuList: dropDownList,
+             onChanged: (newValue) {
+               for(var a in snapshot.data!){
+                 if(a.zoneName == newValue){
+                   selectedZone= a.zoneName;
+                   zoneId = a.zoneID!;
+                   countyId = a.countyID!;
+                   print("Zone :: ${selectedZone}");
+                   print("county Id :: ${countyId}");
+                   //empTypeId = docType;
+                 }
+               }
+             },
+           );
+         } else {
+           return CustomDropdownTextField(
+             // width: MediaQuery.of(context).size.width / 5,
+             labelText: 'Zone',
+             labelStyle: GoogleFonts.firaSans(
+               fontSize: 12,
+               color: const Color(0xff575757),
+               fontWeight: FontWeight.w400,
+             ),
+             labelFontSize: 12,
+             items: ['No Data'],
+           );
+         }
+       },
+     );
+   }
 }
 
 ///

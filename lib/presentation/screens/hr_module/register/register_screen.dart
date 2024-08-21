@@ -79,6 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       // Handle error
     }
   }
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -359,16 +360,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          // const url = "http://localhost:54716/#/onBordingWelcome";
-                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          const url = "http://localhost:54716/#/onBordingWelcome";
+                          // const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                            await launch(url);
-                             // Navigator.push(
-                             //   context,
-                             //   MaterialPageRoute(
-                             //    builder: (context) => OnBoardingWelcome(),
-                             //  ),
-                             // );
+                             Navigator.push(
+                               context,
+                               MaterialPageRoute(
+                                builder: (context) => OnBoardingWelcome(),
+                              ),
+                             );
                            } else {
                             throw 'Could not launch $url';
                           }
@@ -448,7 +449,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       margin: const EdgeInsets.only(right: AppMargin.m30),
                       child: CustomIconButtonConst(
                         text: 'Onboard',
-                        onPressed: () {  },),
+                        onPressed: () async{
+                          showDialog(context: context, builder: (BuildContext context){
+                            return ConfirmationPopup(
+                              loadingDuration: _isLoading,
+                              onCancel: () {
+                                Navigator.pop(context);
+                              },
+                              onConfirm: () async {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+
+                                try {
+                                  var response =  await onboardingUserPatch(context,data.employeeId);
+                                  if(response.statusCode == 200 || response.statusCode == 201){
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Employee Onboarded'),backgroundColor: Colors.green,)
+                                    );
+                                    fetchData();
+                                    Navigator.pop(context);
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Something went wrong!'),backgroundColor: Colors.red,)
+                                    );
+                                    Navigator.pop(context);
+                                  }
+
+                                } catch (e) {
+                                  print("Error during Onboarding: $e");
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Onboarding failed: $e')),
+                                  );
+                                } finally {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                }
+                              },
+                              title: 'Confirm Onboarding',
+                              containerText: 'Do you really want to onboard?',
+                            );
+                          });
+                        },),
                     )],
                   ) : const SizedBox(width: 10)
                 ],

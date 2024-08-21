@@ -44,6 +44,7 @@ class EstablishmentManagerRepository {
   static String vendors ="/vendors";
   static String insurancevendors ="/insurance-vendor";
   static String insurancevendorsContract ="/insurance-vendor-contract";
+  static String companyOfficeGetList = "/company-office";
   //static String add ="/add";
 
 
@@ -68,6 +69,9 @@ class EstablishmentManagerRepository {
   }
   static String addNewOffice() {
     return "$companyOffice/$add";
+  }
+  static String getCompanyOfficeList({required int companyId}) {
+    return "$companyOfficeGetList/$companyId";
   }
   ///identity get all
   static String companyOfficeGet({required int pageNo, required int rowsNo }) {

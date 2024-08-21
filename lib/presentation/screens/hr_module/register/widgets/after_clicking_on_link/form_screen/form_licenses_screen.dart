@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_licenses_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
+import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -353,6 +356,7 @@ class _licensesFormState extends State<licensesForm> {
   String? selectedCountry;
   int? licenseIdIndex;
   String? licenseUrl;
+  int countryId =0;
 
   final StreamController<List<AEClinicalReportingOffice>> Countrystream =
       StreamController<List<AEClinicalReportingOffice>>();
@@ -504,52 +508,7 @@ class _licensesFormState extends State<licensesForm> {
                             60),
                     Container(
                       height: 32,
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          //hintText: 'Select Country',
-                          hintStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff9B9B9B),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(4.0),
-                            borderSide:
-                            BorderSide(color: Colors.grey),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                        ),
-                        value: selectedCountry,
-                        icon: Icon(Icons.arrow_drop_down,
-                            color: Color(0xff9B9B9B)),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedCountry = newValue;
-                          });
-                        },
-                        items: <String>[
-                          'Country1',
-                          'Country2',
-                          'Country3',
-                          'Country4'
-                        ] // List of countries
-                            .map<DropdownMenuItem<String>>(
-                                (String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                      ),
+                      child: buildDropdownButton(context),
                     ),
                     SizedBox(
                         height:
@@ -777,32 +736,98 @@ class _licensesFormState extends State<licensesForm> {
       ),
     );
   }
-}
+  Widget buildDropdownButton(BuildContext context) {
+    return FutureBuilder<List<CountryGetData>>(
+      future: getCountry(context: context),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState ==
+            ConnectionState.waiting) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 7),
+            child: Container(
+              height: 31,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: ColorManager.white),
+            ),
+          );
 
-//
-// Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: [
-// ElevatedButton(
-// style: ElevatedButton.styleFrom(
-// backgroundColor: Color(0xff1696C8),
-// foregroundColor: Colors.white,
-// shape: RoundedRectangleBorder(
-// borderRadius: BorderRadius.circular(8),
-// ),
-// ),
-// onPressed: () async {
-// await postlicensesscreen(context, "--", 0, "__",
-// licensure.text, licensurenumber.text, org.text, "__");
-// },
-// child: Text(
-// 'Save',
-// style: GoogleFonts.firaSans(
-// fontSize: 14.0,
-// fontWeight: FontWeight.w700,
-// color: Colors.white,
-// ),
-// ),
-// ),
-// ],
-// ),
+        } else if (snapshot.hasError) {
+          return const CustomDropdownTextField(
+            //width: MediaQuery.of(context).size.width / 5,
+            labelText: 'Country',
+            labelStyle: TextStyle(
+              fontSize: 12,
+              color: Color(0xff575757),
+              fontWeight: FontWeight.w400,
+            ),
+            labelFontSize: 12,
+            items: ['Error'],
+          );
+        } else if (snapshot.hasData) {
+          List<DropdownMenuItem<String>> dropDownList = [];
+          int degreeID = 0;
+          for(var i in snapshot.data!){
+            dropDownList.add(DropdownMenuItem<String>(
+              child: Text(i.name),
+              value: i.name,
+            ));
+          }
+          return Container(
+            height: 32,
+            // margin: EdgeInsets.symmetric(horizontal: 20),
+            padding:
+            const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                  color: const Color(0xff686464).withOpacity(0.5),
+                  width: 1), // Black border
+              borderRadius:
+              BorderRadius.circular(6), // Rounded corners
+            ),
+            child: DropdownButtonFormField<String>(
+              focusColor: Colors.transparent,
+              icon: const Icon(
+                Icons.arrow_drop_down_sharp,
+                color: Color(0xff686464),
+              ),
+              decoration: const InputDecoration.collapsed(hintText: ''),
+              items: dropDownList,
+              onChanged: (newValue) {
+                for(var a in snapshot.data!){
+                  if(a.name == newValue){
+                    selectedCountry = a.name;
+                    countryId = a.countryId;
+                    print("country :: ${selectedCountry}");
+                    //empTypeId = docType;
+                  }
+                }
+              },
+              value: dropDownList[0].value,
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xff686464),
+                decoration: TextDecoration.none,
+              ),
+            ),
+          );
+        } else {
+          return CustomDropdownTextField(
+            // width: MediaQuery.of(context).size.width / 5,
+            labelText: 'Country',
+            labelStyle: GoogleFonts.firaSans(
+              fontSize: 12,
+              color: const Color(0xff575757),
+              fontWeight: FontWeight.w400,
+            ),
+            labelFontSize: 12,
+            items: ['No Data'],
+          );
+        }
+      },
+    );
+  }
+}

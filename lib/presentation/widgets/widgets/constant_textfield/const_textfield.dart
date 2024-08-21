@@ -75,7 +75,8 @@ class CustomTextField extends StatelessWidget {
 ///todo prachi
 class CustomDropdownTextField extends StatefulWidget {
   final String? value;
-  final List<String> items;
+  final List<String>? items;
+  final List<DropdownMenuItem<String>>? dropDownMenuList;
   final String labelText;
   final String? hintText;
   final TextStyle? labelStyle;
@@ -87,8 +88,9 @@ class CustomDropdownTextField extends StatefulWidget {
 
   const CustomDropdownTextField({
     Key? key,
+    this.dropDownMenuList,
     this.value,
-    required this.items,
+    this.items,
     required this.labelText,
     this.labelStyle,
     this.labelFontSize,
@@ -123,7 +125,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
         child: DropdownButtonFormField<String>(
           icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
           value: _selectedValue,
-          items: widget.items.map((String value) {
+          items: widget.dropDownMenuList == null ? widget.items!.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value, style: GoogleFonts.firaSans(
@@ -132,7 +134,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                 fontWeight: FontWeight.w400,
               ),),
             );
-          }).toList(),
+          }).toList() : widget.dropDownMenuList,
           onChanged: (newValue) {
             setState(() {
               _selectedValue = newValue;
