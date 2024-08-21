@@ -114,15 +114,14 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     future: documentTypeGet(context),
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState == ConnectionState.waiting) {
-                                        return Shimmer.fromColors(
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.grey[100]!,
-                                          child: Container(
-                                            width: 350,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              color: ColorManager.faintGrey,
-                                              borderRadius: BorderRadius.circular(10),
+                                        return Container(
+                                          width: 300,
+                                          child: Text(
+                                            'Loading...',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
                                             ),
                                           ),
                                         );
@@ -557,15 +556,14 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                       future: documentTypeGet(context),
                                                                       builder: (context, snapshot) {
                                                                         if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                          return Shimmer.fromColors(
-                                                                            baseColor: Colors.grey[300]!,
-                                                                            highlightColor: Colors.grey[100]!,
-                                                                            child: Container(
-                                                                              width: 350,
-                                                                              height: 30,
-                                                                              decoration: BoxDecoration(
-                                                                                color: ColorManager.faintGrey,
-                                                                                borderRadius: BorderRadius.circular(10),
+                                                                          return Container(
+                                                                            width: 300,
+                                                                            child: Text(
+                                                                              'Loading...',
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                fontWeight: FontWeightManager.medium,
+                                                                                fontSize: FontSize.s12,
+                                                                                color: ColorManager.mediumgrey,
                                                                               ),
                                                                             ),
                                                                           );

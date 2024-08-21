@@ -243,15 +243,9 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                         .data!
                                                                         .contractName);
 
-                                                            var contractIDPrefName =
-                                                                snapshotPrefill
-                                                                    .data!
-                                                                    .contractId;
+                                                            var contractIDPrefName = snapshotPrefill.data!.contractId;
                                                             contractIdController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .contractId);
+                                                                TextEditingController(text: snapshotPrefill.data!.contractId);
 
                                                             return StatefulBuilder(
                                                               builder: (BuildContext

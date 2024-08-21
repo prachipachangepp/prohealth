@@ -365,17 +365,15 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                     );
                   }
                   if (snapshot.hasData) {
-                    int totalItems = snapshot.data!.length;
+                    List<UserModal> sortedData = snapshot.data!;
+                    sortedData.sort((a, b) => b.userId.compareTo(a.userId));
+
+                    int totalItems = sortedData.length;
                     int totalPages = (totalItems / itemsPerPage).ceil();
-                    List<UserModal> paginatedData = snapshot.data!
+                    List<UserModal> paginatedData = sortedData
                         .skip((currentPage - 1) * itemsPerPage)
                         .take(itemsPerPage)
                         .toList();
-
-                    // int totalItems = snapshot.data!.length;
-                    // int totalPages = (totalItems / itemsPerPage).ceil();
-                    // List<UserModal> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
-
                     return Column(
                       children: [
                         Expanded(
@@ -383,10 +381,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             scrollDirection: Axis.vertical,
                             itemCount: paginatedData.length,
                             itemBuilder: (context, index) {
-                              int serialNumber =
-                                  index + 1 + (currentPage - 1) * itemsPerPage;
-                              String formattedSerialNumber =
-                                  serialNumber.toString().padLeft(2, '0');
+                              int serialNumber = totalItems - (index + (currentPage - 1)* itemsPerPage);
+                              String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                               UserModal user = paginatedData[index];
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

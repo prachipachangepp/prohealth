@@ -350,6 +350,14 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                           color: ColorManager.mediumgrey,
                         ),
                         decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           hintText: 'mm-dd-yyyy',
                           hintStyle: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,

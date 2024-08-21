@@ -309,14 +309,16 @@ class _HrWidgetState extends State<HrWidget> {
                                   future: companyHRHeadApi(context,deptId),
                                   builder: (context,snapshot) {
                                     if(snapshot.connectionState == ConnectionState.waiting){
-                                      return Shimmer.fromColors(
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.grey[100]!,
-                                          child: Container(
-                                            width: 350,
-                                            height: 30,
-                                            decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                          )
+                                      return Container(
+                                        width: 300,
+                                        child: Text(
+                                          'Loading...',
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
                                       );
                                     }
                                     if (snapshot.data!.isEmpty) {
@@ -496,7 +498,8 @@ class _HRTabScreensState extends State<HRTabScreens> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
-                  child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
                     child: Text(AppString.srNo,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
@@ -508,52 +511,64 @@ class _HRTabScreensState extends State<HRTabScreens> {
                   ),
                 ),
                 Expanded(
-                  child: Center(
-                    child: Text(AppString.employmentType,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.white)
-                        // style: RegisterTableHead.customTextStyle(context),
-                        ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: Center(
+                      child: Text(AppString.employmentType,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white)
+                          // style: RegisterTableHead.customTextStyle(context),
+                          ),
+                    ),
                   ),
                 ),
                 Expanded(
-                  child: Center(
-                    child: Text("Abbreviation",
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.white)
-                        // style: RegisterTableHead.customTextStyle(context),
-                        ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 80.0),
+                    child: Center(
+                      child: Text("Abbreviation",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white)
+                          // style: RegisterTableHead.customTextStyle(context),
+                          ),
+                    ),
                   ),
                 ),
                 // Expanded(
                 //     child: SizedBox(width: AppSize.s16,
                 //     )),
                 Expanded(
-                  child: Center(
-                      child: Text("Color",
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white)
-                          // style: RegisterTableHead.customTextStyle(context),
-                          )),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 80.0),
+                    child: Center(
+                        child: Text("Color",
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.white)
+                            // style: RegisterTableHead.customTextStyle(context),
+                            )),
+                  ),
                 ),
                 // Center(child:
                 // Text(AppString.eligibleClinician,style: RegisterTableHead.customTextStyle(context),),),
                 Expanded(
-                  child: Center(
-                      child: Text(AppString.actions,
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white)
-                          // style: RegisterTableHead.customTextStyle(context),
-                          )),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 100.0),
+                    child: Center(
+                        child: Text(AppString.actions,
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.white)
+                            // style: RegisterTableHead.customTextStyle(context),
+                            )),
+                  ),
                 ),
               ],
             ),
@@ -589,16 +604,15 @@ class _HRTabScreensState extends State<HRTabScreens> {
                     );
                   }
                   if (snapshot.hasData) {
-                    // int totalItems = snapshot.data!.length;
-                    // int totalPages = (totalItems / itemsPerPage).ceil();
-                    // List<HRAllData> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
-                    // Sort the data to place the newly added employee type first
-                    List<HRAllData> sortedData = List.from(snapshot.data!);
-                    sortedData.sort((a, b) {
-                      DateTime aCreatedAt = a.createdAt ?? DateTime(0);
-                      DateTime bCreatedAt = b.createdAt ?? DateTime(0);
-                      return bCreatedAt.compareTo(aCreatedAt);
-                    });
+
+                    // List<HRAllData> sortedData = List.from(snapshot.data!);
+                    // sortedData.sort((a, b) {
+                    //   DateTime aCreatedAt = a.createdAt ?? DateTime(0);
+                    //   DateTime bCreatedAt = b.createdAt ?? DateTime(0);
+                    //   return bCreatedAt.compareTo(aCreatedAt);
+                    // });
+                    List<HRAllData> sortedData = snapshot.data!;
+                    sortedData.sort((a, b) => b.employeeTypesId.compareTo(a.employeeTypesId));
 
                     int totalItems = sortedData.length;
                     int totalPages = (totalItems / itemsPerPage).ceil();
@@ -611,7 +625,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                         Expanded(
                           child: ListView.builder(
                             scrollDirection: Axis.vertical,
-                            itemCount: paginatedData?.length ?? 0,
+                            itemCount: paginatedData.length ?? 0,
                             // itemCount: snapshot.data?.length ?? 0,
                             itemBuilder: (context, index) {
                               // int serialNumber = totalItems - (index + (currentPage - 1)* itemsPerPage);
@@ -695,9 +709,10 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                           )),
                                         ),
 
+                                        Container(width: 100,),
                                         ///color
                                         Expanded(
-                                          flex: 2,
+                                          flex: 1,
                                           child: Container(
                                             width: MediaQuery.of(context)
                                                     .size
@@ -715,7 +730,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
 
                                         ///edit
                                         Expanded(
-                                          flex: 2,
+                                          flex: 3,
                                           child: Center(
                                             child: Row(
                                               mainAxisAlignment:
@@ -861,14 +876,17 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                                 snapshot) {
                                                                           if (snapshot.connectionState ==
                                                                               ConnectionState.waiting) {
-                                                                            return Shimmer.fromColors(
-                                                                                baseColor: Colors.grey[300]!,
-                                                                                highlightColor: Colors.grey[100]!,
-                                                                                child: Container(
-                                                                                  width: 350,
-                                                                                  height: 30,
-                                                                                  decoration: BoxDecoration(color: ColorManager.faintGrey, borderRadius: BorderRadius.circular(10)),
-                                                                                ));
+                                                                            return Container(
+                                                                              width: 300,
+                                                                              child: Text(
+                                                                                'Loading...',
+                                                                                style: CustomTextStylesCommon.commonStyle(
+                                                                                  fontWeight: FontWeightManager.medium,
+                                                                                  fontSize: FontSize.s12,
+                                                                                  color: ColorManager.mediumgrey,
+                                                                                ),
+                                                                              ),
+                                                                            );
                                                                           }
                                                                           if (snapshot
                                                                               .data!
@@ -1022,55 +1040,3 @@ class _HRTabScreensState extends State<HRTabScreens> {
     );
   }
 }
-
-///old
-// Expanded(
-//     child: ListView.builder(
-//     scrollDirection: Axis.horizontal,
-//     itemCount: snapshot.data!.length,
-//     itemBuilder: (BuildContext context, int index) {
-//       if (snapshot.connectionState ==
-//           ConnectionState.waiting) {
-//         // return
-//         //   Center(
-//         //   child: CircularProgressIndicator(
-//         //     color: Colors.blue, // Change according to your theme
-//         //   ),
-//         // );
-//       }
-//       if(snapshot.hasData){
-//         return InkWell(
-//           onTap: (){
-//             widget.selectButton(
-//                 snapshot.data![index].deptId);
-//             companyHRHeadApi(
-//                 context, snapshot.data![index].deptId);
-//             deptId = snapshot.data![index].deptId;
-//           },
-//           child: Container(
-//             height: 30,
-//             width: MediaQuery.of(context).size.width / 9,
-//             padding: EdgeInsets.all(5),
-//             decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(20),
-//               color: widget.selectedIndex == snapshot.data![index].deptId
-//                   ? Colors.white
-//                   : null,
-//             ),
-//             child: Text(
-//               snapshot.data![index].deptName,
-//               textAlign: TextAlign.center,
-//               style: GoogleFonts.firaSans(
-//                 fontSize: 12,
-//                 fontWeight: widget.selectedIndex == snapshot.data![index].deptId
-//                     ? FontWeightManager.bold
-//                     :FontWeightManager.semiBold,
-//                 color: widget.selectedIndex == snapshot.data![index].deptId
-//                     ? ColorManager.mediumgrey
-//                     : ColorManager.white,
-//               ),
-//             ),
-//           ),
-//         );
-//       }
-//     }))

@@ -1209,6 +1209,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
           List<SortByZoneData> zoneList = snapshot.data!;
           return Container(
             height: 31,
+            width: 100,
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
             decoration: BoxDecoration(
               color: Colors.white,

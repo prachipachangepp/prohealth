@@ -194,9 +194,8 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                             scrollDirection: Axis.vertical,
                             itemCount: paginatedData.length,
                             itemBuilder: (context, index) {
-                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                              String formattedSerialNumber =
-                              serialNumber.toString().padLeft(2, '0');
+                              int serialNumber = totalItems - (index + (currentPage - 1)* itemsPerPage);
+                              String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                               EmployeeDocumentModal employeedoc = paginatedData[index];
                               return Column(
                                 children: [
@@ -277,9 +276,25 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                   IconButton(
-                                                  onPressed: () {
+                                                  onPressed: ()async {
                                                   String? selectedExpiryType = expiryType;
-                                                  String? selectedDocType; // Variable to store the selected dropdown value
+                                                  String? selectedDocType;
+                                                  int docMetaId = 0;
+                                                  List<DropdownMenuItem<String>> dropDownMenuItems = [];
+
+                                                  final docTypes = await getEmployeeDocTab(context);
+                                                  if (docTypes.isNotEmpty) {
+                                                    for (var i in docTypes) {
+                                                      dropDownMenuItems.add(
+                                                        DropdownMenuItem<String>(
+                                                          child: Text(i.employeeDocType),
+                                                          value: i.employeeDocType,
+                                                        ),
+                                                      );
+                                                    }
+                                                    selectedDocType = dropDownMenuItems[0].value;
+                                                    docMetaId = docTypes[0].employeeDocMetaDataId;
+                                                  }
 
                                                   showDialog(
                                                   context: context,
@@ -441,58 +456,23 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                   ),
                                                   ],
                                                   ),
-                                                  child: FutureBuilder<List<EmployeeDocTabModal>>(
-                                                  future: getEmployeeDocTab(context),
-                                                  builder: (context, snapshot) {
-                                                  if (snapshot.connectionState == ConnectionState.waiting) {
-                                                  return Shimmer.fromColors(
-                                                  baseColor: Colors.grey[300]!,
-                                                  highlightColor: Colors.grey[100]!,
-                                                  child: Container(
-                                                  width: 350,
-                                                  height: 30,
-                                                  decoration: BoxDecoration(
-                                                  color: ColorManager.faintGrey,
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  ),
-                                                  ),
-                                                  );
-                                                  }
-                                                  if (snapshot.hasData) {
-                                                  List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                  int docType = 0;
-
-                                                  for (var i in snapshot.data!) {
-                                                  dropDownMenuItems.add(
-                                                  DropdownMenuItem<String>(
-                                                  child: Text(i.employeeDocType),
-                                                  value: i.employeeDocType,
-                                                  ),
-                                                  );
-                                                  }
-
-                                                  // Initialize selectedDocType if not already initialized
-                                                  selectedDocType ??= dropDownMenuItems[0].value;
-
-                                                  return CICCDropdown(
-                                                  initialValue: selectedDocType,
-                                                  onChange: (val) {
-                                                  setState(() {
-                                                  selectedDocType = val; // Update the selectedDocType state
-                                                  for (var a in snapshot.data!) {
-                                                  if (a.employeeDocType == val) {
-                                                  docType = a.employeeDocMetaDataId;
-                                                  docMetaId = docType;
-                                                  }
-                                                  }
-                                                  });
-                                                  },
-                                                  items: dropDownMenuItems,
-                                                  );
-                                                  } else {
-                                                  return SizedBox();
-                                                  }
-                                                  },
+                                                  child: CICCDropdown(
+                                                    initialValue: selectedDocType,
+                                                    onChange: (val) {
+                                                      setState(() {
+                                                        selectedDocType = val;
+                                                      });
+                                                      for (var a in docTypes) {
+                                                        if (a.employeeDocType == val) {
+                                                          setState(() {
+                                                            docMetaId =
+                                                                a.employeeDocMetaDataId;
+                                                          });
+                                                        }
+                                                      }
+                                                      print(":::${docMetaId}");
+                                                    },
+                                                    items: dropDownMenuItems,
                                                   ),
                                                   );
                                                   },

@@ -180,7 +180,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                 // ),
                 Padding(
                 padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 45,right: MediaQuery.of(context).size.width / 45,
-                    top: MediaQuery.of(context).size.width / 45 ),
+                ),
                 child: PageView(
                     controller: widget.managePageController,
                     physics: NeverScrollableScrollPhysics(),
