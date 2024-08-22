@@ -478,7 +478,9 @@ import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
 import '../../../../../../app/services/token/token_manager.dart';
+import '../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 
 class SmIntakePatientsScreen extends StatefulWidget {
   SmIntakePatientsScreen({super.key});
@@ -735,7 +737,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         statusType ?? '',
                         "14/12/2024",
                         ctlrStreet.text,
-                        selectedState ?? '',
+                        selectedState!.toString(),
                         ctlrZipCode.text,
                         ctlrApartment.text,
                         ctlrCity.text,
@@ -835,7 +837,106 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ctlrSocialSec: ctlrSocialSec,
                     ctlrDischargeResaon: ctlrDischargeResaon,
                     ctlrDateOfDeath: ctlrDateOfDeath,
+                    child1: FutureBuilder<List<statedata>>(
+                      future: getStateDropDown(context),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7),
+                            child: Container(
+                                width: AppSize.s250,
+                                height: AppSize.s40,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.white),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Loading...',
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: ColorManager.mediumgrey,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                )),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          List<String> dropDownList = [];
+                          for (var i in snapshot.data!) {
+                            dropDownList.add(i.name!);
+                          }
 
+                          return SizedBox(
+                            height: 27,
+                            child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                labelText: 'State',
+                                labelStyle: GoogleFonts.firaSans(
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorManager.greylight,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: ColorManager
+                                          .containerBorderGrey),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey),
+                                ),
+                                contentPadding:
+                                const EdgeInsets.symmetric(
+                                  //   //  vertical: 5,
+                                    horizontal: 12),
+                              ),
+                              // value: selectedCountry,
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: ColorManager.blueprime,
+                              ),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xff686464),
+                              ),
+
+                              onChanged: (newValue) {
+                                for (var a in snapshot.data!) {
+                                  if (a.name == newValue) {
+                                    selectedState = a.name!;
+                                    //country = a
+                                    // int? docType = a.companyOfficeID;
+                                  }
+                                }
+                              },
+                              items: dropDownList.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: Color(0xff575757),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        } else {
+                          return const Offstage();
+                        }
+                      },
+                    ),
                   ),
                   IntakePComplianceScreen(patientId: patientId),
                   IntakePlanCareScreen(),
