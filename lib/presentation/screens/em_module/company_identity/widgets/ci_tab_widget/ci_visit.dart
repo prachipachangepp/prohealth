@@ -314,7 +314,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 
               ///EL clinician
               Padding(
-                padding: const EdgeInsets.only(right: 260),
+                padding: const EdgeInsets.only(right: 200),
                 child: Text(
                   AppString.eligibleClinician,
                   textAlign: TextAlign.center,

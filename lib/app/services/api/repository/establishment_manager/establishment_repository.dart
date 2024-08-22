@@ -126,6 +126,10 @@ class EstablishmentManagerRepository {
       {required int insuranceVendorId}) {
     return "$insuranceVendorsContractPatch/$insuranceVendorId";
   }
+  static String companyVendorPatchDelete(
+      {required int insuranceVendorId}) {
+    return "$insurancevendors/$insuranceVendorId";
+  }
 
   ///insurance-vendor-contract/add
   static String companyOfficeContractPost() {
@@ -284,7 +288,7 @@ class EstablishmentManagerRepository {
     return "$workWeekShiftSchedule/batch/$shiftBatchScheduleId";
   }
 
-  // Hlidays
+  // Holidays
   static String holidaysGet() {
     return "$holidays";
   }
