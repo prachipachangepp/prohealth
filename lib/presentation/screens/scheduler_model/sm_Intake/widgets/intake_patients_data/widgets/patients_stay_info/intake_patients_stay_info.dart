@@ -8,6 +8,8 @@ import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_da
 import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_stay_info_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
+import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
@@ -41,7 +43,10 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
   TextEditingController ctlrFax = TextEditingController();
 
   String? selectedFacility;
-  String? selectedState;
+  String? selectedStateSI;
+  String? selectedCitySI;
+  String? selectedStateLOC;
+  String? selectedCityLOC;
   String? selectedStatus;
   @override
   Widget build(BuildContext context) {
@@ -80,8 +85,8 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                              ctlrHospital.text,
                              ctlrPhone.text,
                              ctlrAddress.text,
-                             ctlrCity.text,
-                             selectedState ?? "",
+                             selectedCitySI ?? "",
+                             selectedStateSI ?? "",
                              ctlrZipCode.text,
                              "2024-08-17T17:18:58.618Z",
                              "2024-08-17T17:18:58.618Z",
@@ -92,8 +97,8 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                              "2024-08-17T17:18:58.618Z",
                              ctlrStreet.text,
                              ctlrSuiteApt.text,
-                             ctlrCity.text,
-                             selectedState ?? "",
+                             selectedCityLOC ?? "",
+                             selectedStateLOC ?? "",
                              ctlrZipCode.text,
                              ctlrPhone.text,
                              ctlrFax.text
@@ -206,19 +211,241 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
-                child: SchedularTextField(
-                  controller: ctlrCity,
-                    labelText:  AppString.city)
+              child: FutureBuilder<List<citydata>>(
+                future: getCityDropDown(context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7),
+                      child: Container(
+                          width: AppSize.s250,
+                          height: AppSize.s40,
+                          decoration: BoxDecoration(
+                              color: ColorManager.white),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Loading...',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                color: ColorManager.mediumgrey,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          )),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    List<String> dropDownList = [];
+                    for (var i in snapshot.data!) {
+                      dropDownList.add(i.cityName!);
+                    }
+
+                    return SizedBox(
+                      height: 27,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'City',
+                          labelStyle: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.greylight,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: ColorManager
+                                    .containerBorderGrey),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.circular(4.0),
+                            borderSide: const BorderSide(
+                                color: Colors.grey),
+                          ),
+                          contentPadding:
+                          const EdgeInsets.symmetric(
+                            //   //  vertical: 5,
+                              horizontal: 12),
+                        ),
+                        // value: selectedCountry,
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: ColorManager.blueprime,
+                        ),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xff686464),
+                        ),
+
+                        onChanged: (newValue) {
+                          for (var a in snapshot.data!) {
+                            if (a.cityName == newValue) {
+                           selectedCitySI = a.cityName!;
+                              //country = a
+                              // int? docType = a.companyOfficeID;
+                            }
+                          }
+                        },
+                        items: dropDownList.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                color: Color(0xff575757),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    );
+                  } else {
+                    return const Offstage();
+                  }
+                },
+              ),
+
+
+
+                // child: SchedularTextField(
+                //   controller: ctlrCity,
+                //     labelText:  AppString.city)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
-                child: SchedularDropdown(
-                    labelText:  AppString.state,
-                    items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
-                  setState(() {
-                    selectedState = newValue;
-                  });
-                },)
+
+              child:FutureBuilder<List<statedata>>(
+                future: getStateDropDown(context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7),
+                      child: Container(
+                          width: AppSize.s250,
+                          height: AppSize.s40,
+                          decoration: BoxDecoration(
+                              color: ColorManager.white),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('Loading...',style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: ColorManager.mediumgrey,
+                              fontWeight: FontWeight.w400,
+                            ),),
+                          )
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    List<String> dropDownList = [];
+                    for (var i in snapshot.data!) {
+                      dropDownList.add(i.name!);
+                    }
+
+                    return SizedBox(
+                      height: 27,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'State',
+                          labelStyle: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.greylight,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: ColorManager.containerBorderGrey), // border color
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.circular(4.0),
+                            borderSide: const BorderSide(
+                                color: Colors.grey),
+                          ),
+                          contentPadding:
+                          const EdgeInsets.symmetric(
+                            //   //  vertical: 5,
+                              horizontal: 12),
+                        ),
+                        // value: selectedCountry,
+                        icon: Icon(Icons.arrow_drop_down,
+                          color: ColorManager.blueprime,),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xff686464),
+                        ),
+
+                        onChanged: (newValue) {
+                          for (var a in snapshot.data!) {
+                            if (a.name == newValue) {
+                              selectedStateSI = a.name!;
+                              //country = a
+                              // int? docType = a.companyOfficeID;
+                            }
+                          }
+                        },
+                        items: dropDownList.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                color: Color(0xff575757),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    );
+                    // return SchedularDropdown(
+                    //   labelText: 'State',
+                    //   // labelStyle: GoogleFonts.firaSans(
+                    //   //   fontSize: 12,
+                    //   //   color: Color(0xff575757),
+                    //   //   fontWeight: FontWeight.w400,
+                    //   // ),
+                    //   // labelFontSize: 12,
+                    //   items: dropDownList,
+                    //   onChanged: (newValue) {
+                    //     for (var a in snapshot.data!) {
+                    //       if (a.name == newValue) {
+                    //         selectedStatepr = a.name!;
+                    //         // stateId = a.stateId!;
+                    //         //  print("Dept ID ${stateId}");
+                    //         // int docType = a.employeeTypesId;
+                    //         // Do something with docType
+                    //       }
+                    //     }
+                    //   },
+                    // );
+                  } else {
+                    return const Offstage();
+                  }
+                },
+              ),
+
+
+
+                // child: SchedularDropdown(
+                //     labelText:  AppString.state,
+                //     items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
+                //   setState(() {
+                //     selectedState = newValue;
+                //   });
+                // },)
             ),
           ],
         ),
@@ -322,22 +549,222 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
         Row(
           children: [
             Flexible(
-                child: SchedularTextField(
-                  controller: ctlrCity,
-                    labelText: AppString.city
-                )
+
+
+
+              child: FutureBuilder<List<citydata>>(
+                future: getCityDropDown(context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7),
+                      child: Container(
+                          width: AppSize.s250,
+                          height: AppSize.s40,
+                          decoration: BoxDecoration(
+                              color: ColorManager.white),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Loading...',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                color: ColorManager.mediumgrey,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          )),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    List<String> dropDownList = [];
+                    for (var i in snapshot.data!) {
+                      dropDownList.add(i.cityName!);
+                    }
+
+                    return SizedBox(
+                      height: 27,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'City',
+                          labelStyle: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.greylight,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: ColorManager
+                                    .containerBorderGrey),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.circular(4.0),
+                            borderSide: const BorderSide(
+                                color: Colors.grey),
+                          ),
+                          contentPadding:
+                          const EdgeInsets.symmetric(
+                            //   //  vertical: 5,
+                              horizontal: 12),
+                        ),
+                        // value: selectedCountry,
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: ColorManager.blueprime,
+                        ),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xff686464),
+                        ),
+
+                        onChanged: (newValue) {
+                          for (var a in snapshot.data!) {
+                            if (a.cityName == newValue) {
+                              selectedCityLOC = a.cityName!;
+                              //country = a
+                              // int? docType = a.companyOfficeID;
+                            }
+                          }
+                        },
+                        items: dropDownList.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                color: Color(0xff575757),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    );
+                  } else {
+                    return const Offstage();
+                  }
+                },
+              ),
+
+                // child: SchedularTextField(
+                //   controller: ctlrCity,
+                //     labelText: AppString.city
+                // )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
-                child: SchedularDropdown(
-                    labelText: AppString.state,
-                    items: ['Option 1', 'Option 2', 'Option 3'],
-                  onChanged: (newValue) {
-                  setState(() {
-                    selectedState = newValue;
-                  });
+
+              child:FutureBuilder<List<statedata>>(
+                future: getStateDropDown(context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7),
+                      child: Container(
+                          width: AppSize.s250,
+                          height: AppSize.s40,
+                          decoration: BoxDecoration(
+                              color: ColorManager.white),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('Loading...',style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: ColorManager.mediumgrey,
+                              fontWeight: FontWeight.w400,
+                            ),),
+                          )
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    List<String> dropDownList = [];
+                    for (var i in snapshot.data!) {
+                      dropDownList.add(i.name!);
+                    }
+
+                    return SizedBox(
+                      height: 27,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'State',
+                          labelStyle: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.greylight,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: ColorManager.containerBorderGrey), // border color
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.circular(4.0),
+                            borderSide: const BorderSide(
+                                color: Colors.grey),
+                          ),
+                          contentPadding:
+                          const EdgeInsets.symmetric(
+                            //   //  vertical: 5,
+                              horizontal: 12),
+                        ),
+                        // value: selectedCountry,
+                        icon: Icon(Icons.arrow_drop_down,
+                          color: ColorManager.blueprime,),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xff686464),
+                        ),
+
+                        onChanged: (newValue) {
+                          for (var a in snapshot.data!) {
+                            if (a.name == newValue) {
+                              selectedStateLOC = a.name!;
+                              //country = a
+                              // int? docType = a.companyOfficeID;
+                            }
+                          }
+                        },
+                        items: dropDownList.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                color: Color(0xff575757),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    );
+
+                  } else {
+                    return const Offstage();
+                  }
                 },
-                )
+              ),
+                // child: SchedularDropdown(
+                //     labelText: AppString.state,
+                //     items: ['Option 1', 'Option 2', 'Option 3'],
+                //   onChanged: (newValue) {
+                //   setState(() {
+                //     selectedState = newValue;
+                //   });
+                // },
+                // )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
