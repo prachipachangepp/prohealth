@@ -163,57 +163,44 @@ class _OfferLetterDescriptionScreenState
             Padding(
               padding: const EdgeInsets.only(left: 230.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width / 10,
-                        height: MediaQuery.of(context).size.height / 6,
-                        child: _webImage == null
-                            ? Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignaturePage(
-                                    onSignatureSelected: (Uint8List? selectedSignature) {
-                                      setState(() {
-                                        signatureBytes = selectedSignature;
-                                      });
-                                    }, employeeId: widget.employeeId,
-                                  ),
-                                ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xff1696C8),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 10,
+                    height: MediaQuery.of(context).size.height / 6,
+                    child:Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignaturePage(
+                                onSignatureSelected: (Uint8List? selectedSignature) {
+                                  setState(() {
+                                    signatureBytes = selectedSignature;
+                                  });
+                                }, employeeId: widget.employeeId,
                               ),
                             ),
-                            child: Text(
-                              'Upload Sign',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff1696C8),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        )
-                            : Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Image.memory(
-                              _webImage!,
-                              fit: BoxFit.contain,
-                            ),
-                          ],
+                        ),
+                        child: Text(
+                          'Upload Sign',
+                          style: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
-                    ],
+                    )
                   ),
                   SizedBox(height: 10,),
                   Row(

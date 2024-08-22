@@ -1545,10 +1545,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                               value: i.countyName,
                                             ));
                                           }
-                                          // List<String> dropDownList = snapshot.data!
-                                          //     .map(
-                                          //         (county) => county.countyName ?? '')
-                                          //     .toList();
                                           print("County: ");
                                           return Container(
                                             height: 31,
@@ -1581,7 +1577,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                     setState(() {
                                                       getZipcodeByCountyId(context: context, countyId:selectedCountyId);
                                                     });
-
                                                     //empTypeId = docType;
                                                   }
                                                 }
@@ -2035,9 +2030,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                               keyboardType:
                                                   TextInputType.number,
                                               onChanged: (value) {
-                                                setState(() {
                                                   _salary = value;
-                                                });
+                                                print("Salary:: ${_salary}");
                                               },
                                             ),
                                             SizedBox(

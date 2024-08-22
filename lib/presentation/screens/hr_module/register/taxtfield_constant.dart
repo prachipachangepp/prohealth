@@ -157,10 +157,12 @@ class CustomTextFieldRegister extends StatelessWidget {
   final String? prefixText;
   final double? cursorHeight;
   final int? maxLength;
+  final bool? capitalIsSelect;
 
 
    CustomTextFieldRegister({
     Key? key,
+     this.capitalIsSelect,
      this.maxLength,
     this.controller,
     this.labelText,
@@ -194,7 +196,6 @@ class CustomTextFieldRegister extends StatelessWidget {
         padding: const EdgeInsets.all(1.0),
         child: TextFormField(
           controller: controller,
-          maxLength: maxLength,
           cursorHeight: cursorHeight,
           cursorColor: Colors.black,
           cursorWidth: 1.5,
@@ -248,6 +249,7 @@ class CustomTextFieldRegister extends StatelessWidget {
           onFieldSubmitted: onFieldSubmitted,
           inputFormatters: [
             CapitalizeFirstLetterFormatter(),
+            LengthLimitingTextInputFormatter(maxLength)
           ],
 
         ),
