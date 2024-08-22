@@ -21,19 +21,18 @@ class ReferringDiagnososScreen extends StatefulWidget {
 }
 
 class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
+  TextEditingController DSummarycont = TextEditingController();
+  TextEditingController paidhelp = TextEditingController();
+  TextEditingController comments = TextEditingController();
+  TextEditingController encounterdate = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController icdCodeController = TextEditingController();
+  TextEditingController pdDateController = TextEditingController();
+  TextEditingController allergiesController = TextEditingController();
+  TextEditingController startEffectiveDate = TextEditingController();
 
-
-TextEditingController DSummarycont = TextEditingController();
-TextEditingController paidhelp = TextEditingController();
-TextEditingController comments = TextEditingController();
-TextEditingController encounterdate = TextEditingController();
-// TextEditingController encounterdate = TextEditingController();
-// TextEditingController encounterdate = TextEditingController();
-// TextEditingController encounterdate = TextEditingController();
-// TextEditingController encounterdate = TextEditingController();
-
-
-  String? codestatusB ;
+  String? codestatusB;
   String? codestatusA;
   @override
   Widget build(BuildContext context) {
@@ -45,20 +44,101 @@ TextEditingController encounterdate = TextEditingController();
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-
                 ElevatedButton(
                   onPressed: () async {
+                    try {
+                      await postRDoneScreen(
+                        context,
+                        1,
+                        codestatusA.toString(),
+                        codestatusB.toString(),
+                        paidhelp.text,
+                        comments.text,
+                        DSummarycont.text,
+                      );
 
-                    await postRDoneScreen(
-                      context,
-                      1,
-                      codestatusA.toString(),
-                      codestatusB.toString(),
-                      paidhelp.text,
-                      comments.text,
-                      DSummarycont.text
-                    );
+                      // await postRDTWOScreen(
+                      //   context,
+                      //   1,
+                      //   1,
+                      //   "Primary Diagnosis", // titleController.text,
+                      //   descriptionController.text,
+                      //   icdCodeController.text,
+                      //   pdDateController.text,
+                      // );
+                      //
+                      // await postRDThreeScreen(
+                      //   context,
+                      //   1,
+                      //   1,
+                      //   allergiesController.text,
+                      //   startEffectiveDate.text,
+                      // );
+
+                      // Optionally show a success message
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text('All API calls were successful!')),
+                      );
+                    } catch (error) {
+                      // Handle the error appropriately
+                      print('Error during API calls: $error');
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('An error occurred: $error')),
+                      );
+                    }
                   },
+                  // onPressed: () async {
+                  //   await postRDoneScreen(
+                  //       context,
+                  //       1,
+                  //       codestatusA.toString(),
+                  //       codestatusB.toString(),
+                  //       paidhelp.text,
+                  //       comments.text,
+                  //       DSummarycont.text);
+                  //final List<Map<String, dynamic>> dataForPostRDTWOScreen = [
+                  //                       {
+                  //                         'param1': 1,
+                  //                     'param2': 1,
+                  //                     'param3': 'Primary Diagnosis',
+                  //                     'param4': descriptionController.text,
+                  //                     'param5': icdCodeController.text,
+                  //                     'param6': pdDateController.text,
+                  //                   },
+                  //                     ];
+                  //                       for (var data in dataForPostRDTWOScreen) {
+                  //                         await postRDTWOScreen(
+                  //                           context,
+                  //                           data['param1'],
+                  //                           data['param2'],
+                  //                           data['param3'],
+                  //                           data['param4'],
+                  //                           data['param5'],
+                  //                           data['param6'],
+                  //                         );
+                  //                       }
+                  //   await postRDTWOScreen(
+                  //       context,
+                  //       1,
+                  //       1,
+                  //       "Primary Diagnosis", // titleController.text,
+                  //       descriptionController.text,
+                  //       icdCodeController.text,
+                  //       pdDateController.text);
+                  //
+                  //
+                  //   await postRDThreeScreen(
+                  //     context,
+                  //     1,
+                  //     3,
+                  //     allergiesController.text,
+                  //     startEffectiveDate.text
+                  //   );
+                  //
+                  //
+                  // },
                   child: Text(
                     AppString.save,
                     style: GoogleFonts.firaSans(
@@ -81,11 +161,9 @@ TextEditingController encounterdate = TextEditingController();
               ],
             ),
           ),
-
           SizedBox(height: MediaQuery.of(context).size.height / 60),
           Padding(
             padding: EdgeInsets.only(left: 29.0, right: 32.0),
-
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(color: ColorManager.containerBorderGrey),
@@ -96,9 +174,7 @@ TextEditingController encounterdate = TextEditingController();
               child: Padding(
                 padding: EdgeInsets.only(left: 39.0, right: 40, top: 35.0),
                 child: Column(
-
                   children: [
-
                     Container(
                       height: AppSize.s88,
                       child: TextFormField(
@@ -325,6 +401,7 @@ TextEditingController encounterdate = TextEditingController();
                                                   .width /
                                               7,
                                           child: SchedularTextField(
+                                            controller: descriptionController,
                                             labelText: 'pr 1',
                                           ),
                                         ),
@@ -339,6 +416,7 @@ TextEditingController encounterdate = TextEditingController();
                                                     .width /
                                                 7,
                                             child: SchedularTextField(
+                                              controller: icdCodeController,
                                               labelText: 'pr 2',
                                             )),
                                         SizedBox(
@@ -352,6 +430,7 @@ TextEditingController encounterdate = TextEditingController();
                                                   .width /
                                               7,
                                           child: SchedularTextField(
+                                              controller: pdDateController,
                                               labelText: '',
                                               suffixIcon: Icon(
                                                 Icons.calendar_month_outlined,
@@ -954,6 +1033,7 @@ TextEditingController encounterdate = TextEditingController();
                                   width:
                                       MediaQuery.of(context).size.width / 2.5,
                                   child: TextFormField(
+                                    controller: allergiesController,
                                     cursorColor: ColorManager.black,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
@@ -984,6 +1064,11 @@ TextEditingController encounterdate = TextEditingController();
                                         ),
                                       ),
                                     ),
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeightManager.regular,
+                                      color: ColorManager.black,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -993,6 +1078,7 @@ TextEditingController encounterdate = TextEditingController();
                             Container(
                               width: AppSize.s267,
                               child: SchedularTextField(
+                                  controller: startEffectiveDate,
                                   labelText: '',
                                   suffixIcon: Icon(
                                     Icons.calendar_month_outlined,
@@ -1044,6 +1130,11 @@ TextEditingController encounterdate = TextEditingController();
                                         ),
                                       ),
                                     ),
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeightManager.regular,
+                                      color: ColorManager.black,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -1053,6 +1144,7 @@ TextEditingController encounterdate = TextEditingController();
                             Container(
                               width: AppSize.s267,
                               child: SchedularTextField(
+
                                   labelText: '',
                                   suffixIcon: Icon(
                                     Icons.calendar_month_outlined,
@@ -1183,10 +1275,10 @@ TextEditingController encounterdate = TextEditingController();
                       children: [
                         Flexible(
                           child: SchedularTextField(
-                              controller: paidhelp,
-                              labelText: 'Paid Help'),
+                              controller: paidhelp, labelText: 'Paid Help'),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 40),
+                        ////////
                         Container(
                           height: AppSize.s54,
                           width: MediaQuery.of(context).size.width / 1.4,
@@ -1220,6 +1312,11 @@ TextEditingController encounterdate = TextEditingController();
                                   width: 1.0,
                                 ),
                               ),
+                            ),
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.regular,
+                              color: ColorManager.black,
                             ),
                           ),
                         ),
