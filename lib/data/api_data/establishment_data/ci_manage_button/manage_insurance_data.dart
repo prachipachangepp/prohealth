@@ -8,6 +8,7 @@ class ManageVendorData{
   final bool? sucess;
   final String? message;
   ManageVendorData({
+
     required this.companyId,
     required this.insuranceVendorId,
     required this.officeId,

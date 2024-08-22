@@ -474,20 +474,20 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SMTextFConst(
+                    FirstSMTextFConst(
                       controller: widget.countynameController,
                       keyboardType: TextInputType.text,
                       text: widget.title1,
                     ),
                     SizedBox(height: AppSize.s20),
-                    SMTextFConst(
+                    FirstSMTextFConst(
                       controller: widget.zipcodeController,
                       keyboardType: TextInputType.text,
                       text: widget.title2,
                     ),
                     if (widget.title3 != null) ...[
                       SizedBox(height: AppSize.s20),
-                      SMTextFConst(
+                      FirstSMTextFConst(
                         controller: widget.mapController!,
                         keyboardType: TextInputType.text,
                         text: widget.title3!,
@@ -496,7 +496,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                     if (widget.title4 != null &&
                         widget.landmarkController != null) ...[
                       SizedBox(height: AppSize.s20),
-                      SMTextFConst(
+                      FirstSMTextFConst(
                         controller: widget.landmarkController!,
                         keyboardType: TextInputType.text,
                         text: widget.title4!,

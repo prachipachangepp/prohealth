@@ -440,9 +440,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                   rowChildren.add(
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.only(right: 25,left: 25,top: 10,bottom: 10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             // CheckboxConstant(
@@ -468,7 +468,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             //   },
                             //   text: '',
                             // ),
-                            const SizedBox(width: 5),
+                            const SizedBox(width: 100),
+
                             CIDetailsDropdown(
                               initialValue: serviceDetail.serviceName,
                               items: dropdownItems.map((item) {
@@ -500,6 +501,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                 );
                               },
                             ),
+                            //const SizedBox(width: 100),
                           ],
                         ),
                       ),
@@ -509,9 +511,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
               }
 
               serviceRows.add(Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: rowChildren,
+
               ));
             }
 
@@ -672,7 +675,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         },
                       ),
                     ],
-                  )
+                  ),
+                  SizedBox(height: 5,)
                 ],
               ),
             );

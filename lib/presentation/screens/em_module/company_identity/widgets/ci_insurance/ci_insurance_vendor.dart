@@ -210,7 +210,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                               builder: (BuildContext
                                                                   context) {
                                                                 return FutureBuilder<ManageVendorPrefill>(
-                                                                  future: getPrefillVendor(context,snapshot.data![index].insuranceVendorId),
+                                                                  future: getPrefillVendor(context,vendorData.insuranceVendorId),
                                                                   builder: (context, snapshotPrefill) {
                                                                     if(snapshotPrefill.connectionState == ConnectionState.waiting){
                                                                       return Center(
@@ -234,14 +234,6 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                                               widget.officeId,
                                                                               name == nameController.text ? name.toString() : nameController.text,
                                                                              );
-                                                                          // setState(() async {
-                                                                          //   await companyVendorGet(context,widget.officeId,1,20).then((data) {
-                                                                          //     _companyVendor.add(data);
-                                                                          //   }).catchError((error) {
-                                                                          //     // Handle error
-                                                                          //   });
-                                                                          //   Navigator.pop(context);
-                                                                          // });
                                                                            } finally {
                                                                              setState(() {
                                                                                _isLoading = false;
