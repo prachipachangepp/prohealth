@@ -673,7 +673,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   ),
                   if (_idDocError != null) // Display error if any
                     Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
+                      padding: const EdgeInsets.only(top: 2.0),
                       child: Text(
                         _idDocError!,
                         style: TextStyle(
@@ -716,7 +716,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         ),
                       ),
                       SizedBox(height: AppSize.s5),
-                      widget.child ?? SizedBox(),
+                      widget.child ?? Offstage(),
                     ],
                   ),
                   SizedBox(height: AppSize.s13),
@@ -735,7 +735,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         ),
                       ),
                       SizedBox(height: AppSize.s5),
-                      widget.child1 ?? SizedBox(),
+                      widget.child1 ?? Offstage(),
                     ],
                   ),
                 ],

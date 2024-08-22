@@ -51,7 +51,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   bool _isLoading = false;
 
   int currentPage = 1;
-  final int itemsPerPage = 10;
+  final int itemsPerPage = 1;
   final int totalPages = 5;
 
   void onPageNumberPressed(int pageNumber) {
@@ -72,7 +72,6 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-
                 CustomIconButton(
                     icon: CupertinoIcons.plus,
                     text: "Add Doctype",
@@ -542,7 +541,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                           url: "url",
                                                                           expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                                           expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                                          expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
+                                                                          expiryReminder:  selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
                                                                           officeId: widget.officeId,
                                                                         );
                                                                       } finally {
@@ -808,7 +807,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                       size: 18,
                                                       color: ColorManager.bluebottom,
                                                     ),
-                                                  ),                                                  IconButton(onPressed: (){
+                                                  ),
+                                                  IconButton(onPressed: (){
                                                     showDialog(context: context, builder: (context) => DeletePopup(
                                                         title: 'Delete Policies Procedure',
                                                         onCancel: (){
@@ -864,6 +864,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
               }
             ),
           ),
+
         ],),
       ),
     );

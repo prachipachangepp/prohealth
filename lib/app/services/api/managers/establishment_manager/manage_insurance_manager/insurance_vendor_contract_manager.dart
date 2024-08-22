@@ -89,7 +89,7 @@ Future<ApiData> patchCompanyVendor(
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
-        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(
+        path: EstablishmentManagerRepository.companyVendorPatchDelete(
             insuranceVendorId: insuranceVendorId),
         data: {
           "vendorName": vendorName,
@@ -122,7 +122,7 @@ Future<ApiData> deleteVendor(
     BuildContext context, int vendorId) async {
   try {
     var response = await Api(context).delete(
-        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(insuranceVendorId: vendorId));
+        path: EstablishmentManagerRepository.companyVendorPatchDelete(insuranceVendorId: vendorId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Deleted Document :::${vendorId}");
       return ApiData(
@@ -150,7 +150,7 @@ Future<ManageVendorPrefill> getPrefillVendor(
   var itemsList;
   try {
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.companyOfficeVendorPatchDelete(insuranceVendorId: vendorId));
+        path: EstablishmentManagerRepository.companyVendorPatchDelete(insuranceVendorId: vendorId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Document type Response:::::${itemsList}");
       itemsList = ManageVendorPrefill(

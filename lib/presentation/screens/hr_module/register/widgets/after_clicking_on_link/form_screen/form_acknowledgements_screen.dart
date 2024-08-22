@@ -114,6 +114,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
   var fileName1;
   dynamic? filePath;
   File? xfileToFile;
+  List<int> docSetupId = [];
 
 
   // PlatformFile? fileName;
@@ -260,15 +261,19 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                         final document = documents[index];
                         final fileName =
                             index < _fileNames.length ? _fileNames[index] : '';
-                        // final document = documents[index];
-                        // final fileName = index < _fileNames.length ? _fileNames[index] : '';
-                        // final pickedFile = index < _pickedFiles.length
-                        //     ? _pickedFiles[index]
-                        //     : PlatformFile(
-                        //         name: '',
-                        //         bytes: null,
-                        //         size: 15,
-                        //       );
+                        // Assign or retrieve the docSetupId dynamically here
+                        int setupId = document.employeeDocTypesetupId; // Assuming 'setupId' is a property of the document
+                        print("Document");
+
+                        // If you need to create your own logic, you could do something like:
+                        // int setupId = index + 1; // Just an example: setupId starts at 1 for the first item
+
+                        if (docSetupId.length <= index) {
+                          docSetupId.add(setupId);
+                          print('Document ${docSetupId}');
+                        } else {
+                          docSetupId[index] = setupId;
+                        }
 
                         return Column(
                           children: [
@@ -415,7 +420,7 @@ class _AcknowledgementsScreenState extends State<AcknowledgementsScreen> {
                           await uploadDocuments(
                             context: context,
                             employeeDocumentMetaId: 10,
-                            employeeDocumentTypeSetupId: 48,
+                            employeeDocumentTypeSetupId: docSetupId[i],
                             employeeId: widget.employeeID,
                             documentFile: finalPaths[i]!,
                             documentName: _fileNames[i],

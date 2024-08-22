@@ -15,7 +15,6 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
     final response = await Api(context)
         .get(path: OnboardingQualificationRepo.getAckHealthRecord(
         EmpDocTypeMetaDataId: EmpDocTypeMetaDataId,
-        EmpDocTypeSetupId: EmpDocTypeSetupId,
         employeeId: employeeId,
         approveOnly: approveOnly
     ));

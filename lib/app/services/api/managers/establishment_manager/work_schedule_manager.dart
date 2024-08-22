@@ -21,7 +21,6 @@ Future<List<WorkWeekScheduleData>> workWeekScheduleGet(
             weekDays: item['weekDay'],
             officeStartTime: item['officeStartTime'],
             officeEndTime: item['officeEndTime'],
-            officeId: item['officeId'],
             sucess: true,
             message: response.statusMessage!,
             weekScheduleId: item['WorkWeekScheduleId']));
@@ -42,14 +41,12 @@ Future<ApiData> addWorkWeekSchedule(
     String weekDayName,
     String officeStartTime,
     String officeEndTime,
-    String officeId,
     int compantId) async {
   try {
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.addWorkWeekSchedulePost(),
         data: {
           'companyId': compantId,
-          'officeId': officeId,
           'weekDay': weekDayName,
           'officeStartTime': officeStartTime,
           'officeEndTime': officeEndTime,
@@ -104,14 +101,13 @@ Future<ApiData> deleteWorkWeekSchedule(
 /// Work Week Shift GET
 Future<List<WorkWeekShiftScheduleData>> workWeekShiftScheduleGet(
     BuildContext context,
-    String officeId,
     String weekDay) async {
   List<WorkWeekShiftScheduleData> itemsData = [];
   try {
     final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.workWeekShiftScheduleGet(
-            companyId: companyId, officeId: officeId, weekDay: weekDay));
+            companyId: companyId,weekDay: weekDay));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsData.add(WorkWeekShiftScheduleData(
@@ -119,7 +115,6 @@ Future<List<WorkWeekShiftScheduleData>> workWeekShiftScheduleGet(
           shiftName: item['shiftName'],
           officeStartTime: item['officeStartTime'],
           officeEndTime: item['officeEndTime'],
-          officeId: item['officeId'],
           sucess: true,
           message: response.statusMessage!, companyId: item['companyId'],
         ));
@@ -140,7 +135,7 @@ Future<ApiData> addWorkWeekShiftPost(
     String shiftName,
     String officeStartTime,
     String officeEndTime,
-    String officeId) async {
+    ) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
@@ -151,7 +146,6 @@ Future<ApiData> addWorkWeekShiftPost(
           'officeStartTime': officeStartTime,
           'officeEndTime': officeEndTime,
           'companyId': companyId,
-          'officeId': officeId
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Week Shift Added");
@@ -348,13 +342,13 @@ Future<ApiData> deleteHolidays(
 
 /// Get Shiftwise batches GET
 Future<List<ShiftBachesData>> shiftBatchesGet(
-    BuildContext context, String shiftName, String officeId, String weekDay) async {
+    BuildContext context, String shiftName,String weekDay) async {
   List<ShiftBachesData> itemsData = [];
   try {
     final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getShiftBatches(
-            shiftName: shiftName, companyId: companyId, officeId: officeId, weekDay: weekDay));
+            shiftName: shiftName, companyId: companyId,weekDay: weekDay));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsData.add(
@@ -365,7 +359,6 @@ Future<List<ShiftBachesData>> shiftBatchesGet(
                 officeStartTime: item['officeStartTime'],
                 officeEndTime: item['officeEndTime'],
                 companyId: item['companyId'],
-                officeId: item['officeId'],
                 success: true,
                 message: response.statusMessage!),
         );
@@ -400,7 +393,6 @@ Future<ShiftBachesData> shiftPrefillBatchesGet(
             officeStartTime: response.data['officeStartTime'],
             officeEndTime: response.data['officeEndTime'],
             companyId: response.data['companyId'],
-            officeId: response.data['officeId'],
             success: true,
             message: response.statusMessage!);
 
@@ -415,7 +407,7 @@ Future<ShiftBachesData> shiftPrefillBatchesGet(
 
 /// Add shift batches POST
 Future<ApiData> addShiftBatch(BuildContext context,
-    String shiftName, String officeId, String weekDay,String batchStartTime,String batchEndTime) async {
+    String shiftName,String weekDay,String batchStartTime,String batchEndTime) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
@@ -426,7 +418,6 @@ Future<ApiData> addShiftBatch(BuildContext context,
           "officeStartTime": batchStartTime,
           "officeEndTime": batchEndTime,
           "companyId": companyId,
-          "officeId": officeId
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Batch added");
@@ -450,7 +441,7 @@ Future<ApiData> addShiftBatch(BuildContext context,
 
 /// update batch
 Future<ApiData> updateShiftBatch(BuildContext context,
-    String shiftName,String officeId, String weekDay,String batchStartTime,String batchEndTime,int shiftBatchScheduleId) async {
+    String shiftName,String weekDay,String batchStartTime,String batchEndTime,int shiftBatchScheduleId) async {
   try {
     final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(
@@ -461,7 +452,7 @@ Future<ApiData> updateShiftBatch(BuildContext context,
           "officeStartTime": batchStartTime,
           "officeEndTime": batchEndTime,
           "companyId": companyId,
-          "officeId": officeId
+
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Batch Updated");

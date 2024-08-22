@@ -19,8 +19,10 @@ import '../../../../company_identity_screen.dart';
 
 class CIVendorContract extends StatefulWidget {
   final int docId;
-  final String officeId;
-  const CIVendorContract({super.key, required this.docId, required this.officeId});
+ // final String officeId;
+  const CIVendorContract({super.key, required this.docId,
+  //  required this.officeId
+  });
 
   @override
   State<CIVendorContract> createState() => _CIVendorContractState();
@@ -261,24 +263,25 @@ class _CIVendorContractState extends State<CIVendorContract> {
               children: [
                 VendorContractLicense(
                   docId: widget.docId,
-                  subDocID: AppConfig.subDocId6, officeId: widget.officeId,
+                  subDocID: AppConfig.subDocId6,// officeId: widget.officeId,
                 ),
                 VendorContractADR(
                   docId: widget.docId,
                   subDocId: AppConfig.subDocId7,
-                  officeId: widget.officeId,
+                  //officeId: widget.officeId,
                 ),
                 VendorContractMedicalCostReport(
                   docId: widget.docId,
-                  subDocId: AppConfig.subDocId8,officeId: widget.officeId,
+                  subDocId: AppConfig.subDocId8,//officeId: widget.officeId,
                 ),
                 VendorContractCapReport(
                   docId: widget.docId,
-                  subDocId: AppConfig.subDocId9, officeId: widget.officeId,
+                  subDocId: AppConfig.subDocId9,// officeId: widget.officeId,
                 ),
                 VendorContractQuarterlyBalanceReport(
                     docId: widget.docId, subDocId: AppConfig.subDocId10,
-                  officeId: widget.officeId,)
+                //  officeId: widget.officeId,
+                )
               ],
             ),
           ),

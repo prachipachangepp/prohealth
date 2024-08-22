@@ -220,10 +220,6 @@ class _Employment_screenState extends State<Employment_screen> {
                         print(e);
                       }
                     }
-
-                    // Replace with your actual API call for saving the employment data
-
-
                   }
                 },
                 child: Text(
@@ -345,13 +341,23 @@ class _EmploymentFormState extends State<EmploymentForm> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    ElevatedButton(
+                    ElevatedButton.icon(
                       onPressed: _handleFileUpload,
-                      child: Text('Upload File',style: GoogleFonts.firaSans(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w600,
-                        color: ColorManager.white,
-                      ),),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff50B5E5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      icon: Icon(Icons.upload, color: Colors.white),
+                      label: Text(
+                        'Upload File',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                     SizedBox(height:8),
                     if (fileName != null)
@@ -404,7 +410,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: finalPositionController,
-                      hintText: 'Enter Text',
+                      hintText: 'Enter Title',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
@@ -564,7 +570,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: reasonForLeavingController,
-                      hintText: 'Enter Text',
+                      hintText: 'Enter Leaving Reason',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
@@ -585,7 +591,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: supervisorNameController,
-                      hintText: 'Enter Text',
+                      hintText: 'Enter Supervisor’s Name',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
@@ -606,7 +612,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: supervisorMobileNumberController,
-                      hintText: 'Enter Text',
+                      hintText: 'Enter Mobile Number',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
@@ -627,7 +633,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     SizedBox(height: 8),
                     CustomTextFieldRegister(
                       controller: cityController,
-                      hintText: 'Enter Text',
+                      hintText: 'Enter City',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
