@@ -250,8 +250,8 @@ class EstablishmentManagerRepository {
   }
 
   static String workWeekShiftScheduleGet(
-      {required int companyId, required String officeId, required String weekDay}) {
-    return "$workWeekShiftSchedule/$weekDay/$companyId/$officeId";
+      {required int companyId,required String weekDay}) {
+    return "$workWeekShiftSchedule/$weekDay/$companyId";
   }
 
   static String addWorkWeekShiftPost() {
@@ -272,15 +272,14 @@ class EstablishmentManagerRepository {
   }
 
   static String getShiftBatches(
-      {required String shiftName, required int companyId, required String officeId, required String weekDay}) {
+      {required String shiftName, required int companyId, required String weekDay}) {
     print(":::getshiftbatch${shiftName}");
-    return "$workWeekShiftSchedule/batch/$weekDay/$shiftName/$companyId/$officeId";
+    return "$workWeekShiftSchedule/batch/$weekDay/$shiftName/$companyId";
   }
 
   static String addShiftBatches() {
     return "$workWeekShiftSchedule/batch/";
   }
-
   static String modifyShiftBatches({required int shiftBatchScheduleId}) {
     return "$workWeekShiftSchedule/batch/$shiftBatchScheduleId";
   }
