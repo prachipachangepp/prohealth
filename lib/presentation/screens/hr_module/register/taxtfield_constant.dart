@@ -156,10 +156,12 @@ class CustomTextFieldRegister extends StatelessWidget {
   final prefixStyle;
   final String? prefixText;
   final double? cursorHeight;
+  final int? maxLength;
 
 
    CustomTextFieldRegister({
     Key? key,
+     this.maxLength,
     this.controller,
     this.labelText,
     this.keyboardType,
@@ -192,7 +194,7 @@ class CustomTextFieldRegister extends StatelessWidget {
         padding: const EdgeInsets.all(1.0),
         child: TextFormField(
           controller: controller,
-
+          maxLength: maxLength,
           cursorHeight: cursorHeight,
           cursorColor: Colors.black,
           cursorWidth: 1.5,

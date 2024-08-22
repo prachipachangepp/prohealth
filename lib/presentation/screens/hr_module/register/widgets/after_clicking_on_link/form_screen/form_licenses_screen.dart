@@ -457,7 +457,7 @@ class _licensesFormState extends State<licensesForm> {
                             60),
                     CustomTextFieldRegister(
                       controller: licensure,
-                      hintText: 'Enter Text',
+                      hintText: 'Enter Licensure / Certification',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
@@ -482,7 +482,7 @@ class _licensesFormState extends State<licensesForm> {
                             60),
                     CustomTextFieldRegister(
                       controller: org,
-                      hintText: 'Enter Text',
+                      hintText: 'Enter Organization Name',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
@@ -527,7 +527,7 @@ class _licensesFormState extends State<licensesForm> {
                             60),
                     CustomTextFieldRegister(
                       controller: licensurenumber,
-                      hintText: 'Enter Text',
+                      hintText: 'Enter Number',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: 10.0,
                         fontWeight: FontWeight.w400,
@@ -710,9 +710,9 @@ class _licensesFormState extends State<licensesForm> {
                     style: GoogleFonts.firaSans(
                         fontSize: 12.0,
                         fontWeight:
-                        FontWeight.w400,
+                        FontWeight.w600,
                         color:
-                        Color(0xff686464)),
+                        ColorManager.mediumgrey),
                   ):
                   fileName != null ?
                   AutoSizeText(
