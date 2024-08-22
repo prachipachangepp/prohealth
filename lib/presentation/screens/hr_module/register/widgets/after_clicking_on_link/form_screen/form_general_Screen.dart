@@ -104,6 +104,7 @@ class _generalFormState extends State<generalForm> {
           gendertype = data.gender ?? "";
           generalId = data.employeeId ?? 0;
           signatureUrl = data.signatureURL ?? "";
+          fileName = signatureUrl!.split('/').last;
         });
       //}
     } catch (e) {
