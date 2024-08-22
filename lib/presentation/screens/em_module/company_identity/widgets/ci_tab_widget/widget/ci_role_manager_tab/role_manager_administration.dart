@@ -42,8 +42,7 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
   @override
   void initState() {
     super.initState();
-    newPayRatesDataGet(context);
-    // payRatesDataGet(context,1,1,10).then((data) {
+       // payRatesDataGet(context,1,1,10).then((data) {
     //   _roleMDropDownController.add     (data);
     // }).catchError((error) {
     //   // Handle error

@@ -27,35 +27,23 @@ class PayRateFinanceData {
 }
 
 class PayRatePrefillFinanceData {
-  final String department;
-  final String? employeeType;
-  final String? abbreviation;
-  final String typeVisit;
-  final int payRates;
-  final String? zone;
-  final int zoneId;
-  final int departmentId;
-  final int employeeTypeId;
-  final int typeOfVisitId;
-  final int payRatesSetupId;
-  final int perMiles;
+
+  final int payratesId;
+  final int ZoneId;
+  final int rate;
+  final String typeOfVisitId;
+  final int perMile;
+  final int serviceTypeId;
   PayRatePrefillFinanceData(
-      {required this.perMiles,
-      required this.department,
-      this.employeeType,
-      this.abbreviation,
-      required this.payRatesSetupId,
-      required this.payRates,
-      required this.zoneId,
-      required this.departmentId,
-      required this.employeeTypeId,
+      {required this.payratesId,
+      required this.ZoneId,
+      required this.rate,
       required this.typeOfVisitId,
-      required this.typeVisit,
-      this.zone});
+      required this.perMile,
+      required this.serviceTypeId});
 }
 
 ///zone data file dropdown
-
 class SortByZoneData {
   final int zoneId;
   final String zoneName;
@@ -85,5 +73,24 @@ class ServiceData {
     required this.npiNum,
     required this.medicareNum,
     required this.hcoNum,
+  });
+}
+
+///payrate get
+class PayRatesGet {
+  final int payratesId;
+  final int ZoneId;
+  final int rate;
+  final String typeOfVisitId;
+  final int perMile;
+  final int serviceTypeId;
+
+  PayRatesGet({
+    required this.payratesId,
+    required this.ZoneId,
+    required this.rate,
+    required this.typeOfVisitId,
+    required this.perMile,
+    required this.serviceTypeId,
   });
 }

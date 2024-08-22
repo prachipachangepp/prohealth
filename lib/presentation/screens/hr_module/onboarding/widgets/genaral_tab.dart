@@ -153,7 +153,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                   children: [
                                                     CircleAvatar(
                                                       radius: MediaQuery.of(context).size.width / 50,
-                                                      backgroundColor: Colors.grey,
+                                                     // backgroundColor: Colors.grey,
                                                       child: ClipOval(
                                                         child: Builder(
                                                           builder: (context) {
@@ -179,6 +179,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                                         alignment: Alignment.center,
                                                         child: Text(
                                                           '${general.firstName?.capitalizeFirst ?? ''} ${general.lastName?.capitalizeFirst ?? ''}',
+                                                          textAlign: TextAlign.center,
                                                           style: CustomTextStylesCommon.commonStyle(
                                                             color: ColorManager.black,
                                                             fontSize: FontSize.s12,
