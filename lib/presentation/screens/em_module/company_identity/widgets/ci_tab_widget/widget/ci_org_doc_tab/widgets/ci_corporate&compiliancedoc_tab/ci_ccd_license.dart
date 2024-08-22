@@ -26,18 +26,17 @@ import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_
 class CICcdLicense extends StatefulWidget {
   final int subDocID;
   final int docID;
-  final String officeId;
-  const CICcdLicense({super.key, required this.subDocID, required this.docID, required this.officeId});
+ // final String officeId;
+  const CICcdLicense({super.key, required this.subDocID, required this.docID,
+  //  required this.officeId
+  });
 
   @override
   State<CICcdLicense> createState() => _CICcdLicenseState();
 }
 
 class _CICcdLicenseState extends State<CICcdLicense> {
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
-  TextEditingController docNameController = TextEditingController();
+    TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
   final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>.broadcast();
@@ -52,10 +51,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 6;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
-    hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
+      hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     print(":::SUBDOCID              ${widget.subDocID} + ${widget.docID}");
     // identityDocumentTypeGet(context,docTypeMetaId).then((data) {
     //   _identityDataController.add(data);
@@ -63,24 +59,21 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     //   // Handle error
     // });
    // orgDocumentGet(context);
-    _loadColors();
 
   }
+    int currentPage = 1;
+    final int itemsPerPage = 10;
+    final int totalPages = 5;
+
+    void onPageNumberPressed(int pageNumber) {
+      setState(() {
+        currentPage = pageNumber;
+      });
+    }
 
 
-  void _loadColors() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("KDKDKD");
-    setState(() {
-      for (int i = 0; i < hrcontainerColors.length; i++) {
-        int? colorValue = prefs.getInt('containerColor$i');
-        if (colorValue != null) {
-          hrcontainerColors[i] = Color(colorValue);
-        }
-      }
-    });
-  }
-  List snapData = [];
+
+//  List snapData = [];
   @override
   Widget build(BuildContext context) {
     return
@@ -165,7 +158,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
             child: StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context, snapshot) {
-                getORGDoc(context,widget.docID,widget.subDocID,1,15
+                getORGDoc(context, widget.docID, widget.subDocID, 1, 15
                 ).then((data) {
                   _controller.add(data);
                 }).catchError((error) {
@@ -192,1273 +185,747 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                   );
                 }
                 if (snapshot.hasData) {
-                  // int totalItems = snapshot.data!.length;
-                  // // int totalPages = (totalItems / itemsPerPage).ceil();
-                  // List<CiOrgDocumentCC> currentPageItems = snapshot.data!.sublist(
-                  //   (currentPage - 1) * itemsPerPage,
-                  //   (currentPage * itemsPerPage) > totalItems
-                  //       ? totalItems
-                  //       : (currentPage * itemsPerPage),
-                  // );
                   int totalItems = snapshot.data!.length;
                   int totalPages = (totalItems / itemsPerPage).ceil();
-
-                  // Ensure current page is within the valid range
-                  if (currentPage > totalPages) {
-                    currentPage = totalPages;
-                  }
-
-                  List<CiOrgDocumentCC> currentPageItems = snapshot.data!
-                      .skip((currentPage - 1) * itemsPerPage)
+                  List<CiOrgDocumentCC> paginatedData = snapshot.data!.skip(
+                      (currentPage - 1) * itemsPerPage)
                       .take(itemsPerPage)
                       .toList();
-                  return ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: currentPageItems.length,
-                    itemBuilder: (context, index) {
-                      int serialNumber =
-                          index + 1 + (currentPage - 1) * itemsPerPage;
-                      String formattedSerialNumber =
-                      serialNumber.toString().padLeft(2, '0');
-                      return Column(
-                        children: [
-                          SizedBox(height: AppSize.s5),
-                          Container(
-                            padding: EdgeInsets.only(bottom: AppPadding.p5),
-                            margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
-                            decoration: BoxDecoration(
-                              color: ColorManager.white,
-                              borderRadius: BorderRadius.circular(4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: ColorManager.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            height: AppSize.s56,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: paginatedData.length,
+                          itemBuilder: (context, index) {
+                            int serialNumber = totalItems -
+                                (index + (currentPage - 1) * itemsPerPage);
+                            String formattedSerialNumber = serialNumber
+                                .toString().padLeft(2, '0');
+                            CiOrgDocumentCC lisenceData = paginatedData[index];
+                            return Column(
                               children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      formattedSerialNumber,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700,
-                                        color: Color(0xff686464),
+                                SizedBox(height: AppSize.s5),
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      bottom: AppPadding.p5),
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: AppMargin.m50),
+                                  decoration: BoxDecoration(
+                                    color: ColorManager.white,
+                                    borderRadius: BorderRadius.circular(4),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: ColorManager.grey.withOpacity(
+                                            0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 4,
+                                        offset: Offset(0, 2),
                                       ),
-                                      textAlign: TextAlign.start,
-                                    ),
+                                    ],
                                   ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      currentPageItems[index].name.toString().capitalizeFirst!,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700,
-                                        color: Color(0xff686464),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      currentPageItems[index].expirtDate.toString(),
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700,
-                                        color: Color(0xff686464),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      currentPageItems[index]
-                                          .expirtReminder!.toString().capitalizeFirst!,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700,
-                                        color: Color(0xff686464),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
+                                  height: AppSize.s56,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceAround,
                                     children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          String? selectedExpiryType = expiryType;
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return FutureBuilder<CorporatePrefillDocumentData>(
-                                                future: getPrefillCorporateDocument(context,snapshot.data![index].docId),
-                                                builder: (context, snapshotPrefill) {
-                                                  if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                    return Center(
-                                                      child: CircularProgressIndicator(
-                                                        color: ColorManager.blueprime,
-                                                      ),
-                                                    );
-                                                  }
-
-                                                  // Prefill values from API
-                                                  var documentPreId = snapshotPrefill.data!.documentId;
-                                                  docIdController = TextEditingController(
-                                                    text: snapshotPrefill.data!.documentId.toString(),
-                                                  );
-
-                                                  var documentTypePreId = snapshotPrefill.data!.documentTypeId;
-                                                  docTypeMetaId = documentTypePreId;
-
-                                                  var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;
-                                                  docSubTypeMetaId = documentSubPreId;
-
-                                                  var name = snapshotPrefill.data!.docName;
-                                                  docNameController = TextEditingController(
-                                                    text: snapshotPrefill.data!.docName,
-                                                  );
-
-                                                  var calender = snapshotPrefill.data!.expiryDate;
-                                                  calenderController = TextEditingController(
-                                                    text: snapshotPrefill.data!.expiryDate,
-                                                  );
-
-                                                  var expiry = snapshotPrefill.data!.expiryType;
-                                                  expiryType = expiry;
-
-                                                  // Fetch sub-document types based on the document type
-                                                  identityDocumentTypeGet(context, documentTypePreId).then((data) {
-                                                    _identityDataController.add(data);
-                                                  }).catchError((error) {
-                                                    // Handle error
-                                                  });
-
-                                                  return StatefulBuilder(
-                                                    builder: (BuildContext context,
-                                                        void Function(void Function()) setState) {
-                                                      return CCScreenEditPopup(
-                                                        title: 'Edit Leases & Services',
-                                                        id: documentPreId,
-                                                        idDocController: docIdController,
-                                                        nameDocController: docNameController,
-                                                        loadingDuration: _isLoading,
-                                                        onSavePressed: () async {
-                                                          setState(() {
-                                                            _isLoading = true;
-                                                          });
-                                                          try {
-                                                            await updateCorporateDocumentPost(
-                                                              context: context,
-                                                              docId: documentPreId,
-                                                              name: name == docNameController.text ? name.toString() : docNameController.text,
-                                                              docTypeID: documentTypePreId == docTypeMetaId ? documentTypePreId : docTypeMetaId,
-                                                              docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId ,
-                                                              docCreated: DateTime.now().toString(),
-                                                              url: "url",
-                                                              expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-                                                              expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                              expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-                                                              officeId: widget.officeId,
-                                                            );
-                                                          } finally {
-                                                            setState(() {
-                                                              _isLoading = false;
-                                                            });
-                                                            Navigator.pop(context);
-                                                          }
-                                                        },
-
-                                                        // Document Type Dropdown
-                                                        child: FutureBuilder<List<DocumentTypeData>>(
-                                                          future: documentTypeGet(context),
-                                                          builder: (context, snapshot) {
-                                                            if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                                              List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                              for (var i in snapshot.data!) {
-                                                                dropDownMenuItems.add(
-                                                                  DropdownMenuItem<String>(
-                                                                    child: Text(i.docType),
-                                                                    value: i.docType,
-                                                                  ),
-                                                                );
-                                                              }
-                                                              return CICCDropdown(
-                                                                initialValue: snapshot.data!
-                                                                    .firstWhere((item) => item.docID == documentTypePreId)
-                                                                    .docType,
-                                                                onChange: (val) {
-                                                                  for (var a in snapshot.data!) {
-                                                                    if (a.docType == val) {
-                                                                      docTypeMetaId = a.docID;
-                                                                    }
-                                                                  }
-                                                                  identityDocumentTypeGet(context, docTypeMetaId)
-                                                                      .then((data) {
-                                                                    _identityDataController.add(data);
-                                                                  }).catchError((error) {
-                                                                    // Handle error
-                                                                  });
-                                                                },
-                                                                items: dropDownMenuItems,
-                                                              );
-                                                            } else if (snapshot.connectionState ==
-                                                                ConnectionState.waiting) {
-                                                              return SizedBox(); // Optional placeholder
-                                                            } else {
-                                                              return Center(
-                                                                child: Text(
-                                                                  AppString.dataNotFound,
-                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                    fontWeight: FontWeightManager.medium,
-                                                                    fontSize: FontSize.s12,
-                                                                    color: ColorManager.mediumgrey,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                          },
-                                                        ),
-
-                                                        // Sub-Document Type Dropdown
-                                                        child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                                                          stream: _identityDataController.stream,
-                                                          builder: (context, snapshot) {
-                                                            if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                                              List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                              for (var i in snapshot.data!) {
-                                                                dropDownMenuItems.add(
-                                                                  DropdownMenuItem<String>(
-                                                                    child: Text(i.subDocType),
-                                                                    value: i.subDocType,
-                                                                  ),
-                                                                );
-                                                              }
-                                                              return CICCDropdown(
-                                                                initialValue: snapshot.data!
-                                                                    .firstWhere((item) => item.subDocID == documentSubPreId)
-                                                                    .subDocType, // Set initial value from API data
-                                                                onChange: (val) {
-                                                                  for (var a in snapshot.data!) {
-                                                                    if (a.subDocType == val) {
-                                                                      docSubTypeMetaId = a.subDocID;
-                                                                    }
-                                                                  }
-                                                                },
-                                                                items: dropDownMenuItems,
-                                                              );
-                                                            } else if (snapshot.connectionState ==
-                                                                ConnectionState.waiting) {
-                                                              return SizedBox(); // Optional placeholder
-                                                            } else {
-                                                              return Center(
-                                                                child: Text(
-                                                                  AppString.dataNotFound,
-                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                    fontWeight: FontWeightManager.medium,
-                                                                    fontSize: FontSize.s12,
-                                                                    color: ColorManager.mediumgrey,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                          },
-                                                        ),
-                                                        radioButton: Padding(
-                                                          padding: const EdgeInsets.only(left: 10.0),
-                                                          child: Column(
-                                                            mainAxisAlignment: MainAxisAlignment.start,
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Text(
-                                                                "Expiry Type",
-                                                                style: GoogleFonts.firaSans(
-                                                                  fontSize: FontSize.s12,
-                                                                  fontWeight: FontWeight.w700,
-                                                                  color: ColorManager.mediumgrey,
-                                                                  decoration: TextDecoration.none,
-                                                                ),
-                                                              ),
-                                                              CustomRadioListTile(
-                                                                value: "Not Applicable",
-                                                                groupValue: selectedExpiryType,
-                                                                onChanged: (value) {
-                                                                  setState(() {
-                                                                    selectedExpiryType = value;
-                                                                  });
-                                                                },
-                                                                title: "Not Applicable",
-                                                              ),
-                                                              CustomRadioListTile(
-                                                                value: 'Scheduled',
-                                                                groupValue: selectedExpiryType,
-                                                                onChanged: (value) {
-                                                                  setState(() {
-                                                                    selectedExpiryType = value;
-                                                                  });
-                                                                },
-                                                                title: 'Scheduled',
-                                                              ),
-                                                              CustomRadioListTile(
-                                                                value: 'Issuer Expiry',
-                                                                groupValue: selectedExpiryType,
-                                                                onChanged: (value) {
-                                                                  setState(() {
-                                                                    selectedExpiryType = value;
-                                                                  });
-                                                                },
-                                                                title: 'Issuer Expiry',
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        child2: Visibility(
-                                                          visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Text(
-                                                                "Expiry Date",
-                                                                style: GoogleFonts.firaSans(
-                                                                  fontSize: FontSize.s12,
-                                                                  fontWeight: FontWeight.w700,
-                                                                  color: ColorManager.mediumgrey,
-                                                                  decoration: TextDecoration.none,
-                                                                ),
-                                                              ),
-                                                              FormField<String>(
-                                                                builder: (FormFieldState<String> field) {
-                                                                  return SizedBox (
-                                                                    width: 354,
-                                                                    height: 30,
-                                                                    child:   TextFormField(
-                                                                      controller: calenderController,
-                                                                      cursorColor: ColorManager.black,
-                                                                      style: GoogleFonts.firaSans(
-                                                                        fontSize: FontSize.s12,
-                                                                        fontWeight: FontWeight.w700,
-                                                                        color: ColorManager.mediumgrey,
-                                                                        //decoration: TextDecoration.none,
-                                                                      ),
-                                                                      decoration: InputDecoration(
-                                                                        enabledBorder: OutlineInputBorder(
-                                                                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                                          borderRadius: BorderRadius.circular(8),
-                                                                        ),
-                                                                        focusedBorder: OutlineInputBorder(
-                                                                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
-                                                                          borderRadius: BorderRadius.circular(8),
-                                                                        ),
-                                                                        hintText: 'mm-dd-yyyy',
-                                                                        hintStyle: GoogleFonts.firaSans(
-                                                                          fontSize: FontSize.s12,
-                                                                          fontWeight: FontWeight.w700,
-                                                                          color: ColorManager.mediumgrey,
-                                                                          //decoration: TextDecoration.none,
-                                                                        ),
-                                                                        border: OutlineInputBorder(
-                                                                          borderRadius: BorderRadius.circular(8),
-                                                                          borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
-                                                                        ),
-                                                                        contentPadding:
-                                                                        EdgeInsets.symmetric(horizontal: 16),
-                                                                        suffixIcon: Icon(Icons.calendar_month_outlined,
-                                                                            color: ColorManager.blueprime),
-                                                                        errorText: field.errorText,
-                                                                      ),
-                                                                      onTap: () async {
-                                                                        DateTime? pickedDate = await showDatePicker(
-                                                                          context: context,
-                                                                          initialDate: DateTime.now(),
-                                                                          firstDate: DateTime(2000),
-                                                                          lastDate: DateTime(3101),
-                                                                        );
-                                                                        if (pickedDate != null) {
-                                                                          calenderController.text =
-                                                                              DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                                        }
-                                                                      },
-                                                                      validator: (value) {
-                                                                        if (value == null || value.isEmpty) {
-                                                                          return 'please select birth date';
-                                                                        }
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          );
-                                        },
-                                        icon: Icon(
-                                          Icons.edit_outlined,
-                                          size: 18,
-                                          color: ColorManager.bluebottom,
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            formattedSerialNumber,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xff686464),
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
                                         ),
                                       ),
-                                      IconButton(
-                                          onPressed: (){
-                                            showDialog(context: context,
-                                                builder: (context) => StatefulBuilder(
-                                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                                    return  DeletePopup(
-                                                        title: 'Delete ADR',
-                                                        loadingDuration: _isLoading,
-                                                        onCancel: (){
-                                                          Navigator.pop(context);
-                                                        }, onDelete: () async{
-                                                      setState(() {
-                                                        _isLoading = true;
-                                                      });
-                                                      try {
-                                                        await deleteDocument(
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            lisenceData.name
+                                                .toString()
+                                                .capitalizeFirst!,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xff686464),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            lisenceData.expirtDate.toString(),
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xff686464),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            lisenceData.expirtReminder!
+                                                .toString().capitalizeFirst!,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xff686464),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .center,
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {
+                                                String? selectedExpiryType = expiryType;
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return FutureBuilder<
+                                                        CorporatePrefillDocumentData>(
+                                                      future: getPrefillCorporateDocument(
+                                                          context,
+                                                          lisenceData.docId),
+                                                      builder: (context,
+                                                          snapshotPrefill) {
+                                                        if (snapshotPrefill
+                                                            .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return Center(
+                                                            child: CircularProgressIndicator(
+                                                              color: ColorManager
+                                                                  .blueprime,
+                                                            ),
+                                                          );
+                                                        }
+
+                                                        // Prefill values from API
+                                                        var documentPreId = snapshotPrefill
+                                                            .data!.documentId;
+                                                        docIdController =
+                                                            TextEditingController(
+                                                              text: snapshotPrefill
+                                                                  .data!
+                                                                  .documentId
+                                                                  .toString(),
+                                                            );
+
+                                                        var documentTypePreId = snapshotPrefill
+                                                            .data!
+                                                            .documentTypeId;
+                                                        docTypeMetaId =
+                                                            documentTypePreId;
+
+                                                        var documentSubPreId = snapshotPrefill
+                                                            .data!
+                                                            .documentSubTypeId;
+                                                        docSubTypeMetaId =
+                                                            documentSubPreId;
+
+                                                        var name = snapshotPrefill
+                                                            .data!.docName;
+                                                        docNameController =
+                                                            TextEditingController(
+                                                              text: snapshotPrefill
+                                                                  .data!
+                                                                  .docName,
+                                                            );
+
+                                                        var calender = snapshotPrefill
+                                                            .data!.expiryDate;
+                                                        calenderController =
+                                                            TextEditingController(
+                                                              text: snapshotPrefill
+                                                                  .data!
+                                                                  .expiryDate,
+                                                            );
+
+                                                        var expiry = snapshotPrefill
+                                                            .data!.expiryType;
+                                                        expiryType = expiry;
+
+                                                        // Fetch sub-document types based on the document type
+                                                        identityDocumentTypeGet(
                                                             context,
-                                                            snapshot.data![index].docId);
-                                                      } finally {
-                                                        setState(() {
-                                                          _isLoading = false;
+                                                            documentTypePreId)
+                                                            .then((data) {
+                                                          _identityDataController
+                                                              .add(data);
+                                                        }).catchError((error) {
+                                                          // Handle error
                                                         });
-                                                        Navigator.pop(context);
-                                                      }
 
-                                                    });
+                                                        return StatefulBuilder(
+                                                          builder: (
+                                                              BuildContext context,
+                                                              void Function(void Function()) setState) {
+                                                            return CCScreenEditPopup(
+                                                              title: 'Edit Leases & Services',
+                                                              id: documentPreId,
+                                                              idDocController: docIdController,
+                                                              nameDocController: docNameController,
+                                                              loadingDuration: _isLoading,
+                                                              onSavePressed: () async {
+                                                                setState(() {
+                                                                  _isLoading =
+                                                                  true;
+                                                                });
+                                                                try {
+                                                                  await updateCorporateDocumentPost(
+                                                                    context: context,
+                                                                    docId: documentPreId,
+                                                                    name: name ==
+                                                                        docNameController
+                                                                            .text
+                                                                        ? name
+                                                                        .toString()
+                                                                        : docNameController
+                                                                        .text,
+                                                                    docTypeID: documentTypePreId ==
+                                                                        docTypeMetaId
+                                                                        ? documentTypePreId
+                                                                        : docTypeMetaId,
+                                                                    docSubTypeID: documentSubPreId ==
+                                                                        docSubTypeMetaId
+                                                                        ? documentSubPreId
+                                                                        : docSubTypeMetaId,
+                                                                    docCreated: DateTime
+                                                                        .now()
+                                                                        .toString(),
+                                                                    url: "url",
+                                                                    expiryType: expiry ==
+                                                                        expiryType
+                                                                            .toString()
+                                                                        ? expiry
+                                                                        .toString()
+                                                                        : expiryType
+                                                                        .toString(),
+                                                                    expiryDate: calender ==
+                                                                        calenderController
+                                                                            .text
+                                                                        ? calender
+                                                                        .toString()
+                                                                        : calenderController
+                                                                        .text,
+                                                                    expiryReminder: selectedExpiryType ==
+                                                                        selectedExpiryType
+                                                                            .toString()
+                                                                        ? selectedExpiryType
+                                                                        .toString()
+                                                                        : expiryType
+                                                                        .toString(),
+                                                                    officeId: "", //widget.officeId,
+                                                                  );
+                                                                } finally {
+                                                                  setState(() {
+                                                                    _isLoading =
+                                                                    false;
+                                                                  });
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                }
+                                                              },
+
+                                                              // Document Type Dropdown
+                                                              child: FutureBuilder<
+                                                                  List<
+                                                                      DocumentTypeData>>(
+                                                                future: documentTypeGet(
+                                                                    context),
+                                                                builder: (
+                                                                    context,
+                                                                    snapshot) {
+                                                                  if (snapshot
+                                                                      .hasData &&
+                                                                      snapshot
+                                                                          .data!
+                                                                          .isNotEmpty) {
+                                                                    List<
+                                                                        DropdownMenuItem<
+                                                                            String>> dropDownMenuItems = [
+                                                                    ];
+                                                                    for (var i in snapshot
+                                                                        .data!) {
+                                                                      dropDownMenuItems
+                                                                          .add(
+                                                                        DropdownMenuItem<
+                                                                            String>(
+                                                                          child: Text(
+                                                                              i
+                                                                                  .docType),
+                                                                          value: i
+                                                                              .docType,
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                    return CICCDropdown(
+                                                                      initialValue: snapshot
+                                                                          .data!
+                                                                          .firstWhere((
+                                                                          item) =>
+                                                                      item
+                                                                          .docID ==
+                                                                          documentTypePreId)
+                                                                          .docType,
+                                                                      onChange: (
+                                                                          val) {
+                                                                        for (var a in snapshot
+                                                                            .data!) {
+                                                                          if (a
+                                                                              .docType ==
+                                                                              val) {
+                                                                            docTypeMetaId =
+                                                                                a
+                                                                                    .docID;
+                                                                          }
+                                                                        }
+                                                                        identityDocumentTypeGet(
+                                                                            context,
+                                                                            docTypeMetaId)
+                                                                            .then((
+                                                                            data) {
+                                                                          _identityDataController
+                                                                              .add(
+                                                                              data);
+                                                                        })
+                                                                            .catchError((
+                                                                            error) {
+                                                                          // Handle error
+                                                                        });
+                                                                      },
+                                                                      items: dropDownMenuItems,
+                                                                    );
+                                                                  } else
+                                                                  if (snapshot
+                                                                      .connectionState ==
+                                                                      ConnectionState
+                                                                          .waiting) {
+                                                                    return SizedBox(); // Optional placeholder
+                                                                  } else {
+                                                                    return Center(
+                                                                      child: Text(
+                                                                        AppString
+                                                                            .dataNotFound,
+                                                                        style: CustomTextStylesCommon
+                                                                            .commonStyle(
+                                                                          fontWeight: FontWeightManager
+                                                                              .medium,
+                                                                          fontSize: FontSize
+                                                                              .s12,
+                                                                          color: ColorManager
+                                                                              .mediumgrey,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                },
+                                                              ),
+
+                                                              // Sub-Document Type Dropdown
+                                                              child1: StreamBuilder<
+                                                                  List<
+                                                                      IdentityDocumentIdData>>(
+                                                                stream: _identityDataController
+                                                                    .stream,
+                                                                builder: (
+                                                                    context,
+                                                                    snapshot) {
+                                                                  if (snapshot
+                                                                      .hasData &&
+                                                                      snapshot
+                                                                          .data!
+                                                                          .isNotEmpty) {
+                                                                    List<
+                                                                        DropdownMenuItem<
+                                                                            String>> dropDownMenuItems = [
+                                                                    ];
+                                                                    for (var i in snapshot
+                                                                        .data!) {
+                                                                      dropDownMenuItems
+                                                                          .add(
+                                                                        DropdownMenuItem<
+                                                                            String>(
+                                                                          child: Text(
+                                                                              i
+                                                                                  .subDocType),
+                                                                          value: i
+                                                                              .subDocType,
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                    return CICCDropdown(
+                                                                      initialValue: snapshot
+                                                                          .data!
+                                                                          .firstWhere((
+                                                                          item) =>
+                                                                      item
+                                                                          .subDocID ==
+                                                                          documentSubPreId)
+                                                                          .subDocType,
+                                                                      // Set initial value from API data
+                                                                      onChange: (
+                                                                          val) {
+                                                                        for (var a in snapshot
+                                                                            .data!) {
+                                                                          if (a
+                                                                              .subDocType ==
+                                                                              val) {
+                                                                            docSubTypeMetaId =
+                                                                                a
+                                                                                    .subDocID;
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      items: dropDownMenuItems,
+                                                                    );
+                                                                  } else
+                                                                  if (snapshot
+                                                                      .connectionState ==
+                                                                      ConnectionState
+                                                                          .waiting) {
+                                                                    return SizedBox(); // Optional placeholder
+                                                                  } else {
+                                                                    return Center(
+                                                                      child: Text(
+                                                                        AppString
+                                                                            .dataNotFound,
+                                                                        style: CustomTextStylesCommon
+                                                                            .commonStyle(
+                                                                          fontWeight: FontWeightManager
+                                                                              .medium,
+                                                                          fontSize: FontSize
+                                                                              .s12,
+                                                                          color: ColorManager
+                                                                              .mediumgrey,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                },
+                                                              ),
+                                                              radioButton: Padding(
+                                                                padding: const EdgeInsets
+                                                                    .only(
+                                                                    left: 10.0),
+                                                                child: Column(
+                                                                  mainAxisAlignment: MainAxisAlignment
+                                                                      .start,
+                                                                  crossAxisAlignment: CrossAxisAlignment
+                                                                      .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      "Expiry Type",
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize: FontSize
+                                                                            .s12,
+                                                                        fontWeight: FontWeight
+                                                                            .w700,
+                                                                        color: ColorManager
+                                                                            .mediumgrey,
+                                                                        decoration: TextDecoration
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                    CustomRadioListTile(
+                                                                      value: "Not Applicable",
+                                                                      groupValue: selectedExpiryType,
+                                                                      onChanged: (
+                                                                          value) {
+                                                                        setState(() {
+                                                                          selectedExpiryType =
+                                                                              value;
+                                                                        });
+                                                                      },
+                                                                      title: "Not Applicable",
+                                                                    ),
+                                                                    CustomRadioListTile(
+                                                                      value: 'Scheduled',
+                                                                      groupValue: selectedExpiryType,
+                                                                      onChanged: (
+                                                                          value) {
+                                                                        setState(() {
+                                                                          selectedExpiryType =
+                                                                              value;
+                                                                        });
+                                                                      },
+                                                                      title: 'Scheduled',
+                                                                    ),
+                                                                    CustomRadioListTile(
+                                                                      value: 'Issuer Expiry',
+                                                                      groupValue: selectedExpiryType,
+                                                                      onChanged: (
+                                                                          value) {
+                                                                        setState(() {
+                                                                          selectedExpiryType =
+                                                                              value;
+                                                                        });
+                                                                      },
+                                                                      title: 'Issuer Expiry',
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              child2: Visibility(
+                                                                visible: selectedExpiryType ==
+                                                                    "Scheduled" ||
+                                                                    selectedExpiryType ==
+                                                                        "Issuer Expiry",
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment
+                                                                      .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      "Expiry Date",
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize: FontSize
+                                                                            .s12,
+                                                                        fontWeight: FontWeight
+                                                                            .w700,
+                                                                        color: ColorManager
+                                                                            .mediumgrey,
+                                                                        decoration: TextDecoration
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                    FormField<
+                                                                        String>(
+                                                                      builder: (
+                                                                          FormFieldState<
+                                                                              String> field) {
+                                                                        return SizedBox(
+                                                                          width: 354,
+                                                                          height: 30,
+                                                                          child: TextFormField(
+                                                                            controller: calenderController,
+                                                                            cursorColor: ColorManager
+                                                                                .black,
+                                                                            style: GoogleFonts
+                                                                                .firaSans(
+                                                                              fontSize: FontSize
+                                                                                  .s12,
+                                                                              fontWeight: FontWeight
+                                                                                  .w700,
+                                                                              color: ColorManager
+                                                                                  .mediumgrey,
+                                                                              //decoration: TextDecoration.none,
+                                                                            ),
+                                                                            decoration: InputDecoration(
+                                                                              enabledBorder: OutlineInputBorder(
+                                                                                borderSide: BorderSide(
+                                                                                    color: ColorManager
+                                                                                        .fmediumgrey,
+                                                                                    width: 1),
+                                                                                borderRadius: BorderRadius
+                                                                                    .circular(
+                                                                                    8),
+                                                                              ),
+                                                                              focusedBorder: OutlineInputBorder(
+                                                                                borderSide: BorderSide(
+                                                                                    color: ColorManager
+                                                                                        .fmediumgrey,
+                                                                                    width: 1),
+                                                                                borderRadius: BorderRadius
+                                                                                    .circular(
+                                                                                    8),
+                                                                              ),
+                                                                              hintText: 'mm-dd-yyyy',
+                                                                              hintStyle: GoogleFonts
+                                                                                  .firaSans(
+                                                                                fontSize: FontSize
+                                                                                    .s12,
+                                                                                fontWeight: FontWeight
+                                                                                    .w700,
+                                                                                color: ColorManager
+                                                                                    .mediumgrey,
+                                                                                //decoration: TextDecoration.none,
+                                                                              ),
+                                                                              border: OutlineInputBorder(
+                                                                                borderRadius: BorderRadius
+                                                                                    .circular(
+                                                                                    8),
+                                                                                borderSide: BorderSide(
+                                                                                    width: 1,
+                                                                                    color: ColorManager
+                                                                                        .fmediumgrey),
+                                                                              ),
+                                                                              contentPadding:
+                                                                              EdgeInsets
+                                                                                  .symmetric(
+                                                                                  horizontal: 16),
+                                                                              suffixIcon: Icon(
+                                                                                  Icons
+                                                                                      .calendar_month_outlined,
+                                                                                  color: ColorManager
+                                                                                      .blueprime),
+                                                                              errorText: field
+                                                                                  .errorText,
+                                                                            ),
+                                                                            onTap: () async {
+                                                                              DateTime? pickedDate = await showDatePicker(
+                                                                                context: context,
+                                                                                initialDate: DateTime
+                                                                                    .now(),
+                                                                                firstDate: DateTime(
+                                                                                    2000),
+                                                                                lastDate: DateTime(
+                                                                                    3101),
+                                                                              );
+                                                                              if (pickedDate !=
+                                                                                  null) {
+                                                                                calenderController
+                                                                                    .text =
+                                                                                    DateFormat(
+                                                                                        'MM-dd-yyyy')
+                                                                                        .format(
+                                                                                        pickedDate);
+                                                                              }
+                                                                            },
+                                                                            validator: (
+                                                                                value) {
+                                                                              if (value ==
+                                                                                  null ||
+                                                                                  value
+                                                                                      .isEmpty) {
+                                                                                return 'please select birth date';
+                                                                              }
+                                                                              return null;
+                                                                            },
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    );
                                                   },
+                                                );
+                                              },
+                                              icon: Icon(
+                                                Icons.edit_outlined,
+                                                size: 18,
+                                                color: ColorManager.bluebottom,
+                                              ),
+                                            ),
+                                            IconButton(
+                                                onPressed: () {
+                                                  showDialog(context: context,
+                                                      builder: (context) =>
+                                                          StatefulBuilder(
+                                                            builder: (
+                                                                BuildContext context,
+                                                                void Function(void Function()) setState) {
+                                                              return DeletePopup(
+                                                                  title: 'Delete ADR',
+                                                                  loadingDuration: _isLoading,
+                                                                  onCancel: () {
+                                                                    Navigator
+                                                                        .pop(
+                                                                        context);
+                                                                  },
+                                                                  onDelete: () async {
+                                                                    setState(() {
+                                                                      _isLoading =
+                                                                      true;
+                                                                    });
+                                                                    try {
+                                                                      await deleteDocument(
+                                                                          context,
+                                                                          snapshot
+                                                                              .data![index]
+                                                                              .docId);
+                                                                      getORGDoc(
+                                                                          context,
+                                                                          widget
+                                                                              .docID,
+                                                                          widget
+                                                                              .subDocID,
+                                                                          1, 15
+                                                                      ).then((
+                                                                          data) {
+                                                                        _controller
+                                                                            .add(
+                                                                            data);
+                                                                      })
+                                                                          .catchError((
+                                                                          error) {
+                                                                        // Handle error
+                                                                      });
+                                                                    } finally {
+                                                                      setState(() {
+                                                                        _isLoading =
+                                                                        false;
+                                                                      });
+                                                                      Navigator
+                                                                          .pop(
+                                                                          context);
+                                                                    }
+                                                                  });
+                                                            },
 
-                                                ));
-                                          }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                                          ));
+                                                },
+                                                icon: Icon(Icons.delete_outline,
+                                                  size: 18,
+                                                  color: ColorManager.red,)),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                               ],
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+                            );
+                          },
+                        ),
+                      ),
+                      PaginationControlsWidget(
+                        currentPage: currentPage,
+                        items: snapshot.data!,
+                        itemsPerPage: itemsPerPage,
+                        onPreviousPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                          });
+                        },
+                        onPageNumberPressed: (pageNumber) {
+                          setState(() {
+                            currentPage = pageNumber;
+                          });
+                        },
+                        onNextPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage < totalPages
+                                ? currentPage + 1
+                                : totalPages;
+                          });
+                        },
+                      )
+                    ],
                   );
                 }
                 return Offstage();
               },
             ),
           ),
-          // PaginationControlsWidget(
-          //   currentPage: currentPage,
-          //   items: items,
-          //   itemsPerPage: itemsPerPage,
-          //   onPreviousPagePressed: () {
-          //     setState(() {
-          //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-          //     });
-          //   },
-          //   onPageNumberPressed: (pageNumber) {
-          //     setState(() {
-          //       currentPage = pageNumber;
-          //     });
-          //   },
-          //   onNextPagePressed: () {
-          //     setState(() {
-          //       int totalPages = (items.length / itemsPerPage).ceil();
-          //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-          //     });
-          //   },
-          // ),
         ],
       );
-
-
-
-      ///
-    //   StreamBuilder<List<CiOrgDocumentCC>>(
-    //   stream: _controller.stream,
-    //   builder: (context, snapshot) {
-    //     snapData.clear();
-    //     getORGDoc(context,widget.docID,widget.subDocID,1,15
-    //     ).then((data) {
-    //       _controller.add(data);
-    //     }).catchError((error) {
-    //       // Handle error
-    //     });
-    //     print('1111111');
-    //     print(":::SUBDOCID${widget.subDocID} + ${widget.docID}");
-    //     if (snapshot.connectionState == ConnectionState.waiting) {
-    //       return Center(
-    //         child: CircularProgressIndicator(
-    //           color: ColorManager.blueprime,
-    //         ),
-    //       );
-    //     }
-    //     if (snapshot.data!.isEmpty) {
-    //       return Center(
-    //         child: Text(
-    //           AppString.dataNotFound,
-    //           style: CustomTextStylesCommon.commonStyle(
-    //             fontWeight: FontWeightManager.medium,
-    //             fontSize: FontSize.s12,
-    //             color: ColorManager.mediumgrey,
-    //           ),
-    //         ),
-    //       );
-    //     }
-    //     if (snapshot.hasData){
-    //       for(var i in snapshot.data!){
-    //         snapData.add(i);
-    //       }
-    //       return Column(
-    //         children: [
-    //           Container(
-    //             height: AppSize.s30,
-    //             margin: EdgeInsets.symmetric(horizontal: 40),
-    //             decoration: BoxDecoration(
-    //               color: ColorManager.fmediumgrey,
-    //               borderRadius: BorderRadius.circular(12),
-    //             ),
-    //             child: Row(
-    //               mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //               children: [
-    //                 Expanded(
-    //                   child: Center(
-    //                     child: Text(
-    //                       AppString.srNo,
-    //                       style: GoogleFonts.firaSans(
-    //                         fontSize: 12,
-    //                         fontWeight: FontWeight.w700,
-    //                         color: ColorManager.white,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Expanded(
-    //                   child: Center(
-    //                     child: Text(
-    //                       AppString.name,
-    //                       style: GoogleFonts.firaSans(
-    //                         fontSize: 12,
-    //                         fontWeight: FontWeight.w700,
-    //                         color: ColorManager.white,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Expanded(
-    //                   child: Center(
-    //                     child: Text(
-    //                       AppString.expiry,
-    //                       style: GoogleFonts.firaSans(
-    //                         fontSize: 12,
-    //                         fontWeight: FontWeight.w700,
-    //                         color: ColorManager.white,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Expanded(
-    //                   child: Center(
-    //                     child: Text(
-    //                       AppString.reminderthershold,
-    //                       style: GoogleFonts.firaSans(
-    //                         fontSize: 12,
-    //                         fontWeight: FontWeight.w700,
-    //                         color: ColorManager.white,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Expanded(
-    //                   child: Center(
-    //                     child: Text(
-    //                       AppString.actions,
-    //                       style: GoogleFonts.firaSans(
-    //                         fontSize: 12,
-    //                         fontWeight: FontWeight.w700,
-    //                         color: ColorManager.white,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //           SizedBox(height: AppSize.s10),
-    //           Expanded(
-    //             child:
-    //             ListView.builder(
-    //               scrollDirection: Axis.vertical,
-    //               itemCount: snapData.length,
-    //               itemBuilder: (context, index) {
-    //                 int serialNumber =
-    //                     index + 1 + (currentPage - 1) * itemsPerPage;
-    //                 String formattedSerialNumber =
-    //                 serialNumber.toString().padLeft(2, '0');
-    //                 return Column(
-    //                   children: [
-    //                     SizedBox(height: AppSize.s5),
-    //                     Container(
-    //                       padding: EdgeInsets.only(bottom: AppPadding.p5),
-    //                       margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
-    //                       decoration: BoxDecoration(
-    //                         color: ColorManager.white,
-    //                         borderRadius: BorderRadius.circular(4),
-    //                         boxShadow: [
-    //                           BoxShadow(
-    //                             color: ColorManager.grey.withOpacity(0.5),
-    //                             spreadRadius: 1,
-    //                             blurRadius: 4,
-    //                             offset: Offset(0, 2),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                       height: AppSize.s56,
-    //                       child: Row(
-    //                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                         children: [
-    //                           Expanded(
-    //                             child: Center(
-    //                               child: Text(
-    //                                 formattedSerialNumber,
-    //                                 style: GoogleFonts.firaSans(
-    //                                   fontSize: 10,
-    //                                   fontWeight: FontWeight.w700,
-    //                                   color: Color(0xff686464),
-    //                                 ),
-    //                                 textAlign: TextAlign.start,
-    //                               ),
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             child: Center(
-    //                               child: Text(
-    //                                 snapData[index].name.toString(),
-    //                                 style: GoogleFonts.firaSans(
-    //                                   fontSize: 10,
-    //                                   fontWeight: FontWeight.w700,
-    //                                   color: Color(0xff686464),
-    //                                 ),
-    //                               ),
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             child: Center(
-    //                               child: Text(
-    //                                 snapData[index].expiry.toString(),
-    //                                 style: GoogleFonts.firaSans(
-    //                                   fontSize: 10,
-    //                                   fontWeight: FontWeight.w700,
-    //                                   color: Color(0xff686464),
-    //                                 ),
-    //                               ),
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             child: Center(
-    //                               child: Text(
-    //                                 snapData[index]
-    //                                     .reminderThreshold
-    //                                     .toString(),
-    //                                 style: GoogleFonts.firaSans(
-    //                                   fontSize: 10,
-    //                                   fontWeight: FontWeight.w700,
-    //                                   color: Color(0xff686464),
-    //                                 ),
-    //                               ),
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             child: Row(
-    //                               mainAxisAlignment: MainAxisAlignment.center,
-    //                               children: [
-    //                                 IconButton(onPressed: (){
-    //                                   showDialog(context: context, builder: (context){
-    //                                         return  FutureBuilder<CorporatePrefillDocumentData>(
-    //                                             future: getPrefillCorporateDocument(context,snapshot.data![index].docId),
-    //                                             builder: (context,snapshotPrefill) {
-    //                                               if(snapshotPrefill.connectionState == ConnectionState.waiting){
-    //                                                 return Center(
-    //                                                   child: CircularProgressIndicator(color: ColorManager.blueprime,),
-    //                                                 );
-    //                                               }
-    //                                                var documentPreId = snapshotPrefill.data!.documentId;
-    //                                               docIdController = TextEditingController(text: snapshotPrefill.data!.documentId.toString());
-    //
-    //                                               var documentTypePreId = snapshotPrefill.data!.documentTypeId;
-    //                                               docTypeMetaId = documentTypePreId;
-    //
-    //                                               var documentSubPreId = snapshotPrefill.data!.documentSubTypeId;
-    //                                               docSubTypeMetaId = documentSubPreId;
-    //
-    //                                               var name = snapshotPrefill.data!.docName;
-    //                                               docNameController = TextEditingController(text: snapshotPrefill.data!.docName);
-    //
-    //                                               var calender = snapshotPrefill.data!.expiryDate;
-    //                                               calenderController = TextEditingController(text: snapshotPrefill.data!.expiryDate);
-    //
-    //                                               var expiry = snapshotPrefill.data!.expiryType;
-    //                                               expiryType = expiry;
-    //                                               return StatefulBuilder(
-    //                                                 builder: (BuildContext context, void Function(void Function()) setState) {
-    //                                                   return CCScreenEditPopup(
-    //                                                     title: 'Edit License',
-    //                                                     id: documentPreId,
-    //                                                     idDocController: docIdController,
-    //                                                     nameDocController: docNameController,
-    //                                                     calenderController: calenderController,
-    //                                                     loadingDuration: _isLoading,
-    //                                                     onSavePressed: ()async{
-    //                                                       setState(() {
-    //                                                         _isLoading = true;
-    //                                                       });
-    //                                                       try {
-    //                                                         await updateCorporateDocumentPost(
-    //                                                           context: context,
-    //                                                           docId: snapshot.data![index].docId,
-    //                                                           name: name == docNameController.text ? name.toString() : docNameController.text,
-    //                                                           docTypeID: documentTypePreId == docTypeMetaId ? documentTypePreId : docTypeMetaId,
-    //                                                           docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId ,
-    //                                                           docCreated: DateTime.now().toString(),
-    //                                                           url: "url",
-    //                                                           expiryType: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-    //                                                           expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
-    //                                                           expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
-    //                                                           officeId: widget.officeId,
-    //                                                         );
-    //
-    //                                                       } finally {
-    //                                                         setState(() {
-    //                                                           _isLoading = false;
-    //                                                         });
-    //                                                         Navigator.pop(context);
-    //                                                       }
-    //
-    //
-    //                                                     },
-    //                                                     child1: StreamBuilder<List<IdentityDocumentIdData>>(
-    //                                                         stream: _identityDataController.stream,
-    //                                                         builder: (context,snapshot) {
-    //                                                           if(snapshot.connectionState == ConnectionState.waiting){
-    //                                                             return Shimmer.fromColors(
-    //                                                                 baseColor: Colors.grey[300]!,
-    //                                                                 highlightColor: Colors.grey[100]!,
-    //                                                                 child: Container(
-    //                                                                   width: 350,
-    //                                                                   height: 30,
-    //                                                                   decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-    //                                                                 )
-    //                                                             );
-    //                                                           }
-    //                                                           if (snapshot.data!.isEmpty) {
-    //                                                             return Center(
-    //                                                               child: Text(
-    //                                                                 AppString.dataNotFound,
-    //                                                                 style: CustomTextStylesCommon.commonStyle(
-    //                                                                   fontWeight: FontWeightManager.medium,
-    //                                                                   fontSize: FontSize.s12,
-    //                                                                   color: ColorManager.mediumgrey,
-    //                                                                 ),
-    //                                                               ),
-    //                                                             );
-    //                                                           }
-    //                                                           if(snapshot.hasData){
-    //                                                             List dropDown = [];
-    //                                                             int docType = 0;
-    //                                                             List<DropdownMenuItem<String>> dropDownMenuItems = [];
-    //                                                             for(var i in snapshot.data!){
-    //                                                               dropDownMenuItems.add(
-    //                                                                 DropdownMenuItem<String>(
-    //                                                                   child: Text(i.subDocType),
-    //                                                                   value: i.subDocType,
-    //                                                                 ),
-    //                                                               );
-    //                                                             }
-    //                                                             return CICCDropdown(
-    //                                                                 initialValue: dropDownMenuItems[0].value,
-    //                                                                 onChange: (val){
-    //                                                                   for(var a in snapshot.data!){
-    //                                                                     if(a.subDocType == val){
-    //                                                                       docType = a.subDocID;
-    //                                                                       docSubTypeMetaId = docType;
-    //                                                                     }
-    //                                                                   }
-    //                                                                   print(":::${docType}");
-    //                                                                   print(":::<>${docSubTypeMetaId}");
-    //                                                                 },
-    //                                                                 items:dropDownMenuItems
-    //                                                             );
-    //                                                           }else{
-    //                                                             return SizedBox(height:1,width: 1,);
-    //                                                           }
-    //                                                         }
-    //                                                     ),
-    //                                                     radioButton: Column(
-    //                                                       mainAxisAlignment: MainAxisAlignment.start,
-    //                                                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                                                       children: [
-    //                                                         CustomRadioListTile(
-    //                                                           value: "Not Applicable",
-    //                                                           groupValue: expiryType.toString(),
-    //                                                           onChanged: (value) {
-    //                                                             setState(() {
-    //                                                               expiryType = value!;
-    //                                                             });
-    //                                                           },
-    //                                                           title: "Not Applicable",
-    //                                                         ),
-    //                                                         CustomRadioListTile(
-    //                                                           value: 'Scheduled',
-    //                                                           groupValue: expiryType.toString(),
-    //                                                           onChanged: (value) {
-    //                                                             setState(() {
-    //                                                               expiryType = value!;
-    //                                                             });
-    //                                                           },
-    //                                                           title: 'Scheduled',
-    //                                                         ),
-    //                                                         CustomRadioListTile(
-    //                                                           value: 'Issuer Expiry',
-    //                                                           groupValue: expiryType.toString(),
-    //                                                           onChanged: (value) {
-    //                                                             setState(() {
-    //                                                               expiryType = value!;
-    //                                                             });
-    //                                                           },
-    //                                                           title: 'Issuer Expiry',
-    //                                                         ),
-    //                                                       ],
-    //                                                     ),
-    //
-    //                                                     child:  FutureBuilder<List<DocumentTypeData>>(
-    //                                                         future: documentTypeGet(context),
-    //                                                         builder: (context,snapshot) {
-    //                                                           if(snapshot.connectionState == ConnectionState.waiting){
-    //                                                             return Shimmer.fromColors(
-    //                                                                 baseColor: Colors.grey[300]!,
-    //                                                                 highlightColor: Colors.grey[100]!,
-    //                                                                 child: Container(
-    //                                                                   width: 350,
-    //                                                                   height: 30,
-    //                                                                   decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-    //                                                                 )
-    //                                                             );
-    //                                                           }
-    //                                                           if(snapshot.hasData){
-    //                                                             List dropDown = [];
-    //                                                             int docType = 0;
-    //                                                             List<DropdownMenuItem<String>> dropDownMenuItems = [];
-    //                                                             for(var i in snapshot.data!){
-    //                                                               dropDownMenuItems.add(
-    //                                                                 DropdownMenuItem<String>(
-    //                                                                   child: Text(i.docType),
-    //                                                                   value: i.docType,
-    //                                                                 ),
-    //                                                               );
-    //                                                             }
-    //                                                             return CICCDropdown(
-    //                                                                 initialValue: dropDownMenuItems[0].value,
-    //                                                                 onChange: (val){
-    //                                                                   for(var a in snapshot.data!){
-    //                                                                     if(a.docType == val){
-    //                                                                       docType = a.docID;
-    //                                                                       docTypeMetaId = docType;
-    //                                                                     }
-    //                                                                   }
-    //                                                                   identityDocumentTypeGet(context,docTypeMetaId).then((data) {
-    //                                                                     _identityDataController.add(data);
-    //                                                                   }).catchError((error) {
-    //                                                                     // Handle error
-    //                                                                   });
-    //                                                                   print(":::${docType}");
-    //                                                                   print(":::<>${docTypeMetaId}");
-    //                                                                 },
-    //                                                                 items:dropDownMenuItems
-    //                                                             );
-    //                                                           }else{
-    //                                                             return SizedBox();
-    //                                                           }
-    //                                                         }
-    //                                                     ),);
-    //                                                 },
-    //                                               );
-    //
-    //                                             }
-    //                                         );
-    //
-    //                                   });
-    //                                 }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
-    //                                 IconButton(
-    //                                     onPressed: (){
-    //                                       showDialog(context: context,
-    //                                           builder: (context) => StatefulBuilder(
-    //                                             builder: (BuildContext context, void Function(void Function()) setState) {
-    //                                               return  DeletePopup(
-    //                                                   title: 'Delete License',
-    //                                                 loadingDuration: _isLoading,
-    //                                                   onCancel: (){
-    //                                                     Navigator.pop(context);
-    //                                                   }, onDelete: () async{
-    //                                                 setState(() {
-    //                                                   _isLoading = true;
-    //                                                 });
-    //                                                 try {
-    //                                                   await deleteDocument(
-    //                                                       context,
-    //                                                       snapshot.data![index].docId!);
-    //                                                 } finally {
-    //                                                   setState(() {
-    //                                                     _isLoading = false;
-    //                                                   });
-    //                                                   Navigator.pop(context);
-    //                                                 }
-    //
-    //                                               });
-    //                                             },
-    //
-    //                                           ));
-    //                                     }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
-    //                               ],
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 );
-    //               },
-    //             ),
-    //           ),
-    //           PaginationControlsWidget(
-    //             currentPage: currentPage,
-    //             items: items,
-    //             itemsPerPage: itemsPerPage,
-    //             onPreviousPagePressed: () {
-    //               setState(() {
-    //                 currentPage = currentPage > 1 ? currentPage - 1 : 1;
-    //               });
-    //             },
-    //             onPageNumberPressed: (pageNumber) {
-    //               setState(() {
-    //                 currentPage = pageNumber;
-    //               });
-    //             },
-    //             onNextPagePressed: () {
-    //               setState(() {
-    //                 int totalPages = (items.length / itemsPerPage).ceil();
-    //                 currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-    //               });
-    //             },
-    //           ),
-    //         ],
-    //       );
-    //     }
-    //     return Offstage();
-    // },
-    // );
-  }
-}
-// ///
-// class CICcdLicense extends StatefulWidget {
-//   const CICcdLicense({super.key});
-//
-//
-//   @override
-//   State<CICcdLicense> createState() => _CICcdLicenseState();
-// }
-//
-// class _CICcdLicenseState extends State<CICcdLicense> {
-//   late int currentPage;
-//   late int itemsPerPage;
-//   late List<String> items;
-//   TextEditingController docNamecontroller = TextEditingController();
-//   TextEditingController docIdController = TextEditingController();
-//
-//   String? selectedValue;
-//   late List<Color> hrcontainerColors;
-//   @override
-//   void initState() {
-//     super.initState();
-//     currentPage = 1;
-//     itemsPerPage = 3;
-//     items = List.generate(20, (index) => 'Item ${index + 1}');
-//     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-//     orgDocumentGet(context);
-//     _loadColors();
-//   }
-//   void _loadColors() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     setState(() {
-//       for (int i = 0; i < hrcontainerColors.length; i++) {
-//         int? colorValue = prefs.getInt('containerColor$i');
-//         if (colorValue != null) {
-//           hrcontainerColors[i] = Color(colorValue);
-//         }
-//       }
-//     });
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     // List<String> currentPageItems = items.sublist(
-//     //   (currentPage - 1) * itemsPerPage,
-//     //   min(currentPage * itemsPerPage, items.length),
-//     // );
-//     return Column(
-//       children: [
-//         Container(
-//           height: AppSize.s30,
-//           margin: EdgeInsets.symmetric(horizontal: 40),
-//           decoration: BoxDecoration(
-//               color: ColorManager.fmediumgrey,
-//             borderRadius: BorderRadius.circular(12),
-//           ),
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceAround,
-//             children: [
-//               Center(
-//                   child: Text(
-//                     AppString.srNo,
-//                    style: GoogleFonts.firaSans(
-//                     fontSize: 12,
-//                     fontWeight: FontWeight.w700,
-//                    color: ColorManager.white
-//                    )
-//                     // style: RegisterTableHead.customTextStyle(context),
-//                   )),
-//               Center(
-//                   child: Text(
-//                     AppString.name,
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 12,
-//                           fontWeight: FontWeight.w700,
-//                           color: ColorManager.white
-//                       )
-//                     // style: RegisterTableHead.customTextStyle(context),
-//                   )),
-//               Center(
-//                   child: Text(
-//                     AppString.expiry,
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 12,
-//                           fontWeight: FontWeight.w700,
-//                           color: ColorManager.white
-//                       )
-//                     // style: RegisterTableHead.customTextStyle(context),
-//                   )),
-//               // Expanded(
-//               //     child: SizedBox(width: AppSize.s16,
-//               //     )),
-//               Center(
-//                   child: Text(
-//                     AppString.reminderthershold,
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 12,
-//                           fontWeight: FontWeight.w700,
-//                           color: ColorManager.white
-//                       )
-//                     // style: RegisterTableHead.customTextStyle(context),
-//                   )),
-//               // Center(child:
-//               // Text(AppString.eligibleClinician,style: RegisterTableHead.customTextStyle(context),),),
-//               Center(
-//                   child: Text(
-//                     AppString.actions,
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 12,
-//                           fontWeight: FontWeight.w700,
-//                           color: ColorManager.white
-//                       )
-//                     // style: RegisterTableHead.customTextStyle(context),
-//                   )),
-//             ],
-//           ),
-//         ),
-//         SizedBox(height: AppSize.s10,),
-//         Expanded(
-//           child: FutureBuilder<List<CiOrgDocumentCC>>(
-//             future: orgDocumentGet(context),
-//             builder: (context, snapshot) {
-//               if (snapshot.connectionState == ConnectionState.waiting) {
-//                 return Center(
-//                   child: CircularProgressIndicator(
-//                     color: ColorManager.blueprime,
-//                   ),
-//                 );
-//               }
-//               if(snapshot.data!.isEmpty){
-//                 return Center(
-//                     child: Text(AppString.dataNotFound,style:CustomTextStylesCommon.commonStyle(
-//                         fontWeight: FontWeightManager.medium,
-//                         fontSize: FontSize.s12,
-//                         color: ColorManager.mediumgrey
-//                     ),)
-//                 );
-//               }
-//               if(snapshot.hasData){
-//                 return ListView.builder(
-//                   scrollDirection: Axis.vertical,
-//                   itemCount: snapshot.data!.length,
-//                   itemBuilder: (context, index) {
-//                     int serialNumber =
-//                         index + 1 + (currentPage - 1) * itemsPerPage;
-//                     String formattedSerialNumber =
-//                     serialNumber.toString().padLeft(2, '0');
-//                     return Column(
-//                       children: [
-//                         SizedBox(height: AppSize.s5),
-//                         Container(
-//                           padding: EdgeInsets.only(bottom: AppPadding.p5),
-//                           margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
-//                           decoration: BoxDecoration(
-//                             color:ColorManager.white,
-//                             borderRadius: BorderRadius.circular(4),
-//                             boxShadow: [
-//                               BoxShadow(
-//                                 color: ColorManager.grey.withOpacity(0.5),
-//                                 spreadRadius: 1,
-//                                 blurRadius: 4,
-//                                 offset: Offset(0, 2),
-//                               ),
-//                             ],
-//                           ),
-//                           height: AppSize.s56,
-//
-//                           child: Row(
-//                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                             children: [
-//                               Center(
-//                                   child: Text(
-//                                     formattedSerialNumber,
-//                                     style: GoogleFonts.firaSans(
-//                                         fontSize: 10,
-//                                         fontWeight: FontWeight.w700,
-//                                         color: Color(0xff686464)
-//                                       // color: isSelected ? Colors.white : Colors.black,
-//                                     ),
-//                                     textAlign: TextAlign.start,
-//                                   )),
-//                               Center(
-//                                   child: Text(
-//                                     snapshot.data![index].name.toString(),
-//                                     style: GoogleFonts.firaSans(
-//                                         fontSize: 10,
-//                                         fontWeight: FontWeight.w700,
-//                                         color: Color(0xff686464)
-//                                       // color: isSelected ? Colors.white : Colors.black,
-//                                     ),
-//                                   )),
-//                               Center(
-//                                   child: Text(
-//                                     snapshot.data![index].expiry.toString(),
-//                                     style: GoogleFonts.firaSans(
-//                                         fontSize: 10,
-//                                         fontWeight: FontWeight.w700,
-//                                         color: Color(0xff686464)
-//                                       // color: isSelected ? Colors.white : Colors.black,
-//                                     ),
-//                                   )),
-//                               Center(
-//                                   child: Text(
-//                                     snapshot.data![index].reminderThreshold.toString(),
-//                                     style: GoogleFonts.firaSans(
-//                                         fontSize: 10,
-//                                         fontWeight: FontWeight.w700,
-//                                         color: Color(0xff686464)
-//                                       // color: isSelected ? Colors.white : Colors.black,
-//                                     ),
-//                                   )),
-//                               Center(
-//                                 child: Row(
-//                                   children: [
-//                                     IconButton(onPressed: (){
-//                                       showDialog(context: context, builder: (context){
-//                                         return CCScreenEditPopup(
-//                                           id: snapshot.data![index].docId,
-//                                           idDocController: docIdController,
-//                                           nameDocController: docNamecontroller,
-//                                           onSavePressed: (){},
-//                                           child:  CICCDropdown(
-//                                             initialValue: 'Corporate & Compliance Documents',
-//                                             items: [
-//                                               DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
-//                                               DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-//                                               DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-//                                               DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-//                                             ],),
-//                                           child1:   CICCDropdown(
-//                                             initialValue: 'Licenses',
-//                                             items: [
-//                                               DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
-//                                               DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-//                                               DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-//                                               DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-//                                             ],),);
-//                                       });
-//                                     }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
-//                                     SizedBox(width: 3,),
-//                                     InkWell(
-//                                       onTap:(){
-//                                         setState(() {
-//                                           deleteDocument(context, snapshot.data![index].docId!);
-//                                           orgDocumentGet(context);
-//                                         });
-//                                       },
-//                                         child: Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),)),
-//                                   ],
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     );
-//                   },
-//                 );
-//               }
-//               return Offstage();
-//             }
-//           ),
-//         ),
-//         PaginationControlsWidget(
-//           currentPage: currentPage,
-//           items: items,
-//           itemsPerPage: itemsPerPage,
-//           onPreviousPagePressed: () {
-//             /// Handle previous page button press
-//             setState(() {
-//               currentPage = currentPage > 1 ? currentPage - 1 : 1;
-//             });
-//           },
-//           onPageNumberPressed: (pageNumber) {
-//             /// Handle page number tap
-//             setState(() {
-//               currentPage = pageNumber;
-//             });
-//           },
-//           onNextPagePressed: () {
-//             /// Handle next page button press
-//             setState(() {
-//               currentPage = currentPage < (items.length / itemsPerPage).ceil()
-//                   ? currentPage + 1
-//                   : (items.length / itemsPerPage).ceil();
-//             });
-//           },
-//         ),
-//       ],
-//     );
-//   }
-// }
+  }}
