@@ -5,7 +5,6 @@ class WorkWeekScheduleData {
   final String officeStartTime;
   final String officeEndTime;
   final int companyId;
-  final String officeId;
   final bool sucess;
   final String message;
   WorkWeekScheduleData(
@@ -14,7 +13,6 @@ class WorkWeekScheduleData {
       required this.officeStartTime,
       required this.officeEndTime,
       required this.companyId,
-      required this.officeId,
       required this.sucess,
       required this.message});
 }
@@ -27,7 +25,6 @@ class WorkWeekShiftScheduleData {
   final String officeStartTime;
   final String officeEndTime;
   final int companyId;
-  final String officeId;
   final bool sucess;
   final String message;
   WorkWeekShiftScheduleData(
@@ -37,7 +34,6 @@ class WorkWeekShiftScheduleData {
       required this.officeStartTime,
       required this.officeEndTime,
       required this.companyId,
-      required this.officeId,
       required this.sucess,
       required this.message});
 }
@@ -89,7 +85,6 @@ class ShiftBachesData {
   final String officeStartTime;
   final String officeEndTime;
   final int companyId;
-  final String officeId;
 
   ShiftBachesData({
     required this.shiftBatchScheduleId,
@@ -98,7 +93,6 @@ class ShiftBachesData {
     required this.officeStartTime,
     required this.officeEndTime,
     required this.companyId,
-    required this.officeId,
     required this.success,
     required this.message,
   });

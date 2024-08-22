@@ -30,6 +30,7 @@ final int? educationID;
   bool? approved;
   final String? country;
   final String? startDate;
+  final String? docName;
 
 
   EducationDataForm(
@@ -43,6 +44,7 @@ final int? educationID;
         required this.college,
         required this.phone,
         required this.state,
+        this.docName,
         this.approved,
         required this.country,
         required this.startDate,

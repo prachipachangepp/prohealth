@@ -194,6 +194,7 @@ Future<List<EducationDataForm>> getEmployeeEducationForm(
         //String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);
         //String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
         itemsData.add(EducationDataForm(
+          docName: item['documentName'],
           educationID: item['educationId'],
           empId: item['employeeId'],
           graduate: item['graduate'],

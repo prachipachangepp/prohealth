@@ -222,11 +222,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   width: 140,
                                   child: CustomIconButton(
                                     icon: Icons.arrow_forward_rounded,
-                                    text: isLastStep ? 'Confirm' : 'Continue',
-                                    onPressed:
-                                        () async {
-                                      details.onStepContinue!();
-                                     // isLastStep ? OnBoardingThankYou() : details.onStepContinue!();
+                                    text: isLastStep ? 'Submit' : 'Continue',
+                                    onPressed: () async{
+                                      //details.onStepContinue!();
+                                      isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
                                     },
                                   ),
                                 ),

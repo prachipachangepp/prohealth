@@ -277,6 +277,7 @@ class _EducationFormState extends State<EducationForm> {
 
   String? graduatetype;
   String? selectedDegree;
+  String? docName;
 
   final StreamController<List<AEClinicalDiscipline>> Degreestream =
       StreamController<List<AEClinicalDiscipline>>();
@@ -302,6 +303,7 @@ class _EducationFormState extends State<EducationForm> {
           graduatetype = data.graduate ?? '';
          // selectedDegree = data.degree ?? '';
           educationIndex = data.educationID ?? 0;
+          docName = data.docName ?? "--";
 
         });
       }
@@ -363,7 +365,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
                             controller: collegeuniversity,
-                            hintText: 'Enter Text',
+                            hintText: 'Enter College/University Name',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
                               fontWeight: FontWeight.w400,
@@ -430,7 +432,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
                             controller: majorsubject,
-                            hintText: 'Enter Text',
+                            hintText: 'Enter Subject',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
                               fontWeight: FontWeight.w400,
@@ -456,7 +458,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
                             controller: phone,
-                            hintText: 'Enter Text',
+                            hintText: 'Enter Phone Number',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
                               fontWeight: FontWeight.w400,
@@ -475,7 +477,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
                             controller: city,
-                            hintText: 'Enter Text',
+                            hintText: 'Enter City',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
                               fontWeight: FontWeight.w400,
@@ -494,7 +496,7 @@ class _EducationFormState extends State<EducationForm> {
                           SizedBox(height: MediaQuery.of(context).size.height / 60),
                           CustomTextFieldRegister(
                             controller: state,
-                            hintText: 'Enter Text',
+                            hintText: 'Enter State',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
                               fontWeight: FontWeight.w400,
@@ -526,32 +528,51 @@ class _EducationFormState extends State<EducationForm> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: _handleFileUpload,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xff50B5E5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                            onPressed: _handleFileUpload,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xff50B5E5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+
                             ),
-                          ),
-                          icon: Icon(Icons.upload, color: Colors.white),
-                          label: Text(
-                            'Upload File',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
+                            icon: docName == "--" ? Icon(Icons.upload, color: Colors.white):null,
+                            label:docName == null ?Text(
+                              'Upload File',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ):Text(
+                              'Uploaded',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            )
                         ),
                         SizedBox(height: 8,),
-                        if (fileName != null)
-                          AutoSizeText(
-                            'File picked: $fileName',
-                            style: GoogleFonts.firaSans(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w600,
-                                color: ColorManager.mediumgrey),
-                          ),
+                        docName != null ? AutoSizeText(
+                          'Uploaded File: $docName',
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12.0,
+                              fontWeight:
+                              FontWeight.w600,
+                              color:
+                              ColorManager.mediumgrey),
+                        ):
+                        fileName != null ?
+                        AutoSizeText(
+                          'File picked: $fileName',
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12.0,
+                              fontWeight:
+                              FontWeight.w600,
+                              color:
+                              ColorManager.mediumgrey),
+                        ) : SizedBox(),
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 20),

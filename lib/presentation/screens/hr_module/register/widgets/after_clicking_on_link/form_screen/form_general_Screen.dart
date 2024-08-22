@@ -69,7 +69,7 @@ class _generalFormState extends State<generalForm> {
 
   String? racetype;
 
-  List<String> _fileNames = [];
+  String? _fileNames;
   bool _loading = false;
   bool _documentUploaded = true;
   var fileName;
@@ -249,9 +249,9 @@ class _generalFormState extends State<generalForm> {
                                     //  print("XFILE ${xFile.path}");
                                     //  //filePath = xfileToFile as XFile?;
                                     //  print("L::::::${filePath}");
-                                    _fileNames.addAll(
-                                        result.files.map((file) => file.name!));
-                                    print('File picked: ${_fileNames}');
+                                    // _fileNames.addAll(
+                                    //     result.files.map((file) => file.name!));
+                                    print('File picked: ${fileName}');
                                     //print(String.fromCharCodes(file));
                                     fileName = result.files.first.name;
                                     finalPath = result.files.first.bytes;
@@ -285,12 +285,8 @@ class _generalFormState extends State<generalForm> {
                                       // Loader size
                                     ),
                                   )
-                                : _fileNames.isNotEmpty
-                                    ? Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: _fileNames
-                                            .map((fileName) => Padding(
+                                : fileName != null
+                                    ? Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
                                                   child: Text(
@@ -302,9 +298,7 @@ class _generalFormState extends State<generalForm> {
                                                         color: const Color(
                                                             0xff686464)),
                                                   ),
-                                                ))
-                                            .toList(),
-                                      )
+                                                )
                                     :  SizedBox(height: 40,width: 10,), // Display file names if picked
 
                             SizedBox(

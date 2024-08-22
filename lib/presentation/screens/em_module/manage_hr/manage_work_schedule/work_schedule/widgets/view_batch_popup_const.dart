@@ -15,8 +15,8 @@ import 'package:shimmer/shimmer.dart';
 class ViewBatchesPopup extends StatefulWidget {
   final String shiftName;
   final String weekName;
-  final String officeId;
-   ViewBatchesPopup({super.key, required this.shiftName, required this.weekName, required this.officeId});
+
+   ViewBatchesPopup({super.key, required this.shiftName, required this.weekName});
 
   @override
   State<ViewBatchesPopup> createState() => _ViewBatchesPopupState();
@@ -33,7 +33,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
   @override
   void initState() {
     super.initState();
-    shiftBatchesGet(context,widget.shiftName,widget.officeId,widget.weekName).then((data) {
+    shiftBatchesGet(context,widget.shiftName,widget.weekName).then((data) {
       workWeekShiftBatchesController.add(data);
     }).catchError((error) {
       // Handle error
@@ -301,11 +301,11 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                 controller2: endTimeController,
                                                                                 onPressed: () async{
                                                                                   await updateShiftBatch(context,
-                                                                                      widget.shiftName, widget.officeId,widget.weekName,
+                                                                                      widget.shiftName,widget.weekName,
                                                                                       startTime == startTimeController.text ? startTime.toString() : startTimeController.text,
                                                                                       endTime == endTimeController.text ? endTime.toString() : endTimeController.text,
                                                                                       snapshot.data![index].shiftBatchScheduleId);
-                                                                                  shiftBatchesGet(context,widget.shiftName,widget.officeId,widget.weekName).then((data) {
+                                                                                  shiftBatchesGet(context,widget.shiftName,widget.weekName).then((data) {
                                                                                     workWeekShiftBatchesController.add(data);
                                                                                   }).catchError((error) {
                                                                                     // Handle error
@@ -331,7 +331,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                 }, onDelete:
                                                                                 () async {
                                                                                   await deleteShiftBatch(context, snapshot.data![index].shiftBatchScheduleId);
-                                                                                  shiftBatchesGet(context,widget.shiftName,widget.officeId,widget.weekName).then((data) {
+                                                                                  shiftBatchesGet(context,widget.shiftName,widget.weekName).then((data) {
                                                                                     workWeekShiftBatchesController.add(data);
                                                                                   }).catchError((error) {
                                                                                     // Handle error

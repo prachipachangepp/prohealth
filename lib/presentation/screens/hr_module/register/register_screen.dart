@@ -97,6 +97,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           StreamBuilder<List<RegisterDataCompID>>(
             stream: registerController.stream,
             builder: (context, snapshot) {
+              GetRegisterByCompId(context).then((data) {
+                registerController.add(data);
+              }).catchError((error) {
+                // Handle error
+              });
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 150),
@@ -135,23 +140,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     );
                   }),
                 );
-              //////////////////////////////////////////////
-              /////////////////
-              //   Container(
-              //   height: double.maxFinite,
-              //   child: WrapWidget(
-              //     childern: List.generate(snapshot.data!.length, (index) {
-              //       return Padding(
-              //         padding: const EdgeInsets.only(
-              //             left: AppPadding.p10,
-              //             right: AppPadding.p10,
-              //             top: AppPadding.p5,
-              //             bottom: AppPadding.p40),
-              //         child: buildDataContainer(snapshot.data![index]),
-              //       );
-              //     }),
-              //   ),
-              // );
             },
           ),
         ],
@@ -360,19 +348,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:63526/#/onBordingWelcome";
-                          // const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                          if (await canLaunch(url)) {
-                           await launch(url);
-                          //    Navigator.push(
-                          //      context,
-                          //      MaterialPageRoute(
-                          //       builder: (context) => OnBoardingWelcome(),
-                          //     ),
-                          //    );
-                           } else {
-                            throw 'Could not launch $url';
-                          }
+                          // const url = "http://localhost:54716/#/onBordingWelcome";
+                          // // const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          // if (await canLaunch(url)) {
+                          //  await launch(url);
+                             Navigator.push(
+                               context,
+                               MaterialPageRoute(
+                                builder: (context) => OnBoardingWelcome(),
+                              ),
+                             );
+                          //  } else {
+                          //   throw 'Could not launch $url';
+                          // }
                         },
                         child: Text(
                           data.link!,

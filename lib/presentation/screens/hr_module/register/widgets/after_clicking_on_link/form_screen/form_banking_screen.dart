@@ -496,7 +496,7 @@ class _BankingFormState extends State<BankingForm> {
                                               60),
                                   CustomTextFieldRegister(
                                     controller: bankname,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter Bank Name',
                                     hintStyle: GoogleFonts.firaSans(
                                       fontSize: 10.0,
                                       fontWeight: FontWeight.w400,
@@ -520,8 +520,9 @@ class _BankingFormState extends State<BankingForm> {
                                           MediaQuery.of(context).size.height /
                                               60),
                                   CustomTextFieldRegister(
+                                    maxLength: 9,
                                     controller: routingnumber,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter Number',
                                     hintStyle: GoogleFonts.firaSans(
                                       fontSize: 10.0,
                                       fontWeight: FontWeight.w400,
@@ -551,7 +552,7 @@ class _BankingFormState extends State<BankingForm> {
                                               60),
                                   CustomTextFieldRegister(
                                     controller: accountnumber,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter AC Number',
                                     hintStyle: GoogleFonts.firaSans(
                                       fontSize: 10.0,
                                       fontWeight: FontWeight.w400,
@@ -577,7 +578,7 @@ class _BankingFormState extends State<BankingForm> {
                                   CustomTextFieldRegister(
                                     controller: verifyaccountnumber,
                                     // controller: ,
-                                    hintText: 'Enter Text',
+                                    hintText: 'Enter AC Number',
                                     hintStyle: GoogleFonts.firaSans(
                                       fontSize: 10.0,
                                       fontWeight: FontWeight.w400,
