@@ -827,7 +827,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ctlrStreet: ctlrStreet,
                     ctlrZipCode: ctlrZipCode,
                     ctlrApartment: ctlrApartment,
-                    ctlrCity: ctlrCity,
+                   // ctlrCity: ctlrCity,
                     ctlrMajorStreet: ctlrMajorStreet,
                     ctlrPrimeNo: ctlrPrimeNo,
                     ctlrSecNo: ctlrSecNo,

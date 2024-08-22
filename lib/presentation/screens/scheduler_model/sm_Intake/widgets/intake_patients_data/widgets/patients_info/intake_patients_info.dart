@@ -25,15 +25,20 @@ class IntakePatientsDatatInfo extends StatefulWidget {
   final TextEditingController ctlrSuffix;
   final TextEditingController ctlrDate;
   final TextEditingController ctlrStreet;
+ // String? selectedState;
   final TextEditingController ctlrZipCode;
   final TextEditingController ctlrApartment;
-  final TextEditingController ctlrCity;
+  //String? selectedcity;
   final TextEditingController ctlrMajorStreet;
   final TextEditingController ctlrPrimeNo;
   final TextEditingController ctlrSecNo;
   final TextEditingController ctlrEmail;
   final TextEditingController ctlrSocialSec;
+  //String? selectedLanguage;
   final TextEditingController ctlrDischargeResaon;
+  // String? selectedRace;
+  // String? selectedReligion;
+  // String? selectedMaritalStatus;
   final TextEditingController ctlrDateOfDeath;
   IntakePatientsDatatInfo(
       {super.key,
@@ -45,15 +50,22 @@ class IntakePatientsDatatInfo extends StatefulWidget {
       required this.ctlrSuffix,
       required this.ctlrDate,
       required this.ctlrStreet,
+
+      //required this.selectedState,
       required this.ctlrZipCode,
       required this.ctlrApartment,
-      required this.ctlrCity,
+     // required this.selectedcity,
       required this.ctlrMajorStreet,
       required this.ctlrPrimeNo,
       required this.ctlrSecNo,
       required this.ctlrEmail,
       required this.ctlrSocialSec,
+     // required this.selectedLanguage,
+
       required this.ctlrDischargeResaon,
+      // required this.selectedRace,
+      // required this.selectedReligion,
+      // required this.selectedMaritalStatus,
       required this.ctlrDateOfDeath});
 
   @override
@@ -697,7 +709,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                       onChanged: (newValue) {
                                         for (var a in snapshot.data!) {
                                           if (a.race == newValue) {
-                                            selectedReligion = a.race!;
+                                            selectedRace = a.race!;
                                             //country = a
                                             // int? docType = a.companyOfficeID;
                                           }
@@ -949,7 +961,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                       onChanged: (newValue) {
                                         for (var a in snapshot.data!) {
                                           if (a.maritalStatus == newValue) {
-                                            selectedLanguage = a.maritalStatus!;
+                                            selectedMaritalStatus = a.maritalStatus!;
                                             //country = a
                                             // int? docType = a.companyOfficeID;
                                           }
