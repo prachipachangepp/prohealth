@@ -63,6 +63,7 @@ class _OfferLetterDescriptionScreenState
       print("File picking cancelled or failed.");
     }
   }
+  int offerId = 1;
 
 
   void _clearSelectedFile() {
@@ -112,6 +113,7 @@ class _OfferLetterDescriptionScreenState
                     height: 1190,);
                 }
                 if (snapshot.hasData) {
+                  offerId = snapshot.data!.offerId;
                   return Container(
                     color: Colors.white,
                     width: 1032,
@@ -237,39 +239,6 @@ class _OfferLetterDescriptionScreenState
                 ],
               ),
             ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 230.0),
-              //   child: Column(
-              //     children: [
-              //
-              //       SizedBox(height: 10),
-              //       // Padding(
-              //       //   padding: const EdgeInsets.only(right: 230.0),
-              //       //   child: Row(
-              //       //     children: [
-              //       //       ElevatedButton(
-              //       //         onPressed: _clearSelectedFile,
-              //       //         style: ElevatedButton.styleFrom(
-              //       //           backgroundColor: Color(0xff1696C8),
-              //       //           foregroundColor: Colors.white,
-              //       //           shape: RoundedRectangleBorder(
-              //       //             borderRadius: BorderRadius.circular(8),
-              //       //           ),
-              //       //         ),
-              //       //         child: Text(
-              //       //           'Clear Selected Image',
-              //       //           style: GoogleFonts.firaSans(
-              //       //             fontSize: 10.0,
-              //       //             fontWeight: FontWeight.w400,
-              //       //           ),
-              //       //         ),
-              //       //       ),
-              //       //     ],
-              //       //   ),
-              //       // ),
-              //     ],
-              //   ),
-              // ),
                Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -277,7 +246,7 @@ class _OfferLetterDescriptionScreenState
                   onPressed: () async{
                       ApiData updateOfferFuture = await updateOfferLetter(
                         context,
-                         1,
+                        offerId,
                          1,
                          widget.employeeId,
                         "2023-01-01",

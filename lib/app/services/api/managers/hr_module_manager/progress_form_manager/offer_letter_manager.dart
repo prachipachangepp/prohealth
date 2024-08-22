@@ -29,6 +29,7 @@ Future<OfferLetterData> GetOfferLetter(BuildContext context,
     if (response.statusCode == 200 || response.statusCode == 201) {
         itemsList =
             OfferLetterData(
+              offerId: response.data['offerId'],
                 docUploadStatus: response.data['DocumentUploadStatus'],
                 templateName: response.data['templateName'],
                 template: response.data['template'],
@@ -39,7 +40,7 @@ Future<OfferLetterData> GetOfferLetter(BuildContext context,
           docUploadStatus: "",
           templateName: "",
           template: "",
-          statusCode: response.statusCode
+          statusCode: response.statusCode, offerId: 0
       );
     }
     else {
