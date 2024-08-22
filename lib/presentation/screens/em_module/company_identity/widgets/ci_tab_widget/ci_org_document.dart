@@ -343,8 +343,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                     },
                                   ),
                                   // Rest of your components remain the same
-                                  child1: StreamBuilder<
-                                      List<IdentityDocumentIdData>>(
+                                  child1: StreamBuilder<List<IdentityDocumentIdData>>(
                                     stream: _identityDataController.stream,
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState ==

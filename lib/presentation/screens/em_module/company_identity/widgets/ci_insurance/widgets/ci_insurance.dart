@@ -77,90 +77,183 @@ class _CiOrgDocumentState extends State<CIInsurance> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                // _selectedIndex == 0
+                //     ? SizedBox(width: 354)
+                //     : FutureBuilder<List<ManageVendorData>>(
+                //         future: companyVendorGet(context, widget.officeId, 1, 20),
+                //         builder: (context, snapshotZone) {
+                //           if (snapshotZone.connectionState ==
+                //                   ConnectionState.waiting &&
+                //               selectedValue == null) {
+                //             return Shimmer.fromColors(
+                //               baseColor: Colors.grey[300]!,
+                //               highlightColor: Colors.grey[100]!,
+                //               child: Container(
+                //                 width: 354,
+                //                 height: 30,
+                //                 decoration: BoxDecoration(
+                //                   color: ColorManager.faintGrey,
+                //                   borderRadius: BorderRadius.circular(10),
+                //                 ),
+                //               ),
+                //             );
+                //           }
+                //
+                //           if (snapshotZone.data!.isEmpty) {
+                //             return Container(
+                //               height: 30,
+                //               width: 354,
+                //               child: Center(
+                //                 child: Text(
+                //                   AppString.dataNotFound,
+                //                   style: CustomTextStylesCommon.commonStyle(
+                //                     fontWeight: FontWeightManager.medium,
+                //                     fontSize: FontSize.s12,
+                //                     color: ColorManager.mediumgrey,
+                //                   ),
+                //                 ),
+                //               ),
+                //             );
+                //           }
+                //
+                //           if (snapshotZone.hasData) {
+                //             List<DropdownMenuItem<String>> dropDownTypesList =
+                //                 [];
+                //             for (var i in snapshotZone.data!) {
+                //               dropDownTypesList.add(
+                //                 DropdownMenuItem<String>(
+                //                   value: i.vendorName,
+                //                   child: Text(i.vendorName),
+                //                 ),
+                //               );
+                //             }
+                //
+                //             // Initialize selectedValue if not already selected
+                //             if (selectedValue == null &&
+                //                 dropDownTypesList.isNotEmpty) {
+                //               selectedValue = dropDownTypesList[0].value;
+                //             }
+                //
+                //             return CICCDropdown(
+                //               initialValue:
+                //                   selectedValue, // Set the value of the dropdown
+                //               onChange: (val) {
+                //                 setState(() {
+                //                   selectedValue =
+                //                       val; // Update the selected value
+                //                   for (var a in snapshotZone.data!) {
+                //                     if (a.vendorName == val) {
+                //                       int docType = a.insuranceVendorId;
+                //                       print(
+                //                           "Insurance vendor id :: ${a.insuranceVendorId}");
+                //                       selectedVendorId = docType;
+                //                       isAddButtonEnabled = true;
+                //                       _selectButton(1);
+                //                       break;
+                //                     }
+                //                   }
+                //                 });
+                //               },
+                //               items: dropDownTypesList,
+                //             );
+                //           }
+                //
+                //           return const SizedBox();
+                //         },
+                //       ),
                 _selectedIndex == 0
                     ? SizedBox(width: 354)
                     : FutureBuilder<List<ManageVendorData>>(
-                        future: companyVendorGet(context, widget.officeId, 1, 20),
-                        builder: (context, snapshotZone) {
-                          if (snapshotZone.connectionState ==
-                                  ConnectionState.waiting &&
-                              selectedValue == null) {
-                            return Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
-                                width: 354,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  color: ColorManager.faintGrey,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            );
-                          }
+                  future: companyVendorGet(context, widget.officeId, 1, 20),
+                  builder: (context, snapshotZone) {
+                    if (snapshotZone.connectionState == ConnectionState.waiting &&
+                        selectedValue == null) {
+                      return Container(
+                        width: 300,
+                        child: Text(
+                          "Loading...",
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeightManager.medium,
+                            fontSize: FontSize.s12,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                      );
+                    }
 
-                          if (snapshotZone.data!.isEmpty) {
-                            return Container(
-                              height: 30,
-                              width: 354,
-                              child: Center(
-                                child: Text(
-                                  AppString.dataNotFound,
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    fontWeight: FontWeightManager.medium,
-                                    fontSize: FontSize.s12,
-                                    color: ColorManager.mediumgrey,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
+                    if (snapshotZone.hasError || snapshotZone.data == null) {
+                      return Container(
+                        height: 30,
+                        width: 354,
+                        child: Text(
+                          "Loading data",
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeightManager.medium,
+                            fontSize: FontSize.s12,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                      );
+                    }
 
-                          if (snapshotZone.hasData) {
-                            List<DropdownMenuItem<String>> dropDownTypesList =
-                                [];
-                            for (var i in snapshotZone.data!) {
-                              dropDownTypesList.add(
-                                DropdownMenuItem<String>(
-                                  value: i.vendorName,
-                                  child: Text(i.vendorName),
-                                ),
-                              );
+                    if (snapshotZone.data!.isEmpty) {
+                      return Container(
+                        height: 30,
+                        width: 354,
+                        child: Center(
+                          child: Text(
+                            AppString.dataNotFound,
+                            style: CustomTextStylesCommon.commonStyle(
+                              fontWeight: FontWeightManager.medium,
+                              fontSize: FontSize.s12,
+                              color: ColorManager.mediumgrey,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+
+                    if (snapshotZone.hasData) {
+                      List<DropdownMenuItem<String>> dropDownTypesList = [];
+                      for (var i in snapshotZone.data!) {
+                        dropDownTypesList.add(
+                          DropdownMenuItem<String>(
+                            value: i.vendorName,
+                            child: Text(i.vendorName),
+                          ),
+                        );
+                      }
+
+                      // Initialize selectedValue if not already selected
+                      if (selectedValue == null && dropDownTypesList.isNotEmpty) {
+                        selectedValue = dropDownTypesList[0].value;
+                      }
+
+                      return CICCDropdown(
+                        initialValue: selectedValue,
+                        onChange: (val) {
+                          setState(() {
+                            selectedValue = val;
+                            for (var a in snapshotZone.data!) {
+                              if (a.vendorName == val) {
+                                int docType = a.insuranceVendorId;
+                                print("Insurance vendor id :: ${a.insuranceVendorId}");
+                                selectedVendorId = docType;
+                                isAddButtonEnabled = true;
+                                _selectButton(1);
+                                break;
+                              }
                             }
-
-                            // Initialize selectedValue if not already selected
-                            if (selectedValue == null &&
-                                dropDownTypesList.isNotEmpty) {
-                              selectedValue = dropDownTypesList[0].value;
-                            }
-
-                            return CICCDropdown(
-                              initialValue:
-                                  selectedValue, // Set the value of the dropdown
-                              onChange: (val) {
-                                setState(() {
-                                  selectedValue =
-                                      val; // Update the selected value
-                                  for (var a in snapshotZone.data!) {
-                                    if (a.vendorName == val) {
-                                      int docType = a.insuranceVendorId;
-                                      print(
-                                          "Insurance vendor id :: ${a.insuranceVendorId}");
-                                      selectedVendorId = docType;
-                                      isAddButtonEnabled = true;
-                                      _selectButton(1);
-                                      break;
-                                    }
-                                  }
-                                });
-                              },
-                              items: dropDownTypesList,
-                            );
-                          }
-
-                          return const SizedBox();
+                          });
                         },
-                      ),
+                        items: dropDownTypesList,
+                      );
+                    }
+
+                    return const SizedBox();
+                  },
+                ),
+
 
                 ///tabbar
                 Padding(
@@ -265,7 +358,8 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         width: 130,
                         icon: Icons.add,
                         text: "Add Doctype",
-                        onPressed:isAddButtonEnabled?  () {
+                        onPressed:
+                        isAddButtonEnabled?  () {
                                 //selectedExpiryType = expiryType;
                                 showDialog(
                                   context: context,
