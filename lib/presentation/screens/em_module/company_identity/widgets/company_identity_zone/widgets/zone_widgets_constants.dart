@@ -555,9 +555,11 @@ class AddZipCodePopup extends StatefulWidget {
   final TextEditingController landmarkController;
   final Widget? child;
   final Widget? child1;
+  final Widget? child2;
   final Future<void> Function() onSavePressed;
   final VoidCallback? onPickLocation;
-   AddZipCodePopup({super.key, required this.title, required this.countynameController, required this.zipcodeController, required this.mapController, required this.landmarkController, this.child, required this.onSavePressed, required this.cityNameController, this.child1, this.onPickLocation,});
+   AddZipCodePopup({super.key, required this.title, required this.countynameController, required this.zipcodeController,
+     required this.mapController, required this.landmarkController, this.child, required this.onSavePressed, required this.cityNameController, this.child1, this.onPickLocation, this.child2,});
 
   @override
   State<AddZipCodePopup> createState() => _AddZipCodePopupState();
@@ -669,30 +671,31 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       text: 'Zip Code',
                     ),
                     SizedBox(height: AppSize.s20),
-                    Row(
-                      children: [
-                        TextButton(
-                          onPressed: widget.onPickLocation,
-                          style: TextButton.styleFrom(
-                              backgroundColor: Colors.transparent),
-                          child: Text(
-                            'Change Location',
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.bold,
-                              color: ColorManager.bluelight,
-                              //decoration: TextDecoration.none,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.location_on_outlined,
-                          color: ColorManager.granitegray,
-                          size: AppSize.s18,
-                        ),
-
-                      ],
-                    ),
+                    widget.child2!,
+                    // Row(
+                    //   children: [
+                    //     TextButton(
+                    //       onPressed: widget.onPickLocation,
+                    //       style: TextButton.styleFrom(
+                    //           backgroundColor: Colors.transparent),
+                    //       child: Text(
+                    //         'Change Location',
+                    //         style: GoogleFonts.firaSans(
+                    //           fontSize: FontSize.s12,
+                    //           fontWeight: FontWeightManager.bold,
+                    //           color: ColorManager.bluelight,
+                    //           //decoration: TextDecoration.none,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Icon(
+                    //       Icons.location_on_outlined,
+                    //       color: ColorManager.granitegray,
+                    //       size: AppSize.s18,
+                    //     ),
+                    //
+                    //   ],
+                    // ),
                     SizedBox(height: AppSize.s20),
 
                     SMTextFConst(
@@ -744,7 +747,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
   }
 }
 
-//edit
+///edit
 class EditZipCodePopup extends StatefulWidget {
   final String title;
   final TextEditingController countynameController;
@@ -1010,7 +1013,7 @@ class _MapScreenState extends State<MapScreen> {
   }
 }
 
-
+///zone
 class AddZonePopup extends StatefulWidget {
   final TextEditingController zoneNumberController;
   final Future<void> Function() onSavePressed;
