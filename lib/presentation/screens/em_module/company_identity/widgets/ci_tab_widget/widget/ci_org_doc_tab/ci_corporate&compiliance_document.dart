@@ -15,7 +15,10 @@ import '../../../../../../../../app/resources/color.dart';
 
 class CICorporateCompilianceDocument extends StatefulWidget {
   final int docID;
-  const CICorporateCompilianceDocument({super.key, required this.docID,});
+  const CICorporateCompilianceDocument({
+    super.key,
+    required this.docID,
+  });
 
   @override
   State<CICorporateCompilianceDocument> createState() =>
@@ -251,38 +254,38 @@ class _CICorporateCompilianceDocumentState
         )),
         Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: NonScrollablePageView(
-                controller: _tabPageController,
-                onPageChanged: (index) {
-                  // setState(() {
-                  _selectedIndex = index;
-                  // });
-                },
-                children: [
-                  CICcdLicense(
-                    subDocID: AppConfig.subDocId1,
-                    docID: widget.docID,//officeId: "",//widget.officeId,
-                  ),
-                  CICcdADR(
-                    subDocID: AppConfig.subDocId2,
-                    docID: widget.docID,//officeId: "",//widget.officeId,
-                  ),
-                  CiCcdMedicalCostReport(
-                    subDocID: AppConfig.subDocId3,
-                    docID: widget.docID,//officeId: "",//widget.officeId,
-                  ),
-                  CiCcdCapReports(
-                    docID: widget.docID,
-                    subDocId: AppConfig.subDocId4,//officeId: "",//widget.officeId,
-                  ),
-                  CICcdQuarteryBalanceReport(
-                    docId: widget.docID,
-                    subDocID: AppConfig.subDocId5,//officeId: "",//widget.officeId,
-                  )
-                ],
+          padding: const EdgeInsets.only(top: 15.0),
+          child: NonScrollablePageView(
+            controller: _tabPageController,
+            onPageChanged: (index) {
+              // setState(() {
+              _selectedIndex = index;
+              // });
+            },
+            children: [
+              CICcdLicense(
+                subDocID: AppConfig.subDocId1Licenses,
+                docID: widget.docID, //officeId: "",//widget.officeId,
               ),
-            )),
+              CICcdADR(
+                subDocID: AppConfig.subDocId2Adr,
+                docID: widget.docID, //officeId: "",//widget.officeId,
+              ),
+              CiCcdMedicalCostReport(
+                subDocID: AppConfig.subDocId3CICCMedicalCR,
+                docID: widget.docID, //officeId: "",//widget.officeId,
+              ),
+              CiCcdCapReports(
+                docID: widget.docID,
+                subDocId: AppConfig.subDocId4, //officeId: "",//widget.officeId,
+              ),
+              CICcdQuarteryBalanceReport(
+                docId: widget.docID,
+                subDocID: AppConfig.subDocId5, //officeId: "",//widget.officeId,
+              )
+            ],
+          ),
+        )),
       ],
     );
   }

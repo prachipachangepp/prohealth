@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -19,14 +17,13 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_vendor_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import 'package:shimmer/shimmer.dart';
+
 import '../../company_identity_screen.dart';
 
 class CiOrgDocument extends StatefulWidget {
   final String officeId;
   final int? companyId;
   const CiOrgDocument({super.key, required this.officeId, this.companyId});
-
   @override
   State<CiOrgDocument> createState() => _CiOrgDocumentState();
 }
@@ -38,7 +35,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   TextEditingController calenderController = TextEditingController();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController =
       StreamController<List<IdentityDocumentIdData>>.broadcast();
-
   int _selectedIndex = 0;
   void _selectButton(int index) {
     setState(() {
@@ -206,7 +202,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                       String? selectedDocType;
                       String? selectedSubDocType;
                       String? selectedExpiryType = expiryType;
-
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -231,10 +226,13 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                       context: context,
                                       name: docNamecontroller.text,
                                       docTypeID: docTypeMetaId,
-                                      docSubTypeID: docTypeMetaId == 10 ? 0 : docSubTypeMetaId,
+                                      docSubTypeID: docTypeMetaId == 10
+                                          ? 0
+                                          : docSubTypeMetaId,
                                       expiryType: selectedExpiryType.toString(),
                                       expiryDate: expiryTypeToSend,
-                                      expiryReminder: selectedExpiryType.toString(),
+                                      expiryReminder:
+                                          selectedExpiryType.toString(),
                                     );
                                     await getORGDoc(context, docTypeMetaId,
                                         docSubTypeMetaId, 1, 20);
@@ -270,8 +268,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                 fontWeight:
                                                     FontWeightManager.medium,
                                                 fontSize: FontSize.s12,
-                                                color:
-                                                    ColorManager.mediumgrey,
+                                                color: ColorManager.mediumgrey,
                                               ),
                                             ),
                                           );
@@ -285,24 +282,22 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                 fontWeight:
                                                     FontWeightManager.medium,
                                                 fontSize: FontSize.s12,
-                                                color:
-                                                    ColorManager.mediumgrey,
+                                                color: ColorManager.mediumgrey,
                                               ),
                                             ),
                                           );
                                         }
                                         if (snapshot.hasData) {
                                           List<DropdownMenuItem<String>>
-                                              dropDownMenuItems = snapshot
-                                                  .data!
+                                              dropDownMenuItems = snapshot.data!
                                                   .map((doc) =>
-                                                      DropdownMenuItem<
-                                                          String>(
+                                                      DropdownMenuItem<String>(
                                                         value: doc.docType,
                                                         child:
                                                             Text(doc.docType),
                                                       ))
                                                   .toList();
+
                                           return CICCDropdown(
                                             initialValue: selectedDocType ??
                                                 dropDownMenuItems[0].value,
@@ -316,8 +311,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                   }
                                                 }
                                                 identityDocumentTypeGet(
-                                                        context,
-                                                        docTypeMetaId)
+                                                        context, docTypeMetaId)
                                                     .then((data) {
                                                   _identityDataController
                                                       .add(data);
@@ -336,7 +330,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                   },
                                 ),
                                 // Rest of your components remain the same
-                                child1: StreamBuilder<List<IdentityDocumentIdData>>(
+                                child1:
+                                    StreamBuilder<List<IdentityDocumentIdData>>(
                                   stream: _identityDataController.stream,
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
@@ -374,19 +369,17 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                               .map((subDoc) =>
                                                   DropdownMenuItem<String>(
                                                     value: subDoc.subDocType,
-                                                    child: Text(
-                                                        subDoc.subDocType),
+                                                    child:
+                                                        Text(subDoc.subDocType),
                                                   ))
                                               .toList();
-
                                       return CICCDropdown(
                                         initialValue: selectedSubDocType ??
                                             dropDownMenuItems[0].value,
                                         onChange: (val) {
                                           setState(() {
                                             selectedSubDocType = val;
-                                            for (var subDoc
-                                                in snapshot.data!) {
+                                            for (var subDoc in snapshot.data!) {
                                               if (subDoc.subDocType == val) {
                                                 docSubTypeMetaId =
                                                     subDoc.subDocID;
@@ -404,8 +397,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                 radioButton: Padding(
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -452,8 +444,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                   ),
                                 ),
                                 child2: Visibility(
-                                  visible: selectedExpiryType ==
-                                          "Scheduled" ||
+                                  visible: selectedExpiryType == "Scheduled" ||
                                       selectedExpiryType == "Issuer Expiry",
                                   child: Column(
                                     crossAxisAlignment:
@@ -480,8 +471,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                               style: GoogleFonts.firaSans(
                                                 fontSize: FontSize.s12,
                                                 fontWeight: FontWeight.w700,
-                                                color:
-                                                    ColorManager.mediumgrey,
+                                                color: ColorManager.mediumgrey,
                                               ),
                                               decoration: InputDecoration(
                                                 enabledBorder:
@@ -491,8 +481,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                           .fmediumgrey,
                                                       width: 1),
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8),
+                                                      BorderRadius.circular(8),
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
@@ -501,12 +490,10 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                           .fmediumgrey,
                                                       width: 1),
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8),
+                                                      BorderRadius.circular(8),
                                                 ),
                                                 hintText: 'mm-dd-yyyy',
-                                                hintStyle:
-                                                    GoogleFonts.firaSans(
+                                                hintStyle: GoogleFonts.firaSans(
                                                   fontSize: FontSize.s12,
                                                   fontWeight: FontWeight.w700,
                                                   color:
@@ -514,8 +501,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                 ),
                                                 border: OutlineInputBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8),
+                                                      BorderRadius.circular(8),
                                                   borderSide: BorderSide(
                                                       width: 1,
                                                       color: ColorManager
@@ -527,8 +513,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                 suffixIcon: Icon(
                                                     Icons
                                                         .calendar_month_outlined,
-                                                    color: ColorManager
-                                                        .blueprime),
+                                                    color:
+                                                        ColorManager.blueprime),
                                                 errorText: field.errorText,
                                               ),
                                               onTap: () async {
@@ -604,13 +590,16 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 children: [
                   // Page 1
                   CICorporateCompilianceDocument(
-                    docID: AppConfig.docId8, //officeId: widget.officeId,
+                    docID: AppConfig
+                        .corporateAndCompliance, //officeId: widget.officeId,
                   ),
                   CIVendorContract(
-                    docId: AppConfig.docId9, //officeId: widget.officeId
+                    docId:
+                        AppConfig.vendorContracts, //officeId: widget.officeId
                   ),
                   CIPoliciesProcedure(
-                    docId: AppConfig.docId10, subDocId: AppConfig.subDocId0,
+                    docId: AppConfig.policiesAndProcedure,
+                    subDocId: AppConfig.subDocId0,
                     //officeId: widget.officeId,
                   )
                 ],
