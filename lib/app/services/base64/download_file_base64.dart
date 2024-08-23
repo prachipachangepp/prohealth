@@ -21,7 +21,7 @@ class DowloadFile {
     // Cleanup
     html.Url.revokeObjectUrl(url);
   }
-
+//
   void downloadFileFromBase64(String base64String, String fileName) {
     // Decode the base64 string into bytes (Uint8List)
     Uint8List bytes = base64.decode(base64String);
