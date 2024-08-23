@@ -20,11 +20,11 @@ class AppConfig {
   static const int subDocId5 = 15;
 
   ///VC
-  static const int subDocId6 = 16;
-  static const int subDocId7 = 17;
-  static const int subDocId8 = 18;
-  static const int subDocId9 = 19;
-  static const int subDocId10 = 20;
+  static const int subDocId6 = 6;
+  static const int subDocId7 = 7;
+  static const int subDocId8 = 8;
+  static const int subDocId9 = 9;
+  static const int subDocId10 = 10;
 
   /// Policies & procedures
   static const int subDocId0 = 0;

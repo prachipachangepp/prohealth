@@ -231,14 +231,10 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                       context: context,
                                       name: docNamecontroller.text,
                                       docTypeID: docTypeMetaId,
-                                      docSubTypeID: docTypeMetaId == 10
-                                          ? 0
-                                          : docSubTypeMetaId,
-                                      expiryType:
-                                          selectedExpiryType.toString(),
+                                      docSubTypeID: docTypeMetaId == 10 ? 0 : docSubTypeMetaId,
+                                      expiryType: selectedExpiryType.toString(),
                                       expiryDate: expiryTypeToSend,
-                                      expiryReminder:
-                                          selectedExpiryType.toString(),
+                                      expiryReminder: selectedExpiryType.toString(),
                                     );
                                     await getORGDoc(context, docTypeMetaId,
                                         docSubTypeMetaId, 1, 20);

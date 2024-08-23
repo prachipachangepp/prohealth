@@ -48,13 +48,14 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
               fontWeight: FontWeight.w400,
               color: Color(0xff575757)),
           suffixIcon: IconButton(
+            splashRadius: 1,
             icon: Icon(Icons.calendar_month, color: Color(0xff686464),size: 16,),
             onPressed: () async {
               DateTime? pickedDate = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2101),
+                firstDate: DateTime(1950),
+                lastDate: DateTime(3000),
               );
               if (pickedDate != null) {
                 widget.controller.text = "${pickedDate.toLocal()}".split(' ')[0];

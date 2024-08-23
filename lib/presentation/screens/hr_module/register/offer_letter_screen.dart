@@ -65,20 +65,20 @@ class OfferLetterScreen extends StatefulWidget {
 
   const OfferLetterScreen(
       {super.key,
-      required this.email,
-      required this.userId,
-      required this.role,
-      required this.status,
-      required this.firstName,
-      required this.lastName,
-      required this.position,
-      required this.phone,
-      required this.reportingOffice,
-      required this.services,
-      required this.employement,
-      required this.soecalityName,
-      required this.clinicalName,
-      required this.employeeId, this.apiData});
+        required this.email,
+        required this.userId,
+        required this.role,
+        required this.status,
+        required this.firstName,
+        required this.lastName,
+        required this.position,
+        required this.phone,
+        required this.reportingOffice,
+        required this.services,
+        required this.employement,
+        required this.soecalityName,
+        required this.clinicalName,
+        required this.employeeId, this.apiData});
 
   @override
   State<OfferLetterScreen> createState() => _OfferLetterScreenState();
@@ -141,7 +141,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
         title: Text(
           data['title'],
           style:
-              GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
+          GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
         ),
         value: data['value'],
         onChanged: (bool? value) {
@@ -159,7 +159,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
         title: Text(
           data['title'],
           style:
-              GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
+          GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),
         ),
         value: data['value'],
         onChanged: (bool? value) {
@@ -263,15 +263,15 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(
                           borderSide:
-                              BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          BorderSide(color: Color(0xffB1B1B1), width: 1.0),
                         ),
                         enabledBorder: const OutlineInputBorder(
                           borderSide:
-                              BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          BorderSide(color: Color(0xffB1B1B1), width: 1.0),
                         ),
                         focusedBorder: const OutlineInputBorder(
                           borderSide:
-                              BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                          BorderSide(color: Color(0xffB1B1B1), width: 1.0),
                         ),
                         filled: true,
                         fillColor: Colors.white,
@@ -309,7 +309,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               color: Colors.blue),
                         ),
                         contentPadding:
-                            const EdgeInsets.only(left: 20, bottom: 5),
+                        const EdgeInsets.only(left: 20, bottom: 5),
                       ),
                       style: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -347,241 +347,241 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             children: [
                               ///county
                               Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('County',style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: ColorManager.mediumgrey,
-                                    ),),
-                                    SizedBox(height:5),
-                                    FutureBuilder<List<AllCountyGetList>>(
-                                      future: getCountyZoneList(context),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 7),
-                                            child: Container(
-                                              height: 31,
-                                              width: 250,
-                                              decoration: BoxDecoration(
-                                                  color: ColorManager.white),
-                                            ),
-                                          );
-
-                                        } else if (snapshot.hasError) {
-                                          return const CustomDropdownTextField(
-                                            labelText: 'County',
-                                            labelStyle: TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            labelFontSize: 12,
-                                            items: ['Error'],
-                                          );
-                                        } else if (snapshot.hasData) {
-                                          List<DropdownMenuItem<String>> dropDownList = [];
-                                          int countyId = 0;
-                                          for(var i in snapshot.data!){
-                                            dropDownList.add(DropdownMenuItem<String>(
-                                              child: Text(i.countyName),
-                                              value: i.countyName,
-                                            ));
-                                          }
-                                          print("County: ");
-                                          return Container(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('County',style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: ColorManager.mediumgrey,
+                                  ),),
+                                  SizedBox(height:5),
+                                  FutureBuilder<List<AllCountyGetList>>(
+                                    future: getCountyZoneList(context),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 7),
+                                          child: Container(
                                             height: 31,
                                             width: 250,
-                                            // margin: EdgeInsets.symmetric(horizontal: 20),
-                                            padding:
-                                            const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                                             decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              border: Border.all(
-                                                  color: const Color(0xff686464).withOpacity(0.5),
-                                                  width: 1), // Black border
-                                              borderRadius:
-                                              BorderRadius.circular(6), // Rounded corners
-                                            ),
-                                            child: DropdownButtonFormField<String>(
-                                              focusColor: Colors.transparent,
-                                              icon: const Icon(
-                                                Icons.arrow_drop_down_sharp,
-                                                color: Color(0xff686464),
-                                              ),
-                                              decoration: const InputDecoration.collapsed(hintText: ''),
-                                              items: dropDownList,
-                                              onChanged: (newValue) {
-                                                for(var a in snapshot.data!){
-                                                  if(a.countyName == newValue){
-                                                    countyId = a.countyId;
-                                                    selectedCountyId = countyId;
-                                                    print("County Id :: ${selectedCountyId}");
-                                                    setState(() {
-                                                      getZipcodeByCountyId(context: context, countyId:selectedCountyId);
-                                                    });
-                                                    //empTypeId = docType;
-                                                  }
-                                                }
-                                              },
-                                              value: dropDownList[0].value,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                                color: const Color(0xff686464),
-                                                decoration: TextDecoration.none,
-                                              ),
-                                            ),
-                                          );
-                                        } else {
-                                          return CustomDropdownTextField(
-                                            labelText: 'County',
-                                            labelStyle: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: const Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            labelFontSize: 12,
-                                            items: ['No Data'],
-                                          );
+                                                color: ColorManager.white),
+                                          ),
+                                        );
+
+                                      } else if (snapshot.hasError) {
+                                        return const CustomDropdownTextField(
+                                          labelText: 'County',
+                                          labelStyle: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelFontSize: 12,
+                                          items: ['Error'],
+                                        );
+                                      } else if (snapshot.hasData) {
+                                        List<DropdownMenuItem<String>> dropDownList = [];
+                                        int countyId = 0;
+                                        for(var i in snapshot.data!){
+                                          dropDownList.add(DropdownMenuItem<String>(
+                                            child: Text(i.countyName),
+                                            value: i.countyName,
+                                          ));
                                         }
-                                      },
-                                    ),
-                                  ],
+                                        print("County: ");
+                                        return Container(
+                                          height: 31,
+                                          width: 250,
+                                          // margin: EdgeInsets.symmetric(horizontal: 20),
+                                          padding:
+                                          const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(
+                                                color: const Color(0xff686464).withOpacity(0.5),
+                                                width: 1), // Black border
+                                            borderRadius:
+                                            BorderRadius.circular(6), // Rounded corners
+                                          ),
+                                          child: DropdownButtonFormField<String>(
+                                            focusColor: Colors.transparent,
+                                            icon: const Icon(
+                                              Icons.arrow_drop_down_sharp,
+                                              color: Color(0xff686464),
+                                            ),
+                                            decoration: const InputDecoration.collapsed(hintText: ''),
+                                            items: dropDownList,
+                                            onChanged: (newValue) {
+                                              for(var a in snapshot.data!){
+                                                if(a.countyName == newValue){
+                                                  countyId = a.countyId;
+                                                  selectedCountyId = countyId;
+                                                  print("County Id :: ${selectedCountyId}");
+                                                  setState(() {
+                                                    getZipcodeByCountyId(context: context, countyId:selectedCountyId);
+                                                  });
+                                                  //empTypeId = docType;
+                                                }
+                                              }
+                                            },
+                                            value: dropDownList[0].value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        return CustomDropdownTextField(
+                                          labelText: 'County',
+                                          labelStyle: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: const Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelFontSize: 12,
+                                          items: ['No Data'],
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ],
                               ),
 
 
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 20),
+                                  MediaQuery.of(context).size.height / 20),
 
                               ///zone api
                               Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Zone',style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: ColorManager.mediumgrey,
-                                    ),),
-                                    SizedBox(height:5),
-                                    FutureBuilder<List<AEClinicalZone>>(
-                                      future: HrAddEmplyClinicalZoneApi(
-                                        context,
-                                      ),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 7),
-                                            child: Container(
-                                              height: 31,
-                                              width: 250,
-                                              decoration: BoxDecoration(
-                                                  color: ColorManager.white),
-                                            ),
-                                          );
-
-                                        } else if (snapshot.hasError) {
-                                          return const CustomDropdownTextField(
-                                            //width: MediaQuery.of(context).size.width / 5,
-                                            labelText: 'Zone',
-                                            labelStyle: TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            labelFontSize: 12,
-                                            items: ['Error'],
-                                          );
-                                        } else if (snapshot.hasData) {
-                                          List<DropdownMenuItem<String>> dropDownList = [];
-                                          int zoneId = 0;
-                                          for(var i in snapshot.data!){
-                                            dropDownList.add(DropdownMenuItem<String>(
-                                              child: Text(i.zoneName!),
-                                              value: i.zoneName,
-                                            ));
-                                          }
-                                          // snapshot.data!
-                                          //     .map((zone) => zone.zoneName ?? '')
-                                          //     .toList();
-                                          print("Zone: ");
-                                          return Container(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Zone',style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: ColorManager.mediumgrey,
+                                  ),),
+                                  SizedBox(height:5),
+                                  FutureBuilder<List<AEClinicalZone>>(
+                                    future: HrAddEmplyClinicalZoneApi(
+                                      context,
+                                    ),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 7),
+                                          child: Container(
                                             height: 31,
                                             width: 250,
-                                            // margin: EdgeInsets.symmetric(horizontal: 20),
-                                            padding:
-                                            const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                                             decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              border: Border.all(
-                                                  color: const Color(0xff686464).withOpacity(0.5),
-                                                  width: 1), // Black border
-                                              borderRadius:
-                                              BorderRadius.circular(6), // Rounded corners
-                                            ),
-                                            child: DropdownButtonFormField<String>(
-                                              focusColor: Colors.transparent,
-                                              icon: const Icon(
-                                                Icons.arrow_drop_down_sharp,
-                                                color: Color(0xff686464),
-                                              ),
-                                              decoration: const InputDecoration.collapsed(hintText: ''),
-                                              items: dropDownList,
-                                              onChanged: (newValue) {
-                                                for(var a in snapshot.data!){
-                                                  if(a.zoneName == newValue){
-                                                    zoneId = a.zoneID!;
-                                                    selectedZoneId = zoneId;
-                                                    print("Zone Id :: ${selectedZoneId}");
-                                                    //empTypeId = docType;
-                                                  }
-                                                }
-                                              },
-                                              value: dropDownList[0].value,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                                color: const Color(0xff686464),
-                                                decoration: TextDecoration.none,
-                                              ),
-                                            ),
-                                          );
-                                          //   CustomDropdownTextField(
-                                          //   // width: MediaQuery.of(context).size.width / 5,
-                                          //   labelText: 'Zone',
-                                          //   labelStyle: GoogleFonts.firaSans(
-                                          //     fontSize: 12,
-                                          //     color: const Color(0xff575757),
-                                          //     fontWeight: FontWeight.w400,
-                                          //   ),
-                                          //   labelFontSize: 12,
-                                          //   items: dropDownList,
-                                          //   onChanged: (newValue) {
-                                          //     // Handle onChanged here if needed
-                                          //   },
-                                          // );
-                                        } else {
-                                          return CustomDropdownTextField(
-                                            // width: MediaQuery.of(context).size.width / 5,
-                                            labelText: 'Zone',
-                                            labelStyle: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: const Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            labelFontSize: 12,
-                                            items: ['No Data'],
-                                          );
+                                                color: ColorManager.white),
+                                          ),
+                                        );
+
+                                      } else if (snapshot.hasError) {
+                                        return const CustomDropdownTextField(
+                                          //width: MediaQuery.of(context).size.width / 5,
+                                          labelText: 'Zone',
+                                          labelStyle: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelFontSize: 12,
+                                          items: ['Error'],
+                                        );
+                                      } else if (snapshot.hasData) {
+                                        List<DropdownMenuItem<String>> dropDownList = [];
+                                        int zoneId = 0;
+                                        for(var i in snapshot.data!){
+                                          dropDownList.add(DropdownMenuItem<String>(
+                                            child: Text(i.zoneName!),
+                                            value: i.zoneName,
+                                          ));
                                         }
-                                      },
-                                    ),
-                                  ],
+                                        // snapshot.data!
+                                        //     .map((zone) => zone.zoneName ?? '')
+                                        //     .toList();
+                                        print("Zone: ");
+                                        return Container(
+                                          height: 31,
+                                          width: 250,
+                                          // margin: EdgeInsets.symmetric(horizontal: 20),
+                                          padding:
+                                          const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(
+                                                color: const Color(0xff686464).withOpacity(0.5),
+                                                width: 1), // Black border
+                                            borderRadius:
+                                            BorderRadius.circular(6), // Rounded corners
+                                          ),
+                                          child: DropdownButtonFormField<String>(
+                                            focusColor: Colors.transparent,
+                                            icon: const Icon(
+                                              Icons.arrow_drop_down_sharp,
+                                              color: Color(0xff686464),
+                                            ),
+                                            decoration: const InputDecoration.collapsed(hintText: ''),
+                                            items: dropDownList,
+                                            onChanged: (newValue) {
+                                              for(var a in snapshot.data!){
+                                                if(a.zoneName == newValue){
+                                                  zoneId = a.zoneID!;
+                                                  selectedZoneId = zoneId;
+                                                  print("Zone Id :: ${selectedZoneId}");
+                                                  //empTypeId = docType;
+                                                }
+                                              }
+                                            },
+                                            value: dropDownList[0].value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        );
+                                        //   CustomDropdownTextField(
+                                        //   // width: MediaQuery.of(context).size.width / 5,
+                                        //   labelText: 'Zone',
+                                        //   labelStyle: GoogleFonts.firaSans(
+                                        //     fontSize: 12,
+                                        //     color: const Color(0xff575757),
+                                        //     fontWeight: FontWeight.w400,
+                                        //   ),
+                                        //   labelFontSize: 12,
+                                        //   items: dropDownList,
+                                        //   onChanged: (newValue) {
+                                        //     // Handle onChanged here if needed
+                                        //   },
+                                        // );
+                                      } else {
+                                        return CustomDropdownTextField(
+                                          // width: MediaQuery.of(context).size.width / 5,
+                                          labelText: 'Zone',
+                                          labelStyle: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: const Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelFontSize: 12,
+                                          items: ['No Data'],
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ],
                               )
 
                             ],
@@ -623,7 +623,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       left: 100.0, right: 100.0),
                                   child: TabBarView(
                                     physics:
-                                        const NeverScrollableScrollPhysics(),
+                                    const NeverScrollableScrollPhysics(),
                                     children: [
                                       FutureBuilder<List<ZipcodeByCountyIdData>>(
                                         future: getZipcodeByCountyId(context: context, countyId:selectedCountyId),
@@ -781,11 +781,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       bottomRight: Radius.circular(12),
                                       topRight: Radius.circular(12),
                                     ),
-                                    ),
-                                 width: 302,
+                                  ),
+                                  width: 302,
                                   height: 230,
                                   child: Column(
-                                     children: [
+                                    children: [
                                       Container(
                                         height: 35,
                                         width: double.infinity,
@@ -796,7 +796,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                             topRight: Radius.circular(12.0),
                                           ),
                                         ),
-                                        padding: EdgeInsets.only(right: 5),
+                                        padding: EdgeInsets.only(right: 5,bottom: 5),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
@@ -815,7 +815,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                             vertical: 15.0, horizontal: 16.0),
                                         child: Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'Salary',
@@ -826,8 +826,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                             ),
                                             SizedBox(
                                               height: MediaQuery.of(context)
-                                                      .size
-                                                      .height /
+                                                  .size
+                                                  .height /
                                                   30,
                                             ),
 
@@ -848,20 +848,20 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                       color: const Color(
                                                           0xff686464)),
                                                   enabledBorder:
-                                                      OutlineInputBorder(
+                                                  OutlineInputBorder(
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
+                                                    BorderRadius.circular(
+                                                        8.0),
                                                     borderSide: const BorderSide(
                                                       color: Color(0xff51B5E6),
                                                       width: 1.0,
                                                     ),
                                                   ),
                                                   focusedBorder:
-                                                      OutlineInputBorder(
+                                                  OutlineInputBorder(
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
+                                                    BorderRadius.circular(
+                                                        8.0),
                                                     borderSide: const BorderSide(
                                                       color: Color(0xff51B5E6),
                                                       width: 1.0,
@@ -869,30 +869,30 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                   ),
                                                   border: OutlineInputBorder(
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
+                                                    BorderRadius.circular(
+                                                        8.0),
                                                     borderSide: const BorderSide(
                                                       color: Color(0xff51B5E6),
                                                       width: 1.0,
                                                     ),
                                                   ),
                                                   contentPadding:
-                                                      const EdgeInsets.symmetric(
-                                                          horizontal: 16.0,
-                                                          vertical: 12.0),
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16.0,
+                                                      vertical: 12.0),
                                                 ),
                                                 keyboardType:
-                                                    TextInputType.number,
+                                                TextInputType.number,
                                                 onChanged: (value) {
-                                                    _salary = value;
+                                                  _salary = value;
                                                   print("Salary:: ${_salary}");
                                                 },
                                               ),
                                             ),
                                             SizedBox(
                                                 height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
+                                                    .size
+                                                    .height /
                                                     20),
                                             Center(
                                               child: ElevatedButton(
@@ -902,11 +902,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                 },
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor:
-                                                      const Color(0xff1696C8),
+                                                  const Color(0xff1696C8),
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            12),
+                                                    BorderRadius.circular(
+                                                        12),
                                                   ),
                                                 ),
                                                 child: Padding(
@@ -919,7 +919,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                     style: GoogleFonts.firaSans(
                                                         fontSize: 12.0,
                                                         fontWeight:
-                                                            FontWeight.w700,
+                                                        FontWeight.w700,
                                                         color: Colors.white),
                                                   ),
                                                 ),
@@ -1267,9 +1267,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   widget.apiData!.employeeId!,
                                   10,
                                   issueDateController.text,
-                                lastDateController.text,
-                                 startDateController.text,
-                                 verbalAcceptanceController.text,
+                                  lastDateController.text,
+                                  startDateController.text,
+                                  verbalAcceptanceController.text,
                                 );
                                 print('County id : ${selectedCountyId}');
                                 print('Zone id : ${selectedZoneId}');
@@ -1291,8 +1291,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 );
 
                                 // Clear controllers
-                              issueDateController.clear();
-                               lastDateController.clear();
+                                issueDateController.clear();
+                                lastDateController.clear();
                                 startDateController.clear();
                                 verbalAcceptanceController.clear();
 
@@ -1307,7 +1307,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 //   ),
                                 // );
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Enrollment data save',),backgroundColor: Colors.green,)
+                                    SnackBar(content: Text('Enrollment data save',),backgroundColor: Colors.green,)
                                 );
                               } catch (e) {
                                 print("Error during enrollment: $e");
@@ -1413,7 +1413,7 @@ class CheckBoxTileConst extends StatelessWidget {
   final String text;
   bool value;
   ValueChanged<bool?> onChanged;
-   CheckBoxTileConst({super.key, required this.text,required this.value,required this.onChanged});
+  CheckBoxTileConst({super.key, required this.text,required this.value,required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -1421,12 +1421,13 @@ class CheckBoxTileConst extends StatelessWidget {
       width: 40,
       height: 50,
       child: CheckboxListTile(
-          title: Text(text,style:
-          GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),),
-          value: value,
-          onChanged: onChanged,
+        title: Text(text,style:
+        GoogleFonts.firaSans(fontSize: 10.0, fontWeight: FontWeight.w500),),
+        value: value,
+        onChanged: onChanged,
       ),
     );
   }
 }
 
+ 
