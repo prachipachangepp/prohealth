@@ -107,8 +107,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
       color: Colors.white,
       child: Column(
         children: [
-          _selectedIndex == 0
-              ? Padding(
+          Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width / 24,
                       vertical: AppPadding.p20),
@@ -168,7 +167,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                       print('$docMetaId');
                                     },
                                     child: CICCDropdown(
-                                      initialValue: selectedDocType,
+                                      initialValue: "Select Employee Document",
+                                      hintText: "Select Employee Document",
                                       onChange: (val) {
                                         setState(() {
                                           selectedDocType = val;
@@ -176,8 +176,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                         for (var a in docTypes) {
                                           if (a.employeeDocType == val) {
                                             setState(() {
-                                              docMetaId =
-                                                  a.employeeDocMetaDataId;
+                                              docMetaId = a.employeeDocMetaDataId;
                                             });
                                           }
                                         }
@@ -185,6 +184,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                       },
                                       items: dropDownMenuItems,
                                     ),
+
                                     radioButton: Padding(
                                       padding:
                                           const EdgeInsets.only(left: 10.0),
@@ -579,10 +579,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       // },icon: Icons.add,)
                     ],
                   ),
-                )
-              : const SizedBox(
-                  height: 72,
                 ),
+
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Container(
