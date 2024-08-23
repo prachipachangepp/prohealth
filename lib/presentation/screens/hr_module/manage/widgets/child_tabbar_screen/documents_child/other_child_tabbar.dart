@@ -10,6 +10,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
@@ -166,7 +167,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                   itemBuilder: (context, index) {
                     var others = snapshot.data![index];
                     var fileUrl = others.DocumentUrl;
-                    final fileExtension = fileUrl.split('.').last.toLowerCase();
+                    final fileExtension = fileUrl.split('/').last;
                     Widget fileWidget;
                     if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
                       fileWidget = Image.network(
@@ -294,7 +295,7 @@ class _OtherChildTabbarState extends State<OtherChildTabbar> {
                                     iconSize: 20,),
                                   IconButton(
                                     onPressed: () {
-                                      downloadFile(fileUrl);
+                                      DowloadFile().downloadPdfFromBase64(fileExtension,"Other");
                                     },
                                     icon: const Icon(Icons.save_alt_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),

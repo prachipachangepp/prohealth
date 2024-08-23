@@ -104,7 +104,7 @@ class _generalFormState extends State<generalForm> {
           gendertype = data.gender ?? "";
           generalId = data.employeeId ?? 0;
           signatureUrl = data.signatureURL ?? "";
-          fileName = signatureUrl!.split('/').last;
+          fileName = data.imgurl.split("/").last??"";
         });
       //}
     } catch (e) {
@@ -964,6 +964,7 @@ class _generalFormState extends State<generalForm> {
                   print("First Name: ${firstname.text}");
                   print("Last Name: ${lastname.text}");
                   print("Speciality: ${_selectedSpeciality.toString()}");
+                  print("File: ${filePath}");
                   print("SSN: ${ssecuritynumber.text}");
                   print("Phone Number: ${phonenumber.text}");
                   print("Personal Email: ${personalemail.text}");
@@ -979,7 +980,7 @@ class _generalFormState extends State<generalForm> {
                   var response = await updateOnlinkGeneralPatch(
                     context,
                     generalId!,
-                    'EMP-C10-U48',
+                    '',
                     userId,
                     firstname.text,
                     lastname.text,
@@ -1028,12 +1029,11 @@ class _generalFormState extends State<generalForm> {
                     'rating',
                     signatureUrl!,
                   );
-
-
+                  var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: generalId!);
                   print("Response Status Code: ${response.statusCode}");
                   print("Response Body: ${response.data}");
 
-                  if (response.statusCode == 200 || response.statusCode == 201) {
+                  if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
                     );
