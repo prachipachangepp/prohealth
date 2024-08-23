@@ -644,12 +644,12 @@ class _CiCorporateComplianceScreenState
                 ),
                 CICCCAPReports(
                   docId: widget.docId,
-                  subDocId: AppConfig.subDocId4,
+                  subDocId: AppConfig.subDocId4CapReport,
                   officeId: widget.officeId,
                 ),
                 CICCQuarterlyBalReport(
                   docId: widget.docId,
-                  subDocId: AppConfig.subDocId5,
+                  subDocId: AppConfig.subDocId5BalReport,
                   officeId: widget.officeId,
                 )
               ],

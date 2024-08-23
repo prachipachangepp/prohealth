@@ -199,6 +199,7 @@ Future<List<PayRatesGet>> companyPayratesGet(BuildContext context,) async {
             ZoneId: item['ZoneId'],
             rate: item['rate'],
             typeOfVisitId: item['typeOfVisitId'],
+            ZoneName: item['ZoneName'],
             perMile: item['perMile'],
             serviceTypeId: item['serviceTypeId'],
           ),

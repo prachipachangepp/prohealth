@@ -875,7 +875,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                             Expanded(
                                               child: Center(
                                                 child: Text(
-                                                  finance.ZoneId.toString(),
+                                                  finance.ZoneName,
                                                   style: GoogleFonts.firaSans(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w500,
