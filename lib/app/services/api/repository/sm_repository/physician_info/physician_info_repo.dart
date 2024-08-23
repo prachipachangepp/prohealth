@@ -13,6 +13,7 @@ static String languageSpokenDropdown ="/language-spoken";
 static String metrialStatusDropdown ="/marital-status";
 static String raceDropdown ="/race";
 static String religionDropdown ="/religion";
+static String statuspatient="/patient-status";
 
 
 
@@ -66,5 +67,9 @@ static String addfirstRD(){
 
   static String religionDD(){
     return "$religionDropdown";
+  }
+
+  static String statuschange(){
+    return"$statuspatient";
   }
 }

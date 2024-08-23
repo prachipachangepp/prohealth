@@ -97,3 +97,14 @@ class religiondata{
 
   religiondata({required this.religionId, required this.religion});
 }
+
+
+/////
+
+class patientStatusdata{
+
+  final int patientStatusId;
+  final String patientStatus;
+
+  patientStatusdata({required this.patientStatusId, required this.patientStatus});
+}

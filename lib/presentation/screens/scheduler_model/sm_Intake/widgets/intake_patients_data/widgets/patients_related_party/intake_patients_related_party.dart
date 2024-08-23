@@ -51,6 +51,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
   TextEditingController ctlrCell = TextEditingController();
   TextEditingController ctlrAddInfo = TextEditingController();
   TextEditingController ctlrEmail = TextEditingController();
+  TextEditingController optforChaps = TextEditingController();
   bool isOptForCAHPSSurvey = false;
   String? status = 'Active';
   String? selectedStateEC;
@@ -109,7 +110,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                                 ctlrMi.text,
                                 ctlrLastName.text,
                                 ctlrSuffix.text,
-                                "pcg_OptforCAHPS",
+                                optforChaps.text,
                                 ctlrAddress.text,
                                 ctlrApartment.text,
                                 selectedCityPC.toString(),
@@ -622,6 +623,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                               ),
                               Expanded(
                                   child: SchedularTextField(
+                                    controller: optforChaps,
                                       labelText: 'Opt for CAHPS Survey')),
                             ],
                           ),

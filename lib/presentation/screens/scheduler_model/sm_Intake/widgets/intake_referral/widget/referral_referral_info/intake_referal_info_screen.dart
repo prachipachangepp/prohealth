@@ -66,8 +66,8 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                   onPressed: () async {
                     await AddReferralInfo(context,
                         1,
-                        "2024-08-17T17:12:20.722Z",
-                        "2024-08-17T17:12:20.722Z",
+                        ctlrReferralDate.text,
+                        ctlrProjectedSOCDate.text,
                         ctlrReferralSource.text,
                         ctlrRefereeFirstName.text,
                         ctlrRefereeLastName.text,

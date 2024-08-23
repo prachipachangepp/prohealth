@@ -461,6 +461,7 @@
 //   }
 // }
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -564,6 +565,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
   String? selectedCountry;
   String? selectedRace;
   String? selectedState;
+  String? selectedcity;
   String? selectedLanguage;
   String? selectedReligion;
   String? selectedMaritalStatus;
@@ -740,7 +742,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         selectedState!.toString(),
                         ctlrZipCode.text,
                         ctlrApartment.text,
-                        ctlrCity.text,
+                        selectedcity!.toString(),
                         selectedCountry ?? '',
                         ctlrMajorStreet.text,
                         ctlrPrimeNo.text,
@@ -749,9 +751,9 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         ctlrSocialSec.text,
                         selectedLanguage.toString() ?? '',
                         ctlrDischargeResaon.text,
-                        selectedRace ?? '',
-                        selectedReligion ?? '',
-                        selectedMaritalStatus ?? '',
+                        selectedRace.toString() ?? '',
+                        selectedReligion.toString() ?? '',
+                        selectedMaritalStatus.toString() ?? '',
                         "14/08/2024",
                         1,
                         'At Land OSC',
@@ -829,7 +831,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ctlrStreet: ctlrStreet,
                     ctlrZipCode: ctlrZipCode,
                     ctlrApartment: ctlrApartment,
-                   ctlrCity: ctlrCity,
+                  // ctlrCity: ctlrCity,
                     ctlrMajorStreet: ctlrMajorStreet,
                     ctlrPrimeNo: ctlrPrimeNo,
                     ctlrSecNo: ctlrSecNo,
@@ -837,7 +839,108 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ctlrSocialSec: ctlrSocialSec,
                     ctlrDischargeResaon: ctlrDischargeResaon,
                     ctlrDateOfDeath: ctlrDateOfDeath,
-                    child1: FutureBuilder<List<statedata>>(
+                    childReligion:FutureBuilder<List<religiondata>>(
+                      future: getReligionDropDown(context),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7),
+                            child: Container(
+                                width: AppSize.s250,
+                                height: AppSize.s40,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.white),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Loading...',
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: ColorManager.mediumgrey,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                )),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          List<String> dropDownList = [];
+                          for (var i in snapshot.data!) {
+                            dropDownList.add(i.religion!);
+                          }
+
+                          return SizedBox(
+                            height: 27,
+                            child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                labelText: 'Religion',
+                                labelStyle: GoogleFonts.firaSans(
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorManager.greylight,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: ColorManager
+                                          .containerBorderGrey),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey),
+                                ),
+                                contentPadding:
+                                const EdgeInsets.symmetric(
+                                  //   //  vertical: 5,
+                                    horizontal: 12),
+                              ),
+                              // value: selectedCountry,
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: ColorManager.blueprime,
+                              ),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xff686464),
+                              ),
+
+                              onChanged: (newValue) {
+                                for (var a in snapshot.data!) {
+                                  if (a.religion == newValue) {
+                                    selectedReligion = a.religion!;
+                                    //country = a
+                                    // int? docType = a.companyOfficeID;
+                                  }
+                                }
+                              },
+                              items: dropDownList.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: Color(0xff575757),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        } else {
+                          return const Offstage();
+                        }
+                      },
+                    ),
+
+                    childState: FutureBuilder<List<statedata>>(
                       future: getStateDropDown(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -937,6 +1040,412 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         }
                       },
                     ),
+                    childCity:  FutureBuilder<List<citydata>>(
+                      future: getCityDropDown(context),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7),
+                            child: Container(
+                                width: AppSize.s250,
+                                height: AppSize.s40,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.white),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Loading...',
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: ColorManager.mediumgrey,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                )),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          List<String> dropDownList = [];
+                          for (var i in snapshot.data!) {
+                            dropDownList.add(i.cityName!);
+                          }
+
+                          return SizedBox(
+                            height: 27,
+                            child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                labelText: 'City',
+                                labelStyle: GoogleFonts.firaSans(
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorManager.greylight,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: ColorManager
+                                          .containerBorderGrey),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey),
+                                ),
+                                contentPadding:
+                                const EdgeInsets.symmetric(
+                                  //   //  vertical: 5,
+                                    horizontal: 12),
+                              ),
+                              // value: selectedCountry,
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: ColorManager.blueprime,
+                              ),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xff686464),
+                              ),
+
+                              onChanged: (newValue) {
+                                for (var a in snapshot.data!) {
+                                  if (a.cityName == newValue) {
+                                    selectedcity = a.cityName!;
+                                    //country = a
+                                    // int? docType = a.companyOfficeID;
+                                  }
+                                }
+                              },
+                              items: dropDownList.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: Color(0xff575757),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        } else {
+                          return const Offstage();
+                        }
+                      },
+                    ),
+                    childRace:FutureBuilder<List<racedata>>(
+                    future: getRaceDropDown(context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7),
+                          child: Container(
+                              width: AppSize.s250,
+                              height: AppSize.s40,
+                              decoration: BoxDecoration(
+                                  color: ColorManager.white),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Loading...',
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: ColorManager.mediumgrey,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              )),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        List<String> dropDownList = [];
+                        for (var i in snapshot.data!) {
+                          dropDownList.add(i.race!);
+                        }
+
+                        return SizedBox(
+                          height: 27,
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              labelText: 'Race  / Ethnicity',
+                              labelStyle: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: ColorManager.greylight,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorManager
+                                        .containerBorderGrey),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(4.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey),
+                              ),
+                              contentPadding:
+                              const EdgeInsets.symmetric(
+                                //   //  vertical: 5,
+                                  horizontal: 12),
+                            ),
+                            // value: selectedCountry,
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              color: ColorManager.blueprime,
+                            ),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xff686464),
+                            ),
+
+                            onChanged: (newValue) {
+                              for (var a in snapshot.data!) {
+                                if (a.race == newValue) {
+                                  selectedRace = a.race!;
+                                  //country = a
+                                  // int? docType = a.companyOfficeID;
+                                }
+                              }
+                            },
+                            items: dropDownList.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        );
+                      } else {
+                        return const Offstage();
+                      }
+                    },
+                  ),
+
+                    childLanguage:  FutureBuilder<List<languageSpokendata>>(
+                    future: getlanguageSpokenDropDown(context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7),
+                          child: Container(
+                              width: AppSize.s250,
+                              height: AppSize.s40,
+                              decoration: BoxDecoration(
+                                  color: ColorManager.white),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Loading...',
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: ColorManager.mediumgrey,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              )),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        List<String> dropDownList = [];
+                        for (var i in snapshot.data!) {
+                          dropDownList.add(i.languageSpoken!);
+                        }
+
+                        return SizedBox(
+                          height: 27,
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              labelText: 'Language Spoken',
+                              labelStyle: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: ColorManager.greylight,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorManager
+                                        .containerBorderGrey),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(4.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey),
+                              ),
+                              contentPadding:
+                              const EdgeInsets.symmetric(
+                                //   //  vertical: 5,
+                                  horizontal: 12),
+                            ),
+                            // value: selectedCountry,
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              color: ColorManager.blueprime,
+                            ),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xff686464),
+                            ),
+
+                            onChanged: (newValue) {
+                              for (var a in snapshot.data!) {
+                                if (a.languageSpoken == newValue) {
+                                  selectedLanguage = a.languageSpoken!;
+                                  //country = a
+                                  // int? docType = a.companyOfficeID;
+                                }
+                              }
+                            },
+                            items: dropDownList.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        );
+                      } else {
+                        return const Offstage();
+                      }
+                    },
+                  ),
+
+
+                    childMaritalStatus: FutureBuilder<List<metrialStatusdata>>(
+                    future: getMaritalStatusDropDown(context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7),
+                          child: Container(
+                              width: AppSize.s250,
+                              height: AppSize.s40,
+                              decoration: BoxDecoration(
+                                  color: ColorManager.white),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Loading...',
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: ColorManager.mediumgrey,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              )),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        List<String> dropDownList = [];
+                        for (var i in snapshot.data!) {
+                          dropDownList.add(i.maritalStatus!);
+                        }
+
+                        return SizedBox(
+                          height: 27,
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              labelText: 'Marital Status',
+                              labelStyle: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: ColorManager.greylight,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorManager
+                                        .containerBorderGrey),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(4.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey),
+                              ),
+                              contentPadding:
+                              const EdgeInsets.symmetric(
+                                //   //  vertical: 5,
+                                  horizontal: 12),
+                            ),
+                            // value: selectedCountry,
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              color: ColorManager.blueprime,
+                            ),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xff686464),
+                            ),
+
+                            onChanged: (newValue) {
+                              for (var a in snapshot.data!) {
+                                if (a.maritalStatus == newValue) {
+                                  selectedMaritalStatus =
+                                  a.maritalStatus!;
+                                  //country = a
+                                  // int? docType = a.companyOfficeID;
+                                }
+                              }
+                            },
+                            items: dropDownList.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        );
+                      } else {
+                        return const Offstage();
+                      }
+                    },
+                  ),
+
+
                   ),
                   IntakePComplianceScreen(patientId: patientId),
                   IntakePlanCareScreen(),

@@ -457,3 +457,31 @@ Future<List<religiondata>> getReligionDropDown(
   }
 }
 
+
+
+
+//////
+Future<List<patientStatusdata>> StatusChange(
+    BuildContext context,
+    ) async {
+  List<patientStatusdata> itemsList = [];
+  try {
+    final response = await Api(context).get(path: physicianInfo.statuschange());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(patientStatusdata(
+          patientStatusId: item['patientStatusId'],
+          patientStatus: item['patientStatus'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+

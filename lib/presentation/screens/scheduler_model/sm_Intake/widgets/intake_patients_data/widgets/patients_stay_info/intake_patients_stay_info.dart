@@ -37,6 +37,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
   TextEditingController ctlrDateSurgery = TextEditingController();
   TextEditingController ctlrComment = TextEditingController();
   TextEditingController ctlrStartDate = TextEditingController();
+  TextEditingController ctlrEndDate = TextEditingController();
   TextEditingController ctlrStreet = TextEditingController();
   TextEditingController ctlrSuiteApt = TextEditingController();
   TextEditingController ctlrZipCode = TextEditingController();
@@ -79,26 +80,27 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                         onPressed: () async {
                          await  InfoStayPatientData(context,
                              1,
-                             selectedFacility ?? "",
+                             selectedFacility.toString() ?? "",
                              ctlrMedicalRecord.text,
-                             selectedStatus ?? "",
+                             selectedStatus.toString() ?? "",
                              ctlrHospital.text,
                              ctlrPhone.text,
                              ctlrAddress.text,
-                             selectedCitySI ?? "",
-                             selectedStateSI ?? "",
+                             selectedCitySI.toString() ?? "",
+                             selectedStateSI.toString() ?? "",
                              ctlrZipCode.text,
-                             "2024-08-17T17:18:58.618Z",
-                             "2024-08-17T17:18:58.618Z",
+                             ctlrAdmitDate.text  ,            //  "2024-08-17T17:18:58.618Z",
+                             ctlrDC.text          ,      // "2024-08-17T17:18:58.618Z",
                              ctlrRecentSurgery.text,
                              ctlrDateSurgery.text,
                              ctlrComment.text,
-                             "2024-08-17T17:18:58.618Z",
-                             "2024-08-17T17:18:58.618Z",
+                             ctlrStartDate.text,
+                             ctlrEndDate.text,                        //"2024-08-17T17:18:58.618Z",
+                             //"2024-08-17T17:18:58.618Z",
                              ctlrStreet.text,
                              ctlrSuiteApt.text,
-                             selectedCityLOC ?? "",
-                             selectedStateLOC ?? "",
+                             selectedCityLOC.toString() ?? "",
+                             selectedStateLOC.toString() ?? "",
                              ctlrZipCode.text,
                              ctlrPhone.text,
                              ctlrFax.text
@@ -463,6 +465,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrAdmitDate,
                     labelText: 'Admit Date',
+                  suffixIcon: Icon(Icons.calendar_month_outlined),
                     )
             ),
             SizedBox(width: AppSize.s35),
@@ -488,6 +491,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrDateSurgery,
                     labelText: 'Date of Surgery/ Procedure',
+                  suffixIcon: Icon(Icons.calendar_month_outlined),
                  )
             ),
             SizedBox(width: AppSize.s35),
@@ -518,12 +522,14 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrStartDate ,
                     labelText: AppString.startdate,
+                  suffixIcon: Icon(Icons.calendar_month_outlined),
 
                 )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrEndDate ,
                     labelText: AppString.enddate,
                     suffixIcon: Icon(Icons.calendar_month_outlined),
                     // isDate: true

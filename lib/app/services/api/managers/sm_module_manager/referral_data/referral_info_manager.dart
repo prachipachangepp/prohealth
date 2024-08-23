@@ -30,8 +30,8 @@ Future<ApiData> AddReferralInfo(
       path: PatientDataInfoRepo.referralInfoAdd(),
       data: {
         "patientId": patientId ?? "",
-        "referralDate": referralDate ?? "",
-        "projectedSOCDate": projectedSOCDate ?? "",
+        "referralDate": "${referralDate}T00:00:00Z" ?? "",
+        "projectedSOCDate":"${projectedSOCDate}T00:00:00Z" ?? "",
         "referralSource": referralSource ?? "",
         "refereeFirstName": refereeFirstName ?? "",
         "refereeLastName": refereeLastName ?? "",
