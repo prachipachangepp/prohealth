@@ -138,16 +138,16 @@ class _CIDetailsDropdownState extends State<CIDetailsDropdown> {
               ),
             ),
           ),
-          IconButton(
-            icon: Icon(
-              Icons.edit_outlined,
-              size: 18,
-              color: ColorManager.blueprime,
-            ),
-            onPressed: widget.onEditIconTap,
-            padding: EdgeInsets.zero,
-            constraints: BoxConstraints(),
-          ),
+          // IconButton(
+          //   icon: Icon(
+          //     Icons.edit_outlined,
+          //     size: 18,
+          //     color: ColorManager.blueprime,
+          //   ),
+          //   onPressed: widget.onEditIconTap,
+          //   padding: EdgeInsets.zero,
+          //   constraints: BoxConstraints(),
+          // ),
           GestureDetector(
             onTap: _showCustomDropdown,
             child: Icon(Icons.arrow_drop_down),
