@@ -721,7 +721,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         },
                       ),
                     )
-                  ],
+                  ]
                 ),
               ],
             ),
