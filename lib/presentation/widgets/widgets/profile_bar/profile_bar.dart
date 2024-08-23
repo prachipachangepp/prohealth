@@ -5,6 +5,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/licenses_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
+import 'package:prohealth/app/services/base64/base64_image.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/licenses_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
@@ -16,6 +17,7 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../profile_bar/widget/profil_custom_widget.dart';
+import 'package:http/http.dart' as http;
 
 class ProfileBar extends StatefulWidget {
   const ProfileBar({super.key, this.searchByEmployeeIdProfileData});
@@ -34,6 +36,15 @@ class _ProfileBarState extends State<ProfileBar> {
   int expiredCount = 0;
   int upToDateCount = 0;
   int aboutToCount = 0;
+  dynamic base64Decode;
+  Future<void> decodeMEthod(String url) async{
+    final response = await http.get(Uri.parse(url));
+    if(response.statusCode == 200){
+      print('Url response Data : ${response.body}');
+      base64Decode = response.body;
+      return base64Decode;
+    }
+  }
   Future<void> fetchData() async {
     try {
       Map<String, List<LicensesData>> data = await getLicenseStatusWise(context, widget.searchByEmployeeIdProfileData!.employeeId!);
@@ -106,6 +117,20 @@ class _ProfileBarState extends State<ProfileBar> {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
+                            // FutureBuilder(
+                            //  future: decodeMEthod(widget.searchByEmployeeIdProfileData!.imgurl),
+                            //  builder: (context, snapshot){
+                            //    if(snapshot.connectionState == ConnectionState.waiting){
+                            //      return SizedBox();
+                            //    }
+                            //    return SizedBox(
+                            //      height: 50,
+                            //      width: 50,
+                            //      child: Base64ImageWidget(
+                            //          base64String: base64Decode),
+                            //    );
+                            //  }),
+
                             Icon(Icons.person,color: ColorManager.white,size: AppSize.s50,),
                             // Image.network(searchByEmployeeIdProfileData!.imgurl,
                             //     height: AppSize.s50, width: AppSize.s50),

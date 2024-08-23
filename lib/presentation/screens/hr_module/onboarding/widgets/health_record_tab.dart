@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -176,7 +177,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                   ...List.generate(snapshot.data!.length, (index) {
                     final data = snapshot.data![index];
                     final fileUrl = data.DocumentUrl;
-                    final fileExtension = fileUrl.split('.').last.toLowerCase();
+                    final fileExtension = fileUrl.split('/').last;
                     Widget fileWidget;
                     if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
                       fileWidget = Image.network(
@@ -228,7 +229,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                                 ),
                                 SizedBox(width: 10),
                                 GestureDetector(
-                                  onTap: () => downloadFile(fileUrl),
+                                  onTap: () => DowloadFile().downloadPdfFromBase64(fileExtension,"Health"),
                                   child: Container(
                                     width: 62,
                                     height: 45,

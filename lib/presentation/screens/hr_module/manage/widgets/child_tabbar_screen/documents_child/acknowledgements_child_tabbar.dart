@@ -10,6 +10,7 @@ import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
@@ -38,7 +39,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
   @override
   void initState() {
     super.initState();
-    getAckHealthRecord(context, 10, 48, widget.employeeId,"no").then((data) {
+    getAckHealthRecord(context, 10, 48, widget.employeeId,"yes").then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -193,7 +194,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                     // }
                     //var decodeBse64 = EncodeDecodeBase64.getDecodeBase64(fetchedUrl: "e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O");
                     // print("File:::>>${decodeBse64}");
-                    final fileExtension = fileUrl.split('.').last.toLowerCase();
+                    final fileExtension = fileUrl.split('/').last;
 
                     Widget fileWidget;
                     if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
@@ -232,7 +233,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         child: Row(
                           children: [
                             GestureDetector(
-                              onTap: () => downloadFile(fileUrl), // Use the utility function
+                              onTap: () => DowloadFile().downloadPdfFromBase64(fileExtension,"Acknowledgement"), // Use the utility function
                               child: Container(
                                 width: 62,
                                 height: 45,
