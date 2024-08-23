@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/approve_reject_dialog_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
@@ -178,7 +179,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                     final data = snapshot.data![index];
                     final fileUrl = data.DocumentUrl;
                     final fileExtension =
-                    fileUrl.split('.').last.toLowerCase();
+                    fileUrl.split('/').last;
                     Widget fileWidget;
                     if (['jpg', 'jpeg', 'png', 'gif']
                         .contains(fileExtension)) {
@@ -231,7 +232,10 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                                 ),
                                 SizedBox(width: AppSize.s10),
                                 GestureDetector(
-                                  onTap: () => downloadFile(fileUrl),
+                                  onTap: (){
+                                    print("FileExtension:${fileExtension}");
+                                    DowloadFile().downloadPdfFromBase64(fileExtension,"Acknowledgement");
+                                  },
                                   child: Container(
                                     width: AppSize.s62,
                                     height: AppSize.s45,
