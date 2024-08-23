@@ -830,6 +830,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                       .height /
                                                   30,
                                             ),
+
                                             Container(
                                               height: 30,
                                               child: TextFormField(
