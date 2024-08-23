@@ -11,6 +11,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/zone.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/policies_procedures/policies_procedures.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
+
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 
@@ -27,7 +28,8 @@ class ManageWidget extends StatefulWidget {
     required this.officeID,
     required this.officeName,
     required this.backButtonCallBack,
-    required this.companyID, required this.companyOfficeId,
+    required this.companyID,
+    required this.companyOfficeId,
     // required this.selectedIndex,
     // required this.selectButton,
   }) : super(key: key);
@@ -79,7 +81,6 @@ class _ManageWidgetState extends State<ManageWidget> {
     documentTypeGet(context);
   }
 
-
   int docID = 1;
 
   @override
@@ -91,18 +92,18 @@ class _ManageWidgetState extends State<ManageWidget> {
           _selectedIndex != 0
               ? Container(height: 15)
               : Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppPadding.p160, vertical: AppPadding.p10),
-            child: Row(
-              children: [
-                Text(
-                  widget.officeName,
-                  style: CompanyIdentityManageHeadings.customTextStyle(
-                      context),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p160, vertical: AppPadding.p10),
+                  child: Row(
+                    children: [
+                      Text(
+                        widget.officeName,
+                        style: CompanyIdentityManageHeadings.customTextStyle(
+                            context),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.only(left: 35),
             child: Row(
@@ -132,39 +133,27 @@ class _ManageWidgetState extends State<ManageWidget> {
                   ],
                 ),
                 SizedBox(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width / 50,
+                  width: MediaQuery.of(context).size.width / 50,
                 ),
                 Material(
                   elevation: 4,
                   borderRadius: BorderRadius.circular(14),
                   child: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 1.1814,
+                    width: MediaQuery.of(context).size.width / 1.1814,
                     height: AppSize.s30,
                     decoration: BoxDecoration(
                         color: ColorManager.blueprime,
-                        borderRadius: BorderRadius.circular(14)
-                    ),
+                        borderRadius: BorderRadius.circular(14)),
                     child: Row(
                       children: [
                         InkWell(
                           child: Container(
                             height: 30,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 8.4,
+                            width: MediaQuery.of(context).size.width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: _selectedIndex == 0
-                                  ? Colors.white
-                                  : null,
+                              color: _selectedIndex == 0 ? Colors.white : null,
                             ),
                             child: Text(
                               'Details',
@@ -183,10 +172,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 8.9,
+                            width: MediaQuery.of(context).size.width / 8.9,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -211,10 +197,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 7,
+                            width: MediaQuery.of(context).size.width / 7,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -239,10 +222,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 8.7,
+                            width: MediaQuery.of(context).size.width / 8.7,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -267,10 +247,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 8.4,
+                            width: MediaQuery.of(context).size.width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -295,10 +272,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 8.4,
+                            width: MediaQuery.of(context).size.width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -323,10 +297,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         InkWell(
                           child: Container(
                             height: AppSize.s30,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 8.4,
+                            width: MediaQuery.of(context).size.width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -364,27 +335,24 @@ class _ManageWidgetState extends State<ManageWidget> {
               _selectedIndex == 0
                   ? const Offstage()
                   : Container(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height / 3,
-                decoration: BoxDecoration(
-                    color: const Color(0xFFF2F9FC),
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: ColorManager.mediumgrey.withOpacity(0.5),
-                        blurRadius: 2,
-                        spreadRadius: -3,
-                        offset: const Offset(0, -6),
-                      ),
-                    ]),
-              ),
+                      height: MediaQuery.of(context).size.height / 3,
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFF2F9FC),
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorManager.mediumgrey.withOpacity(0.5),
+                              blurRadius: 2,
+                              spreadRadius: -3,
+                              offset: const Offset(0, -6),
+                            ),
+                          ]),
+                    ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  //horizontal: MediaQuery.of(context).size.width / 45,
+                    //horizontal: MediaQuery.of(context).size.width / 45,
                     vertical: 5),
                 child: PageView(
                     controller: _managePageController,
@@ -397,9 +365,11 @@ class _ManageWidgetState extends State<ManageWidget> {
                         companyId: widget.companyID,
                         companyOfficeid: widget.companyOfficeId,
                       ),
-                      CiZone(companyID: widget.companyID,
+                      CiZone(
+                        companyID: widget.companyID,
                         officeId: widget.officeID,
-                        docId: docID,),
+                        docId: docID,
+                      ),
                       // CiPageview(
                       //   docId: 5,
                       //     managePageController: _managePageController,
@@ -410,18 +380,26 @@ class _ManageWidgetState extends State<ManageWidget> {
                       //     screenList: [CIZoneCountry(), CIZoneZone()],
                       //     mediaQueryWidth: 3.5,),
                       CiCorporateComplianceScreen(
-                        docId: AppConfig.docId8, officeId: widget.officeID,),
-                      CIInsurance(officeId: widget.officeID,
-                        docID: AppConfig.docId10,
-                        subDocID: AppConfig.subDocId0,
-                        companyID: widget.companyID,),
-                      CiCcVendorContractScreen(companyID: widget.companyID,
+                        docId: AppConfig.corporateAndCompliance,
                         officeId: widget.officeID,
-                        docId: AppConfig.docId9,),
-                      CiPoliciesAndProcedures(docID: AppConfig.docId10,
+                      ),
+                      CIInsurance(
+                        officeId: widget.officeID,
+                        docID: AppConfig.corporateAndCompliance,
                         subDocID: AppConfig.subDocId0,
                         companyID: widget.companyID,
-                        officeId: widget.officeID,),
+                      ),
+                      CiCcVendorContractScreen(
+                        companyID: widget.companyID,
+                        officeId: widget.officeID,
+                        docId: AppConfig.vendorContracts,
+                      ),
+                      CiPoliciesAndProcedures(
+                        docID: AppConfig.policiesAndProcedure,
+                        subDocID: AppConfig.subDocId0,
+                        companyID: widget.companyID,
+                        officeId: widget.officeID,
+                      ),
                       CiTempalets()
                     ]),
               ),
@@ -432,6 +410,7 @@ class _ManageWidgetState extends State<ManageWidget> {
     );
   }
 }
+
 class CustomButtonList extends StatelessWidget {
   final String buttonText;
   final int isSelected;
@@ -464,9 +443,7 @@ class CustomButtonList extends StatelessWidget {
           style: TextStyle(
             fontSize: FontSize.s12,
             fontWeight: FontWeight.bold,
-            color: isSelected == docID ?
-            Colors.grey[600] :
-            ColorManager.white,
+            color: isSelected == docID ? Colors.grey[600] : ColorManager.white,
           ),
         ),
       ),
