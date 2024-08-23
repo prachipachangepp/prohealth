@@ -84,6 +84,7 @@ dependencies:
   auto_size_text: any
   calendar_view: ^1.2.0
   fl_chart: any
+  mime: ^1.0.5
 
 
 
