@@ -202,19 +202,19 @@ Future<List<CompanyOfficeListData>> getCompanyOfficeList(
             companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
-      for (var item in response.data["OfficeList"]) {
+      for (var item in response.data) {
         itemsList.add(CompanyOfficeListData(
-          name: item['name'],
-          companyId: companyId,
-          address: item['address'],
-          officeId: item['office_id'],
-          primaryNbr: item['primary_phone'],
-          secondaryNbr: item['secondary_phone'],
-          slternativeNbr: item['alternative_phone'],
-          email: item['email'],
-          companyOfficeId: item['company_Office_id'],
-          primaryFax: item['primary_fax'],
-          secondaryFax: item['secondary_fax'],
+          name: item['name'] ?? "--",
+          companyId: companyId ,
+          address: item['address']?? "--",
+          officeId: item['office_id']?? "--",
+          primaryNbr: item['primary_phone']?? "--",
+          secondaryNbr: item['secondary_phone']?? "--",
+          slternativeNbr: item['alternative_phone']?? "--",
+          email: item['email']?? "--",
+          companyOfficeId: item['company_Office_id'] ?? 0,
+          primaryFax: item['primary_fax']?? "--",
+          secondaryFax: item['secondary_fax']?? "--",
         ));
       }
       // print("ResponseList:::::${itemsList}");

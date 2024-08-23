@@ -349,18 +349,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
                           // const url = "http://localhost:54716/#/onBordingWelcome";
-                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
-                          if (await canLaunch(url)) {
-                           await launch(url);
-                          //    Navigator.push(
-                          //      context,
-                          //      MaterialPageRoute(
-                          //       builder: (context) => OnBoardingWelcome(),
-                          //     ),
-                          //    );
-                           } else {
-                            throw 'Could not launch $url';
-                          }
+                          // const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          // if (await canLaunch(url)) {
+                          //  await launch(url);
+                             Navigator.push(
+                               context,
+                               MaterialPageRoute(
+                                builder: (context) => OfferLetterScreen(email: firstNameController.text,
+                                    userId: 0, role: "dev", status: "status", firstName: "firstName", lastName: "lastName", position: "position", phone: "phone", reportingOffice: "reportingOffice", services: "services", employement: "employement", soecalityName: "soecalityName", clinicalName: "clinicalName", employeeId: 0),
+                              ),
+                             );
+                          //  } else {
+                          //   throw 'Could not launch $url';
+                          // }
                         },
                         child: Text(
                           data.link!,

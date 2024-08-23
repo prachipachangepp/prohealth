@@ -276,6 +276,10 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                 setState(() {
                                   _isLoading = true;
                                 });
+                                String expiryTypeToSend =
+                                selectedExpiryType == "Not Applicable"
+                                    ? "Not Applicable"
+                                    : calenderController.text;
                                 try {
                                   await addManageCCVCPPPost(
                                     context: context,
@@ -283,7 +287,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                     docTypeID: docTypeMetaId,
                                     docSubTypeID: docSubTypeMetaId,
                                     expiryType: selectedExpiryType.toString(),
-                                    expiryDate: calenderController.text,
+                                    expiryDate: expiryTypeToSend,
                                     expiryReminder: selectedExpiryType.toString(),
                                     officeId: widget.officeId,
                                   );

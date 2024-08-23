@@ -81,8 +81,8 @@ class McqWidget extends StatelessWidget {
               items[i],
               style: GoogleFonts.firaSans(
                 fontSize: 12,
-                color: Color(0xff6000000),
-                fontWeight: FontWeight.w500,
+                color: ColorManager.mediumgrey,
+                fontWeight: FontWeightManager.regular,
               ),
             ),
             SizedBox(width: AppSize.s20),
