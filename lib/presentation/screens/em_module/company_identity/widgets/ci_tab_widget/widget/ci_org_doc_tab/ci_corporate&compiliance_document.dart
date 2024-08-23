@@ -277,11 +277,11 @@ class _CICorporateCompilianceDocumentState
               ),
               CiCcdCapReports(
                 docID: widget.docID,
-                subDocId: AppConfig.subDocId4, //officeId: "",//widget.officeId,
+                subDocId: AppConfig.subDocId4CapReport, //officeId: "",//widget.officeId,
               ),
               CICcdQuarteryBalanceReport(
                 docId: widget.docID,
-                subDocID: AppConfig.subDocId5, //officeId: "",//widget.officeId,
+                subDocID: AppConfig.subDocId5BalReport, //officeId: "",//widget.officeId,
               )
             ],
           ),

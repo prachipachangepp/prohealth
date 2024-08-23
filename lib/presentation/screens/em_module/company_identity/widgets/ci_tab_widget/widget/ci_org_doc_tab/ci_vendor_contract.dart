@@ -263,23 +263,23 @@ class _CIVendorContractState extends State<CIVendorContract> {
               children: [
                 VendorContractLicense(
                   docId: widget.docId,
-                  subDocID: AppConfig.subDocId6,// officeId: widget.officeId,
+                  subDocID: AppConfig.subDocId6Leases,// officeId: widget.officeId,
                 ),
                 VendorContractADR(
                   docId: widget.docId,
-                  subDocId: AppConfig.subDocId7,
+                  subDocId: AppConfig.subDocId7SNF,
                   //officeId: widget.officeId,
                 ),
                 VendorContractMedicalCostReport(
                   docId: widget.docId,
-                  subDocId: AppConfig.subDocId8,//officeId: widget.officeId,
+                  subDocId: AppConfig.subDocId8DME,//officeId: widget.officeId,
                 ),
                 VendorContractCapReport(
                   docId: widget.docId,
-                  subDocId: AppConfig.subDocId9,// officeId: widget.officeId,
+                  subDocId: AppConfig.subDocId9MD,// officeId: widget.officeId,
                 ),
                 VendorContractQuarterlyBalanceReport(
-                    docId: widget.docId, subDocId: AppConfig.subDocId10,
+                    docId: widget.docId, subDocId: AppConfig.subDocId10MISC,
                 //  officeId: widget.officeId,
                 )
               ],

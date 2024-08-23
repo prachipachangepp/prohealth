@@ -17,15 +17,15 @@ class AppConfig {
   static const int subDocId1Licenses = 1;
   static const int subDocId2Adr = 2;
   static const int subDocId3CICCMedicalCR = 3;
-  static const int subDocId4 = 4;
-  static const int subDocId5 = 5;
+  static const int subDocId4CapReport = 4;
+  static const int subDocId5BalReport = 5;
 
   ///VC
-  static const int subDocId6 = 6;
-  static const int subDocId7 = 7;
-  static const int subDocId8 = 8;
-  static const int subDocId9 = 9;
-  static const int subDocId10 = 10;
+  static const int subDocId6Leases = 6;
+  static const int subDocId7SNF = 7;
+  static const int subDocId8DME = 8;
+  static const int subDocId9MD = 9;
+  static const int subDocId10MISC = 10;
 
   /// Policies & procedures
   static const int subDocId0 = 0;
