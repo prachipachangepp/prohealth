@@ -1250,6 +1250,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   String dropdownValue = 'Salaried';
   late List<Map<String, dynamic>> checkboxStates;
   late List<Map<String, dynamic>> checkboxStatesCity;
+  final ValueNotifier<String> salary = ValueNotifier<String>('');
 
   String _salary = "";
   String generatedURL = '';
@@ -1350,6 +1351,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   List<String> selectedCityName = [];
   String selectedZipCodesString = '';
   String selectedCityString = '';
+
 
   @override
   Widget build(BuildContext context) {
@@ -1816,12 +1818,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                   },
                                                 ),
                                               ),
-                                              // Expanded(
-                                              //   child: ListView(
-                                              //     children: _buildCheckboxes()
-                                              //         .sublist(5, 10),
-                                              //   ),
-                                              // ),
                                             ],
                                           );
                                         },
@@ -1904,15 +1900,21 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   ),
                   Row(
                     children: [
-                      if (_salary.isNotEmpty)
-                        Text(
-                          "\$ ${_salary}",
-                          style: GoogleFonts.firaSans(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                          ),
+                      if (salary.value.isNotEmpty)
+                        ValueListenableBuilder<String>(
+                          valueListenable: salary,
+                          builder: (context, value, child) {
+                            return Text(
+                              "\$ ${salary.value}",
+                              style: GoogleFonts.firaSans(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            );
+                          },
                         ),
+
                       SizedBox(
                         width: 10,
                       ),
@@ -2030,7 +2032,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                               keyboardType:
                                                   TextInputType.number,
                                               onChanged: (value) {
-                                                  _salary = value;
+                                                setState(() {
+                                                  salary.value = value;
+                                                });
                                                 print("Salary:: ${_salary}");
                                               },
                                             ),

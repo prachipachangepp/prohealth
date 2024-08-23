@@ -749,85 +749,89 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                   BorderRadius.all(Radius.circular(20))),
                           height: 320,
                           // color: ColorManager.red,
-                          child: StreamBuilder<WhiteLabellingCompanyDetailModal>(
-                              stream: Stream.fromFuture(
-                                  getWhiteLabellingData(context)),
+                          child: FutureBuilder<WhiteLabellingCompanyDetailModal>(
+                              future:
+                                  getWhiteLabellingData(context),
                               builder: (context, snapshot) {
+                                if(snapshot.connectionState == ConnectionState.waiting){
+                                  return SizedBox();
+                                }
                                 if (snapshot.hasData) {
                                   var data = snapshot.data!;
-                                  nameController.text = data.companyDetail.name;
+                                  print("NameController : ${data.companyDetail.name}");
+                                  nameController = TextEditingController(text:data.companyDetail.name);
                                   secNumberController.text = data.contactDetail.secondaryPhone;
                                   faxController.text = data.contactDetail.primaryFax;
                                   addressController.text = data.companyDetail.address;
                                   primNumController.text = data.contactDetail.primaryPhone;
                                   altNumController.text = data.contactDetail.alternativePhone;
                                   emailController.text = data.contactDetail.email;
+                                  return Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          EditTextField(
+                                            controller: nameController,
+                                            keyboardType: TextInputType.text,
+                                            text: AppStringEM.companyName,
+                                          ),
+                                          SizedBox(height: AppSize.s9),
+                                          EditTextField(
+                                            controller: secNumberController,
+                                            keyboardType: TextInputType.number,
+                                            text: AppStringEM.secNum,
+                                          ),
+                                          SizedBox(height: AppSize.s9),
+                                          EditTextField(
+                                            controller: faxController,
+                                            keyboardType: TextInputType.text,
+                                            text: AppStringEM.fax,
+                                          ),
+                                          SizedBox(height: AppSize.s9),
+                                          EditTextField(
+                                            controller: emailController,
+                                            keyboardType: TextInputType.text,
+                                            text: AppStringEM.primarymail,
+                                          ),
+
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          EditTextField(
+                                            controller: primNumController,
+                                            keyboardType: TextInputType.number,
+                                            text: AppStringEM.primNum,
+                                          ),
+                                          SizedBox(height: AppSize.s9),
+                                          EditTextField(
+                                            controller: altNumController,
+                                            keyboardType: TextInputType.number,
+                                            text: AppStringEM.alternatephone,
+                                          ),
+                                          SizedBox(height: AppSize.s9),
+
+                                          EditTextField(
+                                            controller: addressController,
+                                            keyboardType: TextInputType.text,
+                                            text: "Street Address",
+                                          ),
+                                          SizedBox(
+                                            width: 354,
+                                            height: 60,
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  );
                                 } else if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 }
-
-                                return Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        EditTextField(
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                        ),
-                                        SizedBox(height: AppSize.s9),
-                                        EditTextField(
-                                          controller: secNumberController,
-                                          keyboardType: TextInputType.number,
-                                          text: AppStringEM.secNum,
-                                        ),
-                                        SizedBox(height: AppSize.s9),
-                                        EditTextField(
-                                          controller: faxController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.fax,
-                                        ),
-                                        SizedBox(height: AppSize.s9),
-                                        EditTextField(
-                                          controller: emailController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.primarymail,
-                                        ),
-
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        EditTextField(
-                                          controller: primNumController,
-                                          keyboardType: TextInputType.number,
-                                          text: AppStringEM.primNum,
-                                        ),
-                                        SizedBox(height: AppSize.s9),
-                                        EditTextField(
-                                          controller: altNumController,
-                                          keyboardType: TextInputType.number,
-                                          text: AppStringEM.alternatephone,
-                                        ),
-                                        SizedBox(height: AppSize.s9),
-
-                                        EditTextField(
-                                          controller: addressController,
-                                          keyboardType: TextInputType.text,
-                                          text: "Street Address",
-                                        ),
-                                        SizedBox(
-                                          width: 354,
-                                          height: 60,
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                );
+                                return SizedBox();
                               }),
                         )
                       ],

@@ -209,7 +209,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                         String? selectedDocType;
                         String? selectedSubDocType;
                         String? selectedExpiryType = expiryType;
-
                         showDialog(
                           context: context,
                           builder: (context) {
