@@ -27,6 +27,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
   String? eligiblityStatus;
   String? selectedState;
   String? selectedCity;
+  String? selectedCategory;
 
 
 
@@ -90,7 +91,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           zipcodeController.text,
                           typeController.text,
                           phoneController.text,
-                          categoryController.text,
+                          selectedCategory.toString(),
                           authorisationController.text,
                           "2024-08-09",       //effectiveFromController.text,
                           "2024-08-09",            //effectiveToController.text,
@@ -186,7 +187,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           Flexible(
 
 
-                            child: FutureBuilder<List<citydata>>(
+                            child: FutureBuilder<List<CityData>>(
                               future: getCityDropDown(context),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
@@ -302,7 +303,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           SizedBox(width: AppSize.s35),
                           Flexible(
 
-                            child:FutureBuilder<List<statedata>>(
+                            child:FutureBuilder<List<StateData>>(
                               future: getStateDropDown(context),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
@@ -425,10 +426,121 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
-                              child: SchedularDropdown(
-                                labelText: AppString.category,
-                                  items: ['Option 1', 'Option 2', 'Option 3'], onChanged: (newValue) {  },
-                              )
+
+
+
+                            child: FutureBuilder<List<CategoryData>>(
+                              future: getCategoryDropDown(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                        width: AppSize.s250,
+                                        height: AppSize.s40,
+                                        decoration: BoxDecoration(
+                                            color: ColorManager.white),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            'Loading...',
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: ColorManager.mediumgrey,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        )),
+                                  );
+                                }
+                                if (snapshot.hasData) {
+                                  List<String> dropDownList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(i.idText!);
+                                  }
+
+                                  return SizedBox(
+                                    height: 27,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'category',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.greylight,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .containerBorderGrey),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff686464),
+                                      ),
+
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.idText == newValue) {
+                                            selectedCategory = a.idText!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
+
+
+
+
+
+
+
+
+                              // child: SchedularDropdown(
+                              //   labelText: AppString.category,
+                              //     items: ['Option 1', 'Option 2', 'Option 3'], onChanged: (newValue) {  },
+                              // )
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
@@ -470,14 +582,119 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularDropdown(
-                                labelText: 'Eligibility Status',
-                                  items: ['Option 1', 'Option 2', 'Option 3'],
-                                onChanged: (newValue) {
-                                setState(() {
-                                  eligiblityStatus = newValue;
-                                });
-                              },)
+
+
+
+
+
+                            child: FutureBuilder<List<EligiblityStatusData>>(
+                              future: getEligiblityStatusDropDown(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                        width: AppSize.s250,
+                                        height: AppSize.s40,
+                                        decoration: BoxDecoration(
+                                            color: ColorManager.white),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            'Loading...',
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: ColorManager.mediumgrey,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        )),
+                                  );
+                                }
+                                if (snapshot.hasData) {
+                                  List<String> dropDownList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(i.idText!);
+                                  }
+
+                                  return SizedBox(
+                                    height: 27,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'Eligibility Status',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.greylight,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .containerBorderGrey),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff686464),
+                                      ),
+
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.idText == newValue) {
+                                            eligiblityStatus = a.idText!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
+                              // child: SchedularDropdown(
+                              //   labelText: 'Eligibility Status',
+                              //     items: ['Option 1', 'Option 2', 'Option 3'],
+                              //   onChanged: (newValue) {
+                              //   setState(() {
+                              //     eligiblityStatus = newValue;
+                              //   });
+                              // },)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(

@@ -144,7 +144,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         SizedBox(width: AppSize.s35),
                         Flexible(
 
-                          child: FutureBuilder<List<citydata>>(
+                          child: FutureBuilder<List<CityData>>(
                             future: getCityDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -261,7 +261,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         Flexible(
 
 
-                          child:FutureBuilder<List<statedata>>(
+                          child:FutureBuilder<List<StateData>>(
                             future: getStateDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==

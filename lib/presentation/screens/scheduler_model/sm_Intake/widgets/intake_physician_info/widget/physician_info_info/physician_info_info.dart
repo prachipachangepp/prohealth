@@ -225,7 +225,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                       children: [
                         Flexible(
 
-                          child: FutureBuilder<List<citydata>>(
+                          child: FutureBuilder<List<CityData>>(
                             future: getCityDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -331,7 +331,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
-                          child:FutureBuilder<List<statedata>>(
+                          child:FutureBuilder<List<StateData>>(
                             future: getStateDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -563,7 +563,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                     Row(
                       children: [
                         Flexible(
-                          child: FutureBuilder<List<citydata>>(
+                          child: FutureBuilder<List<CityData>>(
                             future: getCityDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -670,7 +670,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
-                          child:FutureBuilder<List<statedata>>(
+                          child:FutureBuilder<List<StateData>>(
                             future: getStateDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==

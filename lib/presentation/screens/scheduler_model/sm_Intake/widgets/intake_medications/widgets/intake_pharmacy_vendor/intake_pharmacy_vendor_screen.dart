@@ -134,15 +134,125 @@ class _IntakePharmacyVendorScreenState
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularDropdown(
-                            labelText: 'Supplies/ DME',
-                            items: ['Option 1', 'Option 2', 'Option 3'],
-                            onChanged: (newValue) {
-                              setState(() {
-                                dmeSupplies = newValue;
-                              });
-                            },
-                          )),
+
+                            child: FutureBuilder<List<SuppliesData>>(
+                              future: getSuppliesDMEDropDown(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                        width: AppSize.s250,
+                                        height: AppSize.s40,
+                                        decoration: BoxDecoration(
+                                            color: ColorManager.white),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            'Loading...',
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: ColorManager.mediumgrey,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        )),
+                                  );
+                                }
+                                if (snapshot.hasData) {
+                                  List<String> dropDownList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(i.idText!);
+                                  }
+
+                                  return SizedBox(
+                                    height: 27,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'Facility',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.greylight,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .containerBorderGrey),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff686464),
+                                      ),
+
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.idText == newValue) {
+                                            dmeSupplies = a.idText!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
+
+
+
+
+
+
+
+                          //     child: SchedularDropdown(
+                          //   labelText: 'Supplies/ DME',
+                          //   items: ['Option 1', 'Option 2', 'Option 3'],
+                          //   onChanged: (newValue) {
+                          //     setState(() {
+                          //       dmeSupplies = newValue;
+                          //     });
+                          //   },
+                          // ),
+
+                          ),
                           SizedBox(width: 35),
                           Flexible(child: Container()),
                           SizedBox(width: 35),
@@ -181,15 +291,120 @@ class _IntakePharmacyVendorScreenState
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularDropdown(
-                            labelText: 'Pharmacy',
-                            items: ['Option 1', 'Option 2', 'Option 3'],
-                            onChanged: (newValue) {
-                              setState(() {
-                                pharmacydd = newValue;
-                              });
-                            },
-                          )),
+                            child: FutureBuilder<List<PharmacyData>>(
+                              future: getPharmacyDropDown(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                        width: AppSize.s250,
+                                        height: AppSize.s40,
+                                        decoration: BoxDecoration(
+                                            color: ColorManager.white),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            'Loading...',
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: ColorManager.mediumgrey,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        )),
+                                  );
+                                }
+                                if (snapshot.hasData) {
+                                  List<String> dropDownList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(i.idText!);
+                                  }
+
+                                  return SizedBox(
+                                    height: 27,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'Pharmacy',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.greylight,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .containerBorderGrey),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff686464),
+                                      ),
+
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.idText == newValue) {
+                                            pharmacydd = a.idText!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
+
+
+
+                          //     child: SchedularDropdown(
+                          //   labelText: 'Pharmacy',
+                          //   items: ['Option 1', 'Option 2', 'Option 3'],
+                          //   onChanged: (newValue) {
+                          //     setState(() {
+                          //       pharmacydd = newValue;
+                          //     });
+                          //   },
+                          // ),
+
+                          ),
                           SizedBox(width: 35),
                           Flexible(child: Container()),
                           SizedBox(width: 35),
@@ -218,7 +433,7 @@ class _IntakePharmacyVendorScreenState
                           SizedBox(width: 35),
                           Flexible(
 
-                            child: FutureBuilder<List<citydata>>(
+                            child: FutureBuilder<List<CityData>>(
                               future: getCityDropDown(context),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
@@ -328,7 +543,7 @@ class _IntakePharmacyVendorScreenState
                         children: [
                           Flexible(
 
-                            child:FutureBuilder<List<statedata>>(
+                            child:FutureBuilder<List<StateData>>(
                               future: getStateDropDown(context),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==

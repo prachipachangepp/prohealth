@@ -40,6 +40,7 @@ class IntakePatientsDatatInfo extends StatefulWidget {
   final Widget childReligion;
   final Widget childRace;
   final Widget childLanguage;
+  final Widget childCountry;
   final Widget childMaritalStatus;
 
   IntakePatientsDatatInfo(
@@ -67,7 +68,7 @@ class IntakePatientsDatatInfo extends StatefulWidget {
       required this.childReligion,
       required this.childRace,
       required this.childLanguage,
-      required this.childMaritalStatus});
+      required this.childMaritalStatus, required this.childCountry});
 
   @override
   State<IntakePatientsDatatInfo> createState() => _PatientInfoState();
@@ -257,15 +258,19 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           Flexible(child: widget.childCity),
                           SizedBox(width: 35),
                           Flexible(
-                              child: SchedularDropdown(
-                            labelText: AppString.country,
-                            items: ['Option 1', 'Option 2', 'Option 3'],
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedCountry = newValue;
-                              });
-                            },
-                          )),
+
+                            child: widget.childCountry
+                          //     child: SchedularDropdown(
+                          //   labelText: AppString.country,
+                          //   items: ['Option 1', 'Option 2', 'Option 3'],
+                          //   onChanged: (newValue) {
+                          //     setState(() {
+                          //       selectedCountry = newValue;
+                          //     });
+                          //   },
+                          // ),
+
+                          ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(

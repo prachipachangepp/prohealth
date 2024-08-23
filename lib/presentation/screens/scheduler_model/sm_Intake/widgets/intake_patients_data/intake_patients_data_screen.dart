@@ -743,7 +743,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         ctlrZipCode.text,
                         ctlrApartment.text,
                         selectedcity!.toString(),
-                        selectedCountry ?? '',
+                        selectedCountry.toString() ?? '',
                         ctlrMajorStreet.text,
                         ctlrPrimeNo.text,
                         ctlrSecNo.text,
@@ -839,7 +839,108 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     ctlrSocialSec: ctlrSocialSec,
                     ctlrDischargeResaon: ctlrDischargeResaon,
                     ctlrDateOfDeath: ctlrDateOfDeath,
-                    childReligion:FutureBuilder<List<religiondata>>(
+
+                    childCountry: FutureBuilder<List<CountryData>>(
+                      future: getCountryDropDown(context),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7),
+                            child: Container(
+                                width: AppSize.s250,
+                                height: AppSize.s40,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.white),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Loading...',
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: ColorManager.mediumgrey,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                )),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          List<String> dropDownList = [];
+                          for (var i in snapshot.data!) {
+                            dropDownList.add(i.name!);
+                          }
+
+                          return SizedBox(
+                            height: 27,
+                            child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                labelText: 'Country',
+                                labelStyle: GoogleFonts.firaSans(
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorManager.greylight,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: ColorManager
+                                          .containerBorderGrey),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(4.0),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey),
+                                ),
+                                contentPadding:
+                                const EdgeInsets.symmetric(
+                                  //   //  vertical: 5,
+                                    horizontal: 12),
+                              ),
+                              // value: selectedCountry,
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: ColorManager.blueprime,
+                              ),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xff686464),
+                              ),
+
+                              onChanged: (newValue) {
+                                for (var a in snapshot.data!) {
+                                  if (a.name == newValue) {
+                                    selectedCountry = a.name!;
+                                    //country = a
+                                    // int? docType = a.companyOfficeID;
+                                  }
+                                }
+                              },
+                              items: dropDownList.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: Color(0xff575757),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        } else {
+                          return const Offstage();
+                        }
+                      },
+                    ),
+                    childReligion:FutureBuilder<List<ReligionData>>(
                       future: getReligionDropDown(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -940,7 +1041,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       },
                     ),
 
-                    childState: FutureBuilder<List<statedata>>(
+                    childState: FutureBuilder<List<StateData>>(
                       future: getStateDropDown(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -1040,7 +1141,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         }
                       },
                     ),
-                    childCity:  FutureBuilder<List<citydata>>(
+                    childCity:  FutureBuilder<List<CityData>>(
                       future: getCityDropDown(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -1140,7 +1241,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                         }
                       },
                     ),
-                    childRace:FutureBuilder<List<racedata>>(
+                    childRace:FutureBuilder<List<RaceData>>(
                     future: getRaceDropDown(context),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState ==
@@ -1241,7 +1342,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     },
                   ),
 
-                    childLanguage:  FutureBuilder<List<languageSpokendata>>(
+                    childLanguage:  FutureBuilder<List<LanguageSpokenData>>(
                     future: getlanguageSpokenDropDown(context),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState ==
@@ -1343,7 +1444,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                   ),
 
 
-                    childMaritalStatus: FutureBuilder<List<metrialStatusdata>>(
+                    childMaritalStatus: FutureBuilder<List<MetrialStatusData>>(
                     future: getMaritalStatusDropDown(context),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState ==

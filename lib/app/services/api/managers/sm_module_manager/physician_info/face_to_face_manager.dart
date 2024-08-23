@@ -22,7 +22,7 @@ Future<ApiData> postFaceToFaceScreen(
 ) async {
   try {
     var response = await Api(context).post(
-      path: physicianInfo.addPIftof(),
+      path: PhysicianInfo.addPIftof(),
       data: {
         "patientId": patientId,
         "f2fRequired": f2fRequired,
