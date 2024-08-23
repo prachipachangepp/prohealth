@@ -23,6 +23,7 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
       height: 30,//widget.height,
       width: MediaQuery.of(context).size.width / 5,
       child: TextFormField(
+        readOnly: true,
         style: GoogleFonts.firaSans(
             fontSize: 10.0,
             fontWeight: FontWeight.w400,
@@ -68,6 +69,7 @@ class _CustomTextFieldOfferScreenState extends State<CustomTextFieldOfferScreen>
 
 
 
+///
 
 class CustomDropdownFormField extends StatefulWidget {
   final String hintText;

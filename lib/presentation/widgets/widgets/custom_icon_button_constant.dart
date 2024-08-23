@@ -39,7 +39,7 @@ class CustomIconButtonConst extends StatelessWidget {
         onPressed: onPressed,
         icon: icon != null
             ? Icon(icon!, color: ColorManager.white, size: AppSize.s20)
-            : SizedBox.shrink(),
+            : Offstage(),
         label: Text(
           text!,
           style: GoogleFonts.firaSans(

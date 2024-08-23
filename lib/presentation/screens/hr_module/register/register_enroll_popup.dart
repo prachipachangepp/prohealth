@@ -194,7 +194,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
+                      padding: const EdgeInsets.only(left: 25.0),
                       child: Text(
                         'Enroll',
                         style: GoogleFonts.firaSans(
@@ -226,10 +226,10 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
-                            cursorHeight: 20,
+                            cursorHeight: 15,
                             labelText: 'First Name',
                             labelStyle: GoogleFonts.firaSans(
-                              fontSize: 12,
+                              fontSize: 15,
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
@@ -298,7 +298,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
-                            cursorHeight: 22,
+                            cursorHeight: 15,
                             labelText: 'Email',
                             labelStyle: GoogleFonts.firaSans(
                               fontSize: 12,
@@ -326,7 +326,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
-                            cursorHeight: 20,
+                            cursorHeight: 15,
                             labelText: 'Last Name',
                             labelStyle: GoogleFonts.firaSans(
                               fontSize: 12,
@@ -406,7 +406,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
-                            cursorHeight: 20,
+                            cursorHeight: 15,
                             labelText: 'Position',
                             labelStyle: GoogleFonts.firaSans(
                               fontSize: 12,
@@ -426,7 +426,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
-                            cursorHeight: 22,
+                            cursorHeight: 15,
                             labelText: 'Phone No',
                             labelStyle: GoogleFonts.firaSans(
                               fontSize: 12,
@@ -510,7 +510,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
               ),
               ///
               Padding(
-                padding: EdgeInsets.only(left: 16.0, right: 16),
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Divider(
                   color: ColorManager.cream,
                   thickness: 4,
@@ -522,9 +522,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
 
               Container(
                 height: 60,
-
                 child: Padding(
-                  padding: EdgeInsets.only(left: 16.0),
+                  padding: EdgeInsets.only(left: 20),
                   child: McqWidget(
                     title: 'Employment',
                     items: [
@@ -542,8 +541,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
               ),
               Container(
                 height: 100,
-                child: FutureBuilder<List<AEClinicalService>>(
-                  future: HrAddEmplyClinicalServiceRadioButtonApi(context, 1),
+                child:   FutureBuilder<List<AEClinicalService>>(
+                  future: HrAddEmplyClinicalServiceRadioButtonApi(context,),
                   builder: (context, snap) {
                     if (snap.connectionState == ConnectionState.waiting) {
                       return Center(
@@ -562,7 +561,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         serviceName.add(i.serviceName!);
                       }
                       return Padding(
-                        padding: EdgeInsets.only(left: 16.0),
+                        padding: EdgeInsets.only(left: 20.0),
                         child: McqWidget(
                           title: 'Service',
                           items: serviceName,

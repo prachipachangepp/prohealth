@@ -75,7 +75,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   }
 
   int currentPage = 1;
-  int itemsPerPage = 3;
+  int itemsPerPage = 10;
   final int totalPages = 5;
 
   void onPageNumberPressed(int page) {

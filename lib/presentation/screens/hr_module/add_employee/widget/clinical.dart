@@ -1771,7 +1771,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                             List<AEClinicalService>>(
                                         future:
                                             HrAddEmplyClinicalServiceRadioButtonApi(
-                                                context, 1),
+                                                context,),
                                         builder: (context, snap) {
                                           if (snap.connectionState ==
                                               ConnectionState.waiting) {
