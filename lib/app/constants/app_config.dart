@@ -1,6 +1,7 @@
 class AppConfig {
    // static const String dev =  "https://demoapp.symmetry.care";
   static const String dev = "https://resource.symmetry.care";
+  static const String demo =  "https://demoapp.symmetry.care";
 
   static const String local = "";
   static const String prod = "";
