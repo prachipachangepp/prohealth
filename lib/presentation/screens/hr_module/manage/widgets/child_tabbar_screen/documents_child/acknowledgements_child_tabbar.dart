@@ -39,7 +39,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
   @override
   void initState() {
     super.initState();
-    getAckHealthRecord(context, 10, 48, widget.employeeId,"no").then((data) {
+    getAckHealthRecord(context, 10, 48, widget.employeeId,"yes").then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
