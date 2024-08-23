@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
-import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/text_form_field_const.dart';
 
@@ -17,17 +14,18 @@ import '../../../../widgets/text_form_field_const.dart';
 class CCScreensAddPopup extends StatefulWidget {
   final TextEditingController countynameController;
   final TextEditingController zipcodeController;
-   VoidCallback onSavePressed;
+  VoidCallback onSavePressed;
   final Widget child;
   final Widget child1;
   final String title;
-   CCScreensAddPopup(
+  CCScreensAddPopup(
       {super.key,
       required this.countynameController,
       required this.zipcodeController,
       required this.onSavePressed,
       required this.child,
-      required this.child1, required this.title});
+      required this.child1,
+      required this.title});
 
   @override
   State<CCScreensAddPopup> createState() => _CCScreensAddPopusState();
@@ -41,7 +39,6 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
       child: Container(
         width: AppSize.s400,
         height: AppSize.s420,
-
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -76,7 +73,10 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close,color: ColorManager.white,),
+                    icon: Icon(
+                      Icons.close,
+                      color: ColorManager.white,
+                    ),
                   ),
                 ],
               ),
@@ -186,7 +186,7 @@ class CICCDropdown extends StatefulWidget {
 class _CIDetailsDropdownState extends State<CICCDropdown> {
   String? _selectedValue;
   GlobalKey _dropdownKey = GlobalKey();
-
+  List items = [];
   @override
   void initState() {
     super.initState();
@@ -236,11 +236,11 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
       children: [
         Container(
           key: _dropdownKey,
-          width: widget.width == null ?354:widget.width,
+          width: widget.width == null ? 354 : widget.width,
           height: 30,
           decoration: BoxDecoration(
-            border: Border.all(color: ColorManager.containerBorderGrey,
-                width: AppSize.s1),
+            border: Border.all(
+                color: ColorManager.containerBorderGrey, width: AppSize.s1),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
@@ -281,10 +281,10 @@ class CCScreenEditPopup extends StatefulWidget {
   final Widget? child2;
   final double? height;
   final Widget? radioButton;
-   bool? loadingDuration;
-   final String title;
+  bool? loadingDuration;
+  final String title;
 
-   CCScreenEditPopup({
+  CCScreenEditPopup({
     super.key,
     required this.idDocController,
     required this.nameDocController,
@@ -293,7 +293,11 @@ class CCScreenEditPopup extends StatefulWidget {
     this.child1,
     this.child2,
     this.id,
-    this.radioButton,  this.calenderController, this.loadingDuration, required this.title, this.height,
+    this.radioButton,
+    this.calenderController,
+    this.loadingDuration,
+    required this.title,
+    this.height,
   });
 
   @override
@@ -310,7 +314,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: widget.height == null ?AppSize.s550 : widget.height,
+        height: widget.height == null ? AppSize.s550 : widget.height,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -345,7 +349,10 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close,color: ColorManager.white,),
+                    icon: Icon(
+                      Icons.close,
+                      color: ColorManager.white,
+                    ),
                   ),
                 ],
               ),
@@ -394,7 +401,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                       AppString.sub_type_of_the_document,
+                        AppString.sub_type_of_the_document,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.bold,
@@ -522,27 +529,27 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
             //   ),
             // ),
             SizedBox(height: AppSize.s20),
+
             ///button
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(
-                child:  widget.loadingDuration == true
+                child: widget.loadingDuration == true
                     ? SizedBox(
-                  height: AppSize.s25,
-                  width: AppSize.s25,
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                )
-                    :CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.add, //submit
-                  onPressed: () {
-                    widget.onSavePressed!();
-
-                  },
-                ),
+                        height: AppSize.s25,
+                        width: AppSize.s25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
+                      )
+                    : CustomElevatedButton(
+                        width: AppSize.s105,
+                        height: AppSize.s30,
+                        text: AppStringEM.add, //submit
+                        onPressed: () {
+                          widget.onSavePressed!();
+                        },
+                      ),
               ),
             ),
           ],
@@ -567,14 +574,17 @@ class AddOrgDocButton extends StatefulWidget {
   final bool? loadingDuration;
   AddOrgDocButton(
       {super.key,
-        required this.idDocController,
-        required this.nameDocController,
-        this.child,
-        this.child1,
-        required this.onPressed,
-        required this.calenderController,
-        this.radioButton,
-        this.loadingDuration, required this.title,this.child2, this.height});
+      required this.idDocController,
+      required this.nameDocController,
+      this.child,
+      this.child1,
+      required this.onPressed,
+      required this.calenderController,
+      this.radioButton,
+      this.loadingDuration,
+      required this.title,
+      this.child2,
+      this.height});
 
   @override
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
@@ -602,8 +612,10 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      _idDocError = _validateTextField(widget.idDocController.text, 'ID of the Document');
-      _nameDocError = _validateTextField(widget.nameDocController.text, 'Name of the Document');
+      _idDocError =
+          _validateTextField(widget.idDocController.text, 'ID of the Document');
+      _nameDocError = _validateTextField(
+          widget.nameDocController.text, 'Name of the Document');
     });
   }
 
@@ -655,7 +667,9 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -762,23 +776,23 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               child: Center(
                 child: widget.loadingDuration == true
                     ? SizedBox(
-                  height: AppSize.s25,
-                  width: AppSize.s25,
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                )
+                        height: AppSize.s25,
+                        width: AppSize.s25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
+                      )
                     : CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.add,
-                  onPressed: () {
-                    _validateForm(); // Validate the form on button press
-                    if (_isFormValid) {
-                      widget.onPressed();
-                    }
-                  },
-                ),
+                        width: AppSize.s105,
+                        height: AppSize.s30,
+                        text: AppStringEM.add,
+                        onPressed: () {
+                          _validateForm(); // Validate the form on button press
+                          if (_isFormValid) {
+                            widget.onPressed();
+                          }
+                        },
+                      ),
               ),
             ),
           ],
