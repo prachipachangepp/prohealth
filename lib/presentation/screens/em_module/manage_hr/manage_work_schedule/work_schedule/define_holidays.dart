@@ -291,7 +291,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                       return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
                                                                     }
                                                                     var holidayName = snapshotPrefill.data?.holidayName.toString();
-                                                                    var date = snapshotPrefill.data?.date.toString();
+                                                                    var date = snapshotPrefill.data?.date;
                                                                     holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
                                                                     calenderController = TextEditingController(text: snapshotPrefill.data?.date);
                                                                     return AddHolidayPopup(
@@ -303,7 +303,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                       onPressed: ()  async{
                                                                         await updateHolidays(context, defineData.holidayId,
                                                                             holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
-                                                                            date == calenderController.text ? DateFormat('mm-dd-yyy').format(date as DateTime) : calenderController.text, 2024, 1);
+                                                                            date == calenderController.text ? date! : calenderController.text, 2024, 1);
                                                                         holidaysListGet(
                                                                             context)
                                                                             .then((data) {

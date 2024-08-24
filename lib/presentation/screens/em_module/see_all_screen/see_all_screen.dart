@@ -189,7 +189,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   lastNameController.text,
                                   roleController.text,
                                   emailController.text,
-                                  int.parse(companyIdController.text),
+                                  1,
+                                  // int.parse(companyIdController.text),
                                   passwordController.text);
                               getUser(context).then((data) {
                                 _companyUsersList.add(data);
