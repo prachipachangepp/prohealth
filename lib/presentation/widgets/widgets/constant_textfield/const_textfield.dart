@@ -403,7 +403,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
+          style: GoogleFonts.firaSans(fontSize: 10,),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,

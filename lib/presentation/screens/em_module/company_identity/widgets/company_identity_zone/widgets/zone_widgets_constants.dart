@@ -555,9 +555,18 @@ class AddZipCodePopup extends StatefulWidget {
   final TextEditingController landmarkController;
   final Widget? child;
   final Widget? child1;
+  // final String latitude;
+  // final String longitude;
   final Future<void> Function() onSavePressed;
   final VoidCallback? onPickLocation;
-   AddZipCodePopup({super.key, required this.title, required this.countynameController, required this.zipcodeController, required this.mapController, required this.landmarkController, this.child, required this.onSavePressed, required this.cityNameController, this.child1, this.onPickLocation,});
+   AddZipCodePopup({super.key, required this.title,
+     required this.countynameController,
+     required this.zipcodeController, required this.mapController,
+     required this.landmarkController, this.child, required this.onSavePressed,
+     required this.cityNameController, this.child1, this.onPickLocation,
+     // required this.latitude,
+     // required this.longitude,
+   });
 
   @override
   State<AddZipCodePopup> createState() => _AddZipCodePopupState();
@@ -565,6 +574,7 @@ class AddZipCodePopup extends StatefulWidget {
 
 class _AddZipCodePopupState extends State<AddZipCodePopup> {
   bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -693,7 +703,8 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
 
                       ],
                     ),
-                    SizedBox(height: AppSize.s20),
+                    SizedBox(height: AppSize.s5),
+
 
                     SMTextFConst(
                       controller: widget.landmarkController!,

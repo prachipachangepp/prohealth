@@ -92,7 +92,7 @@ Future<ApiData> createUserPost(
       'lastName':lastName,
       'role':role,
       'email':email,
-      'company_id':companyId,
+      'company_id':1,
       'password':password
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
