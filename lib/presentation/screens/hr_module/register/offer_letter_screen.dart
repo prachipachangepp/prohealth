@@ -195,7 +195,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   List<String> selectedCityName = [];
   String selectedZipCodesString = '';
   String selectedCityString = '';
-
+  List<DropdownMenuItem<String>> dropDownList = [];
+  int countyId = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -383,13 +384,15 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                           items: ['Error'],
                                         );
                                       } else if (snapshot.hasData) {
-                                        List<DropdownMenuItem<String>> dropDownList = [];
-                                        int countyId = 0;
-                                        for(var i in snapshot.data!){
-                                          dropDownList.add(DropdownMenuItem<String>(
-                                            child: Text(i.countyName),
-                                            value: i.countyName,
-                                          ));
+
+
+                                        if(dropDownList.isEmpty){
+                                          for(var i in snapshot.data!){
+                                            dropDownList.add(DropdownMenuItem<String>(
+                                              child: Text(i.countyName),
+                                              value: i.countyName,
+                                            ));
+                                          }
                                         }
                                         print("County: ");
                                         return Container(
