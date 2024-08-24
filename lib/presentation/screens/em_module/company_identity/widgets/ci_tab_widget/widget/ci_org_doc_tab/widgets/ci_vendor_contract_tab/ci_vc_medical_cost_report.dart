@@ -157,7 +157,7 @@ class _VendorContractMedicalCostReportState extends State<VendorContractMedicalC
                           scrollDirection: Axis.vertical,
                           itemCount: paginatedData.length,
                           itemBuilder: (context, index) {
-                            int serialNumber = totalItems - (index + (currentPage - 1)* itemsPerPage);
+                            int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                             String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                             CiOrgDocumentCC MCRdata = paginatedData[index];
                             return Column(

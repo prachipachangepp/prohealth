@@ -628,10 +628,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                             itemCount: paginatedData.length ?? 0,
                             // itemCount: snapshot.data?.length ?? 0,
                             itemBuilder: (context, index) {
-                              // int serialNumber = totalItems - (index + (currentPage - 1)* itemsPerPage);
-                              // String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                              // HRAllData hrdoc = paginatedData[index];
-                              int serialNumber = totalItems - (index + (currentPage - 1) * itemsPerPage);
+                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                               String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                               HRAllData hrdoc = paginatedData[index];
 
@@ -760,18 +757,13 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                           .blueprime,
                                                                     ));
                                                                   }
-                                                                  var type = hrdoc
-                                                                      .toString();
-                                                                  var shorthand =
-                                                                      hrdoc
-                                                                          .toString();
+                                                                  var type = hrdoc.toString();
+                                                                  var shorthand = hrdoc.toString();
                                                                   var hexColorData = snapshot
                                                                       .data!
                                                                       .color!
                                                                       .replaceAll(
-                                                                          "#",
-                                                                          "")
-                                                                      .toString();
+                                                                          "#", "").toString();
                                                                   //hexColorData = i.color.replaceAll("#","");
                                                                   Color
                                                                       hexColor =
@@ -788,14 +780,8 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                       .substring(
                                                                           10,
                                                                           16);
-                                                                  typeController = TextEditingController(
-                                                                      text: hrdoc
-                                                                          .empType
-                                                                          .toString());
-                                                                  shorthandController = TextEditingController(
-                                                                      text: hrdoc
-                                                                          .abbrivation
-                                                                          .toString());
+                                                                  typeController = TextEditingController(text: hrdoc.empType.toString());
+                                                                  shorthandController = TextEditingController(text: hrdoc.abbrivation.toString());
                                                                   return EditPopupWidget(
                                                                     typeController:
                                                                         typeController,

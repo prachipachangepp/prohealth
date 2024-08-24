@@ -306,6 +306,10 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                               setState(() {
                                 _isLoading = true;
                               });
+                              String expiryTypeToSend =
+                              selectedExpiryType == "Not Applicable"
+                                  ? "Not Applicable"
+                                  : calenderController.text;
                               try {
                                 await addManageCCVCPPPost(
                                   context: context,
@@ -313,7 +317,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                   docTypeID: docTypeMetaId,
                                   docSubTypeID: docSubTypeMetaId,
                                   expiryType: selectedExpiryType.toString(),
-                                  expiryDate: calenderController.text,
+                                  expiryDate: expiryTypeToSend,
                                   expiryReminder: selectedExpiryType.toString(),
                                   officeId: widget.officeId,
                                 );

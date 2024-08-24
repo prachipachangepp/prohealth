@@ -156,7 +156,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                           scrollDirection: Axis.vertical,
                           itemCount: paginatedData.length,
                           itemBuilder: (context, index) {
-                            int serialNumber = totalItems - (index + (currentPage - 1)* itemsPerPage);
+                            int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                             String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                             CiOrgDocumentCC snfdata = paginatedData[index];
                             return Column(
