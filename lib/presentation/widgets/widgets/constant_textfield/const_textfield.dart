@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 
 import '../../../../../app/resources/value_manager.dart';
 import '../../../screens/hr_module/register/taxtfield_constant.dart';
@@ -47,7 +48,11 @@ class CustomTextField extends StatelessWidget {
           focusNode: focusNode,
           controller: controller,
           textAlign: TextAlign.start,
-          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
+          style: GoogleFonts.firaSans(
+            fontSize: AppSize.s12,
+            color: ColorManager.mediumgrey,
+            fontWeight: FontWeightManager.regular
+          ),
           textAlignVertical: TextAlignVertical.center,
           cursorHeight: cursorHeight,
           decoration: InputDecoration(
@@ -145,14 +150,14 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
           },
           isExpanded: true,
           decoration: InputDecoration(
+            hoverColor: ColorManager.white,
             contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.black),
             ),
             labelText: widget.labelText,
-            labelStyle:
-                widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
+            labelStyle: widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
           ),
         ),
       ),
@@ -398,7 +403,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
+          style: GoogleFonts.firaSans(fontSize: 10,),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,

@@ -199,7 +199,7 @@ class _Employment_screenState extends State<Employment_screen> {
                             state.finalPositionController.text,
                             state.startDateController.text,
                             state.isChecked
-                                ? 'Present'
+                                ? '0000-00-00'
                                 : state.endDateController.text,
                             "NA",
                             "USA");

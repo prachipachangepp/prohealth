@@ -50,7 +50,7 @@ class _CustomDialogState extends State<CustomDialog> {
       child: Stack(
         children: <Widget>[
           Container(
-            height: 470,
+            height: 420,
             width: 400,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -181,19 +181,20 @@ class _CustomDialogState extends State<CustomDialog> {
                     errorText: 'Password is required',
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextField(
-                    controller: widget.companyIdController,
-                    keyboardType: TextInputType.phone,
-                    text: "Company ID",
-                    cursorHeight: 12,
-                    labelText: "Company ID",
-                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                    labelFontSize: 12,
-                    errorText: 'Company ID is required',
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 8.0),
+                //   child: HRManageTextField(
+                //     readOnly: true,
+                //     controller: widget.companyIdController,
+                //     keyboardType: TextInputType.phone,
+                //     text: "Company ID",
+                //     cursorHeight: 12,
+                //     labelText: "Company ID",
+                //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                //     labelFontSize: 12,
+                //     //errorText: 'Company ID is required',
+                //   ),
+                // ),
                 SizedBox(height: 24.0),
                 ReusableLoadingButton(
                   text: 'Create',
@@ -368,19 +369,19 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           errorText: 'Email is required',
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: HRManageTextField(
-                          controller: widget.companyIdController,
-                          keyboardType: TextInputType.phone,
-                          text: "Company ID",
-                          cursorHeight: 12,
-                          labelText: "Company ID",
-                          labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                          labelFontSize: 12,
-                          errorText: 'Company ID is required',
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: HRManageTextField(
+                      //     controller: widget.companyIdController,
+                      //     keyboardType: TextInputType.phone,
+                      //     text: "Company ID",
+                      //     cursorHeight: 12,
+                      //     labelText: "Company ID",
+                      //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                      //     labelFontSize: 12,
+                      //     errorText: 'Company ID is required',
+                      //   ),
+                      // ),
                       SizedBox(height: 24.0),
                       ReusableLoadingButton(
                         text: 'Submit',

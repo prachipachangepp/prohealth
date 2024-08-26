@@ -1,6 +1,7 @@
 class ProgressBarRepository{
 
   static String grneralpage ="/employees/add";
+  static String uploadEmployeePhoto = "/employees/attach-photobase64";
 
   static String educationDocument = "/employee-educations/attach-documentbase64";
 
@@ -43,6 +44,9 @@ static String uploadLegalDocument = "/employee-legal-document/attach-docbase64";
 
    static String getEmployeeByEmpID({required int employeeID} ){
     return "$educationformprifill/ByemployeeId/$employeeID/no";
+  }
+  static String uploadEmployeePhotoBase64({required int employeeID} ){
+    return "$uploadEmployeePhoto/$employeeID";
   }
 
   static String getEmploymentByEmpID({required int employeeID} ){

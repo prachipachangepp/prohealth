@@ -504,11 +504,10 @@ Future<List<AEClinicalZone>> HrAddEmplyClinicalZoneApi(
 /// service radio button Get Api
 Future<List<AEClinicalService>> HrAddEmplyClinicalServiceRadioButtonApi(
     BuildContext context,
-    int companyId
-
     ) async {
   List<AEClinicalService> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path:
             HRModuleAEClinicalRepository.getEmplyServiceRadiobutton(companyID: companyId));
@@ -517,7 +516,7 @@ Future<List<AEClinicalService>> HrAddEmplyClinicalServiceRadioButtonApi(
         itemsList.add(
           AEClinicalService(
               officeServiceID: item['Office_service_id'],
-              companyID: item['company_id'],
+              companyID: companyId,
               officeID: item['office_id'],
               serviceName: item['service_name'],
               npiNo: item['npi_number'],

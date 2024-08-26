@@ -104,6 +104,7 @@ class _generalFormState extends State<generalForm> {
           gendertype = data.gender ?? "";
           generalId = data.employeeId ?? 0;
           signatureUrl = data.signatureURL ?? "";
+          fileName = data.imgurl.split("/").last??"";
         });
       //}
     } catch (e) {
@@ -928,83 +929,6 @@ class _generalFormState extends State<generalForm> {
                                 }
                               },
                             ),
-
-                            // CustomDropdownTextField(
-                            //   width: 600,
-                            //   height: 32,
-                            //  // hintText: 'Select Speciality ',
-                            //
-                            //   items: [
-                            //     'Speciality1',
-                            //     'Speciality2',
-                            //     'CSpeciality',
-                            //     'Speciality'
-                            //   ],
-                            //   value: _selectedSpeciality,
-                            //   // List of countries
-                            //   //     .map<DropdownMenuItem<String>>((String value) {
-                            //   //   return DropdownMenuItem<String>(
-                            //   //     value: value,
-                            //   //     child: Text(value),
-                            //   //   );
-                            //   // }).toList(),
-                            //
-                            //   labelText: 'Select Speciality',
-                            //   labelStyle: GoogleFonts.firaSans(
-                            //     fontSize: 10,
-                            //     fontWeight: FontWeight.w400,
-                            //     color: const Color(0xff9B9B9B),
-                            //   ),
-                            // ),
-
-                            // Container(
-                            //   height: 32,
-                            //   child: DropdownButtonFormField<String>(
-                            //     // alignment: AlignmentDirectional.centerStart,
-                            //     decoration: InputDecoration(
-                            //       //hintText:
-                            //           //'Select Speciality                                      ',
-                            //       hintStyle: GoogleFonts.firaSans(
-                            //         fontSize: 10,
-                            //         fontWeight: FontWeight.w400,
-                            //         color: const Color(0xff9B9B9B),
-                            //       ),
-                            //       border: OutlineInputBorder(
-                            //         borderRadius: BorderRadius.circular(4.0),
-                            //         borderSide: const BorderSide(color: Colors.grey),
-                            //       ),
-                            //       contentPadding: const EdgeInsets.only(
-                            //           bottom: AppPadding.p5, left: 12),
-                            //     ),
-                            //     value: _selectedSpeciality,
-                            //     icon: const Icon(Icons.arrow_drop_down,
-                            //         color: Color(0xff9B9B9B)),
-                            //     iconSize: 24,
-                            //     elevation: 16,
-                            //     style: GoogleFonts.firaSans(
-                            //       fontSize: 10.0,
-                            //       fontWeight: FontWeight.w400,
-                            //       color: const Color(0xff686464),
-                            //     ),
-                            //     onChanged: (String? newValue) {
-                            //       setState(() {
-                            //         _selectedSpeciality = newValue;
-                            //       });
-                            //     },
-                            //     items: <String>[
-                            //       'Speciality1',
-                            //       'Speciality2',
-                            //       'CSpeciality',
-                            //       'Speciality'
-                            //     ] // List of countries
-                            //         .map<DropdownMenuItem<String>>((String value) {
-                            //       return DropdownMenuItem<String>(
-                            //         value: value,
-                            //         child: Text(value),
-                            //       );
-                            //     }).toList(),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),
@@ -1040,6 +964,7 @@ class _generalFormState extends State<generalForm> {
                   print("First Name: ${firstname.text}");
                   print("Last Name: ${lastname.text}");
                   print("Speciality: ${_selectedSpeciality.toString()}");
+                  print("File: ${filePath}");
                   print("SSN: ${ssecuritynumber.text}");
                   print("Phone Number: ${phonenumber.text}");
                   print("Personal Email: ${personalemail.text}");
@@ -1055,7 +980,7 @@ class _generalFormState extends State<generalForm> {
                   var response = await updateOnlinkGeneralPatch(
                     context,
                     generalId!,
-                    'EMP-C10-U48',
+                    '',
                     userId,
                     firstname.text,
                     lastname.text,
@@ -1104,12 +1029,11 @@ class _generalFormState extends State<generalForm> {
                     'rating',
                     signatureUrl!,
                   );
-
-
+                  var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: generalId!);
                   print("Response Status Code: ${response.statusCode}");
                   print("Response Body: ${response.data}");
 
-                  if (response.statusCode == 200 || response.statusCode == 201) {
+                  if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
                     );

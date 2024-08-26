@@ -153,7 +153,7 @@ class AppString {
   static const String city = "City";
   static const String country = "Country";
   static const String phoneNumber = "Phone Number";
-  static const String next = "Next";
+  static const String next = "Next  ";
 
   static const String reject = "Reject";
   static const String enterText = "Please enter some text";

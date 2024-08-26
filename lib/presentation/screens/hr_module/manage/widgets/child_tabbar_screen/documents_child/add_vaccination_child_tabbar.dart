@@ -11,6 +11,7 @@ import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/employee_doc_repository.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
@@ -187,7 +188,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                   itemBuilder: (context, index) {
                     var health = snapshot.data![index];
                     var fileUrl = health.DocumentUrl;
-                    final fileExtension = fileUrl.split('.').last.toLowerCase();
+                    final fileExtension = fileUrl.split('/').last;
 
                     Widget fileWidget;
 
@@ -331,6 +332,8 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     iconSize: 20,),
                                   IconButton(
                                     onPressed: () {
+                                      print("FileExtension:${fileExtension}");
+                                      DowloadFile().downloadPdfFromBase64(fileExtension,"Health.pdf");
                                       downloadFile(fileUrl);
                                     },
                                     icon: Icon(Icons.save_alt_outlined,color: Color(0xff1696C8),),

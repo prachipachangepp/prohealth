@@ -5,7 +5,7 @@ import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/upload_repo.dart';
-import 'package:prohealth/app/services/encode_decode_base64.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'dart:html' as html;
@@ -93,7 +93,7 @@ Future<void> uploadHttpDocuments({
     print("File :::${base64Documents}" );
     print("Token :: $token");
 var request = http.MultipartRequest('POST',
-    Uri.parse('${AppConfig.dev}/employee-documents/uploadDocumentbase64/$employeeDocumentMetaId/$employeeDocumentTypeSetupId/$employeeId'));
+    Uri.parse('${AppConfig.endpoint}/employee-documents/uploadDocumentbase64/$employeeDocumentMetaId/$employeeDocumentTypeSetupId/$employeeId'));
 request.files.add(http.MultipartFile.fromString('base64', base64Documents));
 // request.files.add(http.MultipartFile.f('file',documentFile.path) as http.MultipartFile);
 request.headers.addAll(headers);

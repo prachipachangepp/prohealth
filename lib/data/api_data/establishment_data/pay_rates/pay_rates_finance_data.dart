@@ -82,6 +82,7 @@ class PayRatesGet {
   final int ZoneId;
   final int rate;
   final String typeOfVisitId;
+  final String ZoneName;
   final int perMile;
   final int serviceTypeId;
 
@@ -90,6 +91,7 @@ class PayRatesGet {
     required this.ZoneId,
     required this.rate,
     required this.typeOfVisitId,
+    required this.ZoneName,
     required this.perMile,
     required this.serviceTypeId,
   });
