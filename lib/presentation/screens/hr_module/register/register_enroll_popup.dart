@@ -239,58 +239,61 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           SizedBox(
                             height: AppSize.s10,
                           ),
-                          FutureBuilder<List<AEClinicalDiscipline>>(
-                            future: HrAddEmplyClinicalDisciplinApi(context, 1),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text('Loading...',style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: ColorManager.mediumgrey,
-                                            fontWeight: FontWeight.w400,
-                                          ),),
-                                        )
-                                    ),
-                                  );
-                              }
-                              if (snapshot.hasData) {
-                                List<String> dropDownList = [];
-                      
-                                for (var i in snapshot.data!) {
-                                  dropDownList.add(i.empType!);
-                                }
-                                return CustomDropdownTextField(
-                                  labelText: 'Speciality',
-                                  labelStyle: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: dropDownList,
-                                  onChanged: (newValue) {
-                                    for (var a in snapshot.data!) {
-                                      if (a.empType == newValue) {
-                                        specialityName = a.empType!;
-                                      }
-                                    }
-                                  },
-                                );
-                              } else {
-                                return const Offstage();
-                              }
-                            },
-                          ),
+                          CustomDropdownTextField(
+                              items: ['item 1', 'item 2'],
+                              labelText: 'Speciality'),
+                          // FutureBuilder<List<AEClinicalDiscipline>>(
+                          //   future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                          //   builder: (context, snapshot) {
+                          //     if (snapshot.connectionState ==
+                          //         ConnectionState.waiting) {
+                          //       return Padding(
+                          //           padding: const EdgeInsets.symmetric(
+                          //               horizontal: 7),
+                          //           child: Container(
+                          //             width: AppSize.s250,
+                          //             height: AppSize.s40,
+                          //             decoration: BoxDecoration(
+                          //                 color: ColorManager.white),
+                          //               child: Align(
+                          //                 alignment: Alignment.centerLeft,
+                          //                 child: Text('Loading...',style: GoogleFonts.firaSans(
+                          //                   fontSize: 12,
+                          //                   color: ColorManager.mediumgrey,
+                          //                   fontWeight: FontWeight.w400,
+                          //                 ),),
+                          //               )
+                          //           ),
+                          //         );
+                          //     }
+                          //     if (snapshot.hasData) {
+                          //       List<String> dropDownList = [];
+                          //
+                          //       for (var i in snapshot.data!) {
+                          //         dropDownList.add(i.empType!);
+                          //       }
+                          //       return CustomDropdownTextField(
+                          //         labelText: 'Speciality',
+                          //         labelStyle: GoogleFonts.firaSans(
+                          //           fontSize: 12,
+                          //           color: Color(0xff575757),
+                          //           fontWeight: FontWeight.w400,
+                          //         ),
+                          //         labelFontSize: 12,
+                          //         items: dropDownList,
+                          //         onChanged: (newValue) {
+                          //           for (var a in snapshot.data!) {
+                          //             if (a.empType == newValue) {
+                          //               specialityName = a.empType!;
+                          //             }
+                          //           }
+                          //         },
+                          //       );
+                          //     } else {
+                          //       return const Offstage();
+                          //     }
+                          //   },
+                          // ),
                           SizedBox(
                             height: AppSize.s10,
                           ),

@@ -110,8 +110,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/25),
-      child: Column(
-          children: [
+      child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -355,7 +354,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 print('1111111');
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 150),
                     child: Center(
                       child: CircularProgressIndicator(
                         color: ColorManager.blueprime,

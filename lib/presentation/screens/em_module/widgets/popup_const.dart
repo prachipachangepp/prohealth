@@ -369,19 +369,19 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           errorText: 'Email is required',
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: HRManageTextField(
-                          controller: widget.companyIdController,
-                          keyboardType: TextInputType.phone,
-                          text: "Company ID",
-                          cursorHeight: 12,
-                          labelText: "Company ID",
-                          labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                          labelFontSize: 12,
-                          errorText: 'Company ID is required',
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: HRManageTextField(
+                      //     controller: widget.companyIdController,
+                      //     keyboardType: TextInputType.phone,
+                      //     text: "Company ID",
+                      //     cursorHeight: 12,
+                      //     labelText: "Company ID",
+                      //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                      //     labelFontSize: 12,
+                      //     errorText: 'Company ID is required',
+                      //   ),
+                      // ),
                       SizedBox(height: 24.0),
                       ReusableLoadingButton(
                         text: 'Submit',

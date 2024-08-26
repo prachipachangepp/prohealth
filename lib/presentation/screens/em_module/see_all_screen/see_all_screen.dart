@@ -184,14 +184,15 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             onSubmit: () async {
                               await createUserPost(
                                   context,
+
                                   // userIdController.text,
                                   firstNameController.text,
                                   lastNameController.text,
                                   roleController.text,
                                   emailController.text,
-                                  1,
-                                  // int.parse(companyIdController.text),
+                                  1, // int.parse(companyIdController.text),
                                   passwordController.text);
+
                               getUser(context).then((data) {
                                 _companyUsersList.add(data);
                               }).catchError((error) {});
@@ -616,9 +617,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                       .text,
                                                                   emailController
                                                                       .text,
-                                                                  int.parse(
-                                                                      companyIdController
-                                                                          .text),
+                                                                  1
                                                                 );
                                                                 getUser(context)
                                                                     .then((data) {
