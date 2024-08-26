@@ -1,6 +1,6 @@
-class physicianInfo{
+class PhysicianInfo{
 
-  static String physicianinfo ="/intake-physician-info/add";
+  static String physicianinfopost ="/intake-physician-info/add";
 
 static String piftof ="/intake-physician-f2-f/add";
 static String  firstrd ="/intake-physician-rdignosis/add";
@@ -13,6 +13,14 @@ static String languageSpokenDropdown ="/language-spoken";
 static String metrialStatusDropdown ="/marital-status";
 static String raceDropdown ="/race";
 static String religionDropdown ="/religion";
+static String statuspatient="/patient-status";
+static String priorityDisasterDropdown="/dropdown-priority-disaster-code";
+static String eligibilityStatusDropdown="/dropdown-eligibility-status";
+static String categoryDropdown="/dropdown-insurance-category";
+static String suppliesDropdown="/dropdown-supplies-dme";
+static String pharmacyDropdown="/dropdown-pharmacy";
+static String facilityDropdown="/dropdown-facility";
+static String countryDropdown="/country";
 
 
 
@@ -21,7 +29,7 @@ static String religionDropdown ="/religion";
 
 
   static  String addPIinfo(){
-    return "$physicianinfo";
+    return "$physicianinfopost";
   }
 
   ////
@@ -66,5 +74,44 @@ static String addfirstRD(){
 
   static String religionDD(){
     return "$religionDropdown";
+  }
+
+  static String statuschange(){
+    return"$statuspatient";
+  }
+
+
+  static String piorityDisastorDD(){
+    return"$priorityDisasterDropdown";
+  }
+
+
+  static String eligibilityStatusDD(){
+    return"$eligibilityStatusDropdown";
+  }
+
+  static String categoryDD(){
+    return"$categoryDropdown";
+  }
+
+
+  static String suppliesDMEDD(){
+    return"$suppliesDropdown";
+  }
+
+
+  static String pharmacyDD(){
+    return"$pharmacyDropdown";
+  }
+
+
+
+  static String facilityDD(){
+    return"$facilityDropdown";
+  }
+
+
+  static String countryDD(){
+    return"$countryDropdown";
   }
 }

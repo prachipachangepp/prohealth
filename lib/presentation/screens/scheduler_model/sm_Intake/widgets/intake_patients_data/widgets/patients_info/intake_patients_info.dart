@@ -27,7 +27,7 @@ class IntakePatientsDatatInfo extends StatefulWidget {
   final TextEditingController ctlrStreet;
   final TextEditingController ctlrZipCode;
   final TextEditingController ctlrApartment;
-  final TextEditingController ctlrCity;
+ // final TextEditingController ctlrCity;
   final TextEditingController ctlrMajorStreet;
   final TextEditingController ctlrPrimeNo;
   final TextEditingController ctlrSecNo;
@@ -35,7 +35,13 @@ class IntakePatientsDatatInfo extends StatefulWidget {
   final TextEditingController ctlrSocialSec;
   final TextEditingController ctlrDischargeResaon;
   final TextEditingController ctlrDateOfDeath;
-  final Widget child1;
+  final Widget childState;
+  final Widget childCity;
+  final Widget childReligion;
+  final Widget childRace;
+  final Widget childLanguage;
+  final Widget childCountry;
+  final Widget childMaritalStatus;
 
   IntakePatientsDatatInfo(
       {super.key,
@@ -49,7 +55,7 @@ class IntakePatientsDatatInfo extends StatefulWidget {
       required this.ctlrStreet,
       required this.ctlrZipCode,
       required this.ctlrApartment,
-      required this.ctlrCity,
+     // required this.ctlrCity,
       required this.ctlrMajorStreet,
       required this.ctlrPrimeNo,
       required this.ctlrSecNo,
@@ -57,7 +63,12 @@ class IntakePatientsDatatInfo extends StatefulWidget {
       required this.ctlrSocialSec,
       required this.ctlrDischargeResaon,
       required this.ctlrDateOfDeath,
-      required this.child1});
+      required this.childState,
+      required this.childCity,
+      required this.childReligion,
+      required this.childRace,
+      required this.childLanguage,
+      required this.childMaritalStatus, required this.childCountry});
 
   @override
   State<IntakePatientsDatatInfo> createState() => _PatientInfoState();
@@ -227,9 +238,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                             labelText: AppString.street,
                           )),
                           SizedBox(width: AppSize.s35),
-                          Flexible(
-                            child: widget.child1
-                          ),
+                          Flexible(child: widget.childState),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextFieldWithButton(
@@ -246,122 +255,22 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                   controller: widget.ctlrApartment,
                                   labelText: 'Suite/ Apt.')),
                           SizedBox(width: AppSize.s35),
-                          Flexible(
-                            child: FutureBuilder<List<citydata>>(
-                              future: getCityDropDown(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(i.cityName!);
-                                  }
-
-                                  return SizedBox(
-                                    height: 27,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'City',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.greylight,
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager
-                                                  .containerBorderGrey),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                //   //  vertical: 5,
-                                                horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: ColorManager.blueprime,
-                                      ),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
-
-                                      onChanged: (newValue) {
-                                        for (var a in snapshot.data!) {
-                                          if (a.cityName == newValue) {
-                                            selectedcity = a.cityName!;
-                                            //country = a
-                                            // int? docType = a.companyOfficeID;
-                                          }
-                                        }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-                            // child: SchedularTextField(
-                            //     controller: widget.ctlrCity,
-                            //     labelText: AppString.city),
-                          ),
+                          Flexible(child: widget.childCity),
                           SizedBox(width: 35),
                           Flexible(
-                              child: SchedularDropdown(
-                            labelText: AppString.country,
-                            items: ['Option 1', 'Option 2', 'Option 3'],
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedCountry = newValue;
-                              });
-                            },
-                          )),
+
+                            child: widget.childCountry
+                          //     child: SchedularDropdown(
+                          //   labelText: AppString.country,
+                          //   items: ['Option 1', 'Option 2', 'Option 3'],
+                          //   onChanged: (newValue) {
+                          //     setState(() {
+                          //       selectedCountry = newValue;
+                          //     });
+                          //   },
+                          // ),
+
+                          ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -396,129 +305,20 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                       SizedBox(height: AppSize.s16),
                       Row(
                         children: [
-                          Flexible(
+                          Flexible(child: widget.childLanguage
 
+                              //     child: SchedularDropdown(
+                              //   // controller: CtlrLanguageS,
+                              //   labelText: 'Language Spoken',
+                              //   items: ['Asian', 'African', 'European'],
+                              //   onChanged: (newValue) {
+                              //     setState(() {
+                              //       selectedLanguage = newValue;
+                              //     });
+                              //   },
+                              // ),
 
-
-
-                            child: FutureBuilder<List<languageSpokendata>>(
-                              future: getlanguageSpokenDropDown(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(i.languageSpoken!);
-                                  }
-
-                                  return SizedBox(
-                                    height: 27,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'Language Spoken',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.greylight,
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager
-                                                  .containerBorderGrey),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
-                                        const EdgeInsets.symmetric(
-                                          //   //  vertical: 5,
-                                            horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: ColorManager.blueprime,
-                                      ),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
-
-                                      onChanged: (newValue) {
-                                        for (var a in snapshot.data!) {
-                                          if (a.languageSpoken == newValue) {
-                                            selectedLanguage = a.languageSpoken!;
-                                            //country = a
-                                            // int? docType = a.companyOfficeID;
-                                          }
-                                        }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-
-
-
-
-
-
-                          //     child: SchedularDropdown(
-                          //   // controller: CtlrLanguageS,
-                          //   labelText: 'Language Spoken',
-                          //   items: ['Asian', 'African', 'European'],
-                          //   onChanged: (newValue) {
-                          //     setState(() {
-                          //       selectedLanguage = newValue;
-                          //     });
-                          //   },
-                          // ),
-
-                          ),
+                              ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -527,250 +327,38 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                           SizedBox(width: AppSize.s35),
                           Flexible(
 
-                            child: FutureBuilder<List<racedata>>(
-                              future: getRaceDropDown(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(i.race!);
-                                  }
 
-                                  return SizedBox(
-                                    height: 27,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'Race  / Ethnicity',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.greylight,
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager
-                                                  .containerBorderGrey),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
-                                        const EdgeInsets.symmetric(
-                                          //   //  vertical: 5,
-                                            horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: ColorManager.blueprime,
-                                      ),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
+                            child: widget.childRace
 
-                                      onChanged: (newValue) {
-                                        for (var a in snapshot.data!) {
-                                          if (a.race == newValue) {
-                                            selectedReligion = a.race!;
-                                            //country = a
-                                            // int? docType = a.companyOfficeID;
-                                          }
-                                        }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-
-
-
-
-
-
-                          //     child: SchedularDropdown(
-                          //   // controller: ctlrRace,
-                          //   labelText: 'Race / Ethnicity',
-                          //   items: [
-                          //     'Hispanic',
-                          //     'Latino American',
-                          //     'Asian People'
-                          //   ],
-                          //   onChanged: (newValue) {
-                          //     setState(() {
-                          //       selectedRace = newValue;
-                          //     });
-                          //   },
-                          // ),
+                            //     child: SchedularDropdown(
+                            //   // controller: ctlrRace,
+                            //   labelText: 'Race / Ethnicity',
+                            //   items: [
+                            //     'Hispanic',
+                            //     'Latino American',
+                            //     'Asian People'
+                            //   ],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       selectedRace = newValue;
+                            //     });
+                            //   },
+                            // ),
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
+                            child: widget.childReligion,
 
-
-                            child: FutureBuilder<List<religiondata>>(
-                              future: getReligionDropDown(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(i.religion!);
-                                  }
-
-                                  return SizedBox(
-                                    height: 27,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'Religion',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.greylight,
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager
-                                                  .containerBorderGrey),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
-                                        const EdgeInsets.symmetric(
-                                          //   //  vertical: 5,
-                                            horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: ColorManager.blueprime,
-                                      ),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
-
-                                      onChanged: (newValue) {
-                                        for (var a in snapshot.data!) {
-                                          if (a.religion == newValue) {
-                                            selectedReligion = a.religion!;
-                                            //country = a
-                                            // int? docType = a.companyOfficeID;
-                                          }
-                                        }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-
-
-
-
-
-
-
-
-
-                          //     child: SchedularDropdown(
-                          //   // controller: ctlrReligion,
-                          //   labelText: 'Religion',
-                          //   items: ['Christianity', 'Judaism', 'Islam'],
-                          //   onChanged: (newValue) {
-                          //     setState(() {
-                          //       selectedReligion = newValue;
-                          //     });
-                          //   },
-                          // ),
+                            //     child: SchedularDropdown(
+                            //   // controller: ctlrReligion,
+                            //   labelText: 'Religion',
+                            //   items: ['Christianity', 'Judaism', 'Islam'],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       selectedReligion = newValue;
+                            //     });
+                            //   },
+                            // ),
                           ),
                         ],
                       ),
@@ -778,123 +366,17 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                       Row(
                         children: [
                           Flexible(
-
-                            child: FutureBuilder<List<metrialStatusdata>>(
-                              future: getMaritalStatusDropDown(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(i.maritalStatus!);
-                                  }
-
-                                  return SizedBox(
-                                    height: 27,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        labelText: 'Marital Status',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: ColorManager.greylight,
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ColorManager
-                                                  .containerBorderGrey),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(4.0),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        contentPadding:
-                                        const EdgeInsets.symmetric(
-                                          //   //  vertical: 5,
-                                            horizontal: 12),
-                                      ),
-                                      // value: selectedCountry,
-                                      icon: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: ColorManager.blueprime,
-                                      ),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xff686464),
-                                      ),
-
-                                      onChanged: (newValue) {
-                                        for (var a in snapshot.data!) {
-                                          if (a.maritalStatus == newValue) {
-                                            selectedLanguage = a.maritalStatus!;
-                                            //country = a
-                                            // int? docType = a.companyOfficeID;
-                                          }
-                                        }
-                                      },
-                                      items: dropDownList.map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-
-
-
-
-
-
-                          //     child: SchedularDropdown(
-                          //   // controller: ctlrMaritalStatus,
-                          //   labelText: 'Marital Status',
-                          //   items: ['Married', 'Single', 'Separated'],
-                          //   onChanged: (newValue) {
-                          //     setState(() {
-                          //       selectedMaritalStatus = newValue;
-                          //     });
-                          //   },
-                          // ),
+                            child: widget.childMaritalStatus
+                            //     child: SchedularDropdown(
+                            //   // controller: ctlrMaritalStatus,
+                            //   labelText: 'Marital Status',
+                            //   items: ['Married', 'Single', 'Separated'],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       selectedMaritalStatus = newValue;
+                            //     });
+                            //   },
+                            // ),
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(

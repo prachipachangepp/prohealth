@@ -37,6 +37,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
   TextEditingController ctlrDateSurgery = TextEditingController();
   TextEditingController ctlrComment = TextEditingController();
   TextEditingController ctlrStartDate = TextEditingController();
+  TextEditingController ctlrEndDate = TextEditingController();
   TextEditingController ctlrStreet = TextEditingController();
   TextEditingController ctlrSuiteApt = TextEditingController();
   TextEditingController ctlrZipCode = TextEditingController();
@@ -79,26 +80,27 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                         onPressed: () async {
                          await  InfoStayPatientData(context,
                              1,
-                             selectedFacility ?? "",
+                             selectedFacility.toString() ?? "",
                              ctlrMedicalRecord.text,
-                             selectedStatus ?? "",
+                             selectedStatus.toString() ?? "",
                              ctlrHospital.text,
                              ctlrPhone.text,
                              ctlrAddress.text,
-                             selectedCitySI ?? "",
-                             selectedStateSI ?? "",
+                             selectedCitySI.toString() ?? "",
+                             selectedStateSI.toString() ?? "",
                              ctlrZipCode.text,
-                             "2024-08-17T17:18:58.618Z",
-                             "2024-08-17T17:18:58.618Z",
+                             ctlrAdmitDate.text  ,            //  "2024-08-17T17:18:58.618Z",
+                             ctlrDC.text          ,      // "2024-08-17T17:18:58.618Z",
                              ctlrRecentSurgery.text,
                              ctlrDateSurgery.text,
                              ctlrComment.text,
-                             "2024-08-17T17:18:58.618Z",
-                             "2024-08-17T17:18:58.618Z",
+                             ctlrStartDate.text,
+                             ctlrEndDate.text,                        //"2024-08-17T17:18:58.618Z",
+                             //"2024-08-17T17:18:58.618Z",
                              ctlrStreet.text,
                              ctlrSuiteApt.text,
-                             selectedCityLOC ?? "",
-                             selectedStateLOC ?? "",
+                             selectedCityLOC.toString() ?? "",
+                             selectedStateLOC.toString() ?? "",
                              ctlrZipCode.text,
                              ctlrPhone.text,
                              ctlrFax.text
@@ -161,14 +163,116 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
         Row(
           children: [
             Flexible(
-                child: SchedularDropdown(
-                    labelText: 'Facility',
-                    items: ['Option 1', 'Option 2', 'Option 3'],
-                    onChanged: (newValue) {
-                  setState(() {
-                    selectedFacility = newValue;
-                  });
-                },)
+              child: FutureBuilder<List<FacilityData>>(
+                future: getFacilityDropDown(context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7),
+                      child: Container(
+                          width: AppSize.s250,
+                          height: AppSize.s40,
+                          decoration: BoxDecoration(
+                              color: ColorManager.white),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Loading...',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                color: ColorManager.mediumgrey,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          )),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    List<String> dropDownList = [];
+                    for (var i in snapshot.data!) {
+                      dropDownList.add(i.idText!);
+                    }
+
+                    return SizedBox(
+                      height: 27,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'Facility',
+                          labelStyle: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                            color: ColorManager.greylight,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: ColorManager
+                                    .containerBorderGrey),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.circular(4.0),
+                            borderSide: const BorderSide(
+                                color: Colors.grey),
+                          ),
+                          contentPadding:
+                          const EdgeInsets.symmetric(
+                            //   //  vertical: 5,
+                              horizontal: 12),
+                        ),
+                        // value: selectedCountry,
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: ColorManager.blueprime,
+                        ),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xff686464),
+                        ),
+
+                        onChanged: (newValue) {
+                          for (var a in snapshot.data!) {
+                            if (a.idText == newValue) {
+                              selectedFacility = a.idText!;
+                              //country = a
+                              // int? docType = a.companyOfficeID;
+                            }
+                          }
+                        },
+                        items: dropDownList.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                color: Color(0xff575757),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    );
+                  } else {
+                    return const Offstage();
+                  }
+                },
+              ),
+
+
+                // child: SchedularDropdown(
+                //     labelText: 'Facility',
+                //     items: ['Option 1', 'Option 2', 'Option 3'],
+                //     onChanged: (newValue) {
+                //   setState(() {
+                //     selectedFacility = newValue;
+                //   });
+                // },)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
@@ -211,7 +315,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
-              child: FutureBuilder<List<citydata>>(
+              child: FutureBuilder<List<CityData>>(
                 future: getCityDropDown(context),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
@@ -321,7 +425,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
 
-              child:FutureBuilder<List<statedata>>(
+              child:FutureBuilder<List<StateData>>(
                 future: getStateDropDown(context),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
@@ -463,6 +567,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrAdmitDate,
                     labelText: 'Admit Date',
+                  suffixIcon: Icon(Icons.calendar_month_outlined),
                     )
             ),
             SizedBox(width: AppSize.s35),
@@ -488,6 +593,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrDateSurgery,
                     labelText: 'Date of Surgery/ Procedure',
+                  suffixIcon: Icon(Icons.calendar_month_outlined),
                  )
             ),
             SizedBox(width: AppSize.s35),
@@ -518,12 +624,14 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrStartDate ,
                     labelText: AppString.startdate,
+                  suffixIcon: Icon(Icons.calendar_month_outlined),
 
                 )
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
                 child: SchedularTextField(
+                  controller: ctlrEndDate ,
                     labelText: AppString.enddate,
                     suffixIcon: Icon(Icons.calendar_month_outlined),
                     // isDate: true
@@ -552,7 +660,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
 
 
 
-              child: FutureBuilder<List<citydata>>(
+              child: FutureBuilder<List<CityData>>(
                 future: getCityDropDown(context),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
@@ -661,7 +769,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
             SizedBox(width: AppSize.s35),
             Flexible(
 
-              child:FutureBuilder<List<statedata>>(
+              child:FutureBuilder<List<StateData>>(
                 future: getStateDropDown(context),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==

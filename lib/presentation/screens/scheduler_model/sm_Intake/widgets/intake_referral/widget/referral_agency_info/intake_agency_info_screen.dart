@@ -63,7 +63,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                            1,
                            ctlrAgency.text,
                            ctlrAgencyName.text,
-                           1,
+                            1,         //  selectedRate.toString(),      // int.parse(selectedRate.toString()),
                            ctlrStreet.text,
                            ctlrSuitApt.text,
                            selectedCity.toString(),
@@ -144,7 +144,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         SizedBox(width: AppSize.s35),
                         Flexible(
 
-                          child: FutureBuilder<List<citydata>>(
+                          child: FutureBuilder<List<CityData>>(
                             future: getCityDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -261,7 +261,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         Flexible(
 
 
-                          child:FutureBuilder<List<statedata>>(
+                          child:FutureBuilder<List<StateData>>(
                             future: getStateDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -372,7 +372,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                             child: SchedularTextFieldWithButton(
                               controller: ctlrZipCode,
                                 labelText: AppString.zip_code,
-                                initialValue: '26586845121',
+                                //initialValue: '26586845121',
                                 buttonText: 'View Zone')),
                       ],
                     ),

@@ -376,8 +376,8 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                           DateTime? date = await showDatePicker(
                             context: context,
                             initialDate: _selectedDate,
-                            firstDate: DateTime(1950),
-                            lastDate: DateTime(2025),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(2101),
                           );
                           if (date != null) {
                             String formattedDate = DateFormat('yyyy-MM-dd').format(date);

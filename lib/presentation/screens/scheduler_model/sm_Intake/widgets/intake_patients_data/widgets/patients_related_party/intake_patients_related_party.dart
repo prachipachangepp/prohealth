@@ -51,6 +51,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
   TextEditingController ctlrCell = TextEditingController();
   TextEditingController ctlrAddInfo = TextEditingController();
   TextEditingController ctlrEmail = TextEditingController();
+  TextEditingController optforChaps = TextEditingController();
   bool isOptForCAHPSSurvey = false;
   String? status = 'Active';
   String? selectedStateEC;
@@ -102,14 +103,14 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                                 selectedCityEC.toString(),
                                 selectedStateEC.toString(),
                                 ctlrZipCode.text,
-                                "emg_priorityDisasterCode",
+                                selectedPriority.toString(),
                                 ctlrComment.text,
                                 ctlrPreffix.text,
                                 ctlrFirstname.text,
                                 ctlrMi.text,
                                 ctlrLastName.text,
                                 ctlrSuffix.text,
-                                "pcg_OptforCAHPS",
+                                optforChaps.text,
                                 ctlrAddress.text,
                                 ctlrApartment.text,
                                 selectedCityPC.toString(),
@@ -169,7 +170,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                                 labelText: 'Telephone Number')),
                         SizedBox(width: AppSize.s35),
                         Flexible(
-                          child:FutureBuilder<List<relationshipdata>>(
+                          child:FutureBuilder<List<RelationshipData>>(
                             future: getRelationshipDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -292,7 +293,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                       children: [
                         Flexible(
 
-                          child: FutureBuilder<List<citydata>>(
+                          child: FutureBuilder<List<CityData>>(
                             future: getCityDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -401,7 +402,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                         Flexible(
 
 
-                          child:FutureBuilder<List<statedata>>(
+                          child:FutureBuilder<List<StateData>>(
                             future: getStateDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -535,14 +536,117 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                                 buttonText: 'View Zone')),
                         SizedBox(width: 35),
                         Flexible(
-                            child: SchedularDropdown(
-                                labelText: 'Priority/ Disaster Code',
-                                items: ['Option 1', 'Option 2', 'Option 3'],
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    selectedPriority = newValue;
-                                  });
-                                })),
+
+                          child: FutureBuilder<List<PriorityDisasterData>>(
+                            future: getPiorityDisastorDropDown(context),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 7),
+                                  child: Container(
+                                      width: AppSize.s250,
+                                      height: AppSize.s40,
+                                      decoration: BoxDecoration(
+                                          color: ColorManager.white),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Loading...',
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: ColorManager.mediumgrey,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      )),
+                                );
+                              }
+                              if (snapshot.hasData) {
+                                List<String> dropDownList = [];
+                                for (var i in snapshot.data!) {
+                                  dropDownList.add(i.idText!);
+                                }
+
+                                return SizedBox(
+                                  height: 27,
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      labelText: 'Priority/Disaster Code',
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: ColorManager.greylight,
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ColorManager
+                                                .containerBorderGrey),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(4.0),
+                                        borderSide: const BorderSide(
+                                            color: Colors.grey),
+                                      ),
+                                      contentPadding:
+                                      const EdgeInsets.symmetric(
+                                        //   //  vertical: 5,
+                                          horizontal: 12),
+                                    ),
+                                    // value: selectedCountry,
+                                    icon: Icon(
+                                      Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,
+                                    ),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: const Color(0xff686464),
+                                    ),
+
+                                    onChanged: (newValue) {
+                                      for (var a in snapshot.data!) {
+                                        if (a.idText == newValue) {
+                                          selectedPriority = a.idText!;
+                                          //country = a
+                                          // int? docType = a.companyOfficeID;
+                                        }
+                                      }
+                                    },
+                                    items: dropDownList.map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(
+                                          value,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                );
+                              } else {
+                                return const Offstage();
+                              }
+                            },
+                          ),
+                            // child: SchedularDropdown(
+                            //     labelText: 'Priority/ Disaster Code',
+                            //     items: ['Option 1', 'Option 2', 'Option 3'],
+                            //     onChanged: (newValue) {
+                            //       setState(() {
+                            //         selectedPriority = newValue;
+                            //       });
+                            //     }),
+
+                        ),
                       ],
                     ),
                     SizedBox(height: AppSize.s16),
@@ -622,6 +726,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                               ),
                               Expanded(
                                   child: SchedularTextField(
+                                    controller: optforChaps,
                                       labelText: 'Opt for CAHPS Survey')),
                             ],
                           ),
@@ -642,7 +747,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                     Row(
                       children: [
                         Flexible(
-                          child: FutureBuilder<List<citydata>>(
+                          child: FutureBuilder<List<CityData>>(
                             future: getCityDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -750,7 +855,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                         Flexible(
 
 
-                          child:FutureBuilder<List<statedata>>(
+                          child:FutureBuilder<List<StateData>>(
                             future: getStateDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -888,7 +993,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                         SizedBox(width: 35),
                         Flexible(
 
-                          child:FutureBuilder<List<relationshipdata>>(
+                          child:FutureBuilder<List<RelationshipData>>(
                             future: getRelationshipDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
