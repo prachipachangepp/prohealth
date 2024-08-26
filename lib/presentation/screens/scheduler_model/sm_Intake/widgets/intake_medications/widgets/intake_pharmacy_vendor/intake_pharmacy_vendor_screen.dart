@@ -37,6 +37,7 @@ class _IntakePharmacyVendorScreenState
   TextEditingController pharmacydeliverby = TextEditingController();
   TextEditingController pharmacyfax = TextEditingController();
   TextEditingController pharmacycontactsecond = TextEditingController();
+  TextEditingController dummyCtrl = TextEditingController();
 
   String? dmeSupplies;
   String? pharmacydd;
@@ -140,26 +141,11 @@ class _IntakePharmacyVendorScreenState
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'Supplies',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -236,22 +222,6 @@ class _IntakePharmacyVendorScreenState
                               },
                             ),
 
-
-
-
-
-
-
-                          //     child: SchedularDropdown(
-                          //   labelText: 'Supplies/ DME',
-                          //   items: ['Option 1', 'Option 2', 'Option 3'],
-                          //   onChanged: (newValue) {
-                          //     setState(() {
-                          //       dmeSupplies = newValue;
-                          //     });
-                          //   },
-                          // ),
-
                           ),
                           SizedBox(width: 35),
                           Flexible(child: Container()),
@@ -278,7 +248,7 @@ class _IntakePharmacyVendorScreenState
                                   controller: dmeDeliverby,
                                   labelText: 'Deliver by',
                                   suffixIcon: Icon(
-                                    Icons.calendar_month_outlined,
+                                    Icons.calendar_month_outlined,color: ColorManager.blueprime,
                                     size: 18,
                                   ))),
                           SizedBox(width: 35),
@@ -296,26 +266,11 @@ class _IntakePharmacyVendorScreenState
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'Pharmacy',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -392,18 +347,6 @@ class _IntakePharmacyVendorScreenState
                               },
                             ),
 
-
-
-                          //     child: SchedularDropdown(
-                          //   labelText: 'Pharmacy',
-                          //   items: ['Option 1', 'Option 2', 'Option 3'],
-                          //   onChanged: (newValue) {
-                          //     setState(() {
-                          //       pharmacydd = newValue;
-                          //     });
-                          //   },
-                          // ),
-
                           ),
                           SizedBox(width: 35),
                           Flexible(child: Container()),
@@ -438,26 +381,11 @@ class _IntakePharmacyVendorScreenState
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'City',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -548,24 +476,11 @@ class _IntakePharmacyVendorScreenState
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text('Loading...',style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: ColorManager.mediumgrey,
-                                            fontWeight: FontWeight.w400,
-                                          ),),
-                                        )
-                                    ),
-                                  );
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'State',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -638,9 +553,6 @@ class _IntakePharmacyVendorScreenState
                                 }
                               },
                             ),
-                              // child: SchedularTextField(
-                              //     controller: pharmacystate,
-                              //     labelText: 'State'),
                           ),
                           SizedBox(width: 35),
                           Flexible(
@@ -653,7 +565,7 @@ class _IntakePharmacyVendorScreenState
                                   controller: pharmacydeliverby,
                                   labelText: 'Deliver by',
                                   suffixIcon: Icon(
-                                    Icons.calendar_month_outlined,
+                                    Icons.calendar_month_outlined,color: ColorManager.blueprime,
                                     size: 18,
                                   ))),
                           SizedBox(width: 35),

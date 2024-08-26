@@ -31,6 +31,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
   TextEditingController pdDateController = TextEditingController();
   TextEditingController allergiesController = TextEditingController();
   TextEditingController startEffectiveDate = TextEditingController();
+  TextEditingController dummyCtrl = TextEditingController();
 
   String? codestatusB;
   String? codestatusA;
@@ -453,7 +454,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                               controller: pdDateController,
                                               labelText: '',
                                               suffixIcon: Icon(
-                                                Icons.calendar_month_outlined,
+                                                Icons.calendar_month_outlined,color: ColorManager.blueprime,
                                                 size: 18,
                                               )),
                                         ),
@@ -1116,7 +1117,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                                   controller: startEffectiveDate,
                                   labelText: '',
                                   suffixIcon: Icon(
-                                    Icons.calendar_month_outlined,
+                                    Icons.calendar_month_outlined,color: ColorManager.blueprime,
                                     size: 18,
                                   )),
                             ),
@@ -1181,7 +1182,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                               child: SchedularTextField(
                                   labelText: '',
                                   suffixIcon: Icon(
-                                    Icons.calendar_month_outlined,
+                                    Icons.calendar_month_outlined,color: ColorManager.blueprime,
                                     size: 18,
                                   )),
                             ),
@@ -1434,7 +1435,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                             controller: prdate,
                             labelText: '',
                             suffixIcon: Icon(
-                              Icons.calendar_month_outlined,
+                              Icons.calendar_month_outlined,color: ColorManager.blueprime,
                               size: 18,
                             )),
                       ),
@@ -1466,7 +1467,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                             controller: srdate,
                             labelText: '',
                             suffixIcon: Icon(
-                              Icons.calendar_month_outlined,
+                              Icons.calendar_month_outlined,color: ColorManager.blueprime,
                               size: 18,
                             )),
                       ),
@@ -1498,7 +1499,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                             controller: trdate,
                             labelText: '',
                             suffixIcon: Icon(
-                              Icons.calendar_month_outlined,
+                              Icons.calendar_month_outlined,color: ColorManager.blueprime,
                               size: 18,
                             )),
                       ),

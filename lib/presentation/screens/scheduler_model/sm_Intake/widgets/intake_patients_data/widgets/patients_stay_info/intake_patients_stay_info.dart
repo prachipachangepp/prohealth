@@ -42,6 +42,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
   TextEditingController ctlrSuiteApt = TextEditingController();
   TextEditingController ctlrZipCode = TextEditingController();
   TextEditingController ctlrFax = TextEditingController();
+  TextEditingController dummyCtrl = TextEditingController();
 
   String? selectedFacility;
   String? selectedStateSI;
@@ -111,42 +112,45 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                  ),
                ),
               SizedBox(height: 19.5),
-              Container(
-                // height: 423,
-                width: MediaQuery.of(context).size.width * 0.95,
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 0,
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Last Inpatient Stay Information',
-                          style: GoogleFonts.firaSans(
-                            fontSize: AppSize.s12,
-                            color: ColorManager.granitegray,
-                            fontWeight: FontWeightManager.semiBold,)),
-                      SizedBox(height: AppSize.s20),
-                      _buildInpatientStaySection(),
-                      SizedBox(height: AppSize.s30),
-                      Text('Location of Care',
-                          style: GoogleFonts.firaSans(
-                            fontSize: AppSize.s12,
-                            color: ColorManager.granitegray,
-                            fontWeight: FontWeightManager.semiBold,)),
-                      SizedBox(height: AppSize.s20),
-                      _buildLocationOfCareSection(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Container(
+                  // height: 423,
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: ColorManager.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 0,
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      ),
                     ],
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Last Inpatient Stay Information',
+                            style: GoogleFonts.firaSans(
+                              fontSize: AppSize.s12,
+                              color: ColorManager.granitegray,
+                              fontWeight: FontWeightManager.semiBold,)),
+                        SizedBox(height: AppSize.s20),
+                        _buildInpatientStaySection(),
+                        SizedBox(height: AppSize.s30),
+                        Text('Location of Care',
+                            style: GoogleFonts.firaSans(
+                              fontSize: AppSize.s12,
+                              color: ColorManager.granitegray,
+                              fontWeight: FontWeightManager.semiBold,)),
+                        SizedBox(height: AppSize.s20),
+                        _buildLocationOfCareSection(),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -168,26 +172,11 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7),
-                      child: Container(
-                          width: AppSize.s250,
-                          height: AppSize.s40,
-                          decoration: BoxDecoration(
-                              color: ColorManager.white),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Loading...',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: ColorManager.mediumgrey,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          )),
-                    );
+                    return SchedularTextField(
+                      controller: dummyCtrl,
+                      labelText: 'Facility',
+                      suffixIcon: Icon(Icons.arrow_drop_down,
+                        color: ColorManager.blueprime,),);
                   }
                   if (snapshot.hasData) {
                     List<String> dropDownList = [];
@@ -320,26 +309,11 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7),
-                      child: Container(
-                          width: AppSize.s250,
-                          height: AppSize.s40,
-                          decoration: BoxDecoration(
-                              color: ColorManager.white),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Loading...',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: ColorManager.mediumgrey,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          )),
-                    );
+                    return SchedularTextField(
+                      controller: dummyCtrl,
+                      labelText: 'City',
+                      suffixIcon: Icon(Icons.arrow_drop_down,
+                        color: ColorManager.blueprime,),);
                   }
                   if (snapshot.hasData) {
                     List<String> dropDownList = [];
@@ -430,24 +404,11 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7),
-                      child: Container(
-                          width: AppSize.s250,
-                          height: AppSize.s40,
-                          decoration: BoxDecoration(
-                              color: ColorManager.white),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Loading...',style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              color: ColorManager.mediumgrey,
-                              fontWeight: FontWeight.w400,
-                            ),),
-                          )
-                      ),
-                    );
+                    return SchedularTextField(
+                      controller: dummyCtrl,
+                      labelText: 'State',
+                      suffixIcon: Icon(Icons.arrow_drop_down,
+                        color: ColorManager.blueprime,),);
                   }
                   if (snapshot.hasData) {
                     List<String> dropDownList = [];
@@ -665,26 +626,11 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7),
-                      child: Container(
-                          width: AppSize.s250,
-                          height: AppSize.s40,
-                          decoration: BoxDecoration(
-                              color: ColorManager.white),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Loading...',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: ColorManager.mediumgrey,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          )),
-                    );
+                    return SchedularTextField(
+                      controller: dummyCtrl,
+                      labelText: 'City',
+                      suffixIcon: Icon(Icons.arrow_drop_down,
+                        color: ColorManager.blueprime,),);
                   }
                   if (snapshot.hasData) {
                     List<String> dropDownList = [];
@@ -774,24 +720,11 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
                       ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7),
-                      child: Container(
-                          width: AppSize.s250,
-                          height: AppSize.s40,
-                          decoration: BoxDecoration(
-                              color: ColorManager.white),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Loading...',style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              color: ColorManager.mediumgrey,
-                              fontWeight: FontWeight.w400,
-                            ),),
-                          )
-                      ),
-                    );
+                    return SchedularTextField(
+                      controller: dummyCtrl,
+                      labelText: 'State',
+                      suffixIcon: Icon(Icons.arrow_drop_down,
+                        color: ColorManager.blueprime,),);
                   }
                   if (snapshot.hasData) {
                     List<String> dropDownList = [];

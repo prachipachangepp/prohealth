@@ -112,7 +112,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                             SchedularTextField(
                               controller: ctlrReferralDate ,
                               labelText: 'Referral Date',
-                              suffixIcon: Icon(Icons.calendar_month_outlined),
+                              suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                             )
                         ),
                         SizedBox(width: AppSize.s35),
@@ -121,7 +121,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                             SchedularTextField(
                               controller: ctlrProjectedSOCDate ,
                               labelText: 'Projected SOC Date',
-                              suffixIcon: Icon(Icons.calendar_month_outlined),
+                              suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                             )
                         ),
                         SizedBox(width: AppSize.s35),

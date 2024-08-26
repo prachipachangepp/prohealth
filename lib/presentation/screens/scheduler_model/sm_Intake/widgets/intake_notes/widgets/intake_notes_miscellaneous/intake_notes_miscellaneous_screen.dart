@@ -46,657 +46,657 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
   String? expiryType;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 40.0, top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    'Status: Not Completed',
-                    style: GoogleFonts.firaSans(
-                      decoration: TextDecoration.none,
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.burnt_red,
-                    ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 40.0, top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'Status: Not Completed',
+                  style: GoogleFonts.firaSans(
+                    decoration: TextDecoration.none,
+                    fontSize: FontSize.s12,
+                    fontWeight: FontWeightManager.bold,
+                    color: ColorManager.burnt_red,
                   ),
+                ),
 
-                  SizedBox(width: MediaQuery.of(context).size.width / 60),
-        Container(
-          height: AppSize.s32,
-          width: AppSize.s105,
-          child: SchedularIconButtonConst(
-            text: AppString.add_new,
-            icon: Icons.add,
-            onPressed: () async {
-              String? selectedDocType;
-              String? selectedExpiryType = expiryType;
-              String? expDate = calenderController.text;
+                SizedBox(width: MediaQuery.of(context).size.width / 60),
+      Container(
+        height: AppSize.s32,
+        width: AppSize.s105,
+        child: SchedularIconButtonConst(
+          text: AppString.add_new,
+          icon: Icons.add,
+          onPressed: () async {
+            String? selectedDocType;
+            String? selectedExpiryType = expiryType;
+            String? expDate = calenderController.text;
 
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return MiscellaneousAddPopUp(
-                    title: 'Add New Notes',
-                    idDocController: docIdController,
-                    nameDocController: nameController,
-                    calenderController: calenderController,
-                    child: FutureBuilder<List<PatientDataComplianceDoc>>(
-                      future: getpatientDataComplianceDoc(context),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return Container(
-                            width: AppSize.s350,
-                            height: AppSize.s30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return MiscellaneousAddPopUp(
+                  title: 'Add New Notes',
+                  idDocController: docIdController,
+                  nameDocController: nameController,
+                  calenderController: calenderController,
+                  child: FutureBuilder<List<PatientDataComplianceDoc>>(
+                    future: getpatientDataComplianceDoc(context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Container(
+                          width: AppSize.s350,
+                          height: AppSize.s30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        );
+                      }
+                      if (snapshot.data!.isEmpty) {
+                        return Center(
+                          child: Text(
+                            AppString.dataNotFound,
+                            style: CustomTextStylesCommon.commonStyle(
+                              fontWeight: FontWeightManager.medium,
+                              fontSize: FontSize.s12,
+                              color: ColorManager.mediumgrey,
                             ),
-                          );
-                        }
-                        if (snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Text(
-                              AppString.dataNotFound,
-                              style: CustomTextStylesCommon.commonStyle(
-                                fontWeight: FontWeightManager.medium,
-                                fontSize: FontSize.s12,
-                                color: ColorManager.mediumgrey,
-                              ),
+                          ),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
+                            .map((doc) => DropdownMenuItem<String>(
+                          value: doc.docType,
+                          child: Text(doc.docType!),
+                        ))
+                            .toList();
+                        return CICCDropdown(
+                          initialValue: selectedDocType ?? dropDownMenuItems[0].value,
+                          onChange: (val) {
+                            setState(() {
+                              selectedDocType = val;
+                              for (var doc in snapshot.data!) {
+                                if (doc.docType == val) {
+                                  docTypeId = doc.docTypeId!;
+                                }
+                              }
+                            });
+                          },
+                          items: dropDownMenuItems,
+                        );
+                      } else {
+                        return SizedBox();
+                      }
+                    },
+                  ),
+                  radioButton: StatefulBuilder(
+                    builder: (BuildContext context, void Function(void Function()) setState) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppString.expiry_type,
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.mediumgrey,
+                              decoration: TextDecoration.none,
                             ),
-                          );
-                        }
-                        if (snapshot.hasData) {
-                          List<DropdownMenuItem<String>> dropDownMenuItems = snapshot.data!
-                              .map((doc) => DropdownMenuItem<String>(
-                            value: doc.docType,
-                            child: Text(doc.docType!),
-                          ))
-                              .toList();
-                          return CICCDropdown(
-                            initialValue: selectedDocType ?? dropDownMenuItems[0].value,
-                            onChange: (val) {
+                          ),
+                          CustomRadioListTile(
+                            value: "Not Applicable",
+                            groupValue: selectedExpiryType,
+                            onChanged: (value) {
                               setState(() {
-                                selectedDocType = val;
-                                for (var doc in snapshot.data!) {
-                                  if (doc.docType == val) {
-                                    docTypeId = doc.docTypeId!;
-                                  }
+                                selectedExpiryType = value;
+                                if (selectedExpiryType == "Not Applicable") {
+                                  expDate = "";
                                 }
                               });
                             },
-                            items: dropDownMenuItems,
-                          );
-                        } else {
-                          return SizedBox();
-                        }
-                      },
-                    ),
-                    radioButton: StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppString.expiry_type,
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s12,
-                                fontWeight: FontWeightManager.bold,
-                                color: ColorManager.mediumgrey,
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
-                            CustomRadioListTile(
-                              value: "Not Applicable",
-                              groupValue: selectedExpiryType,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedExpiryType = value;
-                                  if (selectedExpiryType == "Not Applicable") {
-                                    expDate = "";
-                                  }
-                                });
-                              },
-                              title: "Not Applicable",
-                            ),
-                            CustomRadioListTile(
-                              value: 'Scheduled',
-                              groupValue: selectedExpiryType,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedExpiryType = value;
-                                });
-                              },
-                              title: 'Scheduled',
-                            ),
-                            CustomRadioListTile(
-                              value: 'Issuer Expiry',
-                              groupValue: selectedExpiryType,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedExpiryType = value;
-                                });
-                              },
-                              title: 'Issuer Expiry',
-                            ),
-                            Visibility(
-                              visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                   AppString.expiry_date,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeightManager.bold,
-                                      color: ColorManager.mediumgrey,
-                                      decoration: TextDecoration.none,
-                                    ),
+                            title: "Not Applicable",
+                          ),
+                          CustomRadioListTile(
+                            value: 'Scheduled',
+                            groupValue: selectedExpiryType,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedExpiryType = value;
+                              });
+                            },
+                            title: 'Scheduled',
+                          ),
+                          CustomRadioListTile(
+                            value: 'Issuer Expiry',
+                            groupValue: selectedExpiryType,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedExpiryType = value;
+                              });
+                            },
+                            title: 'Issuer Expiry',
+                          ),
+                          Visibility(
+                            visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                 AppString.expiry_date,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeightManager.bold,
+                                    color: ColorManager.mediumgrey,
+                                    decoration: TextDecoration.none,
                                   ),
-                                  FormField<String>(
-                                    builder: (FormFieldState<String> field) {
-                                      return SizedBox(
-                                        width: AppSize.s354,
-                                        height: AppSize.s30,
-                                        child: TextFormField(
-                                          controller: calenderController,
-                                          cursorColor: ColorManager.black,
-                                          style: GoogleFonts.firaSans(
+                                ),
+                                FormField<String>(
+                                  builder: (FormFieldState<String> field) {
+                                    return SizedBox(
+                                      width: AppSize.s354,
+                                      height: AppSize.s30,
+                                      child: TextFormField(
+                                        controller: calenderController,
+                                        cursorColor: ColorManager.black,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: FontSize.s12,
+                                          fontWeight: FontWeightManager.bold,
+                                          color: ColorManager.mediumgrey,
+                                        ),
+                                        decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(color: ColorManager.fmediumgrey, width: AppSize.s1),
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(color: ColorManager.fmediumgrey, width: AppSize.s1),
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                          hintText: 'mm-dd-yyyy',
+                                          hintStyle: GoogleFonts.firaSans(
                                             fontSize: FontSize.s12,
                                             fontWeight: FontWeightManager.bold,
                                             color: ColorManager.mediumgrey,
                                           ),
-                                          decoration: InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: AppSize.s1),
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: AppSize.s1),
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            hintText: 'mm-dd-yyyy',
-                                            hintStyle: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeightManager.bold,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(8),
-                                              borderSide: BorderSide(width: AppSize.s1, color: ColorManager.fmediumgrey),
-                                            ),
-                                            contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
-                                            errorText: field.errorText,
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            borderSide: BorderSide(width: AppSize.s1, color: ColorManager.fmediumgrey),
                                           ),
-                                          onTap: () async {
-                                            DateTime? pickedDate = await showDatePicker(
-                                              context: context,
-                                              initialDate: DateTime.now(),
-                                              firstDate: DateTime(2000),
-                                              lastDate: DateTime(3101),
-                                            );
-                                            if (pickedDate != null) {
-                                              calenderController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
-                                            }
-                                          },
-                                          validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Please select date';
-                                            }
-                                            return null;
-                                          },
+                                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                          suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                                          errorText: field.errorText,
                                         ),
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
+                                        onTap: () async {
+                                          DateTime? pickedDate = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime(2000),
+                                            lastDate: DateTime(3101),
+                                          );
+                                          if (pickedDate != null) {
+                                            calenderController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                          }
+                                        },
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please select date';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
-                          ],
-                        );
-                      },
-                    ),
-                      onPressed: () async {
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                    onPressed: () async {
 
-                        try {
-                           await addNotesMiscPost(
-                            context: context,
-                            patientId:1,             //widget.patientId,
-                            docTypeId: 1,          //  docTypeId,
-                            docName: nameController.text,
-                            docUrl: "some_doc_url",
-                            createdAt: calenderController.text,
-                            docType: selectedDocType!,
-                            expDate: "${calenderController.text}T09:39:48.030Z",
-                          );
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("An error occurred: $e")));
-                        }
+                      try {
+                         await addNotesMiscPost(
+                          context: context,
+                          patientId:1,             //widget.patientId,
+                          docTypeId: 1,          //  docTypeId,
+                          docName: nameController.text,
+                          docUrl: "some_doc_url",
+                          createdAt: calenderController.text,
+                          docType: selectedDocType!,
+                          expDate: "${calenderController.text}T09:39:48.030Z",
+                        );
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("An error occurred: $e")));
                       }
-                  );
-                },
-              );
-            },
-          ),
+                    }
+                );
+              },
+            );
+          },
         ),
+      ),
+              ],
+            ),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 30),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: ColorManager.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: Offset(0, 4),
+                  ),
                 ],
               ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-                height: MediaQuery.of(context).size.width * 0.3,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: StreamBuilder<List<IntakeNotesMiscData>>(
-                          stream: noteMiscController.stream,
-                          builder: (context, snapshot) {
-                            getIntakeNoteMiscByPatientsID(context, patientId: widget.patientId).then((data) {
-                              noteMiscController.add(data);
-                            }).catchError((error) {
-                              // Handle error
-                            });
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,));
-                            }if (snapshot.data!.isEmpty) {
-                              return Center(
-                                child: Text(
-                                  AppString.dataNotFound,
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    fontWeight: FontWeightManager.medium,
-                                    fontSize: FontSize.s12,
-                                    color: ColorManager.mediumgrey,
-                                  ),
+              height: MediaQuery.of(context).size.height/1.5,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 30.0),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: StreamBuilder<List<IntakeNotesMiscData>>(
+                        stream: noteMiscController.stream,
+                        builder: (context, snapshot) {
+                          getIntakeNoteMiscByPatientsID(context, patientId: widget.patientId).then((data) {
+                            noteMiscController.add(data);
+                          }).catchError((error) {
+                            // Handle error
+                          });
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,));
+                          }if (snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
                                 ),
-                              );
-                            }
-                            if (snapshot.hasData) {
-                            return ListView.builder(
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final note = snapshot.data![index];
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        height: AppSize.s65,
-                                        decoration: BoxDecoration(
-                                          color: ColorManager.white,
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: ColorManager.black.withOpacity(0.2),
-                                              spreadRadius: 1,
-                                              blurRadius: 5,
-                                              offset: Offset(0, 4),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.only(left: 10.0),
-                                                  child: Container(
-                                                    color: ColorManager.blueprime,
-                                                    height: AppSize.s45,
-                                                    width: AppSize.s62,
-                                                    child: Icon(
-                                                      Icons.remove_red_eye_outlined,
-                                                      color: ColorManager.white,
-                                                      size: AppSize.s24,
-                                                    ),
+                              ),
+                            );
+                          }
+                          if (snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final note = snapshot.data![index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: AppSize.s65,
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: ColorManager.black.withOpacity(0.2),
+                                            spreadRadius: 1,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 10.0),
+                                                child: Container(
+                                                  color: ColorManager.blueprime,
+                                                  height: AppSize.s45,
+                                                  width: AppSize.s62,
+                                                  child: Icon(
+                                                    Icons.remove_red_eye_outlined,
+                                                    color: ColorManager.white,
+                                                    size: AppSize.s24,
                                                   ),
                                                 ),
-                                                SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                                Padding(
-                                                  padding: const EdgeInsets.only(top: 11.5),
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        'ID: ${snapshot.data![index].miscNoteId}',
-                                                        style: GoogleFonts.firaSans(
-                                                          decoration: TextDecoration.none,
-                                                          fontSize: FontSize.s10,
-                                                          fontWeight: FontWeightManager.medium,
-                                                          color: ColorManager.granitegray
-                                                        ),
+                                              ),
+                                              SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 11.5),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'ID: ${snapshot.data![index].miscNoteId}',
+                                                      style: GoogleFonts.firaSans(
+                                                        decoration: TextDecoration.none,
+                                                        fontSize: FontSize.s10,
+                                                        fontWeight: FontWeightManager.medium,
+                                                        color: ColorManager.granitegray
                                                       ),
-                                                      SizedBox(height: 3.5),
+                                                    ),
+                                                    SizedBox(height: 3.5),
+                                                    Text(
+                                                      snapshot.data![index].docType,
+                                                      style: GoogleFonts.firaSans(
+                                                        decoration: TextDecoration.none,
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeightManager.bold,
+                                                        color:  ColorManager.granitegray
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: AppSize.s1),
+                                                    Text(
+                                                      'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
+                                                      style: GoogleFonts.firaSans(
+                                                        decoration: TextDecoration.none,
+                                                        fontSize: FontSize.s10,
+                                                        fontWeight: FontWeightManager.lightbold,
+                                                          color:  ColorManager.granitegray
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: 50.0),
+                                            child: Row(
+                                              children: [
+                                                IconButton(
+                                                  icon: Icon(
+                                                      size: 20,
+                                                    Icons.history,
+                                                    color: ColorManager.granitegray
+                                                  ),
+                                                  onPressed: () {},
+                                                ),
+                                                SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                                IconButton(
+                                                  icon: Icon(
+                                                    size: 20,
+                                                    Icons.print_outlined,
+                                                      color:  ColorManager.granitegray
+                                                  ),
+                                                  onPressed: () async {
+                                                    final pdf = pw.Document();
+
+                                                    final miscNotes = snapshot.data!;
+
+                                                    miscNotes.forEach((note) {
+                                                      pdf.addPage(
+                                                        pw.Page(
+                                                          build: (pw.Context context) => pw.Column(
+                                                            mainAxisAlignment: pw.MainAxisAlignment.start,
+                                                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                                                            children: [
+                                                              pw.Text(
+                                                                'Miscellaneous Note',
+                                                                style: pw.TextStyle(
+                                                                  fontSize: FontSize.s18,
+                                                                  fontWeight: pw.FontWeight.bold,
+                                                                ),
+                                                              ),
+                                                              pw.Divider(),
+                                                              pw.SizedBox(height: AppSize.s20),
+                                                              pw.Table(
+                                                                border: pw.TableBorder.all(),
+                                                                children: [
+                                                                  pw.TableRow(
+                                                                    children: [
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(
+                                                                          'Misc ID',
+                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text('${note.miscNoteId}'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  pw.TableRow(
+                                                                    children: [
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(
+                                                                          'Patient ID',
+                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text('${note.patientId}'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  pw.TableRow(
+                                                                    children: [
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(
+                                                                          'Doc Type ID',
+                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text('${note.docTypeId}'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  pw.TableRow(
+                                                                    children: [
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(
+                                                                          'Doc Type',
+                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(note.docType.isNotEmpty ? note.docType : 'N/A'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  pw.TableRow(
+                                                                    children: [
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(
+                                                                          'Doc URL',
+                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(note.docUrl.isNotEmpty ? note.docUrl : 'N/A'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  pw.TableRow(
+                                                                    children: [
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(
+                                                                          'Name',
+                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(note.name.isNotEmpty ? note.name : 'N/A'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  pw.TableRow(
+                                                                    children: [
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(
+                                                                          'Created At',
+                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(note.createdAt.isNotEmpty ? note.createdAt : 'N/A'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  pw.TableRow(
+                                                                    children: [
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(
+                                                                          'Expiry Date',
+                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                      pw.Padding(
+                                                                        padding: pw.EdgeInsets.all(8.0),
+                                                                        child: pw.Text(note.expDate.isNotEmpty ? note.expDate : 'N/A'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    });
+
+                                                    await Printing.layoutPdf(
+                                                      onLayout: (PdfPageFormat format) async => pdf.save(),
+                                                    );
+                                                  },
+                                                ),
+
+                                                SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                                IconButton(
+                                                  icon: Icon(
+                                                    size: 20,
+                                                    Icons.file_download_outlined,
+                                                    color: Color(0xff686464),
+                                                  ),
+                                                  onPressed: () {},
+                                                ),
+                                                SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) => StatefulBuilder(
+                                                        builder: (BuildContext context, void Function(void Function()) setState) {
+                                                          return DeletePopup(
+                                                            title: 'Delete Miscellaneous Note',
+                                                            loadingDuration: _isLoading,
+                                                            onCancel: () {
+                                                              Navigator.pop(context);
+                                                            },
+                                                            onDelete: () async {
+                                                              setState(() {
+                                                                _isLoading = true;
+                                                              });
+                                                              try {
+                                                                await deleteMiscNoteAPI(context, snapshot.data![index].miscNoteId!);
+                                                                setState(() async {
+                                                                 getIntakeNoteMiscByPatientsID(context, patientId: widget.patientId).then((data) {
+                                                                   noteMiscController.add(data);
+                                                                 }).catchError((error) {
+                                                                   // Handle error
+                                                                 });
+                                                                  Navigator.pop(context);
+                                                                });
+                                                              } finally {
+                                                                setState(() {
+                                                                  _isLoading = false;
+                                                                });
+                                                              }
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete_outline,
+                                                    size: 20,
+                                                    color: ColorManager.red,
+                                                  ),
+                                                ),
+
+                                                SizedBox(width: MediaQuery.of(context).size.width / 100),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext context) {
+                                                        return MiscellaneousEditPopUp();
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.mode_edit_outlined,
+                                                        color: ColorManager.white,
+                                                      ),
+                                                      SizedBox(width: MediaQuery.of(context).size.width / 160),
                                                       Text(
-                                                        snapshot.data![index].docType,
+                                                        'Edit',
                                                         style: GoogleFonts.firaSans(
-                                                          decoration: TextDecoration.none,
                                                           fontSize: FontSize.s12,
                                                           fontWeight: FontWeightManager.bold,
-                                                          color:  ColorManager.granitegray
-                                                        ),
-                                                      ),
-                                                      SizedBox(height: AppSize.s1),
-                                                      Text(
-                                                        'Expiry: ${snapshot.data![index].expDate.isNotEmpty ? note.expDate : 'N/A'}',
-                                                        style: GoogleFonts.firaSans(
-                                                          decoration: TextDecoration.none,
-                                                          fontSize: FontSize.s10,
-                                                          fontWeight: FontWeightManager.lightbold,
-                                                            color:  ColorManager.granitegray
+                                                          color: ColorManager.white,
                                                         ),
                                                       ),
                                                     ],
                                                   ),
+                                                  style: ElevatedButton.styleFrom(
+                                                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                                                    backgroundColor: ColorManager.blueprime,
+                                                  ),
                                                 ),
                                               ],
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 50.0),
-                                              child: Row(
-                                                children: [
-                                                  IconButton(
-                                                    icon: Icon(
-                                                      Icons.history,
-                                                      color: ColorManager.granitegray
-                                                    ),
-                                                    onPressed: () {},
-                                                  ),
-                                                  SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                                  IconButton(
-                                                    icon: Icon(
-                                                      Icons.print_outlined,
-                                                        color:  ColorManager.granitegray
-                                                    ),
-                                                    onPressed: () async {
-                                                      final pdf = pw.Document();
-
-                                                      final miscNotes = snapshot.data!;
-
-                                                      miscNotes.forEach((note) {
-                                                        pdf.addPage(
-                                                          pw.Page(
-                                                            build: (pw.Context context) => pw.Column(
-                                                              mainAxisAlignment: pw.MainAxisAlignment.start,
-                                                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                                                              children: [
-                                                                pw.Text(
-                                                                  'Miscellaneous Note',
-                                                                  style: pw.TextStyle(
-                                                                    fontSize: FontSize.s18,
-                                                                    fontWeight: pw.FontWeight.bold,
-                                                                  ),
-                                                                ),
-                                                                pw.Divider(),
-                                                                pw.SizedBox(height: AppSize.s20),
-                                                                pw.Table(
-                                                                  border: pw.TableBorder.all(),
-                                                                  children: [
-                                                                    pw.TableRow(
-                                                                      children: [
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(
-                                                                            'Misc ID',
-                                                                            style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text('${note.miscNoteId}'),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    pw.TableRow(
-                                                                      children: [
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(
-                                                                            'Patient ID',
-                                                                            style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text('${note.patientId}'),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    pw.TableRow(
-                                                                      children: [
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(
-                                                                            'Doc Type ID',
-                                                                            style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text('${note.docTypeId}'),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    pw.TableRow(
-                                                                      children: [
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(
-                                                                            'Doc Type',
-                                                                            style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(note.docType.isNotEmpty ? note.docType : 'N/A'),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    pw.TableRow(
-                                                                      children: [
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(
-                                                                            'Doc URL',
-                                                                            style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(note.docUrl.isNotEmpty ? note.docUrl : 'N/A'),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    pw.TableRow(
-                                                                      children: [
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(
-                                                                            'Name',
-                                                                            style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(note.name.isNotEmpty ? note.name : 'N/A'),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    pw.TableRow(
-                                                                      children: [
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(
-                                                                            'Created At',
-                                                                            style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(note.createdAt.isNotEmpty ? note.createdAt : 'N/A'),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    pw.TableRow(
-                                                                      children: [
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(
-                                                                            'Expiry Date',
-                                                                            style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                        pw.Padding(
-                                                                          padding: pw.EdgeInsets.all(8.0),
-                                                                          child: pw.Text(note.expDate.isNotEmpty ? note.expDate : 'N/A'),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        );
-                                                      });
-
-                                                      await Printing.layoutPdf(
-                                                        onLayout: (PdfPageFormat format) async => pdf.save(),
-                                                      );
-                                                    },
-                                                  ),
-
-                                                  SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                                  IconButton(
-                                                    icon: Icon(
-                                                      Icons.file_download_outlined,
-                                                      color: Color(0xff686464),
-                                                    ),
-                                                    onPressed: () {},
-                                                  ),
-                                                  SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (context) => StatefulBuilder(
-                                                          builder: (BuildContext context, void Function(void Function()) setState) {
-                                                            return DeletePopup(
-                                                              title: 'Delete Miscellaneous Note',
-                                                              loadingDuration: _isLoading,
-                                                              onCancel: () {
-                                                                Navigator.pop(context);
-                                                              },
-                                                              onDelete: () async {
-                                                                setState(() {
-                                                                  _isLoading = true;
-                                                                });
-                                                                try {
-                                                                  await deleteMiscNoteAPI(context, snapshot.data![index].miscNoteId!);
-                                                                  setState(() async {
-                                                                   getIntakeNoteMiscByPatientsID(context, patientId: widget.patientId).then((data) {
-                                                                     noteMiscController.add(data);
-                                                                   }).catchError((error) {
-                                                                     // Handle error
-                                                                   });
-                                                                    Navigator.pop(context);
-                                                                  });
-                                                                } finally {
-                                                                  setState(() {
-                                                                    _isLoading = false;
-                                                                  });
-                                                                }
-                                                              },
-                                                            );
-                                                          },
-                                                        ),
-                                                      );
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.delete_outline,
-                                                      size: 22,
-                                                      color: ColorManager.red,
-                                                    ),
-                                                  ),
-
-                                                  SizedBox(width: MediaQuery.of(context).size.width / 100),
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext context) {
-                                                          return MiscellaneousEditPopUp();
-                                                        },
-                                                      );
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.mode_edit_outlined,
-                                                          color: ColorManager.white,
-                                                        ),
-                                                        SizedBox(width: MediaQuery.of(context).size.width / 160),
-                                                        Text(
-                                                          'Edit',
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: FontSize.s12,
-                                                            fontWeight: FontWeightManager.bold,
-                                                            color: ColorManager.white,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    style: ElevatedButton.styleFrom(
-                                                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                                                      backgroundColor: ColorManager.blueprime,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-    }
-    return Offstage();
-                          },
-                        ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+        }
+        return Offstage();
+                        },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -24,13 +24,9 @@ class IntakeInsuranceSecondaryScreen extends StatefulWidget {
 
 class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondaryScreen> {
 
-
-
   String? varifiedinsurance;
   String? eligiblityStatus;
   String? selectedCategory;
-
-
 
   TextEditingController secondaryinsuranceController =TextEditingController();
   TextEditingController srnameController =TextEditingController();
@@ -52,8 +48,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
   //TextEditingController eligiblityStatusController =TextEditingController();
   TextEditingController insuranceVerifiedController =TextEditingController();
   TextEditingController commentController =TextEditingController();
-
-
+  TextEditingController dummyCtrl = TextEditingController();
 
   String? status = '';
   String? selectedState ;
@@ -198,26 +193,11 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'City',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -309,24 +289,11 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text('Loading...',style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: ColorManager.mediumgrey,
-                                            fontWeight: FontWeight.w400,
-                                          ),),
-                                        )
-                                    ),
-                                  );
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'State',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -429,26 +396,11 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'Category',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -539,12 +491,8 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           Flexible(
                               child: DoubleDatePickerTextField(
                                 onDateRangeSelected: (startDate, endDate){
-
                                 }
-
                                 ,
-
-
 
                                 labelText: 'Effective from', isDate: true,)
                           ),
@@ -577,33 +525,17 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'Eligibility',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
                                   for (var i in snapshot.data!) {
                                     dropDownList.add(i.idText!);
                                   }
-
                                   return SizedBox(
                                     height: 27,
                                     child: DropdownButtonFormField<String>(
@@ -672,13 +604,6 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                                 }
                               },
                             ),
-                              // child: SchedularDropdown(
-                              //
-                              //   labelText: 'Eligibility Status', onChanged: (newValue) {
-                              //   setState(() {
-                              //     eligiblityStatus = newValue;
-                              //   });
-                              // }, )
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(

@@ -136,7 +136,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                               child: SchedularTextField(
                             controller: widget.ctlrSos,
                             labelText: 'SOC Date',
-                            suffixIcon: Icon(Icons.calendar_month_outlined),
+                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime,),
                           )),
                           SizedBox(width: AppSize.s35),
                           Flexible(
@@ -230,7 +230,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                   labelText: AppString.date_of_birth,
                                   initialValue: '25-05-1999',
                                   suffixIcon:
-                                      Icon(Icons.calendar_month_outlined))),
+                                      Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime,))),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -305,20 +305,7 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                       SizedBox(height: AppSize.s16),
                       Row(
                         children: [
-                          Flexible(child: widget.childLanguage
-
-                              //     child: SchedularDropdown(
-                              //   // controller: CtlrLanguageS,
-                              //   labelText: 'Language Spoken',
-                              //   items: ['Asian', 'African', 'European'],
-                              //   onChanged: (newValue) {
-                              //     setState(() {
-                              //       selectedLanguage = newValue;
-                              //     });
-                              //   },
-                              // ),
-
-                              ),
+                          Flexible(child: widget.childLanguage),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
@@ -326,65 +313,24 @@ class _PatientInfoState extends State<IntakePatientsDatatInfo> {
                                   labelText: 'Discharge Reason')),
                           SizedBox(width: AppSize.s35),
                           Flexible(
-
-
-                            child: widget.childRace
-
-                            //     child: SchedularDropdown(
-                            //   // controller: ctlrRace,
-                            //   labelText: 'Race / Ethnicity',
-                            //   items: [
-                            //     'Hispanic',
-                            //     'Latino American',
-                            //     'Asian People'
-                            //   ],
-                            //   onChanged: (newValue) {
-                            //     setState(() {
-                            //       selectedRace = newValue;
-                            //     });
-                            //   },
-                            // ),
-                          ),
+                            child: widget.childRace ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
-                            child: widget.childReligion,
-
-                            //     child: SchedularDropdown(
-                            //   // controller: ctlrReligion,
-                            //   labelText: 'Religion',
-                            //   items: ['Christianity', 'Judaism', 'Islam'],
-                            //   onChanged: (newValue) {
-                            //     setState(() {
-                            //       selectedReligion = newValue;
-                            //     });
-                            //   },
-                            // ),
-                          ),
+                            child: widget.childReligion,),
                         ],
                       ),
                       SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
-                            child: widget.childMaritalStatus
-                            //     child: SchedularDropdown(
-                            //   // controller: ctlrMaritalStatus,
-                            //   labelText: 'Marital Status',
-                            //   items: ['Married', 'Single', 'Separated'],
-                            //   onChanged: (newValue) {
-                            //     setState(() {
-                            //       selectedMaritalStatus = newValue;
-                            //     });
-                            //   },
-                            // ),
-                          ),
+                            child: widget.childMaritalStatus ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
                                   controller: widget.ctlrDateOfDeath,
                                   labelText: AppString.date_of_death,
                                   suffixIcon:
-                                      Icon(Icons.calendar_month_outlined))),
+                                      Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime,))),
                           SizedBox(width: AppSize.s35),
                           Flexible(
                               child:
