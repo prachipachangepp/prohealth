@@ -45,11 +45,14 @@ class _CiOrgDocumentState extends State<CiZone> {
   TextEditingController zoneController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController zoneNumberController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
 
   int _selectedIndex = 0;
   int docZoneId = 0;
   int countyId = 0;
   int countySortId = 0;
+  double? _latitude;
+  double? _longitude;
 
   void _selectButton(int index) {
     setState(() {
@@ -62,32 +65,99 @@ class _CiOrgDocumentState extends State<CiZone> {
     );
   }
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
-
+  String _location = 'Lat/Long not selected'; // Default text
   void _pickLocation() async {
     final pickedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
-        builder: (context) =>
-            MapScreen(
-              initialLocation: _selectedLocation,
-              onLocationPicked: (location) {
-                setState(() {
-                  _selectedLocation = location;
-                  print("Selected LatLong :: ${_selectedLocation
-                      .latitude} + ${_selectedLocation.longitude}");
-                });
-              },
-            ),
+        builder: (context) => MapScreen(
+          initialLocation: _selectedLocation,
+          onLocationPicked: (location) {
+            setState(() {
+              _selectedLocation = location;
+              _latitude = location.latitude;
+              _longitude = location.longitude;
+              String formatLatLong(double? latitude, double? longitude) {
+                if (latitude != null && longitude != null) {
+                  return 'Lat: ${latitude.toStringAsFixed(4)}, Long: ${longitude.toStringAsFixed(4)}';
+                } else {
+                  return 'Lat/Long not selected';
+                }
+              }
+
+              final latlong = formatLatLong(_latitude, _longitude);
+              //
+              // // Create locationString
+              // final latlong = _latitude != null && _longitude != null
+              //     ? 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}'
+              //     : 'Lat/Long not selected';
+
+              print("Selected LatLong :: $latlong");
+
+              // Update the location in the UI directly
+              _updateLocation(latlong);
+            });
+          },
+        ),
       ),
     );
 
     if (pickedLocation != null) {
       setState(() {
         _selectedLocation = pickedLocation;
+        _latitude = pickedLocation.latitude;
+        _longitude = pickedLocation.longitude;
       });
     }
   }
+
+
+  void _updateLocation(String latlong) {
+    setState(() {
+      _location = latlong;
+      print("Updated Location: $_location"); // Check this log to see if the value updates
+    });
+  }
+
+
+  ///old
+  // void _pickLocation() async {
+  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
+  //     MaterialPageRoute(
+  //       builder: (context) =>
+  //           MapScreen(
+  //             initialLocation: _selectedLocation,
+  //
+  //             onLocationPicked: (location) {
+  //               setState(() {
+  //                 _selectedLocation = location;
+  //                 _latitude = location.latitude;
+  //                 _longitude = location.longitude;
+  //                 // Update _location with the new values
+  //                 _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+  //                 print("Selected LatLong :: ${_latitude} + ${_longitude}");
+  //                 // _selectedLocation = location;
+  //                 // print("Selected LatLong :: ${_selectedLocation
+  //                 //     .latitude} + ${_selectedLocation.longitude}");
+  //               });
+  //             },
+  //           ),
+  //     ),
+  //   );
+  //
+  //   if (pickedLocation != null) {
+  //     setState(() {
+  //       _selectedLocation = pickedLocation;
+  //       _latitude = pickedLocation.latitude;
+  //       _longitude = pickedLocation.longitude;
+  //       _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+  //       // _selectedLocation = pickedLocation;
+  //     });
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         Padding(
@@ -303,9 +373,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                             });
                       })
                   : _selectedIndex == 1
-                      ? CustomIconButtonConst(
-                  width: 79,
-                          icon: Icons.add,
+                       ? CustomIconButtonConst(
+                         width: 79,
+                            icon: Icons.add,
                           text: AppStringEM.add,
                           onPressed: () {
                             showDialog(
@@ -394,21 +464,31 @@ class _CiOrgDocumentState extends State<CiZone> {
                                 });
                           })
                       : CustomIconButtonConst(
-                  width: 79,
+                         width: 79,
                           icon: Icons.add,
                           text: "Add",
                           onPressed: () {
                             showDialog(
                                 context: context,
                                 builder: (context) {
+                                  print("Location passed to dialog: $_location");
                                   return AddZipCodePopup(
+
                                     title: 'Add Zip Code',
                                     countynameController: countynameController,
                                     cityNameController: cityController,
                                     zipcodeController: zipcodeController,
-                                    onPickLocation: _pickLocation,
-                                    child1: FutureBuilder<
-                                            List<AllCountyGetList>>(
+
+                                     onPickLocation: _pickLocation,
+                                    location: _location,
+
+                                    // location: _latitude != null && _longitude != null
+                                    //     ? 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}'
+                                    //     : 'No location picked',
+                                    // location: _latitude != null && _longitude != null
+                                    //     ? '${_latitude} + ${_longitude}'
+                                    //     : 'No location picked',
+                                     child1: FutureBuilder<List<AllCountyGetList>>(
                                         future: getCountyZoneList(context),
                                         builder: (context, snapshotZone) {
                                           if (snapshotZone.connectionState ==
@@ -492,6 +572,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                     },
                                     mapController: mapController,
                                     landmarkController: landmarkController,
+                                    // locationController:    locationController ,
                                     child: FutureBuilder<List<AllZoneData>>(
                                         future: getAllZone(context),
                                         builder: (context, snapshotZone) {

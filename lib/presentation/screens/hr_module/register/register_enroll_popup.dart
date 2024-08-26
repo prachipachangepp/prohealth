@@ -243,8 +243,17 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: AppSize.s10,
                           ),
                           CustomDropdownTextField(
+                              width: textFieldWidth,
+                              height: textFieldHeight,
                               items: ['item 1', 'item 2'],
-                              labelText: 'Speciality'),
+                              labelText: 'Speciality',
+                              labelStyle: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+
+                          ),
                           // FutureBuilder<List<AEClinicalDiscipline>>(
                           //   future: HrAddEmplyClinicalDisciplinApi(context, 1),
                           //   builder: (context, snapshot) {
@@ -352,24 +361,17 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text('Loading...',style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: ColorManager.mediumgrey,
-                                            fontWeight: FontWeight.w400,
-                                          ),),
-                                        )
-                                    ),
-                                  );
+                                return CustomDropdownTextField(
+                                  width: textFieldWidth,
+                                  height: textFieldHeight,
+                                  items: ['item 1', 'item 2'],
+                                  labelText: 'Clinician',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                );
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -451,24 +453,17 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text('Loading...',style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: ColorManager.mediumgrey,
-                                            fontWeight: FontWeight.w400,
-                                          ),),
-                                        )
-                                    ),
-                                  );
+                                return CustomDropdownTextField(
+                                  width: textFieldWidth,
+                                  height: textFieldHeight,
+                                  items: ['item 1', 'item 2'],
+                                  labelText: 'Reporting Office',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                );
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -594,7 +589,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           ? SizedBox(
                           height: 25,
                           width: 25,
-                          child: CircularProgressIndicator(color: ColorManager.blueprime,))  // Show loader when _isLoading is true
+                          child: CircularProgressIndicator(color: ColorManager.blueprime,))
                           :  CustomIconButtonConst(
                         text: AppString.next,
                         onPressed: () async{
@@ -689,27 +684,22 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   }
   /// Country dropdown
    Widget buildDropdownButton(BuildContext context) {
+     double textFieldWidth = MediaQuery.of(context).size.width/10;
+     double textFieldHeight = 38;
      return FutureBuilder<List<CountryGetData>>(
        future: getCountry(context: context),
        builder: (context, snapshot) {
          if (snapshot.connectionState ==
              ConnectionState.waiting) {
-           return Padding(
-             padding: const EdgeInsets.symmetric(
-                 horizontal: 7),
-             child: Container(
-               height: 31,
-               width: 250,
-               decoration: BoxDecoration(
-                   color: ColorManager.white),
-                 child: Align(
-                   alignment: Alignment.centerLeft,
-                   child: Text('Loading...',style: GoogleFonts.firaSans(
-                     fontSize: 12,
-                     color: ColorManager.mediumgrey,
-                     fontWeight: FontWeight.w400,
-                   ),),
-                 )
+           return CustomDropdownTextField(
+             width: textFieldWidth,
+             height: textFieldHeight,
+             items: ['item 1', 'item 2'],
+             labelText: 'Country',
+             labelStyle: GoogleFonts.firaSans(
+               fontSize: 12,
+               color: Color(0xff575757),
+               fontWeight: FontWeight.w400,
              ),
            );
 
@@ -777,27 +767,22 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
 
    /// City dropDown
    Widget buildCityDropdownButton(BuildContext context) {
+     double textFieldWidth = MediaQuery.of(context).size.width/10;
+     double textFieldHeight = 38;
      return FutureBuilder<List<AEClinicalCity>>(
        future: HrAddEmplyClinicalCityApi(context),
        builder: (context, snapshot) {
          if (snapshot.connectionState ==
              ConnectionState.waiting) {
-           return Padding(
-             padding: const EdgeInsets.symmetric(
-                 horizontal: 7),
-             child: Container(
-               height: 31,
-               width: 250,
-               decoration: BoxDecoration(
-                   color: ColorManager.white),
-               child: Align(
-                 alignment: Alignment.centerLeft,
-                 child: Text('Loading...',style: GoogleFonts.firaSans(
-                   fontSize: 12,
-                   color: ColorManager.mediumgrey,
-                   fontWeight: FontWeight.w400,
-                 ),),
-               )
+           return CustomDropdownTextField(
+             width: textFieldWidth,
+             height: textFieldHeight,
+             items: ['item 1', 'item 2'],
+             labelText: 'City',
+             labelStyle: GoogleFonts.firaSans(
+               fontSize: 12,
+               color: Color(0xff575757),
+               fontWeight: FontWeight.w400,
              ),
            );
 
@@ -865,30 +850,24 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
 
    /// Zone dropDown
    Widget buildZoneDropdownButton(BuildContext context) {
+     double textFieldWidth = MediaQuery.of(context).size.width/10;
+     double textFieldHeight = 38;
      return FutureBuilder<List<AEClinicalZone>>(
        future: HrAddEmplyClinicalZoneApi(context),
        builder: (context, snapshot) {
          if (snapshot.connectionState ==
              ConnectionState.waiting) {
-           return Padding(
-             padding: const EdgeInsets.symmetric(
-                 horizontal: 7),
-             child: Container(
-               height: 31,
-               width: 250,
-               decoration: BoxDecoration(
-                   color: ColorManager.white),
-                 child: Align(
-                   alignment: Alignment.centerLeft,
-                   child: Text('Loading...',style: GoogleFonts.firaSans(
-                     fontSize: 12,
-                     color: ColorManager.mediumgrey,
-                     fontWeight: FontWeight.w400,
-                   ),),
-                 )
+           return  CustomDropdownTextField(
+             width: textFieldWidth,
+             height: textFieldHeight,
+             items: ['item 1', 'item 2'],
+             labelText: 'Zone',
+             labelStyle: GoogleFonts.firaSans(
+               fontSize: 12,
+               color: Color(0xff575757),
+               fontWeight: FontWeight.w400,
              ),
            );
-
          } else if (snapshot.hasError) {
            return const CustomDropdownTextField(
              //width: MediaQuery.of(context).size.width / 5,
