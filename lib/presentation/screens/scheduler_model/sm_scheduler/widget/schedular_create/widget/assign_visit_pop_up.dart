@@ -1,4 +1,3 @@
-
 import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
@@ -8,6 +7,10 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
 import '../../../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
+import '../../../../../../../app/services/api/managers/sm_module_manager/scheduler/scheduler_create_manager.dart';
+import '../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../widgets/constant_widgets/schedular_success_popup.dart';
 import '../../../../widgets/constant_widgets/textfield_constant.dart';
 
@@ -19,6 +22,13 @@ class AssignVisitPopUp extends StatefulWidget {
 }
 
 class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
+  TextEditingController ctlrdetails = TextEditingController();
+  TextEditingController ctlrassignedate = TextEditingController();
+  TextEditingController ctlrstarttime = TextEditingController();
+  TextEditingController ctlrendtime = TextEditingController();
+  //TextEditingController  = TextEditingController();
+
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +139,11 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           ),
                         ),
                         SizedBox(height: 5),
-                        PopUpTextField(labelText: '', isDate: true, initialValue: 'Select',),
+                        PopUpTextField(
+                            labelText: '',
+                            isDate: true,
+                            initialValue: 'Select',
+                            controller: ctlrassignedate),
                       ],
                     ),
                   ),
@@ -147,7 +161,106 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           ),
                         ),
                         SizedBox(height: 5),
-                        PopUpDropdown(labelText: '', initialValue: 'Select',),
+                        FutureBuilder<List<StateData>>(
+                          future: getStateDropDown(context),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 7),
+                                child: Container(
+                                    width: AppSize.s250,
+                                    height: AppSize.s40,
+                                    decoration: BoxDecoration(
+                                        color: ColorManager.white),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Loading...',
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 12,
+                                          color: ColorManager.mediumgrey,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    )),
+                              );
+                            }
+                            if (snapshot.hasData) {
+                              List<String> dropDownList = [];
+                              for (var i in snapshot.data!) {
+                                dropDownList.add(i.name!);
+                              }
+
+                              return SizedBox(
+                                height: 27,
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    labelText: 'State',
+                                    labelStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: ColorManager.greylight,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                              ColorManager.containerBorderGrey),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey),
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        //   //  vertical: 5,
+                                        horizontal: 12),
+                                  ),
+                                  // value: selectedCountry,
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: ColorManager.blueprime,
+                                  ),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xff686464),
+                                  ),
+
+                                  onChanged: (newValue) {
+                                    for (var a in snapshot.data!) {
+                                      if (a.name == newValue) {
+                                        selectedValue = a.name!;
+                                        //country = a
+                                        // int? docType = a.companyOfficeID;
+                                      }
+                                    }
+                                  },
+                                  items: dropDownList.map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 12,
+                                          color: Color(0xff575757),
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              );
+
+                              // );
+                            } else {
+                              return const Offstage();
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -169,7 +282,12 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           ),
                         ),
                         SizedBox(height: 5),
-                        PopUpTextField(labelText: '', isTime: true, initialValue: 'Select',),
+                        PopUpTextField(
+                          labelText: '',
+                          isTime: true,
+                          initialValue: 'Select',
+                          controller: ctlrstarttime,
+                        ),
                       ],
                     ),
                   ),
@@ -187,7 +305,12 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           ),
                         ),
                         SizedBox(height: 5),
-                        PopUpTextField(labelText: '', isTime: true, initialValue: 'Select', ),
+                        PopUpTextField(
+                          labelText: '',
+                          isTime: true,
+                          initialValue: 'Select',
+                          controller: ctlrendtime,
+                        ),
                       ],
                     ),
                   ),
@@ -210,8 +333,10 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                         ),
                         SizedBox(height: 5),
                         Container(
-                          height: 54,
-                            child: PopUpTextField(labelText: '', initialValue: 'Enter Text',))
+                            height: 54,
+                            child: PopUpTextField(
+                                labelText: 'Enter Text',
+                                controller: ctlrdetails))
                       ],
                     ),
                   ),
@@ -229,7 +354,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                             color: ColorManager.mediumgrey)),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
-                  SizedBox(width: MediaQuery.of(context).size.width/60),
+                  SizedBox(width: MediaQuery.of(context).size.width / 60),
                   SizedBox(
                     height: 31,
                     width: 105,
@@ -260,13 +385,27 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SchedularSuccessPopup(title: 'Success',);
-                            },
+                        onPressed: () async {
+                          await SchedulerCreate(
+                            context,
+                            1,
+                            1,
+                            selectedValue.toString(),
+                            "2024-08-26T11:44:00Z",
+                           // ctlrassignedate.text,
+                            "2024-08-26T11:44:00Z",
+                             // ctlrstarttime.text,
+                            "2024-08-26T11:44:00Z",
+                            // ctlrendtime.text,
+                            ctlrdetails.text,
                           );
+
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (BuildContext context) {
+                          //     return SchedularSuccessPopup(title: 'Success',);
+                          //   },
+                          // );
                         },
                       ),
                     ),
@@ -280,5 +419,3 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
     );
   }
 }
-
-

@@ -15,24 +15,72 @@ Future<ApiData> SchedulerCreate(
   int patientId,
   int clinicianId,
   String visitType,
-  String assignDate,
-  String startTime,
-  String endTime,
+    dynamic assignDate,
+    dynamic startTime,
+    dynamic endTime,
   String details,
 ) async {
   try {
+    String formatToIso8601(dynamic date) {
+      DateTime parsedDate;
+      if (date is String) {
+        try {
+          parsedDate = DateTime.parse(date);
+        } catch (e) {
+          throw ArgumentError("Invalid date format for string:???? $date");
+        }
+      } else if (date is DateTime) {
+        parsedDate = date;
+      } else {
+        throw ArgumentError("Invalid date format:::::::: $date");
+      }
+      return parsedDate.toUtc().toIso8601String(); // Convert to UTC and format
+    }
+
+    //
+    // String formatToIso8601(dynamic date) {
+    //   DateTime parsedDate;
+    //   if (date is String) {
+    //     // Parse the string to DateTime, assuming it's already in ISO format or can be parsed
+    //     try {
+    //       parsedDate = DateTime.parse(date).toUtc();
+    //     } catch (e) {
+    //       throw ArgumentError("Invalid date format for string:::::::::: $date");
+    //     }
+    //   } else if (date is DateTime) {
+    //     // If DateTime, convert to UTC
+    //     parsedDate = date.toUtc();
+    //   } else {
+    //     throw ArgumentError("Invalid date format: $date");
+    //   }
+    //   return parsedDate.toIso8601String(); // Convert to ISO 8601 string
+    // }
+
+    // Convert dates to ISO 8601 format strings
+    String assignDateString = formatToIso8601(assignDate);
+    String startTimeString = formatToIso8601(startTime);
+    String endTimeString = formatToIso8601(endTime);
+
+    // Debug: Print out formatted date strings
+   // print("assignDateString: $assignDateString");
+    print("startTimeString: $startTimeString");
+    print("endTimeString: $endTimeString");
+/////////////////////////////////////////////////////////////
     var response = await Api(context).post(
       path: SchedulerSMRepo.addCreate(),
       data: {
         "patientId": patientId,
         "clinicianId": clinicianId,
         "visitType": visitType,
-        "assignDate":
-            "${assignDate}T00:00:00Z", //               "2024-08-22T04:52:34.648Z",
-        "startTime":
-            "${startTime}T00:00:00Z", //          "2024-08-22T04:52:34.648Z",
-        "endTime":
-            "${endTime}T00:00:00Z", //         "2024-08-22T04:52:34.648Z",
+        "assignDate":                       assignDateString,
+            //"${assignDate}T11:44:00Z",
+
+
+        //            "2024-08-22T04:52:34.648Z",
+        "startTime":    startTimeString ,//                   " 2024-08-26T09:43:36.015Z ",               // "YYYY-MM-DDThh:mm:ssTZD",       //startTime,
+           // "${startTime}T00:00:00Z", //          "2024-08-22T04:52:34.648Z",
+        "endTime" :  endTimeString,   // "2024-08-26T09:43:36.015Z",  //                  "YYYY-MM-DDThh:mm:ssTZD",
+                            // "${endTime}T00:00:00Z", //         "2024-08-22T04:52:34.648Z",
         "details": details
       },
     );
