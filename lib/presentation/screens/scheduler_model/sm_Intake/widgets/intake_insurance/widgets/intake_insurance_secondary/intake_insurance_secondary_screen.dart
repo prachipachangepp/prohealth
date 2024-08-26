@@ -24,12 +24,9 @@ class IntakeInsuranceSecondaryScreen extends StatefulWidget {
 
 class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondaryScreen> {
 
-
-
   String? varifiedinsurance;
   String? eligiblityStatus;
-
-
+  String? selectedCategory;
 
   TextEditingController secondaryinsuranceController =TextEditingController();
   TextEditingController srnameController =TextEditingController();
@@ -51,8 +48,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
   //TextEditingController eligiblityStatusController =TextEditingController();
   TextEditingController insuranceVerifiedController =TextEditingController();
   TextEditingController commentController =TextEditingController();
-
-
+  TextEditingController dummyCtrl = TextEditingController();
 
   String? status = '';
   String? selectedState ;
@@ -97,7 +93,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           zipcodeController.text,
                           typeController.text,
                           phoneController.text,
-                          categoryController.text,
+                          selectedCategory.toString(),
                           authorisationController.text,
                           "2024-08-09",       //effectiveFromController.text,
                           "2024-08-09",                      // effectiveFromController.text,
@@ -192,31 +188,16 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           SizedBox(width: AppSize.s35),
                           Flexible(
 
-                            child: FutureBuilder<List<citydata>>(
+                            child: FutureBuilder<List<CityData>>(
                               future: getCityDropDown(context),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            'Loading...',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: ColorManager.mediumgrey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )),
-                                  );
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'City',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -303,29 +284,16 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
 
                           SizedBox(width: AppSize.s35),
                           Flexible(
-                            child:FutureBuilder<List<statedata>>(
+                            child:FutureBuilder<List<StateData>>(
                               future: getStateDropDown(context),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.white),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text('Loading...',style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: ColorManager.mediumgrey,
-                                            fontWeight: FontWeight.w400,
-                                          ),),
-                                        )
-                                    ),
-                                  );
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'State',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -423,9 +391,91 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
-                              child: SchedularTextField(
-                                controller: categoryController,
-                                labelText:'Category',)
+                            child: FutureBuilder<List<CategoryData>>(
+                              future: getCategoryDropDown(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'Category',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
+                                }
+                                if (snapshot.hasData) {
+                                  List<String> dropDownList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(i.idText!);
+                                  }
+
+                                  return SizedBox(
+                                    height: 27,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'category',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.greylight,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .containerBorderGrey),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff686464),
+                                      ),
+
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.idText == newValue) {
+                                            selectedCategory = a.idText!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(
@@ -441,12 +491,8 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           Flexible(
                               child: DoubleDatePickerTextField(
                                 onDateRangeSelected: (startDate, endDate){
-
                                 }
-
                                 ,
-
-
 
                                 labelText: 'Effective from', isDate: true,)
                           ),
@@ -474,13 +520,90 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularDropdown(
+                            child: FutureBuilder<List<EligiblityStatusData>>(
+                              future: getEligiblityStatusDropDown(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'Eligibility',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
+                                }
+                                if (snapshot.hasData) {
+                                  List<String> dropDownList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(i.idText!);
+                                  }
+                                  return SizedBox(
+                                    height: 27,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'Eligibility Status',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.greylight,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .containerBorderGrey),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff686464),
+                                      ),
 
-                                labelText: 'Eligibility Status', onChanged: (newValue) {
-                                setState(() {
-                                  eligiblityStatus = newValue;
-                                });
-                              }, )
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.idText == newValue) {
+                                            eligiblityStatus = a.idText!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(

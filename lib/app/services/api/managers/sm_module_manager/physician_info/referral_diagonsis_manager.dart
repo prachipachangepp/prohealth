@@ -22,7 +22,7 @@ Future<ApiData> postRDoneScreen(
 ) async {
   try {
     var response = await Api(context).post(
-      path: physicianInfo.addfirstRD(),
+      path: PhysicianInfo.addfirstRD(),
       data: {
         "patientId": patientId,
         "codeStatus1": codeStatus1,
@@ -229,7 +229,7 @@ Future<ApiData> postRDTWOScreen(
 ) async {
   try {
     var response = await Api(context).post(
-      path: physicianInfo.addpdrd(),
+      path: PhysicianInfo.addpdrd(),
       data: {
         "patientId": patientId,
         "rDignosisId": rDignosisId,
@@ -434,7 +434,7 @@ Future<ApiData> postRDThreeScreen(
 ) async {
   try {
     var response = await Api(context).post(
-      path: physicianInfo.addpdrd(),
+      path: PhysicianInfo.addpdrd(),
       data: {
         "patientId": patientId,
         "rDignosisId":rDignosisId,

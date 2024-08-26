@@ -153,7 +153,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(height: AppSize.s10,),
-                    SMTextFConst(
+                    FirstSMTextFConst(
                       controller: widget.typeController,
                       keyboardType: TextInputType.text,
                       text: 'Type',
@@ -167,7 +167,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                     SizedBox(
                       height: AppSize.s16,
                     ),
-                    SMTextFConst(
+                    CapitalSMTextFConst(
                       controller: widget.shorthandController,
                       keyboardType: TextInputType.streetAddress,
                       text: 'Abbreviation',

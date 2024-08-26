@@ -47,7 +47,7 @@ Future<ApiData> postPhysicianInfoScreen(
 ) async {
   try {
     var response = await Api(context).post(
-      path: physicianInfo.addPIinfo(),
+      path: PhysicianInfo.addPIinfo(),
       data: {
         "patientId": patientId,
         "companyId": companyId,
@@ -266,15 +266,15 @@ Future<ApiData> postPhysicianInfoScreen(
 }
 ///////////
 
-Future<List<statedata>> getStateDropDown(
+Future<List<StateData>> getStateDropDown(
   BuildContext context,
 ) async {
-  List<statedata> itemsList = [];
+  List<StateData> itemsList = [];
   try {
-    final response = await Api(context).get(path: physicianInfo.stateDD());
+    final response = await Api(context).get(path: PhysicianInfo.stateDD());
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        itemsList.add(statedata(
+        itemsList.add(StateData(
           stateId: item['stateId'],
           name: item['name'],
           short: item['short'],
@@ -295,15 +295,15 @@ Future<List<statedata>> getStateDropDown(
 
 //////
 
-Future<List<citydata>> getCityDropDown(
+Future<List<CityData>> getCityDropDown(
   BuildContext context,
 ) async {
-  List<citydata> itemsList = [];
+  List<CityData> itemsList = [];
   try {
-    final response = await Api(context).get(path: physicianInfo.cityDD());
+    final response = await Api(context).get(path: PhysicianInfo.cityDD());
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        itemsList.add(citydata(
+        itemsList.add(CityData(
           city_id: item['city_id'],
           cityName: item['cityName'],
           state: item['state'],
@@ -323,15 +323,15 @@ Future<List<citydata>> getCityDropDown(
 
 ///////
 
-Future<List<relationshipdata>> getRelationshipDropDown(
+Future<List<RelationshipData>> getRelationshipDropDown(
   BuildContext context,
 ) async {
-  List<relationshipdata> itemsList = [];
+  List<RelationshipData> itemsList = [];
   try {
-    final response = await Api(context).get(path: physicianInfo.relationshipDD());
+    final response = await Api(context).get(path: PhysicianInfo.relationshipDD());
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        itemsList.add(relationshipdata(
+        itemsList.add(RelationshipData(
           relationshipId: item['relationshipId'],
           relationship: item['relationship'],
         ));
@@ -351,15 +351,15 @@ Future<List<relationshipdata>> getRelationshipDropDown(
 ///////
 
 
-Future<List<languageSpokendata>> getlanguageSpokenDropDown(
+Future<List<LanguageSpokenData>> getlanguageSpokenDropDown(
     BuildContext context,
     ) async {
-  List<languageSpokendata> itemsList = [];
+  List<LanguageSpokenData> itemsList = [];
   try {
-    final response = await Api(context).get(path: physicianInfo.languageSpokenDD());
+    final response = await Api(context).get(path: PhysicianInfo.languageSpokenDD());
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        itemsList.add(languageSpokendata(
+        itemsList.add(LanguageSpokenData(
           languageSpokenId: item['languageSpokenId'],
           languageSpoken: item['languageSpoken'],
         ));
@@ -379,15 +379,15 @@ Future<List<languageSpokendata>> getlanguageSpokenDropDown(
 
 ///////
 
-Future<List<metrialStatusdata>> getMaritalStatusDropDown(
+Future<List<MetrialStatusData>> getMaritalStatusDropDown(
     BuildContext context,
     ) async {
-  List<metrialStatusdata> itemsList = [];
+  List<MetrialStatusData> itemsList = [];
   try {
-    final response = await Api(context).get(path: physicianInfo.metrialstatusDD());
+    final response = await Api(context).get(path: PhysicianInfo.metrialstatusDD());
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        itemsList.add(metrialStatusdata(
+        itemsList.add(MetrialStatusData(
           maritalStatusId: item['maritalStatusId'],
           maritalStatus: item['maritalStatus'],
         ));
@@ -405,15 +405,15 @@ Future<List<metrialStatusdata>> getMaritalStatusDropDown(
 
 /////////
 
-Future<List<racedata>> getRaceDropDown(
+Future<List<RaceData>> getRaceDropDown(
     BuildContext context,
     ) async {
-  List<racedata> itemsList = [];
+  List<RaceData> itemsList = [];
   try {
-    final response = await Api(context).get(path: physicianInfo.raceDD());
+    final response = await Api(context).get(path: PhysicianInfo.raceDD());
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        itemsList.add(racedata(
+        itemsList.add(RaceData(
           raceId: item['raceId'],
           race: item['race'],
         ));
@@ -433,15 +433,15 @@ Future<List<racedata>> getRaceDropDown(
 
 
 ////////
-Future<List<religiondata>> getReligionDropDown(
+Future<List<ReligionData>> getReligionDropDown(
     BuildContext context,
     ) async {
-  List<religiondata> itemsList = [];
+  List<ReligionData> itemsList = [];
   try {
-    final response = await Api(context).get(path: physicianInfo.religionDD());
+    final response = await Api(context).get(path: PhysicianInfo.religionDD());
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        itemsList.add(religiondata(
+        itemsList.add(ReligionData(
           religionId: item['religionId'],
           religion: item['religion'],
         ));
@@ -457,3 +457,233 @@ Future<List<religiondata>> getReligionDropDown(
   }
 }
 
+
+
+
+//////
+Future<List<PatientStatusData>> StatusChange(
+    BuildContext context,
+    ) async {
+  List<PatientStatusData> itemsList = [];
+  try {
+    final response = await Api(context).get(path: PhysicianInfo.statuschange());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(PatientStatusData(
+          patientStatusId: item['patientStatusId'],
+          patientStatus: item['patientStatus'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+
+
+/////
+
+Future<List<PriorityDisasterData>> getPiorityDisastorDropDown(
+    BuildContext context,
+    ) async {
+  List<PriorityDisasterData> itemsList = [];
+  try {
+    final response = await Api(context).get(path: PhysicianInfo.piorityDisastorDD());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(PriorityDisasterData(
+          Id: item['Id'],
+          idText: item['idText'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+
+
+////
+
+
+Future<List<EligiblityStatusData>> getEligiblityStatusDropDown(
+    BuildContext context,
+    ) async {
+  List<EligiblityStatusData> itemsList = [];
+  try {
+    final response = await Api(context).get(path: PhysicianInfo.eligibilityStatusDD());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(EligiblityStatusData(
+          Id: item['Id'],
+          idText: item['idText'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+
+////
+
+
+Future<List<CategoryData>> getCategoryDropDown(
+    BuildContext context,
+    ) async {
+  List<CategoryData> itemsList = [];
+  try {
+    final response = await Api(context).get(path: PhysicianInfo.categoryDD());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(CategoryData(
+          Id: item['Id'],
+          idText: item['idText'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+
+//////
+
+
+
+Future<List<SuppliesData>> getSuppliesDMEDropDown(
+    BuildContext context,
+    ) async {
+  List<SuppliesData> itemsList = [];
+  try {
+    final response = await Api(context).get(path: PhysicianInfo.suppliesDMEDD());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(SuppliesData(
+          Id: item['Id'],
+          idText: item['idText'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+
+/////
+
+Future<List<PharmacyData>> getPharmacyDropDown(
+    BuildContext context,
+    ) async {
+  List<PharmacyData> itemsList = [];
+  try {
+    final response = await Api(context).get(path: PhysicianInfo.pharmacyDD());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(PharmacyData(
+          Id: item['Id'],
+          idText: item['idText'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+
+
+//////
+
+Future<List<FacilityData>> getFacilityDropDown(
+    BuildContext context,
+    ) async {
+  List<FacilityData> itemsList = [];
+  try {
+    final response = await Api(context).get(path: PhysicianInfo.facilityDD());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(FacilityData(
+          Id: item['Id'],
+          idText: item['idText'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+
+//////
+
+Future<List<CountryData>> getCountryDropDown(
+    BuildContext context,
+    ) async {
+  List<CountryData> itemsList = [];
+  try {
+    final response = await Api(context).get(path: PhysicianInfo.countryDD());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(CountryData(
+          countryId: item['countryId'],
+          name: item['name'],
+          short: item['short'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}

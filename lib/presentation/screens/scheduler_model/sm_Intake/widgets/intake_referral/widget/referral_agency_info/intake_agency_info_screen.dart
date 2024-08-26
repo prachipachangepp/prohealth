@@ -34,6 +34,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
   TextEditingController ctlrFax = TextEditingController();
   TextEditingController ctlrEmail = TextEditingController();
   TextEditingController ctlrUnites = TextEditingController();
+  TextEditingController dummyCtrl = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +64,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                            1,
                            ctlrAgency.text,
                            ctlrAgencyName.text,
-                           1,
+                            1,         //  selectedRate.toString(),      // int.parse(selectedRate.toString()),
                            ctlrStreet.text,
                            ctlrSuitApt.text,
                            selectedCity.toString(),
@@ -144,31 +145,16 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         SizedBox(width: AppSize.s35),
                         Flexible(
 
-                          child: FutureBuilder<List<citydata>>(
+                          child: FutureBuilder<List<CityData>>(
                             future: getCityDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 7),
-                                  child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.white),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Loading...',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: ColorManager.mediumgrey,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      )),
-                                );
+                                return SchedularTextField(
+                                  controller: dummyCtrl,
+                                  labelText: 'City',
+                                  suffixIcon: Icon(Icons.arrow_drop_down,
+                                    color: ColorManager.blueprime,),);
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -245,45 +231,21 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                             },
                           ),
 
-
-
-                        //     child: SchedularDropdown(
-                        //   labelText: AppString.city,
-                        //   items: ['Option 1', 'Option 2', 'Option 3'],
-                        //   onChanged: (newValue) {
-                        //     setState(() {
-                        //       selectedCity = newValue;
-                        //     });
-                        //   },
-                        // )
                         ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
 
 
-                          child:FutureBuilder<List<statedata>>(
+                          child:FutureBuilder<List<StateData>>(
                             future: getStateDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 7),
-                                  child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.white),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text('Loading...',style: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: ColorManager.mediumgrey,
-                                          fontWeight: FontWeight.w400,
-                                        ),),
-                                      )
-                                  ),
-                                );
+                                return SchedularTextField(
+                                  controller: dummyCtrl,
+                                  labelText: 'State',
+                                  suffixIcon: Icon(Icons.arrow_drop_down,
+                                    color: ColorManager.blueprime,),);
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -372,7 +334,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                             child: SchedularTextFieldWithButton(
                               controller: ctlrZipCode,
                                 labelText: AppString.zip_code,
-                                initialValue: '26586845121',
+                                //initialValue: '26586845121',
                                 buttonText: 'View Zone')),
                       ],
                     ),

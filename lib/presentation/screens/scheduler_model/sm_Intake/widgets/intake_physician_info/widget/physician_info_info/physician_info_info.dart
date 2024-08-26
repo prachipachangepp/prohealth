@@ -58,6 +58,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
   TextEditingController ffPhone = TextEditingController();
   TextEditingController ffFax = TextEditingController();
   TextEditingController ffProtocol = TextEditingController();
+  TextEditingController dummyCtrl = TextEditingController();
 
 
   @override
@@ -225,31 +226,16 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                       children: [
                         Flexible(
 
-                          child: FutureBuilder<List<citydata>>(
+                          child: FutureBuilder<List<CityData>>(
                             future: getCityDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 7),
-                                  child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.white),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Loading...',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: ColorManager.mediumgrey,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      )),
-                                );
+                                return SchedularTextField(
+                                  controller: dummyCtrl,
+                                  labelText: 'City',
+                                  suffixIcon: Icon(Icons.arrow_drop_down,
+                                    color: ColorManager.blueprime,),);
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -331,29 +317,16 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
-                          child:FutureBuilder<List<statedata>>(
+                          child:FutureBuilder<List<StateData>>(
                             future: getStateDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 7),
-                                  child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.white),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text('Loading...',style: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: ColorManager.mediumgrey,
-                                          fontWeight: FontWeight.w400,
-                                        ),),
-                                      )
-                                  ),
-                                );
+                                return SchedularTextField(
+                                  controller: dummyCtrl,
+                                  labelText: 'State',
+                                  suffixIcon: Icon(Icons.arrow_drop_down,
+                                    color: ColorManager.blueprime,),);
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -446,15 +419,6 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                               }
                             },
                           ),
-                            // child: SchedularDropdown(
-                            //
-                            //   labelText: AppString.state,
-                            //     items: ['Option 1', 'Option 2', 'Option 3'],
-                            //   onChanged: (newValue) {
-                            //   setState(() {
-                            //     selectedStatepr = newValue;
-                            //   });
-                            // },)
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
@@ -563,31 +527,16 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                     Row(
                       children: [
                         Flexible(
-                          child: FutureBuilder<List<citydata>>(
+                          child: FutureBuilder<List<CityData>>(
                             future: getCityDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 7),
-                                  child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.white),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Loading...',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            color: ColorManager.mediumgrey,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      )),
-                                );
+                                return SchedularTextField(
+                                  controller: dummyCtrl,
+                                  labelText: 'City',
+                                  suffixIcon: Icon(Icons.arrow_drop_down,
+                                    color: ColorManager.blueprime,),);
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -670,29 +619,16 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(
-                          child:FutureBuilder<List<statedata>>(
+                          child:FutureBuilder<List<StateData>>(
                             future: getStateDropDown(context),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 7),
-                                  child: Container(
-                                      width: AppSize.s250,
-                                      height: AppSize.s40,
-                                      decoration: BoxDecoration(
-                                          color: ColorManager.white),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text('Loading...',style: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: ColorManager.mediumgrey,
-                                          fontWeight: FontWeight.w400,
-                                        ),),
-                                      )
-                                  ),
-                                );
+                                return SchedularTextField(
+                                  controller: dummyCtrl,
+                                  labelText: 'State',
+                                  suffixIcon: Icon(Icons.arrow_drop_down,
+                                    color: ColorManager.blueprime,),);
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
@@ -785,15 +721,7 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                               }
                             },
                           ),
-                            // child: SchedularDropdown(
-                            //   initialValue: selectedStateff,
-                            //   labelText: AppString.state,
-                            //     items: ['Option 1', 'Option 2', 'Option 3'],
-                            //     onChanged: (newValue) {
-                            //       setState(() {
-                            //         selectedStateff = newValue;
-                            //       });
-                            //     },)
+
                         ),
                         SizedBox(width:AppSize.s35 ),
                         Flexible(

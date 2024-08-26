@@ -364,7 +364,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 30),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 10),
               child: Container(
                 decoration: BoxDecoration(
                   color: ColorManager.white,
@@ -378,7 +378,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                     ),
                   ],
                 ),
-                height: MediaQuery.of(context).size.width * 0.3,
+                height: MediaQuery.of(context).size.height/1.5,
                 // width: MediaQuery.of(context).size.width * 0.95,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30.0),
@@ -562,6 +562,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                     children: [
                                                       IconButton(
                                                         icon: Icon(
+                                                            size: 20,
                                                             Icons.history,
                                                             color: ColorManager
                                                                 .textPrimaryColor),
@@ -575,6 +576,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                               120),
                                                       IconButton(
                                                         icon: Icon(
+                                                            size: 20,
                                                             Icons
                                                                 .print_outlined,
                                                             color: ColorManager
@@ -610,6 +612,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                               120),
                                                       IconButton(
                                                         icon: Icon(
+                                                          size: 20,
                                                             Icons
                                                                 .file_download_outlined,
                                                             color: ColorManager
@@ -666,7 +669,7 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                           icon: Icon(
                                                             Icons
                                                                 .delete_outline,
-                                                            size: 18,
+                                                            size: 20,
                                                             color: ColorManager
                                                                 .red,
                                                           )),

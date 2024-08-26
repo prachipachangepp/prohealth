@@ -361,7 +361,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 30),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 10),
               child: Container(
                 decoration: BoxDecoration(
                   color: ColorManager.white,
@@ -375,7 +375,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                     ),
                   ],
                 ),
-                height: MediaQuery.of(context).size.width * 0.3,
+                height: MediaQuery.of(context).size.height/1.5,
                 // width: MediaQuery.of(context).size.width * 0.95,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30.0),
@@ -548,6 +548,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                       IconButton(
                                                         icon: Icon(
                                                           Icons.history,
+                                                          size: 20,
                                                           color: ColorManager
                                                               .granitegray,
                                                         ),
@@ -562,6 +563,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                       IconButton(
                                                         icon: Icon(
                                                           Icons.print_outlined,
+                                                          size: 20,
                                                           color: ColorManager
                                                               .granitegray,
                                                         ),
@@ -598,6 +600,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                         icon: Icon(
                                                           Icons
                                                               .file_download_outlined,
+                                                          size: 20,
                                                           color: ColorManager
                                                               .granitegray,
                                                         ),
@@ -653,7 +656,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                           icon: Icon(
                                                             Icons
                                                                 .delete_outline,
-                                                            size: 18,
+                                                            size: 20,
                                                             color: ColorManager
                                                                 .red,
                                                           )),
