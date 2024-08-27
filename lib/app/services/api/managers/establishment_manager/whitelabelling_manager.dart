@@ -163,7 +163,7 @@ Future<ApiData> uploadWebAndAppLogo({
 Future<WhiteLabellingCompanyDetailModal> getWhiteLabellingData(
     BuildContext context,
     ) async {
-  late WhiteLabellingCompanyDetailModal itemsData;
+  var itemsData;
   try {
     final companyId = await TokenManager.getCompanyId();
     final url = await EstablishmentManagerRepository.getWhitelabellingDetail(
@@ -239,6 +239,49 @@ Future<WhiteLabellingCompanyDetailModal> getWhiteLabellingData(
     );
   }
   return itemsData;
+}
+
+/// Upload Logo
+Future<ApiData> postWhiteleblingCompanyData({
+  required BuildContext context,
+  required String companyName,
+  required String description,
+  required String url,
+  required String address,
+  required String headOfficeId
+}
+    ) async{
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    var response = await Api(context).post(
+        path: EstablishmentManagerRepository.
+        addCompanyWhitelebling(),
+        data: {
+          "Name": companyName,
+          "description": description,
+          "url": url,
+          "address": address,
+          "head_office_id": headOfficeId
+        });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Logo Uploaded");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
 }
 
 /// workin api

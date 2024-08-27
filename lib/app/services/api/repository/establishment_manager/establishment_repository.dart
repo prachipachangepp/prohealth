@@ -54,6 +54,7 @@ class EstablishmentManagerRepository {
   //static String addPayrates ="/payrates/add";
   static String newPayrates = "/payrates";
   static String newPayratesdelete = "/payrates";
+  static String addCompanyPost = "/Company/Insert";
 
   //static String add ="/add";
 
@@ -73,6 +74,10 @@ class EstablishmentManagerRepository {
   static String uploadCompanyLogo(
       {required int companyId, required String type}) {
     return "$companyLogo/$type/$companyId/$uploadLogo";
+  }
+
+  static String addCompanyWhitelebling() {
+    return "$addCompanyPost";
   }
 
   ///company-office/{company_Office_id}
