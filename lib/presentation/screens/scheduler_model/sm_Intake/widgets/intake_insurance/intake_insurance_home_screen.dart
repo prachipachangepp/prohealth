@@ -10,7 +10,8 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 class SMIntakeInsuranceScreen extends StatefulWidget {
-  const SMIntakeInsuranceScreen({super.key});
+  final int patientId;
+  const SMIntakeInsuranceScreen({super.key, required this.patientId});
 
   @override
   State<SMIntakeInsuranceScreen> createState() => _SMIntakeInsuranceScreenState();
@@ -212,8 +213,8 @@ class _SMIntakeInsuranceScreenState extends State<SMIntakeInsuranceScreen> {
                 controller: smIntakePageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  IntakeInsurancePrimaryScreen(),
-                  IntakeInsuranceSecondaryScreen(),
+                  IntakeInsurancePrimaryScreen(patientId: widget.patientId),
+                  IntakeInsuranceSecondaryScreen(patientId: widget.patientId,),
                 ]),
           ),
         ),

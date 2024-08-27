@@ -11,7 +11,8 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 class IntakePhysicianScreen extends StatefulWidget {
-  const IntakePhysicianScreen({super.key});
+  final int patientId;
+  const IntakePhysicianScreen({super.key, required this.patientId});
 
   @override
   State<IntakePhysicianScreen> createState() => _IntakePhysicianScreenState();
@@ -212,10 +213,10 @@ class _IntakePhysicianScreenState extends State<IntakePhysicianScreen> {
                 controller: smIntakePageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  PhysicianInfoInfoScreen(),
-                  ReferringDiagnososScreen(),
+                  PhysicianInfoInfoScreen(patientId: widget.patientId),
+                  ReferringDiagnososScreen(patientId: widget.patientId,),
                   Container(),
-                  PhysicianFaceToFace(),
+                  PhysicianFaceToFace(patientId: widget.patientId,),
                 ]),
           ),
         ),

@@ -51,9 +51,8 @@ Future<ApiData> postIPrimaryScreen(
         "phone": phone,
         "category": category,
         "authorisation": authorisation,
-        "effectiveFrom":
-            "${effectiveFrom}T00:00:00Z", //"2024-08-18T08:29:51.862Z",
-        "effectiveTo": "${effectiveTo}T00:00:00Z", //"2024-08-18T08:29:51.862Z",
+        "effectiveFrom": "${effectiveFrom}T00:00:00Z" ?? "", //"2024-08-18T08:29:51.862Z",
+        "effectiveTo": "${effectiveTo}T00:00:00Z" ?? "", //"2024-08-18T08:29:51.862Z",
         "groupNbr": groupNbr,
         "groupName": groupName,
         "policyHICNbr": policyHICNbr,

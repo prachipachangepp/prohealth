@@ -7,8 +7,8 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 class IntakeMedicationScreen extends StatefulWidget {
-
-  const IntakeMedicationScreen({super.key,});
+  final int patientId;
+  const IntakeMedicationScreen({super.key, required this.patientId,});
 
   @override
   State<IntakeMedicationScreen> createState() => _IntakeMedicationScreenState();
@@ -210,7 +210,7 @@ class _IntakeMedicationScreenState extends State<IntakeMedicationScreen> {
                 controller: smIntakePageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  IntakePharmacyVendorScreen(),
+                  IntakePharmacyVendorScreen(patientId: widget.patientId,),
                   IntakeMedicationProfileScreen(),
                 ]),
           ),

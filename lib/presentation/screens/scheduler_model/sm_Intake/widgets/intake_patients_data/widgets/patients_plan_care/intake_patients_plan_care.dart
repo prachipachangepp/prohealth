@@ -5,7 +5,8 @@ import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 
 class IntakePlanCareScreen extends StatefulWidget {
-  const IntakePlanCareScreen({super.key});
+  final int patientId;
+  const IntakePlanCareScreen({super.key, required this.patientId});
 
   @override
   State<IntakePlanCareScreen> createState() => _IntakePlanCareScreenState();

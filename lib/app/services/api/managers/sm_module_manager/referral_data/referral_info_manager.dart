@@ -29,7 +29,7 @@ Future<ApiData> AddReferralInfo(
     var response = await Api(context).post(
       path: PatientDataInfoRepo.referralInfoAdd(),
       data: {
-        "patientId": patientId ?? "",
+        "patientId": patientId,
         "referralDate": "${referralDate}T00:00:00Z" ?? "",
         "projectedSOCDate":"${projectedSOCDate}T00:00:00Z" ?? "",
         "referralSource": referralSource ?? "",
