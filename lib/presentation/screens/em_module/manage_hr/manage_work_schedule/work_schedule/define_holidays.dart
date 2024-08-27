@@ -10,6 +10,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../data/api_data/establishment_data/work_schedule/work_week_data.dart';
+import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'widgets/add_holiday_popup_const.dart';
 
 class DefineHolidays extends StatefulWidget {
@@ -388,87 +389,25 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                             }),
                       ),
                       // Pagination Controls
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Previous Page Button
-                          InkWell(
-                            onTap: currentPage > 1 ? () {
-                              setState(() {
-                                currentPage--;
-                              });
-                            } : null,
-                            child: Container(
-                              height: 20,
-                              width: 20,
-                              margin: EdgeInsets.only(left: 5, right: 5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: ColorManager.bluelight,
-                              ),
-                              child: Icon(Icons.arrow_back_ios_sharp, size: 14, color: Colors.white),
-                            ),
-                          ),
-                          for (var i = 1; i <= totalPages; i++)
-                            if (i == 1 ||
-                                i == totalPages ||
-                                i == currentPage ||
-                                (i == currentPage - 1 && i > 1) ||
-                                (i == currentPage + 1 && i < totalPages))
-                              InkWell(
-                                onTap: () => onPageNumberPressed(i),
-                                child: Container(
-                                  width: 20,
-                                  height: 20,
-                                  margin: EdgeInsets.only(left: 5, right: 5),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(
-                                      color: currentPage == i ? ColorManager.bluelight : ColorManager.fmediumgrey.withOpacity(0.2),
-                                      width: currentPage == i ? 2.0 : 1.0,
-                                    ),
-                                    color: currentPage == i ? ColorManager.bluelight : Colors.transparent,
-                                  ),
-                                  child: Text(
-                                    '$i',
-                                    style: TextStyle(
-                                      color: currentPage == i ? Colors.white : ColorManager.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            else if (i == currentPage - 2 || i == currentPage + 2)
-                              Text(
-                                '..',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                          ///Page Number Buttons
-                          InkWell(
-                            onTap: currentPage < totalPages ? () {
-                              setState(() {
-                                currentPage++;
-                              });
-                            } : null,
-                            child: Container(
-                              height: 20,
-                              width: 20,
-                              margin: EdgeInsets.only(left: 5, right: 5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: ColorManager.bluelight,
-                              ),
-                              child: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.white),
-                            ),
-                          ),
-                        ],
+                      PaginationControlsWidget(
+                        currentPage: currentPage,
+                        items: snapshot.data!,
+                        itemsPerPage: itemsPerPage,
+                        onPreviousPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                          });
+                        },
+                        onPageNumberPressed: (pageNumber) {
+                          setState(() {
+                            currentPage = pageNumber;
+                          });
+                        },
+                        onNextPagePressed: () {
+                          setState(() {
+                            currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                          });
+                        },
                       ),
                     ],
                   );

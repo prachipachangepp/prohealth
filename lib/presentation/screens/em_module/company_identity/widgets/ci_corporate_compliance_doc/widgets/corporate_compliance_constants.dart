@@ -685,7 +685,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     keyboardType: TextInputType.text,
                     text: AppString.id_of_the_document,
                   ),
-                  if (_idDocError != null) // Display error if any
+                  if (_idDocError != null)
                     Padding(
                       padding: const EdgeInsets.only(top: 2.0),
                       child: Text(
