@@ -296,7 +296,6 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       'Type',
                       companyId,
                     );
-
                     if (result.success) {
                       patientId = result.patientId!;
                       ctlrMedicalRecord.clear();
