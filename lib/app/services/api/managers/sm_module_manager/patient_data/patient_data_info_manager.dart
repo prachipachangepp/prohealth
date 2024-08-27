@@ -51,8 +51,8 @@ Future<ApiData> IntakeInfoSave(
     var response = await Api(context).post(
       path: PatientDataInfoRepo.addInfoPatientData(),
       data: {
-        // 'spcdate':"${date}T00:00:00Z",
-        'spcdate': "2024-08-14T00:00:00Z",
+        'spcdate':"${date}T00:00:00Z",
+        //'spcdate': "2024-08-14T00:00:00Z",
         'medicalRecord': medicalRecord,
         'status': status,
         'firstName': firstName,
@@ -60,8 +60,8 @@ Future<ApiData> IntakeInfoSave(
         'mi': mi,
         'suffix': suffix,
         'activeTraineeStatus': activeTraineeStatus,
-        // 'dateofbirth':"${dateofbirth}T00:00:00",
-        'dateofbirth': "1985-05-15T00:00:00Z",
+        'dateofbirth':"${dateofbirth}T00:00:00",
+        //'dateofbirth': "1985-05-15T00:00:00Z",
        'street': street,
         'state': state,
         'zipcode': zipcode,

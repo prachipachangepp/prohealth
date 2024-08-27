@@ -264,7 +264,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                     final companyId = await TokenManager.getCompanyId();
                     ApiData result = await IntakeInfoSave(
                       context,
-                      "14/12/2024",
+                      "2024-12-14",
                       ctlrMedicalRecord.text,
                       'Pending',
                       ctlrfirstName.text,
@@ -272,7 +272,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       ctlrMI.text,
                       ctlrSuffix.text,
                       statusType ?? '',
-                      "14/12/2024",
+                      "2024-12-14",
                       ctlrStreet.text,
                       selectedState!.toString(),
                       ctlrZipCode.text,
@@ -289,7 +289,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       selectedRace.toString() ?? '',
                       selectedReligion.toString() ?? '',
                       selectedMaritalStatus.toString() ?? '',
-                      "14/08/2024",
+                      "2024-12-14",
                       1,
                       'At Land OSC',
                       'case',
