@@ -462,7 +462,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                     context: context,
                                                                                     builder: (BuildContext context) {
                                                                                       return ViewBatchesPopup(shiftName: snapshotShift.data![index].shiftName,
-                                                                                        weekName: snapshot.data![index].weekDays,
+                                                                                        weekName: snapshotShift.data![index].weekDays,
                                                                                         //companyId: snapshot.data![index].companyId,
                                                                                           );
                                                                                     });
@@ -491,7 +491,10 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                             controller2: endTimeController,
                                                                                             onPressed: () async{
                                                                                               await addShiftBatch(context, snapshotShift.data![index].shiftName,
-                                                                                                  snapshot.data![index].weekDays, startTimeController.text, endTimeController.text);
+                                                                                                  snapshotShift
+                                                                                                      .data![index].weekDays, startTimeController.text, endTimeController.text);
+                                                                                              startTimeController.clear();
+                                                                                              endTimeController.clear();
                                                                                               //Navigator.pop(context);
                                                                                             },
                                                                                           );

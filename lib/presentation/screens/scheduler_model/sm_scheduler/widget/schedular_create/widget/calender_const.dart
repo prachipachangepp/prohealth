@@ -359,6 +359,7 @@
 import 'package:flutter/material.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 import 'assign_visit_pop_up.dart';
 
@@ -390,8 +391,8 @@ class _CalenderConstantState extends State<CalenderConstant> {
                     ElevatedButton(
                       onPressed: () => setState(() => _selectedView = 'Day'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white,
+                        backgroundColor:_selectedView == 'Day' ? ColorManager.blueprime : ColorManager.white,
+                        foregroundColor:_selectedView == 'Day' ? ColorManager.white : ColorManager.mediumgrey,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       ),
                       child: Text('Day'),
@@ -400,8 +401,8 @@ class _CalenderConstantState extends State<CalenderConstant> {
                     ElevatedButton(
                       onPressed: () => setState(() => _selectedView = 'Week'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white,
+                        backgroundColor:_selectedView == 'Week' ? ColorManager.blueprime : ColorManager.white,
+                        foregroundColor: _selectedView == 'Week' ? ColorManager.white : ColorManager.mediumgrey,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       ),
                       child: Text('Week'),
@@ -410,8 +411,8 @@ class _CalenderConstantState extends State<CalenderConstant> {
                     ElevatedButton(
                       onPressed: () => setState(() => _selectedView = 'Month'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white,
+                        backgroundColor: _selectedView == 'Month' ? ColorManager.blueprime : ColorManager.white,
+                        foregroundColor: _selectedView == 'Month' ? ColorManager.white : ColorManager.mediumgrey,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       ),
                       child: Text('Month'),
@@ -449,7 +450,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
             height: 2,
           ),
           eventArranger: const SideEventArranger(),
-          onDateLongPress: _onDateLongPress,
+          onDateTap: _onDateLongPress,
         );
       case 'Month':
         return MonthView(

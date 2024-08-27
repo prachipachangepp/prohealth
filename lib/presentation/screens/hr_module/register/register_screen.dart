@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/main_register_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:prohealth/data/api_data/hr_module_data/register_data/register_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
@@ -387,7 +389,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         margin: const EdgeInsets.only(right: AppMargin.m30),
                         child: CustomIconButtonConst(
                           text: AppString.enroll,
-                          onPressed: () {
+                          onPressed: () async{
+                            List<AEClinicalDiscipline> passData = await HrAddEmplyClinicalDisciplinApi(context,1);
                             showDialog(
                               context: context,
                               builder: (_) => FutureBuilder<RegisterDataUserIDPrefill>(
@@ -417,7 +420,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     status: snapshotPrefill.data!.status,
                                     onPressed: () {
                                       Navigator.pop(context);
-                                    },
+                                    }, aEClinicalDiscipline: passData,
                                   );
                                 },
                               ),
