@@ -7,10 +7,12 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/search_byfilter.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
@@ -141,7 +143,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     }
   }
   int selectedZoneId = 0;
-  Future<void> _searchByFilter() async {
+  Future<void> _searchByFilter({required int zoneId}) async {
     List<ApiDataFilter> result = await postSearchByFilter(
         context,
         false, // patientProfileSearch
@@ -149,7 +151,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
         true, // officeLocationSearch
         'string', // officeId
         true, // zoneSearch
-        18, // zoneId
+        zoneId, // zoneId
         true, // licenseSearch
         'Expired', // licenseStatus
         true, // availabilitySearch
@@ -381,8 +383,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return ProfilePatientPopUp(
-                                        zoneDropDown: FutureBuilder<List<AEClinicalZone>>(
-                                          future: HrAddEmplyClinicalZoneApi(
+                                        zoneDropDown: FutureBuilder<List<SortByZoneData>>(
+                                          future: PayRateZoneDropdown(
                                             context,
                                           ),
                                           builder: (context, snapshot) {
@@ -407,7 +409,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                               int zoneId = 0;
                                               for(var i in snapshot.data!){
                                                 dropDownList.add(DropdownMenuItem<String>(
-                                                  child: Text(i.zoneName!),
+                                                  child: Text(i.zoneName),
                                                   value: i.zoneName,
                                                 ));
                                               }
@@ -440,7 +442,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                                   onChanged: (newValue) {
                                                     for(var a in snapshot.data!){
                                                       if(a.zoneName == newValue){
-                                                        zoneId = a.zoneID!;
+                                                        zoneId = a.zoneId!;
                                                         selectedZoneId = zoneId;
                                                         print("Zone id :: ${selectedZoneId}");
                                                         //empTypeId = docType;
@@ -472,7 +474,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                           },
                                         ),
                                         onSearch: () { setState(() {
-                                        _searchByFilter();
+                                        _searchByFilter(zoneId:selectedZoneId);
                                       });},);
                                     },
                                   );

@@ -1,52 +1,19 @@
 import 'dart:async';
 import 'dart:ui';
-
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
-// //                                     SingleChildScrollView(
-// //                                       scrollDirection: Axis.horizontal,
-// //                                       child: Row(
-// //                                         children: _buildCheckboxesCity(),
-// //                                       ),
-// //                                     ),
-// //                                   ],
-// //                                 ),
-// //                               ),
-// //                             ],
-// //                           ),
-// //                         ),
-// //                       ),
-// //                     ],
-// //                   ),
-// //                 ),
-// //               ),
-// //             ],
-// //           ),
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
-
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
-import 'package:shimmer/shimmer.dart';
-
-import '../../../../app/resources/const_string.dart';
-import '../../../../app/resources/value_manager.dart';
-import '../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
-import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 class OfferLetterScreen extends StatefulWidget {
   final String email;
@@ -81,7 +48,7 @@ class OfferLetterScreen extends StatefulWidget {
         required this.soecalityName,
         required this.clinicalName,
         required this.employeeId,
-        this.apiData
+         this.apiData
       });
 
   @override
@@ -223,7 +190,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   Text(
                     'Offer Letter',
                     style: GoogleFonts.firaSans(
-                      fontSize: 12,
+                      fontSize: 17,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xff1696C8),
                     ),
@@ -379,103 +346,110 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                   ),
                                 ),
                                 SizedBox(height: 5),
-                                FutureBuilder<List<AllCountyGetList>>(
-                                  future: getCountyZoneList(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState == ConnectionState.waiting) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 7),
-                                        child: Container(
-                                          height: 31,
-                                          width: 250,
-                                          decoration: BoxDecoration(color: ColorManager.white),
-                                        ),
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return const CustomDropdownTextField(
-                                        hintText:'Select County',
-                                        labelText: 'County',
-                                        labelStyle: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        labelFontSize: 12,
-                                        items: ['Error'],
-                                      );
-                                    } else if (snapshot.hasData) {
-                                      if (dropDownList.isEmpty) {
-                                        for (var i in snapshot.data!) {
-                                          dropDownList.add(DropdownMenuItem<String>(
-                                            child: Text(i.countyName),
-                                            value: i.countyName,
-                                          ));
-                                        }
-                                        if (selectedCounty == null && dropDownList.isNotEmpty) {
-                                          selectedCounty = dropDownList[0].value;
-                                          selectedCountyId = snapshot.data![0].countyId;
+                    FutureBuilder<List<AllCountyGetList>>(
+                      future: getCountyZoneList(context),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 7),
+                            child: Container(
+                              height: 31,
+                              width: 250,
+                              decoration: BoxDecoration(color: ColorManager.white),
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return const CustomDropdownTextField(
+                            hintText: 'Select County',
+                            labelText: 'County',
+                            labelStyle: TextStyle(
+                              fontSize: 12,
+                              color: Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            labelFontSize: 12,
+                            items: ['Error'],
+                          );
+                        } else if (snapshot.hasData) {
+                          // Clear dropdown list to avoid duplicates
+                          dropDownList.clear();
+
+                          // Add the default "Select" item
+                          dropDownList.add(DropdownMenuItem<String>(
+                            child: Text('Select County'),
+                            value: 'Select County',
+                          ));
+
+                          // Populate dropdown list with counties
+                          for (var i in snapshot.data!) {
+                            dropDownList.add(DropdownMenuItem<String>(
+                              child: Text(i.countyName),
+                              value: i.countyName,
+                            ));
+                          }
+
+                          // Set initial selectedCounty if not already set
+                          if (selectedCounty == null) {
+                            selectedCounty = 'Select County';
+                          }
+
+                          return StatefulBuilder(
+                            builder: (BuildContext context, StateSetter setState) {
+                              return Container(
+                                height: 31,
+                                width: 250,
+                                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: DropdownButtonFormField<String>(
+                                  focusColor: Colors.transparent,
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_sharp,
+                                    color: Color(0xff686464),
+                                  ),
+                                  decoration: const InputDecoration.collapsed(hintText: ''),
+                                  items: dropDownList,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedCounty = newValue;
+                                      for (var a in snapshot.data!) {
+                                        if (a.countyName == newValue) {
+                                          selectedCountyId = a.countyId;
+                                          print("County Id :: ${selectedCountyId}");
+                                          // Perform other actions if needed
                                         }
                                       }
-                                      return StatefulBuilder(
-                                        builder: (BuildContext context, StateSetter setState) {
-                                          return Container(
-                                            height: 31,
-                                            width: 250,
-                                            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              border: Border.all(
-                                                  color: const Color(0xff686464).withOpacity(0.5), width: 1),
-                                              borderRadius: BorderRadius.circular(6),
-                                            ),
-                                            child: DropdownButtonFormField<String>(
-                                              focusColor: Colors.transparent,
-                                              icon: const Icon(
-                                                Icons.arrow_drop_down_sharp,
-                                                color: Color(0xff686464),
-                                              ),
-                                              decoration: const InputDecoration.collapsed(hintText: ''),
-                                              items: dropDownList,
-                                              onChanged: (newValue) {
-                                                setState(() {
-                                                  selectedCounty = newValue;
-                                                  for (var a in snapshot.data!) {
-                                                    if (a.countyName == newValue) {
-                                                      selectedCountyId = a.countyId;
-                                                      print("County Id :: ${selectedCountyId}");
-                                                      //reloadTabView();
-
-                                                      // You can perform other actions here like calling APIs without using the main setState
-                                                    }
-                                                  }
-                                                });
-                                              },
-                                              value: selectedCounty,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                                color: const Color(0xff686464),
-                                                decoration: TextDecoration.none,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    } else {
-                                      return CustomDropdownTextField(
-                                        labelText: 'County',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: const Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        labelFontSize: 12,
-                                        items: ['No Data'],
-                                      );
-                                    }
+                                    });
                                   },
+                                  value: selectedCounty,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xff686464),
+                                    decoration: TextDecoration.none,
+                                  ),
                                 ),
-                              ],
+                              );
+                            },
+                          );
+                        } else {
+                          return CustomDropdownTextField(
+                            labelText: 'County',
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: const Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            labelFontSize: 12,
+                            items: ['No Data'],
+                          );
+                        }
+                      },
+                    ),
+                    ],
                             ),
                                 SizedBox(
                                     height:
@@ -491,103 +465,107 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       color: ColorManager.mediumgrey,
                                     ),),
                                     SizedBox(height:5),
-                                    FutureBuilder<List<AEClinicalZone>>(
-                                      future: HrAddEmplyClinicalZoneApi(
-                                        context,
-                                      ),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 7),
-                                            child: Container(
-                                              height: 31,
-                                              width: 250,
-                                              decoration: BoxDecoration(
-                                                  color: ColorManager.white),
-                                            ),
-                                          );
+                    FutureBuilder<List<SortByZoneData>>(
+                      future: PayRateZoneDropdown(context),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 7),
+                            child: Container(
+                              height: 31,
+                              width: 250,
+                              decoration: BoxDecoration(color: ColorManager.white),
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return const CustomDropdownTextField(
+                            labelText: 'Zone',
+                            labelStyle: TextStyle(
+                              fontSize: 12,
+                              color: Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            labelFontSize: 12,
+                            items: ['Error'],
+                          );
+                        } else if (snapshot.hasData) {
+                          List<DropdownMenuItem<String>> dropDownList = [];
 
-                                        } else if (snapshot.hasError) {
-                                          return const CustomDropdownTextField(
-                                            //width: MediaQuery.of(context).size.width / 5,
-                                            labelText: 'Zone',
-                                            labelStyle: TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            labelFontSize: 12,
-                                            items: ['Error'],
-                                          );
-                                        } else if (snapshot.hasData) {
-                                          List<DropdownMenuItem<String>> dropDownList = [];
-                                          int zoneId = 0;
-                                          for(var i in snapshot.data!){
-                                            dropDownList.add(DropdownMenuItem<String>(
-                                              child: Text(i.zoneName!),
-                                              value: i.zoneName,
-                                            ));
-                                          }
+                          // Add the default "Select" item
+                          dropDownList.add(DropdownMenuItem<String>(
+                            child: Text('Select Zone'),
+                            value: 'Select Zone',
+                          ));
 
-                                          return Container(
-                                            height: 31,
-                                            width: 250,
-                                            // margin: EdgeInsets.symmetric(horizontal: 20),
-                                            padding:
-                                            const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              border: Border.all(
-                                                  color: const Color(0xff686464).withOpacity(0.5),
-                                                  width: 1), // Black border
-                                              borderRadius:
-                                              BorderRadius.circular(6), // Rounded corners
-                                            ),
-                                            child: DropdownButtonFormField<String>(
-                                              focusColor: Colors.transparent,
-                                              icon: const Icon(
-                                                Icons.arrow_drop_down_sharp,
-                                                color: Color(0xff686464),
-                                              ),
-                                              decoration: const InputDecoration.collapsed(hintText: ''),
-                                              items: dropDownList,
-                                              onChanged: (newValue) {
-                                                for(var a in snapshot.data!){
-                                                  if(a.zoneName == newValue){
-                                                    zoneId = a.zoneID!;
-                                                    selectedZoneId = zoneId;
-                                                    print("Zone Id :: ${selectedZoneId}");
-                                                    //empTypeId = docType;
-                                                  }
-                                                }
-                                              },
-                                              value: dropDownList[0].value,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                                color: const Color(0xff686464),
-                                                decoration: TextDecoration.none,
-                                              ),
-                                            ),
-                                          );
-                                        } else {
-                                          return CustomDropdownTextField(
-                                            // width: MediaQuery.of(context).size.width / 5,
-                                            labelText: 'Zone',
-                                            labelStyle: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              color: const Color(0xff575757),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            labelFontSize: 12,
-                                            items: ['No Data'],
-                                          );
+                          // Populate dropdown list with zones
+                          for (var i in snapshot.data!) {
+                            dropDownList.add(DropdownMenuItem<String>(
+                              child: Text(i.zoneName),
+                              value: i.zoneName,
+                            ));
+                          }
+
+                          // Set initial selectedZone if not already set
+                          String? selectedZone = 'Select Zone';
+
+                          return StatefulBuilder(
+                            builder: (BuildContext context, StateSetter setState) {
+                              return Container(
+                                height: 31,
+                                width: 250,
+                                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: const Color(0xff686464).withOpacity(0.5), width: 1),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: DropdownButtonFormField<String>(
+                                  focusColor: Colors.transparent,
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_sharp,
+                                    color: Color(0xff686464),
+                                  ),
+                                  decoration: const InputDecoration.collapsed(hintText: ''),
+                                  items: dropDownList,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedZone = newValue;
+                                      for (var a in snapshot.data!) {
+                                        if (a.zoneName == newValue) {
+                                          int zoneId = a.zoneId;
+                                          selectedZoneId = zoneId;
+                                          print("Zone Id :: ${selectedZoneId}");
+                                          // Perform other actions if needed
                                         }
-                                      },
-                                    ),
-                                  ],
+                                      }
+                                    });
+                                  },
+                                  value: selectedZone,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xff686464),
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          return CustomDropdownTextField(
+                            labelText: 'Zone',
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: const Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            labelFontSize: 12,
+                            items: ['No Data'],
+                          );
+                        }
+                      },
+                    ),
+                    ],
                                 )
                               ],
                             ),
@@ -762,30 +740,27 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
               SizedBox(height: MediaQuery.of(context).size.height / 40),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 100),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      width: 300,
-                      child: StatefulBuilder(
+                child: StatefulBuilder(
 
-                        builder: (BuildContext context, void Function(void Function()) setState) {
-                          return CustomDropdownFormField(
+                  builder: (BuildContext context, void Function(void Function()) setState) {
+                    return  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: 30,
+                          width: 300,
+                          child: CustomDropdownFormField(
                               hintText: 'Salaried',
                               items: ['Salaried', 'Per Visit'],
                               value: dropdownValue,
                               onChanged: (newValue){
                                 setState(() {
                                   dropdownValue = newValue! ?? 'Salaried';
+                                  print('dropDownValue ${dropdownValue}');
                                 });
-                              });
-                        },
-                      ),
-                    ),
-                    StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) {
-                        return  Row(
+                              }),
+                        ),
+                        Row(
                           children: [
                             if (_salary.isNotEmpty)
                               Text(
@@ -800,194 +775,205 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               width: 10,
                             ),
                             ElevatedButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12.0),
-                                      ),
-                                      titlePadding: EdgeInsets.zero,
-                                      title: Container(
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(12),
-                                            bottomLeft: Radius.circular(12),
-                                            bottomRight: Radius.circular(12),
-                                            topRight: Radius.circular(12),
-                                          ),
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(12.0),
                                         ),
-                                        width: 302,
-                                        height: 230,
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              height: 35,
-                                              width: double.infinity,
-                                              decoration: const BoxDecoration(
-                                                color: Color(0xff1696C8),
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(12.0),
-                                                  topRight: Radius.circular(12.0),
-                                                ),
-                                              ),
-                                              padding: EdgeInsets.only(right: 5,bottom: 5),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                children: [
-                                                  IconButton(
-                                                    icon: const Icon(Icons.close,
-                                                        color: Colors.white),
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
+                                        titlePadding: EdgeInsets.zero,
+                                        title: Container(
+                                          decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(12),
+                                              bottomLeft: Radius.circular(12),
+                                              bottomRight: Radius.circular(12),
+                                              topRight: Radius.circular(12),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 15.0, horizontal: 16.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Salary',
-                                                    style: GoogleFonts.firaSans(
-                                                        fontSize: 14.0,
-                                                        fontWeight: FontWeightManager.medium,
-                                                        color: ColorManager.mediumgrey),
+                                          ),
+                                          width: 302,
+                                          height: 230,
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                height: 35,
+                                                width: double.infinity,
+                                                decoration: const BoxDecoration(
+                                                  color: Color(0xff1696C8),
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(12.0),
+                                                    topRight: Radius.circular(12.0),
                                                   ),
-                                                  SizedBox(
-                                                    height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                        30,
-                                                  ),
-
-                                                  Container(
-                                                    height: 30,
-                                                    child: TextFormField(
-                                                      cursorColor: Colors.black,
-                                                      style: GoogleFonts.firaSans(
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeightManager.medium,
-                                                        color: ColorManager.mediumgrey,),
-                                                      decoration: InputDecoration(
-                                                        prefix:Text("\$ "),
-                                                        hintText: '0.00',
-                                                        hintStyle: GoogleFonts.firaSans(
-                                                            fontSize: 12,
-                                                            fontWeight: FontWeight.w700,
-                                                            color: const Color(
-                                                                0xff686464)),
-                                                        enabledBorder:
-                                                        OutlineInputBorder(
-                                                          borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                          borderSide: const BorderSide(
-                                                            color: Color(0xff51B5E6),
-                                                            width: 1.0,
-                                                          ),
-                                                        ),
-                                                        focusedBorder:
-                                                        OutlineInputBorder(
-                                                          borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                          borderSide: const BorderSide(
-                                                            color: Color(0xff51B5E6),
-                                                            width: 1.0,
-                                                          ),
-                                                        ),
-                                                        border: OutlineInputBorder(
-                                                          borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                          borderSide: const BorderSide(
-                                                            color: Color(0xff51B5E6),
-                                                            width: 1.0,
-                                                          ),
-                                                        ),
-                                                        contentPadding:
-                                                        const EdgeInsets.symmetric(
-                                                            horizontal: 16.0,
-                                                            vertical: 12.0),
-                                                      ),
-                                                      keyboardType:
-                                                      TextInputType.number,
-                                                      onChanged: (value) {
-                                                        setState((){
-                                                          _salary = value;
-                                                        });
-                                                        print("Salary:: ${_salary}");
+                                                ),
+                                                padding: EdgeInsets.only(right: 5,bottom: 5),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    IconButton(
+                                                      icon: const Icon(Icons.close,
+                                                          color: Colors.white),
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
                                                       },
                                                     ),
-                                                  ),
-                                                  SizedBox(
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    vertical: 15.0, horizontal: 16.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    dropdownValue == 'Salaried' ?  Text(
+                                                      'Salary',
+                                                      style: GoogleFonts.firaSans(
+                                                          fontSize: 14.0,
+                                                          fontWeight: FontWeightManager.medium,
+                                                          color: ColorManager.mediumgrey),
+                                                    ) : Text(
+                                                      'Per Visit',
+                                                      style: GoogleFonts.firaSans(
+                                                          fontSize: 14.0,
+                                                          fontWeight: FontWeightManager.medium,
+                                                          color: ColorManager.mediumgrey),
+                                                    ),
+                                                    SizedBox(
                                                       height: MediaQuery.of(context)
                                                           .size
                                                           .height /
-                                                          20),
-                                                  Center(
-                                                    child: ElevatedButton(
-                                                      onPressed: () {
-                                                        // Handle the submit action
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                      style: ElevatedButton.styleFrom(
-                                                        backgroundColor:
-                                                        const Color(0xff1696C8),
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
+                                                          30,
+                                                    ),
+                                                    Container(
+                                                      height: 30,
+                                                      child: TextFormField(
+                                                        cursorColor: Colors.black,
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeightManager.medium,
+                                                          color: ColorManager.mediumgrey,),
+                                                        decoration: InputDecoration(
+                                                          prefix:Text("\$ "),
+                                                          hintText: '0.00',
+                                                          hintStyle: GoogleFonts.firaSans(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeight.w700,
+                                                              color: const Color(
+                                                                  0xff686464)),
+                                                          enabledBorder:
+                                                          OutlineInputBorder(
+                                                            borderRadius:
+                                                            BorderRadius.circular(
+                                                                8.0),
+                                                            borderSide: const BorderSide(
+                                                              color: Color(0xff51B5E6),
+                                                              width: 1.0,
+                                                            ),
+                                                          ),
+                                                          focusedBorder:
+                                                          OutlineInputBorder(
+                                                            borderRadius:
+                                                            BorderRadius.circular(
+                                                                8.0),
+                                                            borderSide: const BorderSide(
+                                                              color: Color(0xff51B5E6),
+                                                              width: 1.0,
+                                                            ),
+                                                          ),
+                                                          border: OutlineInputBorder(
+                                                            borderRadius:
+                                                            BorderRadius.circular(
+                                                                8.0),
+                                                            borderSide: const BorderSide(
+                                                              color: Color(0xff51B5E6),
+                                                              width: 1.0,
+                                                            ),
+                                                          ),
+                                                          contentPadding:
+                                                          const EdgeInsets.symmetric(
+                                                              horizontal: 16.0,
+                                                              vertical: 12.0),
                                                         ),
+                                                        keyboardType:
+                                                        TextInputType.number,
+                                                        onChanged: (value) {
+                                                          setState((){
+                                                            _salary = value;
+                                                          });
+                                                          print("Salary:: ${_salary}");
+                                                        },
                                                       ),
-                                                      child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
-                                                            horizontal: 24.0,
-                                                            vertical: 8.0),
-                                                        child: Text(
-                                                          'Submit',
-                                                          style: GoogleFonts.firaSans(
-                                                              fontSize: 12.0,
-                                                              fontWeight:
-                                                              FontWeight.w700,
-                                                              color: Colors.white),
+                                                    ),
+                                                    SizedBox(
+                                                        height: MediaQuery.of(context)
+                                                            .size
+                                                            .height /
+                                                            20),
+                                                    Center(
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          // Handle the submit action
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        style: ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                          const Color(0xff1696C8),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            BorderRadius.circular(
+                                                                12),
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding: const EdgeInsets
+                                                              .symmetric(
+                                                              horizontal: 24.0,
+                                                              vertical: 8.0),
+                                                          child: Text(
+                                                            'Submit',
+                                                            style: GoogleFonts.firaSans(
+                                                                fontSize: 12.0,
+                                                                fontWeight:
+                                                                FontWeight.w700,
+                                                                color: Colors.white),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xff1696C8),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                                      );
+                                    },
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xff1696C8),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
                                 ),
-                              ),
-                              child: Text(
-                                'Add',
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
+                                child: dropdownValue == 'Salaried' ? Text(
+                                  'Add',
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ) : Text(
+                                  'Add Visit',
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                )
                             ),
                             SizedBox(width: 15),
                             // ElevatedButton(
@@ -1008,257 +994,16 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             //   ),
                             // ),
                           ],
-                        );
-                      },
-                    ),
-                  ],
+                        ),
+
+                      ],
+                    );
+                  },
                 ),
               ),
-
               SizedBox(height: MediaQuery.of(context).size.height / 30),
               SizedBox(height: MediaQuery.of(context).size.height / 30),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     if (_salary.isNotEmpty)
-              //       Text(
-              //         _salary,
-              //         style: GoogleFonts.firaSans(
-              //           fontSize: 14.0,
-              //           fontWeight: FontWeight.w400,
-              //           color: Colors.black,
-              //         ),
-              //       ),
-              //     SizedBox(width: MediaQuery.of(context).size.width / 120),
-              //     // ElevatedButton(
-              //     //   onPressed: () {
-              //     //     showDialog(
-              //     //       context: context,
-              //     //       builder: (BuildContext context) {
-              //     //         return AlertDialog(
-              //     //           shape: RoundedRectangleBorder(
-              //     //             borderRadius: BorderRadius.circular(12.0),
-              //     //           ),
-              //     //           titlePadding: EdgeInsets.zero,
-              //     //           title: Container(
-              //     //             decoration: const BoxDecoration(
-              //     //               color: Colors.white,
-              //     //               borderRadius: BorderRadius.only(
-              //     //                 topLeft: Radius.circular(12.0),
-              //     //                 topRight: Radius.circular(12.0),
-              //     //               ),
-              //     //             ),
-              //     //             width: 302,
-              //     //             height: 246,
-              //     //             child: Column(
-              //     //               mainAxisSize: MainAxisSize.min,
-              //     //               children: [
-              //     //                 Container(
-              //     //                   //height: 35,
-              //     //                   width: double.infinity,
-              //     //                   decoration: const BoxDecoration(
-              //     //                     color: Color(0xff1696C8),
-              //     //                     borderRadius: BorderRadius.only(
-              //     //                       topLeft: Radius.circular(12.0),
-              //     //                       topRight: Radius.circular(12.0),
-              //     //                     ),
-              //     //                   ),
-              //     //                   padding: const EdgeInsets.symmetric(
-              //     //                       vertical: 6.0, horizontal: 6.0),
-              //     //                   child: Align(
-              //     //                     alignment: Alignment.topRight,
-              //     //                     child: IconButton(
-              //     //                       icon: const Icon(Icons.close,
-              //     //                           color: Colors.white),
-              //     //                       onPressed: () {
-              //     //                         Navigator.of(context).pop();
-              //     //                       },
-              //     //                     ),
-              //     //                   ),
-              //     //                 ),
-              //     //                 Padding(
-              //     //                   padding: const EdgeInsets.symmetric(
-              //     //                       vertical: 15.0, horizontal: 16.0),
-              //     //                   child: Column(
-              //     //                     crossAxisAlignment:
-              //     //                         CrossAxisAlignment.start,
-              //     //                     children: [
-              //     //                       Text(
-              //     //                         'Salary',
-              //     //                         style: GoogleFonts.firaSans(
-              //     //                             fontSize: 16.0,
-              //     //                             fontWeight: FontWeight.w400,
-              //     //                             color: const Color(0xff686464)),
-              //     //                       ),
-              //     //                       SizedBox(
-              //     //                         height: MediaQuery.of(context)
-              //     //                                 .size
-              //     //                                 .height /
-              //     //                             30,
-              //     //                       ),
-              //     //                       TextFormField(
-              //     //                         cursorColor: Colors.black,
-              //     //                         decoration: InputDecoration(
-              //     //                           hintText: '0.00',
-              //     //                           hintStyle: GoogleFonts.firaSans(
-              //     //                               fontSize: 12,
-              //     //                               fontWeight: FontWeight.w700,
-              //     //                               color: const Color(0xff686464)),
-              //     //                           enabledBorder: OutlineInputBorder(
-              //     //                             borderRadius:
-              //     //                                 BorderRadius.circular(8.0),
-              //     //                             borderSide: const BorderSide(
-              //     //                               color: Color(0xff51B5E6),
-              //     //                               width: 1.0,
-              //     //                             ),
-              //     //                           ),
-              //     //                           focusedBorder: OutlineInputBorder(
-              //     //                             borderRadius:
-              //     //                                 BorderRadius.circular(8.0),
-              //     //                             borderSide: const BorderSide(
-              //     //                               color: Color(0xff51B5E6),
-              //     //                               width: 1.0,
-              //     //                             ),
-              //     //                           ),
-              //     //                           border: OutlineInputBorder(
-              //     //                             borderRadius:
-              //     //                                 BorderRadius.circular(8.0),
-              //     //                             borderSide: const BorderSide(
-              //     //                               color: Color(0xff51B5E6),
-              //     //                               width: 1.0,
-              //     //                             ),
-              //     //                           ),
-              //     //                           contentPadding:
-              //     //                               const EdgeInsets.symmetric(
-              //     //                                   horizontal: 16.0,
-              //     //                                   vertical: 12.0),
-              //     //                         ),
-              //     //                         keyboardType: TextInputType.number,
-              //     //                         onChanged: (value) {
-              //     //                           setState(() {
-              //     //                             _salary = value;
-              //     //                           });
-              //     //                         },
-              //     //                       ),
-              //     //                       SizedBox(
-              //     //                           height: MediaQuery.of(context)
-              //     //                                   .size
-              //     //                                   .height /
-              //     //                               20),
-              //     //                       Center(
-              //     //                         child: ElevatedButton(
-              //     //                           onPressed: () {
-              //     //                             // Handle the submit action
-              //     //                             Navigator.of(context).pop();
-              //     //                           },
-              //     //                           style: ElevatedButton.styleFrom(
-              //     //                             backgroundColor:
-              //     //                                 const Color(0xff1696C8),
-              //     //                             shape: RoundedRectangleBorder(
-              //     //                               borderRadius:
-              //     //                                   BorderRadius.circular(12),
-              //     //                             ),
-              //     //                           ),
-              //     //                           child: Padding(
-              //     //                             padding:
-              //     //                                 const EdgeInsets.symmetric(
-              //     //                                     horizontal: 24.0,
-              //     //                                     vertical: 8.0),
-              //     //                             child: Text(
-              //     //                               'Submit',
-              //     //                               style: GoogleFonts.firaSans(
-              //     //                                   fontSize: 12.0,
-              //     //                                   fontWeight: FontWeight.w700,
-              //     //                                   color: Colors.white),
-              //     //                             ),
-              //     //                           ),
-              //     //                         ),
-              //     //                       ),
-              //     //                     ],
-              //     //                   ),
-              //     //                 ),
-              //     //               ],
-              //     //             ),
-              //     //           ),
-              //     //         );
-              //     //       },
-              //     //     );
-              //     //   },
-              //     //   style: ElevatedButton.styleFrom(
-              //     //     backgroundColor: const Color(0xff1696C8),
-              //     //     foregroundColor: Colors.white,
-              //     //     shape: RoundedRectangleBorder(
-              //     //       borderRadius: BorderRadius.circular(12),
-              //     //     ),
-              //     //   ),
-              //     //   child: Text(
-              //     //     'Add',
-              //     //     style: GoogleFonts.firaSans(
-              //     //       fontSize: 12.0,
-              //     //       fontWeight: FontWeight.w700,
-              //     //     ),
-              //     //   ),
-              //     // ),
-              //   ],
-              // ),
               SizedBox(height: MediaQuery.of(context).size.height / 30),
-              // Container(
-              //   height: 40,
-              //   width: 300,
-              //   child: ElevatedButton(
-              //     onPressed: () {},
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: const Color(0xff1696C8),
-              //       foregroundColor: Colors.white,
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(8),
-              //       ),
-              //     ),
-              //     child: Text(
-              //       'Compensation',
-              //       style: GoogleFonts.firaSans(
-              //         fontSize: 12.0,
-              //         fontWeight: FontWeight.w800,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(height: MediaQuery.of(context).size.height / 80),
-              // Row(
-              //   children: [
-              //     ElevatedButton(
-              //       onPressed: ()  {
-              //         // TextEditingController issueDateController = TextEditingController();
-              //         // TextEditingController lastDateController = TextEditingController();
-              //         // TextEditingController startDateController = TextEditingController();
-              //         // TextEditingController verbalAcceptanceController = TextEditingController();
-              //         // TextEditingController patientsController = TextEditingController();
-              //       },
-              //       style: ElevatedButton.styleFrom(
-              //         backgroundColor: const Color(0xff1696C8),
-              //         foregroundColor: Colors.white,
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(8),
-              //         ),
-              //       ),
-              //       child: Text(
-              //         'Compensation',
-              //         style: GoogleFonts.firaSans(
-              //           fontSize: 12.0,
-              //           fontWeight: FontWeight.w800,
-              //         ),
-              //       ),
-              //     ),
-              //     SizedBox(
-              //       width: 15,
-              //     ),
-              //     Text(
-              //       'Not Defined',
-              //       style: GoogleFonts.firaSans(
-              //           fontSize: 12, fontWeight: FontWeight.w600),
-              //     )
-              //   ],
-              // ),
               SizedBox(height: MediaQuery.of(context).size.height / 50),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -1308,6 +1053,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               print('selected zipCode : ${selectedZipCodes}');
                               print('selected city : ${selectedCityName}');
                               print('Salari ${_salary}');
+                              print('Salari Type ${dropdownValue}');
                               print('PatianCount ${patientsController.text}');
                               try {
                                 var empEnrollOfferResponse = await addEmpEnrollOffers(

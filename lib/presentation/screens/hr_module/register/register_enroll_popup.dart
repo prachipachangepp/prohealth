@@ -29,6 +29,7 @@ class RegisterEnrollPopup extends StatefulWidget {
   final TextEditingController lastName;
   //final TextEditingController phone;
   final TextEditingController email;
+  final List<AEClinicalDiscipline> aEClinicalDiscipline;
   final int userId;
   final String role;
   final String status;
@@ -42,7 +43,7 @@ class RegisterEnrollPopup extends StatefulWidget {
     //required this.phone,
     required this.email,
     //required this.position,
-    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId,
+    required this.onPressed, required this.userId, required this.role, required this.status, required this.employeeId, required this.aEClinicalDiscipline,
     //required this.empId,
   });
 
@@ -165,6 +166,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
    int cityId = 0;
    String? selectedZone;
    int zoneId = 0;
+
 
 
    @override
@@ -373,7 +375,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               }
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
-                                for (var i in snapshot.data!) {
+                                for (var i in widget.aEClinicalDiscipline) {
                                   dropDownList.add(i.empType!);
                                 }
                                 return CustomDropdownTextField(
