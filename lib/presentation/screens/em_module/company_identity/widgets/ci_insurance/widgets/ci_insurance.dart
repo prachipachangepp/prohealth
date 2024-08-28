@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
@@ -17,6 +18,7 @@ import '../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../company_identity_screen.dart';
 import '../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../whitelabelling/success_popup.dart';
 import 'contract_add_dialog.dart';
 import 'custome_dialog.dart';
 
@@ -87,7 +89,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                       return Container(
                         width: 300,
                         child: Text(
-                          "Loading...",
+                          "Loading...... ",
                           style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeightManager.medium,
                             fontSize: FontSize.s12,
@@ -102,7 +104,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         height: 30,
                         width: 354,
                         child: Text(
-                          "Loading data",
+                          "Loading data....... ",
                           style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeightManager.medium,
                             fontSize: FontSize.s12,
@@ -111,23 +113,27 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         ),
                       );
                     }
-
                     if (snapshotZone.data!.isEmpty) {
-                      return Container(
-                        height: 30,
-                        width: 354,
-                        child: Center(
-                          child: Text(
-                            AppString.dataNotFound,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontWeight: FontWeightManager.medium,
-                              fontSize: FontSize.s12,
-                              color: ColorManager.mediumgrey,
-                            ),
-                          ),
-                        ),
-                      );
+                      return CICCDropdown(items: [],initialValue: 'No data available',);
                     }
+
+
+                    // if (snapshotZone.data!.isEmpty) {
+                    //   return Container(
+                    //     height: 30,
+                    //     width: 354,
+                    //     child: Center(
+                    //       child: Text(
+                    //         AppString.dataNotFound,
+                    //         style: CustomTextStylesCommon.commonStyle(
+                    //           fontWeight: FontWeightManager.medium,
+                    //           fontSize: FontSize.s12,
+                    //           color: ColorManager.mediumgrey,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   );
+                    // }
 
                     if (snapshotZone.hasData) {
                       List<DropdownMenuItem<String>> dropDownTypesList = [];
@@ -173,9 +179,10 @@ class _CiOrgDocumentState extends State<CIInsurance> {
 
                 ///tabbar
                 Padding(
-                  padding: const EdgeInsets.only(right: 250),
+                  padding: const EdgeInsets.only(right: 250,top: AppPadding.p10),
                   child: Container(
-                    width: MediaQuery.of(context).size.width / 7,
+                   // color: Colors.red,
+                    width: MediaQuery.of(context).size.width / 12,
                     height: 40,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,7 +191,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                           onTap: () => _selectButton(0,isAddButtonEnabled),
                           child: Container(
                             height: 40,
-                            width: 80,
+                            width: 50,
                             child: Column(
                               children: [
                                 Text(
@@ -213,7 +220,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                           onTap: () => _selectButton(1),
                           child: Container(
                             height: 40,
-                            width: 80,
+                            width: 50,
                             child: Column(
                               children: [
                                 Text(
@@ -338,11 +345,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                               widget.officeId,
                                               contractIdController.text,
                                             );
-                                            // } else {
-                                            //   ScaffoldMessenger.of(context).showSnackBar(
-                                            //     SnackBar(content: Text("Please select a vendor")),
-                                            //   );
-                                            // }
                                           },
                                           contractIdController:
                                           contractIdController,
@@ -354,10 +356,12 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                 );
                               }
                             : () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text("Please select a vendor")),
-                                );
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return VendorSelectNoti(message: "No Vendor Added.",);
+                            },
+                          );
                               },
                         enabled: isAddButtonEnabled,
                       ),

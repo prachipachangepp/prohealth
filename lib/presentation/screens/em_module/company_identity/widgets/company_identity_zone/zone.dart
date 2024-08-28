@@ -473,7 +473,6 @@ class _CiOrgDocumentState extends State<CiZone> {
                                 builder: (context) {
                                   print("Location passed to dialog: $_location");
                                   return AddZipCodePopup(
-
                                     title: 'Add Zip Code',
                                     countynameController: countynameController,
                                     cityNameController: cityController,
@@ -596,7 +595,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                AppString.dataNotFound,
+                                                "No Zone Added.",
+                                              //  AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
                                                   fontWeight:

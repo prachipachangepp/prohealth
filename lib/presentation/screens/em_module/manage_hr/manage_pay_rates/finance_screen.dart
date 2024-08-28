@@ -205,18 +205,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   ),
                 );
               }
-              // Set the initial value if not already set
               if (selectedServiceName == null && dropDownServiceList.isNotEmpty) {
                 selectedServiceName = dropDownServiceList[0].value;
               }
-
               return Container(
                 width: 200,
                 child: CICCDropdown(
-                  initialValue: selectedServiceName, // Set the selected value
+                  initialValue: selectedServiceName,
                   onChange: (val) {
                     setState(() {
-                      selectedServiceName = val; // Update the selected value
+                      selectedServiceName = val;
                       for (var service in snapshot.data!) {
                         if (service.serviceName == val) {
                           selectedServiceId = service.officeServiceId;

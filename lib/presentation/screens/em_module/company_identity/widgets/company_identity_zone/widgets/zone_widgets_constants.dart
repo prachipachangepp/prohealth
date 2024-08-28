@@ -682,7 +682,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       keyboardType: TextInputType.text,
                       text: 'Zip Code',
                     ),
-                    SizedBox(height: AppSize.s20),
+                    SizedBox(height: AppSize.s10),
 
                     ///
                     Row(
@@ -895,7 +895,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                       keyboardType: TextInputType.text,
                       text: 'Zip Code',
                     ),
-                    SizedBox(height: AppSize.s20),
+                    SizedBox(height: AppSize.s10),
                     Row(
                       children: [
                         TextButton(
