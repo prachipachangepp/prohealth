@@ -101,7 +101,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 padding: const EdgeInsets.all(8.0),
                 child: CustomButton(
                   borderRadius: 12,
-                  text: 'White-labelling',
+                  text: 'White Labelling',
                   style: CustomTextStylesCommon.commonStyle(
                     fontSize: FontSize.s12,
                     fontWeight: FontWeightManager.bold,

@@ -241,7 +241,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
           decoration: BoxDecoration(
             border: Border.all(
                 color: ColorManager.containerBorderGrey, width: AppSize.s1),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             children: [

@@ -407,8 +407,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                     cityNameController: cityController,
                                     zipcodeController: zipcodeController,
                                     onPickLocation: _pickLocation,
-                                    child1: FutureBuilder<
-                                            List<AllCountyGetList>>(
+                                    child1: FutureBuilder<List<AllCountyGetList>>(
                                         future: getCountyZoneList(context),
                                         builder: (context, snapshotZone) {
                                           if (snapshotZone.connectionState ==
