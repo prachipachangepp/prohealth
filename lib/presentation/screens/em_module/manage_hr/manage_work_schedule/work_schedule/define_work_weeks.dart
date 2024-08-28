@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -44,6 +45,10 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
       // Handle error
     });
   }
+
+  // Future<void> reloadBatch(String shiftName, String weekName) async{
+  //   List<ShiftBachesData> shiftBachesData = await  shiftBatchesGet(context,shiftName,weekName);
+  // }
  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -101,7 +106,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                     height: mediaQuery.height / 1,
                                     width: mediaQuery.width / 50,
                                     decoration: BoxDecoration(
-                                        color: ColorManager.faintOrange,
+                                        color: ColorManager.blueprime,
                                         borderRadius: const BorderRadius.only(
                                             topLeft: Radius.circular(10),
                                             bottomLeft: Radius.circular(10))),
@@ -467,14 +472,30 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                           );
                                                                                     });
                                                                               },
-                                                                              child: Text(
-                                                                                'Batches more',
-                                                                                style: GoogleFonts.firaSans(
-                                                                                  fontSize: mediaQuery.width / 115,
-                                                                                  fontWeight: FontWeightManager.light,
-                                                                                  color: ColorManager.faintgrey,
-                                                                                  decoration: TextDecoration.none,
-                                                                                ),
+                                                                              child: FutureBuilder<List<ShiftBachesData>>(
+                                                                                future: shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays),
+                                                                                builder: (context,snapshot) {
+                                                                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                                                                    return Text('');
+                                                                                  }
+                                                                                  if(snapshot.data!.isEmpty){
+                                                                                    return SizedBox(width:85);
+                                                                                  }
+                                                                                  if(snapshot.hasData){
+                                                                                    return Text(
+                                                                                      'Batches more',
+                                                                                      style: GoogleFonts.firaSans(
+                                                                                        fontSize: mediaQuery.width / 115,
+                                                                                        fontWeight: FontWeightManager.light,
+                                                                                        color: ColorManager.faintgrey,
+                                                                                        decoration: TextDecoration.none,
+                                                                                      ),
+                                                                                    );
+                                                                                  }else{
+                                                                                    return SizedBox();
+                                                                                  }
+
+                                                                                }
                                                                               ),
                                                                             ),
                                                                             Container(

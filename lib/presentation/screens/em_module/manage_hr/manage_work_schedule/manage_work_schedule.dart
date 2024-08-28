@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'work_schedule/define_holidays.dart';
 import 'work_schedule/define_work_weeks.dart';
 
@@ -99,10 +100,10 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   elevation: 4,
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    height: 28,
+                    height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 4.2,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(14),
                       color: ColorManager.blueprime,
                     ),
                     child: Row(
@@ -114,10 +115,10 @@ class _WorkScheduleState extends State<WorkSchedule> {
                             (entry) => InkWell(
                           child: Container(
                             height: 30,
-                            width: MediaQuery.of(context).size.width / 8.42,
+                            width: MediaQuery.of(context).size.width / 8.40,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(14),
                               color: widget.selectedIndex == entry.key
                                   ? Colors.white
                                   : null,
@@ -125,13 +126,13 @@ class _WorkScheduleState extends State<WorkSchedule> {
                             child: Text(
                               entry.value,
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(textStyle:TextStyle(
-                                fontSize: 12,
+                              style: GoogleFonts.firaSans(
+                                fontSize: AppSize.s12,
                                 fontWeight: FontWeightManager.semiBold,
                                 color: widget.selectedIndex == entry.key
                                     ? ColorManager.mediumgrey
                                     : Colors.white,
-                              ),)
+                              )
                             ),
                           ),
                           onTap: () => widget.selectButton(entry.key),

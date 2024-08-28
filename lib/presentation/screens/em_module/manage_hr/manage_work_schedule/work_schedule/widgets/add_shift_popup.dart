@@ -306,7 +306,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 23.0),
                     child: Text(
                       'Add Shift',
                       style: GoogleFonts.firaSans(
@@ -328,7 +328,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
+                vertical: AppPadding.p20,
                 horizontal: AppPadding.p20,
               ),
               child: Column(
