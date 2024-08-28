@@ -54,7 +54,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Pick a color'),
+          title: Text('Pick a Color'),
           content: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -125,7 +125,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
+                      padding: const EdgeInsets.only(left: 25.0),
                       child: Text(
                         widget.title,
                         style: GoogleFonts.firaSans(
@@ -164,7 +164,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                         if (_typeError != null)
                           Text(
                             _typeError!,
-                            style: TextStyle(color: Colors.red, fontSize: 12),
+                            style: TextStyle(color: Colors.red, fontSize: 10),
                           ),
                       ],
                     ),
@@ -200,7 +200,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                             decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 2),
+                        SizedBox(height: 5),
                         widget.child!,
                       ],
                     ),

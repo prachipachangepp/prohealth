@@ -134,7 +134,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
             decoration: TextDecoration.none,
           ),
         ),
-        SizedBox(height: 1,),
+        SizedBox(height: 5,),
         Container(
           width: 354,
           height: 30,
@@ -250,7 +250,7 @@ class _CapitalSMTextFConstState extends State<CapitalSMTextFConst> {
             decoration: TextDecoration.none,
           ),
         ),
-        SizedBox(height: 1,),
+        SizedBox(height: 5,),
         Container(
           width: 354,
           height: 30,
