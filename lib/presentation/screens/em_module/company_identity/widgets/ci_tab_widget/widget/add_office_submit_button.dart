@@ -94,6 +94,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    SizedBox(height: 10,),
                     SMTextFConst(
                       controller: widget.nameController,
                       keyboardType: TextInputType.text,
