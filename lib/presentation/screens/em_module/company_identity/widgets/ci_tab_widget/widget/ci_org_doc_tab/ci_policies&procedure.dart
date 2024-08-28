@@ -293,7 +293,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                       return StatefulBuilder(
                                                         builder: (BuildContext context, void Function(void Function()) setState) {
                                                           return CCScreenEditPopup(
-                                                            title: 'Edit License',
+                                                            title: 'Edit Policies Procedure',
                                                             id: documentPreId,
                                                             idDocController: docIdController,
                                                             nameDocController: docNameController,

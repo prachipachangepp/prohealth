@@ -370,7 +370,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                               BuildContext context,
                                                               void Function(void Function()) setState) {
                                                             return CCScreenEditPopup(
-                                                              title: 'Edit Leases & Services',
+                                                              title: 'Edit Licenses',
                                                               id: documentPreId,
                                                               idDocController: docIdController,
                                                               nameDocController: docNameController,
@@ -832,7 +832,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                                 BuildContext context,
                                                                 void Function(void Function()) setState) {
                                                               return DeletePopup(
-                                                                  title: 'Delete ADR',
+                                                                  title: 'Delete Licenses',
                                                                   loadingDuration: _isLoading,
                                                                   onCancel: () {
                                                                     Navigator

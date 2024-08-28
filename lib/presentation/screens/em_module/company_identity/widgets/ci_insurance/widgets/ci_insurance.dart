@@ -176,19 +176,20 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                   padding: const EdgeInsets.only(right: 250),
                   child: Container(
                     width: MediaQuery.of(context).size.width / 7,
-                    height: 40,
+                    height: 50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
                           onTap: () => _selectButton(0,isAddButtonEnabled),
                           child: Container(
-                            height: 40,
+                            height: 50,
                             width: 80,
                             child: Column(
                               children: [
                                 Text(
                                   "Vendor",
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 12,
                                     fontWeight: _selectedIndex == 0
@@ -212,12 +213,13 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         InkWell(
                           onTap: () => _selectButton(1),
                           child: Container(
-                            height: 40,
+                            height: 50,
                             width: 80,
                             child: Column(
                               children: [
                                 Text(
                                   "Contract",
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 12,
                                     fontWeight: _selectedIndex == 1
