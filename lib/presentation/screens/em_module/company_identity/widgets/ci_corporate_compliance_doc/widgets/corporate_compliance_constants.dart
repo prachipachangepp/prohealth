@@ -334,11 +334,11 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 25.0),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s13,
                         fontWeight: FontWeightManager.semiBold,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
@@ -359,8 +359,8 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
+                vertical: AppPadding.p18,
+                horizontal: AppPadding.p18,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -373,13 +373,13 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     keyboardType: TextInputType.text,
                     text: AppString.id_of_the_document,
                   ),
-                  SizedBox(height: AppSize.s10),
+                  SizedBox(height: AppSize.s12),
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
                     text: AppString.name_of_the_document,
                   ),
-                  SizedBox(height: AppSize.s10),
+                  SizedBox(height: AppSize.s12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -416,7 +416,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                 ],
               ),
             ),
-
+            SizedBox(height: AppSize.s5),
             ///radio
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
@@ -431,103 +431,6 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
               ),
               child: widget.child2,
             ),
-            // widget.calenderController == null ? Offstage() :
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(
-            //     vertical: AppPadding.p8,
-            //     horizontal: AppPadding.p20,
-            //   ),
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-            //       Text(AppString.expiry_date,
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: FontSize.s12,
-            //           fontWeight: FontWeightManager.bold,
-            //           color: ColorManager.mediumgrey,
-            //           decoration: TextDecoration.none,
-            //         ),
-            //       ),
-            //       SizedBox(
-            //         height: AppSize.s4,
-            //       ),
-            //       FormField<String>(
-            //         builder: (FormFieldState<String> field) {
-            //           return SizedBox(
-            //             width: AppSize.s354,
-            //             height: AppSize.s30,
-            //             child: TextFormField(
-            //               style: GoogleFonts.firaSans(
-            //                 fontSize: FontSize.s12,
-            //                 fontWeight: FontWeightManager.bold,
-            //                 color: ColorManager.mediumgrey,
-            //                 //decoration: TextDecoration.none,
-            //               ),
-            //               controller: widget.calenderController,
-            //               decoration: InputDecoration(
-            //                 focusColor: ColorManager.mediumgrey,
-            //                 hoverColor: ColorManager.mediumgrey,
-            //                 hintText: 'mm-dd-yyyy',
-            //                 hintStyle: GoogleFonts.firaSans(
-            //                   fontSize: FontSize.s12,
-            //                   fontWeight: FontWeightManager.bold,
-            //                   color: ColorManager.mediumgrey,
-            //                   //decoration: TextDecoration.none,
-            //                 ),
-            //                 border: OutlineInputBorder(
-            //                   borderRadius: BorderRadius.circular(8),
-            //                   borderSide: BorderSide(
-            //                       width: 1, color: ColorManager.mediumgrey),
-            //                 ),
-            //                 focusedBorder: OutlineInputBorder(
-            //                   borderRadius: BorderRadius.circular(8),
-            //                   borderSide: BorderSide(
-            //                       width: AppSize.s1,
-            //                       color: ColorManager.mediumgrey), // Set focused border color to red
-            //                 ),
-            //                 enabledBorder: OutlineInputBorder(
-            //                   borderRadius: BorderRadius.circular(8),
-            //                   borderSide: BorderSide(
-            //                       width: AppSize.s1,
-            //                       color: ColorManager.mediumgrey), // Set enabled border color to red
-            //                 ),
-            //                 contentPadding:
-            //                     EdgeInsets.symmetric(horizontal: 16),
-            //                 suffixIcon: Icon(Icons.calendar_month_outlined,
-            //                     color: ColorManager.blueprime),
-            //                 errorText: field.errorText,
-            //               ),
-            //               readOnly: true,
-            //               onTap: () async {
-            //                 DateTime? date = await showDatePicker(
-            //                   context: context,
-            //                   initialDate: DateTime.now(),
-            //                   firstDate: DateTime(1100),
-            //                   lastDate: DateTime(2026),
-            //                 );
-            //                 if (date != null) {
-            //                   String formattedDate =
-            //                       DateFormat('MM-dd-yyyy').format(date);
-            //                   widget.calenderController!.text = formattedDate;
-            //                   field.didChange(formattedDate);
-            //                   // birthdayController.text =
-            //                   // date.toLocal().toString().split(' ')[0];
-            //                   // field.didChange(date.toLocal().toString().split(' ')[0]);
-            //                 }
-            //               },
-            //               validator: (value) {
-            //                 if (value == null || value.isEmpty) {
-            //                   return 'Please select date';
-            //                 }
-            //                 return null;
-            //               },
-            //             ),
-            //           );
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
             SizedBox(height: AppSize.s20),
 
             ///button
@@ -645,14 +548,17 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.title,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s13,
-                      fontWeight: FontWeightManager.semiBold,
-                      color: ColorManager.white,
-                      decoration: TextDecoration.none,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25),
+                    child: Text(
+                      widget.title,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s13,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                   IconButton(

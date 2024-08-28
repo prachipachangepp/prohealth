@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:shimmer/shimmer.dart';
@@ -352,8 +354,8 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                             return const SizedBox();
                                                           }
                                                       ),
-                                                      child:  FutureBuilder<List<AllZoneData>>(
-                                                          future: getAllZone(context),
+                                                      child:  FutureBuilder<List<SortByZoneData>>(
+                                                          future: PayRateZoneDropdown(context),
                                                           builder: (context,snapshotZone) {
                                                             if(snapshotZone.connectionState == ConnectionState.waiting){
                                                               return Shimmer.fromColors(

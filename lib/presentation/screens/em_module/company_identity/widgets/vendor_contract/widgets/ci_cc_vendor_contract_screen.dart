@@ -176,7 +176,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                     InkWell(
                       child: Container(
                         height: 50,
-                        width: MediaQuery.of(context).size.width / 8.62,
+                        width: MediaQuery.of(context).size.width / 12,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -212,7 +212,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                     InkWell(
                       child: Container(
                         height: 50,
-                        width: MediaQuery.of(context).size.width / 8.62,
+                        width: MediaQuery.of(context).size.width /12,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -248,7 +248,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                     InkWell(
                       child: Container(
                         height: 50,
-                        width: MediaQuery.of(context).size.width / 8,
+                        width: MediaQuery.of(context).size.width / 12,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -285,7 +285,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width / 20,
+                width: MediaQuery.of(context).size.width / 9,
               ),
               CustomIconButton(
                 icon: CupertinoIcons.plus,
