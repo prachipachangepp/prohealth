@@ -597,27 +597,27 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   String? _idDocError;
   String? _nameDocError;
 
-  String? _validateTextField(String value, String fieldName) {
-    if (value.isEmpty) {
-      _isFormValid = false;
-      return "Please Enter $fieldName";
-    }
-    if (value[0] != value[0].toUpperCase()) {
-      _isFormValid = false;
-      return "$fieldName must start with a capital letter";
-    }
-    return null;
-  }
-
-  void _validateForm() {
-    setState(() {
-      _isFormValid = true;
-      _idDocError =
-          _validateTextField(widget.idDocController.text, 'ID of the Document');
-      _nameDocError = _validateTextField(
-          widget.nameDocController.text, 'Name of the Document');
-    });
-  }
+  // String? _validateTextField(String value, String fieldName) {
+  //   if (value.isEmpty) {
+  //     _isFormValid = false;
+  //     return "Please Enter $fieldName";
+  //   }
+  //   if (value[0] != value[0].toUpperCase()) {
+  //     _isFormValid = false;
+  //     return "$fieldName must start with a capital letter";
+  //   }
+  //   return null;
+  // }
+  //
+  // void _validateForm() {
+  //   setState(() {
+  //     _isFormValid = true;
+  //     _idDocError =
+  //         _validateTextField(widget.idDocController.text, 'ID of the Document');
+  //     _nameDocError = _validateTextField(
+  //         widget.nameDocController.text, 'Name of the Document');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -645,14 +645,18 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.title,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s13,
-                      fontWeight: FontWeightManager.semiBold,
-                      color: ColorManager.white,
-                      decoration: TextDecoration.none,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 27),
+                    child: Text(
+                      "Add Doctype",
+                     // widget.title,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s13,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                   IconButton(
@@ -685,17 +689,17 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     keyboardType: TextInputType.text,
                     text: AppString.id_of_the_document,
                   ),
-                  if (_idDocError != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2.0),
-                      child: Text(
-                        _idDocError!,
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: FontSize.s12,
-                        ),
-                      ),
-                    ),
+                  // if (_idDocError != null)
+                  //   Padding(
+                  //     padding: const EdgeInsets.only(top: 2.0),
+                  //     child: Text(
+                  //       _idDocError!,
+                  //       style: TextStyle(
+                  //         color: Colors.red,
+                  //         fontSize: FontSize.s12,
+                  //       ),
+                  //     ),
+                  //   ),
                   SizedBox(height: AppSize.s13),
 
                   /// Name of the Document
@@ -787,10 +791,12 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         height: AppSize.s30,
                         text: AppStringEM.add,
                         onPressed: () {
-                          _validateForm(); // Validate the form on button press
-                          if (_isFormValid) {
-                            widget.onPressed();
-                          }
+                          // _validateForm(); // Validate the form on button press
+                          // if (_isFormValid) {
+                          //   widget.onPressed();
+                          // }
+
+                          widget.onPressed();
                         },
                       ),
               ),
