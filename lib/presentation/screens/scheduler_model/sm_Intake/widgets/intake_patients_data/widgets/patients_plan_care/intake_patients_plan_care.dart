@@ -18,6 +18,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class IntakePlanCareScreen extends StatefulWidget {
+  final int patientId;
+
+  const IntakePlanCareScreen({super.key, required this.patientId});
   @override
   State<IntakePlanCareScreen> createState() => _IntakePlanCareScreenState();
 }
@@ -135,17 +138,14 @@ class _IntakePlanCareScreenState extends State<IntakePlanCareScreen> {
                                                     .where(
                                                         (abbr) => abbr != null)
                                                     .cast<String>()
-                                                    .toSet() // Ensure uniqueness
+                                                    .toSet()
                                                     .toList();
-
-                                            // Validate the selected value
                                             if (_selectedClinician != null &&
                                                 !abbreviations.contains(
                                                     _selectedClinician)) {
                                               _selectedClinician =
-                                                  null; // Reset if not in items
+                                                  null;
                                             }
-
                                             return CustomDropDown(
                                               labelText: 'Select Clinician',
                                               labelStyle: GoogleFonts.firaSans(
