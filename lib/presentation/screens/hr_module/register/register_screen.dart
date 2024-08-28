@@ -350,8 +350,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:65362/#/onBordingWelcome";
-                          // const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          // const url = "http://localhost:65362/#/onBordingWelcome";
+                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                            await launch(url);
                           //    Navigator.push(
@@ -392,6 +392,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onPressed: () async{
                             List<AEClinicalDiscipline> passData = await HrAddEmplyClinicalDisciplinApi(context,1);
                             showDialog(
+
                               context: context,
                               builder: (_) => FutureBuilder<RegisterDataUserIDPrefill>(
                                 future: getRegisterEnrollPrefillUserId(context, data.userId),

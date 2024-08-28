@@ -324,8 +324,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                   _isLoading = false;
                                                                                 });
                                                                               }
-
-
                                                                             });
                                                                   });
                                                             },
@@ -444,7 +442,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                             Container(
                                                                               height: mediaQuery.height / 30,
                                                                               width: mediaQuery.width / 15,
-                                                                              decoration: BoxDecoration(color: ColorManager.white, border: Border.all(color: Color(0xFFEEEEEE), width: 1), borderRadius: BorderRadius.circular(20)),
+                                                                              decoration: BoxDecoration(color: ColorManager.white,
+                                                                                  border: Border.all(color: Color(0xFFEEEEEE), width: 1),
+                                                                                  borderRadius: BorderRadius.circular(20)),
                                                                               child: Center(
                                                                                   child: Text(
                                                                                 snapshotShift.data![index].officeStartTime,
@@ -480,7 +480,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                             Container(
                                                                                 height: mediaQuery.height / 26,
                                                                                 width: mediaQuery.width / 55,
-                                                                                decoration: BoxDecoration(border: Border.all(color: ColorManager.faintOrange), borderRadius: BorderRadius.circular(5), color: ColorManager.white),
+                                                                                decoration: BoxDecoration(border: Border.all(
+                                                                                    color: ColorManager.faintOrange),
+                                                                                    borderRadius: BorderRadius.circular(5), color: ColorManager.white),
                                                                                 child: InkWell(
                                                                                   onTap: () {
                                                                                     showDialog(

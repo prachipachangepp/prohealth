@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -61,7 +62,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
         children: [
           Container(
             decoration: BoxDecoration(
-      border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(
                   12,
@@ -146,6 +147,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                   ],
                 ),
                 SizedBox(height: 10),
+
                 ///name of doc
                 Container(
                   height: AppSize.s30,
@@ -173,8 +175,8 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                           width: 1.0,
                         ),
                       ),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 10),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                     ),
                   ),
                 ),
@@ -182,7 +184,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                 widget.radioButton ?? Offstage(),
                 SizedBox(height: MediaQuery.of(context).size.height / 20),
                 widget.child2 ?? Offstage(),
-                SizedBox(height:10),
+                SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -196,7 +198,10 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
+
                 /// upload  doc
                 Container(
                   height: AppSize.s30,
@@ -240,7 +245,149 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                 ),
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+              child: Center(
+                child: widget.loadingDuration == true
+                    ? SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
+                      )
+                    : CustomElevatedButton(
+                        width: AppSize.s105,
+                        height: AppSize.s30,
+                        text: AppStringEM.save,
+                        onPressed: widget.onPressed,
+                      ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+///
+
+class AddClinicianPopup extends StatefulWidget {
+  // final TextEditingController idDocController;
+  // final TextEditingController nameDocController;
+  // final TextEditingController calenderController;
+  final VoidCallback onPressed;
+   final Widget? child;
+  final String title;
+  final String buttonTitle;
+
+  // final Widget? radioButton;
+  // final Widget? child2;
+   final bool? loadingDuration;
+
+  AddClinicianPopup({
+    super.key,
+    // required this.idDocController,
+    // required this.nameDocController,
+    // required this.calenderController,
+     required this.onPressed,
+    required this.title,
+    // this.radioButton,
+    // this.child2,
+     this.child,
+     this.loadingDuration, required this.buttonTitle,
+  });
+
+  @override
+  State<AddClinicianPopup> createState() => _AddClinicianPopupState();
+}
+
+class _AddClinicianPopupState extends State<AddClinicianPopup> {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      backgroundColor: ColorManager.white,
+      titlePadding: EdgeInsets.zero,
+      title: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(
+                  12,
+                ),
+                topLeft: Radius.circular(
+                  12,
+                ),
+              ),
+              color: Color(0xff50B5E5),
+            ),
+            height: AppSize.s40,
+            width: 408,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Text(
+                    widget.title,
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s14,
+                      fontWeight: FontWeightManager.bold,
+                      color: ColorManager.white,
+                    ),
+                  ),
+                ),
+                Spacer(),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: ColorManager.white,
+                  ),
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      content: Container(
+        height: 200,
+        width: AppSize.s250,
+        color: Colors.white,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Select Type of Clinician",
+              style: GoogleFonts.firaSans(
+                fontSize: FontSize.s12,
+                fontWeight: FontWeightManager.bold,
+                color: ColorManager.textPrimaryColor,
+              ),
+            ),
+            SizedBox(
+              height: AppSize.s5,
+            ),
+            SizedBox(height: 10),
+            widget.child ?? SizedBox(),
+            SizedBox(
+              height: 10,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: Center(
@@ -255,7 +402,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     : CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.save,
+                  text: widget.buttonTitle,
                   onPressed: widget.onPressed,
                 ),
               ),
