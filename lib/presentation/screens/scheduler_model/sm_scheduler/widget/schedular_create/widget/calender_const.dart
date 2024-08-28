@@ -355,11 +355,14 @@
 
 
 
-
 import 'package:flutter/material.dart';
 import 'package:calendar_view/calendar_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/scheduler/scheduler_create_manager.dart';
+import 'package:prohealth/data/api_data/sm_data/scheduler_create_data/schedular_data.dart';
 
 import 'assign_visit_pop_up.dart';
 
@@ -370,7 +373,84 @@ class CalenderConstant extends StatefulWidget {
 
 class _CalenderConstantState extends State<CalenderConstant> {
   String _selectedView = 'Week';
-  EventController eventController = EventController();
+  final EventController eventController = EventController();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAndSetEvents(context, 134); // Assuming clinicianId is 134 for demonstration purposes
+  }
+  List<CalendarEventData> allEvents = [];
+  Future<void> fetchAndSetEvents(BuildContext context, int clinicianId) async {
+    SchedularData? schedularData = await getSchedularByClinitian(context: context, clinicialId: clinicianId);
+
+    if (schedularData != null && schedularData.calender != null) {
+      var assignedDate;
+      DateTime staticStartTime1 = DateTime(2024, 8, 29, 01, 00); // August 20, 2024, 10:00 AM
+      //DateTime staticEndTime = DateTime(2024, 8, 29, 02, 30);
+
+      for (var calendarItem in schedularData.calender) {
+        var date = DateTime.parse(calendarItem.assignDate);
+        assignedDate =  DateFormat('yyyy, MM, dd').format(date);
+        DateTime startTime = DateTime.parse(calendarItem.startTime);
+        DateTime endTime = DateTime.parse(calendarItem.endTime);
+        DateTime assignStartTime = DateTime(date.year, date.month, date.day, startTime.hour,startTime.minute);
+        DateTime assignendTime = DateTime(date.year, date.month, date.day, endTime.hour,endTime.minute);
+        var formatedStartTime = DateFormat('yyyy, MM, dd, HH, mm').format(assignStartTime);
+        var formatedEndTime = DateFormat('yyyy, MM, dd, HH, mm').format(assignendTime);
+        List<String> endTimeParts = formatedEndTime.split(', ');
+        List<String> startTimeParts = formatedStartTime.split(', ');
+        int startTimeYear = int.parse(startTimeParts[0]);
+        int startTimeMonth = int.parse(startTimeParts[1]);
+        int startTimeDay = int.parse(startTimeParts[2]);
+        int startTimeHour = int.parse(startTimeParts[3]);
+        int startTimeMinute = int.parse(startTimeParts[4]);
+
+        int endTimeYear = int.parse(endTimeParts[0]);
+        int endTimeMonth = int.parse(endTimeParts[1]);
+        int endTimeDay = int.parse(endTimeParts[2]);
+        int endTimeHour = int.parse(endTimeParts[3]);
+        int endTimeMinute = int.parse(endTimeParts[4]);
+        DateTime staticStartTime = DateTime(startTimeYear, startTimeMonth, startTimeDay, startTimeHour, startTimeMinute);
+        DateTime staticendTime = DateTime(endTimeYear, endTimeMonth, endTimeDay, endTimeHour, endTimeMinute);
+        print("Formated Date ${staticendTime}");
+        print('static date ${staticStartTime1}');
+
+        // Create CalendarEventData for each event
+        CalendarEventData event = CalendarEventData(
+          title: calendarItem.visitType,
+          description: calendarItem.details,
+          date: date,
+          startTime: staticStartTime,
+          endTime: staticendTime,
+        );
+        eventController.add(event);
+        print('EventController ${eventController}');
+        // allEvents.add(
+        //     CalendarEventData(
+        //   title: calendarItem.visitType,
+        //   description: calendarItem.details,
+        //   date: startDate,
+        //   startTime: startDate,
+        //   endTime: endDate,
+        // ));
+        print("Event ${eventController.allEvents}");
+        try{
+          //CalendarControllerProvider.of(context).controller.add(eventData);
+          print(allEvents.length);
+          //allEvents.add(eventData);
+        }catch(e){
+          print(e);
+        }
+      }
+      print("Eventes ${allEvents}");
+
+     
+    } else {
+      print("No events found or data is null.");
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -391,8 +471,8 @@ class _CalenderConstantState extends State<CalenderConstant> {
                     ElevatedButton(
                       onPressed: () => setState(() => _selectedView = 'Day'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:_selectedView == 'Day' ? ColorManager.blueprime : ColorManager.white,
-                        foregroundColor:_selectedView == 'Day' ? ColorManager.white : ColorManager.mediumgrey,
+                        backgroundColor: _selectedView == 'Day' ? ColorManager.blueprime : ColorManager.white,
+                        foregroundColor: _selectedView == 'Day' ? ColorManager.white : ColorManager.mediumgrey,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       ),
                       child: Text('Day'),
@@ -401,7 +481,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
                     ElevatedButton(
                       onPressed: () => setState(() => _selectedView = 'Week'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:_selectedView == 'Week' ? ColorManager.blueprime : ColorManager.white,
+                        backgroundColor: _selectedView == 'Week' ? ColorManager.blueprime : ColorManager.white,
                         foregroundColor: _selectedView == 'Week' ? ColorManager.white : ColorManager.mediumgrey,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       ),
@@ -434,50 +514,118 @@ class _CalenderConstantState extends State<CalenderConstant> {
   }
 
   Widget _buildCalendarView() {
-    switch (_selectedView) {
-      case 'Week':
-        return WeekView(
-          controller: eventController,
-          minDay: DateTime(1990),
-          maxDay: DateTime(2050),
-          initialDay: DateTime.now(),
-          showLiveTimeLineInAllDays: true,
-          heightPerMinute: 1,
-          timeLineBuilder: _timeLineBuilder,
-          timeLineWidth: 80,
-          liveTimeIndicatorSettings: const LiveTimeIndicatorSettings(
-            color: Colors.black,
-            height: 2,
-          ),
-          eventArranger: const SideEventArranger(),
-          onDateTap: _onDateLongPress,
-        );
-      case 'Month':
-        return MonthView(
-          controller: eventController,
-          minMonth: DateTime(1990),
-          maxMonth: DateTime(2050),
-          initialMonth: DateTime.now(),
-          onCellTap: (events, date) => _onDateLongPress(date),
-        );
-      case 'Day':
-      default:
-        return DayView(
-          controller: eventController,
-          minDay: DateTime(1990),
-          maxDay: DateTime(2050),
-          initialDay: DateTime.now(),
-          showLiveTimeLineInAllDays: true,
-          heightPerMinute: 1,
-          timeLineBuilder: _timeLineBuilder,
-          timeLineWidth: 80,
-          liveTimeIndicatorSettings: const LiveTimeIndicatorSettings(
-            color: Colors.black,
-            height: 2,
-          ),
-          eventArranger: const SideEventArranger(),
-          onDateLongPress: _onDateLongPress,
-        );
+    try {
+      switch (_selectedView) {
+        case 'Week':
+          return
+            WeekView(
+            controller: eventController,
+            eventTileBuilder: (date, events, boundary, start, end) {
+              return ListView(
+                children: events.map((event) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: ColorManager.blueprime,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(event.title, style: GoogleFonts.firaSans(
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.white,
+                        )),
+                        Text(event.description!,style: GoogleFonts.firaSans(
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.white,
+                        )),
+                        Text('Start: ${DateFormat('hh:mm a').format(event.startTime!)}', style: GoogleFonts.firaSans(
+                          fontWeight: FontWeightManager.bold,
+                          fontSize: FontSize.s10,
+                          color: ColorManager.white,
+                        )),
+                        Text('End: ${DateFormat('hh:mm a').format(event.endTime!)}', style: GoogleFonts.firaSans(
+                          fontWeight: FontWeightManager.bold,
+                          fontSize: FontSize.s10,
+                          color: ColorManager.white,
+                        )),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              );
+            },
+            fullDayEventBuilder: (events, date) {
+              return ListView(
+                children: events.map((event) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(event.title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                        Text(event.description!, style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              );
+            },
+            minDay: DateTime(1990),
+            maxDay: DateTime(2050),
+            initialDay: DateTime.now(),
+            showLiveTimeLineInAllDays: true,
+            heightPerMinute: 1,
+            timeLineBuilder: _timeLineBuilder,
+            timeLineWidth: 80,
+            liveTimeIndicatorSettings: const LiveTimeIndicatorSettings(
+              color: Colors.black,
+              height: 2,
+            ),
+            eventArranger: const SideEventArranger(),
+            onDateTap: _onDateLongPress,
+          );
+        case 'Month':
+          return MonthView(
+            controller: eventController,
+            minMonth: DateTime(1990),
+            maxMonth: DateTime(2050),
+            onCellTap: (events, date) => _onDateLongPress(date),
+          );
+        case 'Day':
+        default:
+          return DayView(
+            controller: eventController,
+            minDay: DateTime(1990),
+            maxDay: DateTime(2050),
+            initialDay: DateTime.now(),
+            showLiveTimeLineInAllDays: true,
+            heightPerMinute: 1,
+            timeLineBuilder: _timeLineBuilder,
+            timeLineWidth: 80,
+            liveTimeIndicatorSettings: const LiveTimeIndicatorSettings(
+              color: Colors.black,
+              height: 2,
+            ),
+            eventArranger: const SideEventArranger(),
+            onDateLongPress: _onDateLongPress,
+          );
+      }
+    } catch (e) {
+      print('Error occurred: $e');
+      return Center(
+        child: Text(
+          'Something went wrong',
+          style: TextStyle(color: Colors.red),
+        ),
+      );
     }
   }
 
@@ -501,3 +649,4 @@ class _CalenderConstantState extends State<CalenderConstant> {
     );
   }
 }
+

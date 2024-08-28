@@ -24,8 +24,9 @@ class PopUpTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller =
-        TextEditingController(text: initialValue);
+    // final TextEditingController controller =
+    //     TextEditingController(text: initialValue);
+    var dateSelected;
 
     Future<void> _selectDate(BuildContext context) async {
       final DateTime? selectedDate = await showDatePicker(
@@ -36,7 +37,17 @@ class PopUpTextField extends StatelessWidget {
       );
 
       if (selectedDate != null) {
-        controller.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+        DateTime dateTimeWithCurrentTime = DateTime(
+          selectedDate.year,
+          selectedDate.month,
+          selectedDate.day,
+          DateTime.now().hour,
+          DateTime.now().minute,
+          DateTime.now().second,
+        );
+
+        controller!.text = DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTimeWithCurrentTime)+ 'Z';
+        dateSelected =  DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTimeWithCurrentTime)+ 'Z';
       }
     }
 
@@ -55,9 +66,11 @@ class PopUpTextField extends StatelessWidget {
           selectedTime.hour,
           selectedTime.minute,
         );
-        // controller.text = DateFormat('HH:mm').format(selectedDateTime);
-        controller.text = DateFormat('HH:mm:ss').format(selectedDateTime) + 'Z';
+
+        // Format the date and time in UTC
+        controller!.text = DateFormat('yyyy-MM-ddTHH:mm:ss').format(selectedDateTime) + 'Z';
       }
+
     }
 
     return SizedBox(
