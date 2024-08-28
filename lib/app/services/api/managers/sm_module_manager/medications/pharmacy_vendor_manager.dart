@@ -37,7 +37,7 @@ Future<ApiData> postMedicationScreen(
         "SuppliesDME": SuppliesDME,
         "DMEContact": DMEContact,
         "DMEPhone": DMEPhone,
-        "DMEDeliverBy":   "${DMEDeliverBy}T00:00:00Z",           //"2024-08-17T17:02:19.623Z",
+        "DMEDeliverBy": "${DMEDeliverBy}T00:00:00Z",           //"2024-08-17T17:02:19.623Z",
         "DMEFax": DMEFax,
         "pharmacy": pharmacy,
         "DME_Contact1": DME_Contact1,

@@ -14,8 +14,8 @@ import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dar
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakePharmacyVendorScreen extends StatefulWidget {
-
-  IntakePharmacyVendorScreen({super.key, });
+  final int patientId;
+  IntakePharmacyVendorScreen({super.key, required this.patientId, });
 
   @override
   State<IntakePharmacyVendorScreen> createState() =>
@@ -72,8 +72,7 @@ class _IntakePharmacyVendorScreenState
                       onPressed: () async {
                         await postMedicationScreen(
                             context,
-                            1,
-                            //widget.patientId,
+                            widget.patientId,
                             dmeSupplies.toString(),
                             dmeContact.text,
                             dmephone.text,
@@ -89,6 +88,8 @@ class _IntakePharmacyVendorScreenState
                             pharmacydeliverby.text,
                             pharmacyfax.text,
                             pharmacycontactsecond.text);
+                        print("${dmeDeliverby.text}");
+                        print("${pharmacydeliverby.text}");
                       },
                       child: Text(
                         AppString.save,

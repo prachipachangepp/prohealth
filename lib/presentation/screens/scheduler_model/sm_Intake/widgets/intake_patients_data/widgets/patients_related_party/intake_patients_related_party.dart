@@ -96,7 +96,7 @@ class _RelatedPartiesScreenstate extends State<IntakeRelatedPartiesScreen> {
                           onPressed: () async {
                             await IntakeRelatedPartyAdd(
                                 context,
-                                1,
+                                widget.patientId,
                                 ctlrEmgContact.text,
                                 ctlrTelphoneNo.text,
                                 selectedRelationshipEC.toString(),

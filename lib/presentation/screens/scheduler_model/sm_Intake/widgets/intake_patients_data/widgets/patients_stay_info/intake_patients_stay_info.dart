@@ -17,7 +17,8 @@ import '../../../../../widgets/constant_widgets/button_constant.dart';
 
 
 class IntakePatientsStayInfoScreen extends StatefulWidget {
-  const IntakePatientsStayInfoScreen({Key? key}) : super(key: key);
+  final int patientId;
+  const IntakePatientsStayInfoScreen({super.key, required this.patientId});
 
   @override
   State<IntakePatientsStayInfoScreen> createState() => _IntakePatientsStayInfoScreenState();
@@ -80,7 +81,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                         icon: Icons.add,
                         onPressed: () async {
                          await  InfoStayPatientData(context,
-                             1,
+                             widget.patientId,
                              selectedFacility.toString() ?? "",
                              ctlrMedicalRecord.text,
                              selectedStatus.toString() ?? "",
@@ -389,12 +390,6 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                   }
                 },
               ),
-
-
-
-                // child: SchedularTextField(
-                //   controller: ctlrCity,
-                //     labelText:  AppString.city)
             ),
             SizedBox(width: AppSize.s35),
             Flexible(
@@ -502,15 +497,6 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 },
               ),
 
-
-
-                // child: SchedularDropdown(
-                //     labelText:  AppString.state,
-                //     items: ['Option 1', 'Option 2', 'Option 3'],  onChanged: (newValue) {
-                //   setState(() {
-                //     selectedState = newValue;
-                //   });
-                // },)
             ),
           ],
         ),
@@ -528,7 +514,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrAdmitDate,
                     labelText: 'Admit Date',
-                  suffixIcon: Icon(Icons.calendar_month_outlined),
+                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                     )
             ),
             SizedBox(width: AppSize.s35),
@@ -554,7 +540,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrDateSurgery,
                     labelText: 'Date of Surgery/ Procedure',
-                  suffixIcon: Icon(Icons.calendar_month_outlined),
+                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                  )
             ),
             SizedBox(width: AppSize.s35),
@@ -585,7 +571,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrStartDate ,
                     labelText: AppString.startdate,
-                  suffixIcon: Icon(Icons.calendar_month_outlined),
+                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
 
                 )
             ),
@@ -594,7 +580,7 @@ class _IntakePatientsStayInfoScreenState extends State<IntakePatientsStayInfoScr
                 child: SchedularTextField(
                   controller: ctlrEndDate ,
                     labelText: AppString.enddate,
-                    suffixIcon: Icon(Icons.calendar_month_outlined),
+                    suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                     // isDate: true
                 )
             ),

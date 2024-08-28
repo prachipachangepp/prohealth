@@ -265,7 +265,7 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                       try {
                          await addNotesMiscPost(
                           context: context,
-                          patientId:1,             //widget.patientId,
+                          patientId:widget.patientId,
                           docTypeId: 1,          //  docTypeId,
                           docName: nameController.text,
                           docUrl: "some_doc_url",
@@ -416,180 +416,180 @@ class _IntakeNotesMiscellaneousScreenState extends State<IntakeNotesMiscellaneou
                                             padding: const EdgeInsets.only(right: 50.0),
                                             child: Row(
                                               children: [
-                                                IconButton(
-                                                  icon: Icon(
-                                                      size: 20,
-                                                    Icons.history,
-                                                    color: ColorManager.granitegray
-                                                  ),
-                                                  onPressed: () {},
-                                                ),
-                                                SizedBox(width: MediaQuery.of(context).size.width / 120),
-                                                IconButton(
-                                                  icon: Icon(
-                                                    size: 20,
-                                                    Icons.print_outlined,
-                                                      color:  ColorManager.granitegray
-                                                  ),
-                                                  onPressed: () async {
-                                                    final pdf = pw.Document();
-
-                                                    final miscNotes = snapshot.data!;
-
-                                                    miscNotes.forEach((note) {
-                                                      pdf.addPage(
-                                                        pw.Page(
-                                                          build: (pw.Context context) => pw.Column(
-                                                            mainAxisAlignment: pw.MainAxisAlignment.start,
-                                                            crossAxisAlignment: pw.CrossAxisAlignment.start,
-                                                            children: [
-                                                              pw.Text(
-                                                                'Miscellaneous Note',
-                                                                style: pw.TextStyle(
-                                                                  fontSize: FontSize.s18,
-                                                                  fontWeight: pw.FontWeight.bold,
-                                                                ),
-                                                              ),
-                                                              pw.Divider(),
-                                                              pw.SizedBox(height: AppSize.s20),
-                                                              pw.Table(
-                                                                border: pw.TableBorder.all(),
-                                                                children: [
-                                                                  pw.TableRow(
-                                                                    children: [
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(
-                                                                          'Misc ID',
-                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text('${note.miscNoteId}'),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  pw.TableRow(
-                                                                    children: [
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(
-                                                                          'Patient ID',
-                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text('${note.patientId}'),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  pw.TableRow(
-                                                                    children: [
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(
-                                                                          'Doc Type ID',
-                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text('${note.docTypeId}'),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  pw.TableRow(
-                                                                    children: [
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(
-                                                                          'Doc Type',
-                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(note.docType.isNotEmpty ? note.docType : 'N/A'),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  pw.TableRow(
-                                                                    children: [
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(
-                                                                          'Doc URL',
-                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(note.docUrl.isNotEmpty ? note.docUrl : 'N/A'),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  pw.TableRow(
-                                                                    children: [
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(
-                                                                          'Name',
-                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(note.name.isNotEmpty ? note.name : 'N/A'),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  pw.TableRow(
-                                                                    children: [
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(
-                                                                          'Created At',
-                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(note.createdAt.isNotEmpty ? note.createdAt : 'N/A'),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  pw.TableRow(
-                                                                    children: [
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(
-                                                                          'Expiry Date',
-                                                                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                                                                        ),
-                                                                      ),
-                                                                      pw.Padding(
-                                                                        padding: pw.EdgeInsets.all(8.0),
-                                                                        child: pw.Text(note.expDate.isNotEmpty ? note.expDate : 'N/A'),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      );
-                                                    });
-
-                                                    await Printing.layoutPdf(
-                                                      onLayout: (PdfPageFormat format) async => pdf.save(),
-                                                    );
-                                                  },
-                                                ),
-
-                                                SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                                // IconButton(
+                                                //   icon: Icon(
+                                                //       size: 20,
+                                                //     Icons.history,
+                                                //     color: ColorManager.granitegray
+                                                //   ),
+                                                //   onPressed: () {},
+                                                // ),
+                                                // SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                                // IconButton(
+                                                //   icon: Icon(
+                                                //     size: 20,
+                                                //     Icons.print_outlined,
+                                                //       color:  ColorManager.granitegray
+                                                //   ),
+                                                //   onPressed: () async {
+                                                //     final pdf = pw.Document();
+                                                //
+                                                //     final miscNotes = snapshot.data!;
+                                                //
+                                                //     miscNotes.forEach((note) {
+                                                //       pdf.addPage(
+                                                //         pw.Page(
+                                                //           build: (pw.Context context) => pw.Column(
+                                                //             mainAxisAlignment: pw.MainAxisAlignment.start,
+                                                //             crossAxisAlignment: pw.CrossAxisAlignment.start,
+                                                //             children: [
+                                                //               pw.Text(
+                                                //                 'Miscellaneous Note',
+                                                //                 style: pw.TextStyle(
+                                                //                   fontSize: FontSize.s18,
+                                                //                   fontWeight: pw.FontWeight.bold,
+                                                //                 ),
+                                                //               ),
+                                                //               pw.Divider(),
+                                                //               pw.SizedBox(height: AppSize.s20),
+                                                //               pw.Table(
+                                                //                 border: pw.TableBorder.all(),
+                                                //                 children: [
+                                                //                   pw.TableRow(
+                                                //                     children: [
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(
+                                                //                           'Misc ID',
+                                                //                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                //                         ),
+                                                //                       ),
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text('${note.miscNoteId}'),
+                                                //                       ),
+                                                //                     ],
+                                                //                   ),
+                                                //                   pw.TableRow(
+                                                //                     children: [
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(
+                                                //                           'Patient ID',
+                                                //                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                //                         ),
+                                                //                       ),
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text('${note.patientId}'),
+                                                //                       ),
+                                                //                     ],
+                                                //                   ),
+                                                //                   pw.TableRow(
+                                                //                     children: [
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(
+                                                //                           'Doc Type ID',
+                                                //                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                //                         ),
+                                                //                       ),
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text('${note.docTypeId}'),
+                                                //                       ),
+                                                //                     ],
+                                                //                   ),
+                                                //                   pw.TableRow(
+                                                //                     children: [
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(
+                                                //                           'Doc Type',
+                                                //                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                //                         ),
+                                                //                       ),
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(note.docType.isNotEmpty ? note.docType : 'N/A'),
+                                                //                       ),
+                                                //                     ],
+                                                //                   ),
+                                                //                   pw.TableRow(
+                                                //                     children: [
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(
+                                                //                           'Doc URL',
+                                                //                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                //                         ),
+                                                //                       ),
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(note.docUrl.isNotEmpty ? note.docUrl : 'N/A'),
+                                                //                       ),
+                                                //                     ],
+                                                //                   ),
+                                                //                   pw.TableRow(
+                                                //                     children: [
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(
+                                                //                           'Name',
+                                                //                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                //                         ),
+                                                //                       ),
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(note.name.isNotEmpty ? note.name : 'N/A'),
+                                                //                       ),
+                                                //                     ],
+                                                //                   ),
+                                                //                   pw.TableRow(
+                                                //                     children: [
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(
+                                                //                           'Created At',
+                                                //                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                //                         ),
+                                                //                       ),
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(note.createdAt.isNotEmpty ? note.createdAt : 'N/A'),
+                                                //                       ),
+                                                //                     ],
+                                                //                   ),
+                                                //                   pw.TableRow(
+                                                //                     children: [
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(
+                                                //                           'Expiry Date',
+                                                //                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                                //                         ),
+                                                //                       ),
+                                                //                       pw.Padding(
+                                                //                         padding: pw.EdgeInsets.all(8.0),
+                                                //                         child: pw.Text(note.expDate.isNotEmpty ? note.expDate : 'N/A'),
+                                                //                       ),
+                                                //                     ],
+                                                //                   ),
+                                                //                 ],
+                                                //               ),
+                                                //             ],
+                                                //           ),
+                                                //         ),
+                                                //       );
+                                                //     });
+                                                //
+                                                //     await Printing.layoutPdf(
+                                                //       onLayout: (PdfPageFormat format) async => pdf.save(),
+                                                //     );
+                                                //   },
+                                                // ),
+                                                // SizedBox(width: MediaQuery.of(context).size.width / 120),
+                                                //
                                                 IconButton(
                                                   icon: Icon(
                                                     size: 20,

@@ -11,7 +11,8 @@ import '../../../../../../app/resources/font_manager.dart';
 import '../../../widgets/constant_widgets/schedular_success_popup.dart';
 
 class SMIntakeReferralScreen extends StatefulWidget {
-  const SMIntakeReferralScreen({super.key});
+  final int patientId;
+  const SMIntakeReferralScreen({super.key, required this.patientId});
 
   @override
   State<SMIntakeReferralScreen> createState() => _SMIntakeReferralScreenState();
@@ -162,8 +163,8 @@ class _SMIntakeReferralScreenState extends State<SMIntakeReferralScreen> {
                 controller: smIntakePageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  IntakeReferralInfoScreen(),
-                  IntakeAgencyInfoScreen(),
+                  IntakeReferralInfoScreen(patientId: widget.patientId,),
+                  IntakeAgencyInfoScreen(patientId: widget.patientId,),
                 ]),
           ),
         ),

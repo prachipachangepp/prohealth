@@ -13,7 +13,8 @@ import '../../../../../../../../app/services/api/managers/sm_module_manager/phys
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 
 class PhysicianFaceToFace extends StatefulWidget {
-  const PhysicianFaceToFace({super.key});
+  final int patientId;
+  PhysicianFaceToFace({super.key, required this.patientId});
 
   @override
   State<PhysicianFaceToFace> createState() => _PhysicianFaceToFaceState();
@@ -64,9 +65,9 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                 onPressed: () async {
                   await postFaceToFaceScreen(
                     context,
-                    1,
+                    widget.patientId,
                     requiredftof.toString(),
-                    "2024-08-09",
+                    encounterdate.text,//"2024-08-09",
                     seenby.toString(),
                     encounterdate.text,
                     visitSchudule.toString(),
