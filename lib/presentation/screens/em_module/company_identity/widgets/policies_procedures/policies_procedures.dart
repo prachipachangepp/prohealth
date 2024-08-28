@@ -291,6 +291,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                             decoration: TextDecoration.none,
                                           ),
                                         ),
+                                        SizedBox(height: AppSize.s5,),
                                         FormField<String>(
                                           builder: (FormFieldState<String> field) {
                                             return SizedBox (
