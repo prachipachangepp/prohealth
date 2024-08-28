@@ -76,28 +76,61 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   List<PlatformFile>? pickedMobileFiles;
   List<PlatformFile>? pickedWebFiles;
 
-
+  ///old
+  // Future<void> pickMobileLogo() async {
+  //   FilePickerResult? result =
+  //       await FilePicker.platform.pickFiles(allowMultiple: true);
+  //   if (result != null) {
+  //     pickedMobileFiles = result.files;
+  //     filePath = result.files.first.bytes;
+  //     _mobileFilesStreamController.add(pickedMobileFiles!);
+  //     // type: FileType.image,
+  //     // allowMultiple: false,
+  //   }
+  // }
   Future<void> pickMobileLogo() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(allowMultiple: true);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom, // Custom type to specify allowed extensions
+      allowedExtensions: ['png', 'jpg', 'jpeg'], // Restrict to PNG, JPG, and JPEG
+    );
+
     if (result != null) {
       pickedMobileFiles = result.files;
       filePath = result.files.first.bytes;
       _mobileFilesStreamController.add(pickedMobileFiles!);
-      // type: FileType.image,
-      // allowMultiple: false,
+    } else {
+      // User canceled the picker or no valid files selected
+      // You can handle this scenario if needed
     }
   }
 
+
   Future<void> pickWebLogo() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(allowMultiple: true);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom, // Use custom file type to specify allowed extensions
+      allowedExtensions: ['png', 'jpg', 'jpeg'], // Restrict to PNG, JPG, and JPEG
+    );
+
     if (result != null) {
       pickedWebFiles = result.files;
       filePath = result.files.first.bytes;
       _webFilesStreamController.add(pickedWebFiles!);
+    } else {
+      // Handle the case where the user cancels the picker or no valid files are selected
     }
   }
+///old
+  // Future<void> pickWebLogo() async {
+  //   FilePickerResult? result =
+  //       await FilePicker.platform.pickFiles(allowMultiple: true);
+  //   if (result != null) {
+  //     pickedWebFiles = result.files;
+  //     filePath = result.files.first.bytes;
+  //     _webFilesStreamController.add(pickedWebFiles!);
+  //   }
+  // }
 
   void openFile(PlatformFile file) {
     OpenFile.open(file.path!);
@@ -220,7 +253,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Edit whitelabelling',
+                                                  'Edit White Labelling',
                                                   textAlign: TextAlign.center,
                                                   style: GoogleFonts.firaSans(
                                                     fontSize: 13,
@@ -255,6 +288,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment.start,
                                                     children: [
+                                                      ///company app logo title
                                                       Text("Company App Logo",
                                                           style: GoogleFonts
                                                               .firaSans(
@@ -266,9 +300,10 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                             color:
                                                                 Color(0xff686464),
                                                           )),
-                                      
+                                                      SizedBox(height: 5,),
                                                       ///main
                                                       Container(
+
                                                         width: 354,
                                                         height: 50,
                                                         decoration: BoxDecoration(
@@ -278,6 +313,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                               BorderRadius.all(
                                                                   Radius.circular(
                                                                       10)),
+                                                          // color: Colors.green,
                                                         ),
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -285,7 +321,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                   .start,
                                                           children: [
                                                             Padding(
-                                                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                              padding: const EdgeInsets.symmetric(horizontal:5),
                                                               child: Text(
                                                                   "Upload Immunization Records from PDF",
                                                                   style: GoogleFonts.firaSans(
@@ -297,84 +333,88 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                             ),
                                       
                                                             ///sub container
-                                                            StreamBuilder<
-                                                                List<
-                                                                    PlatformFile>>(
-                                                              stream:
-                                                                  _mobileFilesStreamController
-                                                                      .stream,
+                                                            StreamBuilder<List<PlatformFile>>(
+                                                              stream: _mobileFilesStreamController.stream,
                                                               builder: (context,
                                                                   snapshot) {
-                                                                return Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceAround,
-                                                                  children: [
-                                                                    Container(
-                                                                      width: 150,
-                                                                      height: 30,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        border: Border.all(
-                                                                            color:
-                                                                                Colors.grey),
-                                                                        borderRadius:
-                                                                            BorderRadius.all(
-                                                                                Radius.circular(10)),
-                                                                      ),
-                                                                      child: Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment
-                                                                                .spaceAround,
-                                                                        children: [
-                                                                          InkWell(
-                                                                            onTap:
-                                                                                pickMobileLogo,
-                                                                            child:
-                                                                                Container(
+                                                                return Padding(
+                                                                  padding: const EdgeInsets.all(3.0),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceAround,
+                                                                    children: [
+                                                                      Container(
+                                                                        width: 170,
+                                                                        height: 30,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          border: Border.all(
                                                                               color:
-                                                                                  Color(0xffD9D9D9),
-                                                                              child:
-                                                                                  Text(
-                                                                                "Choose File",
-                                                                                style: GoogleFonts.firaSans(
-                                                                                  fontSize: 10,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  color: Colors.grey,
+                                                                                  Colors.grey),
+                                                                          borderRadius:
+                                                                              BorderRadius.all(
+                                                                                  Radius.circular(10)),
+                                                                              // color: Colors.pink
+                                                                        ),
+                                                                        child: Padding(
+                                                                          padding: const EdgeInsets.all(1.0),
+                                                                          child: Row(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment
+                                                                                    .spaceAround,
+                                                                            children: [
+                                                                              InkWell(
+                                                                                onTap:
+                                                                                    pickMobileLogo,
+                                                                                child:
+                                                                                    Container(
+                                                                                  color:
+                                                                                      Color(0xffD9D9D9),
+                                                                                  child:
+                                                                                      Text(
+                                                                                    "Choose File",
+                                                                                    style: GoogleFonts.firaSans(
+                                                                                      fontSize: 10,
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      color: Colors.grey,
+                                                                                    ),
+                                                                                  ),
                                                                                 ),
                                                                               ),
-                                                                            ),
-                                                                          ),
-                                                                          if (snapshot
-                                                                              .hasData)
-                                                                            ...snapshot
-                                                                                .data!
-                                                                                .map((file) => InkWell(
-                                                                                      child: Container(
-                                                                                        padding: EdgeInsets.only(bottom: 15),
-                                                                                        // height: 30,
-                                                                                        // width: 90,
-                                                                                        child: Text(
-                                                                                          file.name.substring(0,10) + "...",
-                                                                                          textAlign: TextAlign.start,
-                                                                                          style: GoogleFonts.firaSans(
-                                                                                            fontSize: 10,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            color: Colors.grey,
+                                                                              // SizedBox(width: 2,),
+                                                                              if (snapshot
+                                                                                  .hasData)
+                                                                                ...snapshot
+                                                                                    .data!
+                                                                                    .map((file) => InkWell(
+                                                                                          child: Container(
+                                                                                            // padding: EdgeInsets.only(t: 15),
+                                                                                            height: 30,
+                                                                                            width: 90,
+                                                                                            child: Text(
+                                                                                              file.name.substring(0,13) + "",
+                                                                                              textAlign: TextAlign.center,
+                                                                                              style: GoogleFonts.firaSans(
+                                                                                                fontSize: 10,
+                                                                                                fontWeight: FontWeight.w500,
+                                                                                                color: Colors.grey,
+                                                                                              ),
+                                                                                            ),
                                                                                           ),
-                                                                                        ),
-                                                                                      ),
-                                                                                      onTap: () => openFile(file),
-                                                                                    ))
-                                                                                .toList(),
-                                                                        ],
+                                                                                          onTap: () => openFile(file),
+                                                                                        ))
+                                                                                    .toList(),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+
                                                                       ),
-                                                                    ),
-                                                                  ],
+                                                                    ],
+                                                                  ),
                                                                 );
                                                               },
                                                             ),
-                                      
                                                           ],
                                                         ),
                                                       ),
@@ -403,7 +443,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     text: AppStringEM.fax,
                                                   ),
                                                   SizedBox(height: AppSize.s15),
-
                                                   SMTextFConst(
                                                     controller: emailController,
                                                     keyboardType:
@@ -422,6 +461,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment.start,
                                                     children: [
+                                                      ///Company Web Logo title,
                                                       Text("Company Web Logo",
                                                           style: GoogleFonts
                                                               .firaSans(
@@ -433,6 +473,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                             color:
                                                                 Color(0xff686464),
                                                           )),
+                                                      SizedBox(height: 5,),
                                                       Container(
                                                         width: 354,
                                                         height: 50,
@@ -517,7 +558,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                                         // height: 30,
                                                                                         // width: 90,
                                                                                         child: Text(
-                                                                                          file.name.substring(0,10) + "...",
+                                                                                          file.name.substring(0,12) + "",
                                                                                           textAlign: TextAlign.start,
                                                                                           style: GoogleFonts.firaSans(
                                                                                             fontSize: 10,
@@ -561,7 +602,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     controller: addressController,
                                                     keyboardType:
                                                     TextInputType.text,
-                                                    text: AppStringEM.address,
+                                                    text: AppStringEM.headofficeaddress,
                                                   ),
 
                                                   SizedBox(

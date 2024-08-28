@@ -113,7 +113,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       controller: widget.addressController,
                       keyboardType:
                       TextInputType.streetAddress,
-                      text: AppString.address,
+                      text: AppString.officeaddress,
                     ),
                     const SizedBox(height: AppSize.s9),
                     SMTextFConst(

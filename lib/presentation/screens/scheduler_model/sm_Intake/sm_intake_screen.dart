@@ -20,7 +20,7 @@ class SMIntakeScreen extends StatefulWidget {
 class _SMIntakeScreenState extends State<SMIntakeScreen> {
   final PageController intakePageController = PageController(initialPage: 0);
   int _selectedIndex = 0;
-  int patientId = 0;
+  int patientId = 51;
 
   void intakeSelectButton(int index) {
     if (index == 0 || patientId != 0) {

@@ -434,7 +434,7 @@ Future<ApiData> postRDThreeScreen(
 ) async {
   try {
     var response = await Api(context).post(
-      path: PhysicianInfo.addpdrd(),
+      path: PhysicianInfo.addThreeRD(),
       data: {
         "patientId": patientId,
         "rDignosisId":rDignosisId,

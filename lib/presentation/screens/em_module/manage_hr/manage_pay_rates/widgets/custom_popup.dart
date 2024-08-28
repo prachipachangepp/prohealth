@@ -158,7 +158,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       SMTextFConst(
                         controller: widget.perMilesController,
                         keyboardType: TextInputType.number,
-                        text: 'Permile',
+                        text: 'Per Mile',
                       ),
                       if (perMilesError != null)
                         Padding(

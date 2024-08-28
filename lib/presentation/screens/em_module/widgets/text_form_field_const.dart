@@ -48,7 +48,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
             decoration: TextDecoration.none,
           ),
         ),
-        SizedBox(height: 2,),
+        SizedBox(height: 5,),
         Container(
           width: 354,
           height: 30,
@@ -134,7 +134,7 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
             decoration: TextDecoration.none,
           ),
         ),
-        SizedBox(height: 1,),
+        SizedBox(height: 5,),
         Container(
           width: 354,
           height: 30,
@@ -250,7 +250,7 @@ class _CapitalSMTextFConstState extends State<CapitalSMTextFConst> {
             decoration: TextDecoration.none,
           ),
         ),
-        SizedBox(height: 1,),
+        SizedBox(height: 5,),
         Container(
           width: 354,
           height: 30,
@@ -370,7 +370,7 @@ class EditTextField extends StatelessWidget {
             decoration: TextDecoration.none,
           ),
         ),
-        SizedBox(height: 1,),
+        SizedBox(height: 5,),
         Container(
           width: MediaQuery.of(context).size.width/5,
           height: 30,

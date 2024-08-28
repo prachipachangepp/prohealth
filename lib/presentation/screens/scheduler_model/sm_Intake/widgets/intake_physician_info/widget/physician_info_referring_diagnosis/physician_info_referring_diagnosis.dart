@@ -79,23 +79,23 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                         DSummarycont.text,
                       );
 
-                      // await postRDTWOScreen(
-                      //   context,
-                      //   1,
-                      //   1,
-                      //   "Primary Diagnosis", // titleController.text,
-                      //   descriptionController.text,
-                      //   icdCodeController.text,
-                      //   pdDateController.text,
-                      // );
-                      //
-                      // await postRDThreeScreen(
-                      //   context,
-                      //   1,
-                      //   1,
-                      //   allergiesController.text,
-                      //   startEffectiveDate.text,
-                      // );
+                      await postRDTWOScreen(
+                        context,
+                        widget.patientId,
+                        1,
+                        "Primary Diagnosis", // titleController.text,
+                        descriptionController.text,
+                        icdCodeController.text,
+                        pdDateController.text,
+                      );
+
+                      await postRDThreeScreen(
+                        context,
+                        widget.patientId,
+                        1,
+                        allergiesController.text,
+                        startEffectiveDate.text,
+                      );
 
                       // Optionally show a success message
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -111,6 +111,9 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                       );
                     }
                   },
+
+
+
                   // onPressed: () async {
                   //   await postRDoneScreen(
                   //       context,
@@ -1382,12 +1385,12 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
   TextEditingController prdescription = TextEditingController();
   TextEditingController prcode = TextEditingController();
   TextEditingController prdate = TextEditingController();
-  TextEditingController srdescription = TextEditingController();
-  TextEditingController srcode = TextEditingController();
-  TextEditingController srdate = TextEditingController();
-  TextEditingController trdescription = TextEditingController();
-  TextEditingController trcode = TextEditingController();
-  TextEditingController trdate = TextEditingController();
+  // TextEditingController srdescription = TextEditingController();
+  // TextEditingController srcode = TextEditingController();
+  // TextEditingController srdate = TextEditingController();
+  // TextEditingController trdescription = TextEditingController();
+  // TextEditingController trcode = TextEditingController();
+  // TextEditingController trdate = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -1398,6 +1401,7 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
           Row(
             children: [
               Column(
+
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 40.0),
@@ -1407,7 +1411,15 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                           fontSize: FontSize.s10,
                           fontWeight: FontWeightManager.regular),
                     ),
+
+
+
                   ),
+                  // IconButton(
+                  //   icon: Icon(Icons.remove_circle, color: Colors.red,size:12),
+                  //   onPressed: widget.onRemove,
+                  // ),
+
                 ],
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 10),
@@ -1442,73 +1454,78 @@ class _ReferringTextfieldState extends State<ReferringTextfield> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width / 7,
-                        child: SchedularTextField(
-                          controller: srdescription,
-                          labelText: 'sr 1',
-                        ),
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 15),
-                      Container(
-                          width: MediaQuery.of(context).size.width / 7,
-                          child: SchedularTextField(
-                            controller: srcode,
-                            labelText: 'sr 2',
-                          )),
-                      SizedBox(width: MediaQuery.of(context).size.width / 15),
-                      Container(
-                        width: MediaQuery.of(context).size.width / 7,
-                        child: SchedularTextField(
-                            controller: srdate,
-                            labelText: '',
-                            suffixIcon: Icon(
-                              Icons.calendar_month_outlined,color: ColorManager.blueprime,
-                              size: 18,
-                            )),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width / 7,
-                        child: SchedularTextField(
-                          controller: trdescription,
-                          labelText: 'tr 1',
-                        ),
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 15),
-                      Container(
-                          width: MediaQuery.of(context).size.width / 7,
-                          child: SchedularTextField(
-                            controller: trcode,
-                            labelText: 'tr 2',
-                          )),
-                      SizedBox(width: MediaQuery.of(context).size.width / 15),
-                      Container(
-                        width: MediaQuery.of(context).size.width / 7,
-                        child: SchedularTextField(
-                            controller: trdate,
-                            labelText: '',
-                            suffixIcon: Icon(
-                              Icons.calendar_month_outlined,color: ColorManager.blueprime,
-                              size: 18,
-                            )),
-                      ),
-                    ],
-                  ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //       width: MediaQuery.of(context).size.width / 7,
+                  //       child: SchedularTextField(
+                  //         controller: srdescription,
+                  //         labelText: 'sr 1',
+                  //       ),
+                  //     ),
+                  //     SizedBox(width: MediaQuery.of(context).size.width / 15),
+                  //     Container(
+                  //         width: MediaQuery.of(context).size.width / 7,
+                  //         child: SchedularTextField(
+                  //           controller: srcode,
+                  //           labelText: 'sr 2',
+                  //         )),
+                  //     SizedBox(width: MediaQuery.of(context).size.width / 15),
+                  //     Container(
+                  //       width: MediaQuery.of(context).size.width / 7,
+                  //       child: SchedularTextField(
+                  //           controller: srdate,
+                  //           labelText: '',
+                  //           suffixIcon: Icon(
+                  //             Icons.calendar_month_outlined,color: ColorManager.blueprime,
+                  //             size: 18,
+                  //           )),
+                  //     ),
+                  //   ],
+                  // ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //       width: MediaQuery.of(context).size.width / 7,
+                  //       child: SchedularTextField(
+                  //         controller: trdescription,
+                  //         labelText: 'tr 1',
+                  //       ),
+                  //     ),
+                  //     SizedBox(width: MediaQuery.of(context).size.width / 15),
+                  //     Container(
+                  //         width: MediaQuery.of(context).size.width / 7,
+                  //         child: SchedularTextField(
+                  //           controller: trcode,
+                  //           labelText: 'tr 2',
+                  //         )),
+                  //     SizedBox(width: MediaQuery.of(context).size.width / 15),
+                  //     Container(
+                  //       width: MediaQuery.of(context).size.width / 7,
+                  //       child: SchedularTextField(
+                  //           controller: trdate,
+                  //           labelText: '',
+                  //           suffixIcon: Icon(
+                  //             Icons.calendar_month_outlined,color: ColorManager.blueprime,
+                  //             size: 18,
+                  //           )),
+                  //     ),
+                  //   ],
+                  // ),
                   SizedBox(height: MediaQuery.of(context).size.height / 20),
+
                 ],
-              )
+              ),
+              // IconButton(
+              //   icon: Icon(Icons.remove_circle, color: Colors.red,size:12),
+              //   onPressed: widget.onRemove,
+              // ),
             ],
           ),
         ],

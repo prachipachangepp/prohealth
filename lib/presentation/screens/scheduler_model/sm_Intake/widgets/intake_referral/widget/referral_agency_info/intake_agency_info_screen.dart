@@ -28,6 +28,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
   String? selectedCity;
   TextEditingController ctlrAgency = TextEditingController();
   TextEditingController ctlrAgencyName = TextEditingController();
+  TextEditingController ctlrRate = TextEditingController();
   TextEditingController ctlrStreet = TextEditingController();
   TextEditingController ctlrSuitApt = TextEditingController();
   TextEditingController ctlrZipCode = TextEditingController();
@@ -65,7 +66,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                            widget.patientId,
                            ctlrAgency.text,
                            ctlrAgencyName.text,
-                            1,         //  selectedRate.toString(),      // int.parse(selectedRate.toString()),
+                           int.parse(ctlrRate.text)   ,     //  selectedRate.toString(),      // int.parse(selectedRate.toString()),
                            ctlrStreet.text,
                            ctlrSuitApt.text,
                            selectedCity.toString(),
@@ -111,18 +112,26 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                             child: SchedularTextField(
                               controller: ctlrAgencyName,
                           labelText: 'Agency Name',
-                        )),
+                        ),
+                        ),
                         SizedBox(width: AppSize.s35),
                         Flexible(
-                            child: SchedularDropdown(
-                          labelText: 'Rate',
-                          items: ['Option 1', 'Option 2', 'Option 3'],
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedRate = newValue;
-                            });
-                          },
-                        )),
+
+
+                          child: SchedularTextField(
+                            controller: ctlrRate,
+                            labelText: 'Rate',
+                          ),
+                        //     child: SchedularDropdown(
+                        //   labelText: 'Rate',
+                        //   items: ['Option 1', 'Option 2', 'Option 3'],
+                        //   onChanged: (newValue) {
+                        //     setState(() {
+                        //       selectedRate = newValue;
+                        //     });
+                        //   },
+                        // ),
+                        ),
                         SizedBox(width: 35),
                         Flexible(
                             child: SchedularTextField(

@@ -10,10 +10,8 @@ class BottomBarRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: AppSize.s50,
-      // width: AppSize.s
-      // double.infinity,
-      //flex: 1,
+      height: AppSize.s56,
+      color: Colors.red,
       child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width / 120),
@@ -58,24 +56,27 @@ class BottomBarRow extends StatelessWidget {
             ),
 
             ///logo
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'images/powered_logo.png',
-                  //  height: 27,
-                  width: MediaQuery.of(context).size.width / 50,
-                ),
-                Text(
-                  'Powered by',
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeightManager.regular,
-                    color: ColorManager.grey,
-                    decoration: TextDecoration.none,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 7),
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'images/powered_logo.png',
+                    //  height: 27,
+                    width: MediaQuery.of(context).size.width / 50,
                   ),
-                ),
-              ],
+                  Text(
+                    'Powered by',
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.regular,
+                      color: ColorManager.grey,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

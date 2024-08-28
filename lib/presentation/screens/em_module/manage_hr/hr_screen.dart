@@ -304,7 +304,7 @@ class _HrWidgetState extends State<HrWidget> {
                                 });
                               },
 
-                              title: 'Add Administration',
+                              title: 'Add Employee',
                               child: FutureBuilder<List<HRHeadBar>>(
                                   future: companyHRHeadApi(context,deptId),
                                   builder: (context,snapshot) {
@@ -740,58 +740,34 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                           builder: (context) {
                                                             return FutureBuilder<
                                                                     HRGetEmpId>(
-                                                                future: HrGetById(
-                                                                    context,
-                                                                    hrdoc
-                                                                        .employeeTypesId),
+                                                                future: HrGetById(context, hrdoc.employeeTypesId),
                                                                 builder: (context,
                                                                     snapshot) {
-                                                                  if (snapshot
-                                                                          .connectionState ==
-                                                                      ConnectionState
-                                                                          .waiting) {
+                                                                  if (snapshot.connectionState == ConnectionState.waiting) {
                                                                     return Center(
-                                                                        child:
-                                                                            CircularProgressIndicator(
+                                                                        child: CircularProgressIndicator(
                                                                       color: ColorManager
                                                                           .blueprime,
                                                                     ));
                                                                   }
                                                                   var type = hrdoc.toString();
                                                                   var shorthand = hrdoc.toString();
-                                                                  var hexColorData = snapshot
-                                                                      .data!
-                                                                      .color!
-                                                                      .replaceAll(
-                                                                          "#", "").toString();
+                                                                  var hexColorData = snapshot.data!.color!.replaceAll("#", "").toString();
                                                                   //hexColorData = i.color.replaceAll("#","");
                                                                   Color
                                                                       hexColor =
-                                                                      Color(int
-                                                                          .parse(
-                                                                              '0xFF$hexColorData'));
+                                                                      Color(int.parse('0xFF$hexColorData'));
                                                                   print(
                                                                       'Hex Color ::::${hexColor}');
-                                                                  hrcontainerColors[
-                                                                          index] =
-                                                                      hexColor;
-                                                                  var splitHexColor = hexColor
-                                                                      .toString()
-                                                                      .substring(
-                                                                          10,
-                                                                          16);
+                                                                  hrcontainerColors[index] = hexColor;
+                                                                  var splitHexColor = hexColor.toString().substring(10, 16);
                                                                   typeController = TextEditingController(text: hrdoc.empType.toString());
                                                                   shorthandController = TextEditingController(text: hrdoc.abbrivation.toString());
                                                                   return EditPopupWidget(
-                                                                    typeController:
-                                                                        typeController,
-                                                                    shorthandController:
-                                                                        shorthandController,
-                                                                    containerColor:
-                                                                        hrcontainerColors[
-                                                                            index],
-                                                                    onSavePressed:
-                                                                        () async {
+                                                                    typeController: typeController,
+                                                                    shorthandController: shorthandController,
+                                                                    containerColor: hrcontainerColors[index],
+                                                                    onSavePressed: () async {
                                                                       await AllFromHrPatch(
                                                                           context,
                                                                           snapshot
@@ -811,28 +787,15 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                           splitHexColor == hrcontainerColors[index]
                                                                               ? splitHexColor
                                                                               : color);
-                                                                      getAllHrDeptWise(
-                                                                              context,
-                                                                              widget
-                                                                                  .deptId)
-                                                                          .then(
-                                                                              (data) {
-                                                                        _hrAllcontroller
-                                                                            .add(data);
-                                                                      }).catchError(
-                                                                              (error) {});
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                      typeController
-                                                                          .clear();
-                                                                      shorthandController
-                                                                          .clear();
-                                                                      seletedType =
-                                                                          "Clinical";
+                                                                      getAllHrDeptWise(context, widget.deptId).then((data) {
+                                                                        _hrAllcontroller.add(data);
+                                                                      }).catchError((error) {});
+                                                                      Navigator.pop(context);
+                                                                      typeController.clear();
+                                                                      shorthandController.clear();
+                                                                      seletedType = "Clinical";
                                                                     },
-                                                                    onColorChanged:
-                                                                        (Color
-                                                                            seletedColor) {
+                                                                    onColorChanged: (Color seletedColor) {
                                                                       setState(
                                                                           () {
                                                                         hrcontainerColors[index] =
@@ -848,11 +811,8 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                             seletedColor);
                                                                       });
                                                                     },
-                                                                    title:
-                                                                        'Edit Clinical',
-                                                                    child: FutureBuilder<
-                                                                            List<
-                                                                                HRHeadBar>>(
+                                                                    title: 'Edit Employee Type',
+                                                                    child: FutureBuilder<List<HRHeadBar>>(
                                                                         future: companyHRHeadApi(
                                                                             context,
                                                                             widget
