@@ -4,7 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_insurance/widgets/intake_insurance_primary/intake_insurance_primary_screen.dart';
 import '../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
@@ -29,6 +35,7 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
   //TextEditingController  = TextEditingController();
 
   String? selectedValue;
+  String? docAddVisitType;
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +169,58 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                         ),
                         SizedBox(height: 5),
 
-                        PopUpDropdown(labelText: '', initialValue: 'Select',),
+                        FutureBuilder<List<VisitListData>>(
+                          future: getVisitList(context),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Container(
+                                  width: 354,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: ColorManager.faintGrey,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                );
+                            }
+                            if (snapshot.hasData && snapshot.data!.isEmpty) {
+                              return Center(
+                                child: Text(
+                                  AppString.dataNotFound,
+                                  style: CustomTextStylesCommon.commonStyle(
+                                    fontWeight: FontWeightManager.medium,
+                                    fontSize: FontSize.s12,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ),
+                              );
+                            }
+                            if (snapshot.hasData) {
+                              List<DropdownMenuItem<String>> dropDownZoneList = [];
+                              for (var i in snapshot.data!) {
+                                dropDownZoneList.add(
+                                  DropdownMenuItem<String>(
+                                    child: Text(i.visitType),
+                                    value: i.visitType,
+                                  ),
+                                );
+                              }
+                              return CICCDropdown(
+                                initialValue: dropDownZoneList.isNotEmpty
+                                    ? dropDownZoneList[0].value
+                                    : null,
+                                onChange: (val) {
+                                  for (var a in snapshot.data!) {
+                                    if (a.visitType == val) {
+                                      docAddVisitType = a.visitType;
+                                    }
+                                  }
+                                },
+                                items: dropDownZoneList,
+                              );
+                            }
+                            return const SizedBox();
+                          },
+                        ),
                         // FutureBuilder<List<StateData>>(
                         //   future: getStateDropDown(context),
                         //   builder: (context, snapshot) {
@@ -388,26 +446,75 @@ class _AssignVisitPopUpState extends State<AssignVisitPopUp> {
                           ),
                         ),
                         onPressed: () async {
-                          await SchedulerCreate(
-                            context,
-                            1,
-                            1,
-                            selectedValue.toString(),
-                            "2024-08-26T11:44:00Z",
-                           // ctlrassignedate.text,
-                            "2024-08-26T11:44:00Z",
-                             // ctlrstarttime.text,
-                            "2024-08-26T11:44:00Z",
-                            // ctlrendtime.text,
-                            ctlrdetails.text,
+                          print('Assign Date  ${ctlrassignedate.text}');
+                          print('Assign Start Time ${ctlrstarttime.text}');
+                          print('Assign End Time ${ctlrendtime.text}');
+                          var response = await SchedulerCreate(
+                              context: context,
+                              patientId: 1,
+                              clinicianId: 134,
+                              visitType: docAddVisitType.toString(),
+                              assignDate: ctlrassignedate.text,
+                              startTime: ctlrstarttime.text,
+                              endTime: ctlrendtime.text,
+                              details: ctlrdetails.text
                           );
+                          if(response.statusCode == 200 || response.statusCode == 201){
+                            Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Dialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0), // Rounded corners
+                                  ),
+                                  child: Container(
+                                    height: 270,
+                                    width: 300,
+                                    padding: EdgeInsets.all(20.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0), // Rounded corners
+                                      color: Colors.white, // Background color
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.check_circle_outline,
+                                          color: Color(0xFF50B5E5),
+                                          size: 80.0,
+                                        ),
+                                        SizedBox(height: 20.0),
+                                        Text(
+                                          "Successfully Add !",
+                                          style: GoogleFonts.firaSans(
+                                              fontSize: 16.0,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        SizedBox(height: 30.0),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            CustomButton(
+                                                height: 30,
+                                                width: 130,
+                                                text: 'Continue',
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                })
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }
 
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (BuildContext context) {
-                          //     return SchedularSuccessPopup(title: 'Success',);
-                          //   },
-                          // );
+
                         },
                       ),
                     ),
