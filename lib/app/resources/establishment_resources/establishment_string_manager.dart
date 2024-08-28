@@ -12,6 +12,7 @@ class AppStringEM{
   static const String officename = 'Office Name';
   static const String secNum = "Secondary Number";
   static const String address = "Address";
+  static const String headofficeaddress = "Head Office Address";
   static const String primNum = "Primary Number";
   static const String alternatephone = "Alternative Number";
   static const String primarymail = "Primary Email";
