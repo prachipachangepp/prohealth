@@ -48,7 +48,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
             decoration: TextDecoration.none,
           ),
         ),
-        SizedBox(height: 1,),
+        SizedBox(height: 2,),
         Container(
           width: 354,
           height: 30,

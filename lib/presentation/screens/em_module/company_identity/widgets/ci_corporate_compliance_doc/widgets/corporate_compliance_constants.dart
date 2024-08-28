@@ -234,34 +234,34 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          key: _dropdownKey,
-          width: widget.width == null ? 354 : widget.width,
-          height: 30,
-          decoration: BoxDecoration(
-            border: Border.all(
-                color: ColorManager.containerBorderGrey, width: AppSize.s1),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Row(
-            children: [
-              SizedBox(width: AppSize.s8),
-              Expanded(
-                child: Text(
-                  _selectedValue ?? '',
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeightManager.medium,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration.none,
+        GestureDetector(
+          onTap: _showCustomDropdown,
+          child: Container(
+            key: _dropdownKey,
+            width: widget.width == null ? 354 : widget.width,
+            height: 30,
+            decoration: BoxDecoration(
+              border: Border.all(
+                  color: ColorManager.containerBorderGrey, width: AppSize.s1),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: AppSize.s8),
+                Expanded(
+                  child: Text(
+                    _selectedValue ?? '',
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.medium,
+                      color: ColorManager.mediumgrey,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
                 ),
-              ),
-              GestureDetector(
-                onTap: _showCustomDropdown,
-                child: Icon(Icons.arrow_drop_down),
-              ),
-            ],
+                Icon(Icons.arrow_drop_down),
+              ],
+            ),
           ),
         ),
       ],
