@@ -14,6 +14,7 @@ class PayRatesPopup extends StatefulWidget {
   final Future<void> Function() onPressed;
   final TextEditingController payRatesController;
   final TextEditingController perMilesController;
+  final bool visitTypeTextActive;
 
   PayRatesPopup({
     super.key,
@@ -22,7 +23,7 @@ class PayRatesPopup extends StatefulWidget {
     required this.payRatesController,
     required this.onPressed,
     required this.title,
-    required this.perMilesController,
+    required this.perMilesController, required this.visitTypeTextActive,
   });
 
   @override
@@ -64,7 +65,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s350,
+        height: AppSize.s400,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -84,7 +85,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 23.0),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(
@@ -107,7 +108,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
             SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
+                vertical: AppPadding.p20,
                 horizontal: AppPadding.p20,
               ),
               child: Column(
@@ -117,8 +118,17 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                    widget.visitTypeTextActive ? Text(
+                        'Type of Visit',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.mediumgrey,
+                        ),
+                      ) : Offstage(),
+                      SizedBox(height: 2,),
                       widget.child1,
-                      SizedBox(height: 10,),
+                      SizedBox(height: 20,),
                       Text(
                         'Zone',
                         style: GoogleFonts.firaSans(
@@ -129,7 +139,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       ),
                       SizedBox(height: 2,),
                       widget.child2,
-                      SizedBox(height: 10,),
+                      SizedBox(height: 20,),
                       SMTextFConst(
                         prefixWidget: Text("\$ "),
                         controller: widget.payRatesController,
@@ -144,7 +154,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                             style: TextStyle(color: Colors.red, fontSize: 12),
                           ),
                         ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 20,),
                       SMTextFConst(
                         controller: widget.perMilesController,
                         keyboardType: TextInputType.number,
@@ -165,7 +175,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p10),
+              padding: const EdgeInsets.only(bottom: AppPadding.p20),
               child: Center(
                 child: isLoading
                     ? SizedBox(

@@ -78,7 +78,7 @@ class _CiCorporateComplianceScreenState
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 30.0),
+          padding: const EdgeInsets.only(right: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -165,7 +165,7 @@ class _CiCorporateComplianceScreenState
                     InkWell(
                       child: Container(
                         height: AppSize.s50,
-                        width: MediaQuery.of(context).size.width / 8.62,
+                        width: MediaQuery.of(context).size.width / 12,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -201,7 +201,7 @@ class _CiCorporateComplianceScreenState
                     InkWell(
                       child: Container(
                         height: AppSize.s50,
-                        width: MediaQuery.of(context).size.width / 8.62,
+                        width: MediaQuery.of(context).size.width / 12,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -237,7 +237,7 @@ class _CiCorporateComplianceScreenState
                     InkWell(
                       child: Container(
                         height: AppSize.s50,
-                        width: MediaQuery.of(context).size.width / 8,
+                        width: MediaQuery.of(context).size.width / 10,
                         padding: EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -274,10 +274,10 @@ class _CiCorporateComplianceScreenState
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width / 20,
+                width: MediaQuery.of(context).size.width / 8,
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 5.0),
+                padding: const EdgeInsets.only(bottom: 5.0,right:5),
                 child: CustomIconButton(
                   icon: Icons.add,
                   text: "Add Doctype",

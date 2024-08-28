@@ -247,6 +247,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             context: context,
                             builder: (BuildContext context) {
                               return PayRatesPopup(
+                                visitTypeTextActive: true,
                                   title: 'Add Payrates',
                                   child1: FutureBuilder<List<VisitListData>>(
                                     future: getVisitList(context),
@@ -304,8 +305,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       return const SizedBox();
                                     },
                                   ),
-                                  child2: FutureBuilder<List<AllZoneData>>(
-                                    future: getAllZone(context),
+                                  child2: FutureBuilder<List<SortByZoneData>>(
+                                    future: PayRateZoneDropdown(context),
                                     builder: (context, snapshotZone) {
                                       if (snapshotZone.connectionState == ConnectionState.waiting) {
                                         return Shimmer.fromColors(
@@ -608,6 +609,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                           ?.perMile
                                                                           .toString());
                                                                   return PayRatesPopup(
+                                                                    visitTypeTextActive: false,
                                                                     title: 'Edit Payrate',
                                                                     child1: SMTextFConst(enable: false,
                                                                       readOnly: true,
@@ -615,8 +617,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                       keyboardType: TextInputType.number,
                                                                       text: 'Type of Visit',
                                                                     ),
-                                                                    child2: FutureBuilder<List<AllZoneData>>(
-                                                                        future: getAllZone(
+                                                                    child2: FutureBuilder<List<SortByZoneData>>(
+                                                                        future: PayRateZoneDropdown(
                                                                             context),
                                                                         builder:
                                                                             (context,

@@ -500,7 +500,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                               builder: (context) => StatefulBuilder(
                                                                 builder: (BuildContext context, void Function(void Function()) setState) {
                                                                   return  DeletePopup(
-                                                                      title: 'Delete Medical Report',
+                                                                      title: 'Delete Medical Cost Report',
                                                                       loadingDuration: _isLoading,
                                                                       onCancel: (){
                                                                         Navigator.pop(context);
