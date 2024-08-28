@@ -16,7 +16,8 @@ import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dar
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakeInsuranceSecondaryScreen extends StatefulWidget {
-  const IntakeInsuranceSecondaryScreen({super.key});
+  final int patientId;
+  const IntakeInsuranceSecondaryScreen({super.key, required this.patientId});
 
   @override
   State<IntakeInsuranceSecondaryScreen> createState() => _IntakeInsuranceSecondaryScreenState();
@@ -82,7 +83,7 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                       onPressed: () async {
                         await postISecondaryScreen(
                           context,
-                          1,
+                           widget.patientId,
                           secondaryinsuranceController.text,
                           srnameController.text,
                           srstreetController.text,
@@ -95,9 +96,8 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                           phoneController.text,
                           selectedCategory.toString(),
                           authorisationController.text,
-                          "2024-08-09",       //effectiveFromController.text,
-                          "2024-08-09",                      // effectiveFromController.text,
-                          // effectiveToController.text,
+                          effectiveFromController.text,
+                          effectiveToController.text,
                           groupNbrController.text,
                           groupNameController.text,
                           policyHICNbrController.text,
@@ -490,11 +490,9 @@ class _IntakeInsuranceSecondaryScreenState extends State<IntakeInsuranceSecondar
                         children: [
                           Flexible(
                               child: DoubleDatePickerTextField(
-                                onDateRangeSelected: (startDate, endDate){
-                                }
-                                ,
-
-                                labelText: 'Effective from', isDate: true,)
+                                labelText: 'Effective from', isDate: true,
+                                startDateController: effectiveFromController,
+                                endDateController: effectiveToController,)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(

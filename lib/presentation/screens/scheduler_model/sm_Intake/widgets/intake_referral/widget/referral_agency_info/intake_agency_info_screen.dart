@@ -15,7 +15,8 @@ import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dar
 import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutton_const.dart';
 
 class IntakeAgencyInfoScreen extends StatefulWidget {
-  const IntakeAgencyInfoScreen({super.key});
+  final int patientId;
+  const IntakeAgencyInfoScreen({super.key, required this.patientId});
 
   @override
   State<IntakeAgencyInfoScreen> createState() => _IntakeAgencyInfoScreenstate();
@@ -61,7 +62,7 @@ class _IntakeAgencyInfoScreenstate extends State<IntakeAgencyInfoScreen> {
                         text: AppString.save,
                         onPressed: () async {
                        await AddAgencyInfo(context,
-                           1,
+                           widget.patientId,
                            ctlrAgency.text,
                            ctlrAgencyName.text,
                             1,         //  selectedRate.toString(),      // int.parse(selectedRate.toString()),

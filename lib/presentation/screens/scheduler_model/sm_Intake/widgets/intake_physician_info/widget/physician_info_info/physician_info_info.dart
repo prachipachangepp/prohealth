@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../../app/resources/const_string.dart';
@@ -15,7 +16,8 @@ import '../../../../../textfield_dropdown_constant/schedular_textfield_withbutto
 import '../../../../../widgets/constant_widgets/textfield_constant.dart';
 
 class PhysicianInfoInfoScreen extends StatefulWidget {
-  const PhysicianInfoInfoScreen({super.key});
+  final int patientId;
+  PhysicianInfoInfoScreen({super.key, required this.patientId});
 
   @override
   State<PhysicianInfoInfoScreen> createState() => _RelatedPartiesScreenstate();
@@ -86,10 +88,11 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                     SizedBox(width: 15,),
                     ElevatedButton(
                       onPressed: () async {
+                        final companyId = await TokenManager.getCompanyId();
                         await postPhysicianInfoScreen(
                             context,
-                            1,  //widget.patientId
-                            1, //widget.companyId
+                            widget.patientId,
+                            companyId,
                             primaryPhysician.text,
                             prFirstName.text,
                             prLastName.text,
@@ -118,9 +121,6 @@ class _RelatedPartiesScreenstate extends State<PhysicianInfoInfoScreen> {
                             ffPhone.text,
                             ffFax.text,
                             ffProtocol.text,
-
-
-
                            );
                       },
                       child: Text(

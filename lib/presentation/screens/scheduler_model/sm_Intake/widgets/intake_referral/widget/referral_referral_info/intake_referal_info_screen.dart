@@ -13,7 +13,8 @@ import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 
 class IntakeReferralInfoScreen extends StatefulWidget {
-  const IntakeReferralInfoScreen({super.key});
+  final int patientId;
+  IntakeReferralInfoScreen({super.key, required this.patientId});
 
   @override
   State<IntakeReferralInfoScreen> createState() => _ReferralInfoScreenstate();
@@ -65,7 +66,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                   text: AppString.save,
                   onPressed: () async {
                     await AddReferralInfo(context,
-                        1,
+                        widget.patientId,
                         ctlrReferralDate.text,
                         ctlrProjectedSOCDate.text,
                         ctlrReferralSource.text,
@@ -80,6 +81,8 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                         ctlrReferralTakenBy.text,
                         ctlrReasonForVisitin48.text,
                         ctlrComments.text);
+                    print('${ctlrReferralDate.text}');
+                    print('${ctlrProjectedSOCDate.text}');
                   },
                 ),
                   ],

@@ -24,7 +24,8 @@ import '../../../../em_module/company_identity/widgets/ci_corporate_compliance_d
 import '../../../widgets/constant_widgets/button_constant.dart';
 
 class IntakeLabResultScreen extends StatefulWidget {
-  const IntakeLabResultScreen({super.key});
+  final int patientId;
+  const IntakeLabResultScreen({super.key, required this.patientId});
 
   @override
   State<IntakeLabResultScreen> createState() => _IntakeLabResultScreenState();
@@ -96,7 +97,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                     try {
                                       await addLabReport(
                                         context: context,
-                                        patientId: 1,
+                                        patientId: widget.patientId,
                                         docTypeId: 1,
                                         docType: docTypecontroller.text,
                                         name: namecontroller.text,
@@ -385,7 +386,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                         child: StreamBuilder<List<LabReportModal>>(
                             stream: _lapReportController.stream,
                             builder: (context, snapshot) {
-                              GetLabReport(context, 1, ).then((data) {
+                              GetLabReport(context, widget.patientId ).then((data) {
                                 _lapReportController.add(data);
                               }).catchError((error) {
                                 // Handle error
@@ -545,57 +546,57 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                           right: 50.0),
                                                   child: Row(
                                                     children: [
-                                                      IconButton(
-                                                        icon: Icon(
-                                                          Icons.history,
-                                                          size: 20,
-                                                          color: ColorManager
-                                                              .granitegray,
-                                                        ),
-                                                        onPressed: () {},
-                                                      ),
-                                                      SizedBox(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              120),
-                                                      IconButton(
-                                                        icon: Icon(
-                                                          Icons.print_outlined,
-                                                          size: 20,
-                                                          color: ColorManager
-                                                              .granitegray,
-                                                        ),
-                                                        onPressed: () async {
-                                                          final pdf =
-                                                              pw.Document();
-
-                                                          pdf.addPage(
-                                                            pw.Page(
-                                                              build: (pw.Context
-                                                                      context) =>
-                                                                  pw.Center(
-                                                                child: pw.Text(
-                                                                    'Hello, this is a test print!'),
-                                                              ),
-                                                            ),
-                                                          );
-
-                                                          await Printing
-                                                              .layoutPdf(
-                                                            onLayout: (PdfPageFormat
-                                                                    format) async =>
-                                                                pdf.save(),
-                                                          );
-                                                        },
-                                                      ),
-                                                      SizedBox(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              120),
+                                                      // IconButton(
+                                                      //   icon: Icon(
+                                                      //     Icons.history,
+                                                      //     size: 20,
+                                                      //     color: ColorManager
+                                                      //         .granitegray,
+                                                      //   ),
+                                                      //   onPressed: () {},
+                                                      // ),
+                                                      // SizedBox(
+                                                      //     width: MediaQuery.of(
+                                                      //                 context)
+                                                      //             .size
+                                                      //             .width /
+                                                      //         120),
+                                                      // IconButton(
+                                                      //   icon: Icon(
+                                                      //     Icons.print_outlined,
+                                                      //     size: 20,
+                                                      //     color: ColorManager
+                                                      //         .granitegray,
+                                                      //   ),
+                                                      //   onPressed: () async {
+                                                      //     final pdf =
+                                                      //         pw.Document();
+                                                      //
+                                                      //     pdf.addPage(
+                                                      //       pw.Page(
+                                                      //         build: (pw.Context
+                                                      //                 context) =>
+                                                      //             pw.Center(
+                                                      //           child: pw.Text(
+                                                      //               'Hello, this is a test print!'),
+                                                      //         ),
+                                                      //       ),
+                                                      //     );
+                                                      //
+                                                      //     await Printing
+                                                      //         .layoutPdf(
+                                                      //       onLayout: (PdfPageFormat
+                                                      //               format) async =>
+                                                      //           pdf.save(),
+                                                      //     );
+                                                      //   },
+                                                      // ),
+                                                      // SizedBox(
+                                                      //     width: MediaQuery.of(
+                                                      //                 context)
+                                                      //             .size
+                                                      //             .width /
+                                                      //         120),
                                                       IconButton(
                                                         icon: Icon(
                                                           Icons

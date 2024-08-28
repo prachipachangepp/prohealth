@@ -545,6 +545,9 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
   }
 }
 
+
+
+
 ///edit
 class AddZipCodePopup extends StatefulWidget {
   final String title;
@@ -556,10 +559,15 @@ class AddZipCodePopup extends StatefulWidget {
   final Widget? child;
   final Widget? child1;
   final Widget? child2;
+  final String location;
+  final TextEditingController? locationController;
   final Future<void> Function() onSavePressed;
   final VoidCallback? onPickLocation;
-   AddZipCodePopup({super.key, required this.title, required this.countynameController, required this.zipcodeController,
-     required this.mapController, required this.landmarkController, this.child, required this.onSavePressed, required this.cityNameController, this.child1, this.onPickLocation, this.child2,});
+   AddZipCodePopup({super.key,
+     required this.title, required this.countynameController, required this.zipcodeController,
+     required this.mapController, required this.landmarkController,
+     this.child, required this.onSavePressed, required this.cityNameController,
+     this.child1, this.onPickLocation, this.child2,  required this.location,  this.locationController,});
 
   @override
   State<AddZipCodePopup> createState() => _AddZipCodePopupState();
@@ -567,6 +575,10 @@ class AddZipCodePopup extends StatefulWidget {
 
 class _AddZipCodePopupState extends State<AddZipCodePopup> {
   bool isLoading = false;
+  double? _latitude;
+  double? _longitude;
+  String? _location;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -574,7 +586,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
       child: SingleChildScrollView(
         child: Container(
           width: AppSize.s400,
-          height: AppSize.s460,
+          height: AppSize.s480,
           decoration: BoxDecoration(
             color: ColorManager.white,
             borderRadius: BorderRadius.circular(8),
@@ -671,33 +683,45 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       text: 'Zip Code',
                     ),
                     SizedBox(height: AppSize.s20),
-                    widget.child2!,
-                    // Row(
-                    //   children: [
-                    //     TextButton(
-                    //       onPressed: widget.onPickLocation,
-                    //       style: TextButton.styleFrom(
-                    //           backgroundColor: Colors.transparent),
-                    //       child: Text(
-                    //         'Change Location',
-                    //         style: GoogleFonts.firaSans(
-                    //           fontSize: FontSize.s12,
-                    //           fontWeight: FontWeightManager.bold,
-                    //           color: ColorManager.bluelight,
-                    //           //decoration: TextDecoration.none,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     Icon(
-                    //       Icons.location_on_outlined,
-                    //       color: ColorManager.granitegray,
-                    //       size: AppSize.s18,
-                    //     ),
-                    //
-                    //   ],
-                    // ),
-                    SizedBox(height: AppSize.s20),
 
+                    ///
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: widget.onPickLocation,
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.transparent),
+                          child: Text(
+                            'Pick Location',
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.bluelight,
+                              //decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: ColorManager.granitegray,
+                          size: AppSize.s18,
+                        ),
+
+                      ],
+                    ),
+                    Text(
+                      widget.location,
+
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.regular,
+                        color: ColorManager.black,
+                        //decoration: TextDecoration.none,
+                      ),
+                    ),
+                     // Text('${widget.location}'),
+                    // Text('Picked Location: ${widget.locationController.text}'),
+                    SizedBox(height: AppSize.s20),
                     SMTextFConst(
                       controller: widget.landmarkController!,
                       keyboardType: TextInputType.text,
@@ -746,6 +770,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
     );
   }
 }
+
 
 ///edit
 class EditZipCodePopup extends StatefulWidget {
@@ -948,6 +973,8 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
 
 
 /// Pick google map location
+
+
 class MapScreen extends StatefulWidget {
   final LatLng initialLocation;
   final Function(LatLng) onLocationPicked;
@@ -988,6 +1015,7 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Pick Location'),
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: Icon(Icons.check),

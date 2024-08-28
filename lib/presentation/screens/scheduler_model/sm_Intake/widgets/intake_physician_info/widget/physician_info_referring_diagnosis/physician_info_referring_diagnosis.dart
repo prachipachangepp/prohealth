@@ -13,7 +13,8 @@ import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dar
 import '../../../../../widgets/constant_widgets/button_constant.dart';
 
 class ReferringDiagnososScreen extends StatefulWidget {
-  const ReferringDiagnososScreen({super.key});
+  final int patientId;
+  ReferringDiagnososScreen({super.key, required this.patientId});
 
   @override
   State<ReferringDiagnososScreen> createState() =>
@@ -70,7 +71,7 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                     try {
                       await postRDoneScreen(
                         context,
-                        1,
+                        widget.patientId,
                         codestatusA.toString(),
                         codestatusB.toString(),
                         paidhelp.text,

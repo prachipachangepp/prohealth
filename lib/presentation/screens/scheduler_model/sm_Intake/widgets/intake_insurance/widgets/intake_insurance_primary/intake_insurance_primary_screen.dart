@@ -15,7 +15,8 @@ import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dar
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakeInsurancePrimaryScreen extends StatefulWidget {
-  const IntakeInsurancePrimaryScreen({super.key});
+  final int patientId;
+  const IntakeInsurancePrimaryScreen({super.key, required this.patientId});
 
   @override
   State<IntakeInsurancePrimaryScreen> createState() => _IntakeInsurancePrimaryScreenState();
@@ -79,7 +80,7 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                       onPressed: () async {
                         await postIPrimaryScreen(
                           context,
-                          1,
+                          widget.patientId,
                           primaryinsuranceController.text,
                           prnameController.text,
                           prstreetController.text,
@@ -92,8 +93,10 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           phoneController.text,
                           selectedCategory.toString(),
                           authorisationController.text,
-                          "2024-08-09",       //effectiveFromController.text,
-                          "2024-08-09",            //effectiveToController.text,
+                          //"2024-08-09",
+                          effectiveFromController.text,
+                          //"2024-08-09",
+                          effectiveToController.text,
                           groupNbrController.text,
                           groupNameController.text,
                           policyHICNbrController.text,
@@ -103,6 +106,9 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
 
 
                         );
+                        print("${effectiveFromController.text}");
+                        print("${effectiveToController.text}");
+
                       },
                       child: Text(
                         AppString.save,
@@ -500,8 +506,10 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                         children: [
                           Flexible(
                               child: DoubleDatePickerTextField(
-
-                                  labelText: 'Effective from', isDate: true)
+                                  labelText: 'Effective from',
+                                  isDate: true,
+                                startDateController: effectiveFromController,
+                                endDateController: effectiveToController,)
                           ),
                           SizedBox(width: AppSize.s35),
                           Flexible(

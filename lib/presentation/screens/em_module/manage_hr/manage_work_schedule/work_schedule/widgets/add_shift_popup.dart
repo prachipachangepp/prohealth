@@ -263,7 +263,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
     });
 
     if (shiftNameError == null && startTimeError == null && endTimeError == null) {
-      // If no errors, proceed with the onPressed action
+
       widget.onPressed().whenComplete(() {
         setState(() {
           isLoading = false;
