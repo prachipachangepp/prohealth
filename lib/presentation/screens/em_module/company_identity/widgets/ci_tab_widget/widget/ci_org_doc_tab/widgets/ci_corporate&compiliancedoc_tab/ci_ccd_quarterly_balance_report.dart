@@ -314,7 +314,7 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                                         builder: (BuildContext context,
                                                             void Function(void Function()) setState) {
                                                           return CCScreenEditPopup(
-                                                            title: 'Edit Leases & Services',
+                                                            title: 'Edit Quarterly Report',
                                                             id: documentPreId,
                                                             idDocController: docIdController,
                                                             nameDocController: docNameController,

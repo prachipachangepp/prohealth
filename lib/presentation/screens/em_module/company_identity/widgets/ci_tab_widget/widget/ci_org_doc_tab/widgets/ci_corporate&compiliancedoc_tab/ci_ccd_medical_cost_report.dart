@@ -312,7 +312,7 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                                         builder: (BuildContext context,
                                                             void Function(void Function()) setState) {
                                                           return CCScreenEditPopup(
-                                                            title: 'Edit Leases & Services',
+                                                            title: 'Edit Medical Cost Report',
                                                             id: documentPreId,
                                                             idDocController: docIdController,
                                                             nameDocController: docNameController,
@@ -585,7 +585,7 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                                     builder: (context) => StatefulBuilder(
                                                       builder: (BuildContext context, void Function(void Function()) setState) {
                                                         return  DeletePopup(
-                                                            title: 'Delete Medical Report',
+                                                            title: 'Delete Medical Cost Report',
                                                             loadingDuration: _isLoading,
                                                             onCancel: (){
                                                               Navigator.pop(context);
