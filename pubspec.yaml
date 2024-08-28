@@ -85,7 +85,13 @@ dependencies:
   calendar_view: ^1.2.0
   fl_chart: any
   mime: ^1.0.5
-  riverpod: ^2.5.1
+  flutter_masked_text2: ^0.9.1
+  intl_phone_number_input: any
+  intl_phone_field: ^3.0.0
+
+
+#  riverpod: ^2.5.1
+
 
 
 
