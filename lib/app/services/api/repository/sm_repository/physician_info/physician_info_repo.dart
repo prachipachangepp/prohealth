@@ -4,7 +4,8 @@ class PhysicianInfo{
 
 static String piftof ="/intake-physician-f2-f/add";
 static String  firstrd ="/intake-physician-rdignosis/add";
-static String  pdrd ="/intake-physician-rdignosis/add";
+static String  pdrd ="//intake-physician-rdignosis-pd/add";
+static String  pdrdlisi ="/intake-physician-rdignosis-lisi/add";
 
 static String stateDropdown ="/state";
 static String cityDropdown ="/city";
@@ -41,6 +42,10 @@ static String countryDropdown="/country";
 static String addfirstRD(){
     return "$firstrd";
 }
+
+  static String addThreeRD(){
+    return "$pdrdlisi";
+  }
 
   static String addpdrd(){
     return "$pdrd";

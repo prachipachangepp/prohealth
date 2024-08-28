@@ -79,23 +79,23 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                         DSummarycont.text,
                       );
 
-                      // await postRDTWOScreen(
-                      //   context,
-                      //   1,
-                      //   1,
-                      //   "Primary Diagnosis", // titleController.text,
-                      //   descriptionController.text,
-                      //   icdCodeController.text,
-                      //   pdDateController.text,
-                      // );
-                      //
-                      // await postRDThreeScreen(
-                      //   context,
-                      //   1,
-                      //   1,
-                      //   allergiesController.text,
-                      //   startEffectiveDate.text,
-                      // );
+                      await postRDTWOScreen(
+                        context,
+                        widget.patientId,
+                        1,
+                        "Primary Diagnosis", // titleController.text,
+                        descriptionController.text,
+                        icdCodeController.text,
+                        pdDateController.text,
+                      );
+
+                      await postRDThreeScreen(
+                        context,
+                        widget.patientId,
+                        1,
+                        allergiesController.text,
+                        startEffectiveDate.text,
+                      );
 
                       // Optionally show a success message
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -111,6 +111,9 @@ class _ReferringDiagnososScreenState extends State<ReferringDiagnososScreen> {
                       );
                     }
                   },
+
+
+
                   // onPressed: () async {
                   //   await postRDoneScreen(
                   //       context,
