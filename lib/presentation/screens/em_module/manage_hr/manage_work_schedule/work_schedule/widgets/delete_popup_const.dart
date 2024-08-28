@@ -29,7 +29,7 @@ class _DeletePopupState extends State<DeletePopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s500,
+        width: AppSize.s400,
         height: AppSize.s181,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -50,7 +50,7 @@ class _DeletePopupState extends State<DeletePopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(
@@ -79,9 +79,15 @@ class _DeletePopupState extends State<DeletePopup> {
               child: Row(
                 children: [
                   Text('Do you really want to delete ?',
+                    // style: GoogleFonts.firaSans(
+                    //   fontSize: FontSize.s12,
+                    //   fontWeight: FontWeightManager.semiBold,
+                    //   color: ColorManager.mediumgrey,
+                    //   decoration: TextDecoration.none,
+                    // ),
                     style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.regular,
-                      fontSize: FontSize.s16,
+                      fontWeight: FontWeightManager.semiBold,
+                      fontSize: FontSize.s12,
                       color: ColorManager.mediumgrey
                   ),
                   ),

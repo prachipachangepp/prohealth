@@ -3,8 +3,10 @@ class PhysicianInfo{
   static String physicianinfopost ="/intake-physician-info/add";
 
 static String piftof ="/intake-physician-f2-f/add";
+
+
 static String  firstrd ="/intake-physician-rdignosis/add";
-static String  pdrd ="//intake-physician-rdignosis-pd/add";
+static String  pdrd ="/intake-physician-rdignosis-pd/add";
 static String  pdrdlisi ="/intake-physician-rdignosis-lisi/add";
 
 static String stateDropdown ="/state";
