@@ -334,7 +334,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 25.0),
+                    padding: const EdgeInsets.only(left: 32),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(

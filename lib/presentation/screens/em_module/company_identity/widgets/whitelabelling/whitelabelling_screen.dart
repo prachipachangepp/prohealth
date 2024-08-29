@@ -261,15 +261,18 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                               // mainAxisAlignment: MainAxisAlignment.end,
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Text(
-                                                  'Edit White Labelling',
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 13,
-                                                    fontWeight:
-                                                    FontWeightManager.semiBold,
-                                                    color: ColorManager.white,
-                                                    decoration: TextDecoration.none,
+                                                Padding(
+                                                  padding: const EdgeInsets.only(left:30),
+                                                  child: Text(
+                                                    'Edit White Labelling',
+                                                    textAlign: TextAlign.center,
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                      FontWeightManager.semiBold,
+                                                      color: ColorManager.white,
+                                                      decoration: TextDecoration.none,
+                                                    ),
                                                   ),
                                                 ),
                                                 IconButton(
@@ -612,14 +615,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   //   keyboardType: TextInputType.number,
                                                   //   text: AppStringEM.primNum,
                                                   // ),
-                                                  SMTextFConst(
+                                                  SMTextFConstPhone(
                                                     controller: primNumController,
                                                     // codecontroller: primNumController,
                                                     keyboardType: TextInputType.phone,
                                                     text: 'Primary Phone Number',
                                                   ),
                                                   SizedBox(height: AppSize.s15),
-                                                  SMTextFConst(
+                                                  SMTextFConstPhone(
                                                     controller: altNumController,
                                                     keyboardType:
                                                         TextInputType.number,
@@ -872,7 +875,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                             text: AppStringEM.companyName,
                                           ),
                                           SizedBox(height: AppSize.s9),
-                                          EditTextField(
+                                          EditTextFieldPhone(
                                             controller: secNumberController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.secNum,
@@ -895,13 +898,13 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                       Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          EditTextField(
+                                          EditTextFieldPhone(
                                             controller: primNumController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.primNum,
                                           ),
                                           SizedBox(height: AppSize.s9),
-                                          EditTextField(
+                                          EditTextFieldPhone(
                                             controller: altNumController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.alternatephone,
