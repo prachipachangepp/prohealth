@@ -386,7 +386,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Type',
+                      Text('Device Description',
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,

@@ -154,10 +154,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
@@ -167,13 +172,12 @@ class AcknowledgementAddPopup extends StatefulWidget {
   final int employeeId;
   final TextEditingController AcknowledgementnameController;
   final VoidCallback onSavePressed;
-  final Widget child;
 
   const AcknowledgementAddPopup({
     Key? key,
     required this.labelName,
     required this.AcknowledgementnameController,
-    required this.onSavePressed, required this.child, required this.employeeId,
+    required this.onSavePressed, required this.employeeId,
   }) : super(key: key);
 
   @override
@@ -231,7 +235,8 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
     }
   }
 
-
+  int documentMetaDataId = 0;
+  int documentSetupId = 0;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -297,30 +302,61 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                       ),
                     ),
                     SizedBox(height: 3),
-                    widget.child,
-                    // DropdownButtonFormField<String>(
-                    //   value: _selectedDocumentType,
-                    //   items: [
-                    //
-                    //   ],
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       _selectedDocumentType = value;
-                    //     });
-                    //   },
-                    //   validator: (value) {
-                    //     if (value == null || value.isEmpty) {
-                    //       return 'Please select the document type';
-                    //     }
-                    //     return null;
-                    //   },
-                    //   decoration: InputDecoration(
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(8),
-                    //       borderSide: BorderSide(color: Color(0xffB1B1B1)),
-                    //     ),
-                    //   ),
-                    // ),
+                  FutureBuilder<List<EmployeeDocSetupModal>>(
+                      future: getEmployeeDocSetupDropDown(context),
+                      builder: (context,snapshot) {
+                        if(snapshot.connectionState == ConnectionState.waiting){
+                          return Container(
+                                width: 350,
+                                height: 30,
+                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                              );
+
+                        }
+                        if (snapshot.data!.isEmpty) {
+                          return Center(
+                            child: Text(
+                              AppString.dataNotFound,
+                              style: CustomTextStylesCommon.commonStyle(
+                                fontWeight: FontWeightManager.medium,
+                                fontSize: FontSize.s12,
+                                color: ColorManager.mediumgrey,
+                              ),
+                            ),
+                          );
+                        }
+                        if(snapshot.hasData){
+                          List dropDown = [];
+                          int docType = 0;
+                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                          for(var i in snapshot.data!){
+                            dropDownMenuItems.add(
+                              DropdownMenuItem<String>(
+                                child: Text(i.documentName),
+                                value: i.documentName,
+                              ),
+                            );
+                          }
+                          return CICCDropdown(
+                              initialValue: dropDownMenuItems[0].value,
+                              onChange: (val){
+                                for(var a in snapshot.data!){
+                                  if(a.documentName == val){
+                                    documentMetaDataId = a.employeeDocMetaDataId;
+                                    documentSetupId = a.employeeDocTypeSetupId;
+                                    //docMetaId = docType;
+                                  }
+                                }
+                                print(":::${docType}");
+                                //print(":::<>${docMetaId}");
+                              },
+                              items:dropDownMenuItems
+                          );
+                        }else{
+                          return SizedBox();
+                        }
+                      }
+                  ),
                     SizedBox(height: AppSize.s20),
                     GestureDetector(
                       onTap: () async {
@@ -391,7 +427,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                     if (_formKey.currentState!.validate() && widget.AcknowledgementnameController.text.isNotEmpty) {
                       try{
                         //File filePath = File(finalPath!);
-                        await uploadDocuments(context: context, employeeDocumentMetaId: 10, employeeDocumentTypeSetupId: 48,
+                        await uploadDocuments(context: context, employeeDocumentMetaId: documentMetaDataId, employeeDocumentTypeSetupId: documentSetupId,
                             employeeId: widget.employeeId, documentName: widget.AcknowledgementnameController.text,
                             documentFile: finalPath);
                       }catch(e){

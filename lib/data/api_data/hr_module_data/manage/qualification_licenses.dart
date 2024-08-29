@@ -40,6 +40,7 @@ class SelectDocuments {
   final String expiryReminder;
   final int companyId;
   final String officeId;
+  final String idOfDocument;
   SelectDocuments({
     required this.documentId,
     required this.documentTypeId,
@@ -52,5 +53,6 @@ class SelectDocuments {
     required this.expiryReminder,
     required this.companyId,
     required this.officeId,
+    required this.idOfDocument
   });
 }

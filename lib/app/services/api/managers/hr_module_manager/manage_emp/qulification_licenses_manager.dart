@@ -168,13 +168,14 @@ Future<List<SelectDocuments>> selectDocument(
             documentTypeId: item['document_type_id'],
             documentSubTypeId: item['document_subtype_id'],
             docName: item['doc_name'],
-            docCreated: item['doc_created_at'],
-            url: item['url'],
+            docCreated: item['doc_created_at']??"",
+            url: item['url']??"",
             expiryType: item['expiry_type'],
             expiryDate: item['expiry_date'],
             expiryReminder: item['expiry_reminder'],
             companyId: item['company_id'],
-            officeId: item['office_id']));
+            officeId: item['office_id'],
+            idOfDocument: item['idOfDocument']??""));
       }
     } else {
       print("Select Documents");

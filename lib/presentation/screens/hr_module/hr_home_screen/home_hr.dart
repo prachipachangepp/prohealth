@@ -72,10 +72,18 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           child: Material(
             elevation: 4.0,
             child: SingleChildScrollView(
-              child: Column(
+              child:_searchResults.isEmpty?Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 150),
+                    child: Text('No User Found!',style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.regular,
+                      color: ColorManager.mediumgrey,
+                    ),),
+                  )) :Column(
                 children: [
                   ..._searchResults.map((result) => ListTile(
-                        title: Text(
+                        title:Text(
                           result,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
@@ -331,7 +339,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 style: GoogleFonts.firaSans(fontSize: 12),
                                 onChanged: _search,
                                 decoration: InputDecoration(
-                                    hintText: 'Search',
+                                    hintText: 'Search User',
                                     alignLabelWithHint: true,
                                     hintStyle: GoogleFonts.firaSans(
                                       fontSize: FontSize.s12,
