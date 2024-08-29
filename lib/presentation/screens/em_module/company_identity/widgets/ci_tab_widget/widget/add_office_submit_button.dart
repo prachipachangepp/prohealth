@@ -208,30 +208,30 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       text: 'Alternative Phone',
                     ),
 
-                    Row(
-                      children: [
-                        // TextButton(
-                        //   onPressed: _pickLocation,
-                        //   style: TextButton.styleFrom(
-                        //       backgroundColor: Colors.transparent),
-                        //   child: Text(
-                        //     'Pick Location',
-                        //     style: GoogleFonts.firaSans(
-                        //       fontSize: FontSize.s12,
-                        //       fontWeight: FontWeightManager.bold,
-                        //       color: ColorManager.bluelight,
-                        //       //decoration: TextDecoration.none,
-                        //     ),
-                        //   ),
-                        // ),
-                        Icon(
-                          Icons.location_on_outlined,
-                          color: ColorManager.granitegray,
-                          size: AppSize.s18,
-                        ),
-
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     // TextButton(
+                    //     //   onPressed: _pickLocation,
+                    //     //   style: TextButton.styleFrom(
+                    //     //       backgroundColor: Colors.transparent),
+                    //     //   child: Text(
+                    //     //     'Pick Location',
+                    //     //     style: GoogleFonts.firaSans(
+                    //     //       fontSize: FontSize.s12,
+                    //     //       fontWeight: FontWeightManager.bold,
+                    //     //       color: ColorManager.bluelight,
+                    //     //       //decoration: TextDecoration.none,
+                    //     //     ),
+                    //     //   ),
+                    //     // ),
+                    //     Icon(
+                    //       Icons.location_on_outlined,
+                    //       color: ColorManager.granitegray,
+                    //       size: AppSize.s18,
+                    //     ),
+                    //
+                    //   ],
+                    // ),
 
                   ],
                 ),
