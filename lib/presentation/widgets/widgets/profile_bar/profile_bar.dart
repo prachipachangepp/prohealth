@@ -68,11 +68,11 @@ class _ProfileBarState extends State<ProfileBar> {
 
     // Determine which value to use for dobTimestamp
     if (years > 0) {
-      dobTimestamp = years.toString();
+      dobTimestamp = "${years.toString()} year";
     } else if (months > 0) {
-      dobTimestamp = months.toString();
+      dobTimestamp ="${months.toString()} months";
     } else {
-      dobTimestamp = days.toString();
+      dobTimestamp = "${days.toString()} days";
     }
     //dobTimestamp = days.toString();
     print('Timestamp date ${dobTimestamp}');
