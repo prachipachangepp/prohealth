@@ -333,6 +333,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fontSize: FontSize.s13,
                   ),
                 ),
+                Text(
+                  data.lastName.capitalizeFirst!,
+                  style: GoogleFonts.firaSans(
+                    fontWeight: FontWeightManager.medium,
+                    color: const Color(0xff333333),
+                    fontSize: FontSize.s13,
+                  ),
+                ),
               ],
             ),
             Row(
