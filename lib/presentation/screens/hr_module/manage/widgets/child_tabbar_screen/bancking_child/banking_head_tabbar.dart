@@ -95,6 +95,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                             ) : Offstage(),
                             const SizedBox(width: 8),
                              BankingContainerConst(
+                               index:  index ,
                                bankId: snapshot.data![index].empBankingId,
                                typeName: snapshot.data![index].type,
                                acNumber: snapshot.data![index].accountNumber,
@@ -356,6 +357,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
 
 ///Container Constant
 class BankingContainerConst extends StatelessWidget {
+  int index;
   int bankId;
    String typeName;
    String acNumber;
@@ -373,7 +375,9 @@ class BankingContainerConst extends StatelessWidget {
    final TextEditingController routingNumberController;
    final TextEditingController specificAmountController;
 
-   BankingContainerConst({Key? key,required this.bankId, this.selectedType,required this.typeName, required this.acNumber, required this.effectiveDate, required this.requestPercentage, required this.bankName, required this.routinNo,
+   BankingContainerConst({Key? key,
+     required this.index,
+     required this.bankId, this.selectedType,required this.typeName, required this.acNumber, required this.effectiveDate, required this.requestPercentage, required this.bankName, required this.routinNo,
      required this.effectiveDateController, required this.bankNameController, required this.accountNumberController, required this.verifyAccountController, required this.routingNumberController, required this.specificAmountController, required this.onPressed, required this.onPressedPrint,}) : super(key: key);
 
   @override
@@ -402,7 +406,9 @@ class BankingContainerConst extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text("Bank #${bankId.toString()}",
+                 Text(
+                   'Bank #${index + 1}',
+                   // "Bank #${bankId.toString()}",
                   style: GoogleFonts.firaSans(
                     fontSize: AppSize.s13,
                     color: const Color(0xFF333333),
