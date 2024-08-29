@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:open_file/open_file.dart';
@@ -19,7 +20,6 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../hr_module/register/confirmation_constant.dart';
 import '../../../widgets/button_constant.dart';
 import '../../../widgets/text_form_field_const.dart';
-
 class WhitelabellingScreen extends StatefulWidget {
   final String officeId;
   WhitelabellingScreen({super.key, required this.officeId});
@@ -47,6 +47,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   TextEditingController nameCtlr = TextEditingController();
 
   TextEditingController secNumberCtlr = TextEditingController();
+  // final MaskedTextController secNumberCtlr = MaskedTextController(mask: '(000) 000-0000');
   TextEditingController primNumCtlr = TextEditingController();
   TextEditingController altNumCtlr = TextEditingController();
   TextEditingController emailCtlr = TextEditingController();
@@ -393,7 +394,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                                             height: 30,
                                                                                             width: 90,
                                                                                             child: Text(
-                                                                                              file.name.substring(0,13) + "",
+                                                                                              file.name.substring(0,10) + "...",
                                                                                               textAlign: TextAlign.center,
                                                                                               style: GoogleFonts.firaSans(
                                                                                                 fontSize: 10,
@@ -502,7 +503,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                       color: Color(
                                                                           0xff686464))),
                                                             ),
-                                      
                                                             ///sub container
                                                             StreamBuilder<
                                                                 List<PlatformFile>>(
@@ -558,7 +558,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                                         // height: 30,
                                                                                         // width: 90,
                                                                                         child: Text(
-                                                                                          file.name.substring(0,12) + "",
+                                                                                          file.name.substring(0,10) + "..",
                                                                                           textAlign: TextAlign.start,
                                                                                           style: GoogleFonts.firaSans(
                                                                                             fontSize: 10,
@@ -583,11 +583,16 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     ],
                                                   ),
                                                   SizedBox(height: AppSize.s15),
+                                                  // SMTextFConst(
+                                                  //   controller: primNumController,
+                                                  //   keyboardType: TextInputType.number,
+                                                  //   text: AppStringEM.primNum,
+                                                  // ),
                                                   SMTextFConst(
                                                     controller: primNumController,
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    text: AppStringEM.primNum,
+                                                    // codecontroller: primNumController,
+                                                    keyboardType: TextInputType.phone,
+                                                    text: 'Primary Phone Number',
                                                   ),
                                                   SizedBox(height: AppSize.s15),
                                                   SMTextFConst(
@@ -598,13 +603,36 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                         .alternatephone,
                                                   ),
                                                   SizedBox(height: AppSize.s15),
+                                                  // AddressSearchField(
+                                                  //   controller: addressController,
+                                                  //   searchHint: AppStringEM.headofficeaddress,
+                                                  //   onSuggestionSelected: (AddressSearchModel suggestion) {
+                                                  //     // Handle what happens when a suggestion is selected
+                                                  //     addressController.text = suggestion.label;
+                                                  //   },
+                                                  //   noResultsText: 'No results found',
+                                                  //   searchStyle: TextStyle(
+                                                  //     fontSize: 16,
+                                                  //     color: Colors.black,
+                                                  //   ),
+                                                  //   suggestionStyle: TextStyle(
+                                                  //     fontSize: 14,
+                                                  //     color: Colors.grey,
+                                                  //   ),
+                                                  //   decoration: InputDecoration(
+                                                  //     labelText: AppStringEM.headofficeaddress,
+                                                  //     border: OutlineInputBorder(
+                                                  //       borderRadius: BorderRadius.circular(8),
+                                                  //     ),
+                                                  //   ),
+                                                  // ),
+                                                  ///
                                                   SMTextFConst(
                                                     controller: addressController,
                                                     keyboardType:
                                                     TextInputType.text,
                                                     text: AppStringEM.headofficeaddress,
                                                   ),
-
                                                   SizedBox(
                                                     width: 354,
                                                     height: 30,

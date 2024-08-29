@@ -79,12 +79,6 @@ class _DeletePopupState extends State<DeletePopup> {
               child: Row(
                 children: [
                   Text('Do you really want to delete ?',
-                    // style: GoogleFonts.firaSans(
-                    //   fontSize: FontSize.s12,
-                    //   fontWeight: FontWeightManager.semiBold,
-                    //   color: ColorManager.mediumgrey,
-                    //   decoration: TextDecoration.none,
-                    // ),
                     style:CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.semiBold,
                       fontSize: FontSize.s12,
@@ -113,7 +107,7 @@ class _DeletePopupState extends State<DeletePopup> {
                             width: 1,
                           ),
                         ),),
-                      child: Text('Cancle',
+                      child: Text('Cancel',
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,

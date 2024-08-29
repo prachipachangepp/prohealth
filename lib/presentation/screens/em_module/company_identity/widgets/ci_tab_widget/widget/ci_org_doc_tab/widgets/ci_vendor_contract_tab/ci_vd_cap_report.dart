@@ -285,7 +285,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                           builder: (BuildContext context,
                                                               void Function(void Function()) setState) {
                                                             return CCScreenEditPopup(
-                                                              title: 'Edit Leases & Services',
+                                                              title: 'Edit MD',
                                                               id: documentPreId,
                                                               idDocController: docIdController,
                                                               nameDocController: docNameController,

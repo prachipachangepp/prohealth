@@ -5,7 +5,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_country.dart';
@@ -311,18 +313,16 @@ class _CiOrgDocumentState extends State<CiZone> {
                           width: MediaQuery.of(context).size.width / 20, // 80,
                           child: Column(
                             children: [
-                              Expanded(
-                                child: Text(
-                                  "Zip Code",
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: _selectedIndex == 2
-                                        ? FontWeightManager.bold
-                                        : FontWeightManager.regular,
-                                    color: _selectedIndex == 2
-                                        ? ColorManager.blueprime
-                                        : ColorManager.mediumgrey,
-                                  ),
+                              Text(
+                                "Zip Code",
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: _selectedIndex == 2
+                                      ? FontWeightManager.bold
+                                      : FontWeightManager.regular,
+                                  color: _selectedIndex == 2
+                                      ? ColorManager.blueprime
+                                      : ColorManager.mediumgrey,
                                 ),
                               ),
                               _selectedIndex == 2
@@ -572,8 +572,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                     mapController: mapController,
                                     landmarkController: landmarkController,
                                     // locationController:    locationController ,
-                                    child: FutureBuilder<List<AllZoneData>>(
-                                        future: getAllZone(context),
+                                    child: FutureBuilder<List<SortByZoneData>>(
+                                        future: PayRateZoneDropdown(context),
                                         builder: (context, snapshotZone) {
                                           if (snapshotZone.connectionState ==
                                               ConnectionState.waiting) {
