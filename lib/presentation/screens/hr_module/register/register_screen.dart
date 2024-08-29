@@ -23,8 +23,12 @@ import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/services/api/managers/establishment_manager/user.dart';
+import '../../../../data/api_data/establishment_data/user/user_modal.dart';
 import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../em_module/widgets/popup_const.dart';
+import '../manage/widgets/custom_icon_button_constant.dart';
 import 'confirmation_constant.dart';
 import 'dart:html' as html;
 
@@ -46,6 +50,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController positionController = TextEditingController();
+  /// Enroll
+  TextEditingController userIdController = TextEditingController();
+  // TextEditingController lastNameController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController firstNameController = TextEditingController();
+  TextEditingController roleController = TextEditingController();
+  TextEditingController companyIdController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final StreamController<List<UserModal>> _companyUsersList =
+  StreamController<List<UserModal>>();
 
   String _selectedValue = 'Select';
   List<RegisterDataCompID> allData = [];
@@ -91,6 +105,65 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              ///Enroll Button
+              Container(
+                height: AppSize.s30,
+                width: AppSize.s130,
+                child: CustomIconButton(
+                  icon: Icons.add,
+                  text: 'Enroll',
+                  onPressed: () async {
+                    userIdController.clear();
+                    firstNameController.clear();
+                    lastNameController.clear();
+                    roleController.clear();
+                    emailController.clear();
+                    companyIdController.clear();
+                    passwordController.clear();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CustomDialog(
+                          title: "Create User ",
+                          userIdController: userIdController,
+                          lastNameController: lastNameController,
+                          emailController: emailController,
+                          firstNameController: firstNameController,
+                          roleController: roleController,
+                          passwordController: passwordController,
+                          companyIdController: companyIdController,
+                          onSubmit: () async {
+                            await createUserPost(
+                                context,
+
+                                // userIdController.text,
+                                firstNameController.text,
+                                lastNameController.text,
+                                roleController.text,
+                                emailController.text,
+                                1, // int.parse(companyIdController.text),
+                                passwordController.text);
+
+                            getUser(context).then((data) {
+                              _companyUsersList.add(data);
+                            }).catchError((error) {});
+                            Navigator.pop(context);
+                            firstNameController.clear();
+                            lastNameController.clear();
+                            roleController.clear();
+                            emailController.clear();
+                            companyIdController.clear();
+                            passwordController.clear();
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+
+              SizedBox(width: 10,),
+              /// Select Dropdown button
               buildDropdownButton(context),
               const SizedBox(width: 50),
             ],
