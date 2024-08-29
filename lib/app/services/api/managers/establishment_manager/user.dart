@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
@@ -115,6 +116,80 @@ Future<ApiData> createUserPost(
   }
 }
 
+///create user with popup
+
+//
+// Future<ApiData> createUserPost(
+//     BuildContext context,
+//     String firstName,
+//     String lastName,
+//     String role,
+//     String email,
+//     int companyId,
+//     String password,
+//     ) async {
+//   try {
+//     var response = await Api(context).post(path: EstablishmentManagerRepository.createUserPost(), data: {
+//       'firstName': firstName,
+//       'lastName': lastName,
+//       'role': role,
+//       'email': email,
+//       'company_id': companyId,
+//       'password': password
+//     });
+//
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("New User Added - Status: ${response.statusCode}");
+//       // Show success popup
+//       _showPopup(context, "Success", "New User Added Successfully");
+//       return ApiData(
+//         statusCode: response.statusCode!,
+//         success: true,
+//         message: response.statusMessage!,
+//       );
+//     } else {
+//       print("Failed to add user - Status: ${response.statusCode}");
+//       // Show error popup with the message from the response
+//       _showPopup(context, "Error", response.data['message'] ?? "Failed to add user");
+//       return ApiData(
+//         statusCode: response.statusCode!,
+//         success: false,
+//         message: response.data['message'],
+//       );
+//     }
+//   } catch (e) {
+//     print("Exception occurred: $e");
+//     // Show error popup for exceptions
+//     _showPopup(context, "Error", "Something went wrong. Please try again.");
+//     return ApiData(
+//       statusCode: 404,
+//       success: false,
+//       message: AppString.somethingWentWrong,
+//     );
+//   }
+// }
+
+void _showPopup(BuildContext context, String title, String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+          ),
+        ],
+      );
+    },
+  ).then((_) {
+    print("Popup closed");
+  });
+}
 /// User edit
 Future<ApiData> updateUserPatch(
     BuildContext context,
