@@ -146,7 +146,7 @@ class AppString {
   static const String srNo = "Sr No.";
   static const String name = "Name";
   static const String code = "Code";
-  static const String phone = "Phone No.";
+  static const String phone = "Phone No:";
   static const String email = "Email";
   static const String link = "Link";
   static const String status = "Status";
