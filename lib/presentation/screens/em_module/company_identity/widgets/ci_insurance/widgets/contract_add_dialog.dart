@@ -17,13 +17,13 @@ class ContractAddDialog extends StatefulWidget {
   final String title;
   final Widget radiobutton;
   Widget? child1;
-  final Visibility? child2;
+  final Widget child2;
 
   ContractAddDialog({Key? key,
     required this.contractNmaeController,
     required this.onSubmitPressed,
     required this.contractIdController,
-    required this.title, required this.radiobutton, this.child2,}) : super(key: key);
+    required this.title, required this.radiobutton, required this.child2,}) : super(key: key);
 
   @override
   State<ContractAddDialog> createState() => _ContractAddDialogState();
@@ -59,7 +59,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left:20),
+                    padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
                       widget.title,
                       textAlign: TextAlign.center,
@@ -103,9 +103,9 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                     text: 'Contract ID',
                   ),
                   SizedBox(height: AppSize.s8),
-
-                    widget.radiobutton
-
+                    widget.radiobutton,
+                  SizedBox(height: AppSize.s8),
+                  widget.child2,
 
                 ],
               ),

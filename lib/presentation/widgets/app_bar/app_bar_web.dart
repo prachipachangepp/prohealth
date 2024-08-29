@@ -11,18 +11,28 @@ import '../../../app/resources/value_manager.dart';
 import '../../screens/home_module/home_screen.dart';
 import '../widgets/const_appbar/controller.dart';
 
-class AppBarWeb extends StatelessWidget {
+class AppBarWeb extends StatefulWidget {
   AppBarWeb({super.key, required this.headingText});
-  final HRController hrController = Get.put(HRController());
   final String headingText;
 
+  @override
+  State<AppBarWeb> createState() => _AppBarWebState();
+}
+
+class _AppBarWebState extends State<AppBarWeb> {
+  final HRController hrController = Get.put(HRController());
+
+  String? _selectedValue;
+
   String? loginName = '';
+
   Future<String> user() async{
     loginName = await TokenManager.getUserName();
     //loginName = userName;
     print("UserName login ${loginName}");
     return loginName!;
   }
+
   @override
   Widget build(BuildContext context) {
     //user();
@@ -172,7 +182,7 @@ class AppBarWeb extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            headingText,
+                                            widget.headingText,
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w700,
@@ -321,81 +331,45 @@ class AppBarWeb extends StatelessWidget {
                                                 color: Colors.white, width: 2),
                                             color: Colors.transparent,
                                           ),
-                                          child: Obx(
-                                            () => Center(
-                                              child: DropdownButton<String>(
-                                                icon: Icon(
-                                                  Icons.arrow_drop_down,
-                                                  size: 15,
+                                          child: Center(
+                                            child: DropdownButton<String>(
+                                              underline: Container(),
+                                              icon: Icon(
+                                                Icons.arrow_drop_down,
+                                                size: 15,
+                                                color: Colors.white,
+                                              ),
+                                              value: _selectedValue,
+                                              hint: Text(
+                                                'Role',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600,
                                                   color: Colors.white,
                                                 ),
-                                                dropdownColor:
-                                                    ColorManager.white,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight: hrController
-                                                          .selectedItem
-                                                          .value
-                                                          .isNotEmpty
-                                                      ? FontWeight.bold
-                                                      : FontWeight.w500,
-                                                  color: hrController
-                                                          .selectedItem
-                                                          .value
-                                                          .isNotEmpty
-                                                      ? ColorManager
-                                                          .textPrimaryColor
-                                                      : const Color(0xff9B9B9B),
-                                                ),
-                                                underline: Container(),
-                                                value: hrController
-                                                    .selectedItem.value,
-                                                onChanged: (String? newValue) {
-                                                  if (newValue != null) {
-                                                    hrController
-                                                        .changeSelectedItem(
-                                                            newValue);
-                                                  }
-                                                },
-                                                items: [
-                                                  'Admin',
-                                                  'Staff',
-                                                  'Patient'
-                                                ]
-                                                    .map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                      (String value) =>
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                        value: value,
-                                                        child: Text(
-                                                          value,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                            color: hrController
-                                                                        .selectedItem
-                                                                        .value ==
-                                                                    value
-                                                                ? ColorManager
-                                                                    .white
-                                                                : const Color(
-                                                                    0xff9B9B9B),
-                                                            fontFamily:
-                                                                'FiraSans',
-                                                            fontSize:
-                                                                FontSize.s10,
-                                                            fontWeight:
-                                                                FontWeight.w200,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )
-                                                    .toList(),
                                               ),
+                                              items: <String>['Admin', 'Staff', 'Patient'].map((String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: _selectedValue == value ? Colors.white : ColorManager.white,
+                                                    ),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: (String? newValue) {
+                                                setState(() {
+                                                  _selectedValue = newValue;
+                                                });
+                                              },
+                                              dropdownColor: ColorManager.blueprime,
                                             ),
                                           ),
+
                                         ),
                                       )
                                     : SizedBox(

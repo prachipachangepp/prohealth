@@ -2,11 +2,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -35,6 +37,7 @@ class CiInsuranceContract extends StatefulWidget {
 class _CiInsuranceContractState extends State<CiInsuranceContract> {
   TextEditingController contractNameController = TextEditingController();
   TextEditingController contractIdController = TextEditingController();
+  TextEditingController calenderController = TextEditingController();
   final StreamController<List<ManageInsuranceContractData>> _controller =
       StreamController<List<ManageInsuranceContractData>>();
 
@@ -173,9 +176,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                 MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    contract
-                                                        .insuranceVendorContracId
-                                                        .toString(),
+                                                    contract.contractId.toString(),
                                                     textAlign: TextAlign.center,
                                                     style: GoogleFonts.firaSans(
                                                       fontSize: 10,
@@ -212,19 +213,10 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                     context: context,
                                                     builder:
                                                         (BuildContext context) {
-                                                      return FutureBuilder<
-                                                          ManageContractPrefill>(
-                                                          future: getPrefillContract(
-                                                              context,
-                                                              snapshot
-                                                                  .data![index]
-                                                                  .insuranceVendorContracId),
-                                                          builder: (context,
-                                                              snapshotPrefill) {
-                                                            if (snapshotPrefill
-                                                                .connectionState ==
-                                                                ConnectionState
-                                                                    .waiting) {
+                                                      return FutureBuilder<ManageContractPrefill>(
+                                                          future: getPrefillContract(context, snapshot.data![index].insuranceVendorContracId),
+                                                          builder: (context, snapshotPrefill) {
+                                                            if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                               return Center(
                                                                 child:
                                                                 CircularProgressIndicator(
@@ -233,34 +225,29 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                 ),
                                                               );
                                                             }
-                                                            var contractPrefName =
-                                                                snapshotPrefill
-                                                                    .data!
-                                                                    .contractName;
-                                                            contractNameController =
-                                                                TextEditingController(
-                                                                    text: snapshotPrefill
-                                                                        .data!
-                                                                        .contractName);
+                                                            var contractPrefName = snapshotPrefill.data!.contractName;
+                                                            contractNameController = TextEditingController(text: snapshotPrefill.data!                                                                 .contractName);
 
                                                             var contractIDPrefName = snapshotPrefill.data!.contractId;
-                                                            contractIdController =
-                                                                TextEditingController(text: snapshotPrefill.data!.contractId);
+                                                            contractIdController = TextEditingController(text: snapshotPrefill.data!.contractId);
+
+                                                            var contractPrefexpiryDate = snapshotPrefill.data!.expiryDate;
+                                                            calenderController = TextEditingController(text: snapshotPrefill.data!.expiryDate);
+
+                                                            var contractPrefexpiryType = snapshotPrefill.data!.expiryType;
+                                                            expiryType = snapshotPrefill.data!.expiryType;
 
                                                             return StatefulBuilder(
                                                               builder: (BuildContext
                                                               context,
                                                                   void Function(
-                                                                      void
-                                                                      Function())
+                                                                      void Function())
                                                                   setState) {
                                                                 return ContractAddDialog(
                                                                   title:
                                                                   'Edit Contract',
-                                                                  contractNmaeController:
-                                                                  contractNameController,
-                                                                  contractIdController:
-                                                                  contractIdController,
+                                                                  contractNmaeController: contractNameController,
+                                                                  contractIdController: contractIdController,
                                                                   onSubmitPressed:
                                                                   () async{
                                                                   setState(() {
@@ -271,26 +258,14 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                   setState(() async {
                                                                     print('Contract vendor Id ${snapshot
                                                                         .data![
-                                                                    index]
-                                                                        .insuranceVendorContracId}');
+                                                                    index].insuranceVendorContracId}');
                                                                    var response =  await patchCompanyContract(
-                                                                        context,
-                                                                        snapshot
-                                                                            .data![
-                                                                        index]
-                                                                            .insuranceVendorContracId,
-                                                                        widget
-                                                                            .officeId,
-                                                                        contractPrefName ==
-                                                                            contractNameController
-                                                                                .text ? contractPrefName! : contractNameController
-                                                                            .text,
-                                                                        selectedExpiryType
-                                                                            .toString(),
-                                                                        contractIDPrefName ==
-                                                                            contractIdController
-                                                                                .text ? contractIDPrefName! : contractIdController
-                                                                            .text);
+                                                                        context, snapshot.data![index].insuranceVendorContracId,
+                                                                        widget.officeId,
+                                                                        contractPrefName == contractNameController.text ? contractPrefName! : contractNameController.text,
+                                                                       contractPrefexpiryType == selectedExpiryType.toString() ? contractPrefexpiryType! : selectedExpiryType.toString(),
+                                                                        contractIDPrefName == contractIdController.text ? contractIDPrefName! : contractIdController.text,
+                                                                   contractPrefexpiryDate == calenderController.text ? contractPrefexpiryDate! : calenderController.text);
                                                                    if(response.statusCode == 200 || response.statusCode == 201){
                                                                      showDialog(
                                                                        context: context,
@@ -308,8 +283,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                       });
                                                                     }
                                                                   },
-                                                                  radiobutton:
-                                                                  Padding(
+                                                                  radiobutton: Padding(
                                                                     padding:
                                                                     const EdgeInsets
                                                                         .only(
@@ -337,22 +311,22 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                             TextDecoration.none,
                                                                           ),
                                                                         ),
-                                                                        CustomRadioListTile(
-                                                                          value:
-                                                                          "Not Applicable",
-                                                                          groupValue:
-                                                                          selectedExpiryType,
-                                                                          onChanged:
-                                                                              (value) {
-                                                                            setState(
-                                                                                    () {
-                                                                                  selectedExpiryType =
-                                                                                      value;
-                                                                                });
-                                                                          },
-                                                                          title:
-                                                                          "Not Applicable",
-                                                                        ),
+                                                                        // CustomRadioListTile(
+                                                                        //   value:
+                                                                        //   "Not Applicable",
+                                                                        //   groupValue:
+                                                                        //   selectedExpiryType,
+                                                                        //   onChanged:
+                                                                        //       (value) {
+                                                                        //     setState(
+                                                                        //             () {
+                                                                        //           selectedExpiryType =
+                                                                        //               value;
+                                                                        //         });
+                                                                        //   },
+                                                                        //   title:
+                                                                        //   "Not Applicable",
+                                                                        // ),
                                                                         CustomRadioListTile(
                                                                           value:
                                                                           'Scheduled',
@@ -387,6 +361,83 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                         ),
                                                                       ],
                                                                     ),
+                                                                  ),
+                                                                  child2: Column(
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
+                                                                      Text(
+                                                                        "Expiry Date",
+                                                                        style: GoogleFonts.firaSans(
+                                                                          fontSize: FontSize.s12,
+                                                                          fontWeight: FontWeight.w700,
+                                                                          color: ColorManager.mediumgrey,
+                                                                          decoration: TextDecoration.none,
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(height: AppSize.s5,),
+                                                                      FormField<String>(
+                                                                        builder: (FormFieldState<String> field) {
+                                                                          return SizedBox (
+                                                                            width: 354,
+                                                                            height: 30,
+                                                                            child:   TextFormField(
+                                                                              controller: calenderController,
+                                                                              cursorColor: ColorManager.black,
+                                                                              style: GoogleFonts.firaSans(
+                                                                                fontSize: FontSize.s12,
+                                                                                fontWeight: FontWeight.w700,
+                                                                                color: ColorManager.mediumgrey,
+                                                                                //decoration: TextDecoration.none,
+                                                                              ),
+                                                                              decoration: InputDecoration(
+                                                                                enabledBorder: OutlineInputBorder(
+                                                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                                  borderRadius: BorderRadius.circular(8),
+                                                                                ),
+                                                                                focusedBorder: OutlineInputBorder(
+                                                                                  borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                                                  borderRadius: BorderRadius.circular(8),
+                                                                                ),
+                                                                                hintText: 'mm-dd-yyyy',
+                                                                                hintStyle: GoogleFonts.firaSans(
+                                                                                  fontSize: FontSize.s12,
+                                                                                  fontWeight: FontWeight.w700,
+                                                                                  color: ColorManager.mediumgrey,
+                                                                                  //decoration: TextDecoration.none,
+                                                                                ),
+                                                                                border: OutlineInputBorder(
+                                                                                  borderRadius: BorderRadius.circular(8),
+                                                                                  borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+                                                                                ),
+                                                                                contentPadding:
+                                                                                EdgeInsets.symmetric(horizontal: 16),
+                                                                                suffixIcon: Icon(Icons.calendar_month_outlined,
+                                                                                    color: ColorManager.blueprime),
+                                                                                errorText: field.errorText,
+                                                                              ),
+                                                                              onTap: () async {
+                                                                                DateTime? pickedDate = await showDatePicker(
+                                                                                  context: context,
+                                                                                  initialDate: DateTime.now(),
+                                                                                  firstDate: DateTime(2000),
+                                                                                  lastDate: DateTime(3101),
+                                                                                );
+                                                                                if (pickedDate != null) {
+                                                                                  calenderController.text =
+                                                                                      DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                                                }
+                                                                              },
+                                                                              validator: (value) {
+                                                                                if (value == null || value.isEmpty) {
+                                                                                  return 'please select birth date';
+                                                                                }
+                                                                                return null;
+                                                                              },
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                 );
                                                               },

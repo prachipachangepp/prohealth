@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
@@ -45,7 +46,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
   TextEditingController vendorNameController = TextEditingController();
   TextEditingController contractNameController = TextEditingController();
   TextEditingController contractIdController = TextEditingController();
-
+  TextEditingController calenderController = TextEditingController();
   int _selectedIndex = 0;
   int selectedVendorId = 0;
   String? selectedVendorName;
@@ -303,16 +304,16 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                                   color: ColorManager.mediumgrey,
                                                 ),
                                               ),
-                                              CustomRadioListTile(
-                                                value: "Not Applicable",
-                                                groupValue: selectedExpiryType,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    selectedExpiryType = value!;
-                                                  });
-                                                },
-                                                title: "Not Applicable",
-                                              ),
+                                              // CustomRadioListTile(
+                                              //   value: "Not Applicable",
+                                              //   groupValue: selectedExpiryType,
+                                              //   onChanged: (value) {
+                                              //     setState(() {
+                                              //       selectedExpiryType = value!;
+                                              //     });
+                                              //   },
+                                              //   title: "Not Applicable",
+                                              // ),
                                               CustomRadioListTile(
                                                 value: 'Scheduled',
                                                 groupValue: selectedExpiryType,
@@ -335,6 +336,83 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                               ),
                                             ],
                                           ),
+                                          child2: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Expiry Date",
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: ColorManager.mediumgrey,
+                                                  decoration: TextDecoration.none,
+                                                ),
+                                              ),
+                                              SizedBox(height: AppSize.s5,),
+                                              FormField<String>(
+                                                builder: (FormFieldState<String> field) {
+                                                  return SizedBox (
+                                                    width: 354,
+                                                    height: 30,
+                                                    child:   TextFormField(
+                                                      controller: calenderController,
+                                                      cursorColor: ColorManager.black,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorManager.mediumgrey,
+                                                        //decoration: TextDecoration.none,
+                                                      ),
+                                                      decoration: InputDecoration(
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        ),
+                                                        focusedBorder: OutlineInputBorder(
+                                                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        ),
+                                                        hintText: 'mm-dd-yyyy',
+                                                        hintStyle: GoogleFonts.firaSans(
+                                                          fontSize: FontSize.s12,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: ColorManager.mediumgrey,
+                                                          //decoration: TextDecoration.none,
+                                                        ),
+                                                        border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+                                                        ),
+                                                        contentPadding:
+                                                        EdgeInsets.symmetric(horizontal: 16),
+                                                        suffixIcon: Icon(Icons.calendar_month_outlined,
+                                                            color: ColorManager.blueprime),
+                                                        errorText: field.errorText,
+                                                      ),
+                                                      onTap: () async {
+                                                        DateTime? pickedDate = await showDatePicker(
+                                                          context: context,
+                                                          initialDate: DateTime.now(),
+                                                          firstDate: DateTime(2000),
+                                                          lastDate: DateTime(3101),
+                                                        );
+                                                        if (pickedDate != null) {
+                                                          calenderController.text =
+                                                              DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                        }
+                                                      },
+                                                      validator: (value) {
+                                                        if (value == null || value.isEmpty) {
+                                                          return 'please select birth date';
+                                                        }
+                                                        return null;
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
                                           onSubmitPressed: () async {
                                             //if (selectedVendorId == 0) {
                                             await addVendorContract(
@@ -344,6 +422,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                               selectedExpiryType!,
                                               widget.officeId,
                                               contractIdController.text,
+                                              calenderController.text
                                             );
                                           },
                                           contractIdController:
