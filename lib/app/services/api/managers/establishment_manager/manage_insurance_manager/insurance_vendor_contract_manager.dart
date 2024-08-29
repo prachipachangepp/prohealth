@@ -187,6 +187,7 @@ Future<ApiData> addVendorContract(
     String expiryType,
     String officeId,
     String contractId,
+    String expiryDate,
     ) async {
   try {
     final companyId= await TokenManager.getCompanyId();
@@ -199,6 +200,7 @@ Future<ApiData> addVendorContract(
           "companyId": companyId,
           "officeId": officeId,
           "contractId": contractId,
+          "expiry_date": expiryDate,
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Contract Addded");
@@ -328,6 +330,7 @@ Future<ApiData> patchCompanyContract(
     String contractName,
     String expirType,
     String contractId,
+    String expiryDate,
     ) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -340,6 +343,7 @@ Future<ApiData> patchCompanyContract(
           "companyId": companyId,
           "expiry_type": expirType,
           "contractId": contractId,
+          "expiry_date": expiryDate,
         });
 
     if (response.statusCode == 200 || response.statusCode == 201) {

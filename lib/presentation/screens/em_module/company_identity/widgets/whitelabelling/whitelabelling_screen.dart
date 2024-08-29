@@ -437,29 +437,29 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     text: AppStringEM.companyName,
                                                   ),
                                                   SizedBox(height: AppSize.s15),
-                                                  // SMTextFConstPhone(
-                                                  //   controller: secNumberController,
-                                                  //   keyboardType: TextInputType.phone,
-                                                  //   text: AppStringEM.secNum,
-                                                  //   enable: true,
-                                                  // )
+                                                  SMTextFConstPhone(
+                                                    controller: secNumberController,
+                                                    keyboardType: TextInputType.phone,
+                                                    text: AppStringEM.secNum,
+                                                    enable: true,
+                                                  ),
 
                                                    // text: 'Phone Number',
-                                                    // icon: Icon(Icons.phone),
-                                                    // enable: true,
-                                                    // validator: (value) {
-                                                    //   // Add your validation logic here
-                                                    //   return null;
-                                                    // },
+                                                   //  icon: Icon(Icons.phone),
+                                                   //  enable: true,
+                                                   //  validator: (value) {
+                                                   //    // Add your validation logic here
+                                                   //    return null;
+                                                   //  },
 
-                                                  SMTextFConst(
-
-                                                    controller:
-                                                        secNumberController,
-                                                    keyboardType:
-                                                        TextInputType.phone,
-                                                    text: AppStringEM.secNum,
-                                                  ),
+                                                  // SMTextFConst(
+                                                  //
+                                                  //   controller:
+                                                  //       secNumberController,
+                                                  //   keyboardType:
+                                                  //       TextInputType.phone,
+                                                  //   text: AppStringEM.secNum,
+                                                  // ),
                                                   SizedBox(height:AppSize.s15),
                                                   SMTextFConst(
                                                     controller: faxController,
