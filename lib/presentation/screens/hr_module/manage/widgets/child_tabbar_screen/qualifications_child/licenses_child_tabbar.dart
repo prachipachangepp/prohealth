@@ -276,16 +276,16 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(snapshot.data![index].licenure,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                       const SizedBox(height: 10,),
                                       Text(snapshot.data![index].org,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                       const SizedBox(height: 10,),
                                       Text(snapshot.data![index].country,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                       const SizedBox(height: 10,),
                                       Text(snapshot.data![index].licenseNumber,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                     ],
                                   ),
                                   Column(
@@ -302,10 +302,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(snapshot.data![index].issueDate,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                       const SizedBox(height: 10,),
                                       Text(snapshot.data![index].expData,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                       const SizedBox(height: 50,)
 
                                     ],

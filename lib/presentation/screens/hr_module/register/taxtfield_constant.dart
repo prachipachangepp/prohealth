@@ -228,7 +228,7 @@ class CustomTextFieldRegister extends StatelessWidget {
               // ),
               labelText: labelText,
               labelStyle: GoogleFonts.firaSans(
-            fontSize: FontSize.s10,
+            fontSize: FontSize.s13,
           ),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,

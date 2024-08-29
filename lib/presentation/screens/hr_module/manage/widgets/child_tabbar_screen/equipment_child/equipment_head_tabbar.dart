@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/equipment_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/equipment_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/font_manager.dart';
@@ -341,19 +342,21 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(8.0),
                     topLeft: Radius.circular(8.0))),
-            padding: EdgeInsets.only(left: 10.0),
+            padding: EdgeInsets.only(left: 25.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Add New Equipment ',
+                  'Add New Equipment',
                   style: GoogleFonts.firaSans(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeightManager.bold,
+                    color: ColorManager.white,
+                    decoration: TextDecoration.none,
                   ),
                 ),
                 IconButton(
+
                   icon: Icon(Icons.close, color: Colors.white),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
@@ -390,39 +393,54 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                           color:  ColorManager.granitegray,
                           decoration: TextDecoration.none,
                         ),),
-                      SizedBox(height: 2),
-                      Container(
-                        height: 30,
-                        padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: Color(0xffB1B1B1)), // Black border
-                          borderRadius: BorderRadius.circular(8), // Rounded corners
-                        ),
-                        child: DropdownButtonFormField<String>(
-                          focusColor: Colors.transparent,
-                          icon: Icon(Icons.arrow_drop_down_sharp,color: ColorManager.black,),
-                          decoration: InputDecoration.collapsed(hintText: ''),
-                          items: <String>['Cellular', 'A', 'B', 'C']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value,style: GoogleFonts.roboto(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.bold),),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              typeName = newValue!;
-                              print("Type::${typeName}");
-                            });
-                          },
-                          value: 'Cellular',
-                          style: GoogleFonts.roboto(
-                              color: ColorManager.granitegray,
-                            fontSize: AppSize.s12,
-                            fontWeight: FontWeightManager.bold),
-                        ),
-                      ),
+                      SizedBox(height: 5),
+                      CICCDropdown(
+                        onChange: (newValue){
+                          setState(() {
+                            typeName = newValue;
+                            print("Type::${typeName}");
+                          });
+                        },
+                        initialValue: 'Cellular',
+                        items: [
+                          DropdownMenuItem(value: 'Cellular', child: Text('Cellular')),
+                          DropdownMenuItem(value: 'A', child: Text('A')),
+                          DropdownMenuItem(value: 'B', child: Text('B')),
+                          DropdownMenuItem(value: 'C', child: Text('C')),
+                        ],
+                      )
+                      // Container(
+                      //   height: 30,
+                      //   padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.transparent,
+                      //     border: Border.all(color: Color(0xffB1B1B1)), // Black border
+                      //     borderRadius: BorderRadius.circular(8), // Rounded corners
+                      //   ),
+                      //   child: DropdownButtonFormField<String>(
+                      //     focusColor: Colors.transparent,
+                      //     icon: Icon(Icons.arrow_drop_down_sharp,color: ColorManager.black,),
+                      //     decoration: InputDecoration.collapsed(hintText: ''),
+                      //     items: <String>['Cellular', 'A', 'B', 'C']
+                      //         .map<DropdownMenuItem<String>>((String value) {
+                      //       return DropdownMenuItem<String>(
+                      //         value: value,
+                      //         child: Text(value,style: GoogleFonts.roboto(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.bold),),
+                      //       );
+                      //     }).toList(),
+                      //     onChanged: (String? newValue) {
+                      //       setState(() {
+                      //         typeName = newValue!;
+                      //         print("Type::${typeName}");
+                      //       });
+                      //     },
+                      //     value: 'Cellular',
+                      //     style: GoogleFonts.roboto(
+                      //         color: ColorManager.granitegray,
+                      //       fontSize: AppSize.s12,
+                      //       fontWeight: FontWeightManager.bold),
+                      //   ),
+                      // ),
                     ],
                   ),
                   SizedBox(height: AppSize.s16,),
@@ -441,7 +459,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                             ),),
                         ],
                       ),
-                      SizedBox(width: AppSize.s25,),
+                      SizedBox(height:5,),
                       FormField<String>(
                         builder: (FormFieldState<String> field) {
                           return SizedBox(

@@ -253,35 +253,35 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                         children: [
                                           Text(
                                             snapshot.data![index].title,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].dateOfJoining,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].endDate,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].employer,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].emgMobile,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                         ],
                                       ),
@@ -324,35 +324,35 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                         children: [
                                           Text(
                                             snapshot.data![index].reason,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].supervisor,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].supMobile,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].city,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].country,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                         ],
                                       ),
