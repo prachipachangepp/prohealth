@@ -108,9 +108,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ///Enroll Button
               Container(
                 height: AppSize.s30,
-                width: AppSize.s130,
+                width: AppSize.s120,
                 child: CustomIconButton(
-                  icon: Icons.add,
+                  // icon: Icons.add,
                   text: 'Enroll',
                   onPressed: () async {
                     userIdController.clear();
