@@ -30,7 +30,7 @@ class ThemeManager {
     double fontSize = MediaQuery.of(context).size.width / 140;
     return GoogleFonts.firaSans(
       fontSize: fontSize,
-      color: Color(0xFF686464),
+      color: ColorManager.mediumgrey,
       fontWeight: FontWeight.w400,
     );
   }
@@ -43,6 +43,16 @@ class ThemeManagerDark {
       fontSize: fontSize,
       color: Color(0xFF2A2827),
       fontWeight: FontWeight.w400,
+    );
+  }
+}
+class ThemeManagerDarkFont {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = MediaQuery.of(context).size.width/140;
+    return GoogleFonts.firaSans(
+      fontSize: fontSize,
+      color: ColorManager.black,
+      fontWeight: FontWeight.w500,
     );
   }
 }

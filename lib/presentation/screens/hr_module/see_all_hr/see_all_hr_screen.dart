@@ -531,7 +531,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                'Patient Profile',
+                'Clinician Search Filter',
                 style: GoogleFonts.firaSans(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
