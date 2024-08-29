@@ -155,7 +155,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${ CapReports.docId.toString()}",
+                                                          "ID : ${ CapReports.idOfDoc.toString()}",
                                                           //CapReports.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts.firaSans(
                                                             fontSize: FontSize.s10,
@@ -255,6 +255,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                             expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                                             expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                                             officeId: widget.officeId,
+                                                                              idOfDoc: snapshotPrefill.data!.idOfDoc
                                                                           );
                                                                         } finally {
                                                                           setState(() {

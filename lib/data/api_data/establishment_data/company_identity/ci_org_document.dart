@@ -107,6 +107,7 @@ class CorporatePrefillDocumentData {
   final String expiryReminder;
   final int companyId;
   final String officeId;
+  final String idOfDoc;
   final bool sucess;
   final String message;
   CorporatePrefillDocumentData({
@@ -121,6 +122,7 @@ class CorporatePrefillDocumentData {
     required this.expiryReminder,
     required this.companyId,
     required this.officeId,
+    required this.idOfDoc,
     required this.sucess,
     required this.message,
   });

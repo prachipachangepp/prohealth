@@ -150,7 +150,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${ MedicalCostReport.docId.toString()}",
+                                                          "ID : ${ MedicalCostReport.idOfDoc.toString()}",
                                                          // MedicalCostReport.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts.firaSans(
                                                             fontSize: 10,
@@ -250,6 +250,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                                                                             expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                                             expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                                             officeId: widget.officeId,
+                                                                              idOfDoc: snapshotPrefill.data!.idOfDoc
                                                                           );
                                                                         } finally {
                                                                           setState(() {

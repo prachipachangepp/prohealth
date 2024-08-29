@@ -10,11 +10,12 @@ class ManageCCDoc {
   final String expiryReminder;
   final int companyId;
   final String officeId;
+  final String idOfDoc;
   final bool sucess;
   final String message;
 
-  ManageCCDoc(
-      {required this.documentTypeId,
+  ManageCCDoc({required this.idOfDoc,
+      required this.documentTypeId,
         required this.documentSubTypeId,
         required this.url,
         required this.expiryReminder,
@@ -44,6 +45,7 @@ class CorporatePrefillCCVVPP {
   final String expiryReminder;
   final int companyId;
   final String officeId;
+  final String idOfDoc;
   final bool sucess;
   final String message;
   CorporatePrefillCCVVPP({
@@ -58,6 +60,7 @@ class CorporatePrefillCCVVPP {
     required this.expiryReminder,
     required this.companyId,
     required this.officeId,
+    required this.idOfDoc,
     required this.sucess,
     required this.message,
   });

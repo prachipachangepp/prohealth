@@ -149,7 +149,7 @@ class _CICCADRState extends State<CICCADR> {
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${ manageCCADR.docId.toString()}",
+                                                          "ID : ${ manageCCADR.idOfDoc.toString()}",
                                                          // manageCCADR.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts.firaSans(
                                                             fontSize: FontSize.s10,
@@ -249,6 +249,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                             expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                                             expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                                             officeId: widget.officeId,
+                                                                            idOfDoc: snapshotPrefill.data!.idOfDoc
                                                                           );
                                                                         } finally {
                                                                           setState(() {
