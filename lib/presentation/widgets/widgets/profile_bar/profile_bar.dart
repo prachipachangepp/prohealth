@@ -109,66 +109,70 @@ class _ProfileBarState extends State<ProfileBar> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        width: AppSize.s70,
-                        height: AppSize.s70,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            // FutureBuilder(
-                            //  future: decodeMEthod(widget.searchByEmployeeIdProfileData!.imgurl),
-                            //  builder: (context, snapshot){
-                            //    if(snapshot.connectionState == ConnectionState.waiting){
-                            //      return SizedBox();
-                            //    }
-                            //    return SizedBox(
-                            //      height: 50,
-                            //      width: 50,
-                            //      child: Base64ImageWidget(
-                            //          base64String: base64Decode),
-                            //    );
-                            //  }),
+                  Padding(
+                    padding: const EdgeInsets.only(left:50),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: AppSize.s70,
+                          height: AppSize.s70,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              // FutureBuilder(
+                              //  future: decodeMEthod(widget.searchByEmployeeIdProfileData!.imgurl),
+                              //  builder: (context, snapshot){
+                              //    if(snapshot.connectionState == ConnectionState.waiting){
+                              //      return SizedBox();
+                              //    }
+                              //    return SizedBox(
+                              //      height: 50,
+                              //      width: 50,
+                              //      child: Base64ImageWidget(
+                              //          base64String: base64Decode),
+                              //    );
+                              //  }),
 
-                            Icon(Icons.person,color: ColorManager.white,size: AppSize.s50,),
-                            // Image.network(searchByEmployeeIdProfileData!.imgurl,
-                            //     height: AppSize.s50, width: AppSize.s50),
-                            // you can replace
-                            SizedBox(
-                              height: AppSize.s53,
-                              width: AppSize.s53,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    ColorManager.greenF),
-                                strokeWidth: 3,
-                                value: widget.searchByEmployeeIdProfileData!
-                                    .profileScorePercentage,
+                              Icon(Icons.person,color: ColorManager.white,size: AppSize.s50,),
+                              // Image.network(searchByEmployeeIdProfileData!.imgurl,
+                              //     height: AppSize.s50, width: AppSize.s50),
+                              // you can replace
+                              SizedBox(
+                                height: AppSize.s53,
+                                width: AppSize.s53,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      ColorManager.greenF),
+                                  strokeWidth: 3,
+                                  value: widget.searchByEmployeeIdProfileData!
+                                      .profileScorePercentage,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Text(
-                        widget.searchByEmployeeIdProfileData!.status.capitalizeFirst!,
-                        style: ThemeManagerBlack.customTextStyle(context),
-                      ),
-                      FutureBuilder<ProfilePercentage>(
-                          future: getPercentage(context, widget.searchByEmployeeIdProfileData!.employeeId!),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return SizedBox();
-                            }
-                            return Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Annual skills ${snapshot.data!.percentage}%",
-                                    style: ThemeManager.customTextStyle(context),
-                                  ),
-                                ]);
-                          })
-                    ],
+                        Text(
+                          widget.searchByEmployeeIdProfileData!.status.capitalizeFirst!,
+                          style: ThemeManagerBlack.customTextStyle(context),
+                        ),
+                        FutureBuilder<ProfilePercentage>(
+                            future: getPercentage(context, widget.searchByEmployeeIdProfileData!.employeeId!),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return SizedBox();
+                              }
+                              return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Annual skills ${snapshot.data!.percentage}%",
+                                      style: ThemeManager.customTextStyle(context),
+                                    ),
+                                  ]);
+                            })
+                      ],
+                    ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -201,10 +205,17 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
                         ),
                       ),
-                      Text(
-                        widget.searchByEmployeeIdProfileData!.employeeType,
-                        style: ThemeManagerDark.customTextStyle(context),
+                      Row(
+                          children:[
+                            Text('Employement Type',style:ThemeManager.customTextStyle(context)),
+                            SizedBox(width: 20,),
+                            Text(
+                              widget.searchByEmployeeIdProfileData!.employeeType,
+                              style: ThemeManagerDark.customTextStyle(context),
+                            ),
+                          ]
                       ),
+
                       Text(
                         AppString.saanJoes,
                         style: ThemeManagerDark.customTextStyle(context),
@@ -216,9 +227,9 @@ class _ProfileBarState extends State<ProfileBar> {
                       Text(widget.searchByEmployeeIdProfileData!.finalAddress,
                           textAlign: TextAlign.start,
                           style: GoogleFonts.firaSans(
-                            fontSize: AppSize.s10,
+                            fontSize: AppSize.s12,
                             color: ColorManager.primary,
-                            fontWeight: FontWeightManager.light,
+                            fontWeight: FontWeightManager.semiBold,
                           )),
                     ],
                   ),
@@ -229,7 +240,7 @@ class _ProfileBarState extends State<ProfileBar> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: MyConstants.personalInfoTexts(context),
                       ),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 30,),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,7 +281,7 @@ class _ProfileBarState extends State<ProfileBar> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: MyConstantsColumn.personalInfoTexts(context),
                       ),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 30,),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -490,7 +501,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
                           Text(
-                            AppString.na,
+                            widget.searchByEmployeeIdProfileData!.regOfficId,
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
                           Text(
@@ -511,14 +522,12 @@ class _ProfileBarState extends State<ProfileBar> {
                             Row(
                             children: [
                               Text(AppString.hideDate,
-                                  style: ProfileBarConstText.profileTextStyle(
-                                      context)),
+                                  style: ThemeManager.customTextStyle(context)),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width / 35,
                               ),
                               Text(AppString.datetime,
-                                  style: ProfileBarConstText.profileTextStyle(
-                                      context)),
+                                  style: ThemeManagerDark.customTextStyle(context)),
                             ],
                           ),
                             SizedBox(height:10),
@@ -527,8 +536,7 @@ class _ProfileBarState extends State<ProfileBar> {
                               children: [
                                 Text(
                                     'PTA',
-                                    style: ProfileBarConstText.profileTextStyle(
-                                        context)),
+                                    style: ThemeManager.customTextStyle(context)),
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width / 25,
                                 ),
@@ -536,8 +544,7 @@ class _ProfileBarState extends State<ProfileBar> {
                                   padding: EdgeInsets.only(right: 70.0),
                                   child: Text(
                                       '1.2',
-                                      style: ProfileBarConstText.profileTextStyle(
-                                          context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                 ),
                               ],
                             ),]
