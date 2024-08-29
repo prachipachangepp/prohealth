@@ -133,7 +133,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                         height: mediaQuery.height / 22.5,
                                         width: mediaQuery.width / 4,
                                         decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey,
+                                            color: Color(0xFFF4F4F4),
                                             borderRadius:
                                                 const BorderRadius.only(
                                               topRight: Radius.circular(10),
@@ -151,7 +151,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                   fontSize:
                                                       mediaQuery.width / 110,
                                                   fontWeight: FontWeight.w600,
-                                                  color: ColorManager.white,
+                                                  color: ColorManager.mediumgrey,
                                                   decoration:
                                                       TextDecoration.none,
                                                 ),
@@ -162,7 +162,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                   fontSize:
                                                       mediaQuery.width / 110,
                                                   fontWeight: FontWeight.w600,
-                                                  color: ColorManager.white,
+                                                  color: ColorManager.mediumgrey,
                                                   decoration:
                                                       TextDecoration.none,
                                                 ),

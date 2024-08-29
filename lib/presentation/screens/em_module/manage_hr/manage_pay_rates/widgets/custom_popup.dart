@@ -175,7 +175,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p20),
+              padding: const EdgeInsets.only(bottom: AppPadding.p25),
               child: Center(
                 child: isLoading
                     ? SizedBox(
