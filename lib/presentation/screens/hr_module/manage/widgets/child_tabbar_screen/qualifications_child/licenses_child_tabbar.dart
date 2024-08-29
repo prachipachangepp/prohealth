@@ -260,17 +260,17 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Licensure/Certification',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('Licensure/Certification :',
+                                          style: ThemeManagerBold.customTextStyle(context)),
                                       const SizedBox(height: 10,),
-                                      Text('Issuing Organization',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('Issuing Organization :',
+                                          style: ThemeManagerBold.customTextStyle(context)),
                                       const SizedBox(height: 10,),
-                                      Text('Country',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('Country :',
+                                          style: ThemeManagerBold.customTextStyle(context)),
                                       const SizedBox(height: 10,),
-                                      Text('Number/ID',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('Number/ID :',
+                                          style: ThemeManagerBold.customTextStyle(context)),
                                     ],),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,11 +290,11 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   ),
                                   Column(
                                     children: [
-                                      Text('Issue Date',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('Issue Date :',
+                                          style: ThemeManagerBold.customTextStyle(context)),
                                       const SizedBox(height: 10,),
-                                      Text('End Date',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('End Date :',
+                                          style: ThemeManagerBold.customTextStyle(context)),
                                       const SizedBox(height: 50,)
                                     ],
                                   ),

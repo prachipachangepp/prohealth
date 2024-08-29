@@ -113,7 +113,7 @@ class _DeletePopupState extends State<DeletePopup> {
                             width: 1,
                           ),
                         ),),
-                      child: Text('Cancle',
+                      child: Text('Cancel',
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
