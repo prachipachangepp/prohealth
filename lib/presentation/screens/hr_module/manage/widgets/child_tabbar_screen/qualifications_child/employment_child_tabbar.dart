@@ -251,6 +251,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+
                                           Text(
                                             snapshot.data![index].title,
                                             style: ThemeManagerDark.customTextStyle(context),
