@@ -46,6 +46,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     //print('Employee Id in documents :: ${controller.employeeId}');
@@ -66,63 +67,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         employeeId: widget.employeeId,
                         AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
                         },
-                        child: FutureBuilder<List<EmployeeDocTabModal>>(
-                            future: getEmployeeDocTab(context),
-                            builder: (context,snapshot) {
-                              if(snapshot.connectionState == ConnectionState.waiting){
-                                return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Container(
-                                      width: 350,
-                                      height: 30,
-                                      decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                    )
-                                );
-                              }
-                              if (snapshot.data!.isEmpty) {
-                                return Center(
-                                  child: Text(
-                                    AppString.dataNotFound,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeightManager.medium,
-                                      fontSize: FontSize.s12,
-                                      color: ColorManager.mediumgrey,
-                                    ),
-                                  ),
-                                );
-                              }
-                              if(snapshot.hasData){
-                                List dropDown = [];
-                                int docType = 0;
-                                List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                for(var i in snapshot.data!){
-                                  dropDownMenuItems.add(
-                                    DropdownMenuItem<String>(
-                                      child: Text(i.employeeDocType),
-                                      value: i.employeeDocType,
-                                    ),
-                                  );
-                                }
-                                return CICCDropdown(
-                                    initialValue: dropDownMenuItems[0].value,
-                                    onChange: (val){
-                                      for(var a in snapshot.data!){
-                                        if(a.employeeDocType == val){
-                                          docType = a.employeeDocMetaDataId;
-                                          //docMetaId = docType;
-                                        }
-                                      }
-                                      print(":::${docType}");
-                                      //print(":::<>${docMetaId}");
-                                    },
-                                    items:dropDownMenuItems
-                                );
-                              }else{
-                                return SizedBox();
-                              }
-                            }
-                        ),);
+                        );
                     });
                     //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                   }),

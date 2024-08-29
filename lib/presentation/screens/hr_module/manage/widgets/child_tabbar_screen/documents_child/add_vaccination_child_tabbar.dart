@@ -45,6 +45,8 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
     // TODO: implement initState
     super.initState();
   }
+  int documentMetaDataId = 0;
+  int documentSetupId = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -71,21 +73,18 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                             AcknowledgementnameController:
                             healthRecordAddNameController, onSavePressed: () {  },
                             employeeId: widget.employeeId,
-                            documentMetaId: 1,
-                            documentSetupId: 10,
-                            child: FutureBuilder<List<EmployeeDocTabModal>>(
-                                future: getEmployeeDocTab(context),
+                            documentMetaId: documentMetaDataId,
+                            documentSetupId: documentSetupId,
+                            child: FutureBuilder<List<EmployeeDocSetupModal>>(
+                                future: getEmployeeDocSetupDropDown(context),
                                 builder: (context,snapshot) {
                                   if(snapshot.connectionState == ConnectionState.waiting){
-                                    return Shimmer.fromColors(
-                                        baseColor: Colors.grey[300]!,
-                                        highlightColor: Colors.grey[100]!,
-                                        child: Container(
-                                          width: 350,
-                                          height: 30,
-                                          decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                        )
+                                    return Container(
+                                      width: 350,
+                                      height: 30,
+                                      decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
                                     );
+
                                   }
                                   if (snapshot.data!.isEmpty) {
                                     return Center(
@@ -106,8 +105,8 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     for(var i in snapshot.data!){
                                       dropDownMenuItems.add(
                                         DropdownMenuItem<String>(
-                                          child: Text(i.employeeDocType),
-                                          value: i.employeeDocType,
+                                          child: Text(i.documentName),
+                                          value: i.documentName,
                                         ),
                                       );
                                     }
@@ -115,8 +114,9 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                         initialValue: dropDownMenuItems[0].value,
                                         onChange: (val){
                                           for(var a in snapshot.data!){
-                                            if(a.employeeDocType == val){
-                                              docType = a.employeeDocMetaDataId;
+                                            if(a.documentName == val){
+                                              documentMetaDataId = a.employeeDocMetaDataId;
+                                              documentSetupId = a.employeeDocTypeSetupId;
                                               //docMetaId = docType;
                                             }
                                           }
@@ -129,7 +129,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     return SizedBox();
                                   }
                                 }
-                            ),
+                            )
                             // onSavePredded: () async {
                             //   await addEmployeeDocSetup(
                             //       context,

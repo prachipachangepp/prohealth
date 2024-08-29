@@ -266,7 +266,7 @@ class _ProfileBarState extends State<ProfileBar> {
                       ),
 
                       Text(
-                        AppString.saanJoes,
+                        widget.searchByEmployeeIdProfileData!.zone,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       Text(
