@@ -453,6 +453,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     // },
 
                                                   SMTextFConst(
+
                                                     controller:
                                                         secNumberController,
                                                     keyboardType:
