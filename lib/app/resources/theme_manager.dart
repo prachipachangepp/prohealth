@@ -36,6 +36,23 @@ class ThemeManager {
   }
 }
 
+
+///prajwal
+class ThemeManagerBold {
+  static TextStyle customTextStyle(BuildContext context) {
+    double fontSize = MediaQuery.of(context).size.width / 140;
+    return GoogleFonts.firaSans(
+      fontSize: fontSize,
+      //color: Color(0xFF686464),
+      color: Colors.black,
+      //fontWeight: FontWeight.w400,
+      fontWeight: FontWeightManager.medium,
+    );
+  }
+}
+
+
+
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width/140;

@@ -313,10 +313,10 @@ class _CiCorporateComplianceScreenState
                                     docTypeID: docTypeMetaId,
                                     docSubTypeID: docSubTypeMetaId,
                                     expiryType: selectedExpiryType.toString(),
-                                    expiryDate: expiryTypeToSend,
-                                    expiryReminder:
-                                        selectedExpiryType.toString(),
+                                    expiryDate: calenderController.text,//expiryTypeToSend,
+                                    expiryReminder: selectedExpiryType.toString(),
                                     officeId: widget.officeId,
+                                    idOfDoc: docIdController.text,
                                   );
                                   Navigator.pop(context);
                                 } finally {
@@ -600,7 +600,7 @@ class _CiCorporateComplianceScreenState
                                   ],
                                 ),
                               ),
-                              title: 'Add Vendor Contracts',
+                              title: 'Add Coporate & Compliance ',
                             );
                           },
                         );

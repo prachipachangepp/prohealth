@@ -226,34 +226,35 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text('Final Position Title',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Final Position Title :',
+                                              style: ThemeManagerBold.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Start Date',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Start Date :',
+                                              style: ThemeManagerBold.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('End Date',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('End Date :',
+                                              style: ThemeManagerBold.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Employer',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Employer :',
+                                              style: ThemeManagerBold.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Emergency Contact',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Emergency Contact :',
+                                              style: ThemeManagerBold.customTextStyle(context)),
                                         ],
                                       ),
                                       SizedBox(width: MediaQuery.of(context).size.width/35,),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+
                                           Text(
                                             snapshot.data![index].title,
                                             style: ThemeManagerDarkFont.customTextStyle(context),
@@ -297,28 +298,28 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text('Reason of Leaving',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Reason of Leaving :',
+                                              style: ThemeManagerBold.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Last Supervisor’s Name',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Last Supervisor’s Name :',
+                                              style: ThemeManagerBold.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('SuperVisor\'s Phone No.',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('SuperVisor\'s Phone No. :',
+                                              style: ThemeManagerBold.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('City',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('City :',
+                                              style: ThemeManagerBold.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Country',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Country :',
+                                              style: ThemeManagerBold.customTextStyle(context)),
                                         ],
                                       ),
                                       SizedBox(width: MediaQuery.of(context).size.width/35,),

@@ -83,7 +83,8 @@ Future<CorporatePrefillDocumentData> getPrefillCorporateDocument(
           expiryDate: response.data['expiry_date'],
           expiryReminder: response.data['expiry_reminder'],
           companyId: response.data['company_id'],
-          officeId: response.data['office_id'] ?? "");
+          officeId: response.data['office_id'] ?? "",
+      idOfDoc: response.data['idOfDocument'] ?? "");
     } else {
       print('Api Error');
       //return itemsList;
@@ -109,6 +110,7 @@ Future<ApiData> updateCorporateDocumentPost({
   required String expiryDate,
   required String expiryReminder,
   required String officeId,
+  required String idOfDoc,
 }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -126,6 +128,7 @@ Future<ApiData> updateCorporateDocumentPost({
           "expiry_reminder": expiryReminder,
           "company_id": companyId,
           "office_id": officeId,
+          "idOfDocument": idOfDoc,
         });
     print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {

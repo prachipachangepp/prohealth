@@ -328,6 +328,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                                                   expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                                   expiryReminder: selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
                                                                   officeId: "",//widget.officeId,
+                                                                    idOfDoc: snapshotPrefill.data!.idOfDoc
                                                                 );
                                                               } finally {
                                                                 setState(() {

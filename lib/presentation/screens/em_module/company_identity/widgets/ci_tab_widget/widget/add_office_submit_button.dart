@@ -1,6 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -17,6 +18,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../../../app/resources/const_string.dart';
+import '../../company_identity_zone/widgets/location_screen.dart';
 import '../../whitelabelling/success_popup.dart';
 
 class AddOfficeSumbitButton extends StatefulWidget {
@@ -35,6 +37,65 @@ class AddOfficeSumbitButton extends StatefulWidget {
 }
 
 class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
+
+
+
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  String _location = 'Lat/Long not selected'; // Default text
+  // void _pickLocation() async {
+  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
+  //     MaterialPageRoute(
+  //       builder: (context) => MapScreen(
+  //         initialLocation: _selectedLocation,
+  //         onLocationPicked: (location) {
+  //           setState(() {
+  //             _selectedLocation = location;
+  //             _latitude = location.latitude;
+  //             _longitude = location.longitude;
+  //             String formatLatLong(double? latitude, double? longitude) {
+  //               if (latitude != null && longitude != null) {
+  //                 return 'Lat: ${latitude.toStringAsFixed(4)}, Long: ${longitude.toStringAsFixed(4)}';
+  //               } else {
+  //                 return 'Lat/Long not selected';
+  //               }
+  //             }
+  //
+  //            // final latlong = formatLatLong(_latitude, _longitude);
+  //             //
+  //             // // Create locationString
+  //             // final latlong = _latitude != null && _longitude != null
+  //             //     ? 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}'
+  //             //     : 'Lat/Long not selected';
+  //
+  //             print("Selected LatLong :: $latlong");
+  //
+  //             // Update the location in the UI directly
+  //             _updateLocation(latlong);
+  //           });
+  //         },
+  //       ),
+  //     ),
+  //   );
+  //   }
+
+  //   if (pickedLocation != null) {
+  //     setState(() {
+  //       _selectedLocation = pickedLocation;
+  //       _latitude = pickedLocation.latitude;
+  //       _longitude = pickedLocation.longitude;
+  //     });
+  //   }
+  // }
+
+
+  void _updateLocation(String latlong) {
+    setState(() {
+      _location = latlong;
+      print("Updated Location: $_location"); // Check this log to see if the value updates
+    });
+  }
+
+
   bool isLoading = false;
 
   @override
@@ -43,7 +104,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s390,
-        height: AppSize.s470,
+        height: AppSize.s500,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -64,14 +125,17 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Add New Office',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s13,
-                      fontWeight: FontWeightManager.semiBold,
-                      color: ColorManager.white,
-                      decoration: TextDecoration.none,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text(
+                      'Add New Office',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s13,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                   IconButton(
@@ -99,15 +163,15 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       controller: widget.nameController,
                       keyboardType: TextInputType.text,
                       text: AppStringEM.name,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please Enter name";
-                        }
-                        if (!value.contains(RegExp(r'[0-9]'))) {
-                          return 'Please Enter valid name';
-                        }
-                        return "";
-                      },
+                      // validator: (value) {
+                      //   if (value!.isEmpty) {
+                      //     return "Please Enter name";
+                      //   }
+                      //   if (!value.contains(RegExp(r'[0-9]'))) {
+                      //     return 'Please Enter valid name';
+                      //   }
+                      //   return "";
+                      // },
                     ),
                     const SizedBox(height: AppSize.s9),
                     SMTextFConst(
@@ -117,12 +181,14 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       text: AppString.officeaddress,
                     ),
                     const SizedBox(height: AppSize.s9),
-                    SMTextFConst(
+
+                    DemailSMTextFConst(
                       controller: widget.emailController,
                       keyboardType:
                       TextInputType.emailAddress,
                       text: AppString.email,
                     ),
+
                     const SizedBox(height: AppSize.s9),
                     SMTextFConst(
                       controller: widget.mobNumController,
@@ -141,6 +207,31 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       keyboardType: TextInputType.number,
                       text: 'Alternative Phone',
                     ),
+
+                    // Row(
+                    //   children: [
+                    //     // TextButton(
+                    //     //   onPressed: _pickLocation,
+                    //     //   style: TextButton.styleFrom(
+                    //     //       backgroundColor: Colors.transparent),
+                    //     //   child: Text(
+                    //     //     'Pick Location',
+                    //     //     style: GoogleFonts.firaSans(
+                    //     //       fontSize: FontSize.s12,
+                    //     //       fontWeight: FontWeightManager.bold,
+                    //     //       color: ColorManager.bluelight,
+                    //     //       //decoration: TextDecoration.none,
+                    //     //     ),
+                    //     //   ),
+                    //     // ),
+                    //     Icon(
+                    //       Icons.location_on_outlined,
+                    //       color: ColorManager.granitegray,
+                    //       size: AppSize.s18,
+                    //     ),
+                    //
+                    //   ],
+                    // ),
 
                   ],
                 ),

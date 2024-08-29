@@ -313,7 +313,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
+              padding: const EdgeInsets.only(bottom: AppPadding.p30),
               child: Center(
                 child: isLoading
                     ? CircularProgressIndicator(
