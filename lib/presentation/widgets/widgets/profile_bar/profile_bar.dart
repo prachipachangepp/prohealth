@@ -31,8 +31,11 @@ class _ProfileBarState extends State<ProfileBar> {
   @override
   void initState() {
     super.initState();
+    _calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth);
+    sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr,4);
     fetchData();
   }
+  String? sSNNBR;
   int expiredCount = 0;
   int upToDateCount = 0;
   int aboutToCount = 0;
@@ -44,6 +47,37 @@ class _ProfileBarState extends State<ProfileBar> {
       base64Decode = response.body;
       return base64Decode;
     }
+  }
+  String? dobTimestamp;
+  String _calculateAge(String birthDate) {
+    DateTime convertedDate = DateTime.parse(birthDate);
+    DateTime today = DateTime.now();
+    int years = today.year - convertedDate.year;
+    int months = today.month - convertedDate.month;
+    int days = today.day - convertedDate.day;
+
+    // Adjust for negative values in months and days
+    if (days < 0) {
+      months--;
+      days += DateTime(today.year, today.month, 0).day; // Get days in the previous month
+    }
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    // Determine which value to use for dobTimestamp
+    if (years > 0) {
+      dobTimestamp = years.toString();
+    } else if (months > 0) {
+      dobTimestamp = months.toString();
+    } else {
+      dobTimestamp = days.toString();
+    }
+    //dobTimestamp = days.toString();
+    print('Timestamp date ${dobTimestamp}');
+
+    return "$dobTimestamp years";
   }
   Future<void> fetchData() async {
     try {
@@ -57,6 +91,21 @@ class _ProfileBarState extends State<ProfileBar> {
       });
     } catch (error) {
       print("Error fetching data: $error");
+    }
+  }
+  String maskString(String input, int visibleDigits) {
+    // Calculate the number of characters to mask
+    int maskLength = input.length - visibleDigits;
+
+    // Check if the input length is greater than the number of visible digits
+    if (maskLength > 0) {
+      // Create a string of asterisks of the same length as maskLength
+      String masked = '*' * maskLength;
+      // Append the last 'visibleDigits' number of characters
+      return masked + input.substring(maskLength);
+    } else {
+      // If the input length is less than or equal to visibleDigits, return the input as is
+      return input;
     }
   }
 
@@ -247,7 +296,7 @@ class _ProfileBarState extends State<ProfileBar> {
                         children: [
                           ///text john scott
                           Text(
-                            widget.searchByEmployeeIdProfileData!.dateOfBirth,
+                            "${widget.searchByEmployeeIdProfileData!.dateOfBirth} (${dobTimestamp})",
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
                           Text(
@@ -255,7 +304,7 @@ class _ProfileBarState extends State<ProfileBar> {
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
                           Text(
-                            AppString.star,
+                            sSNNBR!,
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
 
