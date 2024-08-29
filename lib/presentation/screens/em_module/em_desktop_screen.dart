@@ -122,6 +122,32 @@ class EMDesktopScreen extends StatelessWidget {
                                 ),
                               ),
                               DropdownMenuItem<String>(
+                                value: 'See All',
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: Text(
+                                    'See All',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w400,
+                                        color: ColorManager.textPrimaryColor
+                                      // color: isSelected ? Colors.white : Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  if (myController.selectedIndex.value != 6) {
+                                    myController.selectButton(6);
+                                    _pageController.animateToPage(
+                                      6,
+                                      duration: Duration(milliseconds: 500),
+                                      curve: Curves.ease,
+                                    );
+                                  }
+                                },
+                              ),
+                              DropdownMenuItem<String>(
                                 value: 'HR',
                                 child: Text(
                                   'HR',
@@ -272,7 +298,9 @@ class EMDesktopScreen extends StatelessWidget {
                                 },
                               ),
                             ],
-                            selectedItem: myController.selectedIndex.value == 2
+                            selectedItem: myController.selectedIndex.value == 6
+                            ? 'See All'
+                            : myController.selectedIndex.value == 2
                                 ? 'HR'
                                 : myController.selectedIndex.value == 3
                                     ? 'Work Schedule'
@@ -293,29 +321,29 @@ class EMDesktopScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-
-                      Obx(
-                        () => CustomTitleButton(
-                          height: 30,
-                          width: 100,
-                          onPressed: () {
-                            //companyAll(context);
-                            myController.selectButton(6);
-                            _pageController.animateToPage(6,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease);
-                          },
-                          text: 'See All',
-                          isSelected: myController.selectedIndex.value == 6,
-                        ),
-                      ),
-                    ],
-                  )
+                  //
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   crossAxisAlignment: CrossAxisAlignment.end,
+                  //   children: [
+                  //
+                  //     Obx(
+                  //       () => CustomTitleButton(
+                  //         height: 30,
+                  //         width: 100,
+                  //         onPressed: () {
+                  //           //companyAll(context);
+                  //           myController.selectButton(6);
+                  //           _pageController.animateToPage(6,
+                  //               duration: Duration(milliseconds: 500),
+                  //               curve: Curves.ease);
+                  //         },
+                  //         text: 'See All',
+                  //         isSelected: myController.selectedIndex.value == 6,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // )
                 ],
               ),
             ),

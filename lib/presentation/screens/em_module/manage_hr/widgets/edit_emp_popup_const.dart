@@ -62,7 +62,15 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Pick a Color'),
+          title: Padding(
+            padding: const EdgeInsets.only(left: AppPadding.p20),
+            child: Text('Pick a Color',style: GoogleFonts.firaSans(
+                fontSize: FontSize.s14,
+                fontWeight: FontWeightManager.lightbold,
+                color: ColorManager.textPrimaryColor
+              // color: isSelected ? Colors.white : Colors.black,
+            ),),
+          ),
           content: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -241,7 +249,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.width / 22,
+                      height: MediaQuery.of(context).size.width / 30,
                     ),
                     Center(
                       child: isLoading

@@ -229,8 +229,7 @@ class AppBarWeb extends StatelessWidget {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const HomeScreen()));
+                                                    builder: (context) => const HomeScreen()));
                                           },
                                           onHover: (bool val) {},
                                           child: const Icon(
@@ -247,10 +246,6 @@ class AppBarWeb extends StatelessWidget {
                               ],
                             ),
                           ),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width / 8,
-                          // ),
-
                           Expanded(
                             flex: 2,
                             child: Row(

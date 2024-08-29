@@ -328,7 +328,7 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             labelText: widget.labelText,
-            labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize),
+            labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize,color: ColorManager.mediumgrey),
             errorText: hasError ? widget.errorText : null,
             suffixIcon: Padding(
               padding: const EdgeInsets.only(left: AppPadding.p14),
@@ -428,7 +428,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
               borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             labelText: widget.labelText,
-            labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize),
+            labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize,color: ColorManager.mediumgrey),
             errorText: hasError ? widget.errorText : null,
             suffixIcon: Padding(
               padding: const EdgeInsets.only(left: AppPadding.p14),
@@ -515,7 +515,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
             ),
             labelText: widget.labelText,
             labelStyle: widget.labelStyle.copyWith(
-              fontSize: widget.labelFontSize,
+              fontSize: widget.labelFontSize,color: ColorManager.mediumgrey
             ),
 
             // errorText: widget.errorText,
