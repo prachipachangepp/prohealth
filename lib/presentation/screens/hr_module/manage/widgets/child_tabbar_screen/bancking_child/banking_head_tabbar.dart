@@ -95,6 +95,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                             ) : Offstage(),
                             const SizedBox(width: 8),
                              BankingContainerConst(
+                               index:  index ,
                                bankId: snapshot.data![index].empBankingId,
                                typeName: snapshot.data![index].type,
                                acNumber: snapshot.data![index].accountNumber,
@@ -137,15 +138,25 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                      EditBankingPopUp(
                                        banckId: snapshotPrefill.data!.empBankingId,
                                        effectiveDateController: effectiveDateController,
-                                     bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
-                                     routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () async{
-                                     await PatchEmployeeBanking(context, snapshot.data![index].empBankingId, snapshotPrefill.data!.employeeId,
-                                         accountNumber == accountNumberController.text ? accountNumber.toString() : accountNumberController.text,
-                                         bankName == bankNameController.text ? bankName.toString() : bankNameController.text,
-                                         amount == int.parse(specificAmountController.text) ? amount : int.parse(specificAmountController.text),
+                                     bankNameController: bankNameController,
+                                       accountNumberController: accountNumberController,
+                                       verifyAccountController: verifyAccountController,
+                                     routingNumberController: routingNumberController,
+                                       specificAmountController: specificAmountController,
+                                       onPressed: () async{
+                                     await PatchEmployeeBanking(context, snapshot.data![index].empBankingId,
+                                       snapshotPrefill.data!.employeeId,
+                                         accountNumber == accountNumberController.text ?
+                                         accountNumber.toString() : accountNumberController.text,
+                                         bankName == bankNameController.text ?
+                                         bankName.toString() : bankNameController.text,
+                                         amount == int.parse(specificAmountController.text) ?
+                                         amount : int.parse(specificAmountController.text),
                                          snapshotPrefill.data!.checkUrl,
-                                         effectiveDate == effectiveDateController.text ? effectiveDate.toString() : effectiveDateController.text,
-                                         routingNumber == routingNumberController.text ? routingNumber.toString() : routingNumberController.text,
+                                         effectiveDate == effectiveDateController.text ?
+                                         effectiveDate.toString() : effectiveDateController.text,
+                                         routingNumber == routingNumberController.text ?
+                                         routingNumber.toString() : routingNumberController.text,
                                          "NA",
                                          "Checking",);
                                      },);
@@ -171,7 +182,8 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                              pw.Divider(),
                                              pw.SizedBox(height: 10),
                                              pw.Text(
-                                               'Bank #${bankingData.empBankingId.toString()}',
+                                               'Bank #${index + 1}',
+                                               // 'Bank #${bankingData.empBankingId.toString()}',
                                                style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold),
                                              ),
                                              pw.SizedBox(height: 20),
@@ -345,6 +357,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
 
 ///Container Constant
 class BankingContainerConst extends StatelessWidget {
+  int index;
   int bankId;
    String typeName;
    String acNumber;
@@ -362,7 +375,9 @@ class BankingContainerConst extends StatelessWidget {
    final TextEditingController routingNumberController;
    final TextEditingController specificAmountController;
 
-   BankingContainerConst({Key? key,required this.bankId, this.selectedType,required this.typeName, required this.acNumber, required this.effectiveDate, required this.requestPercentage, required this.bankName, required this.routinNo,
+   BankingContainerConst({Key? key,
+     required this.index,
+     required this.bankId, this.selectedType,required this.typeName, required this.acNumber, required this.effectiveDate, required this.requestPercentage, required this.bankName, required this.routinNo,
      required this.effectiveDateController, required this.bankNameController, required this.accountNumberController, required this.verifyAccountController, required this.routingNumberController, required this.specificAmountController, required this.onPressed, required this.onPressedPrint,}) : super(key: key);
 
   @override
@@ -391,7 +406,9 @@ class BankingContainerConst extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text("Bank #${bankId.toString()}",
+                 Text(
+                   'Bank #${index + 1}',
+                   // "Bank #${bankId.toString()}",
                   style: GoogleFonts.firaSans(
                     fontSize: AppSize.s13,
                     color: const Color(0xFF333333),

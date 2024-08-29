@@ -97,6 +97,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                 }
             ),
             SizedBox(width: 20),
+            ///Add button
             Container(
               width: 100,
               margin: EdgeInsets.only(right: 60),
@@ -116,7 +117,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                             countryController: countryController,
                             numberIDController: numberIDController,
                             onpressedClose: () {
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
                             },
                             onpressedSave: () async {
                               await addLicensePost(context, countryController.text, widget.employeeId!, expiryDateController.text, issueDateController.text,
@@ -242,7 +243,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                             children: [
                                Row(
                                 children: [
-                                  Text('License #${snapshot.data![index].licenseId}',
+                                  Text(
+                                    'License #${index + 1}',
+                                    // 'License #${snapshot.data![index].licenseId}',
                                     style: GoogleFonts.firaSans(
                                       fontSize: 13,
                                       color: Color(0xFF333333),
@@ -310,26 +313,27 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                 ],
                               ),
                               SizedBox(height: MediaQuery.of(context).size.height/40,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  snapshot.data![index].approved == false ?
-                                  CustomIconButton(text: 'Reject', color: ColorManager.white,textColor: ColorManager.blueprime,onPressed: () async{
-                                    await rejectLicensePatch(context, snapshot.data![index].licenseId);
-                                  }) :SizedBox() ,
-                                  const SizedBox(width: 5,),
-                                  snapshot.data![index].approved == true ?
-                                  Text('Approved',
-                                      textAlign: TextAlign.center,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                          fontSize: FontSize.s12,
-                                          fontWeight: FontWeightManager.bold,
-                                          color: ColorManager.blueprime)) :  CustomIconButton(
-                                      text: 'Approve', onPressed: () async{
-                                    await approveLicensePatch(context, snapshot.data![index].licenseId);
-                                  })
-                                ],
-                              )
+                              ///approve reject button
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.end,
+                              //   children: [
+                              //     snapshot.data![index].approved == false ?
+                              //     CustomIconButton(text: 'Reject', color: ColorManager.white,textColor: ColorManager.blueprime,onPressed: () async{
+                              //       await rejectLicensePatch(context, snapshot.data![index].licenseId);
+                              //     }) :SizedBox() ,
+                              //     const SizedBox(width: 5,),
+                              //     snapshot.data![index].approved == true ?
+                              //     Text('Approved',
+                              //         textAlign: TextAlign.center,
+                              //         style: CustomTextStylesCommon.commonStyle(
+                              //             fontSize: FontSize.s12,
+                              //             fontWeight: FontWeightManager.bold,
+                              //             color: ColorManager.blueprime)) :  CustomIconButton(
+                              //         text: 'Approve', onPressed: () async{
+                              //       await approveLicensePatch(context, snapshot.data![index].licenseId);
+                              //     })
+                              //   ],
+                              // )
                             ],
                           ),
                         ),

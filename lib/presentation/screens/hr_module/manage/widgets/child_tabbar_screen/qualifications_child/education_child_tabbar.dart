@@ -49,6 +49,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            ///add button
             Container(
               width: 100,
               margin: EdgeInsets.only(right: 60),
@@ -72,7 +73,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                             countryNameController:
                             countryNameController,
                             onpressedClose: () {
-                              Navigator.pop(context);
+
                             },
                             onpressedSave: () async {
                               await addEmployeeEducation(
@@ -190,7 +191,10 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                            Row(children: [
-                             Text('Education #${snapshot.data![index].educationId}',
+                             Text(
+
+                               'Education #${index + 1}',
+                               // 'Education #${snapshot.data![index].educationId}',
                                style: GoogleFonts.firaSans(
                                  // fontFamily: 'FiraSans',
                                  fontSize: FontSize.s13,

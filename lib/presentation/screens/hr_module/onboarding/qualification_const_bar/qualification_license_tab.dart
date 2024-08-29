@@ -100,7 +100,8 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'License #${snapshot.data![index].licenseId.toString()}',
+                          'License #${index + 1}',
+                          // 'License #${snapshot.data![index].licenseId.toString()}',
                           style: GoogleFonts.firaSans(
                             fontSize: 13,
                             color: Color(0xFF333333),
