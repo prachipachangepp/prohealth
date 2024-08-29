@@ -11,7 +11,6 @@ class BottomBarRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: AppSize.s56,
-      color: Colors.red,
       child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width / 120),

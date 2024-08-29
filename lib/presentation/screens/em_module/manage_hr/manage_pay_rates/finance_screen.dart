@@ -55,6 +55,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   bool _isLoading = false;
   int? selectedServiceId;
   bool isServiceSelected = false;
+  String? selectedServiceName;
 
   @override
   void initState() {
@@ -162,71 +163,74 @@ class _FinanceScreenState extends State<FinanceScreen> {
                           ),
                         ),
                         SizedBox(width: 10,),
-                        FutureBuilder<List<ServiceData>>(
-                          future: PayRateServiceDropdown(context),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              // Replace Shimmer with Loading text
-                              return Container(
-                                width: 180,
-                                height: 30,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Loading...',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeightManager.bold,
-                                    color: ColorManager.fmediumgrey,
-                                    decoration: TextDecoration.none,
-                                  ),
-                                ),
-                              );
-                            }
-                            if (snapshot.hasData && snapshot.data!.isEmpty) {
-                              return Center(
-                                child: Text(
-                                  AppString.dataNotFound,
-                                  style: CustomTextStylesCommon.commonStyle(
-                                    fontWeight: FontWeightManager.medium,
-                                    fontSize: FontSize.s12,
-                                    color: ColorManager.mediumgrey,
-                                  ),
-                                ),
-                              );
-                            }
-                            if (snapshot.hasData) {
-                              List<DropdownMenuItem<String>> dropDownServiceList = [];
-                              for (var service in snapshot.data!) {
-                                dropDownServiceList.add(
-                                  DropdownMenuItem<String>(
-                                    child: Text(service.serviceName ?? ''),
-                                    value: service.serviceName,
-                                  ),
-                                );
-                              }
-                              return Container(
-                                width: 200,
-                                child: CICCDropdown(
-                                  initialValue: dropDownServiceList.isNotEmpty
-                                      ? dropDownServiceList[0].value
-                                      : null,
-                                  onChange: (val) {
-                                    for (var service in snapshot.data!) {
-                                      if (service.serviceName == val) {
-                                        selectedServiceId = service.officeServiceId;
-                                        isServiceSelected = true;  // Mark service as selected
-                                        setState(() {});
-                                        print('Selected Service ID: $selectedServiceId');
-                                      }
-                                    }
-                                  },
-                                  items: dropDownServiceList,
-                                ),
-                              );
-                            }
-                            return const SizedBox();
-                          },
-                        ),
+        FutureBuilder<List<ServiceData>>(
+          future: PayRateServiceDropdown(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              // Replace Shimmer with Loading text
+              return Container(
+                width: 180,
+                height: 30,
+                alignment: Alignment.center,
+                child: Text(
+                  'Loading...',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeightManager.bold,
+                    color: ColorManager.fmediumgrey,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+              );
+            }
+            if (snapshot.hasData && snapshot.data!.isEmpty) {
+              return Center(
+                child: Text(
+                  AppString.dataNotFound,
+                  style: CustomTextStylesCommon.commonStyle(
+                    fontWeight: FontWeightManager.medium,
+                    fontSize: FontSize.s12,
+                    color: ColorManager.mediumgrey,
+                  ),
+                ),
+              );
+            }
+            if (snapshot.hasData) {
+              List<DropdownMenuItem<String>> dropDownServiceList = [];
+              for (var service in snapshot.data!) {
+                dropDownServiceList.add(
+                  DropdownMenuItem<String>(
+                    value: service.serviceName,
+                    child: Text(service.serviceName ?? ''),
+                  ),
+                );
+              }
+              if (selectedServiceName == null && dropDownServiceList.isNotEmpty) {
+                selectedServiceName = dropDownServiceList[0].value;
+              }
+              return Container(
+                width: 200,
+                child: CICCDropdown(
+                  initialValue: selectedServiceName,
+                  onChange: (val) {
+                    setState(() {
+                      selectedServiceName = val;
+                      for (var service in snapshot.data!) {
+                        if (service.serviceName == val) {
+                          selectedServiceId = service.officeServiceId;
+                          isServiceSelected = true;
+                          print('Selected Service ID: $selectedServiceId');
+                        }
+                      }
+                    });
+                  },
+                  items: dropDownServiceList,
+                ),
+              );
+            }
+            return const SizedBox();
+          },
+        ),
                       ],
                     ),
                     ///trial
@@ -241,6 +245,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             context: context,
                             builder: (BuildContext context) {
                               return PayRatesPopup(
+                                visitTypeTextActive: true,
                                   title: 'Add Payrates',
                                   child1: FutureBuilder<List<VisitListData>>(
                                     future: getVisitList(context),
@@ -298,8 +303,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       return const SizedBox();
                                     },
                                   ),
-                                  child2: FutureBuilder<List<AllZoneData>>(
-                                    future: getAllZone(context),
+                                  child2: FutureBuilder<List<SortByZoneData>>(
+                                    future: PayRateZoneDropdown(context),
                                     builder: (context, snapshotZone) {
                                       if (snapshotZone.connectionState == ConnectionState.waiting) {
                                         return Shimmer.fromColors(
@@ -602,6 +607,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                           ?.perMile
                                                                           .toString());
                                                                   return PayRatesPopup(
+                                                                    visitTypeTextActive: false,
                                                                     title: 'Edit Payrate',
                                                                     child1: SMTextFConst(enable: false,
                                                                       readOnly: true,
@@ -609,8 +615,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                       keyboardType: TextInputType.number,
                                                                       text: 'Type of Visit',
                                                                     ),
-                                                                    child2: FutureBuilder<List<AllZoneData>>(
-                                                                        future: getAllZone(
+                                                                    child2: FutureBuilder<List<SortByZoneData>>(
+                                                                        future: PayRateZoneDropdown(
                                                                             context),
                                                                         builder:
                                                                             (context,

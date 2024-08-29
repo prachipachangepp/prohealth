@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../app/resources/font_manager.dart';
 ///normal textfield
+
 class SMTextFConst extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
@@ -32,6 +35,8 @@ class SMTextFConst extends StatefulWidget {
 }
 
 class _SMTextFConstState extends State<SMTextFConst> {
+  // late TextEditingController _controller;
+
   @override
   Widget build(BuildContext context) {
     String? errorText;
@@ -83,6 +88,8 @@ class _SMTextFConstState extends State<SMTextFConst> {
             ),
             //validator: widget.validator,
             onTap: widget.onChange,
+            validator: widget.validator,
+            // onTap: widget.onChange,
 
           ),
         ),

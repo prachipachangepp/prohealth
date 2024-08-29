@@ -585,8 +585,16 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
             padding: const EdgeInsets.only(left: 15),
             child: Container(
               height: 28,
-              width: MediaQuery.of(context).size.width / 1.2021,
+              width: MediaQuery.of(context).size.width / 1.2025,
               decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorManager.black.withOpacity(0.25),
+                    spreadRadius: 0,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
                 borderRadius: BorderRadius.circular(20),
                 color: ColorManager.blueprime,
                 // color: Colors.yellow,
@@ -597,7 +605,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                   InkWell(
                       child: Container(
                         height: 30,
-                        width: MediaQuery.of(context).size.width / 8.421,
+                        width: MediaQuery.of(context).size.width / 8.422,
                         padding: const EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),

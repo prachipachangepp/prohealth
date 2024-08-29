@@ -306,7 +306,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                                         builder: (BuildContext context,
                                                             void Function(void Function()) setState) {
                                                           return CCScreenEditPopup(
-                                                            title: 'Edit Leases & Services',
+                                                            title: 'Edit ADR',
                                                             id: documentPreId,
                                                             idDocController: docIdController,
                                                             nameDocController: docNameController,

@@ -10,6 +10,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
@@ -440,6 +441,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                           decoration: TextDecoration.none,
                                         ),
                                       ),
+                                      SizedBox(height: AppSize.s5,),
                                       FormField<String>(
                                         builder: (FormFieldState<String> field) {
                                           return SizedBox(
@@ -772,6 +774,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                          decoration: TextDecoration.none,
                                        ),
                                      ),
+                                     SizedBox(height: AppSize.s5,),
                                      FormField<String>(
                                        builder: (FormFieldState<String> field) {
                                          return SizedBox(
@@ -1107,6 +1110,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                          decoration: TextDecoration.none,
                                        ),
                                      ),
+                                     SizedBox(height: AppSize.s5,),
                                      FormField<String>(
                                        builder:
                                            (FormFieldState<String> field) {
