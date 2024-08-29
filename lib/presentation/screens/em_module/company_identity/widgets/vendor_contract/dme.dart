@@ -159,7 +159,7 @@ class _CiDmeState extends State<CiDme> {
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${ dmeData.docId.toString()}",
+                                                          "ID : ${ dmeData.idOfDoc.toString()}",
                                                           //dmeData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts.firaSans(
                                                             fontSize: 10,
@@ -259,6 +259,7 @@ class _CiDmeState extends State<CiDme> {
                                                                             expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                                             expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                                             officeId: widget.officeId,
+                                                                              idOfDoc: snapshotPrefill.data!.idOfDoc
                                                                           );
                                                                         } finally {
                                                                           setState(() {

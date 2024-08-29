@@ -317,9 +317,10 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                   docTypeID: docTypeMetaId,
                                   docSubTypeID: docSubTypeMetaId,
                                   expiryType: selectedExpiryType.toString(),
-                                  expiryDate: expiryTypeToSend,
+                                  expiryDate: calenderController.text,//expiryTypeToSend,
                                   expiryReminder: selectedExpiryType.toString(),
                                   officeId: widget.officeId,
+                                  idOfDoc: docIdController.text,
                                 );
                                 Navigator.pop(context);
                               } finally {
