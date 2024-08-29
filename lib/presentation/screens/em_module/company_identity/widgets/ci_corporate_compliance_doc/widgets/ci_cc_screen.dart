@@ -600,7 +600,7 @@ class _CiCorporateComplianceScreenState
                                   ],
                                 ),
                               ),
-                              title: 'Add Vendor Contracts',
+                              title: 'Add Coporate & Compliance ',
                             );
                           },
                         );

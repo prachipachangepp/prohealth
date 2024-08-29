@@ -64,14 +64,17 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Add New Office',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s13,
-                      fontWeight: FontWeightManager.semiBold,
-                      color: ColorManager.white,
-                      decoration: TextDecoration.none,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text(
+                      'Add New Office',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s13,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                   IconButton(
@@ -99,15 +102,15 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       controller: widget.nameController,
                       keyboardType: TextInputType.text,
                       text: AppStringEM.name,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please Enter name";
-                        }
-                        if (!value.contains(RegExp(r'[0-9]'))) {
-                          return 'Please Enter valid name';
-                        }
-                        return "";
-                      },
+                      // validator: (value) {
+                      //   if (value!.isEmpty) {
+                      //     return "Please Enter name";
+                      //   }
+                      //   if (!value.contains(RegExp(r'[0-9]'))) {
+                      //     return 'Please Enter valid name';
+                      //   }
+                      //   return "";
+                      // },
                     ),
                     const SizedBox(height: AppSize.s9),
                     SMTextFConst(
@@ -117,12 +120,14 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       text: AppString.officeaddress,
                     ),
                     const SizedBox(height: AppSize.s9),
-                    SMTextFConst(
+
+                    DemailSMTextFConst(
                       controller: widget.emailController,
                       keyboardType:
                       TextInputType.emailAddress,
                       text: AppString.email,
                     ),
+
                     const SizedBox(height: AppSize.s9),
                     SMTextFConst(
                       controller: widget.mobNumController,

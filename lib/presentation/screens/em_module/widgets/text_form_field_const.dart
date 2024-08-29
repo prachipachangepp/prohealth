@@ -101,7 +101,127 @@ class _SMTextFConstState extends State<SMTextFConst> {
 
 
 
-////phone
+////defualt Email
+
+class DemailSMTextFConst extends StatefulWidget {
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final String text;
+  final Color textColor;
+  final Icon? icon;
+  final bool? readOnly;
+  final VoidCallback? onChange;
+  final bool? enable;
+  final Widget? prefixWidget;
+  final String? Function(String?)? validator;
+
+  DemailSMTextFConst({
+    Key? key,
+    required this.controller,
+    required this.keyboardType,
+    required this.text,
+    this.textColor = const Color(0xff686464),
+    this.icon,
+    this.onChange,
+    this.readOnly,
+    this.enable,
+    this.validator,
+    this.prefixWidget,
+  }) : super(key: key);
+
+  @override
+  State<DemailSMTextFConst> createState() => _DemailSMTextFConstState();
+}
+
+class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the controller with a listener
+    _controller = widget.controller;
+    _controller.addListener(_updateText);
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_updateText);
+    super.dispose();
+  }
+
+  void _updateText() {
+    final text = _controller.text;
+    if (!text.endsWith('@prohealth.us')) {
+      // Ensure that the text ends with '@gmail.com'
+      _controller.value = _controller.value.copyWith(
+        text: text.endsWith('@prohealth.us') ? text : '$text@prohealth.us',
+        selection: TextSelection.collapsed(offset: text.length),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.text,
+          style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: widget.textColor,
+            decoration: TextDecoration.none,
+          ),
+        ),
+        SizedBox(height: 5),
+        Container(
+          width: 354,
+          height: 30,
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: TextFormField(
+            autofocus: true,
+            enabled: widget.enable ?? true,
+            controller: _controller,
+            keyboardType: widget.keyboardType,
+            cursorHeight: 17,
+            cursorColor: Colors.black,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            decoration: InputDecoration(
+              suffixIcon: widget.icon,
+              prefix: widget.prefixWidget,
+              prefixStyle: GoogleFonts.firaSans(
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xff686464),
+                decoration: TextDecoration.none,
+              ),
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(bottom: 18, left: 15),
+            ),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 12,
+              color: Color(0xff686464),
+            ),
+            onTap: widget.onChange,
+            validator: widget.validator,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+
+////us phone
 
 
 
@@ -197,46 +317,69 @@ class _SMTextFConstPhoneState extends State<SMTextFConstPhone> {
 }
 
 
-
-
-
 class PhoneNumberInputFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    String text = newValue.text;
-    final StringBuffer newText = StringBuffer();
-
-    // Remove non-digit characters
-    text = text.replaceAll(RegExp(r'\D'), '');
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    // Remove any non-numeric characters
+    final newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
 
     // Limit to 10 digits
-    if (text.length > 10) {
-      text = text.substring(0, 10);
-    }
+    final newLength = newText.length > 10 ? 10 : newText.length;
 
-    // Add +1 country code
-   // newText.write('+1 ');
-
-    // Add formatting based on length
-    if (text.length > 0) {
-      newText.write('(');
-    }
-    if (text.length > 3) {
-      newText.write('${text.substring(0, 3)}) ');
-      text = text.substring(3);
-    }
-    if (text.length > 3) {
-      newText.write('${text.substring(0, 3)}-');
-      text = text.substring(3);
-    }
-    newText.write(text);
-
-    return newValue.copyWith(
-      text: newText.toString(),
-      selection: TextSelection.collapsed(offset: newText.length),
+    return TextEditingValue(
+      text: newText.substring(0, newLength),
+      selection: newValue.selection.copyWith(
+        baseOffset: newLength,
+        extentOffset: newLength,
+      ),
     );
   }
 }
+
+
+//
+//
+//
+// class PhoneNumberInputFormatter extends TextInputFormatter {
+//   @override
+//   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+//     String text = newValue.text;
+//     final StringBuffer newText = StringBuffer();
+//
+//     // Remove non-digit characters
+//     text = text.replaceAll(RegExp(r'\D'), '');
+//
+//     // Limit to 10 digits
+//     if (text.length > 10) {
+//       text = text.substring(0, 10);
+//     }
+//
+//     // Add +1 country code
+//    // newText.write('+1 ');
+//
+//     // Add formatting based on length
+//     if (text.length > 0) {
+//       newText.write('(');
+//     }
+//     if (text.length > 3) {
+//       newText.write('${text.substring(0, 3)}) ');
+//       text = text.substring(3);
+//     }
+//     if (text.length > 3) {
+//       newText.write('${text.substring(0, 3)}-');
+//       text = text.substring(3);
+//     }
+//     newText.write(text);
+//
+//     return newValue.copyWith(
+//       text: newText.toString(),
+//       selection: TextSelection.collapsed(offset: newText.length),
+//     );
+//   }
+// }
 
 
 

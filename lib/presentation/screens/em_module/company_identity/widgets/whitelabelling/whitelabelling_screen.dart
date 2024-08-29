@@ -340,7 +340,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                                               .w500,
                                                                       color: Color(0xff686464))),
                                                             ),
-                                      
+
                                                             ///sub container
                                                             StreamBuilder<List<PlatformFile>>(
                                                               stream: _mobileFilesStreamController.stream,
@@ -442,7 +442,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   //   keyboardType: TextInputType.phone,
                                                   //   text: AppStringEM.secNum,
                                                   //   enable: true,
-                                                  // )
+                                                  // ),
 
                                                    // text: 'Phone Number',
                                                     // icon: Icon(Icons.phone),
@@ -939,6 +939,20 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///old
 // Expanded(
 //   flex: 2,

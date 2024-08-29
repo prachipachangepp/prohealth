@@ -86,7 +86,7 @@ class _CustomDialogState extends State<CustomDialog> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: AppPadding.p40),
+                          padding: const EdgeInsets.only(left: AppPadding.p25),
                           child: Text(
                             widget.title,
                             style: GoogleFonts.firaSans(
@@ -294,7 +294,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: AppPadding.p40),
+                              padding: const EdgeInsets.only(left: AppPadding.p25),
                               child: Text(
                                 widget.title,
                                 style: GoogleFonts.firaSans(
