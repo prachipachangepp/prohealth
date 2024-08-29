@@ -46,6 +46,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
     final mediaQuery = MediaQuery.of(context).size;
     return Column(
       children: [
+        ///add button
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -154,7 +155,9 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                         children: [
                            Row(
                             children: [
-                              Text('References #${snapshot.data![index].referenceId}',
+                              Text(
+                                'References #${index + 1}',
+                                // 'References #${snapshot.data![index].referenceId}',
                                 style: GoogleFonts.firaSans(
                                   fontSize: 13,
                                   color: Color(0xFF333333),

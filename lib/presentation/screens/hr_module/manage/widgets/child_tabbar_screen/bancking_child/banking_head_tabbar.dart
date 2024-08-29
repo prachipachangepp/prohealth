@@ -137,15 +137,25 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                      EditBankingPopUp(
                                        banckId: snapshotPrefill.data!.empBankingId,
                                        effectiveDateController: effectiveDateController,
-                                     bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
-                                     routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () async{
-                                     await PatchEmployeeBanking(context, snapshot.data![index].empBankingId, snapshotPrefill.data!.employeeId,
-                                         accountNumber == accountNumberController.text ? accountNumber.toString() : accountNumberController.text,
-                                         bankName == bankNameController.text ? bankName.toString() : bankNameController.text,
-                                         amount == int.parse(specificAmountController.text) ? amount : int.parse(specificAmountController.text),
+                                     bankNameController: bankNameController,
+                                       accountNumberController: accountNumberController,
+                                       verifyAccountController: verifyAccountController,
+                                     routingNumberController: routingNumberController,
+                                       specificAmountController: specificAmountController,
+                                       onPressed: () async{
+                                     await PatchEmployeeBanking(context, snapshot.data![index].empBankingId,
+                                       snapshotPrefill.data!.employeeId,
+                                         accountNumber == accountNumberController.text ?
+                                         accountNumber.toString() : accountNumberController.text,
+                                         bankName == bankNameController.text ?
+                                         bankName.toString() : bankNameController.text,
+                                         amount == int.parse(specificAmountController.text) ?
+                                         amount : int.parse(specificAmountController.text),
                                          snapshotPrefill.data!.checkUrl,
-                                         effectiveDate == effectiveDateController.text ? effectiveDate.toString() : effectiveDateController.text,
-                                         routingNumber == routingNumberController.text ? routingNumber.toString() : routingNumberController.text,
+                                         effectiveDate == effectiveDateController.text ?
+                                         effectiveDate.toString() : effectiveDateController.text,
+                                         routingNumber == routingNumberController.text ?
+                                         routingNumber.toString() : routingNumberController.text,
                                          "NA",
                                          "Checking",);
                                      },);
@@ -171,7 +181,8 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                              pw.Divider(),
                                              pw.SizedBox(height: 10),
                                              pw.Text(
-                                               'Bank #${bankingData.empBankingId.toString()}',
+                                               'Bank #${index + 1}',
+                                               // 'Bank #${bankingData.empBankingId.toString()}',
                                                style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold),
                                              ),
                                              pw.SizedBox(height: 20),

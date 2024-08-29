@@ -57,6 +57,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   // final TextEditingController lastName = TextEditingController();
    final TextEditingController phone = TextEditingController();
    final TextEditingController position = TextEditingController();
+   final TextEditingController speciality = TextEditingController();
   // final TextEditingController email = TextEditingController();
   FocusNode _focusNode = FocusNode();
   int? _selectedItemIndex;
@@ -151,7 +152,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
          services: serviceVal,
          employement: 'Full Time',
          clinicalName: clinicialName,
-         soecalityName: specialityName,
+         soecalityName: speciality,
        )));
      // }
      // else {
@@ -244,17 +245,18 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           SizedBox(
                             height: AppSize.s10,
                           ),
-                          CustomDropdownTextField(
-                              width: textFieldWidth,
-                              height: textFieldHeight,
-                              items: ['item 1', 'item 2'],
-                              labelText: 'Speciality',
-                              labelStyle: GoogleFonts.firaSans(
-                              fontSize: 12,
+                          CustomTextField(
+                            width: textFieldWidth,
+                            height: textFieldHeight,
+                            cursorHeight: 15,
+                            labelText: 'Speciality',
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 15,
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-
+                            controller: speciality,//firstname
+                            labelFontSize: 12,
                           ),
                           // FutureBuilder<List<AEClinicalDiscipline>>(
                           //   future: HrAddEmplyClinicalDisciplinApi(context, 1),
@@ -612,7 +614,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             status: widget.status,
                             departmentId: clinicalId,
                             position: position.text,
-                            speciality: specialityName.toString(),
+                            speciality: speciality.text,
                             clinicianTypeId: 1,
                             reportingOfficeId: reportingOfficeId,
                             cityId: cityId,
