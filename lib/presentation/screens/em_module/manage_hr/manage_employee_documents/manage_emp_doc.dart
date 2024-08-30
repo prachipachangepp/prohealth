@@ -141,7 +141,6 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                             selectedDocType = dropDownMenuItems[0].value;
                             docMetaId = docTypes[0].employeeDocMetaDataId;
                           }
-
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
