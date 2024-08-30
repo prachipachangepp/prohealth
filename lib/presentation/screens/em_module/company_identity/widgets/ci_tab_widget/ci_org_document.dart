@@ -68,7 +68,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
     });
     docTypeFuture = documentTypeGet(context);
   }
-
+///polici
+  int docTypeMetaIdPP = AppConfig.policiesAndProcedure;
+  int docSubTypeMetaIdPP = AppConfig.subDocId0;
   var docID = 8;
   int docTypeMetaId = 8;
   int docSubTypeMetaId = 0;
@@ -247,6 +249,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                       expiryReminder:
                                       selectedExpiryType.toString(),
                                       //officeId: widget.officeId,
+                                      idOfDoc: docIdController.text,
                                     );
                                     Navigator.pop(context);
                                   } finally {
@@ -580,6 +583,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                      expiryReminder:
                                      selectedExpiryType.toString(),
                                      //officeId: widget.officeId,
+                                     idOfDoc: docIdController.text,
                                    );
                                    Navigator.pop(context);
                                  } finally {
@@ -908,18 +912,19 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                    await addOrgCorporateDocumentPost(
                                      context: context,
                                      name: docNamecontroller.text,
-                                     docTypeID: docTypeMetaId,
-                                     docSubTypeID: docTypeMetaId == AppConfig.policiesAndProcedure
+                                     docTypeID: docTypeMetaIdPP,
+                                     docSubTypeID: docTypeMetaIdPP == AppConfig.policiesAndProcedure
                                          ? 0
-                                         : docSubTypeMetaId,
+                                         : docSubTypeMetaIdPP,
                                      expiryType:
                                      selectedExpiryType.toString(),
                                      expiryDate: expiryTypeToSend,
                                      expiryReminder:
                                      selectedExpiryType.toString(),
+                                     idOfDoc: docIdController.text,
                                    );
-                                   await getORGDoc(context, docTypeMetaId,
-                                       docSubTypeMetaId, 1, 20);
+                                   await getORGDoc(context, docTypeMetaIdPP,
+                                       docSubTypeMetaIdPP, 1, 20);
                                    Navigator.pop(context);
                                    setState(() {
                                      expiryType = '';
@@ -962,86 +967,118 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                      );
                                    }
                                    if (snapshot.hasData) {
-                                     List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                     String selectedDocType = "";
                                      int docType = snapshot.data![0].docID;
-                                     docTypeMetaId = docType;
 
                                      for (var i in snapshot.data!) {
-                                       dropDownMenuItems.add(
-                                         DropdownMenuItem<String>(
-                                           child: Text(i.docType),
-                                           value: i.docType,
-                                         ),
-                                       );
-                                     }
-                                     return CICCDropdown(
-                                       initialValue: dropDownMenuItems[0].value,
-                                       onChange: (val) {
-                                         for (var a in snapshot.data!) {
-                                           if (a.docType == val) {
-                                             docType = a.docID;
-                                             docTypeMetaId = docType;
-                                           }
-                                         }
-                                         identityDocumentTypeGet(context, docTypeMetaId).then((data) {
-                                           _identityDataController.add(data);
-                                         }).catchError((error) {
-                                           // Handle error
-                                         });
-                                       },
-                                       items: dropDownMenuItems,
-                                     );
-                                   } else {
-                                     return SizedBox();
-                                   }
-                                 },
-                               ),
-                               child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                                 stream: _identityDataController.stream,
-                                 builder: (context, snapshot) {
-                                   if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                     List<DropdownMenuItem<String>> dropDownMenuItems = [];
-
-                                     // Create dropdown items from the fetched data
-                                     for (var i in snapshot.data!) {
-                                       dropDownMenuItems.add(
-                                         DropdownMenuItem<String>(
-                                           value: i.subDocType,
-                                           child: Text(i.subDocType),
-                                         ),
-                                       );
+                                       if (i.docID == AppConfig.policiesAndProcedure) {
+                                         selectedDocType = i.docType;
+                                         docType = i.docID;
+                                         break;
+                                       }
                                      }
 
-                                     return CICCDropdown(
-                                      // initialValue: "Select Sub Document",
-                                       onChange: (val) {
-                                         if (val != "Select Sub Document") {
-                                           for (var a in snapshot.data!) {
-                                             if (a.subDocType == val) {
-                                               docSubTypeMetaId = a.subDocID;
-                                             }
-                                           }
-                                         }
-                                       },
-                                       items: dropDownMenuItems,
-                                       hintText: "Select Sub Document",
-                                     );
-                                   } else if (snapshot.connectionState == ConnectionState.waiting) {
-                                     return SizedBox();
-                                   } else {
-                                     return Center(
-                                       child: Text(
-                                         AppString.dataNotFound,
-                                         style: CustomTextStylesCommon.commonStyle(
-                                           fontWeight: FontWeightManager.medium,
-                                           fontSize: FontSize.s12,
-                                           color: ColorManager.mediumgrey,
-                                         ),
+                                     docTypeMetaIdPP = docType;
+
+                                     identityDocumentTypeGet(context, docTypeMetaIdPP).then((data) {
+                                       _identityDataController.add(data);
+                                     }).catchError((error) {
+                                       // Handle error
+                                     });
+                                     return Container(
+                                       width: 354,
+                                       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                       decoration: BoxDecoration(
+                                         color: ColorManager.white,
+                                         borderRadius: BorderRadius.circular(8),
+                                         border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                       ),
+                                       child: Row(
+                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                         children: [
+                                           Text(
+                                             selectedDocType,
+                                             style: CustomTextStylesCommon.commonStyle(
+                                               fontWeight: FontWeightManager.medium,
+                                               fontSize: FontSize.s12,
+                                               color: ColorManager.mediumgrey,
+                                             ),
+                                           ),
+                                           Icon(
+                                             Icons.arrow_drop_down,
+                                             color: ColorManager.mediumgrey,
+                                           ),
+                                         ],
                                        ),
                                      );
+                                     // return CICCDropdown(
+                                     //   initialValue: dropDownMenuItems[0].value,
+                                     //   onChange: (val) {
+                                     //     for (var a in snapshot.data!) {
+                                     //       if (a.docType == val) {
+                                     //         docType = a.docID;
+                                     //         docTypeMetaId = docType;
+                                     //       }
+                                     //     }
+                                     //     identityDocumentTypeGet(context, docTypeMetaId).then((data) {
+                                     //       _identityDataController.add(data);
+                                     //     }).catchError((error) {
+                                     //       // Handle error
+                                     //     });
+                                     //   },
+                                     //   items: dropDownMenuItems,
+                                     // );
+                                   } else {
+                                     return SizedBox();
                                    }
                                  },
                                ),
+                               // child1: StreamBuilder<List<IdentityDocumentIdData>>(
+                               //   stream: _identityDataController.stream,
+                               //   builder: (context, snapshot) {
+                               //     if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                               //       List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                               //
+                               //       // Create dropdown items from the fetched data
+                               //       for (var i in snapshot.data!) {
+                               //         dropDownMenuItems.add(
+                               //           DropdownMenuItem<String>(
+                               //             value: i.subDocType,
+                               //             child: Text(i.subDocType),
+                               //           ),
+                               //         );
+                               //       }
+                               //
+                               //       return CICCDropdown(
+                               //        // initialValue: "Select Sub Document",
+                               //         onChange: (val) {
+                               //           if (val != "Select Sub Document") {
+                               //             for (var a in snapshot.data!) {
+                               //               if (a.subDocType == val) {
+                               //                 docSubTypeMetaId = a.subDocID;
+                               //               }
+                               //             }
+                               //           }
+                               //         },
+                               //         items: dropDownMenuItems,
+                               //         hintText: "Select Sub Document",
+                               //       );
+                               //     } else if (snapshot.connectionState == ConnectionState.waiting) {
+                               //       return SizedBox();
+                               //     } else {
+                               //       return Center(
+                               //         child: Text(
+                               //           AppString.dataNotFound,
+                               //           style: CustomTextStylesCommon.commonStyle(
+                               //             fontWeight: FontWeightManager.medium,
+                               //             fontSize: FontSize.s12,
+                               //             color: ColorManager.mediumgrey,
+                               //           ),
+                               //         ),
+                               //       );
+                               //     }
+                               //   },
+                               // ),
 
                                radioButton: Padding(
                                  padding: const EdgeInsets.only(left: 10.0),

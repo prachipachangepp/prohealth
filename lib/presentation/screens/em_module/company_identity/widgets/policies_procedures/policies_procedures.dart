@@ -77,6 +77,11 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                     text: "Add Doctype",
                     onPressed: () async{
                       String? selectedExpiryType = expiryType;
+                      calenderController.clear();
+                      docIdController.clear();
+                      docNamecontroller.clear();
+                      selectedExpiryType = "";
+
                       showDialog(
                           context: context,
                           builder: (context) {
@@ -178,7 +183,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                 style: CustomTextStylesCommon.commonStyle(
                                                   fontWeight: FontWeightManager.medium,
                                                   fontSize: FontSize.s12,
-                                                  color: ColorManager.textBlack,
+                                                  color: ColorManager.mediumgrey,
                                                 ),
                                               ),
                                               Icon(
