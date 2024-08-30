@@ -102,6 +102,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      _clearControllers();
                     },
                     icon: const Icon(
                       Icons.close,
@@ -204,7 +205,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  CustomButtonTransparent(text: AppString.cancel, onPressed: () {}),
+                  CustomButtonTransparent(text: AppString.cancel, onPressed: () {_clearControllers();}),
                   const SizedBox(
                     width: AppSize.s10,
                   ),
@@ -240,6 +241,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextFieldRegister(
+          phoneNumberField:  errorKey == 'mobileNumber' ? true : false,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
@@ -254,80 +256,30 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
               } else {
                 errorStates[errorKey] = value.isEmpty;
               }
-              if (errorKey == 'mobileNumber') {
-                errorStates[errorKey] = value.length != 10;
-              }
+              // if (errorKey == 'mobileNumber') {
+              //   errorStates[errorKey] = value.length != 10;
+              // }
             });
           },
         ),
-        if (errorStates[errorKey]!)
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: Text(
-              errorKey == 'mobileNumber'
-                  ? 'Please Enter a valid mobile number'
-                  : errorKey == 'email'
-                  ? 'Please Enter a valid email'
-                  : 'Please Enter $labelText',
-              style: TextStyle(
-                color: ColorManager.red,
-                fontSize: FontSize.s10,
-              ),
-            ),
-          ),
+        // if (errorStates[errorKey]!)
+        //   Padding(
+        //     padding: const EdgeInsets.only(top: 5),
+        //     child: Text(
+        //       errorKey == 'mobileNumber'
+        //           ? 'Please Enter a valid mobile number'
+        //           : errorKey == 'email'
+        //           ? 'Please Enter a valid email'
+        //           : 'Please Enter $labelText',
+        //       style: TextStyle(
+        //         color: ColorManager.red,
+        //         fontSize: FontSize.s10,
+        //       ),
+        //     ),
+        //   ),
       ],
     );
   }
-
-  // Widget _buildTextField({
-  //   required TextEditingController controller,
-  //   required String labelText,
-  //   required String errorKey,
-  //   TextInputType? keyboardType,
-  //   String? Function(String)? validator,
-  // }) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       CustomTextFieldRegister(
-  //         height: AppSize.s30,
-  //         width: MediaQuery.of(context).size.width / 6,
-  //         controller: controller,
-  //         labelText: labelText,
-  //         keyboardType: keyboardType ?? TextInputType.text,
-  //         padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
-  //         onChanged: (value) {
-  //           setState(() {
-  //             if (validator != null) {
-  //               errorStates[errorKey] = validator(value) != null;
-  //             } else {
-  //               errorStates[errorKey] = value.isEmpty;
-  //             }
-  //             if (errorKey == 'mobileNumber') {
-  //               errorStates[errorKey] = value.length != 10;
-  //             }
-  //           });
-  //         },
-  //       ),
-  //       if (errorStates[errorKey]!)
-  //         Padding(
-  //           padding: const EdgeInsets.only(top: 5),
-  //           child: Text(
-  //             errorKey == 'mobileNumber'
-  //                 ? 'Please Enter a valid mobile number'
-  //                 : errorKey == 'email'
-  //                 ? 'Please Enter a valid email'
-  //                 : 'Please Enter $labelText',
-  //             style: TextStyle(
-  //               color: ColorManager.red,
-  //               fontSize: FontSize.s10,
-  //             ),
-  //           ),
-  //         ),
-  //     ],
-  //   );
-  // }
-
   void _handleSave() async {
     setState(() {
       errorStates['name'] = widget.nameController.text.isEmpty;
@@ -336,11 +288,11 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
       errorStates['knowPerson'] = widget.knowPersonController.text.isEmpty;
       errorStates['companyName'] = widget.companyNameController.text.isEmpty;
       errorStates['associationLength'] = widget.associationLengthController.text.isEmpty;
-      errorStates['mobileNumber'] = widget.mobileNumberController.text.length != 10;
+      //errorStates['mobileNumber'] = widget.mobileNumberController.text.length != 10;
       errorStates['referredBy'] = widget.referredBy.text.isEmpty;
     });
 
-    if (!errorStates.values.contains(true)) {
+    // if (!errorStates.values.contains(true)) {
       try {
         setState(() {
           isLoading = true;
@@ -366,7 +318,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
         );
         _clearControllers();
       }
-    }
+    // }
   }
 
   void _clearControllers() {

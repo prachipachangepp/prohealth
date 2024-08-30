@@ -7,6 +7,7 @@ class ManageReposotory{
   static String employement = "/employee-employment-histories";
   static String selectDocuments = "/corporate-document";
   static String banking = "/employee-bankings";
+  static String bankingAdd = "/employee-bankings/add";
   static String equipementGet = "/employee-inventories/ByemployeeId";
   static String equipement1 = "/employee-inventories";
 
@@ -135,6 +136,9 @@ class ManageReposotory{
 
   static String updateBankingEmployee({required int empBankingId}){
     return "$banking/$empBankingId";
+  }
+  static String addNewBankingEmployee(){
+    return "$bankingAdd";
   }
 
   static String uploadBanckingDocuments({required int empBankingId}){
