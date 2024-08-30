@@ -130,9 +130,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                 builder: (context,snapshot) {
                                   if(snapshot.connectionState == ConnectionState.waiting){
                                     return Container(
-                                          width: 350,
+                                          width: 200,
                                           height: 30,
-                                          decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                                         );
 
                                   }

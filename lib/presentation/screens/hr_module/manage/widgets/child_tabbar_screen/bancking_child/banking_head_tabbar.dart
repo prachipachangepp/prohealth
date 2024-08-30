@@ -479,6 +479,7 @@ class BankingContainerConst extends StatelessWidget {
 
         child: Column(
           children: [
+            ///heading
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -533,16 +534,21 @@ class BankingContainerConst extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  ///card
                   SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+
+                            ///label
                             Text(AppStringHr.type,
                                 style: ThemeManager.customTextStyle(context)),
+                            ///ans
                             Text(
                               typeName.toString(),
                                 style: ThemeManagerDark.customTextStyle(context)
@@ -553,9 +559,11 @@ class BankingContainerConst extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            ///label
                             Text(AppStringHr.effectiveDate,
                                 style: ThemeManager.customTextStyle(context)
                             ),
+                            ///ans
                             Text(
                               effectiveDate.toString(),
                                 style: ThemeManagerDark.customTextStyle(context)
@@ -566,8 +574,10 @@ class BankingContainerConst extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            ///label
                             Text(AppStringHr.bankName,
                                 style: ThemeManager.customTextStyle(context)),
+                            ///ans
                             Text(
                               bankName.toString(),
                                 style: ThemeManagerDark.customTextStyle(context)
@@ -578,9 +588,11 @@ class BankingContainerConst extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            ///label
                             Text(
                                 AppStringHr.routingNo,
                                 style: ThemeManager.customTextStyle(context)),
+                            ///ans
                             Text(
                               routinNo,
                                 style: ThemeManagerDark.customTextStyle(context)
@@ -598,8 +610,10 @@ class BankingContainerConst extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          ///label
                           Text(AppStringHr.accNo,
                               style: ThemeManager.customTextStyle(context)),
+                          ///ans
                           Text(
                             acNumber,
                               style: ThemeManagerDark.customTextStyle(context)
@@ -610,8 +624,10 @@ class BankingContainerConst extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          ///label
                           Text(AppStringHr.requestPercent,
                               style: ThemeManager.customTextStyle(context)),
+                          ///ans
                           Text(
                             '30%',
                               style: ThemeManagerDark.customTextStyle(context)
@@ -694,3 +710,115 @@ class BankingContainerConst extends StatelessWidget {
 //     onPressed:(){},
 //   ),
 // ),
+/// old
+//Padding(
+//               padding: const EdgeInsets.only(right: 30),
+//               child: Row(
+//               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   ///card
+//                   SingleChildScrollView(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: [
+//
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//
+//                             ///label
+//                             Text(AppStringHr.type,
+//                                 style: ThemeManager.customTextStyle(context)),
+//                             ///ans
+//                             Text(
+//                               typeName.toString(),
+//                                 style: ThemeManagerDark.customTextStyle(context)
+//                             ),
+//                           ],
+//                         ),
+//                         const SizedBox(height: 10,),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             ///label
+//                             Text(AppStringHr.effectiveDate,
+//                                 style: ThemeManager.customTextStyle(context)
+//                             ),
+//                             ///ans
+//                             Text(
+//                               effectiveDate.toString(),
+//                                 style: ThemeManagerDark.customTextStyle(context)
+//                             ),
+//                           ],
+//                         ),
+//                         const SizedBox(height: 10,),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             ///label
+//                             Text(AppStringHr.bankName,
+//                                 style: ThemeManager.customTextStyle(context)),
+//                             ///ans
+//                             Text(
+//                               bankName.toString(),
+//                                 style: ThemeManagerDark.customTextStyle(context)
+//                             ),
+//                           ],
+//                         ),
+//                         const SizedBox(height: 10,),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             ///label
+//                             Text(
+//                                 AppStringHr.routingNo,
+//                                 style: ThemeManager.customTextStyle(context)),
+//                             ///ans
+//                             Text(
+//                               routinNo,
+//                                 style: ThemeManagerDark.customTextStyle(context)
+//                             ),
+//                           ],
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   const Spacer(),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     mainAxisAlignment: MainAxisAlignment.start,
+//                     children: [
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           ///label
+//                           Text(AppStringHr.accNo,
+//                               style: ThemeManager.customTextStyle(context)),
+//                           ///ans
+//                           Text(
+//                             acNumber,
+//                               style: ThemeManagerDark.customTextStyle(context)
+//                           ),
+//                         ],
+//                       ),
+//                       const SizedBox(height: 10,),
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           ///label
+//                           Text(AppStringHr.requestPercent,
+//                               style: ThemeManager.customTextStyle(context)),
+//                           ///ans
+//                           Text(
+//                             '30%',
+//                               style: ThemeManagerDark.customTextStyle(context)
+//                           ),
+//                         ],
+//                       )
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
