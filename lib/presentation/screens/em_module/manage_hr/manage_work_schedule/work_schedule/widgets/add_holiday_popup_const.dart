@@ -267,7 +267,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
+                    padding: const EdgeInsets.only(left: 23.0),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(
@@ -339,6 +339,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                         decoration: TextDecoration.none,
                       ),
                     ),
+                    SizedBox(height: 5),
                     SizedBox(
                       width: 354,
                       height: 30,

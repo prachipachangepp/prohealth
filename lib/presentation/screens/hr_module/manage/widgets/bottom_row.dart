@@ -425,7 +425,7 @@ class _BottomBarRowState extends State<BottomBarRow> {
           children: [
             /// Text
             Text(
-              '#2031ABC01BA',
+              '--',
               style: GoogleFonts.firaSans(
                 fontSize: 12, // FontSize.s12 or a constant value
                 fontWeight: FontWeight.normal,
@@ -438,16 +438,16 @@ class _BottomBarRowState extends State<BottomBarRow> {
             Row(
               children: [
                 Text(
-                  'Washington DC',
+                  '--',
                   style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeightManager.bold,
-                    color: ColorManager.darkgrey,
+                    fontSize: 12, // FontSize.s12 or a constant value
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey, // ColorManager.grey or a color constant
                     decoration: TextDecoration.none,
                   ),
                 ),
                 SizedBox(
-                  width: AppSize.s10,
+                  width: AppSize.s30,
                 ),
                // // Text("${localresponse["country"]}"),
                //  FutureBuilder<Map<String, double>?>(

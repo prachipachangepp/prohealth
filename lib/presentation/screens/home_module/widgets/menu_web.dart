@@ -350,26 +350,27 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text('#2031ABC01BA',
+                  Text('--',
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color: Colors.black,
                         decoration: TextDecoration.none,
-                      )),
+                      ),
+                  ),
                    Row(
                     children: [
                       Text(
-                        'Washington DC',
+                        '--',
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w400,
                           color: Colors.black,
                           decoration: TextDecoration.none,
                         ),
                       ),
                       SizedBox(
-                        width: 10,
+                        width: 50,
                       ),
 
                       _isFetchingIp
