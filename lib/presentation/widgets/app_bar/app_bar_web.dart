@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../app/resources/color.dart';
 import '../../../app/resources/font_manager.dart';
@@ -235,11 +236,20 @@ class _AppBarWebState extends State<AppBarWeb> {
                                       ),
                                       child: Center(
                                         child: AppClickableWidget(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => const HomeScreen()));
+                                          onTap: () async{
+                                            //const url = "http://localhost:52425/#/home";
+                                             const url = "https://staging.symmetry.care/#/home";
+                                            if (await canLaunch(url)) {
+                                            await launch(url);
+                                            //    Navigator.push(
+                                            //      context,
+                                            //      MaterialPageRoute(
+                                            //       builder: (context) => OnBoardingWelcome(),
+                                            //     ),
+                                            //    );
+                                            } else {
+                                            throw 'Could not launch $url';
+                                            }
                                           },
                                           onHover: (bool val) {},
                                           child: const Icon(

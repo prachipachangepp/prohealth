@@ -580,10 +580,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
@@ -594,7 +598,6 @@ class CustomDocumedAddPopup extends StatefulWidget {
   final String labelName;
   final TextEditingController AcknowledgementnameController;
   final VoidCallback onSavePressed;
-  final Widget child;
   final int employeeId;
   final int documentMetaId;
   final int documentSetupId;
@@ -603,7 +606,7 @@ class CustomDocumedAddPopup extends StatefulWidget {
     Key? key,
     required this.labelName,
     required this.AcknowledgementnameController,
-    required this.onSavePressed, required this.child, required this.employeeId, required this.documentMetaId, required this.documentSetupId,
+    required this.onSavePressed, required this.employeeId, required this.documentMetaId, required this.documentSetupId,
   }) : super(key: key);
 
   @override
@@ -615,7 +618,8 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
   String? _selectedDocumentType;
   bool _documentUploaded = true;
   dynamic finalPath;
-
+  int documentMetaDataId = 0;
+  int documentSetupId = 0;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -681,7 +685,65 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                       ),
                     ),
                     SizedBox(height: 3),
-                    widget.child,
+                    FutureBuilder<List<EmployeeDocSetupModal>>(
+                        future: getEmployeeDocSetupDropDown(context),
+                        builder: (context,snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Container(
+                              width: 350,
+                              height: 30,
+                              decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
+                            );
+
+                          }
+                          if (snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
+                            );
+                          }
+                          if(snapshot.hasData){
+                            List dropDown = [];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                            for(var i in snapshot.data!){
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.documentName),
+                                  value: i.documentName,
+                                ),
+                              );
+                            }
+                            return StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                return  CICCDropdown(
+                                    initialValue: dropDownMenuItems[0].value,
+                                    onChange: (val){
+                                      for(var a in snapshot.data!){
+                                        if(a.documentName == val){
+                                          documentMetaDataId = a.employeeDocMetaDataId;
+                                          documentSetupId = a.employeeDocTypeSetupId;
+                                          //docMetaId = docType;
+                                        }
+                                      }
+                                      print(":::${docType}");
+                                      //print(":::<>${docMetaId}");
+                                    },
+                                    items:dropDownMenuItems
+                                );
+                              },
+                            );
+                          }else{
+                            return SizedBox();
+                          }
+                        }
+                    ),
                     // DropdownButtonFormField<String>(
                     //   value: _selectedDocumentType,
                     //   items: [
@@ -749,22 +811,26 @@ class _CustomDocumedAddPopupState extends State<CustomDocumedAddPopup> {
                   text: AppStringEM.submit,
                   onPressed: () async{
                     if (_formKey.currentState!.validate() && widget.AcknowledgementnameController.text.isNotEmpty) {
-                      await uploadDocuments(context: context, employeeDocumentMetaId: widget.documentMetaId, employeeDocumentTypeSetupId: widget.documentSetupId,
+                      var response = await uploadDocuments(context: context, employeeDocumentMetaId:documentMetaDataId, employeeDocumentTypeSetupId: documentSetupId,
                       employeeId: widget.employeeId, documentName: widget.AcknowledgementnameController.text,
                       documentFile: finalPath);
+                      if(response.statusCode == 200 || response.statusCode == 201) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            Future.delayed(Duration(seconds: 2), () {
+                              if (Navigator.of(context).canPop()) {
+                                Navigator.of(context).pop();
+                              }
+                            });
+                            return AddSuccessPopup(message: 'Document Uploded',);
+                          },
+                        );
+                      }else{
+                        print('Error');
+                      }
                       Navigator.pop(context);
                       widget.AcknowledgementnameController.clear();
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          Future.delayed(Duration(seconds: 2), () {
-                            if (Navigator.of(context).canPop()) {
-                              Navigator.of(context).pop();
-                            }
-                          });
-                          return AddSuccessPopup(message: 'Document Uploded',);
-                        },
-                      );
                     } else {
                       setState(() {
                         _documentUploaded = widget.AcknowledgementnameController.text.isNotEmpty;

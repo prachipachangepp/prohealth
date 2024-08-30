@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_licences_popup.dart';
@@ -48,8 +51,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FutureBuilder<List<SelectDocuments>>(
-                future: selectDocument(context),
+            FutureBuilder<List<CiOrgDocumentCC>>(
+                future: getORGDoc(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                 builder: (context,snapshot) {
                   if(snapshot.connectionState == ConnectionState.waiting){
                     return  Container(
@@ -70,8 +73,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                     for(var i in snapshot.data!){
                       dropDownMenuItems.add(
                         DropdownMenuItem<String>(
-                          child: Text(i.docName),
-                          value: i.docName,
+                          child: Text(i.name),
+                          value: i.name,
                         ),
                       );
                     }
@@ -80,8 +83,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                         initialValue: dropDownMenuItems[0].value,
                         onChange: (val){
                           for(var a in snapshot.data!){
-                            if(a.docName == val){
-                              docType = a.docName;
+                            if(a.name == val){
+                              docType = a.name;
                               docName = docType;
                               //docMetaId = docType;
                             }
@@ -125,14 +128,14 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                               Navigator.pop(context);
                             },
                             title: 'Add Licence',
-                            child: FutureBuilder<List<SelectDocuments>>(
-                                future: selectDocument(context),
+                            child: FutureBuilder<List<CiOrgDocumentCC>>(
+                                future: getORGDoc(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                                 builder: (context,snapshot) {
                                   if(snapshot.connectionState == ConnectionState.waiting){
                                     return Container(
                                           width: 350,
                                           height: 30,
-                                          decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                          decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
                                         );
 
                                   }
@@ -148,8 +151,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     for(var i in snapshot.data!){
                                       dropDownMenuItems.add(
                                         DropdownMenuItem<String>(
-                                          child: Text(i.docName),
-                                          value: i.docName,
+                                          child: Text(i.name),
+                                          value: i.name,
                                         ),
                                       );
                                     }
@@ -158,8 +161,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                         initialValue: dropDownMenuItems[0].value,
                                         onChange: (val){
                                           for(var a in snapshot.data!){
-                                            if(a.docName == val){
-                                              docType = a.docName;
+                                            if(a.name == val){
+                                              docType = a.name;
                                               docName = docType;
                                               //docMetaId = docType;
                                             }

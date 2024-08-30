@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/manage/equipment_data.dart';
 
@@ -41,6 +42,32 @@ Future<List<EquipmentData>> getEquipement(
             name: item['name'],
             createdAt: item['createdAt'] ?? "--"));
         itemsData.sort((a, b) => a.empInventoryId.compareTo(b.empInventoryId));
+      }
+    } else {
+      print("Equipment");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+/// Get dropdown inventory
+Future<List<InventoryDropdownData>> getDropdownInventory(
+    BuildContext context) async {
+  List<InventoryDropdownData> itemsData = [];
+  try {
+    final companyId = await TokenManager.getCompanyId();
+    final response =
+    await Api(context).get(path: ManageReposotory.gerDropdownInventory(companyId: companyId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsData.add(InventoryDropdownData(
+            inventoryId: item['inventoryId'],
+            name: item['name'],
+            qty: item['qty'],
+            description: item['description'],
+            companyId: item['companyId']));
       }
     } else {
       print("Equipment");

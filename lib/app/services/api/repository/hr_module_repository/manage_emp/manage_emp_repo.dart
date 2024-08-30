@@ -9,6 +9,7 @@ class ManageReposotory{
   static String banking = "/employee-bankings";
   static String bankingAdd = "/employee-bankings/add";
   static String equipementGet = "/employee-inventories/ByemployeeId";
+  static String inventoryEmp = "/inventory/bycompanyId";
   static String equipement1 = "/employee-inventories";
 
   static String payrates = "/employee-payrates/ByEmployeeId";
@@ -164,6 +165,9 @@ class ManageReposotory{
 
   static String addEquipement(){
     return "$equipement1$add";
+  }
+  static String gerDropdownInventory({required int companyId}){
+    return "$inventoryEmp/$companyId";
   }
   static String getEquipement({required int employeeId}){
     return "$equipementGet/$employeeId";

@@ -566,44 +566,48 @@ class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
   }
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: 150,
-      height: AppSize.s40,
-      child: Padding(
-        padding: const EdgeInsets.all(AppPadding.p5),
-        child: DropdownButtonFormField<String>(
-          icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
-          value: _selectedValue,
-          items: widget.items.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value, style: GoogleFonts.firaSans(
-                fontSize: 12,
-                color: Color(0xff575757),
-                fontWeight: FontWeight.w400,
-              ),),
-            );
-          }).toList(),
-          onChanged: (newValue) {
-            setState(() {
-              _selectedValue = newValue;
-            });
-            if (widget.onChanged != null) {
-              widget.onChanged!(newValue);
-            }
-          },
-          isExpanded: true,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
-            border: OutlineInputBorder(),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.black),
-            ),
-            labelText: widget.labelText,
-            labelStyle:
-            widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+            color: const Color(0xff686464).withOpacity(0.5),
+            width: 1), // Black border
+        borderRadius:
+        BorderRadius.circular(6), // Rounded corners
+      ),
+      height: 31,
+      padding:
+      const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+      child: DropdownButtonFormField<String>(
+        icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.black),
+        value: _selectedValue,
+        items: widget.items.map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value, style: GoogleFonts.firaSans(
+              fontSize: 12,
+              color: Color(0xff575757),
+              fontWeight: FontWeight.w600,
+            ),),
+          );
+        }).toList(),
+        onChanged: (newValue) {
+          setState(() {
+            _selectedValue = newValue;
+          });
+          if (widget.onChanged != null) {
+            widget.onChanged!(newValue);
+          }
+        },
+          style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: const Color(0xff686464),
+            decoration: TextDecoration.none,
           ),
-        ),
+        isExpanded: true,
+        decoration: const InputDecoration.collapsed(hintText: '')
       ),
     );
   }

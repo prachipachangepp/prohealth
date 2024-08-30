@@ -188,24 +188,24 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen>
                 ),
               ),
               _buildTabWithCircle(_tabController.index),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ProfilePatientPopUp(onSearch: () {  },);
-                    },
-                  );
-                },
-                child: SvgPicture.asset('images/menu_lines.svg'),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  backgroundColor: Color(0xff50B5E5),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(9),
-                  ),
-                ),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     showDialog(
+              //       context: context,
+              //       builder: (BuildContext context) {
+              //         return ProfilePatientPopUp(onSearch: () {  },);
+              //       },
+              //     );
+              //   },
+              //   child: SvgPicture.asset('images/menu_lines.svg'),
+              //   style: ElevatedButton.styleFrom(
+              //     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              //     backgroundColor: Color(0xff50B5E5),
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(9),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           Expanded(
@@ -488,7 +488,16 @@ enum Availability { fullTime, partTime }
 class ProfilePatientPopUp extends StatefulWidget {
   final Widget? zoneDropDown;
   final VoidCallback onSearch;
-  ProfilePatientPopUp({Key? key, required this.onSearch, this.zoneDropDown,}) : super(key: key);
+  final Widget officceIdWidget;
+  final Widget licensesWidget;
+  final Widget avabilityWidget;
+  final Widget? abbrivationWidget;
+  ProfilePatientPopUp({Key? key,
+    required this.avabilityWidget,
+    required this.licensesWidget,
+     this.abbrivationWidget,
+    required this.officceIdWidget,
+    required this.onSearch, this.zoneDropDown,}) : super(key: key);
 
   @override
   State<ProfilePatientPopUp> createState() => _PopUpState();
@@ -529,7 +538,7 @@ class _PopUpState extends State<ProfilePatientPopUp> {
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Text(
                 'Clinician Search Filter',
                 style: GoogleFonts.firaSans(
@@ -557,32 +566,16 @@ class _PopUpState extends State<ProfilePatientPopUp> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(height: MediaQuery.of(context).size.height / 160),
-            Row(
-              children: [
-                ConstantContainerWithText(text: 'RN'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'LVN'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'PT'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'PTA'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'HHA'),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 45),
-            Row(
-              children: [
-                ConstantContainerWithText(text: 'COTA'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'ST'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'MSW'),
-                SizedBox(width: MediaQuery.of(context).size.width / 90),
-                ConstantContainerWithText(text: 'OT'),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 30),
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Container(
+            //     width:400,
+            //     child: SingleChildScrollView(
+            //       child: widget.abbrivationWidget
+            //     ),
+            //   ),
+            // ),
+            SizedBox(height: MediaQuery.of(context).size.height / 50),
             // Row(
             //   children: [
             //     Text(
@@ -607,11 +600,8 @@ class _PopUpState extends State<ProfilePatientPopUp> {
             SizedBox(height: MediaQuery.of(context).size.height / 60),
             Row(
               children: [
-
-
-
                 Column(
-crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Office Location',
@@ -621,25 +611,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                         color: Color(0xff737373),
                       ),
                     ),
-                    Center(
-                      child: PatientCustomDropDown(
-                        width: 96,
-                        height: 27,
-                        items: ['San Joes', 'Austin'],
-                        labelText: 'Office Location',
-                        labelStyle: GoogleFonts.firaSans(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff737373),
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            dropdownOfficeLocation = value;
-                          });
-                        },
-                      ),
-
-                    ),
+                    widget.officceIdWidget
                   ],
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width / 20),
@@ -654,13 +626,6 @@ crossAxisAlignment: CrossAxisAlignment.start,
                       widget.zoneDropDown == null ? Offstage() : widget.zoneDropDown!
                     ],
                   ),
-                  // Text(
-                  //   'Zone 1',
-                  //   style: GoogleFonts.firaSans(
-                  //     fontSize: 10,
-                  //     fontWeight: FontWeight.w400,
-                  //   ),
-                  // ),
                 ),
               ],
             ),
@@ -675,39 +640,11 @@ crossAxisAlignment: CrossAxisAlignment.start,
                     color: Color(0xff737373),
                   ),
                 ),
+                SizedBox(height:5),
               ],
             ),
+             widget.licensesWidget,
 
-            Row(
-              children: [
-                Center(
-                    child:  PatientCustomDropDown(
-            // width: 96,
-            //   height: 27,
-              items: ['Active', 'Expired'],
-              labelText: 'License Status',
-              labelStyle: GoogleFonts.firaSans(
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff737373),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  dropdownLicenseStatus = value;
-                });
-              },
-            ),
-
-                    // Text(
-                    //   'Expired',
-                    //   style: GoogleFonts.firaSans(
-                    //     fontSize: 10,
-                    //     fontWeight: FontWeight.w400,
-                    //   ),
-                    // ),
-                    ),
-              ],
-            ),
             SizedBox(height: MediaQuery.of(context).size.height / 25),
             Row(
               children: [
@@ -719,38 +656,11 @@ crossAxisAlignment: CrossAxisAlignment.start,
                     color: Color(0xff737373),
                   ),
                 ),
+                SizedBox(height:5),
               ],
             ),
-         
-            Row(
-              children: [
-                Center(
-                    child:  PatientCustomDropDown(
-            width: 96,
-              height: 27,
-              items: ['Full-Time', 'Part-Time'],
-              labelText: 'Availability',
-              labelStyle: GoogleFonts.firaSans(
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff737373),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  dropdownAvailability = value;
-                });
-              },
-            ),
-                    // Text(
-                    //   'Full-Time',
-                    //   style: GoogleFonts.firaSans(
-                    //     fontSize: 10,
-                    //     fontWeight: FontWeight.w400,
-                    //   ),
-                    // ),
-                    ),
-              ],
-            ),
+           widget.avabilityWidget,
+
             SizedBox(height: MediaQuery.of(context).size.height / 25),
             ElevatedButton(
               onPressed: (){

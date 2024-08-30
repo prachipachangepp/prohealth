@@ -309,7 +309,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                           return Container(
                                 width: 350,
                                 height: 30,
-                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
                               );
 
                         }
@@ -427,9 +427,25 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                     if (_formKey.currentState!.validate() && widget.AcknowledgementnameController.text.isNotEmpty) {
                       try{
                         //File filePath = File(finalPath!);
-                        await uploadDocuments(context: context, employeeDocumentMetaId: documentMetaDataId, employeeDocumentTypeSetupId: documentSetupId,
+                        var response  = await uploadDocuments(context: context, employeeDocumentMetaId: documentMetaDataId, employeeDocumentTypeSetupId: documentSetupId,
                             employeeId: widget.employeeId, documentName: widget.AcknowledgementnameController.text,
                             documentFile: finalPath);
+                        if(response.statusCode == 200 || response.statusCode == 201) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              Future.delayed(Duration(seconds: 2), () {
+                                if (Navigator.of(context).canPop()) {
+                                  Navigator.of(context).pop();
+                                }
+                              });
+                              return AddSuccessPopup(message: 'Document Uploded',);
+                            },
+                          );
+                        }
+                        else{
+                          print('Error');
+                        }
                       }catch(e){
                         print(e);
                       }
@@ -437,17 +453,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                       // widget.onSavePressed();
                       Navigator.pop(context);
                       widget.AcknowledgementnameController.clear();
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          Future.delayed(Duration(seconds: 2), () {
-                            if (Navigator.of(context).canPop()) {
-                              Navigator.of(context).pop();
-                            }
-                          });
-                          return AddSuccessPopup(message: 'Document Uploded',);
-                        },
-                      );
+
                     } else {
                       setState(() {
                         _documentUploaded = widget.AcknowledgementnameController.text.isNotEmpty;

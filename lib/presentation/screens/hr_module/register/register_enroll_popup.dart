@@ -80,96 +80,12 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
      print('Generated URL: $generatedURL');
      return url;
    }
-
-   Future<void> performEnroll({
-     required BuildContext context,
-     required int employeeId,
-     required String code,
-     required int userId,
-     required String firstName,
-     required String lastName,
-     required String phoneNbr,
-     required String email,
-     required String link,
-     required String status,
-     required int departmentId,
-     required String position,
-     required String speciality,
-     required int clinicianTypeId,
-     required String reportingOfficeId,
-     required int cityId,
-     required int countryId,
-     required int countyId,
-     required int zoneId,
-     required String employment,
-     required String service
-   }) async {
-     setState(() {
-       _isLoading = true;
-     });
-     // ApiData result = await addEmpEnroll(
-     //   context: context,
-     //   employeeId: employeeId,
-     //   code: code,
-     //   userId: userId,
-     //   firstName: firstName,
-     //   lastName: lastName,
-     //   phoneNbr: phoneNbr,
-     //   email: email,
-     //   link: link,
-     //   status: status,
-     //   departmentId: departmentId,
-     //   position: position,
-     //   speciality: speciality,
-     //   clinicianTypeId: clinicianTypeId,
-     //   reportingOfficeId: reportingOfficeId,
-     //   cityId: cityId,
-     //   countryId: countryId,
-     //   countyId: countyId,
-     //   zoneId: zoneId,
-     //   employment: employment,
-     //   service: service,
-     // );
-     Future.delayed(Duration(seconds: 2));
-     setState(() {
-       _isLoading = false;
-     });
-     // if (result.success) {
-     // await _generateUrlLink(email, userId.toString());
-       Navigator.pop(context);
-       Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferLetterScreen(
-         //apiData: (),
-         employeeId: widget.employeeId,
-         email: widget.email.text,
-         userId: widget.userId,
-         status: widget.status,
-         firstName: widget.firstName.text,
-         lastName: widget.lastName.text,
-         role: widget.role,
-         position: position,
-         phone: phone.text,
-         reportingOffice: reportingOfficeId,
-         services: serviceVal,
-         employement: 'Full Time',
-         clinicalName: clinicialName,
-         soecalityName: speciality,
-       )));
-     // }
-     // else {
-     //   ScaffoldMessenger.of(context).showSnackBar(
-     //     SnackBar(content: Text('Error: ${result.message}')),
-     //   );
-     // }
-   }
    String? selectedCountry;
    int countryId = 0;
    String? selectedCity;
    int cityId = 0;
    String? selectedZone;
    int zoneId = 0;
-
-
-
    @override
   Widget build(BuildContext context) {
     double textFieldWidth = MediaQuery.of(context).size.width/10;
@@ -258,58 +174,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: speciality,//firstname
                             labelFontSize: 12,
                           ),
-                          // FutureBuilder<List<AEClinicalDiscipline>>(
-                          //   future: HrAddEmplyClinicalDisciplinApi(context, 1),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Padding(
-                          //           padding: const EdgeInsets.symmetric(
-                          //               horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.white),
-                          //               child: Align(
-                          //                 alignment: Alignment.centerLeft,
-                          //                 child: Text('Loading...',style: GoogleFonts.firaSans(
-                          //                   fontSize: 12,
-                          //                   color: ColorManager.mediumgrey,
-                          //                   fontWeight: FontWeight.w400,
-                          //                 ),),
-                          //               )
-                          //           ),
-                          //         );
-                          //     }
-                          //     if (snapshot.hasData) {
-                          //       List<String> dropDownList = [];
-                          //
-                          //       for (var i in snapshot.data!) {
-                          //         dropDownList.add(i.empType!);
-                          //       }
-                          //       return CustomDropdownTextField(
-                          //         labelText: 'Speciality',
-                          //         labelStyle: GoogleFonts.firaSans(
-                          //           fontSize: 12,
-                          //           color: Color(0xff575757),
-                          //           fontWeight: FontWeight.w400,
-                          //         ),
-                          //         labelFontSize: 12,
-                          //         items: dropDownList,
-                          //         onChanged: (newValue) {
-                          //           for (var a in snapshot.data!) {
-                          //             if (a.empType == newValue) {
-                          //               specialityName = a.empType!;
-                          //             }
-                          //           }
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
                           SizedBox(
                             height: AppSize.s10,
                           ),
@@ -336,8 +200,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         ],
                       ),
                     ),
-
-
                     ///
                     Flexible(
                       child: Column(
@@ -652,29 +514,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             print('Error');
                           }
                           print("${widget.employeeId}");
-                         // var response =  await performEnroll(
-                         //      context: context,
-                         //      employeeId: widget.employeeId,
-                         //      code: "",
-                         //      userId: widget.userId,
-                         //      firstName: widget.firstName.text,
-                         //      lastName: widget.lastName.text,
-                         //      phoneNbr: phone.text,
-                         //      email: widget.email.text,
-                         //      link: generatedURL,
-                         //      status: widget.status,
-                         //      departmentId: clinicalId,
-                         //      position: position.text,
-                         //      speciality: specialityName.toString(),
-                         //      clinicianTypeId: 1,
-                         //      reportingOfficeId: reportingOfficeId,
-                         //      cityId: cityId,
-                         //      countryId: countryId,
-                         //      countyId: countyId,
-                         //      zoneId: zoneId,
-                         //      employment: "Full Time",
-                         //      service: "Home Health"
-                         //  );
                         },
                       ),
                     ],
