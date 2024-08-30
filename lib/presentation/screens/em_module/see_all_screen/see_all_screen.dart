@@ -484,14 +484,17 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           ),
                                           Expanded(
                                             flex: 2,
-                                            child: Text(
-                                              user.email,
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                    FontWeightManager.bold,
-                                                color: ColorManager.granitegray,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 30.0),
+                                              child: Text(
+                                                user.email,
+                                                textAlign: TextAlign.start,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight:
+                                                      FontWeightManager.bold,
+                                                  color: ColorManager.granitegray,
+                                                ),
                                               ),
                                             ),
                                           ),

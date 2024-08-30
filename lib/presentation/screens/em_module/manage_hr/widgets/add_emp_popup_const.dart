@@ -58,8 +58,8 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
             padding: const EdgeInsets.only(left: AppPadding.p20),
             child: Text('Pick a Color',style: GoogleFonts.firaSans(
                 fontSize: FontSize.s14,
-                fontWeight: FontWeightManager.lightbold,
-                color: ColorManager.textPrimaryColor
+                fontWeight: FontWeightManager.bold,
+                color: ColorManager.blueprime
               // color: isSelected ? Colors.white : Colors.black,
             ),),
           ),

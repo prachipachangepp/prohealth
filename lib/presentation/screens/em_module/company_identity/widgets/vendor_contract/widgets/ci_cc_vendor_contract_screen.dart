@@ -56,8 +56,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
       StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   int _selectedIndex = 0;
-  int docTypeMetaId = 8;
+ // int docTypeMetaId = 8;
   int docSubTypeMetaId = 0;
+  int docTypeMetaIdVC = AppConfig.vendorContracts;
   String? expiryType;
   bool _isLoading = false;
   String? selectedDocTypeValue;
@@ -314,7 +315,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                 await addManageCCVCPPPost(
                                   context: context,
                                   name: docNamecontroller.text,
-                                  docTypeID: docTypeMetaId,
+                                  docTypeID: docTypeMetaIdVC,
                                   docSubTypeID: docSubTypeMetaId,
                                   expiryType: selectedExpiryType.toString(),
                                   expiryDate: calenderController.text,//expiryTypeToSend,
@@ -329,19 +330,18 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                 });
                               }
                             },
-                            child: FutureBuilder<List<DocumentTypeData>>(
-                              future: docTypeFuture,
+                            child:FutureBuilder<List<DocumentTypeData>>(
+                              future: documentTypeGet(context),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Container(
-                                      width: 350,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        color: ColorManager.faintGrey,
-                                        borderRadius: BorderRadius.circular(10),
+                                  return Container(
+                                    width: 300,
+                                    child: Text(
+                                      'Loading...',
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontWeight: FontWeightManager.medium,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
                                       ),
                                     ),
                                   );
@@ -359,35 +359,49 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                   );
                                 }
                                 if (snapshot.hasData) {
-                                  List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                  String selectedDocType = "";
+                                  int docType = snapshot.data![0].docID;
 
                                   for (var i in snapshot.data!) {
-                                    dropDownMenuItems.add(
-                                      DropdownMenuItem<String>(
-                                        child: Text(i.docType),
-                                        value: i.docType,
-                                      ),
-                                    );
+                                    if (i.docID == AppConfig.vendorContracts) {
+                                      selectedDocType = i.docType;
+                                      docType = i.docID;
+                                      break;
+                                    }
                                   }
 
-                                  return CICCDropdown(
-                                    initialValue: selectedDocTypeValue,
-                                    onChange: (val) {
-                                      setState(() {
-                                        selectedDocTypeValue = val;
-                                        for (var a in snapshot.data!) {
-                                          if (a.docType == val) {
-                                            docTypeMetaId = a.docID;
-                                          }
-                                        }
-                                        identityDocumentTypeGet(context, docTypeMetaId).then((data) {
-                                          _identityDataController.add(data);
-                                        }).catchError((error) {
-                                          // Handle error
-                                        });
-                                      });
-                                    },
-                                    items: dropDownMenuItems,
+                                  docTypeMetaIdVC = docType;
+
+                                  identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
+                                    _identityDataController.add(data);
+                                  }).catchError((error) {
+                                    // Handle error
+                                  });
+                                  return Container(
+                                    width: 354,
+                                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                    decoration: BoxDecoration(
+                                      color: ColorManager.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          selectedDocType,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_drop_down,
+                                          color: ColorManager.mediumgrey,
+                                        ),
+                                      ],
+                                    ),
                                   );
                                 } else {
                                   return SizedBox();
@@ -400,13 +414,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                 if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                                   List<DropdownMenuItem<String>> dropDownMenuItems = [];
 
-                                  dropDownMenuItems.add(
-                                    DropdownMenuItem<String>(
-                                      value: "Select Sub Document",
-                                      child: Text("Select Sub Document"),
-                                    ),
-                                  );
-
+                                  // Create dropdown items from the fetched data
                                   for (var i in snapshot.data!) {
                                     dropDownMenuItems.add(
                                       DropdownMenuItem<String>(
@@ -416,21 +424,20 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                     );
                                   }
 
+                                  // Return the CICCDropdown with "Select Sub Document" as the initial value
                                   return CICCDropdown(
-                                    initialValue: selectedSubDocTypeValue,
+                                    initialValue: "Select Sub Document",
                                     onChange: (val) {
                                       if (val != "Select Sub Document") {
-                                        setState(() {
-                                          selectedSubDocTypeValue = val;
-                                          for (var a in snapshot.data!) {
-                                            if (a.subDocType == val) {
-                                              docSubTypeMetaId = a.subDocID;
-                                            }
+                                        for (var a in snapshot.data!) {
+                                          if (a.subDocType == val) {
+                                            docSubTypeMetaId = a.subDocID;
                                           }
-                                        });
+                                        }
                                       }
                                     },
                                     items: dropDownMenuItems,
+                                    hintText: "Select Sub Document",
                                   );
                                 } else if (snapshot.connectionState == ConnectionState.waiting) {
                                   return SizedBox();

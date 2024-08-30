@@ -90,6 +90,18 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
               Expanded(
                 child: Center(
                   child: Text(
+                    "Document Id",
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.white,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Center(
+                  child: Text(
                     AppString.name,
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
@@ -215,6 +227,18 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                             color: Color(0xff686464),
                                           ),
                                           textAlign: TextAlign.start,
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          costData.idOfDocument,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w700,
+                                            color: Color(0xff686464),
+                                          ),
                                         ),
                                       ),
                                     ),

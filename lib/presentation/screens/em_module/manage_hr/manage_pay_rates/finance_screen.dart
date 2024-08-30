@@ -413,7 +413,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 TableHeadItem(
                     text: 'Type of Visit', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Rate', textAlign: TextAlign.center),
-                TableHeadItem(text: 'Permiles', textAlign: TextAlign.center),
+                TableHeadItem(text: 'Per Miles', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Zone', textAlign: TextAlign.center),
                 TableHeadItem(text: 'Actions', textAlign: TextAlign.center),
               ],
