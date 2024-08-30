@@ -141,7 +141,6 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                             selectedDocType = dropDownMenuItems[0].value;
                             docMetaId = docTypes[0].employeeDocMetaDataId;
                           }
-
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -155,35 +154,46 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
                                     onSavePredded: () async {
-                                      await addEmployeeDocSetup(
-                                        context,
-                                        docMetaId,
-                                        nameDocController.text,
-                                        dateController.text,
-                                        selectedExpiryType.toString(),
-                                      );
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.healthDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
                                       Navigator.pop(context);
                                       nameDocController.clear();
                                       dateController.clear();
-                                      print('$docMetaId');
+                                      print('$AppConfig.healthDocId');
                                     },
-                                    child: CICCDropdown(
-                                      initialValue: "Select Employee Document",
-                                      hintText: "Select Employee Document",
-                                      onChange: (val) {
-                                        setState(() {
-                                          selectedDocType = val;
-                                        });
-                                        for (var a in docTypes) {
-                                          if (a.employeeDocType == val) {
-                                            setState(() {
-                                              docMetaId = a.employeeDocMetaDataId;
-                                            });
-                                          }
-                                        }
-                                        print(":::${docMetaId}");
-                                      },
-                                      items: dropDownMenuItems,
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Health',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
                                     ),
 
                                     radioButton: Padding(
@@ -360,8 +370,6 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         icon: Icons.add,
                       )
                           : _selectedIndex == 1
-
-
                       /// certification
                           ? CustomIconButtonConst(
                         width: 170,
@@ -608,7 +616,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       )
                           : _selectedIndex == 2
 
-///Employement
+                      ///Employement
                           ? CustomIconButtonConst(
                         width: 170,
                         text: 'Add Document',

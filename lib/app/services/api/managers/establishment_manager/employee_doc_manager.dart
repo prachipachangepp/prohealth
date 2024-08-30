@@ -127,7 +127,8 @@ Future<ApiData> addEmployeeDocSetup(
     int empDocMetaDataId,
     String docName,
     String reminerThreshild,
-    String expiry
+    String expiry,
+    String idOfDoc,
     ) async {
   try {
     var response = await Api(context).post(path: EstablishmentManagerRepository.addEmployeDocSetup(),
@@ -136,7 +137,8 @@ Future<ApiData> addEmployeeDocSetup(
       "DocumentName": docName,
       "Expiry": expiry,
       "ReminderThreshold": reminerThreshild,
-      "EmployeeDocumentTypeMetaDataId": empDocMetaDataId
+      "EmployeeDocumentTypeMetaDataId": empDocMetaDataId,
+      "idOfDocument": idOfDoc,
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employee Document Addded");

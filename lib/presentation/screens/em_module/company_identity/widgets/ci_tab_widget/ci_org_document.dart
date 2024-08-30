@@ -867,8 +867,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                  setState(() {
                                    _isLoading = true;
                                  });
-                                 String expiryTypeToSend =
-                                 selectedExpiryType == "Not Applicable"
+                                 String expiryTypeToSend = selectedExpiryType == "Not Applicable"
                                      ? "Not Applicable"
                                      : calenderController.text;
                                  try {
@@ -974,75 +973,11 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                          ],
                                        ),
                                      );
-                                     // return CICCDropdown(
-                                     //   initialValue: dropDownMenuItems[0].value,
-                                     //   onChange: (val) {
-                                     //     for (var a in snapshot.data!) {
-                                     //       if (a.docType == val) {
-                                     //         docType = a.docID;
-                                     //         docTypeMetaId = docType;
-                                     //       }
-                                     //     }
-                                     //     identityDocumentTypeGet(context, docTypeMetaId).then((data) {
-                                     //       _identityDataController.add(data);
-                                     //     }).catchError((error) {
-                                     //       // Handle error
-                                     //     });
-                                     //   },
-                                     //   items: dropDownMenuItems,
-                                     // );
                                    } else {
                                      return SizedBox();
                                    }
                                  },
                                ),
-                               // child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                               //   stream: _identityDataController.stream,
-                               //   builder: (context, snapshot) {
-                               //     if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                               //       List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                               //
-                               //       // Create dropdown items from the fetched data
-                               //       for (var i in snapshot.data!) {
-                               //         dropDownMenuItems.add(
-                               //           DropdownMenuItem<String>(
-                               //             value: i.subDocType,
-                               //             child: Text(i.subDocType),
-                               //           ),
-                               //         );
-                               //       }
-                               //
-                               //       return CICCDropdown(
-                               //        // initialValue: "Select Sub Document",
-                               //         onChange: (val) {
-                               //           if (val != "Select Sub Document") {
-                               //             for (var a in snapshot.data!) {
-                               //               if (a.subDocType == val) {
-                               //                 docSubTypeMetaId = a.subDocID;
-                               //               }
-                               //             }
-                               //           }
-                               //         },
-                               //         items: dropDownMenuItems,
-                               //         hintText: "Select Sub Document",
-                               //       );
-                               //     } else if (snapshot.connectionState == ConnectionState.waiting) {
-                               //       return SizedBox();
-                               //     } else {
-                               //       return Center(
-                               //         child: Text(
-                               //           AppString.dataNotFound,
-                               //           style: CustomTextStylesCommon.commonStyle(
-                               //             fontWeight: FontWeightManager.medium,
-                               //             fontSize: FontSize.s12,
-                               //             color: ColorManager.mediumgrey,
-                               //           ),
-                               //         ),
-                               //       );
-                               //     }
-                               //   },
-                               // ),
-
                                radioButton: Padding(
                                  padding: const EdgeInsets.only(left: 10.0),
                                  child: Column(
