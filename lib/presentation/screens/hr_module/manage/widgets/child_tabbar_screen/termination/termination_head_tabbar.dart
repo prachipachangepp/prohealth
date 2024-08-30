@@ -58,6 +58,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
               return Padding(
                 padding:const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
                 child: Container(
+
                   width: MediaQuery.of(context).size.width/2.3,
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -68,10 +69,12 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                         offset: const Offset(0, 4),
                       ),
                     ],
-                    color: ColorManager.white,
+                     color: ColorManager.white,
+                    // color: Colors.green,
                     borderRadius: const BorderRadius.all(Radius.circular(12)),
                   ),
-                  height:  MediaQuery.of(context).size.height/2.5,
+                  height: 250,
+                  // MediaQuery.of(context).size.height/2.5,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width / 120,
@@ -82,7 +85,9 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                       children: [
                          Row(
                           children: [
-                            Text('Employee #${termination.userId}',
+                            Text(
+                              'Employee #${index + 1}',
+                              // 'Employee #${termination.userId}',
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s13,
                                 color: ColorManager.blackfaint,

@@ -97,6 +97,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
             ),
             Container(
               height: 30,
+              margin: EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(12),
@@ -220,6 +221,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                                         ),
                                       ],
                                     ),
+                                    margin: EdgeInsets.symmetric(horizontal: 9),
                                     height: 40,
                                     child: Stack(children: [
                                       Container(

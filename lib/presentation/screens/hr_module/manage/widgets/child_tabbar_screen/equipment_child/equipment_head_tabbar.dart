@@ -109,10 +109,12 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
             if(snapshot.hasData){
               return Container(
                 height: MediaQuery.of(context).size.height/1,
+
                 child: Column(
                   children: [
                     Container(
                       height: 30,
+                      margin: EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                         color: Colors.grey,
                         borderRadius: BorderRadius.circular(12),
@@ -219,6 +221,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                         ],
                                       ),
                                       height: 50,
+                                      margin: EdgeInsets.symmetric(horizontal: 9),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 15),
