@@ -184,9 +184,10 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                     String formattedSerialNumber =
                     serialNumber.toString().padLeft(2, '0');
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 30),
                       child: Container(
                         width: MediaQuery.of(context).size.width/2.5,
+                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -199,11 +200,11 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
-                        height: MediaQuery.of(context).size.height/3.3,
+                        height: MediaQuery.of(context).size.height/3.8,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: MediaQuery.of(context).size.width / 80,
-                            vertical: MediaQuery.of(context).size.height / 120,
+                            vertical: MediaQuery.of(context).size.height / 160,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -218,6 +219,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
                                 ),),
+                              // SizedBox(height: 7,),
                               Row(
                                 children: [
                                   Row(
@@ -364,6 +366,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                   )
                                 ],
                               ),
+                              // SizedBox(height: 4,),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(

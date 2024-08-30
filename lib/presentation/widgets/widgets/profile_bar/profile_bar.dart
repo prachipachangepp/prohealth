@@ -32,22 +32,24 @@ class _ProfileBarState extends State<ProfileBar> {
   void initState() {
     super.initState();
     _calculateAge(widget.searchByEmployeeIdProfileData!.dateOfBirth);
-    sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr,4);
+    sSNNBR = maskString(widget.searchByEmployeeIdProfileData!.SSNNbr, 4);
     fetchData();
   }
+
   String? sSNNBR;
   int expiredCount = 0;
   int upToDateCount = 0;
   int aboutToCount = 0;
   dynamic base64Decode;
-  Future<void> decodeMEthod(String url) async{
+  Future<void> decodeMEthod(String url) async {
     final response = await http.get(Uri.parse(url));
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       print('Url response Data : ${response.body}');
       base64Decode = response.body;
       return base64Decode;
     }
   }
+
   String? dobTimestamp;
   String _calculateAge(String birthDate) {
     DateTime convertedDate = DateTime.parse(birthDate);
@@ -59,7 +61,8 @@ class _ProfileBarState extends State<ProfileBar> {
     // Adjust for negative values in months and days
     if (days < 0) {
       months--;
-      days += DateTime(today.year, today.month, 0).day; // Get days in the previous month
+      days += DateTime(today.year, today.month, 0)
+          .day; // Get days in the previous month
     }
     if (months < 0) {
       years--;
@@ -70,7 +73,7 @@ class _ProfileBarState extends State<ProfileBar> {
     if (years > 0) {
       dobTimestamp = "${years.toString()} year";
     } else if (months > 0) {
-      dobTimestamp ="${months.toString()} months";
+      dobTimestamp = "${months.toString()} months";
     } else {
       dobTimestamp = "${days.toString()} days";
     }
@@ -79,9 +82,11 @@ class _ProfileBarState extends State<ProfileBar> {
 
     return "$dobTimestamp years";
   }
+
   Future<void> fetchData() async {
     try {
-      Map<String, List<LicensesData>> data = await getLicenseStatusWise(context, widget.searchByEmployeeIdProfileData!.employeeId!);
+      Map<String, List<LicensesData>> data = await getLicenseStatusWise(
+          context, widget.searchByEmployeeIdProfileData!.employeeId!);
       WidgetsBinding.instance.addPostFrameCallback((_) {
         // Update the count after the current build phase
         expiredCount = data['Expired']!.length;
@@ -93,6 +98,7 @@ class _ProfileBarState extends State<ProfileBar> {
       print("Error fetching data: $error");
     }
   }
+
   String maskString(String input, int visibleDigits) {
     // Calculate the number of characters to mask
     int maskLength = input.length - visibleDigits;
@@ -124,7 +130,8 @@ class _ProfileBarState extends State<ProfileBar> {
                 color: ColorManager.greenF,
               ),
               child: FutureBuilder<ProfilePercentage>(
-                  future: getPercentage(context, widget.searchByEmployeeIdProfileData!.employeeId!),
+                  future: getPercentage(context,
+                      widget.searchByEmployeeIdProfileData!.employeeId!),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return SizedBox();
@@ -159,7 +166,7 @@ class _ProfileBarState extends State<ProfileBar> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left:50),
+                    padding: const EdgeInsets.only(left: 50),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -183,7 +190,11 @@ class _ProfileBarState extends State<ProfileBar> {
                               //    );
                               //  }),
 
-                              Icon(Icons.person,color: ColorManager.white,size: AppSize.s50,),
+                              Icon(
+                                Icons.person,
+                                color: ColorManager.white,
+                                size: AppSize.s50,
+                              ),
                               // Image.network(searchByEmployeeIdProfileData!.imgurl,
                               //     height: AppSize.s50, width: AppSize.s50),
                               // you can replace
@@ -202,13 +213,18 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
                         ),
                         Text(
-                          widget.searchByEmployeeIdProfileData!.status.capitalizeFirst!,
+                          widget.searchByEmployeeIdProfileData!.status
+                              .capitalizeFirst!,
                           style: ThemeManagerBlack.customTextStyle(context),
                         ),
                         FutureBuilder<ProfilePercentage>(
-                            future: getPercentage(context, widget.searchByEmployeeIdProfileData!.employeeId!),
+                            future: getPercentage(
+                                context,
+                                widget.searchByEmployeeIdProfileData!
+                                    .employeeId!),
                             builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
                                 return SizedBox();
                               }
                               return Column(
@@ -216,7 +232,8 @@ class _ProfileBarState extends State<ProfileBar> {
                                   children: [
                                     Text(
                                       "Annual skills ${snapshot.data!.percentage}%",
-                                      style: ThemeManager.customTextStyle(context),
+                                      style:
+                                          ThemeManager.customTextStyle(context),
                                     ),
                                   ]);
                             })
@@ -249,21 +266,23 @@ class _ProfileBarState extends State<ProfileBar> {
                           ),
                           onPressed: () {},
                           child: Text(
-                            widget.searchByEmployeeIdProfileData!.employment.capitalizeFirst!,
+                            widget.searchByEmployeeIdProfileData!.employment
+                                .capitalizeFirst!,
                             style: ThemeManagerWhite.customTextStyle(context),
                           ),
                         ),
                       ),
-                      Row(
-                          children:[
-                            Text('Employement Type',style:ThemeManager.customTextStyle(context)),
-                            SizedBox(width: 20,),
-                            Text(
-                              widget.searchByEmployeeIdProfileData!.employeeType,
-                              style: ThemeManagerDark.customTextStyle(context),
-                            ),
-                          ]
-                      ),
+                      Row(children: [
+                        Text('Employement Type',
+                            style: ThemeManager.customTextStyle(context)),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          widget.searchByEmployeeIdProfileData!.employeeType,
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                      ]),
 
                       Text(
                         widget.searchByEmployeeIdProfileData!.zone,
@@ -289,7 +308,9 @@ class _ProfileBarState extends State<ProfileBar> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: MyConstants.personalInfoTexts(context),
                       ),
-                      SizedBox(width: 30,),
+                      SizedBox(
+                        width: 30,
+                      ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -310,14 +331,16 @@ class _ProfileBarState extends State<ProfileBar> {
 
                           ///phone, comment
                           ProfileBarPhoneCmtConst(
-                            phoneNo: widget.searchByEmployeeIdProfileData!.primaryPhoneNbr,
+                            phoneNo: widget
+                                .searchByEmployeeIdProfileData!.primaryPhoneNbr,
                           ),
                           ProfileBarPhoneCmtConst(
-                            phoneNo:
-                            widget.searchByEmployeeIdProfileData!.secondryPhoneNbr,
+                            phoneNo: widget.searchByEmployeeIdProfileData!
+                                .secondryPhoneNbr,
                           ),
                           ProfileBarPhoneCmtConst(
-                            phoneNo: widget.searchByEmployeeIdProfileData!.workPhoneNbr,
+                            phoneNo: widget
+                                .searchByEmployeeIdProfileData!.workPhoneNbr,
                           ),
                         ],
                       ),
@@ -330,20 +353,25 @@ class _ProfileBarState extends State<ProfileBar> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: MyConstantsColumn.personalInfoTexts(context),
                       ),
-                      SizedBox(width: 30,),
+                      SizedBox(
+                        width: 30,
+                      ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(widget.searchByEmployeeIdProfileData!.workEmail,
                               style: ProfileBarConst.profileTextStyle(context)),
-                          Text(widget.searchByEmployeeIdProfileData!.personalEmail,
+                          Text(
+                              widget
+                                  .searchByEmployeeIdProfileData!.personalEmail,
                               style: ProfileBarConst.profileTextStyle(context)),
                           Row(
                             children: [
                               Text(
                                 widget.searchByEmployeeIdProfileData!.zone,
-                                style: ThemeManagerDark.customTextStyle(context),
+                                style:
+                                    ThemeManagerDark.customTextStyle(context),
                               ),
                               SizedBox(width: 10),
                               Container(
@@ -352,178 +380,237 @@ class _ProfileBarState extends State<ProfileBar> {
                                 margin: EdgeInsets.only(right: AppSize.s40),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    showDialog(context: context, builder: (BuildContext context){
-                                      return ExpiredLicensePopup(title: 'Zones', child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: AppPadding.p3,
-                                          horizontal: AppPadding.p20,
-                                        ),
-                                        child: ScrollConfiguration(
-                                          behavior:  ScrollBehavior().copyWith(scrollbars: false),
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Container(
-                                                  height: 30,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey,
-                                                    borderRadius: BorderRadius.circular(12),
-                                                  ),
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return ExpiredLicensePopup(
+                                              title: 'Zones',
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  vertical: AppPadding.p3,
+                                                  horizontal: AppPadding.p20,
+                                                ),
+                                                child: ScrollConfiguration(
+                                                  behavior: ScrollBehavior()
+                                                      .copyWith(
+                                                          scrollbars: false),
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
                                                       children: [
-                                                        Expanded(
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Zn No.',
-                                                              style: GoogleFonts.firaSans(
-                                                                fontSize: 12,
-                                                                fontWeight: FontWeight.w700,
-                                                                color: Colors.white,
-                                                                decoration: TextDecoration.none,
-                                                              ),
+                                                        Container(
+                                                          height: 30,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal:
+                                                                        15),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceAround,
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      'Zn No.',
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w700,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        decoration:
+                                                                            TextDecoration.none,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                                Expanded(
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                        'Name Of Zone',
+                                                                        textAlign:
+                                                                            TextAlign
+                                                                                .start,
+                                                                        style: GoogleFonts
+                                                                            .firaSans(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.w700,
+                                                                          color:
+                                                                              Colors.white,
+                                                                          decoration:
+                                                                              TextDecoration.none,
+                                                                        )),
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                        'Action',
+                                                                        textAlign:
+                                                                            TextAlign
+                                                                                .start,
+                                                                        style: GoogleFonts
+                                                                            .firaSans(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.w700,
+                                                                          color:
+                                                                              Colors.white,
+                                                                          decoration:
+                                                                              TextDecoration.none,
+                                                                        )),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
                                                         ),
-                                                        //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                                        Expanded(
-                                                          child: Center(
-                                                            child: Text('Name Of Zone',textAlign: TextAlign.start,
-                                                                style: GoogleFonts.firaSans(
-                                                                  fontSize: 12,
-                                                                  fontWeight: FontWeight.w700,
-                                                                  color: Colors.white,
-                                                                  decoration: TextDecoration.none,
-                                                                )),
-                                                          ),
+                                                        const SizedBox(
+                                                          height: 10,
                                                         ),
-                                                        Expanded(
-                                                          child: Center(
-                                                            child: Text('Action',textAlign: TextAlign.start,
-                                                                style: GoogleFonts.firaSans(
-                                                                  fontSize: 12,
-                                                                  fontWeight: FontWeight.w700,
-                                                                  color: Colors.white,
-                                                                  decoration: TextDecoration.none,
-                                                                )),
-                                                          ),
+                                                        Container(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height /
+                                                              2,
+                                                          child:
+                                                              ListView.builder(
+                                                                  scrollDirection:
+                                                                      Axis
+                                                                          .vertical,
+                                                                  itemCount: 10,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          index) {
+                                                                    int serialNumber = index +
+                                                                        1 +
+                                                                        (currentPage -
+                                                                                1) *
+                                                                            itemsPerPage;
+                                                                    String formattedSerialNumber = serialNumber
+                                                                        .toString()
+                                                                        .padLeft(
+                                                                            2,
+                                                                            '0');
+                                                                    return Column(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        // SizedBox(height: 5),
+                                                                        Padding(
+                                                                          padding: const EdgeInsets
+                                                                              .all(
+                                                                              4.0),
+                                                                          child: Container(
+                                                                              decoration: BoxDecoration(
+                                                                                color: Colors.white,
+                                                                                borderRadius: BorderRadius.circular(4),
+                                                                                boxShadow: [
+                                                                                  BoxShadow(
+                                                                                    color: const Color(0xff000000).withOpacity(0.25),
+                                                                                    spreadRadius: 0,
+                                                                                    blurRadius: 4,
+                                                                                    offset: const Offset(0, 2),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                              height: 50,
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                child: Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                  children: [
+                                                                                    Expanded(
+                                                                                      child: Center(
+                                                                                        child: Text(
+                                                                                          formattedSerialNumber,
+                                                                                          // formattedSerialNumber,
+                                                                                          style: GoogleFonts.firaSans(
+                                                                                            fontSize: 10,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            color: const Color(0xff686464),
+                                                                                            decoration: TextDecoration.none,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    // Text(''),
+                                                                                    Expanded(
+                                                                                      child: Center(
+                                                                                        child: Text(
+                                                                                          'ProHealth San Jose',
+                                                                                          style: GoogleFonts.firaSans(
+                                                                                            fontSize: 10,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            color: const Color(0xff686464),
+                                                                                            decoration: TextDecoration.none,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Expanded(
+                                                                                      child: Center(
+                                                                                        child: BorderIconButton(
+                                                                                          iconData: Icons.remove_red_eye_outlined,
+                                                                                          buttonText: 'View',
+                                                                                          onPressed: () async {
+                                                                                            const String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=36.778259, -119.417931";
+                                                                                            if (await canLaunchUrlString(googleMapsUrl)) {
+                                                                                              await launchUrlString(googleMapsUrl);
+                                                                                            } else {
+                                                                                              print('Could not open the map.');
+                                                                                            }
+                                                                                          },
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              )),
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  }),
                                                         ),
                                                       ],
                                                     ),
                                                   ),
                                                 ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Container(
-                                                  height: MediaQuery.of(context).size.height/2,
-                                                  child:
-                                                  ListView.builder(
-                                                      scrollDirection: Axis.vertical,
-                                                      itemCount: 10,
-                                                      itemBuilder: (context, index) {
-                                                        int serialNumber =
-                                                            index + 1 + (currentPage - 1) * itemsPerPage;
-                                                        String formattedSerialNumber =
-                                                        serialNumber.toString().padLeft(2, '0');
-                                                        return Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            // SizedBox(height: 5),
-                                                            Padding(
-                                                              padding: const EdgeInsets.all(4.0),
-                                                              child: Container(
-                                                                  decoration: BoxDecoration(
-                                                                    color: Colors.white,
-                                                                    borderRadius: BorderRadius.circular(4),
-                                                                    boxShadow: [
-                                                                      BoxShadow(
-                                                                        color: const Color(0xff000000).withOpacity(0.25),
-                                                                        spreadRadius: 0,
-                                                                        blurRadius: 4,
-                                                                        offset: const Offset(0, 2),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  height: 50,
-                                                                  child: Padding(
-                                                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                      MainAxisAlignment.spaceAround,
-                                                                      children: [
-                                                                        Expanded(
-                                                                          child: Center(
-                                                                            child: Text(
-                                                                              formattedSerialNumber,
-                                                                              // formattedSerialNumber,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 10,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                color: const Color(0xff686464),
-                                                                                decoration: TextDecoration.none,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        // Text(''),
-                                                                        Expanded(
-                                                                          child: Center(
-                                                                            child: Text(
-                                                                              'ProHealth San Jose',
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 10,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                color: const Color(0xff686464),
-                                                                                decoration: TextDecoration.none,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        Expanded(
-                                                                          child: Center(
-                                                                            child: BorderIconButton(
-                                                                              iconData:
-                                                                              Icons.remove_red_eye_outlined,
-                                                                              buttonText:
-                                                                              'View',
-                                                                              onPressed:
-                                                                                  () async {
-                                                                                const String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=36.778259, -119.417931";
-                                                                                if (await canLaunchUrlString(googleMapsUrl)) {
-                                                                                  await launchUrlString(googleMapsUrl);
-                                                                                } else {
-                                                                                  print('Could not open the map.');
-                                                                                }
-                                                                              },
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  )),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      }),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ));
-                                    });
+                                              ));
+                                        });
                                   },
                                   style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: AppSize.s15,
                                         vertical: AppSize.s10),
                                     backgroundColor: ColorManager.blueprime,
-                                    shadowColor: ColorManager.grey.withOpacity(0.3),
+                                    shadowColor:
+                                        ColorManager.grey.withOpacity(0.3),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12),
                                     ),
@@ -561,657 +648,928 @@ class _ProfileBarState extends State<ProfileBar> {
                       ),
                     ],
                   ),
-
-                   Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                            children: [
-                              Text(AppString.hideDate,
-                                  style: ThemeManager.customTextStyle(context)),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 35,
-                              ),
-                              Text(AppString.datetime,
-                                  style: ThemeManagerDark.customTextStyle(context)),
-                            ],
-                          ),
-                            SizedBox(height:10),
-                            Row(
+                            Column(
                               mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                    'PTA',
-                                    style: ThemeManager.customTextStyle(context)),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 25,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 70.0),
-                                  child: Text(
-                                      '1.2',
-                                      style: ThemeManagerDark.customTextStyle(context)),
-                                ),
+                                Text(AppString.hideDate,
+                                    style: GoogleFonts.firaSans(
+                                        color: ColorManager.textPrimaryColor,
+                                        fontWeight: FontWeightManager.medium,
+                                        fontSize: 12)),
+                                SizedBox(height: 10,),
+                                Text('PTA',
+                                    style: GoogleFonts.firaSans(
+                                        color: ColorManager.textPrimaryColor,
+                                        fontWeight: FontWeightManager.medium,
+                                        fontSize: 12)),
                               ],
-                            ),]
-                      ),
-
-                      FutureBuilder(future: fetchData(), builder: (BuildContext context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return SizedBox(height:1,width:1);
-                        }
-                                           return Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ///"Expired License"
-                         ProfileBarClipConst(
-                            onTap: (){
-                              showDialog(context: context, builder: (BuildContext context){
-                                return ExpiredLicensePopup(title: 'Expired License', child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: AppPadding.p3,
-                                    horizontal: AppPadding.p20,
-                                  ),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Container(
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius: BorderRadius.circular(12),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text(
-                                                      'Sr No.',
-                                                      style: GoogleFonts.firaSans(
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: Colors.white,
-                                                        decoration: TextDecoration.none,
+                            ),
+                            SizedBox(width: 30,),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(AppString.datetime,
+                                    style: ThemeManagerDark.customTextStyle(
+                                        context)),
+                                SizedBox(height: 10,),
+                                Text('1.2',
+                                    style: ThemeManagerDark.customTextStyle(
+                                        context)),
+                              ],
+                            )
+                          ]),
+                      FutureBuilder(
+                        future: fetchData(),
+                        builder: (BuildContext context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return SizedBox(height: 1, width: 1);
+                          }
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ///"Expired License"
+                              ProfileBarClipConst(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return ExpiredLicensePopup(
+                                            title: 'Expired License',
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: AppPadding.p3,
+                                                horizontal: AppPadding.p20,
+                                              ),
+                                              child: SingleChildScrollView(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    Container(
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.grey,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12),
                                                       ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text('Name Of License',textAlign: TextAlign.start,
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: Colors.white,
-                                                          decoration: TextDecoration.none,
-                                                        )),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text('Date',textAlign: TextAlign.start,
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: Colors.white,
-                                                          decoration: TextDecoration.none,
-                                                        )),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        FutureBuilder<Map<String, List<LicensesData>>>(
-                                          future: getLicenseStatusWise(context, widget.searchByEmployeeIdProfileData!.employeeId!),
-                                          builder: (context,snapshot) {
-                                            if (snapshot.connectionState == ConnectionState.waiting) {
-                                              return Center(
-                                                child: Padding(
-                                                  padding:const EdgeInsets.symmetric(vertical: 150),
-                                                  child: CircularProgressIndicator(
-                                                    color: ColorManager.blueprime,
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            if (snapshot.data!['Expired']!.isEmpty) {
-                                              return Center(
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 150),
-                                                    child: Text(
-                                                      AppString.dataNotFound,
-                                                      style: CustomTextStylesCommon.commonStyle(
-                                                          fontWeight: FontWeightManager.medium,
-                                                          fontSize: FontSize.s12,
-                                                          color: ColorManager.mediumgrey),
-                                                    ),
-                                                  ));
-                                            }
-                                            if(snapshot.hasData){
-                                              final expiredLicenses = snapshot.data!['Expired']!;
-                                              //final inactiveLicenses = snapshot.data!['Inactive']!;
-                                              return Container(
-                                                height: MediaQuery.of(context).size.height/2,
-                                                child:
-                                                ListView.builder(
-                                                    scrollDirection: Axis.vertical,
-                                                    itemCount: expiredLicenses.length,
-                                                    itemBuilder: (context, index) {
-                                                      expiredCount = expiredLicenses.length;
-                                                      print("Expired count :: ${expiredCount}");
-                                                      int serialNumber =
-                                                          index + 1 + (currentPage - 1) * itemsPerPage;
-                                                      String formattedSerialNumber =
-                                                      serialNumber.toString().padLeft(2, '0');
-                                                      return Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          // SizedBox(height: 5),
-                                                          Padding(
-                                                            padding: const EdgeInsets.all(5),
-                                                            child: Container(
-                                                                decoration: BoxDecoration(
-                                                                  color: Colors.white,
-                                                                  borderRadius: BorderRadius.circular(4),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                      color: const Color(0xff000000).withOpacity(0.25),
-                                                                      spreadRadius: 0,
-                                                                      blurRadius: 4,
-                                                                      offset: const Offset(0, 2),
-                                                                    ),
-                                                                  ],
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 15),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: Text(
+                                                                  'Sr No.',
+                                                                  style: GoogleFonts
+                                                                      .firaSans(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .none,
+                                                                  ),
                                                                 ),
-                                                                height: 50,
+                                                              ),
+                                                            ),
+                                                            //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: Text(
+                                                                    'Name Of License',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: GoogleFonts
+                                                                        .firaSans(
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .none,
+                                                                    )),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Center(
+                                                                child: Text(
+                                                                    'Date',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: GoogleFonts
+                                                                        .firaSans(
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .none,
+                                                                    )),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    FutureBuilder<
+                                                            Map<
+                                                                String,
+                                                                List<
+                                                                    LicensesData>>>(
+                                                        future: getLicenseStatusWise(
+                                                            context,
+                                                            widget
+                                                                .searchByEmployeeIdProfileData!
+                                                                .employeeId!),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          if (snapshot
+                                                                  .connectionState ==
+                                                              ConnectionState
+                                                                  .waiting) {
+                                                            return Center(
+                                                              child: Padding(
+                                                                padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        150),
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  color: ColorManager
+                                                                      .blueprime,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          if (snapshot
+                                                              .data!['Expired']!
+                                                              .isEmpty) {
+                                                            return Center(
                                                                 child: Padding(
-                                                                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                    MainAxisAlignment.spaceAround,
-                                                                    children: [
-                                                                      Expanded(
-                                                                        child: Center(
-                                                                          child: Text(
-                                                                            formattedSerialNumber,
-                                                                            // formattedSerialNumber,
-                                                                            style: GoogleFonts.firaSans(
-                                                                              fontSize: 10,
-                                                                              fontWeight: FontWeight.w500,
-                                                                              color: const Color(0xff686464),
-                                                                              decoration: TextDecoration.none,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                      vertical:
+                                                                          150),
+                                                              child: Text(
+                                                                AppString
+                                                                    .dataNotFound,
+                                                                style: CustomTextStylesCommon.commonStyle(
+                                                                    fontWeight:
+                                                                        FontWeightManager
+                                                                            .medium,
+                                                                    fontSize:
+                                                                        FontSize
+                                                                            .s12,
+                                                                    color: ColorManager
+                                                                        .mediumgrey),
+                                                              ),
+                                                            ));
+                                                          }
+                                                          if (snapshot
+                                                              .hasData) {
+                                                            final expiredLicenses =
+                                                                snapshot.data![
+                                                                    'Expired']!;
+                                                            //final inactiveLicenses = snapshot.data!['Inactive']!;
+                                                            return Container(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height /
+                                                                  2,
+                                                              child: ListView
+                                                                  .builder(
+                                                                      scrollDirection:
+                                                                          Axis
+                                                                              .vertical,
+                                                                      itemCount:
+                                                                          expiredLicenses
+                                                                              .length,
+                                                                      itemBuilder:
+                                                                          (context,
+                                                                              index) {
+                                                                        expiredCount =
+                                                                            expiredLicenses.length;
+                                                                        print(
+                                                                            "Expired count :: ${expiredCount}");
+                                                                        int serialNumber = index +
+                                                                            1 +
+                                                                            (currentPage - 1) *
+                                                                                itemsPerPage;
+                                                                        String formattedSerialNumber = serialNumber
+                                                                            .toString()
+                                                                            .padLeft(2,
+                                                                                '0');
+                                                                        return Column(
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            // SizedBox(height: 5),
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.all(5),
+                                                                              child: Container(
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: Colors.white,
+                                                                                    borderRadius: BorderRadius.circular(4),
+                                                                                    boxShadow: [
+                                                                                      BoxShadow(
+                                                                                        color: const Color(0xff000000).withOpacity(0.25),
+                                                                                        spreadRadius: 0,
+                                                                                        blurRadius: 4,
+                                                                                        offset: const Offset(0, 2),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                  height: 50,
+                                                                                  child: Padding(
+                                                                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                    child: Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                      children: [
+                                                                                        Expanded(
+                                                                                          child: Center(
+                                                                                            child: Text(
+                                                                                              formattedSerialNumber,
+                                                                                              // formattedSerialNumber,
+                                                                                              style: GoogleFonts.firaSans(
+                                                                                                fontSize: 10,
+                                                                                                fontWeight: FontWeight.w500,
+                                                                                                color: const Color(0xff686464),
+                                                                                                decoration: TextDecoration.none,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        // Text(''),
+                                                                                        Expanded(
+                                                                                          child: Center(
+                                                                                            child: Text(
+                                                                                              expiredLicenses[index].org,
+                                                                                              style: GoogleFonts.firaSans(
+                                                                                                fontSize: 10,
+                                                                                                fontWeight: FontWeight.w500,
+                                                                                                color: const Color(0xff686464),
+                                                                                                decoration: TextDecoration.none,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        Expanded(
+                                                                                          child: Center(
+                                                                                            child: Text(
+                                                                                              expiredLicenses[index].issueDate,
+                                                                                              style: GoogleFonts.firaSans(
+                                                                                                fontSize: 10,
+                                                                                                fontWeight: FontWeight.w500,
+                                                                                                color: const Color(0xff686464),
+                                                                                                decoration: TextDecoration.none,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  )),
                                                                             ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      // Text(''),
-                                                                      Expanded(
-                                                                        child: Center(
-                                                                          child: Text(
-                                                                            expiredLicenses[index].org,
-                                                                            style: GoogleFonts.firaSans(
-                                                                              fontSize: 10,
-                                                                              fontWeight: FontWeight.w500,
-                                                                              color: const Color(0xff686464),
-                                                                              decoration: TextDecoration.none,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        child: Center(
-                                                                          child: Text(
-                                                                            expiredLicenses[index].issueDate,
-                                                                            style: GoogleFonts.firaSans(
-                                                                              fontSize: 10,
-                                                                              fontWeight: FontWeight.w500,
-                                                                              color: const Color(0xff686464),
-                                                                              decoration: TextDecoration.none,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                )),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    }),
-                                              );
-                                            }
-                                            return Offstage();
-
-                                          }
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ));
-                              });
-                            },
-                              text: AppString.expiredlicense,
-                              // containerColor: Colors.deepOrangeAccent,
-                              containerColor: Color(0xffD16D6A),
-                              textOval: expiredCount.toString(),
+                                                                          ],
+                                                                        );
+                                                                      }),
+                                                            );
+                                                          }
+                                                          return Offstage();
+                                                        }),
+                                                  ],
+                                                ),
+                                              ),
+                                            ));
+                                      });
+                                },
+                                text: AppString.expiredlicense,
+                                // containerColor: Colors.deepOrangeAccent,
+                                containerColor: Color(0xffD16D6A),
+                                textOval: expiredCount.toString(),
                               ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height / 120),
+                              SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 120),
 
-                          ///"About To Expired License"
-                          ProfileBarClipConst(
-                            onTap: (){
-                              showDialog(context: context, builder: (BuildContext context){
-                                return ExpiredLicensePopup(title: 'About To Expired License', child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: AppPadding.p3,
-                                    horizontal: AppPadding.p20,
-                                  ),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Container(
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius: BorderRadius.circular(12),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text(
-                                                      'Sr No.',
-                                                      style: GoogleFonts.firaSans(
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: Colors.white,
-                                                        decoration: TextDecoration.none,
-                                                      ),
-                                                    ),
-                                                  ),
+                              ///"About To Expired License"
+                              ProfileBarClipConst(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return ExpiredLicensePopup(
+                                              title: 'About To Expired License',
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  vertical: AppPadding.p3,
+                                                  horizontal: AppPadding.p20,
                                                 ),
-                                                //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text('Name Of License',textAlign: TextAlign.start,
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: Colors.white,
-                                                          decoration: TextDecoration.none,
-                                                        )),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text('Date',textAlign: TextAlign.start,
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: Colors.white,
-                                                          decoration: TextDecoration.none,
-                                                        )),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        FutureBuilder<Map<String, List<LicensesData>>>(
-                                            future: getLicenseStatusWise(context, widget.searchByEmployeeIdProfileData!.employeeId!),
-                                            builder: (context,snapshot) {
-                                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                                return Center(
-                                                  child: Padding(
-                                                    padding:const EdgeInsets.symmetric(vertical: 150),
-                                                    child: CircularProgressIndicator(
-                                                      color: ColorManager.blueprime,
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                              if (snapshot.data!['About to Expire']!.isEmpty) {
-                                                return Center(
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.symmetric(vertical: 150),
-                                                      child: Text(
-                                                        AppString.dataNotFound,
-                                                        style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeightManager.medium,
-                                                            fontSize: FontSize.s12,
-                                                            color: ColorManager.mediumgrey),
-                                                      ),
-                                                    ));
-                                              }
-                                              if(snapshot.hasData){
-                                                final aboutToExpiredLicenses = snapshot.data!['About to Expire']!;
-                                                //final inactiveLicenses = snapshot.data!['Inactive']!;
-                                                return Container(
-                                                  height: MediaQuery.of(context).size.height/2,
-                                                  child:
-                                                  ListView.builder(
-                                                      scrollDirection: Axis.vertical,
-                                                      itemCount: aboutToExpiredLicenses.length,
-                                                      itemBuilder: (context, index) {
-                                                        int serialNumber =
-                                                            index + 1 + (currentPage - 1) * itemsPerPage;
-                                                        String formattedSerialNumber =
-                                                        serialNumber.toString().padLeft(2, '0');
-                                                        return Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            // SizedBox(height: 5),
-                                                            Padding(
-                                                              padding: const EdgeInsets.all(5.0),
-                                                              child: Container(
-                                                                  decoration: BoxDecoration(
-                                                                    color: Colors.white,
-                                                                    borderRadius: BorderRadius.circular(4),
-                                                                    boxShadow: [
-                                                                      BoxShadow(
-                                                                        color: const Color(0xff000000).withOpacity(0.25),
-                                                                        spreadRadius: 0,
-                                                                        blurRadius: 4,
-                                                                        offset: const Offset(0, 2),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  height: 50,
-                                                                  child: Padding(
-                                                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                      MainAxisAlignment.spaceAround,
-                                                                      children: [
-                                                                        Expanded(
-                                                                          child: Center(
-                                                                            child: Text(
-                                                                              formattedSerialNumber,
-                                                                              // formattedSerialNumber,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 10,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                color: const Color(0xff686464),
-                                                                                decoration: TextDecoration.none,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        // Text(''),
-                                                                        Expanded(
-                                                                          child: Center(
-                                                                            child: Text(
-                                                                              aboutToExpiredLicenses[index].org,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 10,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                color: const Color(0xff686464),
-                                                                                decoration: TextDecoration.none,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        Expanded(
-                                                                          child: Center(
-                                                                            child: Text(
-                                                                              aboutToExpiredLicenses[index].issueDate,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 10,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                color: const Color(0xff686464),
-                                                                                decoration: TextDecoration.none,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Container(
+                                                        height: 30,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(12),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                      15),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            children: [
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    'Sr No.',
+                                                                    style: GoogleFonts
+                                                                        .firaSans(
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .none,
                                                                     ),
-                                                                  )),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      }),
-                                                );
-                                              }
-                                              return Offstage();
-
-                                            }
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ));
-                              });
-                            },
-                              text: AppString.abouttoexpire,
-                              // containerColor: Colors.orange,
-                              containerColor: Color(0xffFEBD4D),
-                              textOval: upToDateCount.toString()),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height / 120),
-
-                          ///"Up To Date License"
-                          ProfileBarClipConst(
-                            onTap: (){
-                              showDialog(context: context, builder: (BuildContext context){
-                                return ExpiredLicensePopup(title: 'Up To Date License', child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: AppPadding.p3,
-                                    horizontal: AppPadding.p20,
-                                  ),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Container(
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius: BorderRadius.circular(12),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text(
-                                                      'Sr No.',
-                                                      style: GoogleFonts.firaSans(
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: Colors.white,
-                                                        decoration: TextDecoration.none,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text('Name Of License',textAlign: TextAlign.start,
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: Colors.white,
-                                                          decoration: TextDecoration.none,
-                                                        )),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Center(
-                                                    child: Text('Date',textAlign: TextAlign.start,
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: Colors.white,
-                                                          decoration: TextDecoration.none,
-                                                        )),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        FutureBuilder<Map<String, List<LicensesData>>>(
-                                            future: getLicenseStatusWise(context, widget.searchByEmployeeIdProfileData!.employeeId!),
-                                            builder: (context,snapshot) {
-                                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                                return Center(
-                                                  child: Padding(
-                                                    padding:const EdgeInsets.symmetric(vertical: 150),
-                                                    child: CircularProgressIndicator(
-                                                      color: ColorManager.blueprime,
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                              if (snapshot.data!['Upto date']!.isEmpty) {
-                                                return Center(
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.symmetric(vertical: 150),
-                                                      child: Text(
-                                                        AppString.dataNotFound,
-                                                        style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeightManager.medium,
-                                                            fontSize: FontSize.s12,
-                                                            color: ColorManager.mediumgrey),
-                                                      ),
-                                                    ));
-                                              }
-                                              if(snapshot.hasData){
-                                                final upToDateLicenses = snapshot.data!['Upto date']!;
-                                                //final inactiveLicenses = snapshot.data!['Inactive']!;
-                                                return Container(
-                                                  height: MediaQuery.of(context).size.height/2,
-                                                  child:
-                                                  ListView.builder(
-                                                      scrollDirection: Axis.vertical,
-                                                      itemCount: upToDateLicenses.length,
-                                                      itemBuilder: (context, index) {
-                                                        int serialNumber =
-                                                            index + 1 + (currentPage - 1) * itemsPerPage;
-                                                        String formattedSerialNumber =
-                                                        serialNumber.toString().padLeft(2, '0');
-                                                        return Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            // SizedBox(height: 5),
-                                                            Padding(
-                                                              padding: const EdgeInsets.all(8.0),
-                                                              child: Container(
-                                                                  decoration: BoxDecoration(
-                                                                    color: Colors.white,
-                                                                    borderRadius: BorderRadius.circular(4),
-                                                                    boxShadow: [
-                                                                      BoxShadow(
-                                                                        color: const Color(0xff000000).withOpacity(0.25),
-                                                                        spreadRadius: 0,
-                                                                        blurRadius: 4,
-                                                                        offset: const Offset(0, 2),
-                                                                      ),
-                                                                    ],
                                                                   ),
-                                                                  height: 50,
-                                                                  child: Padding(
-                                                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                      MainAxisAlignment.spaceAround,
-                                                                      children: [
-                                                                        Expanded(
-                                                                          child: Center(
-                                                                            child: Text(
-                                                                              formattedSerialNumber,
-                                                                              // formattedSerialNumber,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 10,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                color: const Color(0xff686464),
-                                                                                decoration: TextDecoration.none,
+                                                                ),
+                                                              ),
+                                                              //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                      'Name Of License',
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w700,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        decoration:
+                                                                            TextDecoration.none,
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                      'Date',
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w700,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        decoration:
+                                                                            TextDecoration.none,
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      FutureBuilder<
+                                                              Map<
+                                                                  String,
+                                                                  List<
+                                                                      LicensesData>>>(
+                                                          future: getLicenseStatusWise(
+                                                              context,
+                                                              widget
+                                                                  .searchByEmployeeIdProfileData!
+                                                                  .employeeId!),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            if (snapshot
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return Center(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      vertical:
+                                                                          150),
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                    color: ColorManager
+                                                                        .blueprime,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }
+                                                            if (snapshot
+                                                                .data![
+                                                                    'About to Expire']!
+                                                                .isEmpty) {
+                                                              return Center(
+                                                                  child:
+                                                                      Padding(
+                                                                padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        150),
+                                                                child: Text(
+                                                                  AppString
+                                                                      .dataNotFound,
+                                                                  style: CustomTextStylesCommon.commonStyle(
+                                                                      fontWeight:
+                                                                          FontWeightManager
+                                                                              .medium,
+                                                                      fontSize:
+                                                                          FontSize
+                                                                              .s12,
+                                                                      color: ColorManager
+                                                                          .mediumgrey),
+                                                                ),
+                                                              ));
+                                                            }
+                                                            if (snapshot
+                                                                .hasData) {
+                                                              final aboutToExpiredLicenses =
+                                                                  snapshot.data![
+                                                                      'About to Expire']!;
+                                                              //final inactiveLicenses = snapshot.data!['Inactive']!;
+                                                              return Container(
+                                                                height: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height /
+                                                                    2,
+                                                                child: ListView
+                                                                    .builder(
+                                                                        scrollDirection:
+                                                                            Axis
+                                                                                .vertical,
+                                                                        itemCount:
+                                                                            aboutToExpiredLicenses
+                                                                                .length,
+                                                                        itemBuilder:
+                                                                            (context,
+                                                                                index) {
+                                                                          int serialNumber = index +
+                                                                              1 +
+                                                                              (currentPage - 1) * itemsPerPage;
+                                                                          String
+                                                                              formattedSerialNumber =
+                                                                              serialNumber.toString().padLeft(2, '0');
+                                                                          return Column(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              // SizedBox(height: 5),
+                                                                              Padding(
+                                                                                padding: const EdgeInsets.all(5.0),
+                                                                                child: Container(
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: Colors.white,
+                                                                                      borderRadius: BorderRadius.circular(4),
+                                                                                      boxShadow: [
+                                                                                        BoxShadow(
+                                                                                          color: const Color(0xff000000).withOpacity(0.25),
+                                                                                          spreadRadius: 0,
+                                                                                          blurRadius: 4,
+                                                                                          offset: const Offset(0, 2),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    height: 50,
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                      child: Row(
+                                                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                        children: [
+                                                                                          Expanded(
+                                                                                            child: Center(
+                                                                                              child: Text(
+                                                                                                formattedSerialNumber,
+                                                                                                // formattedSerialNumber,
+                                                                                                style: GoogleFonts.firaSans(
+                                                                                                  fontSize: 10,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                  color: const Color(0xff686464),
+                                                                                                  decoration: TextDecoration.none,
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                          // Text(''),
+                                                                                          Expanded(
+                                                                                            child: Center(
+                                                                                              child: Text(
+                                                                                                aboutToExpiredLicenses[index].org,
+                                                                                                style: GoogleFonts.firaSans(
+                                                                                                  fontSize: 10,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                  color: const Color(0xff686464),
+                                                                                                  decoration: TextDecoration.none,
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                          Expanded(
+                                                                                            child: Center(
+                                                                                              child: Text(
+                                                                                                aboutToExpiredLicenses[index].issueDate,
+                                                                                                style: GoogleFonts.firaSans(
+                                                                                                  fontSize: 10,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                  color: const Color(0xff686464),
+                                                                                                  decoration: TextDecoration.none,
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    )),
                                                                               ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        // Text(''),
-                                                                        Expanded(
-                                                                          child: Center(
-                                                                            child: Text(
-                                                                              upToDateLicenses[index].org,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 10,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                color: const Color(0xff686464),
-                                                                                decoration: TextDecoration.none,
-                                                                              ),
-                                                                             ),
-                                                                          ),
-                                                                        ),
-                                                                        Expanded(
-                                                                          child: Center(
-                                                                            child: Text(
-                                                                              upToDateLicenses[index].issueDate,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 10,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                color: const Color(0xff686464),
-                                                                                decoration: TextDecoration.none,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  )),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      }),
-                                                );
-                                              }
-                                              return Offstage();
+                                                                            ],
+                                                                          );
+                                                                        }),
+                                                              );
+                                                            }
+                                                            return Offstage();
+                                                          }),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ));
+                                        });
+                                  },
+                                  text: AppString.abouttoexpire,
+                                  // containerColor: Colors.orange,
+                                  containerColor: Color(0xffFEBD4D),
+                                  textOval: upToDateCount.toString()),
+                              SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 120),
 
-                                            }
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ));
-                              });
-                            },
-                              text: AppString.uptodate,
-                              // containerColor: Colors.lightGreen,
-                              containerColor: Color(0xffB4DB4C),
-                              textOval:aboutToCount.toString()),
-                        ],
-                      );},),
+                              ///"Up To Date License"
+                              ProfileBarClipConst(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return ExpiredLicensePopup(
+                                              title: 'Up To Date License',
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  vertical: AppPadding.p3,
+                                                  horizontal: AppPadding.p20,
+                                                ),
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Container(
+                                                        height: 30,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(12),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                      15),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            children: [
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    'Sr No.',
+                                                                    style: GoogleFonts
+                                                                        .firaSans(
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .none,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                      'Name Of License',
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w700,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        decoration:
+                                                                            TextDecoration.none,
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Center(
+                                                                  child: Text(
+                                                                      'Date',
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w700,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        decoration:
+                                                                            TextDecoration.none,
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      FutureBuilder<
+                                                              Map<
+                                                                  String,
+                                                                  List<
+                                                                      LicensesData>>>(
+                                                          future: getLicenseStatusWise(
+                                                              context,
+                                                              widget
+                                                                  .searchByEmployeeIdProfileData!
+                                                                  .employeeId!),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            if (snapshot
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return Center(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      vertical:
+                                                                          150),
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                    color: ColorManager
+                                                                        .blueprime,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }
+                                                            if (snapshot
+                                                                .data![
+                                                                    'Upto date']!
+                                                                .isEmpty) {
+                                                              return Center(
+                                                                  child:
+                                                                      Padding(
+                                                                padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        150),
+                                                                child: Text(
+                                                                  AppString
+                                                                      .dataNotFound,
+                                                                  style: CustomTextStylesCommon.commonStyle(
+                                                                      fontWeight:
+                                                                          FontWeightManager
+                                                                              .medium,
+                                                                      fontSize:
+                                                                          FontSize
+                                                                              .s12,
+                                                                      color: ColorManager
+                                                                          .mediumgrey),
+                                                                ),
+                                                              ));
+                                                            }
+                                                            if (snapshot
+                                                                .hasData) {
+                                                              final upToDateLicenses =
+                                                                  snapshot.data![
+                                                                      'Upto date']!;
+                                                              //final inactiveLicenses = snapshot.data!['Inactive']!;
+                                                              return Container(
+                                                                height: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height /
+                                                                    2,
+                                                                child: ListView
+                                                                    .builder(
+                                                                        scrollDirection:
+                                                                            Axis
+                                                                                .vertical,
+                                                                        itemCount:
+                                                                            upToDateLicenses
+                                                                                .length,
+                                                                        itemBuilder:
+                                                                            (context,
+                                                                                index) {
+                                                                          int serialNumber = index +
+                                                                              1 +
+                                                                              (currentPage - 1) * itemsPerPage;
+                                                                          String
+                                                                              formattedSerialNumber =
+                                                                              serialNumber.toString().padLeft(2, '0');
+                                                                          return Column(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              // SizedBox(height: 5),
+                                                                              Padding(
+                                                                                padding: const EdgeInsets.all(8.0),
+                                                                                child: Container(
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: Colors.white,
+                                                                                      borderRadius: BorderRadius.circular(4),
+                                                                                      boxShadow: [
+                                                                                        BoxShadow(
+                                                                                          color: const Color(0xff000000).withOpacity(0.25),
+                                                                                          spreadRadius: 0,
+                                                                                          blurRadius: 4,
+                                                                                          offset: const Offset(0, 2),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    height: 50,
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                                                      child: Row(
+                                                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                        children: [
+                                                                                          Expanded(
+                                                                                            child: Center(
+                                                                                              child: Text(
+                                                                                                formattedSerialNumber,
+                                                                                                // formattedSerialNumber,
+                                                                                                style: GoogleFonts.firaSans(
+                                                                                                  fontSize: 10,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                  color: const Color(0xff686464),
+                                                                                                  decoration: TextDecoration.none,
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                          // Text(''),
+                                                                                          Expanded(
+                                                                                            child: Center(
+                                                                                              child: Text(
+                                                                                                upToDateLicenses[index].org,
+                                                                                                style: GoogleFonts.firaSans(
+                                                                                                  fontSize: 10,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                  color: const Color(0xff686464),
+                                                                                                  decoration: TextDecoration.none,
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                          Expanded(
+                                                                                            child: Center(
+                                                                                              child: Text(
+                                                                                                upToDateLicenses[index].issueDate,
+                                                                                                style: GoogleFonts.firaSans(
+                                                                                                  fontSize: 10,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                  color: const Color(0xff686464),
+                                                                                                  decoration: TextDecoration.none,
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    )),
+                                                                              ),
+                                                                            ],
+                                                                          );
+                                                                        }),
+                                                              );
+                                                            }
+                                                            return Offstage();
+                                                          }),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ));
+                                        });
+                                  },
+                                  text: AppString.uptodate,
+                                  // containerColor: Colors.lightGreen,
+                                  containerColor: Color(0xffB4DB4C),
+                                  textOval: aboutToCount.toString()),
+                            ],
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ],
