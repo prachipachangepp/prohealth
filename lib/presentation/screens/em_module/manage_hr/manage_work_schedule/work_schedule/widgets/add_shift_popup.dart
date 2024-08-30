@@ -384,7 +384,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
+              padding: const EdgeInsets.only(bottom: AppPadding.p30),
               child: Center(
                 child: isLoading
                     ? SizedBox(

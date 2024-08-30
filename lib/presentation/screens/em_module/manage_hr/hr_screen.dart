@@ -906,7 +906,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                         builder: (context) =>
                                                             DeletePopup(
                                                                 title:
-                                                                    'Delete Health Doc',
+                                                                    'Delete Employee Type',
                                                                 onCancel: () {
                                                                   Navigator.pop(
                                                                       context);

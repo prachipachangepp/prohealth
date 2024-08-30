@@ -64,15 +64,18 @@ class _CustomPopupState extends State<CustomPopup> {
                 // mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.title,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 13,
-                      fontWeight:
-                      FontWeightManager.semiBold,
-                      color: ColorManager.white,
-                      decoration: TextDecoration.none,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(
+                      widget.title,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 13,
+                        fontWeight:
+                        FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                   IconButton(

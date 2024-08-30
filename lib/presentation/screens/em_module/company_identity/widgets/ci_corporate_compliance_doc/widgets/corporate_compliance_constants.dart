@@ -170,13 +170,14 @@ class CICCDropdown extends StatefulWidget {
   final List<DropdownMenuItem<String>> items;
   final String? initialValue;
   final Function(String)? onChange;
+  final bool? isEnabled;
 
   const CICCDropdown({
     Key? key,
     required this.items,
     this.width,
     this.initialValue,
-    this.onChange, String? hintText,
+    this.onChange, String? hintText, this.isEnabled,
   }) : super(key: key);
 
   @override
@@ -334,7 +335,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 25.0),
+                    padding: const EdgeInsets.only(left: 32),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(
@@ -642,22 +643,19 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   SizedBox(height: AppSize.s13),
 
                   /// Sub Type of the Document
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppString.sub_type_of_the_document,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                 if (widget.child1 != null) ...[
+                    Text(
+                      AppString.sub_type_of_the_document,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.mediumgrey,
+                        decoration: TextDecoration.none,
                       ),
-                      SizedBox(height: AppSize.s5),
-                      widget.child1 ?? Offstage(),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: AppSize.s5),
+                  ],
+                  widget.child1 ?? Offstage(),
                 ],
               ),
             ),

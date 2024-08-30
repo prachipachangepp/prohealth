@@ -182,12 +182,17 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                   keyboardType: TextInputType.number,
                   capitalIsSelect: true,
                 ),
-                _buildTextField(
-                  controller: widget.referredBy,
-                  labelText: "Referred By",
-                  errorKey: 'referredBy',
-                  capitalIsSelect: true,
+
+                SizedBox(
+                  height: 30,
+                  width: MediaQuery.of(context).size.width / 6,
                 ),
+                // _buildTextField(
+                //   controller: widget.referredBy,
+                //   labelText: "Referred By",
+                //   errorKey: 'referredBy',
+                //   capitalIsSelect: true,
+                // ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 6,
                 ),

@@ -425,6 +425,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                                         : expiryType
                                                                         .toString(),
                                                                     officeId: "", //widget.officeId,
+                                                                      idOfDoc: snapshotPrefill.data!.idOfDoc
                                                                   );
                                                                 } finally {
                                                                   setState(() {

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:open_file/open_file.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/whitelabelling_manager.dart';
@@ -30,6 +30,7 @@ class WhitelabellingScreen extends StatefulWidget {
 
 class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   TextEditingController nameController = TextEditingController();
+
   // TextEditingController secfaxController = TextEditingController();
 
   TextEditingController addressController = TextEditingController();
@@ -105,6 +106,13 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
       // You can handle this scenario if needed
     }
   }
+
+
+  var maskFormatter = new MaskTextInputFormatter(
+      mask: '+# (###) ###-##-##',
+      filter: { "#": RegExp(r'[0-9]') },
+      type: MaskAutoCompletionType.lazy
+  );
 
 
   Future<void> pickWebLogo() async {
@@ -253,15 +261,18 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                               // mainAxisAlignment: MainAxisAlignment.end,
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Text(
-                                                  'Edit White Labelling',
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 13,
-                                                    fontWeight:
-                                                    FontWeightManager.semiBold,
-                                                    color: ColorManager.white,
-                                                    decoration: TextDecoration.none,
+                                                Padding(
+                                                  padding: const EdgeInsets.only(left:30),
+                                                  child: Text(
+                                                    'Edit White Labelling',
+                                                    textAlign: TextAlign.center,
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                      FontWeightManager.semiBold,
+                                                      color: ColorManager.white,
+                                                      decoration: TextDecoration.none,
+                                                    ),
                                                   ),
                                                 ),
                                                 IconButton(
@@ -429,13 +440,29 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     text: AppStringEM.companyName,
                                                   ),
                                                   SizedBox(height: AppSize.s15),
-                                                  SMTextFConst(
-                                                    controller:
-                                                        secNumberController,
-                                                    keyboardType:
-                                                        TextInputType.number,
+                                                  SMTextFConstPhone(
+                                                    controller: secNumberController,
+                                                    keyboardType: TextInputType.phone,
                                                     text: AppStringEM.secNum,
+                                                    enable: true,
                                                   ),
+
+                                                   // text: 'Phone Number',
+                                                   //  icon: Icon(Icons.phone),
+                                                   //  enable: true,
+                                                   //  validator: (value) {
+                                                   //    // Add your validation logic here
+                                                   //    return null;
+                                                   //  },
+
+                                                  // SMTextFConst(
+                                                  //
+                                                  //   controller:
+                                                  //       secNumberController,
+                                                  //   keyboardType:
+                                                  //       TextInputType.phone,
+                                                  //   text: AppStringEM.secNum,
+                                                  // ),
                                                   SizedBox(height:AppSize.s15),
                                                   SMTextFConst(
                                                     controller: faxController,
@@ -588,14 +615,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   //   keyboardType: TextInputType.number,
                                                   //   text: AppStringEM.primNum,
                                                   // ),
-                                                  SMTextFConst(
+                                                  SMTextFConstPhone(
                                                     controller: primNumController,
                                                     // codecontroller: primNumController,
                                                     keyboardType: TextInputType.phone,
                                                     text: 'Primary Phone Number',
                                                   ),
                                                   SizedBox(height: AppSize.s15),
-                                                  SMTextFConst(
+                                                  SMTextFConstPhone(
                                                     controller: altNumController,
                                                     keyboardType:
                                                         TextInputType.number,
@@ -848,7 +875,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                             text: AppStringEM.companyName,
                                           ),
                                           SizedBox(height: AppSize.s9),
-                                          EditTextField(
+                                          EditTextFieldPhone(
                                             controller: secNumberController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.secNum,
@@ -871,13 +898,13 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                       Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          EditTextField(
+                                          EditTextFieldPhone(
                                             controller: primNumController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.primNum,
                                           ),
                                           SizedBox(height: AppSize.s9),
-                                          EditTextField(
+                                          EditTextFieldPhone(
                                             controller: altNumController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.alternatephone,

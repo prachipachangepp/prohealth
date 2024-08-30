@@ -153,7 +153,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${ balReport.docId.toString()}",
+                                                          "ID : ${ balReport.idOfDoc.toString()}",
                                                           //balReport.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts.firaSans(
                                                             fontSize: 10,
@@ -253,6 +253,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                                             expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                                             expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                                             officeId: widget.officeId,
+                                                                              idOfDoc: snapshotPrefill.data!.idOfDoc
                                                                           );
                                                                         } finally {
                                                                           setState(() {

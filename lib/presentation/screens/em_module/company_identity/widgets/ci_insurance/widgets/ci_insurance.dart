@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
@@ -17,6 +19,7 @@ import '../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../company_identity_screen.dart';
 import '../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../whitelabelling/success_popup.dart';
 import 'contract_add_dialog.dart';
 import 'custome_dialog.dart';
 
@@ -43,7 +46,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
   TextEditingController vendorNameController = TextEditingController();
   TextEditingController contractNameController = TextEditingController();
   TextEditingController contractIdController = TextEditingController();
-
+  TextEditingController calenderController = TextEditingController();
   int _selectedIndex = 0;
   int selectedVendorId = 0;
   String? selectedVendorName;
@@ -87,7 +90,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                       return Container(
                         width: 300,
                         child: Text(
-                          "Loading...",
+                          "Loading...... ",
                           style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeightManager.medium,
                             fontSize: FontSize.s12,
@@ -102,7 +105,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         height: 30,
                         width: 354,
                         child: Text(
-                          "Loading data",
+                          "Loading data....... ",
                           style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeightManager.medium,
                             fontSize: FontSize.s12,
@@ -111,23 +114,27 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         ),
                       );
                     }
-
                     if (snapshotZone.data!.isEmpty) {
-                      return Container(
-                        height: 30,
-                        width: 354,
-                        child: Center(
-                          child: Text(
-                            AppString.dataNotFound,
-                            style: CustomTextStylesCommon.commonStyle(
-                              fontWeight: FontWeightManager.medium,
-                              fontSize: FontSize.s12,
-                              color: ColorManager.mediumgrey,
-                            ),
-                          ),
-                        ),
-                      );
+                      return CICCDropdown(items: [],initialValue: 'No data available',);
                     }
+
+
+                    // if (snapshotZone.data!.isEmpty) {
+                    //   return Container(
+                    //     height: 30,
+                    //     width: 354,
+                    //     child: Center(
+                    //       child: Text(
+                    //         AppString.dataNotFound,
+                    //         style: CustomTextStylesCommon.commonStyle(
+                    //           fontWeight: FontWeightManager.medium,
+                    //           fontSize: FontSize.s12,
+                    //           color: ColorManager.mediumgrey,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   );
+                    // }
 
                     if (snapshotZone.hasData) {
                       List<DropdownMenuItem<String>> dropDownTypesList = [];
@@ -173,23 +180,23 @@ class _CiOrgDocumentState extends State<CIInsurance> {
 
                 ///tabbar
                 Padding(
-                  padding: const EdgeInsets.only(right: 250),
+                  padding: const EdgeInsets.only(right: 250,top: AppPadding.p10),
                   child: Container(
-                    width: MediaQuery.of(context).size.width / 7,
-                    height: 50,
+                   // color: Colors.red,
+                    width: MediaQuery.of(context).size.width / 12,
+                    height: 40,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
                           onTap: () => _selectButton(0,isAddButtonEnabled),
                           child: Container(
-                            height: 50,
-                            width: 80,
+                            height: 40,
+                            width: 50,
                             child: Column(
                               children: [
                                 Text(
                                   "Vendor",
-                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 12,
                                     fontWeight: _selectedIndex == 0
@@ -213,13 +220,12 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         InkWell(
                           onTap: () => _selectButton(1),
                           child: Container(
-                            height: 50,
-                            width: 80,
+                            height: 40,
+                            width: 50,
                             child: Column(
                               children: [
                                 Text(
                                   "Contract",
-                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 12,
                                     fontWeight: _selectedIndex == 1
@@ -298,16 +304,16 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                                   color: ColorManager.mediumgrey,
                                                 ),
                                               ),
-                                              CustomRadioListTile(
-                                                value: "Not Applicable",
-                                                groupValue: selectedExpiryType,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    selectedExpiryType = value!;
-                                                  });
-                                                },
-                                                title: "Not Applicable",
-                                              ),
+                                              // CustomRadioListTile(
+                                              //   value: "Not Applicable",
+                                              //   groupValue: selectedExpiryType,
+                                              //   onChanged: (value) {
+                                              //     setState(() {
+                                              //       selectedExpiryType = value!;
+                                              //     });
+                                              //   },
+                                              //   title: "Not Applicable",
+                                              // ),
                                               CustomRadioListTile(
                                                 value: 'Scheduled',
                                                 groupValue: selectedExpiryType,
@@ -330,6 +336,83 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                               ),
                                             ],
                                           ),
+                                          child2: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Expiry Date",
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: ColorManager.mediumgrey,
+                                                  decoration: TextDecoration.none,
+                                                ),
+                                              ),
+                                              SizedBox(height: AppSize.s5,),
+                                              FormField<String>(
+                                                builder: (FormFieldState<String> field) {
+                                                  return SizedBox (
+                                                    width: 354,
+                                                    height: 30,
+                                                    child:   TextFormField(
+                                                      controller: calenderController,
+                                                      cursorColor: ColorManager.black,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorManager.mediumgrey,
+                                                        //decoration: TextDecoration.none,
+                                                      ),
+                                                      decoration: InputDecoration(
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        ),
+                                                        focusedBorder: OutlineInputBorder(
+                                                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        ),
+                                                        hintText: 'mm-dd-yyyy',
+                                                        hintStyle: GoogleFonts.firaSans(
+                                                          fontSize: FontSize.s12,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: ColorManager.mediumgrey,
+                                                          //decoration: TextDecoration.none,
+                                                        ),
+                                                        border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+                                                        ),
+                                                        contentPadding:
+                                                        EdgeInsets.symmetric(horizontal: 16),
+                                                        suffixIcon: Icon(Icons.calendar_month_outlined,
+                                                            color: ColorManager.blueprime),
+                                                        errorText: field.errorText,
+                                                      ),
+                                                      onTap: () async {
+                                                        DateTime? pickedDate = await showDatePicker(
+                                                          context: context,
+                                                          initialDate: DateTime.now(),
+                                                          firstDate: DateTime(2000),
+                                                          lastDate: DateTime(3101),
+                                                        );
+                                                        if (pickedDate != null) {
+                                                          calenderController.text =
+                                                              DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                        }
+                                                      },
+                                                      validator: (value) {
+                                                        if (value == null || value.isEmpty) {
+                                                          return 'please select birth date';
+                                                        }
+                                                        return null;
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
                                           onSubmitPressed: () async {
                                             //if (selectedVendorId == 0) {
                                             await addVendorContract(
@@ -339,12 +422,8 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                               selectedExpiryType!,
                                               widget.officeId,
                                               contractIdController.text,
+                                              calenderController.text
                                             );
-                                            // } else {
-                                            //   ScaffoldMessenger.of(context).showSnackBar(
-                                            //     SnackBar(content: Text("Please select a vendor")),
-                                            //   );
-                                            // }
                                           },
                                           contractIdController:
                                           contractIdController,
@@ -356,10 +435,12 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                 );
                               }
                             : () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text("Please select a vendor")),
-                                );
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return VendorSelectNoti(message: "No Vendor Added.",);
+                            },
+                          );
                               },
                         enabled: isAddButtonEnabled,
                       ),

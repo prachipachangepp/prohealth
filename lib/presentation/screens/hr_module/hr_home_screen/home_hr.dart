@@ -538,7 +538,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         DashBoardScreen(),
                         Center(
                             child: Text(
-                              "Search Any User!",
+                              "Select a User by Searching for One!",
                               style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
                                   fontSize: FontSize.s12,

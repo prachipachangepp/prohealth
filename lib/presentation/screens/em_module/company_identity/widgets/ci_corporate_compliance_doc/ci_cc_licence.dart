@@ -150,7 +150,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                    "ID : ${ manageCCLicence.docId.toString()}",
+                                                    "ID : ${ manageCCLicence.idOfDoc.toString()}",
                                                      textAlign:TextAlign.center,
                                                       style: GoogleFonts.firaSans(
                                                         fontSize: FontSize.s10,
@@ -250,6 +250,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                         expiryDate: calender == calenderController.text ? calender.toString() : calenderController.text,
                                                                         expiryReminder: expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                                         officeId: widget.officeId,
+                                                                          idOfDoc: snapshotPrefill.data!.idOfDoc
                                                                       );
                                                                     } finally {
                                                                       setState(() {

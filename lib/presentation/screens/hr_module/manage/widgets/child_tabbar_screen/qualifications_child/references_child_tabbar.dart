@@ -213,8 +213,9 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                   Text('Length of Association',
                                       style: ThemeManager.customTextStyle(context)),
                                   const SizedBox(height: 5,),
-                                  Text('Referred By',
-                                      style: ThemeManager.customTextStyle(context)),
+                                  SizedBox(height: 30, width: 90,)
+                                  // Text('Referred By',
+                                  //     style: ThemeManager.customTextStyle(context)),
                                 ],
                               ),
                               Column(
@@ -229,8 +230,9 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                   Text(snapshot.data![index].association,
                                     style: ThemeManagerDarkFont.customTextStyle(context),),
                                   const SizedBox(height: 10,),
-                                  Text(snapshot.data![index].references,
-                                    style: ThemeManagerDarkFont.customTextStyle(context),),
+                                  SizedBox(height: 30, width: 90,)
+                                  // Text(snapshot.data![index].references,
+                                  //   style: ThemeManagerDarkFont.customTextStyle(context),),
                                 ],
                               ),
                             ],),
@@ -300,7 +302,6 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                     referredby== referredBController.text? referredby.toString():referredBController.text,
                                                     title == titlePositionController.text ? title.toString() : titlePositionController.text,
                                                  );
-
                                                 getReferences(context,5).then((data) {
                                                   referenceStreamController.add(data);
                                                 }).catchError((error) {

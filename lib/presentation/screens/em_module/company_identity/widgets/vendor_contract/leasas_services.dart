@@ -179,7 +179,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "ID : ${leasesData.docId.toString()}",
+                                                          "ID : ${leasesData.idOfDoc.toString()}",
                                                           //leasesData.doccreatedAt.toString(),textAlign:TextAlign.center,
                                                           style: GoogleFonts
                                                               .firaSans(
@@ -370,8 +370,8 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                                             expiryReminder: expiry == expiryType.toString()
                                                                                 ? expiry.toString()
                                                                                 : expiryType.toString(),
-                                                                            officeId:
-                                                                                widget.officeId,
+                                                                            officeId: widget.officeId,
+                                                                              idOfDoc: snapshotPrefill.data!.idOfDoc
                                                                           );
                                                                         } finally {
                                                                           setState(

@@ -18,6 +18,7 @@ Future<ApiData> addManageCCVCPPPost({
   required String expiryDate,
   required String expiryReminder,
   required String officeId,
+  required String idOfDoc,
 }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -29,7 +30,8 @@ Future<ApiData> addManageCCVCPPPost({
       "expiry_date": expiryDate,
       "expiry_reminder": expiryReminder,
       "company_id": companyId,
-      "office_id": officeId
+      "office_id": officeId,
+      "idOfDocument": idOfDoc,
     };
     print('Post Manage CCVCPP Doc$data');
     var response = await Api(context).post(
@@ -88,6 +90,7 @@ Future<List<ManageCCDoc>> getManageCorporate(BuildContext context, String office
             expiryReminder: item["expiry_reminder"] ?? "--",
             companyId: companyId,
             officeId: item["office_id"],
+            idOfDoc: item["idOfDocument"] ?? "--",
             sucess: true,
             message: response.statusMessage!,
           ),
@@ -128,7 +131,8 @@ Future<CorporatePrefillCCVVPP> getManageCCPrefill(BuildContext context, int docI
           companyId: companyId,
           officeId: response.data['office_id'],
           docCreated: response.data['doc_created_at'] ?? "--",
-          documentId: response.data['document_id']);
+          documentId: response.data['document_id'],
+          idOfDoc: response.data['idOfDocument']) ?? "--";
     } else {
       return itemsList;
     }
@@ -197,6 +201,7 @@ Future<ApiData> updateManageCCVVPP({
   required String expiryDate,
   required String expiryReminder,
   required String officeId,
+  required String idOfDoc,
 }) async {
   try {
     final companyId = await TokenManager.getCompanyId();
@@ -214,6 +219,7 @@ Future<ApiData> updateManageCCVVPP({
           "expiry_reminder": expiryReminder,
           "company_id": companyId,
           "office_id": officeId,
+          "idOfDocument": idOfDoc
         });
     print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {

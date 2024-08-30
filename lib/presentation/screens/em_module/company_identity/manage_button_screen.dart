@@ -365,6 +365,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         companyId: widget.companyID,
                         companyOfficeid: widget.companyOfficeId,
                       ),
+
                       CiZone(
                         companyID: widget.companyID,
                         officeId: widget.officeID,

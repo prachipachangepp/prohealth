@@ -427,7 +427,9 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                       }).catchError((error){
 
                                                       });
-                                                      }, mapController: mapController, landmarkController: landmarkController,);
+                                                      Navigator.pop(context);
+                                                      },
+                                                      mapController: mapController, landmarkController: landmarkController,);
                                                   }
                                                 );
                                               });

@@ -595,7 +595,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                AppString.dataNotFound,
+                                                "No Zone Added.",
+                                              //  AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
                                                   fontWeight:
