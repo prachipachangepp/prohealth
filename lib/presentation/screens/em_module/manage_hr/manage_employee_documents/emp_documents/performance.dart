@@ -237,7 +237,7 @@ class _PerformanceEmpDocState extends State<PerformanceEmpDoc> {
                                           showDialog(context: context, builder: (context){
                                             return CCScreenEditPopup(
                                               title: 'Edit Performance',
-                                              idDocController: docIdController,
+                                              idOfDocController: docIdController,
                                               nameDocController: docNamecontroller,
                                               onSavePressed: (){},
                                               child:  CICCDropdown(

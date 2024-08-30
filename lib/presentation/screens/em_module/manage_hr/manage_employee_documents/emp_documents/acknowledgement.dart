@@ -241,7 +241,7 @@ class _AcknowledgementEmpDocState extends State<AcknowledgementEmpDoc> {
                                           showDialog(context: context, builder: (context){
                                             return CCScreenEditPopup(
                                               title: 'Edit Acknowledgement',
-                                              idDocController: docIdController,
+                                              idOfDocController: docIdController,
                                               nameDocController: docNamecontroller,
                                               onSavePressed: (){},
                                               child:  CICCDropdown(

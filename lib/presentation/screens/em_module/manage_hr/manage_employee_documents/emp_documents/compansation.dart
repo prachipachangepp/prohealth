@@ -239,7 +239,7 @@ class _CompansationEmpDocState extends State<CompansationEmpDoc> {
                                           showDialog(context: context, builder: (context){
                                             return CCScreenEditPopup(
                                               title: 'Edit Compansation',
-                                              idDocController: docIdController,
+                                              idOfDocController: docIdController,
                                               nameDocController: docNamecontroller,
                                               onSavePressed: (){},
                                               child:  CICCDropdown(
