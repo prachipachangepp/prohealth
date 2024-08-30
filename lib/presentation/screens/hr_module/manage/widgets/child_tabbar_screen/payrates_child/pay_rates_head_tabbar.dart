@@ -40,7 +40,8 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
     // companyAllApi(context);
   }
 
-  String selectedValue = 'Per visit';
+  // String selectedValue = 'Per visit';
+  String? selectedValue = 'Per Zone';
   @override
   Widget build(BuildContext context) {
     String? _expiryType;
@@ -53,12 +54,14 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0),
-                  child: Container(
+                  child:
+
+                  Container(
                     height: 25,
                     width: 200,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(25),
                       border: Border.all(color: const Color(0xff44435E)),
                     ),
@@ -72,7 +75,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                       elevation: 16,
                       style: GoogleFonts.firaSans(
                           color: const Color(0xff43425D),
-                          fontSize: 12,
+                          fontSize: 10,
                           fontWeight: FontWeight.w500),
                       underline: const SizedBox(),
                       onChanged: (String? newValue) {
@@ -80,7 +83,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                           selectedValue = newValue!;
                         });
                       },
-                      items: <String>['Per visit', 'Per hour', 'Per day']
+                      items: <String>['Per Zone', 'Per Mileage']
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -89,6 +92,43 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                       }).toList(),
                     ),
                   ),
+///
+                  // Container(
+                  //   height: 25,
+                  //   width: 200,
+                  //   padding: const EdgeInsets.symmetric(horizontal: 16),
+                  //   decoration: BoxDecoration(
+                  //       color: Colors.white,
+                  //     borderRadius: BorderRadius.circular(25),
+                  //     border: Border.all(color: const Color(0xff44435E)),
+                  //   ),
+                  //   child: DropdownButton<String>(
+                  //     value: selectedValue,
+                  //     icon: const Padding(
+                  //       padding: EdgeInsets.only(left: 80.0),
+                  //       child: Icon(Icons.arrow_drop_down),
+                  //     ),
+                  //     iconSize: 24,
+                  //     elevation: 16,
+                  //     style: GoogleFonts.firaSans(
+                  //         color: const Color(0xff43425D),
+                  //         fontSize: 12,
+                  //         fontWeight: FontWeight.w500),
+                  //     underline: const SizedBox(),
+                  //     onChanged: (String? newValue) {
+                  //       setState(() {
+                  //         selectedValue = newValue!;
+                  //       });
+                  //     },
+                  //     items: <String>['Per visit', 'Per hour', 'Per day']
+                  //         .map<DropdownMenuItem<String>>((String value) {
+                  //       return DropdownMenuItem<String>(
+                  //         value: value,
+                  //         child: Text(value),
+                  //       );
+                  //     }).toList(),
+                  //   ),
+                  // ),
                 ),
               ],
             ),

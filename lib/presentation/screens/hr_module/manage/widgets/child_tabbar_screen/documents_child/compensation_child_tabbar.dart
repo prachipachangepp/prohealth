@@ -336,7 +336,12 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                     // ),
                                     IconButton(
                                       onPressed: () {
-                                        DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
+                                        print("FileExtension:${fileExtension}");
+                                        DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation.pdf");
+                                        downloadFile(fileUrl);
+                                        // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
+
+
                                       },
                                       icon: Icon(
                                         Icons.save_alt_outlined,
