@@ -252,7 +252,7 @@ Future<List<IdentityDocumentIdData>> identityDocumentTypeGet(
     return itemsList;
   }
 }
-///
+///post
 Future<ApiData> addOrgCorporateDocumentPost({
   required BuildContext context,
   required String name,
@@ -261,7 +261,7 @@ Future<ApiData> addOrgCorporateDocumentPost({
   required String expiryType,
   required String expiryDate,
   required String expiryReminder,
-
+  required String idOfDoc,
 
 }) async {
   try {
@@ -282,6 +282,7 @@ Future<ApiData> addOrgCorporateDocumentPost({
       "expiry_date": expiryDate,
       "expiry_reminder": expiryReminder,
       "company_id": companyId,
+      "idOfDocument": idOfDoc,
     };
     print('Org Corporate Doc $data');
     var response = await Api(context).post(

@@ -85,6 +85,18 @@ class _VendorContractADRState extends State<VendorContractADR> {
               ),
               Expanded(
                 child: Center(
+                  child: Text(
+                    "Document Id",
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.white,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Center(
                     child: Text(
                       AppString.name,
                       style: RegisterTableHead.customTextStyle(context),
@@ -194,6 +206,18 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                               ),
                                               textAlign: TextAlign.start,
                                             )),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            snfdata.idOfDocument,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xff686464),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                       Expanded(
                                         child: Center(

@@ -10,6 +10,7 @@ class CiOrgDocumentCC {
   final String expirtReminder;
   final int companyId;
   final String officeId;
+  final String idOfDocument;
   final bool sucess;
   final String message;
 
@@ -37,6 +38,7 @@ class CiOrgDocumentCC {
       required this.createdAt,
       required this.docId,
       required this.name,
+        required this.idOfDocument,
       this.expiryType,
       this.expirtDate});
 }

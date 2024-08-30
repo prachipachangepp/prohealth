@@ -58,19 +58,24 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
     docTypeData = await documentTypeGet(context);
   }
 
+  late Future<List<IdentityDocumentIdData>> subDocTypeFuture;
   @override
   void initState() {
     super.initState();
-    identityDocumentTypeGet(context, docTypeMetaId).then((data) {
+    subDocTypeFuture = identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
       _identityDataController.add(data);
+      return data;
     }).catchError((error) {
       // Handle error
     });
-    docTypeFuture = documentTypeGet(context);
   }
 
+  int docTypeMetaIdPP = AppConfig.policiesAndProcedure;
+  int docTypeMetaIdVC = AppConfig.vendorContracts;
+  int docTypeMetaIdCC = AppConfig.corporateAndCompliance;
+  int docSubTypeMetaIdPP = AppConfig.subDocId0;
   var docID = 8;
-  int docTypeMetaId = 8;
+ // int docTypeMetaId = 8;
   int docSubTypeMetaId = 0;
   String? selectedDocTypeValue;
   String? selectedSubDocTypeValue;
@@ -135,9 +140,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                         child: InkWell(
                       onTap: () {
                         _selectButton(1);
-                        // identityDocumentTypeGet(
-                        //     context, docTypeData[index].docID);
-                        // docID = docTypeData[index].docID;
                       },
                       child: Container(
                         height: 30,
@@ -166,9 +168,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                         child: InkWell(
                       onTap: () {
                         _selectButton(2);
-                        // identityDocumentTypeGet(
-                        //     context, docTypeData[index].docID);
-                        // docID = docTypeData[index].docID;
                       },
                       child: Container(
                         height: 30,
@@ -202,669 +201,637 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
            _selectedIndex == 0
            ///Corporate
                ? Align(
-                alignment: Alignment.bottomRight,
-                child: Container(
-                  height: 30,
-                  width: 150,
-                  child: CustomIconButton(
-                    icon: Icons.add,
-                    text: "Add Document",
-                    onPressed: () async {
-                      String? selectedExpiryType = expiryType;
-                      calenderController.clear();
-                      docIdController.clear();
-                      docNamecontroller.clear();
-                      selectedExpiryType = "";
-                      selectedDocTypeValue = "";
-                      selectedSubDocTypeValue = "";
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return StatefulBuilder(
-                            builder: (BuildContext context,
-                                void Function(void Function()) setState) {
-                              return AddOrgDocButton(
-                                calenderController: calenderController,
-                                idDocController: docIdController,
-                                nameDocController: docNamecontroller,
-                                loadingDuration: _isLoading,
-                                onPressed: () async {
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-                                  String expiryTypeToSend =
-                                  selectedExpiryType == "Not Applicable"
-                                      ? "Not Applicable"
-                                      : calenderController.text;
-                                  try {
-                                    await addOrgCorporateDocumentPost(
-                                      context: context,
-                                      name: docNamecontroller.text,
-                                      docTypeID: docTypeMetaId,
-                                      docSubTypeID: docSubTypeMetaId,
-                                      expiryType: selectedExpiryType.toString(),
-                                      expiryDate: expiryTypeToSend,
-                                      expiryReminder:
-                                      selectedExpiryType.toString(),
-                                      //officeId: widget.officeId,
-                                    );
-                                    Navigator.pop(context);
-                                  } finally {
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
-                                  }
-                                },
-                                child: FutureBuilder<List<DocumentTypeData>>(
-                                  future: docTypeFuture,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState == ConnectionState.waiting) {
-                                      return Shimmer.fromColors(
-                                        baseColor: Colors.grey[300]!,
-                                        highlightColor: Colors.grey[100]!,
-                                        child: Container(
-                                          width: 350,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey,
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    if (snapshot.data == null || snapshot.data!.isEmpty) {
-                                      return Center(
-                                        child: Text(
-                                          AppString.dataNotFound,
-                                          style: CustomTextStylesCommon.commonStyle(
-                                            fontWeight: FontWeightManager.medium,
-                                            fontSize: FontSize.s12,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
-
-                                      // Add a placeholder item for "Select Document"
-                                      dropDownMenuItems.add(
-                                        DropdownMenuItem<String>(
-                                          value: "Select Document",
-                                          child: Text("Select Document"),
-                                        ),
-                                      );
-
-                                      for (var i in snapshot.data!) {
-                                        dropDownMenuItems.add(
-                                          DropdownMenuItem<String>(
-                                            value: i.docType,
-                                            child: Text(i.docType),
-                                          ),
-                                        );
-                                      }
-
-                                      return CICCDropdown(
-                                        initialValue: "Select Document",  // Set initial value to the placeholder
-                                        onChange: (val) {
-                                          setState(() {
-                                            selectedDocTypeValue = val;
-                                            if (val != "Select Document") {
-                                              for (var a in snapshot.data!) {
-                                                if (a.docType == val) {
-                                                  docTypeMetaId = a.docID;
-                                                }
-                                              }
-                                              identityDocumentTypeGet(context, docTypeMetaId).then((data) {
-                                                _identityDataController.add(data);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
-                                            }
-                                          });
-                                        },
-                                        items: dropDownMenuItems,
-                                      );
-                                    } else {
-                                      return SizedBox();
-                                    }
-                                  },
-                                ),
-
-                                child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                              stream: _identityDataController.stream,
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                    List<DropdownMenuItem<String>> dropDownMenuItems = [];
-
-                                    // Create dropdown items from the fetched data
-                                    for (var i in snapshot.data!) {
-                                      dropDownMenuItems.add(
-                                        DropdownMenuItem<String>(
-                                          value: i.subDocType,
-                                          child: Text(i.subDocType),
-                                        ),
-                                      );
-                                    }
-
-                                    // Return the CICCDropdown with "Select Sub Document" as the initial value
-                                    return CICCDropdown(
-                                      initialValue: "Select Sub Document",
-                                      onChange: (val) {
-                                        if (val != "Select Sub Document") {
-                                          for (var a in snapshot.data!) {
-                                            if (a.subDocType == val) {
-                                              docSubTypeMetaId = a.subDocID;
-                                            }
-                                          }
-                                        }
-                                      },
-                                      items: dropDownMenuItems,
-                                      hintText: "Select Sub Document",
-                                    );
-                                  } else if (snapshot.connectionState == ConnectionState.waiting) {
-                                    return SizedBox();
-                                  } else {
-                                    return Center(
-                                      child: Text(
-                                        AppString.dataNotFound,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          fontWeight: FontWeightManager.medium,
-                                          fontSize: FontSize.s12,
-                                          color: ColorManager.mediumgrey,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                              radioButton: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Expiry Type",
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w700,
-                                          color: ColorManager.mediumgrey,
-                                          decoration: TextDecoration.none,
-                                        ),
-                                      ),
-                                      CustomRadioListTile(
-                                        value: "Not Applicable",
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: "Not Applicable",
-                                      ),
-                                      CustomRadioListTile(
-                                        value: 'Scheduled',
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: 'Scheduled',
-                                      ),
-                                      CustomRadioListTile(
-                                        value: 'Issuer Expiry',
-                                        groupValue: selectedExpiryType,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedExpiryType = value;
-                                          });
-                                        },
-                                        title: 'Issuer Expiry',
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                child2: Visibility(
-                                  visible: selectedExpiryType == "Scheduled" ||
-                                      selectedExpiryType == "Issuer Expiry",
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Expiry Date",
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12,
-                                          fontWeight: FontWeight.w700,
-                                          color: ColorManager.mediumgrey,
-                                          decoration: TextDecoration.none,
-                                        ),
-                                      ),
-                                      SizedBox(height: AppSize.s5,),
-                                      FormField<String>(
-                                        builder: (FormFieldState<String> field) {
-                                          return SizedBox(
-                                            width: 354,
-                                            height: 30,
-                                            child: TextFormField(
-                                              controller: calenderController,
-                                              cursorColor: ColorManager.black,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s12,
-                                                fontWeight: FontWeight.w700,
-                                                color: ColorManager.mediumgrey,
-                                              ),
-                                              decoration: InputDecoration(
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: ColorManager
-                                                          .fmediumgrey,
-                                                      width: 1),
-                                                  borderRadius:
-                                                  BorderRadius.circular(8),
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: ColorManager
-                                                          .fmediumgrey,
-                                                      width: 1),
-                                                  borderRadius:
-                                                  BorderRadius.circular(8),
-                                                ),
-                                                hintText: 'mm-dd-yyyy',
-                                                hintStyle: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: ColorManager.mediumgrey,
-                                                ),
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                  BorderRadius.circular(8),
-                                                  borderSide: BorderSide(
-                                                      width: 1,
-                                                      color: ColorManager
-                                                          .fmediumgrey),
-                                                ),
-                                                contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    horizontal: 16),
-                                                suffixIcon: Icon(
-                                                    Icons.calendar_month_outlined,
-                                                    color:
-                                                    ColorManager.blueprime),
-                                                errorText: field.errorText,
-                                              ),
-                                              onTap: () async {
-                                                DateTime? pickedDate =
-                                                await showDatePicker(
-                                                  context: context,
-                                                  initialDate: DateTime.now(),
-                                                  firstDate: DateTime(2000),
-                                                  lastDate: DateTime(3101),
-                                                );
-                                                if (pickedDate != null) {
-                                                  calenderController.text =
-                                                      DateFormat('MM-dd-yyyy')
-                                                          .format(pickedDate);
-                                                }
-                                              },
-                                              validator: (value) {
-                                                if (value == null ||
-                                                    value.isEmpty) {
-                                                  return 'Please select an expiry date';
-                                                }
-                                                return null;
-                                              },
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                title: 'Add Corporate Compliance',
-                              );
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ))
-               : _selectedIndex == 1
-           ///vendor
-            ? Align(
-               alignment: Alignment.bottomRight,
-               child: Container(
-                 height: 30,
-                 width: 150,
-                 child: CustomIconButton(
-                   icon: Icons.add,
-                   text: "Add Document",
-                   onPressed: () async {
-                     String? selectedExpiryType = expiryType;
-                     calenderController.clear();
-                     docIdController.clear();
-                     docNamecontroller.clear();
-                     selectedExpiryType = "";
-                     selectedDocTypeValue = "";
-                     selectedSubDocTypeValue = "";
-                     showDialog(
-                       context: context,
-                       builder: (context) {
-                         return StatefulBuilder(
-                           builder: (BuildContext context,
-                               void Function(void Function()) setState) {
-                             return AddOrgDocButton(
-                               calenderController: calenderController,
-                               idDocController: docIdController,
-                               nameDocController: docNamecontroller,
-                               loadingDuration: _isLoading,
-                               onPressed: () async {
+             alignment: Alignment.bottomRight,
+             child: Container(
+               height: 30,
+               width: 150,
+               child: CustomIconButton(
+                 icon: Icons.add,
+                 text: "Add Document",
+                 onPressed: () async {
+                   String? selectedExpiryType = expiryType;
+                   calenderController.clear();
+                   docIdController.clear();
+                   docNamecontroller.clear();
+                   selectedExpiryType = "";
+                   selectedSubDocTypeValue = "";
+                   showDialog(
+                     context: context,
+                     builder: (context) {
+                       return StatefulBuilder(
+                         builder: (BuildContext context, void Function(void Function()) setState) {
+                           return AddOrgDocButton(
+                             title: "Add Corporate Compliance",
+                             calenderController: calenderController,
+                             idDocController: docIdController,
+                             nameDocController: docNamecontroller,
+                             loadingDuration: _isLoading,
+                             onPressed: () async {
+                               setState(() {
+                                 _isLoading = true;
+                               });
+                               String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+                                   ? "Not Applicable"
+                                   : calenderController.text;
+                               try {
+                                 await addOrgCorporateDocumentPost(
+                                   context: context,
+                                   name: docNamecontroller.text,
+                                   docTypeID: docTypeMetaIdCC,
+                                   docSubTypeID: docSubTypeMetaId,
+                                   expiryType: selectedExpiryType.toString(),
+                                   expiryDate: expiryTypeToSend,
+                                   expiryReminder: selectedExpiryType.toString(),
+                                   idOfDoc: docIdController.text,
+                                 );
+                                 Navigator.pop(context);
+                               } finally {
                                  setState(() {
-                                   _isLoading = true;
+                                   _isLoading = false;
                                  });
-                                 String expiryTypeToSend =
-                                 selectedExpiryType == "Not Applicable"
-                                     ? "Not Applicable"
-                                     : calenderController.text;
-                                 try {
-                                   await addOrgCorporateDocumentPost(
-                                     context: context,
-                                     name: docNamecontroller.text,
-                                     docTypeID: docTypeMetaId,
-                                     docSubTypeID: docSubTypeMetaId,
-                                     expiryType: selectedExpiryType.toString(),
-                                     expiryDate: expiryTypeToSend,
-                                     expiryReminder:
-                                     selectedExpiryType.toString(),
-                                     //officeId: widget.officeId,
+                               }
+                             },
+                             // Document Type Dropdown (Disabled and Showing Vendor Contract)
+                             child:FutureBuilder<List<DocumentTypeData>>(
+                               future: documentTypeGet(context),
+                               builder: (context, snapshot) {
+                                 if (snapshot.connectionState == ConnectionState.waiting) {
+                                   return Container(
+                                     width: 300,
+                                     child: Text(
+                                       'Loading...',
+                                       style: CustomTextStylesCommon.commonStyle(
+                                         fontWeight: FontWeightManager.medium,
+                                         fontSize: FontSize.s12,
+                                         color: ColorManager.mediumgrey,
+                                       ),
+                                     ),
                                    );
-                                   Navigator.pop(context);
-                                 } finally {
-                                   setState(() {
-                                     _isLoading = false;
+                                 }
+                                 if (snapshot.data!.isEmpty) {
+                                   return Center(
+                                     child: Text(
+                                       AppString.dataNotFound,
+                                       style: CustomTextStylesCommon.commonStyle(
+                                         fontWeight: FontWeightManager.medium,
+                                         fontSize: FontSize.s12,
+                                         color: ColorManager.mediumgrey,
+                                       ),
+                                     ),
+                                   );
+                                 }
+                                 if (snapshot.hasData) {
+                                   String selectedDocType = "";
+                                   int docType = snapshot.data![0].docID;
+
+                                   for (var i in snapshot.data!) {
+                                     if (i.docID == AppConfig.corporateAndCompliance) {
+                                       selectedDocType = i.docType;
+                                       docType = i.docID;
+                                       break;
+                                     }
+                                   }
+
+                                   docTypeMetaIdCC = docType;
+
+                                   identityDocumentTypeGet(context, docTypeMetaIdCC).then((data) {
+                                     _identityDataController.add(data);
+                                   }).catchError((error) {
+                                     // Handle error
                                    });
+                                   return Container(
+                                     width: 354,
+                                     padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                     decoration: BoxDecoration(
+                                       color: ColorManager.white,
+                                       borderRadius: BorderRadius.circular(8),
+                                       border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                     ),
+                                     child: Row(
+                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                       children: [
+                                         Text(
+                                           selectedDocType,
+                                           style: CustomTextStylesCommon.commonStyle(
+                                             fontWeight: FontWeightManager.medium,
+                                             fontSize: FontSize.s12,
+                                             color: ColorManager.mediumgrey,
+                                           ),
+                                         ),
+                                         Icon(
+                                           Icons.arrow_drop_down,
+                                           color: ColorManager.mediumgrey,
+                                         ),
+                                       ],
+                                     ),
+                                   );
+                                 } else {
+                                   return SizedBox();
                                  }
                                },
-                               child: FutureBuilder<List<DocumentTypeData>>(
-                                 future: docTypeFuture,
-                                 builder: (context, snapshot) {
-                                   if (snapshot.connectionState == ConnectionState.waiting) {
-                                     return Shimmer.fromColors(
-                                       baseColor: Colors.grey[300]!,
-                                       highlightColor: Colors.grey[100]!,
-                                       child: Container(
-                                         width: 350,
-                                         height: 30,
-                                         decoration: BoxDecoration(
-                                           color: ColorManager.faintGrey,
-                                           borderRadius: BorderRadius.circular(10),
-                                         ),
-                                       ),
-                                     );
-                                   }
-                                   if (snapshot.data == null || snapshot.data!.isEmpty) {
-                                     return Center(
-                                       child: Text(
-                                         AppString.dataNotFound,
-                                         style: CustomTextStylesCommon.commonStyle(
-                                           fontWeight: FontWeightManager.medium,
-                                           fontSize: FontSize.s12,
-                                           color: ColorManager.mediumgrey,
-                                         ),
-                                       ),
-                                     );
-                                   }
-                                   if (snapshot.hasData) {
-                                     List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                             ),
 
-                                     // Add a placeholder item for "Select Document"
+                             child1: StreamBuilder<List<IdentityDocumentIdData>>(
+                               stream: _identityDataController.stream,
+                               builder: (context, snapshot) {
+                                 if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                   List<DropdownMenuItem<String>> dropDownMenuItems = [];
+
+                                   // Create dropdown items from the fetched data
+                                   for (var i in snapshot.data!) {
                                      dropDownMenuItems.add(
                                        DropdownMenuItem<String>(
-                                         value: "Select Document",
-                                         child: Text("Select Document"),
+                                         value: i.subDocType,
+                                         child: Text(i.subDocType),
                                        ),
                                      );
-
-                                     for (var i in snapshot.data!) {
-                                       dropDownMenuItems.add(
-                                         DropdownMenuItem<String>(
-                                           value: i.docType,
-                                           child: Text(i.docType),
-                                         ),
-                                       );
-                                     }
-
-                                     return CICCDropdown(
-                                       initialValue: "Select Document",  // Set initial value to the placeholder
-                                       onChange: (val) {
-                                         setState(() {
-                                           selectedDocTypeValue = val;
-                                           if (val != "Select Document") {
-                                             for (var a in snapshot.data!) {
-                                               if (a.docType == val) {
-                                                 docTypeMetaId = a.docID;
-                                               }
-                                             }
-                                             identityDocumentTypeGet(context, docTypeMetaId).then((data) {
-                                               _identityDataController.add(data);
-                                             }).catchError((error) {
-                                               // Handle error
-                                             });
-                                           }
-                                         });
-                                       },
-                                       items: dropDownMenuItems,
-                                     );
-                                   } else {
-                                     return SizedBox();
                                    }
-                                 },
-                               ),
 
-                               child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                                 stream: _identityDataController.stream,
-                                 builder: (context, snapshot) {
-                                   if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                     List<DropdownMenuItem<String>> dropDownMenuItems = [];
-
-                                     // Create dropdown items from the fetched data
-                                     for (var i in snapshot.data!) {
-                                       dropDownMenuItems.add(
-                                         DropdownMenuItem<String>(
-                                           value: i.subDocType,
-                                           child: Text(i.subDocType),
-                                         ),
-                                       );
-                                     }
-
-                                     // Return the CICCDropdown with "Select Sub Document" as the initial value
-                                     return CICCDropdown(
-                                       initialValue: "Select Sub Document",
-                                       onChange: (val) {
-                                         if (val != "Select Sub Document") {
-                                           for (var a in snapshot.data!) {
-                                             if (a.subDocType == val) {
-                                               docSubTypeMetaId = a.subDocID;
-                                             }
+                                   // Return the CICCDropdown with "Select Sub Document" as the initial value
+                                   return CICCDropdown(
+                                     initialValue: "Select Sub Document",
+                                     onChange: (val) {
+                                       if (val != "Select Sub Document") {
+                                         for (var a in snapshot.data!) {
+                                           if (a.subDocType == val) {
+                                             docSubTypeMetaId = a.subDocID;
                                            }
                                          }
-                                       },
-                                       items: dropDownMenuItems,
-                                       hintText: "Select Sub Document",
-                                     );
-                                   } else if (snapshot.connectionState == ConnectionState.waiting) {
-                                     return SizedBox();
-                                   } else {
-                                     return Center(
-                                       child: Text(
-                                         AppString.dataNotFound,
-                                         style: CustomTextStylesCommon.commonStyle(
-                                           fontWeight: FontWeightManager.medium,
-                                           fontSize: FontSize.s12,
-                                           color: ColorManager.mediumgrey,
-                                         ),
-                                       ),
-                                     );
-                                   }
-                                 },
-                               ),
-                               radioButton: Padding(
-                                 padding: const EdgeInsets.only(left: 10.0),
-                                 child: Column(
-                                   mainAxisAlignment: MainAxisAlignment.start,
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: [
-                                     Text(
-                                       "Expiry Type",
-                                       style: GoogleFonts.firaSans(
+                                       }
+                                     },
+                                     items: dropDownMenuItems,
+                                     hintText: "Select Sub Document",
+                                   );
+                                 } else if (snapshot.connectionState == ConnectionState.waiting) {
+                                   return SizedBox();
+                                 } else {
+                                   return Center(
+                                     child: Text(
+                                       AppString.dataNotFound,
+                                       style: CustomTextStylesCommon.commonStyle(
+                                         fontWeight: FontWeightManager.medium,
                                          fontSize: FontSize.s12,
-                                         fontWeight: FontWeight.w700,
                                          color: ColorManager.mediumgrey,
-                                         decoration: TextDecoration.none,
                                        ),
                                      ),
-                                     CustomRadioListTile(
-                                       value: "Not Applicable",
-                                       groupValue: selectedExpiryType,
-                                       onChanged: (value) {
-                                         setState(() {
-                                           selectedExpiryType = value;
-                                         });
-                                       },
-                                       title: "Not Applicable",
+                                   );
+                                 }
+                               },
+                             ),
+
+                             radioButton: Padding(
+                               padding: const EdgeInsets.only(left: 10.0),
+                               child: Column(
+                                 mainAxisAlignment: MainAxisAlignment.start,
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   Text(
+                                     "Expiry Type",
+                                     style: GoogleFonts.firaSans(
+                                       fontSize: FontSize.s12,
+                                       fontWeight: FontWeight.w700,
+                                       color: ColorManager.mediumgrey,
+                                       decoration: TextDecoration.none,
                                      ),
-                                     CustomRadioListTile(
-                                       value: 'Scheduled',
-                                       groupValue: selectedExpiryType,
-                                       onChanged: (value) {
-                                         setState(() {
-                                           selectedExpiryType = value;
-                                         });
-                                       },
-                                       title: 'Scheduled',
-                                     ),
-                                     CustomRadioListTile(
-                                       value: 'Issuer Expiry',
-                                       groupValue: selectedExpiryType,
-                                       onChanged: (value) {
-                                         setState(() {
-                                           selectedExpiryType = value;
-                                         });
-                                       },
-                                       title: 'Issuer Expiry',
-                                     ),
-                                   ],
-                                 ),
+                                   ),
+                                   CustomRadioListTile(
+                                     value: "Not Applicable",
+                                     groupValue: selectedExpiryType,
+                                     onChanged: (value) {
+                                       setState(() {
+                                         selectedExpiryType = value;
+                                       });
+                                     },
+                                     title: "Not Applicable",
+                                   ),
+                                   CustomRadioListTile(
+                                     value: 'Scheduled',
+                                     groupValue: selectedExpiryType,
+                                     onChanged: (value) {
+                                       setState(() {
+                                         selectedExpiryType = value;
+                                       });
+                                     },
+                                     title: 'Scheduled',
+                                   ),
+                                   CustomRadioListTile(
+                                     value: 'Issuer Expiry',
+                                     groupValue: selectedExpiryType,
+                                     onChanged: (value) {
+                                       setState(() {
+                                         selectedExpiryType = value;
+                                       });
+                                     },
+                                     title: 'Issuer Expiry',
+                                   ),
+                                 ],
                                ),
-                               child2: Visibility(
-                                 visible: selectedExpiryType == "Scheduled" ||
-                                     selectedExpiryType == "Issuer Expiry",
-                                 child: Column(
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: [
-                                     Text(
-                                       "Expiry Date",
-                                       style: GoogleFonts.firaSans(
-                                         fontSize: FontSize.s12,
-                                         fontWeight: FontWeight.w700,
-                                         color: ColorManager.mediumgrey,
-                                         decoration: TextDecoration.none,
-                                       ),
+                             ),
+                             // Expiry Date Selection Visibility
+                             child2: Visibility(
+                               visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   Text(
+                                     "Expiry Date",
+                                     style: GoogleFonts.firaSans(
+                                       fontSize: FontSize.s12,
+                                       fontWeight: FontWeight.w700,
+                                       color: ColorManager.mediumgrey,
+                                       decoration: TextDecoration.none,
                                      ),
-                                     SizedBox(height: AppSize.s5,),
-                                     FormField<String>(
-                                       builder: (FormFieldState<String> field) {
-                                         return SizedBox(
-                                           width: 354,
-                                           height: 30,
-                                           child: TextFormField(
-                                             controller: calenderController,
-                                             cursorColor: ColorManager.black,
-                                             style: GoogleFonts.firaSans(
+                                   ),
+                                   SizedBox(height: AppSize.s5),
+                                   FormField<String>(
+                                     builder: (FormFieldState<String> field) {
+                                       return SizedBox(
+                                         width: 354,
+                                         height: 30,
+                                         child: TextFormField(
+                                           controller: calenderController,
+                                           cursorColor: ColorManager.black,
+                                           style: GoogleFonts.firaSans(
+                                             fontSize: FontSize.s12,
+                                             fontWeight: FontWeight.w700,
+                                             color: ColorManager.mediumgrey,
+                                           ),
+                                           decoration: InputDecoration(
+                                             enabledBorder: OutlineInputBorder(
+                                               borderSide: BorderSide(
+                                                 color: ColorManager.fmediumgrey,
+                                                 width: 1,
+                                               ),
+                                               borderRadius: BorderRadius.circular(8),
+                                             ),
+                                             focusedBorder: OutlineInputBorder(
+                                               borderSide: BorderSide(
+                                                 color: ColorManager.fmediumgrey,
+                                                 width: 1,
+                                               ),
+                                               borderRadius: BorderRadius.circular(8),
+                                             ),
+                                             hintText: 'mm-dd-yyyy',
+                                             hintStyle: GoogleFonts.firaSans(
                                                fontSize: FontSize.s12,
                                                fontWeight: FontWeight.w700,
                                                color: ColorManager.mediumgrey,
                                              ),
-                                             decoration: InputDecoration(
-                                               enabledBorder: OutlineInputBorder(
-                                                 borderSide: BorderSide(
-                                                     color: ColorManager
-                                                         .fmediumgrey,
-                                                     width: 1),
-                                                 borderRadius:
-                                                 BorderRadius.circular(8),
+                                             border: OutlineInputBorder(
+                                               borderRadius: BorderRadius.circular(8),
+                                               borderSide: BorderSide(
+                                                 width: 1,
+                                                 color: ColorManager.fmediumgrey,
                                                ),
-                                               focusedBorder: OutlineInputBorder(
-                                                 borderSide: BorderSide(
-                                                     color: ColorManager
-                                                         .fmediumgrey,
-                                                     width: 1),
-                                                 borderRadius:
-                                                 BorderRadius.circular(8),
-                                               ),
-                                               hintText: 'mm-dd-yyyy',
-                                               hintStyle: GoogleFonts.firaSans(
-                                                 fontSize: FontSize.s12,
-                                                 fontWeight: FontWeight.w700,
-                                                 color: ColorManager.mediumgrey,
-                                               ),
-                                               border: OutlineInputBorder(
-                                                 borderRadius:
-                                                 BorderRadius.circular(8),
-                                                 borderSide: BorderSide(
-                                                     width: 1,
-                                                     color: ColorManager
-                                                         .fmediumgrey),
-                                               ),
-                                               contentPadding:
-                                               EdgeInsets.symmetric(
-                                                   horizontal: 16),
-                                               suffixIcon: Icon(
-                                                   Icons.calendar_month_outlined,
-                                                   color:
-                                                   ColorManager.blueprime),
-                                               errorText: field.errorText,
                                              ),
-                                             onTap: () async {
-                                               DateTime? pickedDate =
-                                               await showDatePicker(
-                                                 context: context,
-                                                 initialDate: DateTime.now(),
-                                                 firstDate: DateTime(2000),
-                                                 lastDate: DateTime(3101),
-                                               );
-                                               if (pickedDate != null) {
-                                                 calenderController.text =
-                                                     DateFormat('MM-dd-yyyy')
-                                                         .format(pickedDate);
-                                               }
-                                             },
-                                             validator: (value) {
-                                               if (value == null ||
-                                                   value.isEmpty) {
-                                                 return 'Please select an expiry date';
-                                               }
-                                               return null;
-                                             },
+                                             contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                             suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                                             errorText: field.errorText,
                                            ),
-                                         );
-                                       },
-                                     ),
-                                   ],
-                                 ),
+                                           onTap: () async {
+                                             FocusScope.of(context).requestFocus(FocusNode());
+                                             final date = await showDatePicker(
+                                               context: context,
+                                               initialDate: DateTime.now(),
+                                               firstDate: DateTime(2023),
+                                               lastDate: DateTime(2100),
+                                             );
+                                             calenderController.text = date != null ? DateFormat('MM-dd-yyyy').format(date) : '';
+                                           },
+                                         ),
+                                       );
+                                     },
+                                   ),
+                                 ],
                                ),
-                               title: 'Add Corporate Compliance',
-                             );
-                           },
-                         );
-                       },
-                     );
-                   },
-                 ),
-               ))
+                             ),
+                           );
+                         },
+                       );
+                     },
+                   );
+                 },
+               ),
+             ),
+           )
+               : _selectedIndex == 1
+           ///vendor
+            ?  Align(
+             alignment: Alignment.bottomRight,
+             child: Container(
+               height: 30,
+               width: 150,
+               child: CustomIconButton(
+                 icon: Icons.add,
+                 text: "Add Document",
+                 onPressed: () async {
+                   String? selectedExpiryType = expiryType;
+                   calenderController.clear();
+                   docIdController.clear();
+                   docNamecontroller.clear();
+                   selectedExpiryType = "";
+                   selectedSubDocTypeValue = "";
+                   showDialog(
+                     context: context,
+                     builder: (context) {
+                       return StatefulBuilder(
+                         builder: (BuildContext context, void Function(void Function()) setState) {
+                           return AddOrgDocButton(
+                             title: "Add Vendor Contract",
+                             calenderController: calenderController,
+                             idDocController: docIdController,
+                             nameDocController: docNamecontroller,
+                             loadingDuration: _isLoading,
+                             onPressed: () async {
+                               setState(() {
+                                 _isLoading = true;
+                               });
+                               String expiryTypeToSend = selectedExpiryType == "Not Applicable"
+                                   ? "Not Applicable"
+                                   : calenderController.text;
+                               try {
+                                 await addOrgCorporateDocumentPost(
+                                   context: context,
+                                   name: docNamecontroller.text,
+                                   docTypeID: docTypeMetaIdVC,
+                                   docSubTypeID: docSubTypeMetaId,
+                                   expiryType: selectedExpiryType.toString(),
+                                   expiryDate: expiryTypeToSend,
+                                   expiryReminder: selectedExpiryType.toString(),
+                                   idOfDoc: docIdController.text,
+                                 );
+                                 Navigator.pop(context);
+                               } finally {
+                                 setState(() {
+                                   _isLoading = false;
+                                 });
+                               }
+                             },
+                             // Document Type Dropdown (Disabled and Showing Vendor Contract)
+                             child:FutureBuilder<List<DocumentTypeData>>(
+                               future: documentTypeGet(context),
+                               builder: (context, snapshot) {
+                                 if (snapshot.connectionState == ConnectionState.waiting) {
+                                   return Container(
+                                     width: 300,
+                                     child: Text(
+                                       'Loading...',
+                                       style: CustomTextStylesCommon.commonStyle(
+                                         fontWeight: FontWeightManager.medium,
+                                         fontSize: FontSize.s12,
+                                         color: ColorManager.mediumgrey,
+                                       ),
+                                     ),
+                                   );
+                                 }
+                                 if (snapshot.data!.isEmpty) {
+                                   return Center(
+                                     child: Text(
+                                       AppString.dataNotFound,
+                                       style: CustomTextStylesCommon.commonStyle(
+                                         fontWeight: FontWeightManager.medium,
+                                         fontSize: FontSize.s12,
+                                         color: ColorManager.mediumgrey,
+                                       ),
+                                     ),
+                                   );
+                                 }
+                                 if (snapshot.hasData) {
+                                   String selectedDocType = "";
+                                   int docType = snapshot.data![0].docID;
+
+                                   for (var i in snapshot.data!) {
+                                     if (i.docID == AppConfig.vendorContracts) {
+                                       selectedDocType = i.docType;
+                                       docType = i.docID;
+                                       break;
+                                     }
+                                   }
+
+                                   docTypeMetaIdVC = docType;
+
+                                   identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
+                                     _identityDataController.add(data);
+                                   }).catchError((error) {
+                                     // Handle error
+                                   });
+                                   return Container(
+                                     width: 354,
+                                     padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                     decoration: BoxDecoration(
+                                       color: ColorManager.white,
+                                       borderRadius: BorderRadius.circular(8),
+                                       border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                     ),
+                                     child: Row(
+                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                       children: [
+                                         Text(
+                                           selectedDocType,
+                                           style: CustomTextStylesCommon.commonStyle(
+                                             fontWeight: FontWeightManager.medium,
+                                             fontSize: FontSize.s12,
+                                             color: ColorManager.mediumgrey,
+                                           ),
+                                         ),
+                                         Icon(
+                                           Icons.arrow_drop_down,
+                                           color: ColorManager.mediumgrey,
+                                         ),
+                                       ],
+                                     ),
+                                   );
+                                 } else {
+                                   return SizedBox();
+                                 }
+                               },
+                             ),
+
+                             // Subdocument Type Dropdown
+                             child1: StreamBuilder<List<IdentityDocumentIdData>>(
+                               stream: _identityDataController.stream,
+                               builder: (context, snapshot) {
+                                 if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                                   List<DropdownMenuItem<String>> dropDownMenuItems = [];
+
+                                   // Create dropdown items from the fetched data
+                                   for (var i in snapshot.data!) {
+                                     dropDownMenuItems.add(
+                                       DropdownMenuItem<String>(
+                                         value: i.subDocType,
+                                         child: Text(i.subDocType),
+                                       ),
+                                     );
+                                   }
+
+                                   // Return the CICCDropdown with "Select Sub Document" as the initial value
+                                   return CICCDropdown(
+                                     initialValue: "Select Sub Document",
+                                     onChange: (val) {
+                                       if (val != "Select Sub Document") {
+                                         for (var a in snapshot.data!) {
+                                           if (a.subDocType == val) {
+                                             docSubTypeMetaId = a.subDocID;
+                                           }
+                                         }
+                                       }
+                                     },
+                                     items: dropDownMenuItems,
+                                     hintText: "Select Sub Document",
+                                   );
+                                 } else if (snapshot.connectionState == ConnectionState.waiting) {
+                                   return SizedBox();
+                                 } else {
+                                   return Center(
+                                     child: Text(
+                                       AppString.dataNotFound,
+                                       style: CustomTextStylesCommon.commonStyle(
+                                         fontWeight: FontWeightManager.medium,
+                                         fontSize: FontSize.s12,
+                                         color: ColorManager.mediumgrey,
+                                       ),
+                                     ),
+                                   );
+                                 }
+                               },
+                             ),
+
+                             // Expiry Type Radio Buttons and Expiry Date Selection
+                             radioButton: Padding(
+                               padding: const EdgeInsets.only(left: 10.0),
+                               child: Column(
+                                 mainAxisAlignment: MainAxisAlignment.start,
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   Text(
+                                     "Expiry Type",
+                                     style: GoogleFonts.firaSans(
+                                       fontSize: FontSize.s12,
+                                       fontWeight: FontWeight.w700,
+                                       color: ColorManager.mediumgrey,
+                                       decoration: TextDecoration.none,
+                                     ),
+                                   ),
+                                   CustomRadioListTile(
+                                     value: "Not Applicable",
+                                     groupValue: selectedExpiryType,
+                                     onChanged: (value) {
+                                       setState(() {
+                                         selectedExpiryType = value;
+                                       });
+                                     },
+                                     title: "Not Applicable",
+                                   ),
+                                   CustomRadioListTile(
+                                     value: 'Scheduled',
+                                     groupValue: selectedExpiryType,
+                                     onChanged: (value) {
+                                       setState(() {
+                                         selectedExpiryType = value;
+                                       });
+                                     },
+                                     title: 'Scheduled',
+                                   ),
+                                   CustomRadioListTile(
+                                     value: 'Issuer Expiry',
+                                     groupValue: selectedExpiryType,
+                                     onChanged: (value) {
+                                       setState(() {
+                                         selectedExpiryType = value;
+                                       });
+                                     },
+                                     title: 'Issuer Expiry',
+                                   ),
+                                 ],
+                               ),
+                             ),
+                             // Expiry Date Selection Visibility
+                             child2: Visibility(
+                               visible: selectedExpiryType == "Scheduled" || selectedExpiryType == "Issuer Expiry",
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   Text(
+                                     "Expiry Date",
+                                     style: GoogleFonts.firaSans(
+                                       fontSize: FontSize.s12,
+                                       fontWeight: FontWeight.w700,
+                                       color: ColorManager.mediumgrey,
+                                       decoration: TextDecoration.none,
+                                     ),
+                                   ),
+                                   SizedBox(height: AppSize.s5),
+                                   FormField<String>(
+                                     builder: (FormFieldState<String> field) {
+                                       return SizedBox(
+                                         width: 354,
+                                         height: 30,
+                                         child: TextFormField(
+                                           controller: calenderController,
+                                           cursorColor: ColorManager.black,
+                                           style: GoogleFonts.firaSans(
+                                             fontSize: FontSize.s12,
+                                             fontWeight: FontWeight.w700,
+                                             color: ColorManager.mediumgrey,
+                                           ),
+                                           decoration: InputDecoration(
+                                             enabledBorder: OutlineInputBorder(
+                                               borderSide: BorderSide(
+                                                 color: ColorManager.fmediumgrey,
+                                                 width: 1,
+                                               ),
+                                               borderRadius: BorderRadius.circular(8),
+                                             ),
+                                             focusedBorder: OutlineInputBorder(
+                                               borderSide: BorderSide(
+                                                 color: ColorManager.fmediumgrey,
+                                                 width: 1,
+                                               ),
+                                               borderRadius: BorderRadius.circular(8),
+                                             ),
+                                             hintText: 'mm-dd-yyyy',
+                                             hintStyle: GoogleFonts.firaSans(
+                                               fontSize: FontSize.s12,
+                                               fontWeight: FontWeight.w700,
+                                               color: ColorManager.mediumgrey,
+                                             ),
+                                             border: OutlineInputBorder(
+                                               borderRadius: BorderRadius.circular(8),
+                                               borderSide: BorderSide(
+                                                 width: 1,
+                                                 color: ColorManager.fmediumgrey,
+                                               ),
+                                             ),
+                                             contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                                             suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime),
+                                             errorText: field.errorText,
+                                           ),
+                                           onTap: () async {
+                                             FocusScope.of(context).requestFocus(FocusNode());
+                                             final date = await showDatePicker(
+                                               context: context,
+                                               initialDate: DateTime.now(),
+                                               firstDate: DateTime(2023),
+                                               lastDate: DateTime(2100),
+                                             );
+                                             calenderController.text = date != null ? DateFormat('MM-dd-yyyy').format(date) : '';
+                                           },
+                                         ),
+                                       );
+                                     },
+                                   ),
+                                 ],
+                               ),
+                             ),
+                           );
+                         },
+                       );
+                     },
+                   );
+                 },
+               ),
+             ),
+           )
            ///Policies
                :Align(
                alignment: Alignment.bottomRight,
@@ -908,18 +875,19 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                    await addOrgCorporateDocumentPost(
                                      context: context,
                                      name: docNamecontroller.text,
-                                     docTypeID: docTypeMetaId,
-                                     docSubTypeID: docTypeMetaId == AppConfig.policiesAndProcedure
+                                     docTypeID: docTypeMetaIdPP,
+                                     docSubTypeID: docTypeMetaIdPP == AppConfig.policiesAndProcedure
                                          ? 0
-                                         : docSubTypeMetaId,
+                                         : docSubTypeMetaIdPP,
                                      expiryType:
                                      selectedExpiryType.toString(),
                                      expiryDate: expiryTypeToSend,
                                      expiryReminder:
                                      selectedExpiryType.toString(),
+                                     idOfDoc: docIdController.text,
                                    );
-                                   await getORGDoc(context, docTypeMetaId,
-                                       docSubTypeMetaId, 1, 20);
+                                   await getORGDoc(context, docTypeMetaIdPP,
+                                       docSubTypeMetaIdPP, 1, 20);
                                    Navigator.pop(context);
                                    setState(() {
                                      expiryType = '';
@@ -962,86 +930,118 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                      );
                                    }
                                    if (snapshot.hasData) {
-                                     List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                     String selectedDocType = "";
                                      int docType = snapshot.data![0].docID;
-                                     docTypeMetaId = docType;
 
                                      for (var i in snapshot.data!) {
-                                       dropDownMenuItems.add(
-                                         DropdownMenuItem<String>(
-                                           child: Text(i.docType),
-                                           value: i.docType,
-                                         ),
-                                       );
-                                     }
-                                     return CICCDropdown(
-                                       initialValue: dropDownMenuItems[0].value,
-                                       onChange: (val) {
-                                         for (var a in snapshot.data!) {
-                                           if (a.docType == val) {
-                                             docType = a.docID;
-                                             docTypeMetaId = docType;
-                                           }
-                                         }
-                                         identityDocumentTypeGet(context, docTypeMetaId).then((data) {
-                                           _identityDataController.add(data);
-                                         }).catchError((error) {
-                                           // Handle error
-                                         });
-                                       },
-                                       items: dropDownMenuItems,
-                                     );
-                                   } else {
-                                     return SizedBox();
-                                   }
-                                 },
-                               ),
-                               child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                                 stream: _identityDataController.stream,
-                                 builder: (context, snapshot) {
-                                   if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                     List<DropdownMenuItem<String>> dropDownMenuItems = [];
-
-                                     // Create dropdown items from the fetched data
-                                     for (var i in snapshot.data!) {
-                                       dropDownMenuItems.add(
-                                         DropdownMenuItem<String>(
-                                           value: i.subDocType,
-                                           child: Text(i.subDocType),
-                                         ),
-                                       );
+                                       if (i.docID == AppConfig.policiesAndProcedure) {
+                                         selectedDocType = i.docType;
+                                         docType = i.docID;
+                                         break;
+                                       }
                                      }
 
-                                     return CICCDropdown(
-                                      // initialValue: "Select Sub Document",
-                                       onChange: (val) {
-                                         if (val != "Select Sub Document") {
-                                           for (var a in snapshot.data!) {
-                                             if (a.subDocType == val) {
-                                               docSubTypeMetaId = a.subDocID;
-                                             }
-                                           }
-                                         }
-                                       },
-                                       items: dropDownMenuItems,
-                                       hintText: "Select Sub Document",
-                                     );
-                                   } else if (snapshot.connectionState == ConnectionState.waiting) {
-                                     return SizedBox();
-                                   } else {
-                                     return Center(
-                                       child: Text(
-                                         AppString.dataNotFound,
-                                         style: CustomTextStylesCommon.commonStyle(
-                                           fontWeight: FontWeightManager.medium,
-                                           fontSize: FontSize.s12,
-                                           color: ColorManager.mediumgrey,
-                                         ),
+                                     docTypeMetaIdPP = docType;
+
+                                     identityDocumentTypeGet(context, docTypeMetaIdPP).then((data) {
+                                       _identityDataController.add(data);
+                                     }).catchError((error) {
+                                       // Handle error
+                                     });
+                                     return Container(
+                                       width: 354,
+                                       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                       decoration: BoxDecoration(
+                                         color: ColorManager.white,
+                                         borderRadius: BorderRadius.circular(8),
+                                         border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                       ),
+                                       child: Row(
+                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                         children: [
+                                           Text(
+                                             selectedDocType,
+                                             style: CustomTextStylesCommon.commonStyle(
+                                               fontWeight: FontWeightManager.medium,
+                                               fontSize: FontSize.s12,
+                                               color: ColorManager.mediumgrey,
+                                             ),
+                                           ),
+                                           Icon(
+                                             Icons.arrow_drop_down,
+                                             color: ColorManager.mediumgrey,
+                                           ),
+                                         ],
                                        ),
                                      );
+                                     // return CICCDropdown(
+                                     //   initialValue: dropDownMenuItems[0].value,
+                                     //   onChange: (val) {
+                                     //     for (var a in snapshot.data!) {
+                                     //       if (a.docType == val) {
+                                     //         docType = a.docID;
+                                     //         docTypeMetaId = docType;
+                                     //       }
+                                     //     }
+                                     //     identityDocumentTypeGet(context, docTypeMetaId).then((data) {
+                                     //       _identityDataController.add(data);
+                                     //     }).catchError((error) {
+                                     //       // Handle error
+                                     //     });
+                                     //   },
+                                     //   items: dropDownMenuItems,
+                                     // );
+                                   } else {
+                                     return SizedBox();
                                    }
                                  },
                                ),
+                               // child1: StreamBuilder<List<IdentityDocumentIdData>>(
+                               //   stream: _identityDataController.stream,
+                               //   builder: (context, snapshot) {
+                               //     if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                               //       List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                               //
+                               //       // Create dropdown items from the fetched data
+                               //       for (var i in snapshot.data!) {
+                               //         dropDownMenuItems.add(
+                               //           DropdownMenuItem<String>(
+                               //             value: i.subDocType,
+                               //             child: Text(i.subDocType),
+                               //           ),
+                               //         );
+                               //       }
+                               //
+                               //       return CICCDropdown(
+                               //        // initialValue: "Select Sub Document",
+                               //         onChange: (val) {
+                               //           if (val != "Select Sub Document") {
+                               //             for (var a in snapshot.data!) {
+                               //               if (a.subDocType == val) {
+                               //                 docSubTypeMetaId = a.subDocID;
+                               //               }
+                               //             }
+                               //           }
+                               //         },
+                               //         items: dropDownMenuItems,
+                               //         hintText: "Select Sub Document",
+                               //       );
+                               //     } else if (snapshot.connectionState == ConnectionState.waiting) {
+                               //       return SizedBox();
+                               //     } else {
+                               //       return Center(
+                               //         child: Text(
+                               //           AppString.dataNotFound,
+                               //           style: CustomTextStylesCommon.commonStyle(
+                               //             fontWeight: FontWeightManager.medium,
+                               //             fontSize: FontSize.s12,
+                               //             color: ColorManager.mediumgrey,
+                               //           ),
+                               //         ),
+                               //       );
+                               //     }
+                               //   },
+                               // ),
 
                                radioButton: Padding(
                                  padding: const EdgeInsets.only(left: 10.0),
