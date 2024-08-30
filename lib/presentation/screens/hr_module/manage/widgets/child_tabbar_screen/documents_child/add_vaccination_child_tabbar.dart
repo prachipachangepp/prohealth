@@ -76,61 +76,6 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                             employeeId: widget.employeeId,
                             documentMetaId: documentMetaDataId,
                             documentSetupId: documentSetupId,
-                            child: FutureBuilder<List<EmployeeDocSetupModal>>(
-                                future: getEmployeeDocSetupDropDown(context),
-                                builder: (context,snapshot) {
-                                  if(snapshot.connectionState == ConnectionState.waiting){
-                                    return Container(
-                                      width: 350,
-                                      height: 30,
-                                      decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                    );
-
-                                  }
-                                  if (snapshot.data!.isEmpty) {
-                                    return Center(
-                                      child: Text(
-                                        AppString.dataNotFound,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          fontWeight: FontWeightManager.medium,
-                                          fontSize: FontSize.s12,
-                                          color: ColorManager.mediumgrey,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  if(snapshot.hasData){
-                                    List dropDown = [];
-                                    int docType = 0;
-                                    List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                    for(var i in snapshot.data!){
-                                      dropDownMenuItems.add(
-                                        DropdownMenuItem<String>(
-                                          child: Text(i.documentName),
-                                          value: i.documentName,
-                                        ),
-                                      );
-                                    }
-                                    return CICCDropdown(
-                                        initialValue: dropDownMenuItems[0].value,
-                                        onChange: (val){
-                                          for(var a in snapshot.data!){
-                                            if(a.documentName == val){
-                                              documentMetaDataId = a.employeeDocMetaDataId;
-                                              documentSetupId = a.employeeDocTypeSetupId;
-                                              //docMetaId = docType;
-                                            }
-                                          }
-                                          print(":::${docType}");
-                                          //print(":::<>${docMetaId}");
-                                        },
-                                        items:dropDownMenuItems
-                                    );
-                                  }else{
-                                    return SizedBox();
-                                  }
-                                }
-                            )
                             // onSavePredded: () async {
                             //   await addEmployeeDocSetup(
                             //       context,
@@ -318,75 +263,6 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                               employeeId: widget.employeeId,
                                               documentMetaId: 1,
                                               documentSetupId: 10,
-                                              child: FutureBuilder<List<EmployeeDocSetupModal>>(
-                                                  future: getEmployeeDocSetupDropDown(context),
-                                                  builder: (context,snapshot) {
-                                                    if(snapshot.connectionState == ConnectionState.waiting){
-                                                      return Shimmer.fromColors(
-                                                          baseColor: Colors.grey[300]!,
-                                                          highlightColor: Colors.grey[100]!,
-                                                          child: Container(
-                                                            width: 350,
-                                                            height: 30,
-                                                            decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                          )
-                                                      );
-                                                    }
-                                                    if (snapshot.data!.isEmpty) {
-                                                      return Center(
-                                                        child: Text(
-                                                          AppString.dataNotFound,
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeightManager.medium,
-                                                            fontSize: FontSize.s12,
-                                                            color: ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    if(snapshot.hasData){
-                                                      List dropDown = [];
-                                                      int docType = 0;
-                                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                      for(var i in snapshot.data!){
-                                                        dropDownMenuItems.add(
-                                                          DropdownMenuItem<String>(
-                                                            child: Text(i.documentName),
-                                                            value: i.documentName,
-                                                          ),
-                                                        );
-                                                      }
-                                                      return CICCDropdown(
-                                                          initialValue: dropDownMenuItems[0].value,
-                                                          onChange: (val){
-                                                            for(var a in snapshot.data!){
-                                                              if(a.documentName == val){
-                                                                docType = a.employeeDocMetaDataId;
-                                                                //docMetaId = docType;
-                                                              }
-                                                            }
-                                                            print(":::${docType}");
-                                                            //print(":::<>${docMetaId}");
-                                                          },
-                                                          items:dropDownMenuItems
-                                                      );
-                                                    }else{
-                                                      return SizedBox();
-                                                    }
-                                                  }
-                                              ),
-                                              // onSavePredded: () async {
-                                              //   await addEmployeeDocSetup(
-                                              //       context,
-                                              //       11,
-                                              //       compensitionAddNameController.text,
-                                              //       compensationExpiryType.toString(),
-                                              //       DateTime.now() as String);
-                                              //   Navigator.pop(context);
-                                              //   compensitionAddIdController.clear();
-                                              //   compensitionAddNameController.clear();
-                                              //   compensationExpiryType = '';
-                                              // },
                                             );
                                           });
                                     },

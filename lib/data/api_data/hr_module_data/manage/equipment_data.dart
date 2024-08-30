@@ -17,7 +17,21 @@ class EquipmentData {
     required this.name,
     required this.createdAt,
   });
+}
 
+class InventoryDropdownData {
+  final int inventoryId;
+  final String name;
+  final int qty;
+  final String description;
+  final int companyId;
+  InventoryDropdownData({
+    required this.inventoryId,
+    required this.name,
+    required this.qty,
+    required this.description,
+    required this.companyId,
+  });
 }
 
 class EquipmentPrefillData {
@@ -39,5 +53,4 @@ class EquipmentPrefillData {
     required this.name,
     required this.createdAt,
   });
-
 }

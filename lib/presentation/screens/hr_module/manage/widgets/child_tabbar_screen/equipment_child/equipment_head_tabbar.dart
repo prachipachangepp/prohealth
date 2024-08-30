@@ -332,6 +332,8 @@ TextEditingController calenderController = TextEditingController();
 class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
   bool isLoading = false;
   String typeName = '';
+  String inventoryName = '';
+  int inventoryId = 0;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -400,21 +402,65 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                           decoration: TextDecoration.none,
                         ),),
                       SizedBox(height: 5),
-                      CICCDropdown(
-                        onChange: (newValue){
-                          setState(() {
-                            typeName = newValue;
-                            print("Type::${typeName}");
-                          });
-                        },
-                        initialValue: 'Cellular',
-                        items: [
-                          DropdownMenuItem(value: 'Cellular', child: Text('Cellular')),
-                          DropdownMenuItem(value: 'A', child: Text('A')),
-                          DropdownMenuItem(value: 'B', child: Text('B')),
-                          DropdownMenuItem(value: 'C', child: Text('C')),
-                        ],
-                      )
+                      FutureBuilder<List<InventoryDropdownData>>(
+                          future: getDropdownInventory(context),
+                          builder: (context,snapshot) {
+                            if(snapshot.connectionState == ConnectionState.waiting){
+                              return Container(
+                                width: 350,
+                                height: 30,
+                                decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
+                              );
+
+                            }
+                            if (snapshot.data!.isEmpty) {
+                              return Center(
+                                child: Text(
+                                  AppString.dataNotFound,
+                                  style: CustomTextStylesCommon.commonStyle(
+                                    fontWeight: FontWeightManager.medium,
+                                    fontSize: FontSize.s12,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ),
+                              );
+                            }
+                            if(snapshot.hasData){
+                              List dropDown = [];
+                              int docType = 0;
+                              List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                              for(var i in snapshot.data!){
+                                dropDownMenuItems.add(
+                                  DropdownMenuItem<String>(
+                                    child: Text(i.name),
+                                    value: i.name,
+                                  ),
+                                );
+                              }
+                              inventoryName =  snapshot.data![0].name;
+                              inventoryId = snapshot.data![0].inventoryId;
+                              print('Inventory name ${inventoryName}');
+                              print('Inventory Id ${inventoryId}');
+                              return CICCDropdown(
+                                  initialValue: dropDownMenuItems[0].value,
+                                  onChange: (val){
+                                    for(var a in snapshot.data!){
+                                      if(a.name == val){
+                                        inventoryName = a.name;
+                                        inventoryId = a.inventoryId;
+                                        //docMetaId = docType;
+                                      }
+                                    }
+                                    print(":::${docType}");
+                                    //print(":::<>${docMetaId}");
+                                  },
+                                  items:dropDownMenuItems
+                              );
+                            }else{
+                              return SizedBox();
+                            }
+                          }
+                      ),
                       // Container(
                       //   height: 30,
                       //   padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
@@ -558,7 +604,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                             isLoading = true;
                           });
                             await addEquipment(context, int.parse(idController.text), calenderController.text,
-                                widget.employeeId, typeName, 11, nameController.text);
+                                widget.employeeId, typeName, inventoryId, inventoryName);
                             print("::${idController.text}");
                           print("::${typeName}");
                           print("::${calenderController.text}");
@@ -567,6 +613,8 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                               isLoading = false;
                             });
                             Navigator.pop(context);
+                            inventoryId = 0;
+                            inventoryName = '';
                             nameController.clear();
                             idController.clear();
                             calenderController.clear();

@@ -112,9 +112,9 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
             Padding(
-              padding: const EdgeInsets.only(right: 60),
+              padding: const EdgeInsets.symmetric(horizontal: 63),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   widget.child,
                   const SizedBox(

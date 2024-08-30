@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -143,28 +144,34 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                               horizontal: 8, vertical: 2),
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                'Office Start Time',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize:
-                                                      mediaQuery.width / 110,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: ColorManager.mediumgrey,
-                                                  decoration:
-                                                      TextDecoration.none,
+                                              Padding(
+                                                padding: const EdgeInsets.only(left:AppPadding.p10),
+                                                child: Text(
+                                                  'Office Start Time',
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize:
+                                                        mediaQuery.width / 110,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.mediumgrey,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
                                                 ),
                                               ),
-                                              Text(
-                                                'Office End Time',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize:
-                                                      mediaQuery.width / 110,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: ColorManager.mediumgrey,
-                                                  decoration:
-                                                      TextDecoration.none,
+                                              Padding(
+                                                padding: const EdgeInsets.only(right:AppPadding.p50),
+                                                child: Text(
+                                                  'Office End Time',
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize:
+                                                        mediaQuery.width / 110,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.mediumgrey,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -438,66 +445,73 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                             Text(
                                                                               snapshotShift.data![index].shiftName,
                                                                               style: GoogleFonts.firaSans(
-                                                                                fontSize: mediaQuery.width / 100,
+                                                                                fontSize: 12,
                                                                                 fontWeight: FontWeightManager.bold,
                                                                                 color: ColorManager.mediumgrey,
                                                                                 decoration: TextDecoration.none,
                                                                               ),
                                                                             ),
-                                                                            Container(
-                                                                              height: mediaQuery.height / 30,
-                                                                              width: mediaQuery.width / 15,
-                                                                              decoration: BoxDecoration(color: ColorManager.white,
-                                                                                  border: Border.all(color: Color(0xFFEEEEEE), width: 1),
-                                                                                  borderRadius: BorderRadius.circular(20)),
-                                                                              child: Center(
-                                                                                  child: Text(
-                                                                                snapshotShift.data![index].officeStartTime,
-                                                                                style: GoogleFonts.firaSans(
-                                                                                  fontSize: mediaQuery.width / 115,
-                                                                                  fontWeight: FontWeightManager.semiBold,
-                                                                                  color: ColorManager.mediumgrey,
-                                                                                  decoration: TextDecoration.none,
-                                                                                ),
-                                                                              )),
-                                                                            ),
-                                                                            InkWell(
-                                                                              onTap: () {
-                                                                                showDialog(
-                                                                                    context: context,
-                                                                                    builder: (BuildContext context) {
-                                                                                      return ViewBatchesPopup(shiftName: snapshotShift.data![index].shiftName,
-                                                                                        weekName: snapshotShift.data![index].weekDays,
-                                                                                        //companyId: snapshot.data![index].companyId,
-                                                                                          );
-                                                                                    });
-                                                                              },
-                                                                              child: FutureBuilder<List<ShiftBachesData>>(
+                                                                            FutureBuilder<List<ShiftBachesData>>(
                                                                                 future: shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays),
                                                                                 builder: (context,snapshot) {
                                                                                   if(snapshot.connectionState == ConnectionState.waiting){
                                                                                     return Text('');
                                                                                   }
                                                                                   if(snapshot.data!.isEmpty){
-                                                                                    return SizedBox(width:85);
+                                                                                    return SizedBox(width:150);
                                                                                   }
                                                                                   if(snapshot.hasData){
-                                                                                    return Text(
-                                                                                      'Batches more',
-                                                                                      style: GoogleFonts.firaSans(
-                                                                                        fontSize: mediaQuery.width / 115,
-                                                                                        fontWeight: FontWeightManager.light,
-                                                                                        color: ColorManager.faintgrey,
-                                                                                        decoration: TextDecoration.none,
-                                                                                      ),
+                                                                                    return  Row(
+                                                                                      children: [
+                                                                                        ...List.generate(min(snapshot.data!.length, 1),(index){
+                                                                                          return Container(
+                                                                                            height: mediaQuery.height / 30,
+                                                                                            width: mediaQuery.width / 15,
+                                                                                            decoration: BoxDecoration(color: ColorManager.white,
+                                                                                                border: Border.all(color: Color(0xFFEEEEEE), width: 1),
+                                                                                                borderRadius: BorderRadius.circular(20)),
+                                                                                            child: Center(
+                                                                                                child: Text(
+                                                                                                  snapshot.data![index].officeStartTime,
+                                                                                                  style: GoogleFonts.firaSans(
+                                                                                                    fontSize: mediaQuery.width / 115,
+                                                                                                    fontWeight: FontWeightManager.semiBold,
+                                                                                                    color: ColorManager.mediumgrey,
+                                                                                                    decoration: TextDecoration.none,
+                                                                                                  ),
+                                                                                                )),
+                                                                                          );
+                                                                                        }),
+                                                                                        SizedBox(width:10),
+                                                                                        snapshot.data!.length <= 1 ? SizedBox(width: 80,):
+                                                                                        InkWell(
+                                                                                          onTap: () {
+                                                                                            showDialog(
+                                                                                                context: context,
+                                                                                                builder: (BuildContext context) {
+                                                                                                  return ViewBatchesPopup(shiftName: snapshotShift.data![index].shiftName,
+                                                                                                    weekName: snapshotShift.data![index].weekDays,
+                                                                                                    //companyId: snapshot.data![index].companyId,
+                                                                                                  );
+                                                                                                });
+                                                                                          },
+                                                                                          child: Text(
+                                                                                            'Batches more',
+                                                                                            style: GoogleFonts.firaSans(
+                                                                                              fontSize: mediaQuery.width / 115,
+                                                                                              fontWeight: FontWeightManager.light,
+                                                                                              color: ColorManager.faintgrey,
+                                                                                              decoration: TextDecoration.none,
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
                                                                                     );
                                                                                   }else{
                                                                                     return SizedBox();
                                                                                   }
-
-                                                                                }
-                                                                              ),
-                                                                            ),
+                                                                                      }
+                                                                                  ),
                                                                             Container(
                                                                                 height: mediaQuery.height / 26,
                                                                                 width: mediaQuery.width / 55,
