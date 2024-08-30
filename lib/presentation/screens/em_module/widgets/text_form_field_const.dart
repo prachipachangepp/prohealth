@@ -223,10 +223,6 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
 
 ////us phone
 
-
-
-
-
 class SMTextFConstPhone extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;

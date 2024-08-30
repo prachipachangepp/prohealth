@@ -84,7 +84,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 23),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(

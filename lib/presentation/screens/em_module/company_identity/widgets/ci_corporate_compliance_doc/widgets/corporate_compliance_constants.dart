@@ -592,17 +592,17 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     keyboardType: TextInputType.text,
                     text: AppString.id_of_the_document,
                   ),
-                   if (_idDocError != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2.0),
-                      child: Text(
-                        _idDocError!,
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: FontSize.s12,
-                        ),
-                      ),
-                    ),
+                  if (_idDocError != null)
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 2.0),
+                    //   child: Text(
+                    //     _idDocError!,
+                    //     style: TextStyle(
+                    //       color: Colors.red,
+                    //       fontSize: FontSize.s12,
+                    //     ),
+                    //   ),
+                    // ),
                   SizedBox(height: AppSize.s13),
 
                   /// Name of the Document
