@@ -208,7 +208,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                   width: 150,
                   child: CustomIconButton(
                     icon: Icons.add,
-                    text: "Add Doctype",
+                    text: "Add Document",
                     onPressed: () async {
                       String? selectedExpiryType = expiryType;
                       calenderController.clear();
@@ -541,7 +541,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                  width: 150,
                  child: CustomIconButton(
                    icon: Icons.add,
-                   text: "Add Doctype",
+                   text: "Add Document",
                    onPressed: () async {
                      String? selectedExpiryType = expiryType;
                      calenderController.clear();

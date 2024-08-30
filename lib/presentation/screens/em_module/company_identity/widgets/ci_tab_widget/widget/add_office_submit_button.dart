@@ -190,19 +190,19 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                     ),
 
                     const SizedBox(height: AppSize.s9),
-                    SMTextFConst(
+                    SMTextFConstPhone(
                       controller: widget.mobNumController,
                       keyboardType: TextInputType.number,
                       text: 'Primary Phone',
                     ),
                     const SizedBox(height: AppSize.s9),
-                    SMTextFConst(
+                    SMTextFConstPhone(
                       controller: widget.secNumController,
                       keyboardType: TextInputType.number,
                       text: 'Secondary Phone',
                     ),
                     const SizedBox(height: AppSize.s9),
-                    SMTextFConst(
+                    SMTextFConstPhone(
                       controller: widget.OptionalController,
                       keyboardType: TextInputType.number,
                       text: 'Alternative Phone',
