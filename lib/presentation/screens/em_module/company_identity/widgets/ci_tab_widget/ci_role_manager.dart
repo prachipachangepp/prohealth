@@ -121,34 +121,37 @@ class _CiRoleManagerState extends State<CiRoleManager> {
         SizedBox(height: 30,),
         Expanded(
           flex: 12,
-          child: Stack(
-            children: [
-           _selectedIndex != 0 ?Offstage():
-           Container(
-             height: MediaQuery.of(context).size.height/3.5,
-                decoration: BoxDecoration(color: Color(0xFFF2F9FC),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
-                    boxShadow: [ BoxShadow(
-                      color: ColorManager.faintGrey,
-                      blurRadius: 2,
-                      spreadRadius: -2,
-                      offset: Offset(0, -4),
-                    ),]
-                ),),
-              NonScrollablePageView(
-              controller: _tabPageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
+          child: Opacity(
+            opacity: 0.3,
+            child: Stack(
               children: [
-                // Page 1
-                //RoleManagerRoles(),
-                RoleManagerClinician(),
-                RoleManagerRoleRules()
-              ],
-            ),]
+             _selectedIndex != 0 ?Offstage():
+             Container(
+               height: MediaQuery.of(context).size.height/3.5,
+                  decoration: BoxDecoration(color: Color(0xFFF2F9FC),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                      boxShadow: [ BoxShadow(
+                        color: ColorManager.faintGrey,
+                        blurRadius: 2,
+                        spreadRadius: -2,
+                        offset: Offset(0, -4),
+                      ),]
+                  ),),
+                NonScrollablePageView(
+                controller: _tabPageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                children: [
+                  // Page 1
+                  //RoleManagerRoles(),
+                  RoleManagerClinician(),
+                  RoleManagerRoleRules()
+                ],
+              ),]
+            ),
           ),
         ),
       ],

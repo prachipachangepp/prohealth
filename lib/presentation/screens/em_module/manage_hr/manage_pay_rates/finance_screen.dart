@@ -251,15 +251,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     future: getVisitList(context),
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState == ConnectionState.waiting) {
-                                        return Shimmer.fromColors(
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.grey[100]!,
-                                          child: Container(
-                                            width: 354,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              color: ColorManager.faintGrey,
-                                              borderRadius: BorderRadius.circular(10),
+                                        return Container(
+                                          width: 300,
+                                          child: Text(
+                                            'Loading...',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
                                             ),
                                           ),
                                         );
@@ -307,15 +306,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     future: PayRateZoneDropdown(context),
                                     builder: (context, snapshotZone) {
                                       if (snapshotZone.connectionState == ConnectionState.waiting) {
-                                        return Shimmer.fromColors(
-                                          baseColor: Colors.grey[300]!,
-                                          highlightColor: Colors.grey[100]!,
-                                          child: Container(
-                                            width: 354,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              color: ColorManager.faintGrey,
-                                              borderRadius: BorderRadius.circular(10),
+                                        return Container(
+                                          width: 300,
+                                          child: Text(
+                                            'Loading...',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
                                             ),
                                           ),
                                         );
@@ -323,7 +321,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       if (snapshotZone.hasData && snapshotZone.data!.isEmpty) {
                                         return Center(
                                           child: Text(
-                                            AppString.dataNotFound,
+                                            "No Zones Available",
+                                            //AppString.dataNotFound,
                                             style: CustomTextStylesCommon.commonStyle(
                                               fontWeight: FontWeightManager.medium,
                                               fontSize: FontSize.s12,
@@ -817,7 +816,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
     } else if (snapshot.hasError) {
     return Text('Error: ${snapshot.error}');
     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-    return const Text('No zones available');
+    return Text('No zones available',style: CustomTextStylesCommon.commonStyle(
+      fontWeight: FontWeightManager.medium,
+      fontSize: FontSize.s12,
+      color: ColorManager.mediumgrey,
+    ),);
     } else {
     List<SortByZoneData> zoneList = snapshot.data!;
     return Container(

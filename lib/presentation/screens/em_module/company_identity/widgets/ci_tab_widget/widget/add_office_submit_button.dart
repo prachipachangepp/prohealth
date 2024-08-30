@@ -40,8 +40,8 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
 
 
 
-  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
-  String _location = 'Lat/Long not selected'; // Default text
+  // LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  // String _location = 'Lat/Long not selected'; // Default text
   // void _pickLocation() async {
   //   final pickedLocation = await Navigator.of(context).push<LatLng>(
   //     MaterialPageRoute(
@@ -88,15 +88,84 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
   // }
 
 
-  void _updateLocation(String latlong) {
-    setState(() {
-      _location = latlong;
-      print("Updated Location: $_location"); // Check this log to see if the value updates
-    });
-  }
+  // void _updateLocation(String latlong) {
+  //   setState(() {
+  //     _location = latlong;
+  //     print("Updated Location: $_location"); // Check this log to see if the value updates
+  //   });
+  // }
+
+ bool isLoading = false;
+
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  String _location = 'Lat/Long not selected'; // Default text
+  double? _latitude;
+  double? _longitude;
+
+  // void _pickLocation() async {
+  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
+  //     MaterialPageRoute(
+  //       builder: (context) => MapScreen(
+  //         initialLocation: _selectedLocation,
+  //         onLocationPicked: (location) {
+  //           setState(() {
+  //             _selectedLocation = location;
+  //             _latitude = location.latitude;
+  //             _longitude = location.longitude;
+  //             _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+  //           });
+  //         },
+  //       ),
+  //     ),
+  //   );
+  //
+  //   if (pickedLocation != null) {
+  //     setState(() {
+  //       _selectedLocation = pickedLocation;
+  //       _latitude = pickedLocation.latitude;
+  //       _longitude = pickedLocation.longitude;
+  //       _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+  //     });
+  //   }
+  // }
 
 
-  bool isLoading = false;
+ ////////////////////////////
+
+ void _pickLocation() async {
+   final pickedLocation = await Navigator.of(context).push<LatLng>(
+     MaterialPageRoute(
+       builder: (context) => MapScreen(
+         initialLocation: _selectedLocation,
+         onLocationPicked: (location) {
+           // Print debug information to ensure this is being called
+           print('Picked location inside MapScreen: $location');
+           setState(() {
+             _latitude = location.latitude;
+             _longitude = location.longitude;
+          _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+             //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+           });
+         },
+       ),
+     ),
+   );
+
+   if (pickedLocation != null) {
+     // Print debug information to ensure this is being reached
+     print('Picked location from Navigator: $pickedLocation');
+     setState(() {
+       _selectedLocation = pickedLocation;
+       _latitude = pickedLocation.latitude;
+       _longitude = pickedLocation.longitude;
+       _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+       //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+     });
+   } else {
+     print('No location was picked.');
+   }
+ }
+ ////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +173,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s390,
-        height: AppSize.s500,
+        height: AppSize.s511,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -207,31 +276,39 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       keyboardType: TextInputType.number,
                       text: 'Alternative Phone',
                     ),
+                    const SizedBox(height: AppSize.s9),
 
-                    // Row(
-                    //   children: [
-                    //     // TextButton(
-                    //     //   onPressed: _pickLocation,
-                    //     //   style: TextButton.styleFrom(
-                    //     //       backgroundColor: Colors.transparent),
-                    //     //   child: Text(
-                    //     //     'Pick Location',
-                    //     //     style: GoogleFonts.firaSans(
-                    //     //       fontSize: FontSize.s12,
-                    //     //       fontWeight: FontWeightManager.bold,
-                    //     //       color: ColorManager.bluelight,
-                    //     //       //decoration: TextDecoration.none,
-                    //     //     ),
-                    //     //   ),
-                    //     // ),
-                    //     Icon(
-                    //       Icons.location_on_outlined,
-                    //       color: ColorManager.granitegray,
-                    //       size: AppSize.s18,
-                    //     ),
-                    //
-                    //   ],
-                    // ),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: _pickLocation,
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.transparent),
+                          child: Text(
+                            'Pick Location',
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.bluelight,
+                              //decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: ColorManager.granitegray,
+                          size: AppSize.s18,
+                        ),
+                        Text(
+                          _location,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            color: ColorManager.granitegray,
+                          ),
+                        ),
+
+                      ],
+                    ),
 
                   ],
                 ),

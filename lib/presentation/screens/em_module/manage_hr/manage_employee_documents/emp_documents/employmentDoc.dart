@@ -243,7 +243,7 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                           showDialog(context: context, builder: (context){
                                             return CCScreenEditPopup(
                                               title: 'Edit Employee Document',
-                                              idDocController: docIdController,
+                                              idOfDocController: docIdController,
                                               nameDocController: docNamecontroller,
                                               onSavePressed: (){},
                                               child:  CICCDropdown(

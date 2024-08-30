@@ -272,12 +272,12 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
 
 ///edit popup
 class CCScreenEditPopup extends StatefulWidget {
-  final int? id;
-  final TextEditingController idDocController;
+  final String? idOfDoc;
+  final TextEditingController idOfDocController;
   final TextEditingController nameDocController;
   final TextEditingController? calenderController;
   final VoidCallback? onSavePressed;
-  final Widget? child;
+  final Widget child;
   final Widget? child1;
   final Widget? child2;
   final double? height;
@@ -287,13 +287,13 @@ class CCScreenEditPopup extends StatefulWidget {
 
   CCScreenEditPopup({
     super.key,
-    required this.idDocController,
+    required this.idOfDocController,
     required this.nameDocController,
     this.onSavePressed,
-    this.child,
+    required this.child,
     this.child1,
     this.child2,
-    this.id,
+    this.idOfDoc,
     this.radioButton,
     this.calenderController,
     this.loadingDuration,
@@ -370,7 +370,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                   SMTextFConst(
                     enable: false,
                     // readOnly: true,
-                    controller: widget.idDocController,
+                    controller: widget.idOfDocController,
                     keyboardType: TextInputType.text,
                     text: AppString.id_of_the_document,
                   ),
@@ -397,23 +397,20 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                       widget.child!,
                     ],
                   ),
-                  SizedBox(height: AppSize.s12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppString.sub_type_of_the_document,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.mediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
+                  SizedBox(height: AppSize.s5),
+                  if (widget.child1 != null) ...[
+                    Text(
+                      AppString.sub_type_of_the_document,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.mediumgrey,
+                        decoration: TextDecoration.none,
                       ),
-                      SizedBox(height: AppSize.s5),
-                      widget.child1!,
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: AppSize.s5),
+                  ],
+                  widget.child1 ?? Offstage(),
                 ],
               ),
             ),
@@ -498,7 +495,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   bool _isFormValid = true;
 
   // Error messages for each text field
-  String? _idDocError;
+  //String? _idDocError;
   String? _nameDocError;
 
   String? _validateTextField(String value, String fieldName) {
@@ -516,10 +513,8 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      _idDocError =
-          _validateTextField(widget.idDocController.text, 'ID of the Document');
-      _nameDocError = _validateTextField(
-          widget.nameDocController.text, 'Name of the Document');
+      //_idDocError = _validateTextField(widget.idDocController.text, 'ID of the Document');
+      _nameDocError = _validateTextField(widget.nameDocController.text, 'Name of the Document');
     });
   }
 
@@ -592,17 +587,17 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     keyboardType: TextInputType.text,
                     text: AppString.id_of_the_document,
                   ),
-                  if (_idDocError != null)
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 2.0),
-                    //   child: Text(
-                    //     _idDocError!,
-                    //     style: TextStyle(
-                    //       color: Colors.red,
-                    //       fontSize: FontSize.s12,
-                    //     ),
-                    //   ),
-                    // ),
+                   // if (_idDocError != null)
+                   //  Padding(
+                   //    padding: const EdgeInsets.only(top: 2.0),
+                   //    child: Text(
+                   //      _idDocError!,
+                   //      style: TextStyle(
+                   //        color: Colors.red,
+                   //        fontSize: FontSize.s12,
+                   //      ),
+                   //    ),
+                   //  ),
                   SizedBox(height: AppSize.s13),
 
                   /// Name of the Document

@@ -91,6 +91,7 @@ dependencies:
   intl_phone_field: ^3.0.0
   mask_text_input_formatter: ^2.9.0
   html: any
+  geolocator: any
 
 
 #  riverpod: ^2.5.1

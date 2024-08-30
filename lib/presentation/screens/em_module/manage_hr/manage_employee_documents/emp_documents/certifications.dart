@@ -236,7 +236,7 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
                                           showDialog(context: context, builder: (context){
                                             return CCScreenEditPopup(
                                               title: 'Edit Certification',
-                                              idDocController: docIdController,
+                                              idOfDocController: docIdController,
                                               nameDocController: docNamecontroller,
                                               onSavePressed: (){},
                                               child:  CICCDropdown(
