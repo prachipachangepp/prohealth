@@ -125,7 +125,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                       if (_idError != null)
                         Text(
                           _idError!,
-                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          style: TextStyle(color: Colors.red, fontSize: 10),
                         ),
                     ],
                   ),

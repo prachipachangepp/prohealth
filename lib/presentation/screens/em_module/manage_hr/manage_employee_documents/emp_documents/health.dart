@@ -96,6 +96,21 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                 Expanded(
                   child: Center(
                     child: Text(
+                      "Document Id",
+                       // AppString.srNo,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.white
+                        )
+                      // style: RegisterTableHead.customTextStyle(context),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: Text(
                         AppString.name,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
@@ -223,6 +238,20 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                           child: Center(
                                               child: Text(
                                                 formattedSerialNumber,
+                                                // snapshot.data![index].name.toString(),
+                                                style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Color(0xff686464)
+                                                  // color: isSelected ? Colors.white : Colors.black,
+                                                ),
+                                                textAlign: TextAlign.start,
+                                              )),
+                                        ),
+                                        Expanded(
+                                          child: Center(
+                                              child: Text(
+                                                employeedoc.idOfDocument,
                                                 // snapshot.data![index].name.toString(),
                                                 style: GoogleFonts.firaSans(
                                                     fontSize: 10,

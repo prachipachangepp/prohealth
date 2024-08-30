@@ -195,7 +195,6 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                         ],
                                       ),
                                     ),
-
                                     radioButton: Padding(
                                       padding:
                                           const EdgeInsets.only(left: 10.0),
@@ -2250,35 +2249,6 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                     ],
                   ),
                 ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

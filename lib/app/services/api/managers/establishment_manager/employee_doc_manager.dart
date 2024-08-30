@@ -103,6 +103,7 @@ Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
               reminderThreshold: item["ReminderThreshold"],
               employeeDocTypesetupId: item['EmployeeDocumentTypeSetupId'],
               employeeDocTypeMetaId: item['EmployeeDocumentTypeMetaDataId'],
+            idOfDocument: item['idOfDocument'],
               sucess: true,
               message: response.statusMessage!
           ),
@@ -241,6 +242,7 @@ Future<GetEmployeeSetupPrefillData> getPrefillEmployeeDocTab(BuildContext contex
               reminderThreshold: response.data["ReminderThreshold"],
               employeeDocTypesetupId: response.data['EmployeeDocumentTypeSetupId'],
               employeeDocTypeMetaId: response.data['EmployeeDocumentTypeMetaDataId'],
+                idOfDocument: response.data['idOfDocument'] ?? "--",
               sucess: true,
               message: response.statusMessage!
           );
