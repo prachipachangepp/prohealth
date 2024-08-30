@@ -65,35 +65,38 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                 ],
               ),
               margin: EdgeInsets.only(right: 10),
-              child: CustomIconButtonConst(
-                  width: 100,
-                  text: AppStringHr.addNew,
-                  icon: Icons.add,
-                  onPressed: () {
-                    showDialog(context: context, builder: (BuildContext context)=>EditBankingPopUp(
-                      title: "Add Banking",
-                      banckId: 0,
-                      effectiveDateController: effectiveDateController,
-                      bankNameController: bankNameController,
-                      accountNumberController: accountNumberController,
-                      verifyAccountController: verifyAccountController,
-                      routingNumberController: routingNumberController,
-                      specificAmountController: specificAmountController,
-                      onPressed: () async{
-                        await addNewEmployeeBanking(
-                            context: context,
-                            employeeId: widget.employeeID,
-                            accountNumber: accountNumberController.text,
-                            bankName: bankNameController.text,
-                            amountRequested: int.parse(specificAmountController.text),
-                            checkUrl: "",
-                            effectiveDate: effectiveDateController.text,
-                            routingNumber: routingNumberController.text,
-                            percentage: 'Na',
-                            type: "Checking");
+              child: Padding(
+                padding: const EdgeInsets.only(right: 20  ),
+                child: CustomIconButtonConst(
+                    width: 100,
+                    text: AppStringHr.addNew,
+                    icon: Icons.add,
+                    onPressed: () {
+                      showDialog(context: context, builder: (BuildContext context)=>EditBankingPopUp(
+                        title: "Add Banking",
+                        banckId: 0,
+                        effectiveDateController: effectiveDateController,
+                        bankNameController: bankNameController,
+                        accountNumberController: accountNumberController,
+                        verifyAccountController: verifyAccountController,
+                        routingNumberController: routingNumberController,
+                        specificAmountController: specificAmountController,
+                        onPressed: () async{
+                          await addNewEmployeeBanking(
+                              context: context,
+                              employeeId: widget.employeeID,
+                              accountNumber: accountNumberController.text,
+                              bankName: bankNameController.text,
+                              amountRequested: int.parse(specificAmountController.text),
+                              checkUrl: "",
+                              effectiveDate: effectiveDateController.text,
+                              routingNumber: routingNumberController.text,
+                              percentage: 'Na',
+                              type: "Checking");
 
-                      },));
-                  }),
+                        },));
+                    }),
+              ),
             ),
           ],
         ),
@@ -542,7 +545,7 @@ class BankingContainerConst extends StatelessWidget {
                                 style: ThemeManager.customTextStyle(context)),
                             Text(
                               typeName.toString(),
-                              style: ThemeManagerDark.customTextStyle(context),
+                                style: ThemeManagerDark.customTextStyle(context)
                             ),
                           ],
                         ),
@@ -551,10 +554,11 @@ class BankingContainerConst extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(AppStringHr.effectiveDate,
-                                style: ThemeManager.customTextStyle(context)),
+                                style: ThemeManager.customTextStyle(context)
+                            ),
                             Text(
                               effectiveDate.toString(),
-                              style: ThemeManagerDark.customTextStyle(context),
+                                style: ThemeManagerDark.customTextStyle(context)
                             ),
                           ],
                         ),
@@ -566,7 +570,7 @@ class BankingContainerConst extends StatelessWidget {
                                 style: ThemeManager.customTextStyle(context)),
                             Text(
                               bankName.toString(),
-                              style: ThemeManagerDark.customTextStyle(context),
+                                style: ThemeManagerDark.customTextStyle(context)
                             ),
                           ],
                         ),
@@ -574,11 +578,12 @@ class BankingContainerConst extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(AppStringHr.routingNo,
+                            Text(
+                                AppStringHr.routingNo,
                                 style: ThemeManager.customTextStyle(context)),
                             Text(
                               routinNo,
-                              style: ThemeManagerDark.customTextStyle(context),
+                                style: ThemeManagerDark.customTextStyle(context)
                             ),
                           ],
                         ),
@@ -597,7 +602,7 @@ class BankingContainerConst extends StatelessWidget {
                               style: ThemeManager.customTextStyle(context)),
                           Text(
                             acNumber,
-                            style: ThemeManagerDark.customTextStyle(context),
+                              style: ThemeManagerDark.customTextStyle(context)
                           ),
                         ],
                       ),
@@ -609,7 +614,7 @@ class BankingContainerConst extends StatelessWidget {
                               style: ThemeManager.customTextStyle(context)),
                           Text(
                             '30%',
-                            style: ThemeManagerDark.customTextStyle(context),
+                              style: ThemeManagerDark.customTextStyle(context)
                           ),
                         ],
                       )
@@ -622,18 +627,7 @@ class BankingContainerConst extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // Container(
-                //   decoration: BoxDecoration(
-                //     border: Border.all(color: const Color(0xff1696C8)),
-                //     borderRadius: BorderRadius.circular(8),
-                //   ),
-                //   child: IconButtonWidget(
-                //     width: 100,
-                //     iconData: Icons.remove_red_eye_outlined,
-                //     buttonText: AppStringHr.voidcheck,
-                //     onPressed:(){},
-                //   ),
-                // ),
+
                 SizedBox(width: MediaQuery.of(context).size.width/180),
                 Container(
                   decoration: BoxDecoration(
@@ -645,38 +639,10 @@ class BankingContainerConst extends StatelessWidget {
                     iconData1: Icons.remove_red_eye_outlined,
                     buttonText: AppStringHr.voidcheck,
                       onPressed: onPressedPrint,
-                      //     () async {
-                      //   final pdf = pw.Document();
-                      //
-                      //   pdf.addPage(
-                      //     pw.Page(
-                      //       build: (pw.Context context) => pw.Center(
-                      //         child: pw.Text('Hello, this is a test print!'),
-                      //       ),
-                      //     ),
-                      //   );
-                      //
-                      //   await Printing.layoutPdf(
-                      //     onLayout: (PdfPageFormat format) async => pdf.save(),
-                      //   );
-                      // },
+
                   ),
                 ),
-                // SizedBox(width: MediaQuery.of(context).size.width/180),
-                // Flexible(
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //       border: Border.all(color: const Color(0xff1696C8)),
-                //       borderRadius: BorderRadius.circular(8),
-                //     ),
-                //     child: IconButtonWidget(
-                //       width: 100,
-                //       iconData1: Icons.file_download_outlined,
-                //       buttonText: AppStringHr.download,
-                //       onPressed:(){},
-                //     ),
-                //   ),
-                // )
+
               ],
             )
           ],
@@ -686,3 +652,45 @@ class BankingContainerConst extends StatelessWidget {
   }
 }
 
+//     () async {
+//   final pdf = pw.Document();
+//
+//   pdf.addPage(
+//     pw.Page(
+//       build: (pw.Context context) => pw.Center(
+//         child: pw.Text('Hello, this is a test print!'),
+//       ),
+//     ),
+//   );
+//
+//   await Printing.layoutPdf(
+//     onLayout: (PdfPageFormat format) async => pdf.save(),
+//   );
+// },
+// SizedBox(width: MediaQuery.of(context).size.width/180),
+// Flexible(
+//   child: Container(
+//     decoration: BoxDecoration(
+//       border: Border.all(color: const Color(0xff1696C8)),
+//       borderRadius: BorderRadius.circular(8),
+//     ),
+//     child: IconButtonWidget(
+//       width: 100,
+//       iconData1: Icons.file_download_outlined,
+//       buttonText: AppStringHr.download,
+//       onPressed:(){},
+//     ),
+//   ),
+// )
+// Container(
+//   decoration: BoxDecoration(
+//     border: Border.all(color: const Color(0xff1696C8)),
+//     borderRadius: BorderRadius.circular(8),
+//   ),
+//   child: IconButtonWidget(
+//     width: 100,
+//     iconData: Icons.remove_red_eye_outlined,
+//     buttonText: AppStringHr.voidcheck,
+//     onPressed:(){},
+//   ),
+// ),

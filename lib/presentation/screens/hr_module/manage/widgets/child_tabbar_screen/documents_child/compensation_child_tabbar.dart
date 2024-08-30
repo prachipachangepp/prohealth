@@ -283,57 +283,57 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.refresh_outlined,
-                                        color: Color(0xff1696C8),
-                                      ),
-                                      iconSize: 20,
-                                    ),
-                                    IconButton(
-                                      onPressed: () async {
-                                        try{
-                                          final String token = await TokenManager.getAccessToken();
-                                          var response = await http.get(Uri.file(compaensation.DocumentUrl),headers: {
-                                            'accept': 'application/json',
-                                            'Authorization': 'Bearer $token',
-                                            'Content-Type': 'application/json'
-                                          },);
-                                         // final widgets = await HTMLToPdf().convert(body);
-
-                                          if (response.statusCode == 200) {
-                                            final String content = response.body;
-
-                                            final pdf = pw.Document();
-
-                                            pdf.addPage(
-                                              pw.Page(
-                                                build: (pw.Context context) => pw.Center(
-                                                  child: pw.Text(content),
-                                                ),
-                                              ),
-                                            );
-
-                                            await Printing.layoutPdf(
-                                              onLayout: (PdfPageFormat format) async => pdf.save(),
-                                            );
-                                          } else {
-                                            // Handle error
-                                            print('Failed to load document');
-                                          }
-
-                                        }catch(e){
-                                          print('Error ${e}');
-
-                                        }
-                                      },
-                                      icon: Icon(
-                                        Icons.print_outlined,
-                                        color: Color(0xff1696C8),
-                                      ),
-                                      iconSize: 20,
-                                    ),
+                                    // IconButton(
+                                    //   onPressed: () {},
+                                    //   icon: Icon(
+                                    //     Icons.refresh_outlined,
+                                    //     color: Color(0xff1696C8),
+                                    //   ),
+                                    //   iconSize: 20,
+                                    // ),
+                                    // IconButton(
+                                    //   onPressed: () async {
+                                    //     try{
+                                    //       final String token = await TokenManager.getAccessToken();
+                                    //       var response = await http.get(Uri.file(compaensation.DocumentUrl),headers: {
+                                    //         'accept': 'application/json',
+                                    //         'Authorization': 'Bearer $token',
+                                    //         'Content-Type': 'application/json'
+                                    //       },);
+                                    //      // final widgets = await HTMLToPdf().convert(body);
+                                    //
+                                    //       if (response.statusCode == 200) {
+                                    //         final String content = response.body;
+                                    //
+                                    //         final pdf = pw.Document();
+                                    //
+                                    //         pdf.addPage(
+                                    //           pw.Page(
+                                    //             build: (pw.Context context) => pw.Center(
+                                    //               child: pw.Text(content),
+                                    //             ),
+                                    //           ),
+                                    //         );
+                                    //
+                                    //         await Printing.layoutPdf(
+                                    //           onLayout: (PdfPageFormat format) async => pdf.save(),
+                                    //         );
+                                    //       } else {
+                                    //         // Handle error
+                                    //         print('Failed to load document');
+                                    //       }
+                                    //
+                                    //     }catch(e){
+                                    //       print('Error ${e}');
+                                    //
+                                    //     }
+                                    //   },
+                                    //   icon: Icon(
+                                    //     Icons.print_outlined,
+                                    //     color: Color(0xff1696C8),
+                                    //   ),
+                                    //   iconSize: 20,
+                                    // ),
                                     IconButton(
                                       onPressed: () {
                                         DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");

@@ -20,7 +20,7 @@ class AppString {
   static const String proheaalthsan = "Prohealth San Joes 74";
   static const String viewzone = "View Zone";
   static const String na = "NA";
-  static const String hideDate = "Hide Date";
+  static const String hideDate = "Hire Date";
   static const String datetime = "09/02/2024(11 PM)";
   static const String expiredlicense = "Expired License";
   static const String zero = "0";

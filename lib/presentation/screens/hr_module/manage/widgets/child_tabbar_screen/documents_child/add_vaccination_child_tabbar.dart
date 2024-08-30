@@ -273,63 +273,63 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  IconButton(
-                                    onPressed: () {
-                                    },
-                                    icon: Icon(Icons.refresh_outlined,color: Color(0xff1696C8),),
-                                    iconSize: 20,),
-                                  IconButton(
-                                    onPressed: () async {
-                                     // final pdf = health.DocumentUrl as pw.Document;
-                                      try{
-                                        final String token = await TokenManager.getAccessToken();
-                                        var response = await http.get(Uri.file(health.DocumentUrl),headers: {
-                                          'accept': 'application/json',
-                                          'Authorization': 'Bearer $token',
-                                          'Content-Type': 'application/json'
-                                        },);
-
-                                        if (response.statusCode == 200) {
-                                          final String content = response.body;
-
-                                          final pdf = pw.Document();
-
-                                          pdf.addPage(
-                                            pw.Page(
-                                              build: (pw.Context context) => pw.Center(
-                                                child: pw.Text(content),
-                                              ),
-                                            ),
-                                          );
-
-                                          await Printing.layoutPdf(
-                                            onLayout: (PdfPageFormat format) async => pdf.save(),
-                                          );
-                                        } else {
-                                          // Handle error
-                                          print('Failed to load document');
-                                        }
-
-                                      }catch(e){
-                                        print('Error ${e}');
-
-                                      }
-
-
-                                      // pdf.addPage(
-                                      //   pw.Page(
-                                      //     build: (pw.Context context) => pw.Center(
-                                      //       child: pw.Text('Hello, this is a test print!'),
-                                      //     ),
-                                      //   ),
-                                      // );
-                                      //
-                                      // await Printing.layoutPdf(
-                                      //   onLayout: (PdfPageFormat format) async => pdf.save(),
-                                      // );
-                                    },
-                                    icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
-                                    iconSize: 20,),
+                                  // IconButton(
+                                  //   onPressed: () {
+                                  //   },
+                                  //   icon: Icon(Icons.refresh_outlined,color: Color(0xff1696C8),),
+                                  //   iconSize: 20,),
+                                  // IconButton(
+                                  //   onPressed: () async {
+                                  //    // final pdf = health.DocumentUrl as pw.Document;
+                                  //     try{
+                                  //       final String token = await TokenManager.getAccessToken();
+                                  //       var response = await http.get(Uri.file(health.DocumentUrl),headers: {
+                                  //         'accept': 'application/json',
+                                  //         'Authorization': 'Bearer $token',
+                                  //         'Content-Type': 'application/json'
+                                  //       },);
+                                  //
+                                  //       if (response.statusCode == 200) {
+                                  //         final String content = response.body;
+                                  //
+                                  //         final pdf = pw.Document();
+                                  //
+                                  //         pdf.addPage(
+                                  //           pw.Page(
+                                  //             build: (pw.Context context) => pw.Center(
+                                  //               child: pw.Text(content),
+                                  //             ),
+                                  //           ),
+                                  //         );
+                                  //
+                                  //         await Printing.layoutPdf(
+                                  //           onLayout: (PdfPageFormat format) async => pdf.save(),
+                                  //         );
+                                  //       } else {
+                                  //         // Handle error
+                                  //         print('Failed to load document');
+                                  //       }
+                                  //
+                                  //     }catch(e){
+                                  //       print('Error ${e}');
+                                  //
+                                  //     }
+                                  //
+                                  //
+                                  //     // pdf.addPage(
+                                  //     //   pw.Page(
+                                  //     //     build: (pw.Context context) => pw.Center(
+                                  //     //       child: pw.Text('Hello, this is a test print!'),
+                                  //     //     ),
+                                  //     //   ),
+                                  //     // );
+                                  //     //
+                                  //     // await Printing.layoutPdf(
+                                  //     //   onLayout: (PdfPageFormat format) async => pdf.save(),
+                                  //     // );
+                                  //   },
+                                  //   icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
+                                  //   iconSize: 20,),
                                   IconButton(
                                     onPressed: () {
                                       print("FileExtension:${fileExtension}");
