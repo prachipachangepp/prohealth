@@ -233,13 +233,16 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           color: Colors.white,
                           borderRadius: const BorderRadius.all(Radius.circular(12)),
                         ),
-                        height:  MediaQuery.of(context).size.height/3.5,
+                        // height:  MediaQuery.of(context).size.height/3.5,
+                        height: MediaQuery.of(context).size.height/3.9,
+                        padding: EdgeInsets.all(5),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: MediaQuery.of(context).size.width / 80,
                             vertical: MediaQuery.of(context).size.height / 120,
                           ),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                                Row(
                                 children: [
@@ -253,8 +256,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     ),),
                                 ],
                               ),
-                              SizedBox(height: MediaQuery.of(context).size.height/50,),
-                              Row(
+                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
@@ -312,7 +314,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: MediaQuery.of(context).size.height/40,),
+
                               ///approve reject button
                               // Row(
                               //   mainAxisAlignment: MainAxisAlignment.end,

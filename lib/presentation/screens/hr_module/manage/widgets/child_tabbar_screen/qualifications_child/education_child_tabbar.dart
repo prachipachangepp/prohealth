@@ -169,6 +169,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   padding:const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
                   child: Container(
                     width: MediaQuery.of(context).size.width/2.5,
+                    padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -181,7 +182,8 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    height:  MediaQuery.of(context).size.height/3.3,
+                    // height:  MediaQuery.of(context).size.height/3.3,
+                    height: MediaQuery.of(context).size.height/3.8,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 120,
