@@ -486,7 +486,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             flex: 2,
                                             child: Text(
                                               user.email,
-                                              textAlign: TextAlign.center,
+                                              textAlign: TextAlign.start,
                                               style: GoogleFonts.firaSans(
                                                 fontSize: FontSize.s10,
                                                 fontWeight:
