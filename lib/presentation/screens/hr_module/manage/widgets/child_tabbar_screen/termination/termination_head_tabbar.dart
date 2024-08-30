@@ -53,15 +53,16 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                 ),
                 margin: EdgeInsets.only(right: 10),
                 child: CustomIconButtonConst(
-                    width: 100,
+                    width: 110,
                     text: "Terminate",
                     icon: Icons.add,
                     onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) =>
-                              TerminatePopup(employeeId: widget.employeeId));
-                    }),
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (_) =>
+                      //         TerminatePopup(employeeId: widget.employeeId));
+                    }
+                    ),
               ),
             ],
           ),
@@ -752,6 +753,11 @@ class _TerminatePopupState extends State<TerminatePopup> {
                     )
                   ],
                 ),
+                SizedBox(
+                  width: 20,
+                ),
+
+
                 // SizedBox(
                 //   height: MediaQuery.of(context).size.width / 50,
                 // ),
