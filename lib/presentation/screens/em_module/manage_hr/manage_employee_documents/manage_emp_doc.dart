@@ -410,35 +410,47 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
                                     onSavePredded: () async {
-                                      await addEmployeeDocSetup(
-                                        context,
-                                        docMetaId,
-                                        nameDocController.text,
-                                        dateController.text,
-                                        selectedExpiryType.toString(),
-                                      );
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.certificationDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
                                       Navigator.pop(context);
                                       nameDocController.clear();
                                       dateController.clear();
-                                      print('$docMetaId');
+                                      print('$AppConfig.healthDocId');
                                     },
-                                    child: CICCDropdown(
-                                      initialValue: "Select Employee Document",
-                                      hintText: "Select Employee Document",
-                                      onChange: (val) {
-                                        setState(() {
-                                          selectedDocType = val;
-                                        });
-                                        for (var a in docTypes) {
-                                          if (a.employeeDocType == val) {
-                                            setState(() {
-                                              docMetaId = a.employeeDocMetaDataId;
-                                            });
-                                          }
-                                        }
-                                        print(":::${docMetaId}");
-                                      },
-                                      items: dropDownMenuItems,
+
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Certifications',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
                                     ),
 
                                     radioButton: Padding(
@@ -656,36 +668,66 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
                                     onSavePredded: () async {
-                                      await addEmployeeDocSetup(
-                                        context,
-                                        docMetaId,
-                                        nameDocController.text,
-                                        dateController.text,
-                                        selectedExpiryType.toString(),
-                                      );
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.employmentDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
                                       Navigator.pop(context);
                                       nameDocController.clear();
                                       dateController.clear();
-                                      print('$docMetaId');
+                                      print('$AppConfig.employmentDocId');
                                     },
-                                    child: CICCDropdown(
-                                      initialValue: "Select Employee Document",
-                                      hintText: "Select Employee Document",
-                                      onChange: (val) {
-                                        setState(() {
-                                          selectedDocType = val;
-                                        });
-                                        for (var a in docTypes) {
-                                          if (a.employeeDocType == val) {
-                                            setState(() {
-                                              docMetaId = a.employeeDocMetaDataId;
-                                            });
-                                          }
-                                        }
-                                        print(":::${docMetaId}");
-                                      },
-                                      items: dropDownMenuItems,
+
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Employment',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
                                     ),
+                                    // child: CICCDropdown(
+                                    //   initialValue: "Select Employee Document",
+                                    //   hintText: "Select Employee Document",
+                                    //   onChange: (val) {
+                                    //     setState(() {
+                                    //       selectedDocType = val;
+                                    //     });
+                                    //     for (var a in docTypes) {
+                                    //       if (a.employeeDocType == val) {
+                                    //         setState(() {
+                                    //           docMetaId = a.employeeDocMetaDataId;
+                                    //         });
+                                    //       }
+                                    //     }
+                                    //     print(":::${docMetaId}");
+                                    //   },
+                                    //   items: dropDownMenuItems,
+                                    // ),
 
                                     radioButton: Padding(
                                       padding:
@@ -901,36 +943,65 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
                                     onSavePredded: () async {
-                                      await addEmployeeDocSetup(
-                                        context,
-                                        docMetaId,
-                                        nameDocController.text,
-                                        dateController.text,
-                                        selectedExpiryType.toString(),
-                                      );
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.clinicalVerificationDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
                                       Navigator.pop(context);
                                       nameDocController.clear();
                                       dateController.clear();
-                                      print('$docMetaId');
+                                      print('$AppConfig.clinicalVerificationDocId');
                                     },
-                                    child: CICCDropdown(
-                                      initialValue: "Select Employee Document",
-                                      hintText: "Select Employee Document",
-                                      onChange: (val) {
-                                        setState(() {
-                                          selectedDocType = val;
-                                        });
-                                        for (var a in docTypes) {
-                                          if (a.employeeDocType == val) {
-                                            setState(() {
-                                              docMetaId = a.employeeDocMetaDataId;
-                                            });
-                                          }
-                                        }
-                                        print(":::${docMetaId}");
-                                      },
-                                      items: dropDownMenuItems,
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Clinical Verification',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
                                     ),
+                                    // child: CICCDropdown(
+                                    //   initialValue: "Select Employee Document",
+                                    //   hintText: "Select Employee Document",
+                                    //   onChange: (val) {
+                                    //     setState(() {
+                                    //       selectedDocType = val;
+                                    //     });
+                                    //     for (var a in docTypes) {
+                                    //       if (a.employeeDocType == val) {
+                                    //         setState(() {
+                                    //           docMetaId = a.employeeDocMetaDataId;
+                                    //         });
+                                    //       }
+                                    //     }
+                                    //     print(":::${docMetaId}");
+                                    //   },
+                                    //   items: dropDownMenuItems,
+                                    // ),
 
                                     radioButton: Padding(
                                       padding:
@@ -1146,36 +1217,66 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
                                     onSavePredded: () async {
-                                      await addEmployeeDocSetup(
-                                        context,
-                                        docMetaId,
-                                        nameDocController.text,
-                                        dateController.text,
-                                        selectedExpiryType.toString(),
-                                      );
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.acknowledgementDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
                                       Navigator.pop(context);
                                       nameDocController.clear();
                                       dateController.clear();
-                                      print('$docMetaId');
+                                      print('$AppConfig.clinicalVerificationDocId');
                                     },
-                                    child: CICCDropdown(
-                                      initialValue: "Select Employee Document",
-                                      hintText: "Select Employee Document",
-                                      onChange: (val) {
-                                        setState(() {
-                                          selectedDocType = val;
-                                        });
-                                        for (var a in docTypes) {
-                                          if (a.employeeDocType == val) {
-                                            setState(() {
-                                              docMetaId = a.employeeDocMetaDataId;
-                                            });
-                                          }
-                                        }
-                                        print(":::${docMetaId}");
-                                      },
-                                      items: dropDownMenuItems,
+
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Acknowledgement',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
                                     ),
+                                    // child: CICCDropdown(
+                                    //   initialValue: "Select Employee Document",
+                                    //   hintText: "Select Employee Document",
+                                    //   onChange: (val) {
+                                    //     setState(() {
+                                    //       selectedDocType = val;
+                                    //     });
+                                    //     for (var a in docTypes) {
+                                    //       if (a.employeeDocType == val) {
+                                    //         setState(() {
+                                    //           docMetaId = a.employeeDocMetaDataId;
+                                    //         });
+                                    //       }
+                                    //     }
+                                    //     print(":::${docMetaId}");
+                                    //   },
+                                    //   items: dropDownMenuItems,
+                                    // ),
 
                                     radioButton: Padding(
                                       padding:
@@ -1636,36 +1737,66 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
                                     onSavePredded: () async {
-                                      await addEmployeeDocSetup(
-                                        context,
-                                        docMetaId,
-                                        nameDocController.text,
-                                        dateController.text,
-                                        selectedExpiryType.toString(),
-                                      );
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.compensationDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
                                       Navigator.pop(context);
                                       nameDocController.clear();
                                       dateController.clear();
-                                      print('$docMetaId');
+                                      print('$AppConfig.compensationDocId');
                                     },
-                                    child: CICCDropdown(
-                                      initialValue: "Select Employee Document",
-                                      hintText: "Select Employee Document",
-                                      onChange: (val) {
-                                        setState(() {
-                                          selectedDocType = val;
-                                        });
-                                        for (var a in docTypes) {
-                                          if (a.employeeDocType == val) {
-                                            setState(() {
-                                              docMetaId = a.employeeDocMetaDataId;
-                                            });
-                                          }
-                                        }
-                                        print(":::${docMetaId}");
-                                      },
-                                      items: dropDownMenuItems,
+
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Compensation',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
                                     ),
+                                    // child: CICCDropdown(
+                                    //   initialValue: "Select Employee Document",
+                                    //   hintText: "Select Employee Document",
+                                    //   onChange: (val) {
+                                    //     setState(() {
+                                    //       selectedDocType = val;
+                                    //     });
+                                    //     for (var a in docTypes) {
+                                    //       if (a.employeeDocType == val) {
+                                    //         setState(() {
+                                    //           docMetaId = a.employeeDocMetaDataId;
+                                    //         });
+                                    //       }
+                                    //     }
+                                    //     print(":::${docMetaId}");
+                                    //   },
+                                    //   items: dropDownMenuItems,
+                                    // ),
 
                                     radioButton: Padding(
                                       padding:
@@ -1881,36 +2012,66 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
                                     onSavePredded: () async {
-                                      await addEmployeeDocSetup(
-                                        context,
-                                        docMetaId,
-                                        nameDocController.text,
-                                        dateController.text,
-                                        selectedExpiryType.toString(),
-                                      );
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.performanceDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
                                       Navigator.pop(context);
                                       nameDocController.clear();
                                       dateController.clear();
-                                      print('$docMetaId');
+                                      print('$AppConfig.performanceDocId');
                                     },
-                                    child: CICCDropdown(
-                                      initialValue: "Select Employee Document",
-                                      hintText: "Select Employee Document",
-                                      onChange: (val) {
-                                        setState(() {
-                                          selectedDocType = val;
-                                        });
-                                        for (var a in docTypes) {
-                                          if (a.employeeDocType == val) {
-                                            setState(() {
-                                              docMetaId = a.employeeDocMetaDataId;
-                                            });
-                                          }
-                                        }
-                                        print(":::${docMetaId}");
-                                      },
-                                      items: dropDownMenuItems,
+
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Performance',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
                                     ),
+                                    // child: CICCDropdown(
+                                    //   initialValue: "Select Employee Document",
+                                    //   hintText: "Select Employee Document",
+                                    //   onChange: (val) {
+                                    //     setState(() {
+                                    //       selectedDocType = val;
+                                    //     });
+                                    //     for (var a in docTypes) {
+                                    //       if (a.employeeDocType == val) {
+                                    //         setState(() {
+                                    //           docMetaId = a.employeeDocMetaDataId;
+                                    //         });
+                                    //       }
+                                    //     }
+                                    //     print(":::${docMetaId}");
+                                    //   },
+                                    //   items: dropDownMenuItems,
+                                    // ),
 
                                     radioButton: Padding(
                                       padding:
