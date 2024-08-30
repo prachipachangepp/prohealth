@@ -12,6 +12,7 @@ import '../../../custom_icon_button_constant.dart';
 class EditBankingPopUp extends StatefulWidget {
   final int banckId;
   String? selectedType;
+  final String title;
   final TextEditingController effectiveDateController;
   final TextEditingController bankNameController;
   final TextEditingController accountNumberController;
@@ -22,6 +23,7 @@ class EditBankingPopUp extends StatefulWidget {
 
   EditBankingPopUp({
     super.key,
+    required this.title,
     required this.onPressed,
     this.selectedType,
     required this.effectiveDateController,
@@ -29,7 +31,7 @@ class EditBankingPopUp extends StatefulWidget {
     required this.accountNumberController,
     required this.verifyAccountController,
     required this.routingNumberController,
-    required this.specificAmountController, required this.banckId,
+    required this.specificAmountController,  required this.banckId,
   });
 
   @override
@@ -94,12 +96,12 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           color: Color(0xFF27A3E0),
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(12.0), topLeft: Radius.circular(12.0))),
-      padding: EdgeInsets.only(left: 10.0),
+      padding: EdgeInsets.only(left: 25.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Edit Banking',
+            widget.title,
             style: GoogleFonts.firaSans(
               color: Colors.white,
               fontSize: 14,
@@ -120,7 +122,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Bank #${widget.banckId}',
+          widget.banckId == 0 ?'Bank':'Bank #${widget.banckId}',
           style: GoogleFonts.firaSans(
             fontSize: 16.0,
             fontWeight: FontWeight.w500,
@@ -411,45 +413,31 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child:
-            // ElevatedButton(
-            //   child: Text('Cancel',
-            //       style: GoogleFonts.firaSans(
-            //         color: Color(0xff1696C8),
-            //         fontWeight: FontWeight.w700,
-            //         fontSize: 12,
-            //       )),
-            //   onPressed: () => Navigator.of(context).pop(),
-            //   style: TextButton.styleFrom(
-            //     backgroundColor: Colors.white,
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(12.0),
-            //       side: BorderSide(color: Color(0xFF27A3E0)),
-            //     ),
-            //   ),
-            // ),
             CustomButtonTransparent(
           text: "Cancel",
-          onPressed: () {},
+          onPressed: () {
+            widget.effectiveDateController.clear();
+            widget.specificAmountController.clear();
+            widget.bankNameController.clear();
+            widget.routingNumberController.clear();
+            widget.accountNumberController.clear();
+            widget.verifyAccountController.clear();
+            widget.selectedType = null;
+            _typeFieldKey.currentState?.reset();
+          },
         ),
       ),
       isLoading
           ? SizedBox(
-              height: 30,
-              width: 30,
+              height: 25,
+              width: 25,
               child: CircularProgressIndicator(
                 color: ColorManager.blueprime,
               ))
           : Padding(
               padding: const EdgeInsets.only(right: 20.0, bottom: 20),
               child:
-                  // ElevatedButton(
-                  //         child: Text('Save',
-                  //   style: GoogleFonts.firaSans(
-                  //       color: Colors.white,
-                  //       fontWeight: FontWeight.w700,
-                  //       fontSize: 12)),
-
-                  CustomElevatedButton(
+              CustomElevatedButton(
                 text: "Save",
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {

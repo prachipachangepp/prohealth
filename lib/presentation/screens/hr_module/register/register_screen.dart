@@ -275,7 +275,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               items: <String>[
                 'Select',
                 'Opened',
-                'Notopen',
+                'Not Opened',
                 'Partial',
                 'Complete',
               ].map<DropdownMenuItem<String>>((String value) {

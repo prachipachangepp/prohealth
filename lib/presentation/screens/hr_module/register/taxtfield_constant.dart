@@ -160,9 +160,11 @@ class CustomTextFieldRegister extends StatelessWidget {
   final double? cursorHeight;
   final int? maxLength;
   final bool capitalIsSelect;
+  final bool? phoneNumberField;
 
   CustomTextFieldRegister({
     Key? key,
+    this.phoneNumberField = false,
     this.capitalIsSelect = false, // Default to false
     this.maxLength,
     this.controller,
@@ -245,7 +247,7 @@ class CustomTextFieldRegister extends StatelessWidget {
           validator: validator,
           focusNode: focusNode,
           onFieldSubmitted: onFieldSubmitted,
-          inputFormatters: [
+          inputFormatters: phoneNumberField! ?[PhoneNumberInputFormatter()]:[
             if (capitalIsSelect) CapitalizeFirstLetterFormatter(), // Apply formatter conditionally
             LengthLimitingTextInputFormatter(maxLength),
           ],

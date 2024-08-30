@@ -233,7 +233,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           color: Colors.white,
                           borderRadius: const BorderRadius.all(Radius.circular(12)),
                         ),
-                        height:  MediaQuery.of(context).size.height/3.3,
+                        height:  MediaQuery.of(context).size.height/3.5,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: MediaQuery.of(context).size.width / 80,
@@ -261,16 +261,16 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text('Licensure/Certification :',
-                                          style: ThemeManagerBold.customTextStyle(context)),
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                       const SizedBox(height: 10,),
                                       Text('Issuing Organization :',
-                                          style: ThemeManagerBold.customTextStyle(context)),
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                       const SizedBox(height: 10,),
                                       Text('Country :',
-                                          style: ThemeManagerBold.customTextStyle(context)),
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                       const SizedBox(height: 10,),
                                       Text('Number/ID :',
-                                          style: ThemeManagerBold.customTextStyle(context)),
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                     ],),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -291,10 +291,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                   Column(
                                     children: [
                                       Text('Issue Date :',
-                                          style: ThemeManagerBold.customTextStyle(context)),
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                       const SizedBox(height: 10,),
                                       Text('End Date :',
-                                          style: ThemeManagerBold.customTextStyle(context)),
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                       const SizedBox(height: 50,)
                                     ],
                                   ),
