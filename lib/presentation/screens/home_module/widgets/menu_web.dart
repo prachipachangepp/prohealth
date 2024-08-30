@@ -18,9 +18,60 @@ import '../../hr_module/hr_home_screen/desk_dashboard_hrm.dart';
 import '../../../widgets/widgets/login_screen/widgets/child_container_constant_login.dart';
 import '../../em_module/responsive_screen_em.dart';
 import '../../scheduler_model/widgets/responsive_screen_sm.dart';
+import 'dart:convert';
+import 'dart:html' as html;
 
-class HomeScreenWeb extends StatelessWidget {
+import 'package:http/http.dart' as http;
+import 'dart:async';
+class HomeScreenWeb extends StatefulWidget {
+
+
+
   const HomeScreenWeb({super.key});
+
+  @override
+  State<HomeScreenWeb> createState() => _HomeScreenWebState();
+}
+
+class _HomeScreenWebState extends State<HomeScreenWeb> {
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchIPAddress();
+    //getLocation();
+    // _geolocationFuture = _getGeolocation(); // Initialize geolocation fetching
+  }
+  String? _ipAddress;
+  String? _location;
+
+  bool _isFetchingIp = true;
+
+  Future<void> _fetchIPAddress() async {
+    try {
+      final response =
+      await http.get(Uri.parse('https://api.ipify.org?format=json'));
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        setState(() {
+          _ipAddress = data['ip'];
+          _isFetchingIp = false;
+        });
+      } else {
+        print('Failed to load IP address');
+        setState(() {
+          _isFetchingIp = false;
+        });
+      }
+    } catch (e) {
+      print('Error: $e');
+      setState(() {
+        _isFetchingIp = false;
+      });
+    }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -320,15 +371,37 @@ class HomeScreenWeb extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        '198.168.1.231',
+
+                      _isFetchingIp
+                          ? Text(
+                        'Loading IP...',
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey,
+                          decoration: TextDecoration.none,
+                        ),
+                      )
+                          : Text(
+                        _ipAddress ?? 'No IP',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey,
                           decoration: TextDecoration.none,
                         ),
                       ),
+
+
+                      // Text(
+                      //   '198.168.1.231',
+                      //   style: GoogleFonts.firaSans(
+                      //     fontSize: 12,
+                      //     fontWeight: FontWeight.w400,
+                      //     color: Colors.black,
+                      //     decoration: TextDecoration.none,
+                      //   ),
+                      // ),
                     ],
                   ),
                   Column(
