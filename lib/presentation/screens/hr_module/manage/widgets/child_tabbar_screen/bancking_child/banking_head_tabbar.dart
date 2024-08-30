@@ -680,8 +680,8 @@ class BankingContainerConst extends StatelessWidget {
     );
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(5),
-        height: MediaQuery.of(context).size.height / 3.2,
+        padding: const EdgeInsets.all(10),
+        height: MediaQuery.of(context).size.height / 3.6,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -708,6 +708,7 @@ class BankingContainerConst extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
+                ///Edit
                 Container(
                   // color: Colors.cyan,
                   decoration: const BoxDecoration(
@@ -745,9 +746,7 @@ class BankingContainerConst extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
+
 
             ///aligment
             Row(
@@ -834,10 +833,6 @@ class BankingContainerConst extends StatelessWidget {
                 //   ],
                 // ),
               ],
-            ),
-
-            const SizedBox(
-              height: 10,
             ),
 
             ///void check button
