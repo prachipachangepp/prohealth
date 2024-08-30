@@ -107,29 +107,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
      setState(() {
        _isLoading = true;
      });
-     // ApiData result = await addEmpEnroll(
-     //   context: context,
-     //   employeeId: employeeId,
-     //   code: code,
-     //   userId: userId,
-     //   firstName: firstName,
-     //   lastName: lastName,
-     //   phoneNbr: phoneNbr,
-     //   email: email,
-     //   link: link,
-     //   status: status,
-     //   departmentId: departmentId,
-     //   position: position,
-     //   speciality: speciality,
-     //   clinicianTypeId: clinicianTypeId,
-     //   reportingOfficeId: reportingOfficeId,
-     //   cityId: cityId,
-     //   countryId: countryId,
-     //   countyId: countyId,
-     //   zoneId: zoneId,
-     //   employment: employment,
-     //   service: service,
-     // );
+
      Future.delayed(Duration(seconds: 2));
      setState(() {
        _isLoading = false;
@@ -161,6 +139,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
      //   );
      // }
    }
+   bool _isButtonEnabled = false;
+   bool _isLoad = false;
    String? selectedCountry;
    int countryId = 0;
    String? selectedCity;
@@ -168,7 +148,41 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
    String? selectedZone;
    int zoneId = 0;
 
-
+   @override
+   void initState() {
+     super.initState();
+     // Add listeners to the text controllers
+     widget.firstName.addListener(_validateFields);
+     widget.lastName.addListener(_validateFields);
+     widget.email.addListener(_validateFields);
+     speciality.addListener(_validateFields);
+     position.addListener(_validateFields);
+     phone.addListener(_validateFields);
+     // Add other controllers if necessary
+   }
+   void _validateFields() {
+     setState(() {
+       // Check if any of the required fields are empty
+       _isButtonEnabled = widget.firstName.text.isNotEmpty &&
+           widget.lastName.text.isNotEmpty &&
+           widget.email.text.isNotEmpty &&
+           speciality.text.isNotEmpty &&
+           position.text.isNotEmpty &&
+           phone.text.isNotEmpty;
+       // Add other conditions if necessary
+     });
+   }
+   @override
+   void dispose() {
+     // Dispose of the listeners when the widget is removed
+     widget.firstName.removeListener(_validateFields);
+     widget.lastName.removeListener(_validateFields);
+     widget.email.removeListener(_validateFields);
+     speciality.removeListener(_validateFields);
+     position.removeListener(_validateFields);
+     phone.removeListener(_validateFields);
+     super.dispose();
+   }
 
    @override
   Widget build(BuildContext context) {
@@ -199,6 +213,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    ///botton
                     Padding(
                       padding: const EdgeInsets.only(left: 25.0),
                       child: Text(
@@ -258,58 +273,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             controller: speciality,//firstname
                             labelFontSize: 12,
                           ),
-                          // FutureBuilder<List<AEClinicalDiscipline>>(
-                          //   future: HrAddEmplyClinicalDisciplinApi(context, 1),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Padding(
-                          //           padding: const EdgeInsets.symmetric(
-                          //               horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.white),
-                          //               child: Align(
-                          //                 alignment: Alignment.centerLeft,
-                          //                 child: Text('Loading...',style: GoogleFonts.firaSans(
-                          //                   fontSize: 12,
-                          //                   color: ColorManager.mediumgrey,
-                          //                   fontWeight: FontWeight.w400,
-                          //                 ),),
-                          //               )
-                          //           ),
-                          //         );
-                          //     }
-                          //     if (snapshot.hasData) {
-                          //       List<String> dropDownList = [];
-                          //
-                          //       for (var i in snapshot.data!) {
-                          //         dropDownList.add(i.empType!);
-                          //       }
-                          //       return CustomDropdownTextField(
-                          //         labelText: 'Speciality',
-                          //         labelStyle: GoogleFonts.firaSans(
-                          //           fontSize: 12,
-                          //           color: Color(0xff575757),
-                          //           fontWeight: FontWeight.w400,
-                          //         ),
-                          //         labelFontSize: 12,
-                          //         items: dropDownList,
-                          //         onChanged: (newValue) {
-                          //           for (var a in snapshot.data!) {
-                          //             if (a.empType == newValue) {
-                          //               specialityName = a.empType!;
-                          //             }
-                          //           }
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
+
                           SizedBox(
                             height: AppSize.s10,
                           ),
@@ -336,8 +300,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                         ],
                       ),
                     ),
-
-
                     ///
                     Flexible(
                       child: Column(
@@ -524,7 +486,6 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
               SizedBox(
                 height: AppSize.s5,
               ),
-
               Container(
                 height: 60,
                 child: Padding(
@@ -652,29 +613,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             print('Error');
                           }
                           print("${widget.employeeId}");
-                         // var response =  await performEnroll(
-                         //      context: context,
-                         //      employeeId: widget.employeeId,
-                         //      code: "",
-                         //      userId: widget.userId,
-                         //      firstName: widget.firstName.text,
-                         //      lastName: widget.lastName.text,
-                         //      phoneNbr: phone.text,
-                         //      email: widget.email.text,
-                         //      link: generatedURL,
-                         //      status: widget.status,
-                         //      departmentId: clinicalId,
-                         //      position: position.text,
-                         //      speciality: specialityName.toString(),
-                         //      clinicianTypeId: 1,
-                         //      reportingOfficeId: reportingOfficeId,
-                         //      cityId: cityId,
-                         //      countryId: countryId,
-                         //      countyId: countyId,
-                         //      zoneId: zoneId,
-                         //      employment: "Full Time",
-                         //      service: "Home Health"
-                         //  );
+
                         },
                       ),
                     ],
@@ -1072,14 +1011,6 @@ class RegisterEnrollAlertDialog {
                         width: AppSize.s100,
                           text: AppString.enroll, onPressed: () {
 
-                            // showDialog(context: context, builder: (BuildContext context) {
-                            //   return ConfirmationPopup(onConfirm: (){}, title: 'Confirm Enrollment',
-                            //     onCancel: () {
-                            //     Navigator.pop(context);
-                            //   },);
-                            //     //OfferLetterScreen();
-                            // });
-                        //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
 
                       }),
                     ),
@@ -1091,3 +1022,110 @@ class RegisterEnrollAlertDialog {
     );
   }
 }
+// ApiData result = await addEmpEnroll(
+//   context: context,
+//   employeeId: employeeId,
+//   code: code,
+//   userId: userId,
+//   firstName: firstName,
+//   lastName: lastName,
+//   phoneNbr: phoneNbr,
+//   email: email,
+//   link: link,
+//   status: status,
+//   departmentId: departmentId,
+//   position: position,
+//   speciality: speciality,
+//   clinicianTypeId: clinicianTypeId,
+//   reportingOfficeId: reportingOfficeId,
+//   cityId: cityId,
+//   countryId: countryId,
+//   countyId: countyId,
+//   zoneId: zoneId,
+//   employment: employment,
+//   service: service,
+// );
+
+// showDialog(context: context, builder: (BuildContext context) {
+//   return ConfirmationPopup(onConfirm: (){}, title: 'Confirm Enrollment',
+//     onCancel: () {
+//     Navigator.pop(context);
+//   },);
+//     //OfferLetterScreen();
+// });
+//Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+// var response =  await performEnroll(
+//      context: context,
+//      employeeId: widget.employeeId,
+//      code: "",
+//      userId: widget.userId,
+//      firstName: widget.firstName.text,
+//      lastName: widget.lastName.text,
+//      phoneNbr: phone.text,
+//      email: widget.email.text,
+//      link: generatedURL,
+//      status: widget.status,
+//      departmentId: clinicalId,
+//      position: position.text,
+//      speciality: specialityName.toString(),
+//      clinicianTypeId: 1,
+//      reportingOfficeId: reportingOfficeId,
+//      cityId: cityId,
+//      countryId: countryId,
+//      countyId: countyId,
+//      zoneId: zoneId,
+//      employment: "Full Time",
+//      service: "Home Health"
+//  );
+// FutureBuilder<List<AEClinicalDiscipline>>(
+//   future: HrAddEmplyClinicalDisciplinApi(context, 1),
+//   builder: (context, snapshot) {
+//     if (snapshot.connectionState ==
+//         ConnectionState.waiting) {
+//       return Padding(
+//           padding: const EdgeInsets.symmetric(
+//               horizontal: 7),
+//           child: Container(
+//             width: AppSize.s250,
+//             height: AppSize.s40,
+//             decoration: BoxDecoration(
+//                 color: ColorManager.white),
+//               child: Align(
+//                 alignment: Alignment.centerLeft,
+//                 child: Text('Loading...',style: GoogleFonts.firaSans(
+//                   fontSize: 12,
+//                   color: ColorManager.mediumgrey,
+//                   fontWeight: FontWeight.w400,
+//                 ),),
+//               )
+//           ),
+//         );
+//     }
+//     if (snapshot.hasData) {
+//       List<String> dropDownList = [];
+//
+//       for (var i in snapshot.data!) {
+//         dropDownList.add(i.empType!);
+//       }
+//       return CustomDropdownTextField(
+//         labelText: 'Speciality',
+//         labelStyle: GoogleFonts.firaSans(
+//           fontSize: 12,
+//           color: Color(0xff575757),
+//           fontWeight: FontWeight.w400,
+//         ),
+//         labelFontSize: 12,
+//         items: dropDownList,
+//         onChanged: (newValue) {
+//           for (var a in snapshot.data!) {
+//             if (a.empType == newValue) {
+//               specialityName = a.empType!;
+//             }
+//           }
+//         },
+//       );
+//     } else {
+//       return const Offstage();
+//     }
+//   },
+// ),
