@@ -64,7 +64,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s460,
+        height: AppSize.s480,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -104,6 +104,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 ],
               ),
             ),
+            SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
