@@ -22,7 +22,7 @@ class OnBoardingWelcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TokenManager.setAccessToken(token: "svsodasihdsbd", username: "ABC", companyId: 1);
+    // TokenManager.setAccessToken(token: "svsodasihdsbd", username: "ABC", companyId: 1);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const PreferredSize(

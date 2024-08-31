@@ -79,89 +79,94 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
           }
           if (snapshot.hasData) {
             return Container(
+
               height: MediaQuery.of(context).size.height / 1,
               child: Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height/40,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                                DateFormat('MM/dd/yyyy').format(pickedDate);
-                            _controllerStartDate.text = formattedDate;
-                          }
-                        },
-                        icon: Icon(
-                          Icons.calendar_month,
-                          color: ColorManager.granitegray,
-                          size: 18,
-                        ),
-                        label: Text(
-                          _controllerStartDate.text == "" ?'Start Date':_controllerStartDate.text,
-                          style: GoogleFonts.roboto(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.medium,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickedDate != null) {
+                              String formattedDate =
+                                  DateFormat('MM/dd/yyyy').format(pickedDate);
+                              _controllerStartDate.text = formattedDate;
+                            }
+                          },
+                          icon: Icon(
+                            Icons.calendar_month,
                             color: ColorManager.granitegray,
+                            size: 18,
+                          ),
+                          label: Text(
+                            _controllerStartDate.text == "" ?'Start Date':_controllerStartDate.text,
+                            style: GoogleFonts.roboto(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.medium,
+                              color: ColorManager.granitegray,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorManager.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              side: BorderSide(color: Color(0xffB6B6B6)),
+                            ),
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorManager.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(color: Color(0xffB6B6B6)),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: AppSize.s10),
-                      ElevatedButton.icon(
-                        onPressed: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                                DateFormat('MM/dd/yyyy').format(pickedDate);
-                            _controllerEndDate.text = formattedDate;
-                          }
-                        },
-                        icon: Icon(
-                          Icons.calendar_month,
-                          color: ColorManager.granitegray,
-                          size: AppSize.s18,
-                        ),
-                        label: Text(
-                        _controllerEndDate.text == "" ?'End Date':_controllerEndDate.text,
-                          style: GoogleFonts.roboto(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.medium,
+                        SizedBox(width: AppSize.s10),
+                        ElevatedButton.icon(
+                          onPressed: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickedDate != null) {
+                              String formattedDate =
+                                  DateFormat('MM/dd/yyyy').format(pickedDate);
+                              _controllerEndDate.text = formattedDate;
+                            }
+                          },
+                          icon: Icon(
+                            Icons.calendar_month,
                             color: ColorManager.granitegray,
+                            size: AppSize.s18,
+                          ),
+                          label: Text(
+                          _controllerEndDate.text == "" ?'End Date':_controllerEndDate.text,
+                            style: GoogleFonts.roboto(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.medium,
+                              color: ColorManager.granitegray,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorManager.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              side: BorderSide(color: Color(0xffB6B6B6)),
+                            ),
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorManager.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(color: Color(0xffB6B6B6)),
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height/40,),
                   Container(
                     height: AppSize.s30,
+                    margin: EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                       color: ColorManager.grey,
                       borderRadius: BorderRadius.circular(12),
@@ -303,7 +308,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                     decoration: BoxDecoration(
-                                      color: ColorManager.white,
+                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(4),
                                       boxShadow: [
                                         BoxShadow(
@@ -316,6 +321,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                       ],
                                     ),
                                     height: AppSize.s40,
+                                    margin: EdgeInsets.symmetric(horizontal: 9),
                                     child: Stack(children: [
                                       Container(
                                         width: AppSize.s10,
@@ -353,7 +359,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                     //   radius: 10,
                                                     //   child:  Center(child: Icon(Icons.person,color:Colors.grey,)),
                                                     // ),
-                                                    Icon(Icons.person,color:Colors.grey,size: 17,),
+                                                    Icon(Icons.person,color:Colors.grey,size: 15,
+
+                                                    ),
                                                     Text(
                                                       timeOff.employeeName,
                                                       //textAlign: TextAlign.center,

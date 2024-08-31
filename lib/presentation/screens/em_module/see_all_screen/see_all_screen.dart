@@ -296,10 +296,10 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
+                            padding: const EdgeInsets.only(right: 60.0),
                             child: Text(
                               AppString.email,
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.start,
                               style: GoogleFonts.firaSans(
                                   fontSize: FontSize.s12,
                                   fontWeight: FontWeightManager.bold,
@@ -307,20 +307,20 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             ),
                           ),
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 30.0),
-                            child: Text(
-                              "Company ID",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
-                            ),
-                          ),
-                        ),
+                        // Expanded(
+                        //   flex: 2,
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(right: 30.0),
+                        //     child: Text(
+                        //       "Company ID",
+                        //       textAlign: TextAlign.center,
+                        //       style: GoogleFonts.firaSans(
+                        //           fontSize: FontSize.s12,
+                        //           fontWeight: FontWeightManager.bold,
+                        //           color: ColorManager.white),
+                        //     ),
+                        //   ),
+                        // ),
                         Expanded(
                           flex: 2,
                           child: Padding(
@@ -418,7 +418,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Expanded(
-                                            flex: 2,
+                                            flex: 1,
                                             child: Text(
                                               formattedSerialNumber,
                                               style: GoogleFonts.firaSans(
@@ -431,7 +431,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 2,
+                                            flex: 1,
                                             child: Text(
                                               user.userId.toString(),
                                               textAlign: TextAlign.center,
@@ -444,7 +444,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 2,
+                                            flex: 1,
                                             child: Text(
                                               user.firstName,
                                               textAlign: TextAlign.center,
@@ -457,7 +457,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 2,
+                                            flex: 1,
                                             child: Text(
                                               user.lastName,
                                               textAlign: TextAlign.center,
@@ -470,7 +470,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 2,
+                                            flex: 1,
                                             child: Text(
                                               user.role,
                                               textAlign: TextAlign.center,
@@ -483,9 +483,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 2,
+                                            flex: 1,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(left: 30.0),
+                                              padding: const EdgeInsets.only(right: 60.0),
                                               child: Text(
                                                 user.email,
                                                 textAlign: TextAlign.start,
@@ -498,21 +498,21 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               ),
                                             ),
                                           ),
+                                          // Expanded(
+                                          //   flex: 2,
+                                          //   child: Text(
+                                          //     user.companyId.toString(),
+                                          //     textAlign: TextAlign.center,
+                                          //     style: GoogleFonts.firaSans(
+                                          //       fontSize: FontSize.s10,
+                                          //       fontWeight:
+                                          //           FontWeightManager.bold,
+                                          //       color: ColorManager.granitegray,
+                                          //     ),
+                                          //   ),
+                                          // ),
                                           Expanded(
-                                            flex: 2,
-                                            child: Text(
-                                              user.companyId.toString(),
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                    FontWeightManager.bold,
-                                                color: ColorManager.granitegray,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
+                                            flex: 1,
                                             child: Row(
                                               children: [
                                                 /// Edit button

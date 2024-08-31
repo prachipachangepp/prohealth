@@ -172,11 +172,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           StreamBuilder<List<RegisterDataCompID>>(
             stream: registerController.stream,
             builder: (context, snapshot) {
-              GetRegisterByCompId(context).then((data) {
-                registerController.add(data);
-              }).catchError((error) {
-                // Handle error
-              });
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 150),
@@ -185,6 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 );
               }
+
               if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 150),
@@ -200,91 +196,230 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 );
               }
-              return
-                Wrap(
-                  spacing: 10,
-                  // runSpacing: 10,
-                  children: List.generate(snapshot.data!.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          left: AppPadding.p10,
-                          right: AppPadding.p10,
-                          top: AppPadding.p5,
-                          bottom: AppPadding.p40),
-                      child: buildDataContainer(snapshot.data![index]),
-                    );
-                  }),
-                );
+
+              return Wrap(
+                spacing: 10,
+                children: List.generate(snapshot.data!.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p10,
+                        right: AppPadding.p10,
+                        top: AppPadding.p5,
+                        bottom: AppPadding.p40),
+                    child: buildDataContainer(snapshot.data![index]),
+                  );
+                }),
+              );
             },
-          ),
+          )
+
+///old
+          // StreamBuilder<List<RegisterDataCompID>>(
+          //   stream: registerController.stream,
+          //   builder: (context, snapshot) {
+          //     GetRegisterByCompId(context).then((data) {
+          //       registerController.add(data);
+          //     }).catchError((error) {
+          //       // Handle error
+          //     });
+          //     if (snapshot.connectionState == ConnectionState.waiting) {
+          //       return Padding(
+          //         padding: const EdgeInsets.symmetric(vertical: 150),
+          //         child: Center(
+          //           child: CircularProgressIndicator(color: ColorManager.blueprime),
+          //         ),
+          //       );
+          //     }
+          //     if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          //       return Padding(
+          //         padding: const EdgeInsets.symmetric(vertical: 150),
+          //         child: Center(
+          //           child: Text(
+          //             AppString.dataNotFound,
+          //             style: CustomTextStylesCommon.commonStyle(
+          //               fontWeight: FontWeightManager.medium,
+          //               fontSize: FontSize.s12,
+          //               color: ColorManager.mediumgrey,
+          //             ),
+          //           ),
+          //         ),
+          //       );
+          //     }
+          //     return
+          //       Wrap(
+          //         spacing: 10,
+          //         // runSpacing: 10,
+          //         children: List.generate(snapshot.data!.length, (index) {
+          //           return Padding(
+          //             padding: const EdgeInsets.only(
+          //                 left: AppPadding.p10,
+          //                 right: AppPadding.p10,
+          //                 top: AppPadding.p5,
+          //                 bottom: AppPadding.p40),
+          //             child: buildDataContainer(snapshot.data![index]),
+          //           );
+          //         }),
+          //       );
+          //   },
+          // ),
         ],
       ),
     );
 
   }
-
+  ///old
+  // Widget buildDropdownButton(BuildContext context) {
+  //   return FutureBuilder<List<RegisterEnrollData>>(
+  //     future: RegisterGetData(context),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState == ConnectionState.waiting) {
+  //         return Container(
+  //             width: 300,
+  //             height: 30,
+  //             decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.circular(10),
+  //             ),
+  //           );
+  //       }
+  //       if (snapshot.hasData) {
+  //         return Container(
+  //           height: 31,
+  //           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+  //             borderRadius: BorderRadius.circular(12.0),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                 color: const Color(0xff000000).withOpacity(0.25),
+  //                 blurRadius: 2,
+  //                 offset: const Offset(0, 2),
+  //               ),
+  //             ],
+  //           ),
+  //           child: DropdownButton<String>(
+  //             value: _selectedValue,
+  //             style: GoogleFonts.firaSans(
+  //               fontSize: 12,
+  //               fontWeight: FontWeightManager.bold,
+  //               color: const Color(0xff50B5E5),
+  //               decoration: TextDecoration.none,
+  //             ),
+  //             icon: const Icon(
+  //               Icons.arrow_drop_down,
+  //               color: Color(0xff50B5E5),
+  //             ),
+  //             iconSize: 20,
+  //             underline: const SizedBox(),
+  //             onChanged: (String? newValue) {
+  //               setState(() {
+  //                 _selectedValue = newValue!;
+  //                 filterData();
+  //               });
+  //             },
+  //             items: <String>[
+  //               'Select',
+  //               'Opened',
+  //               'Notopen',
+  //               'Partial',
+  //               'Complete',
+  //             ].map<DropdownMenuItem<String>>((String value) {
+  //               return DropdownMenuItem<String>(
+  //                 value: value,
+  //                 child: Text(value, style: TextStyle(color: ColorManager.blueprime)),
+  //               );
+  //             }).toList(),
+  //           ),
+  //         );
+  //       } else {
+  //         return const Offstage();
+  //       }
+  //     },
+  //   );
+  // }
   Widget buildDropdownButton(BuildContext context) {
     return FutureBuilder<List<RegisterEnrollData>>(
       future: RegisterGetData(context),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-              width: 300,
-              height: 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            );
-        }
-        if (snapshot.hasData) {
-          return Container(
-            height: 31,
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+            width: 300,
+            height: 30,
             decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-              borderRadius: BorderRadius.circular(12.0),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xff000000).withOpacity(0.25),
-                  blurRadius: 2,
-                  offset: const Offset(0, 2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Center(child: Container(
+              width: 200,
+            )),
+          );
+        }
+
+        if (snapshot.hasData) {
+          return Column(
+            children: [
+              Container(
+                height: 31,
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+                  borderRadius: BorderRadius.circular(12.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xff000000).withOpacity(0.25),
+                      blurRadius: 2,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: DropdownButton<String>(
-              value: _selectedValue,
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeightManager.bold,
-                color: const Color(0xff50B5E5),
-                decoration: TextDecoration.none,
+                child:
+
+                DropdownButton<String>(
+                  value: _selectedValue,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedValue = newValue!;
+                      filterData();
+                    });
+                  },
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeightManager.bold,
+                    color: const Color(0xff50B5E5),
+                    decoration: TextDecoration.none,
+                  ),
+                  icon: const Icon(
+                    Icons.arrow_drop_down,
+                    color: Color(0xff50B5E5),
+                  ),
+                  iconSize: 20,
+                  underline: const SizedBox(),
+
+                  items: <String>[
+                    'Select',
+                    'Opened',
+                    'Notopen',
+                    'Partial',
+                    'Completed',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
               ),
-              icon: const Icon(
-                Icons.arrow_drop_down,
-                color: Color(0xff50B5E5),
-              ),
-              iconSize: 20,
-              underline: const SizedBox(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedValue = newValue!;
-                  filterData();
-                });
-              },
-              items: <String>[
-                'Select',
-                'Opened',
-                'Notopen',
-                'Partial',
-                'Complete',
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value, style: TextStyle(color: ColorManager.blueprime)),
-                );
-              }).toList(),
-            ),
+              // Expanded(
+              //   child: ListView.builder(
+              //     itemCount: filterData.length,
+              //     itemBuilder: (context, index) {
+              //       return ListTile(
+              //         title: Text(filterData[index].status),
+              //       );
+              //     },
+              //   ),
+              // ),
+            ],
           );
         } else {
           return const Offstage();
@@ -293,14 +428,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  // void filterData() {
+  //   if (_selectedValue == 'Select') {
+  //     registerController.add(allData); // Show all data
+  //   } else {
+  //     List<RegisterDataCompID> filteredData = allData.where((data) => data.status == _selectedValue).toList();
+  //     registerController.add(filteredData); // Update the stream with filtered data
+  //   }
+  // }
   void filterData() {
-    if (_selectedValue == 'Select') {
+    String selectedStatus = _selectedValue.trim().toLowerCase();
+
+    if (selectedStatus == 'select') {
       registerController.add(allData);
     } else {
-      List<RegisterDataCompID> filteredData = allData.where((data) => data.status == _selectedValue).toList();
+      List<RegisterDataCompID> filteredData = allData.where((data) {
+        String dataStatus = data.status.trim().toLowerCase();
+        bool matches = dataStatus == selectedStatus;
+        print("Checking ${data.status}: $matches");
+        return matches;
+      }).toList();
       registerController.add(filteredData);
     }
   }
+
+  ///old
+  // void filterData() {
+  //   if (_selectedValue == 'Select') {
+  //     registerController.add(allData);
+  //   } else {
+  //     List<RegisterDataCompID> filteredData = allData.where((data) => data.status == _selectedValue).toList();
+  //     registerController.add(filteredData);
+  //   }
+  // }
 
   Widget buildDataContainer(RegisterDataCompID data) {
     return Container(
@@ -432,8 +592,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : TextButton(
                         onPressed: () async {
                           //html.window.open('/onBordingWelcome',"_blank");
-                          const url = "http://localhost:63229/#/onBordingWelcome";
-                          // const url = "https://staging.symmetry.care/#/onBordingWelcome";
+                          // const url = "http://localhost:63229/#/onBordingWelcome";
+                          const url = "https://staging.symmetry.care/#/onBordingWelcome";
                           if (await canLaunch(url)) {
                            await launch(url);
                           //    Navigator.push(

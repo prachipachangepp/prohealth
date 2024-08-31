@@ -416,6 +416,7 @@ class _BottomBarRowState extends State<BottomBarRow> {
   Widget build(BuildContext context) {
     return Container(
       height: 56, // AppSize.s56 or a constant value
+      // color: Colors.green,
       child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width / 120),
@@ -529,7 +530,7 @@ class _BottomBarRowState extends State<BottomBarRow> {
                 children: [
                   Image.asset(
                     'images/powered_logo.png',
-                    width: MediaQuery.of(context).size.width / 50,
+                    width: MediaQuery.of(context).size.width / 60,
                   ),
                   Text(
                     'Powered by',

@@ -127,7 +127,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                         FirstSMTextFConst(
                           controller: widget.nameOfDocumentController,
                           keyboardType: TextInputType.text,
-                          text: 'Type of Visit',
+                          text: 'Select Type of Visit',
                         ),
                         if (!_isNameOfDocumentValid)
                           Padding(
@@ -147,7 +147,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Eligible Clinician',
+                          'Select Eligible Clinician',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: FontWeight.w700,

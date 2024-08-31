@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 class AddEmployeementPopup extends StatefulWidget {
@@ -72,7 +73,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.5,
-        height: MediaQuery.of(context).size.height / 1.6,
+        height: MediaQuery.of(context).size.height / 1.8,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -106,6 +107,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      _clearControllers();
                     },
                     icon: const Icon(
                       Icons.close,
@@ -217,6 +219,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     text: AppString.cancel,
                     onPressed: () {
                       Navigator.pop(context);
+                      _clearControllers();
                     },
                   ),
                   SizedBox(width: AppSize.s10),
@@ -251,6 +254,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextFieldRegister(
+         phoneNumberField:  errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber' ? true : false,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
@@ -265,9 +269,9 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               errorStates[errorKey] = value.isEmpty;
 
               // Specific validation for mobile number fields to ensure exactly 10 digits
-              if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
-                errorStates[errorKey] = value.length != 10;
-              }
+              // if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
+              //   errorStates[errorKey] = value.length != 10;
+              // }
             });
           },
           validator: (value) {
@@ -275,22 +279,22 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               return AppString.enterText;
             }
             // Specific validation for mobile number fields to ensure exactly 10 digits
-            if ((errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') && value.length != 10) {
-              return 'Mobile number must be exactly 10 digits';
-            }
+            // if ((errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') && value.length != 10) {
+            //   return 'Mobile number must be exactly 10 digits';
+            // }
             return null;
           },
         ),
-        if (errorStates[errorKey]!)
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: Text(
-              errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber'
-                  ? 'Mobile number must be exactly 10 digits'
-                  : 'Please enter $labelText',
-              style: TextStyle(color: Colors.red, fontSize: 10),
-            ),
-          ),
+        //if (errorStates[errorKey]!)
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 5),
+          //   child: Text(
+          //     errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber'
+          //         ? 'Mobile number must be exactly 10 digits'
+          //         : 'Please enter $labelText',
+          //     style: TextStyle(color: Colors.red, fontSize: 10),
+          //   ),
+          // ),
       ],
     );
   }
@@ -318,10 +322,10 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       errorStates['startDate'] = widget.startDateContoller.text.isEmpty;
       errorStates['endDate'] = widget.endDateController.text.isEmpty;
       errorStates['lastSupervisorName'] = widget.lastSupervisorNameController.text.isEmpty;
-      errorStates['supervisorMobileNumber'] = widget.supervisorMobileNumber.text.length != 10;
+     // errorStates['supervisorMobileNumber'] = widget.supervisorMobileNumber.text.length != 10;
       errorStates['cityName'] = widget.cityNameController.text.isEmpty;
       errorStates['employer'] = widget.employeerController.text.isEmpty;
-      errorStates['emergencyMobileNumber'] = widget.emergencyMobileNumber.text.length != 10;
+     // errorStates['emergencyMobileNumber'] = widget.emergencyMobileNumber.text.length != 10;
       errorStates['countryname'] = widget.countryController.text.isEmpty;
     });
 

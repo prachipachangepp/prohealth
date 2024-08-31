@@ -23,6 +23,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 class AdditionalVaccinationsChildBar extends StatefulWidget {
@@ -75,61 +76,6 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                             employeeId: widget.employeeId,
                             documentMetaId: documentMetaDataId,
                             documentSetupId: documentSetupId,
-                            child: FutureBuilder<List<EmployeeDocSetupModal>>(
-                                future: getEmployeeDocSetupDropDown(context),
-                                builder: (context,snapshot) {
-                                  if(snapshot.connectionState == ConnectionState.waiting){
-                                    return Container(
-                                      width: 350,
-                                      height: 30,
-                                      decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                    );
-
-                                  }
-                                  if (snapshot.data!.isEmpty) {
-                                    return Center(
-                                      child: Text(
-                                        AppString.dataNotFound,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          fontWeight: FontWeightManager.medium,
-                                          fontSize: FontSize.s12,
-                                          color: ColorManager.mediumgrey,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  if(snapshot.hasData){
-                                    List dropDown = [];
-                                    int docType = 0;
-                                    List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                    for(var i in snapshot.data!){
-                                      dropDownMenuItems.add(
-                                        DropdownMenuItem<String>(
-                                          child: Text(i.documentName),
-                                          value: i.documentName,
-                                        ),
-                                      );
-                                    }
-                                    return CICCDropdown(
-                                        initialValue: dropDownMenuItems[0].value,
-                                        onChange: (val){
-                                          for(var a in snapshot.data!){
-                                            if(a.documentName == val){
-                                              documentMetaDataId = a.employeeDocMetaDataId;
-                                              documentSetupId = a.employeeDocTypeSetupId;
-                                              //docMetaId = docType;
-                                            }
-                                          }
-                                          print(":::${docType}");
-                                          //print(":::<>${docMetaId}");
-                                        },
-                                        items:dropDownMenuItems
-                                    );
-                                  }else{
-                                    return SizedBox();
-                                  }
-                                }
-                            )
                             // onSavePredded: () async {
                             //   await addEmployeeDocSetup(
                             //       context,
@@ -273,63 +219,26 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  IconButton(
-                                    onPressed: () {
-                                    },
-                                    icon: Icon(Icons.refresh_outlined,color: Color(0xff1696C8),),
-                                    iconSize: 20,),
-                                  IconButton(
-                                    onPressed: () async {
-                                     // final pdf = health.DocumentUrl as pw.Document;
-                                      try{
-                                        final String token = await TokenManager.getAccessToken();
-                                        var response = await http.get(Uri.file(health.DocumentUrl),headers: {
-                                          'accept': 'application/json',
-                                          'Authorization': 'Bearer $token',
-                                          'Content-Type': 'application/json'
-                                        },);
 
-                                        if (response.statusCode == 200) {
-                                          final String content = response.body;
+                                  ///download
+                                  // IconButton(
+                                  //   onPressed: () async {
+                                  //     final url = fileUrl; // Use the fileUrl from your data
+                                  //     if (await canLaunchUrl(Uri.parse(url))) {
+                                  //       await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+                                  //     } else {
+                                  //       // Handle the error if the URL can't be launched
+                                  //       print("Could not launch $url");
+                                  //     }
+                                  //   },
+                                  //   icon: Icon(
+                                  //     Icons.save_alt_outlined,
+                                  //     color: Color(0xff1696C8),
+                                  //   ),
+                                  //   iconSize: 20,
+                                  // ),
 
-                                          final pdf = pw.Document();
-
-                                          pdf.addPage(
-                                            pw.Page(
-                                              build: (pw.Context context) => pw.Center(
-                                                child: pw.Text(content),
-                                              ),
-                                            ),
-                                          );
-
-                                          await Printing.layoutPdf(
-                                            onLayout: (PdfPageFormat format) async => pdf.save(),
-                                          );
-                                        } else {
-                                          // Handle error
-                                          print('Failed to load document');
-                                        }
-
-                                      }catch(e){
-                                        print('Error ${e}');
-
-                                      }
-
-
-                                      // pdf.addPage(
-                                      //   pw.Page(
-                                      //     build: (pw.Context context) => pw.Center(
-                                      //       child: pw.Text('Hello, this is a test print!'),
-                                      //     ),
-                                      //   ),
-                                      // );
-                                      //
-                                      // await Printing.layoutPdf(
-                                      //   onLayout: (PdfPageFormat format) async => pdf.save(),
-                                      // );
-                                    },
-                                    icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
-                                    iconSize: 20,),
+                                  ///
                                   IconButton(
                                     onPressed: () {
                                       print("FileExtension:${fileExtension}");
@@ -338,6 +247,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     },
                                     icon: Icon(Icons.save_alt_outlined,color: Color(0xff1696C8),),
                                     iconSize: 20,),
+                                  ///
                                   IconButton(
                                     onPressed: () {
                                       showDialog(
@@ -353,75 +263,6 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                               employeeId: widget.employeeId,
                                               documentMetaId: 1,
                                               documentSetupId: 10,
-                                              child: FutureBuilder<List<EmployeeDocSetupModal>>(
-                                                  future: getEmployeeDocSetupDropDown(context),
-                                                  builder: (context,snapshot) {
-                                                    if(snapshot.connectionState == ConnectionState.waiting){
-                                                      return Shimmer.fromColors(
-                                                          baseColor: Colors.grey[300]!,
-                                                          highlightColor: Colors.grey[100]!,
-                                                          child: Container(
-                                                            width: 350,
-                                                            height: 30,
-                                                            decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                          )
-                                                      );
-                                                    }
-                                                    if (snapshot.data!.isEmpty) {
-                                                      return Center(
-                                                        child: Text(
-                                                          AppString.dataNotFound,
-                                                          style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeightManager.medium,
-                                                            fontSize: FontSize.s12,
-                                                            color: ColorManager.mediumgrey,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    if(snapshot.hasData){
-                                                      List dropDown = [];
-                                                      int docType = 0;
-                                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                      for(var i in snapshot.data!){
-                                                        dropDownMenuItems.add(
-                                                          DropdownMenuItem<String>(
-                                                            child: Text(i.documentName),
-                                                            value: i.documentName,
-                                                          ),
-                                                        );
-                                                      }
-                                                      return CICCDropdown(
-                                                          initialValue: dropDownMenuItems[0].value,
-                                                          onChange: (val){
-                                                            for(var a in snapshot.data!){
-                                                              if(a.documentName == val){
-                                                                docType = a.employeeDocMetaDataId;
-                                                                //docMetaId = docType;
-                                                              }
-                                                            }
-                                                            print(":::${docType}");
-                                                            //print(":::<>${docMetaId}");
-                                                          },
-                                                          items:dropDownMenuItems
-                                                      );
-                                                    }else{
-                                                      return SizedBox();
-                                                    }
-                                                  }
-                                              ),
-                                              // onSavePredded: () async {
-                                              //   await addEmployeeDocSetup(
-                                              //       context,
-                                              //       11,
-                                              //       compensitionAddNameController.text,
-                                              //       compensationExpiryType.toString(),
-                                              //       DateTime.now() as String);
-                                              //   Navigator.pop(context);
-                                              //   compensitionAddIdController.clear();
-                                              //   compensitionAddNameController.clear();
-                                              //   compensationExpiryType = '';
-                                              // },
                                             );
                                           });
                                     },
@@ -469,3 +310,61 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
     );
   }
 }
+// IconButton(
+//   onPressed: () {
+//   },
+//   icon: Icon(Icons.refresh_outlined,color: Color(0xff1696C8),),
+//   iconSize: 20,),
+// IconButton(
+//   onPressed: () async {
+//    // final pdf = health.DocumentUrl as pw.Document;
+//     try{
+//       final String token = await TokenManager.getAccessToken();
+//       var response = await http.get(Uri.file(health.DocumentUrl),headers: {
+//         'accept': 'application/json',
+//         'Authorization': 'Bearer $token',
+//         'Content-Type': 'application/json'
+//       },);
+//
+//       if (response.statusCode == 200) {
+//         final String content = response.body;
+//
+//         final pdf = pw.Document();
+//
+//         pdf.addPage(
+//           pw.Page(
+//             build: (pw.Context context) => pw.Center(
+//               child: pw.Text(content),
+//             ),
+//           ),
+//         );
+//
+//         await Printing.layoutPdf(
+//           onLayout: (PdfPageFormat format) async => pdf.save(),
+//         );
+//       } else {
+//         // Handle error
+//         print('Failed to load document');
+//       }
+//
+//     }catch(e){
+//       print('Error ${e}');
+//
+//     }
+//
+//
+//     // pdf.addPage(
+//     //   pw.Page(
+//     //     build: (pw.Context context) => pw.Center(
+//     //       child: pw.Text('Hello, this is a test print!'),
+//     //     ),
+//     //   ),
+//     // );
+//     //
+//     // await Printing.layoutPdf(
+//     //   onLayout: (PdfPageFormat format) async => pdf.save(),
+//     // );
+//   },
+//   icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
+//
+//iconSize: 20,),

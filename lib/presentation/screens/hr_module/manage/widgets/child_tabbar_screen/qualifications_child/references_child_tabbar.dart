@@ -144,14 +144,17 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                       color: Colors.white,
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                     ),
-                    height:  MediaQuery.of(context).size.height/3.3,
+                    // height:  MediaQuery.of(context).size.height/3.3,
+                    height: MediaQuery.of(context).size.height/3.9,
+                    padding: EdgeInsets.all(5),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 80,
                         vertical: MediaQuery.of(context).size.height / 120,
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                            Row(
                             children: [
@@ -165,7 +168,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                 ),),
                             ],
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height/50,),
+                          // SizedBox(height: MediaQuery.of(context).size.height/50,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -173,16 +176,16 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Name',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 10,),
                                   Text('Title/ Position',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 15,),
                                   Text('Company/ Organization',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 10,),
                                   Text('Mobile Number',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               ),
                               Column(
@@ -205,13 +208,13 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Email',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 10,),
                                   Text('How do you know this\nperson ?',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 5,),
                                   Text('Length of Association',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 5,),
                                   SizedBox(height: 30, width: 90,)
                                   // Text('Referred By',
@@ -236,7 +239,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                 ],
                               ),
                             ],),
-                          SizedBox(height: MediaQuery.of(context).size.height/40,),
+                          // SizedBox(height: MediaQuery.of(context).size.height/40,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [snapshot.data![index].approve == null ? Text('Not Approved',style:GoogleFonts.firaSans(

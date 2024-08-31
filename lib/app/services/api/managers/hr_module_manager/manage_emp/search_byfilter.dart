@@ -41,29 +41,68 @@ Future<List<ApiDataFilter>?> postSearchByFilter(
          "isDZone":isDZone,
          "loggedInUserId":loggedUserId
 
-        // "employeeId": employeeId,
-        // "graduate": graduate,
-        // "degree": degree,
-        // "major": major,
-        // "city": city,
-        // "college": college,
-        // "phone": phone,
-        // "state": state,
-        // "country": country,
-        // "startDate": "${startDate}T00:00:00Z"
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Search By Filter Done");
       // orgDocumentGet(context);
 
-      for(var i in response.data){
-        var employeID = i['employeeId'];
+      for(var item in response.data){
          responseList.add(ApiDataFilter(
-            statusCode: response.statusCode!,
-            success: true,
-            message: response.statusMessage!,
-            employeeId:employeID));
+             employeeId: item['employeeId'] ?? 0,
+             code: item['code'] ?? '--',
+             userId: item['userId'] ?? 0,
+             firstName: item['firstName'] ?? '--',
+             lastName: item['lastName'] ?? '--',
+             departmentId: item['departmentId'] ?? 0,
+             employeeTypeId: item['employeeTypeId'] ?? 0,
+             expertise: item['expertise'] ?? '--',
+             cityId: item['cityId'] ?? 0,
+             countryId: item['countryId'] ?? 0,
+             zoneId: item['zoneId'] ?? 0,
+             SSNNbr: item['SSNNbr'] ?? '--',
+             primaryPhoneNbr: item['primaryPhoneNbr'] ?? '--',
+             secondryPhoneNbr: item['secondryPhoneNbr'] ?? '--',
+             workPhoneNbr: item['workPhoneNbr'] ?? '--',
+             regOfficId: item['regOfficId'] ?? '--',
+             personalEmail: item['personalEmail'] ?? '--',
+             workEmail: item['workEmail'] ?? '--',
+             address: item['address'] ?? '--',
+             dateOfBirth: item['dateOfBirth'] ?? "--",
+             emergencyContact: item['emergencyContact'] ?? '--',
+             employment: item['employment'] ?? '--',
+             covreage: item['covreage'] ?? '--',
+             gender: item['gender'] ?? '--',
+             status: item['status'] ?? '--',
+             service: item['service'] ?? '--',
+             imgurl: item['imgurl'] ?? '--',
+             resumeurl: item['resumeurl'] ?? '--',
+             onboardingStatus: item['onboardingStatus'] ?? '--',
+             createdAt: item['createdAt'] ?? "--",
+             companyId: item['companyId'] ?? 0,
+             terminationFlag: item['terminationFlag'] ?? false,
+             approved: item['approved'] ?? false,
+             dateofTermination: item['dateofTermination'] ?? "--",
+             dateofResignation: item['dateofResignation'] ?? "--",
+             rehirable: item['rehirable'] ?? "--",
+             finalAddress: item['finalAddress'] ?? '--',
+             type: item['type'] ?? '--',
+             reason: item['reason'] ?? '--',
+             finalPayCheck: item['finalPayCheck'] != null
+                 ? item['finalPayCheck'].toDouble()
+                 : 0.0,
+             checkDate: item['checkDate'] ?? '--',
+             grossPay:
+             item['grossPay'] != null ? item['grossPay'].toDouble() : 0.0,
+             netPay: item['netPay'] != null ? item['netPay'].toDouble() : 0.0,
+             methods: item['methods'] ?? '--',
+             materials: item['materials'] ?? '--',
+             dateofHire: item['dateofHire'] ?? "--",
+             position: item['position'] ?? '--',
+             driverLicenceNbr: item['driverLicenceNbr'] ?? '--',
+             race: item['race'] ?? '--',
+             rating:item["rating"]??'--'
+            ));
       }
 
     } else {

@@ -169,6 +169,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   padding:const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
                   child: Container(
                     width: MediaQuery.of(context).size.width/2.5,
+                    padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -181,7 +182,8 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    height:  MediaQuery.of(context).size.height/3.3,
+                    // height:  MediaQuery.of(context).size.height/3.3,
+                    height: MediaQuery.of(context).size.height/3.8,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 120,
@@ -210,16 +212,16 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Degree :',
-                                      style: ThemeManagerBold.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: AppSize.s10,),
                                   Text('Graduate :',
-                                      style: ThemeManagerBold.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: AppSize.s10),
                                   Text('Educational Institute :',
-                                      style: ThemeManagerBold.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: AppSize.s10),
                                   Text('Major Subject :',
-                                      style: ThemeManagerBold.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               ),
                               Column(
@@ -243,16 +245,16 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text('Phone :',
-                                      style: ThemeManagerBold.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: AppSize.s10,),
                                   Text("City :",
-                                      style: ThemeManagerBold.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: AppSize.s10),
                                   Text("State :",
-                                      style: ThemeManagerBold.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: AppSize.s10),
                                   Text("Country :",
-                                      style: ThemeManagerBold.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               ),
                               Column(
