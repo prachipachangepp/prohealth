@@ -149,7 +149,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     void Function(void Function()) setState) {
                                   return EmpDocEditPopup(
                                     title: 'Add Document',
-                                    idDocController: idDocController,
+                                    idOfDocController: idDocController,
                                     nameDocController: nameDocController,
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
@@ -404,7 +404,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     void Function(void Function()) setState) {
                                   return EmpDocEditPopup(
                                     title: 'Add Document',
-                                    idDocController: idDocController,
+                                    idOfDocController: idDocController,
                                     nameDocController: nameDocController,
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
@@ -662,7 +662,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     void Function(void Function()) setState) {
                                   return EmpDocEditPopup(
                                     title: 'Add Document',
-                                    idDocController: idDocController,
+                                    idOfDocController: idDocController,
                                     nameDocController: nameDocController,
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
@@ -937,7 +937,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     void Function(void Function()) setState) {
                                   return EmpDocEditPopup(
                                     title: 'Add Document',
-                                    idDocController: idDocController,
+                                    idOfDocController: idDocController,
                                     nameDocController: nameDocController,
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
@@ -1211,7 +1211,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     void Function(void Function()) setState) {
                                   return EmpDocEditPopup(
                                     title: 'Add Document',
-                                    idDocController: idDocController,
+                                    idOfDocController: idDocController,
                                     nameDocController: nameDocController,
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
@@ -1731,7 +1731,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     void Function(void Function()) setState) {
                                   return EmpDocEditPopup(
                                     title: 'Add Document',
-                                    idDocController: idDocController,
+                                    idOfDocController: idDocController,
                                     nameDocController: nameDocController,
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
@@ -2006,7 +2006,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     void Function(void Function()) setState) {
                                   return EmpDocEditPopup(
                                     title: 'Add Document',
-                                    idDocController: idDocController,
+                                    idOfDocController: idDocController,
                                     nameDocController: nameDocController,
                                     calenderController: dateController,
                                     loadingDuration: _isLoading,
@@ -2053,25 +2053,6 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                         ],
                                       ),
                                     ),
-                                    // child: CICCDropdown(
-                                    //   initialValue: "Select Employee Document",
-                                    //   hintText: "Select Employee Document",
-                                    //   onChange: (val) {
-                                    //     setState(() {
-                                    //       selectedDocType = val;
-                                    //     });
-                                    //     for (var a in docTypes) {
-                                    //       if (a.employeeDocType == val) {
-                                    //         setState(() {
-                                    //           docMetaId = a.employeeDocMetaDataId;
-                                    //         });
-                                    //       }
-                                    //     }
-                                    //     print(":::${docMetaId}");
-                                    //   },
-                                    //   items: dropDownMenuItems,
-                                    // ),
-
                                     radioButton: Padding(
                                       padding:
                                       const EdgeInsets.only(left: 10.0),

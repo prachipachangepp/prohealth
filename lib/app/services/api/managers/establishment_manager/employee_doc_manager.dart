@@ -141,6 +141,7 @@ Future<ApiData> addEmployeeDocSetup(
       "EmployeeDocumentTypeMetaDataId": empDocMetaDataId,
       "idOfDocument": idOfDoc,
     });
+    print('Post Emp doc ::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employee Document Addded");
       return ApiData(
