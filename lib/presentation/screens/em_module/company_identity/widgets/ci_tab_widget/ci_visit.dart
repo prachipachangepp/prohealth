@@ -489,28 +489,19 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                             context: context,
                                                             builder:
                                                                 (BuildContext context) {
-                                                              return FutureBuilder<
-                                                                  VisitListDataPrefill>(
-                                                                  future:
+                                                              return FutureBuilder<VisitListDataPrefill>(future:
                                                                   getVisitListPrefill(context, visitData.visitId),
-                                                                  builder: (context,
-                                                                      snapshotPrefill) {
+                                                                  builder: (context, snapshotPrefill) {
                                                                     if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                                       return Center(
-                                                                          child:
-                                                                          CircularProgressIndicator(
-                                                                            color: ColorManager
-                                                                                .blueprime,
+                                                                          child: CircularProgressIndicator(color: ColorManager.blueprime,
                                                                           ));
                                                                     }
                                                                     var visitName = snapshotPrefill.data!.visitType;
                                                                     docNamecontroller = TextEditingController(
                                                                         text: snapshotPrefill.data!.visitType.toString());
                                                                     return StatefulBuilder(
-                                                                      builder: (BuildContext context,
-                                                                          void Function(
-                                                                              void Function())
-                                                                          setState) {
+                                                                      builder: (BuildContext context, void Function(void Function())setState) {
                                                                         return AddVisitPopup(
                                                                           nameOfDocumentController:
                                                                           docNamecontroller,
@@ -554,8 +545,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                               8.0,
                                                                               children:
                                                                               selectedEditChips),
-                                                                          title:
-                                                                          'Edit Visit',
+                                                                          title: 'Edit Visit',
                                                                           child: FutureBuilder<
                                                                               List<
                                                                                   HRClinical>>(
