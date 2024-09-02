@@ -490,10 +490,12 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width / 130,
-                  color: Color(0xff686464),
-                ),
+                style:GoogleFonts.firaSans(fontWeight: FontWeightManager.regular, fontSize: 10),
+
+                // TextStyle(
+                //   fontSize: MediaQuery.of(context).size.width / 130,
+                //   color: Color(0xff686464),
+                // ),
               ),
             );
           }).toList(),

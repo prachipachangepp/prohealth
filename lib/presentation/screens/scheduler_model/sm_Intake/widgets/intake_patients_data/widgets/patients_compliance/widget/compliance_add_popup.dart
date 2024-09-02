@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_
 import '../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../em_module/widgets/button_constant.dart';
+import '../../patients_plan_care/intake_patients_plan_care.dart';
 
 class ComplianceAddPopUp extends StatefulWidget {
   final TextEditingController idDocController;
@@ -274,32 +275,152 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
   }
 }
 
-///
-
+///old
+//
+// class AddClinicianPopup extends StatefulWidget {
+//
+//   final VoidCallback onPressed;
+//    final Widget? child;
+//   final String title;
+//   final String buttonTitle;
+//
+//    final bool? loadingDuration;
+//
+//   AddClinicianPopup({
+//     super.key,
+//
+//      required this.onPressed,
+//     required this.title,
+//      this.child,
+//      this.loadingDuration, required this.buttonTitle,
+//   });
+//
+//   @override
+//   State<AddClinicianPopup> createState() => _AddClinicianPopupState();
+// }
+//
+// class _AddClinicianPopupState extends State<AddClinicianPopup> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(20.0),
+//       ),
+//       backgroundColor: ColorManager.white,
+//       titlePadding: EdgeInsets.zero,
+//       title: Column(
+//         children: [
+//           Container(
+//             decoration: BoxDecoration(
+//               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+//               borderRadius: BorderRadius.only(
+//                 topRight: Radius.circular(
+//                   12,
+//                 ),
+//                 topLeft: Radius.circular(
+//                   12,
+//                 ),
+//               ),
+//               color: Color(0xff50B5E5),
+//             ),
+//             height: AppSize.s40,
+//             width: 408,
+//             child: Row(
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
+//                   child: Text(
+//                     widget.title,
+//                     style: GoogleFonts.firaSans(
+//                       fontSize: FontSize.s14,
+//                       fontWeight: FontWeightManager.bold,
+//                       color: ColorManager.white,
+//                     ),
+//                   ),
+//                 ),
+//                 Spacer(),
+//                 IconButton(
+//                   onPressed: () {
+//                     Navigator.pop(context);
+//                   },
+//                   icon: Icon(
+//                     Icons.close,
+//                     color: ColorManager.white,
+//                   ),
+//                   splashColor: Colors.transparent,
+//                   highlightColor: Colors.transparent,
+//                   hoverColor: Colors.transparent,
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//       content: Container(
+//         height: 200,
+//         width: AppSize.s250,
+//         color: Colors.white,
+//         child: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Text(
+//               "Select Type of Clinician",
+//               style: GoogleFonts.firaSans(
+//                 fontSize: FontSize.s12,
+//                 fontWeight: FontWeightManager.bold,
+//                 color: ColorManager.textPrimaryColor,
+//               ),
+//             ),
+//             SizedBox(
+//               height: AppSize.s5,
+//             ),
+//             SizedBox(height: 10),
+//             widget.child ?? SizedBox(),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+//               child: Center(
+//                 child: widget.loadingDuration == true
+//                     ? SizedBox(
+//                   height: 25,
+//                   width: 25,
+//                   child: CircularProgressIndicator(
+//                     color: ColorManager.blueprime,
+//                   ),
+//                 )
+//                     : CustomElevatedButton(
+//                   width: AppSize.s105,
+//                   height: AppSize.s30,
+//                   text: widget.buttonTitle,
+//                   onPressed: widget.onPressed,
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+/// new
 class AddClinicianPopup extends StatefulWidget {
-  // final TextEditingController idDocController;
-  // final TextEditingController nameDocController;
-  // final TextEditingController calenderController;
   final VoidCallback onPressed;
-   final Widget? child;
+  final Widget? child;
   final String title;
   final String buttonTitle;
-
-  // final Widget? radioButton;
-  // final Widget? child2;
-   final bool? loadingDuration;
+  final bool? loadingDuration;
 
   AddClinicianPopup({
     super.key,
-    // required this.idDocController,
-    // required this.nameDocController,
-    // required this.calenderController,
-     required this.onPressed,
+    required this.onPressed,
     required this.title,
-    // this.radioButton,
-    // this.child2,
-     this.child,
-     this.loadingDuration, required this.buttonTitle,
+    this.child,
+    this.loadingDuration,
+    required this.buttonTitle,
   });
 
   @override
@@ -307,13 +428,21 @@ class AddClinicianPopup extends StatefulWidget {
 }
 
 class _AddClinicianPopupState extends State<AddClinicianPopup> {
+  List<Map<String, String>> weeks = [];
+
+  void addWeek() {
+    setState(() {
+      weeks.add({'week': 'Week ${weeks.length + 1}', 'visits': ''});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      backgroundColor: ColorManager.white,
+      backgroundColor: Colors.white,
       titlePadding: EdgeInsets.zero,
       title: Column(
         children: [
@@ -321,16 +450,12 @@ class _AddClinicianPopupState extends State<AddClinicianPopup> {
             decoration: BoxDecoration(
               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(
-                  12,
-                ),
-                topLeft: Radius.circular(
-                  12,
-                ),
+                topRight: Radius.circular(12),
+                topLeft: Radius.circular(12),
               ),
               color: Color(0xff50B5E5),
             ),
-            height: AppSize.s40,
+            height: 40,
             width: 408,
             child: Row(
               children: [
@@ -339,9 +464,9 @@ class _AddClinicianPopupState extends State<AddClinicianPopup> {
                   child: Text(
                     widget.title,
                     style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -352,7 +477,7 @@ class _AddClinicianPopupState extends State<AddClinicianPopup> {
                   },
                   icon: Icon(
                     Icons.close,
-                    color: ColorManager.white,
+                    color: Colors.white,
                   ),
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
@@ -365,7 +490,7 @@ class _AddClinicianPopupState extends State<AddClinicianPopup> {
       ),
       content: Container(
         height: 200,
-        width: AppSize.s250,
+        width: 250,
         color: Colors.white,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -375,35 +500,28 @@ class _AddClinicianPopupState extends State<AddClinicianPopup> {
             Text(
               "Select Type of Clinician",
               style: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeightManager.bold,
-                color: ColorManager.textPrimaryColor,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
             ),
-            SizedBox(
-              height: AppSize.s5,
-            ),
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             widget.child ?? SizedBox(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Center(
                 child: widget.loadingDuration == true
                     ? SizedBox(
                   height: 25,
                   width: 25,
                   child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
+                    color: Color(0xFF50B5E5),
                   ),
                 )
-                    : CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: widget.buttonTitle,
+                    : ElevatedButton(
                   onPressed: widget.onPressed,
+                  child: Text(widget.buttonTitle),
                 ),
               ),
             ),

@@ -27,7 +27,7 @@ class EMDesktopScreen extends StatelessWidget {
 
   bool showSelectOption = true;
   final ButtonSelectionController myController =
-      Get.put(ButtonSelectionController());
+  Get.put(ButtonSelectionController());
   EMDesktopScreen({
     this.dropdownValue,
     this.onChanged,
@@ -62,7 +62,7 @@ class EMDesktopScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Obx(
-                        () => CustomTitleButton(
+                            () => CustomTitleButton(
                           height: 30,
                           width: 100,
                           onPressed: () {
@@ -80,7 +80,7 @@ class EMDesktopScreen extends StatelessWidget {
                         width: 10,
                       ),
                       Obx(
-                        () => CustomTitleButton(
+                            () => CustomTitleButton(
                           height: 30,
                           width: 140,
                           onPressed: () {
@@ -101,7 +101,7 @@ class EMDesktopScreen extends StatelessWidget {
                         width: 15,
                       ),
                       Obx(
-                        () => Material(
+                            () => Material(
                           elevation: 4,
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                           child: CustomDropdownButton(
@@ -117,16 +117,16 @@ class EMDesktopScreen extends StatelessWidget {
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeight.w700,
                                       color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                      ),
+                                    // color: isSelected ? Colors.white : Colors.black,
+                                  ),
                                 ),
                               ),
                               DropdownMenuItem<String>(
-                                value: 'See All',
+                                value: 'Users',
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 20.0),
                                   child: Text(
-                                    'See All',
+                                    'Users',
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
@@ -156,8 +156,8 @@ class EMDesktopScreen extends StatelessWidget {
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeight.w700,
                                       color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                      ),
+                                    // color: isSelected ? Colors.white : Colors.black,
+                                  ),
                                 ),
                                 onTap: () {
                                   if (myController.selectedIndex.value != 2) {
@@ -171,18 +171,18 @@ class EMDesktopScreen extends StatelessWidget {
                                 },
                               ),
                               DropdownMenuItem<String>(
-                                value: 'All from HR',
+                                value: 'Designation Settings',
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 20),
                                   child: Text(
-                                    'All from HR',
+                                    'Designation Settings',
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                      // color: isSelected ? Colors.white : Colors.black,
+                                    ),
                                   ),
                                 ),
                                 onTap: () {
@@ -207,8 +207,8 @@ class EMDesktopScreen extends StatelessWidget {
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                      // color: isSelected ? Colors.white : Colors.black,
+                                    ),
                                   ),
                                 ),
                                 onTap: () {
@@ -233,8 +233,8 @@ class EMDesktopScreen extends StatelessWidget {
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                      // color: isSelected ? Colors.white : Colors.black,
+                                    ),
                                   ),
                                 ),
                                 onTap: () {
@@ -257,8 +257,8 @@ class EMDesktopScreen extends StatelessWidget {
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeight.w700,
                                       color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                      ),
+                                    // color: isSelected ? Colors.white : Colors.black,
+                                  ),
                                 ),
                                 onTap: () {
                                   if (myController.selectedIndex.value != 5) {
@@ -282,8 +282,8 @@ class EMDesktopScreen extends StatelessWidget {
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeight.w400,
                                         color: ColorManager.textPrimaryColor
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                        ),
+                                      // color: isSelected ? Colors.white : Colors.black,
+                                    ),
                                   ),
                                 ),
                                 onTap: () {
@@ -299,16 +299,16 @@ class EMDesktopScreen extends StatelessWidget {
                               ),
                             ],
                             selectedItem: myController.selectedIndex.value == 6
-                            ? 'See All'
-                            : myController.selectedIndex.value == 2
+                                ? 'Users'
+                                : myController.selectedIndex.value == 2
                                 ? 'HR'
                                 : myController.selectedIndex.value == 3
-                                    ? 'Work Schedule'
-                                    : myController.selectedIndex.value == 4
-                                        ? 'Employee Documents'
-                                        : myController.selectedIndex.value == 5
-                                            ? 'Finance'
-                                            : 'Select a module',
+                                ? 'Work Schedule'
+                                : myController.selectedIndex.value == 4
+                                ? 'Employee Documents'
+                                : myController.selectedIndex.value == 5
+                                ? 'Finance'
+                                : 'Select a module',
                             onChanged: (newValue) {
                               // Not needed for this implementation
                             },
@@ -411,16 +411,16 @@ class CustomDropdownButton extends StatelessWidget {
       height: height + 5,
       decoration: selectedItem != 'Select a module'
           ? BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xff51B5E6),
-                  Color(0xff008ABD),
-                ],
-              ))
+          borderRadius: BorderRadius.circular(12),
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xff51B5E6),
+              Color(0xff008ABD),
+            ],
+          ))
           : const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.white),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.white),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           icon: Icon(
@@ -445,8 +445,8 @@ class CustomDropdownButton extends StatelessWidget {
                     color: item.value == 'Select a module'
                         ? ColorManager.textPrimaryColor
                         : (selectedItem == item.value
-                            ? Colors.white
-                            : ColorManager.textPrimaryColor),
+                        ? Colors.white
+                        : ColorManager.textPrimaryColor),
                   ),
                 ),
               );

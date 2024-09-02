@@ -127,7 +127,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                         FirstSMTextFConst(
                           controller: widget.nameOfDocumentController,
                           keyboardType: TextInputType.text,
-                          text: 'Select Type of Visit',
+                          text: 'Type of Visit',
                         ),
                         if (!_isNameOfDocumentValid)
                           Padding(
@@ -175,7 +175,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     : CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.add,
+                  text: AppStringEM.save,
                   onPressed: () async {
                     _validateInputs();
                     if (_isNameOfDocumentValid) {

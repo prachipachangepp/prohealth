@@ -36,15 +36,20 @@ class CCSuccessPopup extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: Text(
                       "Success",
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.semiBold,
-                        color: ColorManager.white,
-                        decoration: TextDecoration.none,
+                      style:CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeightManager.semiBold,
+                          fontSize: FontSize.s14,
+                          color: ColorManager.white
                       ),
+                      // style: GoogleFonts.firaSans(
+                      //   fontSize: FontSize.s14,
+                      //   fontWeight: FontWeightManager.semiBold,
+                      //   color: ColorManager.white,
+                      //   decoration: TextDecoration.none,
+                      // ),
                     ),
                   ),
                   IconButton(
@@ -64,8 +69,8 @@ class CCSuccessPopup extends StatelessWidget {
                 width: AppSize.s210,
                 child: Text('Save Successfully \nThank You.',textAlign: TextAlign.center,
                   style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.regular,
-                      fontSize: FontSize.s16,
+                      fontWeight: FontWeightManager.semiBold,
+                      fontSize: FontSize.s14,
                       color: ColorManager.mediumgrey
                   ),),
               ),

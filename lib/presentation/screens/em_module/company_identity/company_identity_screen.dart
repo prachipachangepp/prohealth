@@ -63,7 +63,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     },
                     index: 2,
                     grpIndex: _selectedIndex,
-                    heading: "Org Documents"),
+                    heading: "Document Definitions"),
                 UpperMenuButtons(
                     onTap: (int index) {
                       _selectButton(index);

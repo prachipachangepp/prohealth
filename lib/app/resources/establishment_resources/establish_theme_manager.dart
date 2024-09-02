@@ -30,9 +30,9 @@ class AllHRTableHeading {
 class CompanyIdentityManageHeadings {
   static TextStyle customTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(
-      fontSize: FontSize.s12,
+      fontSize: FontSize.s15,
       color: ColorManager.black,
-      fontWeight: FontWeightManager.semiBold,
+      fontWeight: FontWeightManager.bold,
     );
   }
 }

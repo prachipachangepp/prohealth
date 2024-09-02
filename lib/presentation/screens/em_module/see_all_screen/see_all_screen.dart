@@ -22,7 +22,7 @@ class SeeAllScreen extends StatefulWidget {
 
 class _SeeAllScreenState extends State<SeeAllScreen> {
   final StreamController<List<CompanyModel>> _controller =
-      StreamController<List<CompanyModel>>();
+  StreamController<List<CompanyModel>>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController userIdController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -32,7 +32,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   TextEditingController companyIdController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final StreamController<List<UserModal>> _companyUsersList =
-      StreamController<List<UserModal>>();
+  StreamController<List<UserModal>>();
   final PageController _pageController = PageController();
 
   // late int currentPage;
@@ -152,6 +152,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
             horizontal: MediaQuery.of(context).size.width/24),
         child: Column(
           children: [
+
+            ///Create User Button
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -406,11 +408,11 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal:
-                                              MediaQuery.of(context).size.width /
-                                                  50),
+                                          MediaQuery.of(context).size.width /
+                                              50),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Expanded(
                                             flex: 1,
@@ -419,7 +421,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               style: GoogleFonts.firaSans(
                                                 fontSize: FontSize.s10,
                                                 fontWeight:
-                                                    FontWeightManager.bold,
+                                                FontWeightManager.bold,
                                                 color: ColorManager.granitegray,
                                               ),
                                               textAlign: TextAlign.center,
@@ -433,7 +435,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               style: GoogleFonts.firaSans(
                                                 fontSize: FontSize.s10,
                                                 fontWeight:
-                                                    FontWeightManager.bold,
+                                                FontWeightManager.bold,
                                                 color: ColorManager.granitegray,
                                               ),
                                             ),
@@ -446,7 +448,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               style: GoogleFonts.firaSans(
                                                 fontSize: FontSize.s10,
                                                 fontWeight:
-                                                    FontWeightManager.bold,
+                                                FontWeightManager.bold,
                                                 color: ColorManager.granitegray,
                                               ),
                                             ),
@@ -461,7 +463,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: FontSize.s10,
                                                   fontWeight:
-                                                      FontWeightManager.bold,
+                                                  FontWeightManager.bold,
                                                   color: ColorManager.granitegray,
                                                 ),
                                               ),
@@ -477,7 +479,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: FontSize.s10,
                                                   fontWeight:
-                                                      FontWeightManager.bold,
+                                                  FontWeightManager.bold,
                                                   color: ColorManager.granitegray,
                                                 ),
                                               ),
@@ -493,7 +495,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: FontSize.s10,
                                                   fontWeight:
-                                                      FontWeightManager.bold,
+                                                  FontWeightManager.bold,
                                                   color: ColorManager.granitegray,
                                                 ),
                                               ),
@@ -520,17 +522,17 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                 InkWell(
                                                   child: Container(
                                                     height: MediaQuery.of(context)
-                                                            .size
-                                                            .height /
+                                                        .size
+                                                        .height /
                                                         30,
                                                     width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
+                                                        .size
+                                                        .width /
                                                         25,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                      BorderRadius.circular(
+                                                          10),
                                                       border: Border.all(
                                                           color: ColorManager
                                                               .bluebottom),
@@ -538,9 +540,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     child: Center(
                                                       child: Text(
                                                         "Edit",
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                FontSize.s8),
+                                                        style: GoogleFonts.firaSans(
+                                                            fontSize: FontSize.s10),
                                                       ),
                                                     ),
                                                   ),
@@ -557,7 +558,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                           builder: (context,
                                                               snapshotPrefill) {
                                                             if (snapshotPrefill
-                                                                    .connectionState ==
+                                                                .connectionState ==
                                                                 ConnectionState
                                                                     .waiting) {
                                                               return Center(
@@ -597,30 +598,30 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                             return EditUserPopUp(
                                                               title: "Edit User ",
                                                               userIdController:
-                                                                  userIdController,
+                                                              userIdController,
                                                               lastNameController:
-                                                                  lastNameController,
+                                                              lastNameController,
                                                               emailController:
-                                                                  emailController,
+                                                              emailController,
                                                               firstNameController:
-                                                                  firstNameController,
+                                                              firstNameController,
                                                               roleController:
-                                                                  roleController,
+                                                              roleController,
                                                               companyIdController:
-                                                                  companyIdController,
+                                                              companyIdController,
                                                               onSubmit: () async {
                                                                 await updateUserPatch(
-                                                                  context,
-                                                                  user.userId,
-                                                                  firstNameController
-                                                                      .text,
-                                                                  lastNameController
-                                                                      .text,
-                                                                  roleController
-                                                                      .text,
-                                                                  emailController
-                                                                      .text,
-                                                                  1
+                                                                    context,
+                                                                    user.userId,
+                                                                    firstNameController
+                                                                        .text,
+                                                                    lastNameController
+                                                                        .text,
+                                                                    roleController
+                                                                        .text,
+                                                                    emailController
+                                                                        .text,
+                                                                    1
                                                                 );
                                                                 getUser(context)
                                                                     .then((data) {
@@ -628,8 +629,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                       .add(data);
                                                                 }).catchError(
                                                                         (error) {
-                                                                  // Handle error
-                                                                });
+                                                                      // Handle error
+                                                                    });
                                                                 Navigator.pop(
                                                                     context);
                                                                 firstNameController
@@ -659,43 +660,43 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                       context: context,
                                                       builder: (context) =>
                                                           DeletePopup(
-                                                        title: 'Delete User',
-                                                        onCancel: () {
-                                                          Navigator.pop(context);
-                                                        },
-                                                        onDelete: () {
-                                                          setState(() async {
-                                                            await deleteUser(
-                                                                context,
-                                                                user.userId);
-                                                            getUser(context)
-                                                                .then((data) {
-                                                              _companyUsersList
-                                                                  .add(data);
-                                                            }).catchError(
-                                                                    (error) {
-                                                              // Handle error
-                                                            });
-                                                            Navigator.pop(
-                                                                context);
-                                                          });
-                                                        },
-                                                      ),
+                                                            title: 'Delete User',
+                                                            onCancel: () {
+                                                              Navigator.pop(context);
+                                                            },
+                                                            onDelete: () {
+                                                              setState(() async {
+                                                                await deleteUser(
+                                                                    context,
+                                                                    user.userId);
+                                                                getUser(context)
+                                                                    .then((data) {
+                                                                  _companyUsersList
+                                                                      .add(data);
+                                                                }).catchError(
+                                                                        (error) {
+                                                                      // Handle error
+                                                                    });
+                                                                Navigator.pop(
+                                                                    context);
+                                                              });
+                                                            },
+                                                          ),
                                                     );
                                                   },
                                                   child: Container(
                                                     height: MediaQuery.of(context)
-                                                            .size
-                                                            .height /
+                                                        .size
+                                                        .height /
                                                         30,
                                                     width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
+                                                        .size
+                                                        .width /
                                                         25,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                      BorderRadius.circular(
+                                                          10),
                                                       border: Border.all(
                                                           color: ColorManager
                                                               .bluebottom),
@@ -703,9 +704,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                     child: Center(
                                                       child: Text(
                                                         AppString.delete,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                FontSize.s8),
+                                                        style: GoogleFonts.firaSans(
+                                                            fontSize: FontSize.s10),
                                                       ),
                                                     ),
                                                   ),

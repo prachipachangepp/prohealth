@@ -190,7 +190,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                           ),
                                           Icon(
                                             Icons.arrow_drop_down,
-                                            color: ColorManager.mediumgrey,
+                                            color: Colors.transparent,
+                                            //color: ColorManager.mediumgrey,
                                           ),
                                         ],
                                       ),
@@ -336,8 +337,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                                       context: context,
                                                       initialDate:
                                                           DateTime.now(),
-                                                      firstDate: DateTime(2000),
-                                                      lastDate: DateTime(3101),
+                                                          firstDate: DateTime(1900),
+                                                          lastDate: DateTime(2101),
                                                     );
                                                     if (pickedDate != null) {
                                                       dateController
@@ -446,7 +447,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                           ),
                                           Icon(
                                             Icons.arrow_drop_down,
-                                            color: ColorManager.mediumgrey,
+                                            color: Colors.transparent,
+                                            //color: ColorManager.mediumgrey,
                                           ),
                                         ],
                                       ),
@@ -593,8 +595,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                                       context: context,
                                                       initialDate:
                                                       DateTime.now(),
-                                                      firstDate: DateTime(2000),
-                                                      lastDate: DateTime(3101),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
                                                     );
                                                     if (pickedDate != null) {
                                                       dateController
@@ -704,7 +706,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                           ),
                                           Icon(
                                             Icons.arrow_drop_down,
-                                            color: ColorManager.mediumgrey,
+                                            color: Colors.transparent,
+                                            // color: ColorManager.mediumgrey,
                                           ),
                                         ],
                                       ),
@@ -869,8 +872,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                                       context: context,
                                                       initialDate:
                                                       DateTime.now(),
-                                                      firstDate: DateTime(2000),
-                                                      lastDate: DateTime(3101),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
                                                     );
                                                     if (pickedDate != null) {
                                                       dateController
@@ -978,7 +981,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                           ),
                                           Icon(
                                             Icons.arrow_drop_down,
-                                            color: ColorManager.mediumgrey,
+                                            color: Colors.transparent,
+                                            // color: ColorManager.mediumgrey,
                                           ),
                                         ],
                                       ),
@@ -1143,8 +1147,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                                       context: context,
                                                       initialDate:
                                                       DateTime.now(),
-                                                      firstDate: DateTime(2000),
-                                                      lastDate: DateTime(3101),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
                                                     );
                                                     if (pickedDate != null) {
                                                       dateController
@@ -1253,7 +1257,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                           ),
                                           Icon(
                                             Icons.arrow_drop_down,
-                                            color: ColorManager.mediumgrey,
+                                            color: Colors.transparent,
+                                            // color: ColorManager.mediumgrey,
                                           ),
                                         ],
                                       ),
@@ -1418,8 +1423,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                                       context: context,
                                                       initialDate:
                                                       DateTime.now(),
-                                                      firstDate: DateTime(2000),
-                                                      lastDate: DateTime(3101),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
                                                     );
                                                     if (pickedDate != null) {
                                                       dateController
@@ -1773,7 +1778,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                           ),
                                           Icon(
                                             Icons.arrow_drop_down,
-                                            color: ColorManager.mediumgrey,
+                                            color: Colors.transparent,
+                                            // color: ColorManager.mediumgrey,
                                           ),
                                         ],
                                       ),
@@ -1938,8 +1944,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                                       context: context,
                                                       initialDate:
                                                       DateTime.now(),
-                                                      firstDate: DateTime(2000),
-                                                      lastDate: DateTime(3101),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
                                                     );
                                                     if (pickedDate != null) {
                                                       dateController
@@ -2048,7 +2054,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                           ),
                                           Icon(
                                             Icons.arrow_drop_down,
-                                            color: ColorManager.mediumgrey,
+                                            color: Colors.transparent,
+                                            // color: ColorManager.mediumgrey,
                                           ),
                                         ],
                                       ),
@@ -2194,8 +2201,10 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                                       context: context,
                                                       initialDate:
                                                       DateTime.now(),
-                                                      firstDate: DateTime(2000),
-                                                      lastDate: DateTime(3101),
+                                                      // firstDate: DateTime(2000),
+                                                      // lastDate: DateTime(3101),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
                                                     );
                                                     if (pickedDate != null) {
                                                       dateController
