@@ -734,6 +734,9 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 IconButton(
+                                                    splashColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                    hoverColor: Colors.transparent,
                                                     onPressed: () {
                                                       showDialog(
                                                           context: context,
@@ -932,6 +935,9 @@ class _HRTabScreensState extends State<HRTabScreens> {
 
                                                 ///delete
                                                 IconButton(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
                                                   onPressed: () async {
                                                     await showDialog(
                                                         context: context,

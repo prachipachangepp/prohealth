@@ -188,7 +188,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                               ),
                                               Icon(
                                                 Icons.arrow_drop_down,
-                                                color: ColorManager.mediumgrey,
+                                                color: Colors.transparent,
                                               ),
                                             ],
                                           ),
@@ -423,7 +423,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                   DateTime? pickedDate = await showDatePicker(
                                                     context: context,
                                                     initialDate: DateTime.now(),
-                                                    firstDate: DateTime(2000),
+                                                    firstDate: DateTime(1901),
                                                     lastDate: DateTime(3101),
                                                   );
                                                   if (pickedDate != null) {
@@ -713,7 +713,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                                 ),
                                                                                 Icon(
                                                                                   Icons.arrow_drop_down,
-                                                                                  color: ColorManager.mediumgrey,
+                                                                                  color: Colors.transparent,
                                                                                 ),
                                                                               ],
                                                                             ),
@@ -829,7 +829,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                                                     DateTime? pickedDate = await showDatePicker(
                                                                                       context: context,
                                                                                       initialDate: DateTime.now(),
-                                                                                      firstDate: DateTime(2000),
+                                                                                      firstDate: DateTime(1901),
                                                                                       lastDate: DateTime(3101),
                                                                                     );
                                                                                     if (pickedDate != null) {
@@ -863,8 +863,16 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                       size: 18,
                                                       color: ColorManager.bluebottom,
                                                     ),
+                                                    splashColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                    hoverColor: Colors.transparent,
                                                   ),
-                                                  IconButton(onPressed: (){
+                                                  IconButton(
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+
+                                                      onPressed: (){
                                                     showDialog(context: context, builder: (context) => DeletePopup(
                                                         title: 'Delete Policies Procedure',
                                                         onCancel: (){

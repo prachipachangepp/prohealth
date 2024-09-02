@@ -484,6 +484,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                 MainAxisAlignment.center,
                                                 children: [
                                                   IconButton(
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                       onPressed: () {
                                                         showDialog(
                                                             context: context,
@@ -669,6 +672,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                     width: 3,
                                                   ),
                                                   IconButton(
+                                                    splashColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                    hoverColor: Colors.transparent,
                                                     onPressed: () {
                                                       showDialog(context: context,
                                                           builder: (context) => DeletePopup(

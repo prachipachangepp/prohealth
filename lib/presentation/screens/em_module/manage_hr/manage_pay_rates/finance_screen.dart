@@ -571,6 +571,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                   MainAxisAlignment.center,
                                                   children: [
                                                     IconButton(
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                       onPressed: () {
                                                         showDialog(
                                                           context: context,
@@ -709,6 +712,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                       ),
                                                     ),
                                                     IconButton(
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,
