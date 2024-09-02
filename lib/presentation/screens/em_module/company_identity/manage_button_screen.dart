@@ -126,8 +126,8 @@ class _ManageWidgetState extends State<ManageWidget> {
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.mediumgrey,
-                        decoration: TextDecoration
-                            .underline, // Remove underline from the text
+                        // decoration: TextDecoration
+                        //     .underline, // Remove underline from the text
                       ),
                     ),
                   ],

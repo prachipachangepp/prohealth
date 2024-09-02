@@ -269,6 +269,128 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
     );
   }
 }
+/////////////////////////////////////////
+///prajwal
+class CICCDropDownExcel extends StatefulWidget {
+  final double? width;
+  final List<DropdownMenuItem<String>> items;
+  final String? initialValue;
+  final Function(String)? onChange;
+  final bool? isEnabled;
+
+  const CICCDropDownExcel({
+    Key? key,
+    required this.items,
+    this.width,
+    this.initialValue,
+    this.onChange, String? hintText, this.isEnabled,
+  }) : super(key: key);
+
+  @override
+  _CIDetailsDropDownState createState() => _CIDetailsDropDownState();
+}
+
+class _CIDetailsDropDownState extends State<CICCDropDownExcel> {
+  String? _selectedValue;
+  GlobalKey _dropdownKey = GlobalKey();
+  List items = [];
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.initialValue;
+  }
+
+  void _showCustomDropdown() async {
+    final RenderBox renderBox =
+    _dropdownKey.currentContext!.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+
+    final result = await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromLTRB(
+          offset.dx, offset.dy + size.height, offset.dx + size.width, 0),
+      items: widget.items.map((DropdownMenuItem<String> item) {
+        return PopupMenuItem<String>(
+          textStyle: CustomTextStylesCommon.commonStyle(
+            fontWeight: FontWeightManager.medium,
+            fontSize: FontSize.s12,
+            color: ColorManager.mediumgrey,
+          ),
+          value: item.value,
+          child: Container(
+            width: size.width - 16,
+
+            ///minus padding/margin
+            child: Text(item.value ?? ''),
+          ),
+        );
+      }).toList(),
+      color: ColorManager.white,
+    );
+
+    if (result != null) {
+      setState(() {
+        _selectedValue = result;
+        widget.onChange!(result);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: _showCustomDropdown,
+          child: Container(
+            key: _dropdownKey,
+            width: widget.width == null ? 354 : widget.width,
+            height: 30,
+            decoration: BoxDecoration(
+              border: Border.all(
+                  color: ColorManager.containerBorderGrey, width: AppSize.s1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: AppSize.s8),
+                Expanded(
+                  child: Text(
+                    _selectedValue ?? '',
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.medium,
+                      color: ColorManager.mediumgrey,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(Icons.arrow_drop_down),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+
+
+
+//////////////////////////////////////////////////
+
+
+
+
+
+
 
 ///edit popup
 class CCScreenEditPopup extends StatefulWidget {

@@ -568,7 +568,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               text: AppStringEM.officename,
                             ),
                             const SizedBox(height: AppSize.s10),
-                            SMTextFConst(
+                            SMTextFConstPhone(
                               controller: secNumberController,
                               keyboardType: TextInputType.number,
                               text: AppStringEM.secNum,
@@ -584,13 +584,13 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SMTextFConst(
+                            SMTextFConstPhone(
                               controller: primNumController,
                               keyboardType: TextInputType.number,
                               text: AppStringEM.primNum,
                             ),
                             const SizedBox(height: AppSize.s10),
-                            SMTextFConst(
+                            SMTextFConstPhone(
                               controller: altNumController,
                               keyboardType: TextInputType.number,
                               text: AppStringEM.alternatephone,

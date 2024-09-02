@@ -463,7 +463,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                                        ),
                                                                         Icon(
                                                                           Icons.arrow_drop_down,
-                                                                          color: ColorManager.mediumgrey,
+                                                                          color: Colors.transparent,
                                                                         ),
                                                                       ],
                                                                     ),
@@ -553,8 +553,8 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                                                   DateTime? pickedDate = await showDatePicker(
                                                                                     context: context,
                                                                                     initialDate: DateTime.now(),
-                                                                                    firstDate: DateTime(2000),
-                                                                                    lastDate: DateTime(3101),
+                                                                                    firstDate: DateTime(1900),
+                                                                                    lastDate: DateTime(2101),
                                                                                   );
                                                                                   if (pickedDate != null) {
                                                                                     dateController.text = DateFormat('MM-dd-yyyy').format(pickedDate);
