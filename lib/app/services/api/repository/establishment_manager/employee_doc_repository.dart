@@ -20,6 +20,7 @@ Future<ApiData> editEmployeeDocTypeSetupId(
     String docName,
     String expiry,
     String reminderThreshold,
+    String idOfDocument,
     int employeeDoctypeSetupId,
     int employeeDocTypeMetaDataId
 
@@ -34,7 +35,9 @@ Future<ApiData> editEmployeeDocTypeSetupId(
       "Expiry": expiry,
       "ReminderThreshold": reminderThreshold,
       "EmployeeDocumentTypeMetaDataId": employeeDocTypeMetaDataId,
+      "idOfDocument": idOfDocument ?? "--",
     });
+    print('Patch Emp doc ::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employee Doc type Updated");
       return ApiData(

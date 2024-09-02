@@ -770,23 +770,11 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                     onSavePressed: () async {
                                                                       await AllFromHrPatch(
                                                                           context,
-                                                                          snapshot
-                                                                              .data!
-                                                                              .empTypeId,
-                                                                          doceEditMetaId,
-                                                                          type == typeController.text
-                                                                              ? type
-                                                                                  .toString()
-                                                                              : typeController
-                                                                                  .text,
-                                                                          shorthand == shorthandController.text
-                                                                              ? shorthand
-                                                                                  .toString()
-                                                                              : shorthandController
-                                                                                  .text,
-                                                                          splitHexColor == hrcontainerColors[index]
-                                                                              ? splitHexColor
-                                                                              : color);
+                                                                          snapshot.data!.empTypeId,
+                                                                          snapshot.data!.deptId,
+                                                                          type == typeController.text ? type.toString() : typeController.text,
+                                                                          shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
+                                                                          splitHexColor == hrcontainerColors[index] ? splitHexColor : color);
                                                                       getAllHrDeptWise(context, widget.deptId).then((data) {
                                                                         _hrAllcontroller.add(data);
                                                                       }).catchError((error) {});
@@ -812,78 +800,122 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                                       });
                                                                     },
                                                                     title: 'Edit Employee Type',
-                                                                    child: FutureBuilder<List<HRHeadBar>>(
-                                                                        future: companyHRHeadApi(
-                                                                            context,
-                                                                            widget
-                                                                                .deptId),
-                                                                        builder:
-                                                                            (context,
-                                                                                snapshot) {
-                                                                          if (snapshot.connectionState ==
-                                                                              ConnectionState.waiting) {
-                                                                            return Container(
-                                                                              width: 300,
-                                                                              child: Text(
-                                                                                'Loading...',
-                                                                                style: CustomTextStylesCommon.commonStyle(
-                                                                                  fontWeight: FontWeightManager.medium,
-                                                                                  fontSize: FontSize.s12,
-                                                                                  color: ColorManager.mediumgrey,
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          }
-                                                                          if (snapshot
-                                                                              .data!
-                                                                              .isEmpty) {
-                                                                            return Center(
-                                                                              child: Text(
-                                                                                AppString.dataNotFound,
-                                                                                style: CustomTextStylesCommon.commonStyle(
-                                                                                  fontWeight: FontWeightManager.medium,
-                                                                                  fontSize: FontSize.s12,
-                                                                                  color: ColorManager.mediumgrey,
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          }
-                                                                          if (snapshot
-                                                                              .hasData) {
-                                                                            List
-                                                                                dropDown =
-                                                                                [];
-                                                                            int docType =
-                                                                                0;
-                                                                            List<DropdownMenuItem<String>>
-                                                                                dropDownMenuItems =
-                                                                                [];
-                                                                            for (var i
-                                                                                in snapshot.data!) {
-                                                                              dropDownMenuItems.add(
-                                                                                DropdownMenuItem<String>(
-                                                                                  child: Text(i.deptName),
-                                                                                  value: i.deptName,
-                                                                                ),
-                                                                              );
-                                                                            }
-                                                                            return CICCDropdown(
-                                                                                initialValue: dropDownMenuItems[0].value,
-                                                                                onChange: (val) {
-                                                                                  for (var a in snapshot.data!) {
-                                                                                    if (a.deptName == val) {
-                                                                                      docType = a.deptId;
-                                                                                      doceEditMetaId = docType;
-                                                                                    }
-                                                                                  }
-                                                                                  print(":::${docType}");
-                                                                                  print(":::<>${doceEditMetaId}");
-                                                                                },
-                                                                                items: dropDownMenuItems);
-                                                                          } else {
-                                                                            return SizedBox();
-                                                                          }
-                                                                        }),
+                                                                    child: Container(
+                                                                      width: 354,
+                                                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                                                      decoration: BoxDecoration(
+                                                                        color: ColorManager.white,
+                                                                        borderRadius: BorderRadius.circular(8),
+                                                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                                                      ),
+                                                                      child: Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          snapshot.data!.deptId == AppConfig.clinicalId
+                                                                              ? Text(
+                                                                            'Clinical',
+                                                                            style: CustomTextStylesCommon.commonStyle(
+                                                                              fontWeight: FontWeightManager.medium,
+                                                                              fontSize: FontSize.s12,
+                                                                              color: ColorManager.mediumgrey,
+                                                                            ),
+                                                                          )
+                                                                              : snapshot.data!.deptId == AppConfig.salesId
+                                                                              ? Text(
+                                                                            "Sales",
+                                                                            style: CustomTextStylesCommon.commonStyle(
+                                                                              fontWeight: FontWeightManager.medium,
+                                                                              fontSize: FontSize.s12,
+                                                                              color: ColorManager.mediumgrey,
+                                                                            ),
+                                                                          )
+                                                                              :  Text(
+                                                                            'Administration',
+                                                                            style: CustomTextStylesCommon.commonStyle(
+                                                                              fontWeight: FontWeightManager.medium,
+                                                                              fontSize: FontSize.s12,
+                                                                              color: ColorManager.mediumgrey,
+                                                                            ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.arrow_drop_down,
+                                                                            color: ColorManager.mediumgrey,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    // FutureBuilder<List<HRHeadBar>>(
+                                                                    //     future: companyHRHeadApi(
+                                                                    //         context,
+                                                                    //         widget
+                                                                    //             .deptId),
+                                                                    //     builder:
+                                                                    //         (context,
+                                                                    //             snapshot) {
+                                                                    //       if (snapshot.connectionState ==
+                                                                    //           ConnectionState.waiting) {
+                                                                    //         return Container(
+                                                                    //           width: 300,
+                                                                    //           child: Text(
+                                                                    //             'Loading...',
+                                                                    //             style: CustomTextStylesCommon.commonStyle(
+                                                                    //               fontWeight: FontWeightManager.medium,
+                                                                    //               fontSize: FontSize.s12,
+                                                                    //               color: ColorManager.mediumgrey,
+                                                                    //             ),
+                                                                    //           ),
+                                                                    //         );
+                                                                    //       }
+                                                                    //       if (snapshot
+                                                                    //           .data!
+                                                                    //           .isEmpty) {
+                                                                    //         return Center(
+                                                                    //           child: Text(
+                                                                    //             AppString.dataNotFound,
+                                                                    //             style: CustomTextStylesCommon.commonStyle(
+                                                                    //               fontWeight: FontWeightManager.medium,
+                                                                    //               fontSize: FontSize.s12,
+                                                                    //               color: ColorManager.mediumgrey,
+                                                                    //             ),
+                                                                    //           ),
+                                                                    //         );
+                                                                    //       }
+                                                                    //       if (snapshot
+                                                                    //           .hasData) {
+                                                                    //         List
+                                                                    //             dropDown =
+                                                                    //             [];
+                                                                    //         int docType =
+                                                                    //             0;
+                                                                    //         List<DropdownMenuItem<String>>
+                                                                    //             dropDownMenuItems =
+                                                                    //             [];
+                                                                    //         for (var i
+                                                                    //             in snapshot.data!) {
+                                                                    //           dropDownMenuItems.add(
+                                                                    //             DropdownMenuItem<String>(
+                                                                    //               child: Text(i.deptName),
+                                                                    //               value: i.deptName,
+                                                                    //             ),
+                                                                    //           );
+                                                                    //         }
+                                                                    //         return CICCDropdown(
+                                                                    //             initialValue: dropDownMenuItems[0].value,
+                                                                    //             onChange: (val) {
+                                                                    //               for (var a in snapshot.data!) {
+                                                                    //                 if (a.deptName == val) {
+                                                                    //                   docType = a.deptId;
+                                                                    //                   doceEditMetaId = docType;
+                                                                    //                 }
+                                                                    //               }
+                                                                    //               print(":::${docType}");
+                                                                    //               print(":::<>${doceEditMetaId}");
+                                                                    //             },
+                                                                    //             items: dropDownMenuItems);
+                                                                    //       } else {
+                                                                    //         return SizedBox();
+                                                                    //       }
+                                                                    //     }),
                                                                   );
                                                                 });
                                                           });

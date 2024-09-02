@@ -33,8 +33,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body  : Column(
+    return  Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -380,10 +379,36 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
                 return const SizedBox();
               }),
         ],
-      ),
+
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class TerminatePopup extends StatefulWidget {
   final int employeeId;
@@ -425,64 +450,64 @@ class _TerminatePopupState extends State<TerminatePopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Dialog(
-        backgroundColor: Colors.transparent,
-        child: Container(
-          width: 800,
-          height: 600,
-          // width: MediaQuery.of(context).size.width / 1,
-          // height: MediaQuery.of(context).size.height / 1,
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(children: [
-            Container(
-              height: 50,
-              decoration: const BoxDecoration(
-                color: Color(0xff50B5E5),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 15),
-                    child: Text(
-                      "Terminate",
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s14,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        width: 800,
+        height: 600,
+        // width: MediaQuery.of(context).size.width / 1,
+        // height: MediaQuery.of(context).size.height / 1,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(children: [
+          Container(
+            height: 50,
+            decoration: const BoxDecoration(
+              color: Color(0xff50B5E5),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
               ),
             ),
-            Row(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15, horizontal: 15),
+                  child: Text(
+                    "Terminate",
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s14,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Material(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                     " Name",
+                     "Name",
                       style: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
@@ -756,8 +781,8 @@ class _TerminatePopupState extends State<TerminatePopup> {
                 SizedBox(
                   width: 20,
                 ),
-
-
+                
+                
                 // SizedBox(
                 //   height: MediaQuery.of(context).size.width / 50,
                 // ),
@@ -968,45 +993,48 @@ class _TerminatePopupState extends State<TerminatePopup> {
                 ),
               ],
             ),
-            SizedBox(height:10),
-            Row(
-              children: [
-                CustomButtonTransparent(
-                  text: AppString.cancel,
-                  onPressed: () async {
-                    Navigator.pop(context);
-                  },
-                ),
-                CustomElevatedButton(
-                  width: AppSize.s100,
-                  text: "Terminate",
-                  onPressed: () async {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        Future.delayed(
-                          const Duration(seconds: 3),
-                              () {
-                            if (Navigator.of(context).canPop()) {
-                              Navigator.of(context).pop();
-                            }
-                          },
-                        );
-                        return const AddSuccessPopup(
-                          message: 'Added Successfully',
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
-            )
-        
-          ]
-        
-            )
-            ),
-      ),
+          ),
+          SizedBox(height:10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButtonTransparent(
+                text: AppString.cancel,
+                onPressed: () async {
+                  Navigator.pop(context);
+                },
+              ),
+    
+              SizedBox(width:25),
+              CustomElevatedButton(
+                width: AppSize.s100,
+                text: "Terminate",
+                onPressed: () async {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      Future.delayed(
+                        const Duration(seconds: 3),
+                            () {
+                          if (Navigator.of(context).canPop()) {
+                            Navigator.of(context).pop();
+                          }
+                        },
+                      );
+                      return const AddSuccessPopup(
+                        message: 'Added Successfully',
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
+          )
+    
+        ]
+    
+          )
+          ),
     );
   }
 }

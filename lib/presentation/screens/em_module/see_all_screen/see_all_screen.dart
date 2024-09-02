@@ -243,7 +243,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 90.0),
+                            padding: const EdgeInsets.only(left: 65.0),
                             child: Text(
                               "User ID",
                               style: GoogleFonts.firaSans(
@@ -256,7 +256,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 70.0),
+                            padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
                               AppString.fname,
                               style: GoogleFonts.firaSans(
@@ -269,7 +269,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 60.0),
+                            padding: const EdgeInsets.only(right: 40.0),
                             child: Text(
                               AppString.lname,
                               textAlign: TextAlign.start,
@@ -282,29 +282,23 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         ),
                         Expanded(
                           flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 70.0),
-                            child: Text(
-                              AppString.role,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
-                            ),
+                          child: Text(
+                            AppString.role,
+                            style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeightManager.bold,
+                                color: ColorManager.white),
                           ),
                         ),
                         Expanded(
                           flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 60.0),
-                            child: Text(
-                              AppString.email,
-                              textAlign: TextAlign.start,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.white),
-                            ),
+                          child: Text(
+                            AppString.email,
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeightManager.bold,
+                                color: ColorManager.white),
                           ),
                         ),
                         // Expanded(
@@ -324,7 +318,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
+                            padding: const EdgeInsets.only(left: 40.0),
                             child: Text(
                               AppString.actions,
                               textAlign: TextAlign.start,
@@ -346,6 +340,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
               child: StreamBuilder<List<UserModal>>(
                 stream: _companyUsersList.stream,
                 builder: (BuildContext context, snapshot) {
+
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
@@ -458,34 +453,40 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           ),
                                           Expanded(
                                             flex: 1,
-                                            child: Text(
-                                              user.lastName,
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                    FontWeightManager.bold,
-                                                color: ColorManager.granitegray,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Text(
-                                              user.role,
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: FontSize.s10,
-                                                fontWeight:
-                                                    FontWeightManager.bold,
-                                                color: ColorManager.granitegray,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 20.0),
+                                              child: Text(
+                                                user.lastName,
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight:
+                                                      FontWeightManager.bold,
+                                                  color: ColorManager.granitegray,
+                                                ),
                                               ),
                                             ),
                                           ),
                                           Expanded(
                                             flex: 1,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(right: 60.0),
+                                              padding: const EdgeInsets.only(left: 50.0),
+                                              child: Text(
+                                                user.role,
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight:
+                                                      FontWeightManager.bold,
+                                                  color: ColorManager.granitegray,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left:100.0),
                                               child: Text(
                                                 user.email,
                                                 textAlign: TextAlign.start,

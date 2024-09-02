@@ -12,7 +12,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 import '../../../../../../app/resources/theme_manager.dart';
 
 class EmpDocEditPopup extends StatefulWidget {
-  final TextEditingController idDocController;
+  final TextEditingController idOfDocController;
   final TextEditingController nameDocController;
   final TextEditingController calenderController;
   final Future<void> Function() onSavePredded;
@@ -28,7 +28,7 @@ class EmpDocEditPopup extends StatefulWidget {
   EmpDocEditPopup({
     Key? key,
     this.enable,
-    required this.idDocController,
+    required this.idOfDocController,
     required this.nameDocController,
     required this.child,
     required this.child2,
@@ -53,7 +53,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
 
   void _validateFields() {
     setState(() {
-      _idError = widget.idDocController.text.isEmpty ? 'Please Enter ID of Document' : null;
+      _idError = widget.idOfDocController.text.isEmpty ? 'Please Enter ID of Document' : null;
       _nameError = widget.nameDocController.text.isEmpty ? 'Please Enter Name of thr Document ' : null;
     });
   }
@@ -64,7 +64,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s460,
+        height: AppSize.s480,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -104,6 +104,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 ],
               ),
             ),
+            SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -118,14 +119,14 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                     children: [
                       SMTextFConst(
                         enable: widget.enable == false ? true : widget.enable,
-                        controller: widget.idDocController,
+                        controller: widget.idOfDocController,
                         keyboardType: TextInputType.text,
                         text: 'ID of the Document',
                       ),
                       if (_idError != null)
                         Text(
                           _idError!,
-                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          style: TextStyle(color: Colors.red, fontSize: 10),
                         ),
                     ],
                   ),
