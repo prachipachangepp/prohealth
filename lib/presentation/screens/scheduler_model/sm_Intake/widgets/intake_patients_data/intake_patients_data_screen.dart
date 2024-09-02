@@ -95,7 +95,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  int patientId = 0;
+  int patientId = 1;
 
   String? statustype;
   String? selectedStatus;
