@@ -252,12 +252,11 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
 
     if (startTimeError == null && endTimeError == null) {
       // If no errors, proceed with the onPressed action
-      widget.onPressed().whenComplete(() {
+      widget.onPressed();
         setState(() {
           isLoading = false;
         });
         Navigator.pop(context);
-      });
     } else {
       setState(() {
         isLoading = false;
@@ -271,7 +270,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s267,
+        height: AppSize.s300,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -372,7 +371,6 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                         isLoading = true;
                       });
                       _validateAndSubmit();
-                      Navigator.pop(context);
                     }
                 ),
               ),

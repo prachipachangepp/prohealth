@@ -280,6 +280,9 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     IconButton(
+                                                      splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,
@@ -329,6 +332,9 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                           color: ColorManager.blueprime,
                                                         )),
                                                     IconButton(
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,

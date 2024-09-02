@@ -92,6 +92,7 @@ dependencies:
   mask_text_input_formatter: ^2.9.0
   html: any
   geolocator: any
+  google_geocoding_api: any
 
 
 #  riverpod: ^2.5.1

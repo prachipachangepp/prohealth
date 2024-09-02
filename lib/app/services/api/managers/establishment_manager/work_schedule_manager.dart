@@ -198,6 +198,12 @@ Future<List<DefineHolidayData>> holidaysListGet(BuildContext context) async {
             companyId: item['companyId']));
       }
       print("Response::::::${itemsData}");
+      itemsData.sort((a, b) {
+        DateTime dateA = DateFormat('dd MMM yyyy').parse(a.date);
+        DateTime dateB = DateFormat('dd MMM yyyy').parse(b.date);
+        return dateB.compareTo(dateA); // Reverse the comparison for descending order
+      });
+
     } else {
       print("Holidays Api Data Error");
     }
