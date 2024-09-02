@@ -11,7 +11,7 @@ import app_links
 import device_info_plus
 import file_selector_macos
 import geolocator_apple
-import open_file
+import open_file_mac
 import package_info_plus
 import path_provider_foundation
 import printing

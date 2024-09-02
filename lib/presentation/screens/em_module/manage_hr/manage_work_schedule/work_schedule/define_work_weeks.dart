@@ -37,6 +37,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
   final StreamController<List<WorkWeekShiftScheduleData>>
       workWeekShiftController =
       StreamController<List<WorkWeekShiftScheduleData>>();
+  final StreamController<List<ShiftBachesData>>
+  batchStreamController =
+  StreamController<List<ShiftBachesData>>();
   @override
   void initState() {
     super.initState();
@@ -46,6 +49,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
       // Handle error
     });
   }
+
 
   // Future<void> reloadBatch(String shiftName, String weekName) async{
   //   List<ShiftBachesData> shiftBachesData = await  shiftBatchesGet(context,shiftName,weekName);
@@ -117,7 +121,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                         child: Text(
                                           data.weekDays,
                                           style: GoogleFonts.firaSans(
-                                            fontSize: mediaQuery.width / 90,
+                                            fontSize: 15,
                                             fontWeight: FontWeight.w600,
                                             color: ColorManager.white,
                                             decoration: TextDecoration.none,
@@ -152,7 +156,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                   'Office Start Time',
                                                   style: GoogleFonts.firaSans(
                                                     fontSize:
-                                                        mediaQuery.width / 110,
+                                                        13,
                                                     fontWeight: FontWeight.w600,
                                                     color: ColorManager.mediumgrey,
                                                     decoration:
@@ -166,7 +170,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                   'Office End Time',
                                                   style: GoogleFonts.firaSans(
                                                     fontSize:
-                                                        mediaQuery.width / 110,
+                                                        13,
                                                     fontWeight: FontWeight.w600,
                                                     color: ColorManager.mediumgrey,
                                                     decoration:
@@ -219,9 +223,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                   .officeStartTime,
                                                               style: GoogleFonts
                                                                   .firaSans(
-                                                                fontSize: mediaQuery
-                                                                        .width /
-                                                                    115,
+                                                                fontSize: 13,
                                                                 fontWeight:
                                                                     FontWeightManager
                                                                         .semiBold,
@@ -264,9 +266,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                   .officeEndTime,
                                                               style: GoogleFonts
                                                                   .firaSans(
-                                                                fontSize: mediaQuery
-                                                                        .width /
-                                                                    115,
+                                                                fontSize: 13,
                                                                 fontWeight:
                                                                     FontWeightManager
                                                                         .semiBold,
@@ -399,7 +399,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                   FontWeightManager
                                                                       .medium,
                                                               fontSize:
-                                                                  FontSize.s10,
+                                                                  FontSize.s13,
                                                               color: ColorManager
                                                                   .mediumgrey),
                                                         ));
@@ -474,7 +474,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                 child: Text(
                                                                                                   snapshot.data![index].officeStartTime,
                                                                                                   style: GoogleFonts.firaSans(
-                                                                                                    fontSize: mediaQuery.width / 115,
+                                                                                                    fontSize: 12,
                                                                                                     fontWeight: FontWeightManager.semiBold,
                                                                                                     color: ColorManager.mediumgrey,
                                                                                                     decoration: TextDecoration.none,
@@ -498,7 +498,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                           child: Text(
                                                                                             'Batches more',
                                                                                             style: GoogleFonts.firaSans(
-                                                                                              fontSize: mediaQuery.width / 115,
+                                                                                              fontSize: 12,
                                                                                               fontWeight: FontWeightManager.light,
                                                                                               color: ColorManager.faintgrey,
                                                                                               decoration: TextDecoration.none,
@@ -530,6 +530,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                               await addShiftBatch(context, snapshotShift.data![index].shiftName,
                                                                                                   snapshotShift
                                                                                                       .data![index].weekDays, startTimeController.text, endTimeController.text);
+                                                                                              setState((){
+                                                                                                shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays);
+                                                                                              });
                                                                                               startTimeController.clear();
                                                                                               endTimeController.clear();
                                                                                               //Navigator.pop(context);

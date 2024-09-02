@@ -1,13 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'dart:convert';
-import 'dart:html' as html;
-
+import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:http/http.dart' as http;
 
 //
@@ -300,24 +298,6 @@ import 'package:http/http.dart' as http;
 //
 //
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class BottomBarRow extends StatefulWidget {
   const BottomBarRow({super.key});
 
@@ -334,12 +314,15 @@ class _BottomBarRowState extends State<BottomBarRow> {
 
   bool _isFetchingIp = true;
   Future<Map<String, double>?>? _geolocationFuture;
+ late Future<String> _stateFuture;
 
   @override
   void initState() {
     super.initState();
     _fetchIPAddress();
-   //getLocation();
+    _stateFuture = getCurrentLocation();
+    //getCurrentLocation();
+    // getLocation();
    // _geolocationFuture = _getGeolocation(); // Initialize geolocation fetching
   }
 
@@ -370,18 +353,82 @@ class _BottomBarRowState extends State<BottomBarRow> {
 
 
 
-  // Future getLocation() async {
-  //   var response = await http.get(Uri.parse("http://ip-api.com/json/${ip}"));
-  //   var jsonpares = json.decode(response.body);
-  //   localresponse=jsonpares;
-  //   print(jsonpares);
-  // }
-  //
-  // getDirectLocation() async{
-  //   await _fetchIPAddress();getLocation();
-  // }
-  //
-  // Future<Map<String, double>?> _getGeolocation() async {
+  Future getLocation() async {
+    var response = await http.get(Uri.parse("http://ip-api.com/json/${ip}"));
+    var jsonpares = json.decode(response.body);
+    localresponse=jsonpares;
+    print(jsonpares);
+  }
+
+  getDirectLocation() async{
+    await _fetchIPAddress();getLocation();
+  }
+
+  /// Fetch live geo Location
+ Future<String> getStateFromLatLng(double latitude, double longitude) async {
+   try {
+     // Initialize the GoogleGeocodingApi with the API key
+     final googleGeocodingApi = GoogleGeocodingApi(AppConfig.googleApiKey);
+
+     // Perform reverse geocoding
+     final geocodingResponse = await googleGeocodingApi.reverse(
+       "${latitude.toString()}, ${longitude.toString()}",
+     );
+
+     if (geocodingResponse != null && geocodingResponse.results.isNotEmpty) {
+       for (var result in geocodingResponse.results) {
+         for (var component in result.addressComponents) {
+           if (component.types.contains('administrative_area_level_2')) {
+             print('Name : ${component.longName}');
+             return component.longName; // State name
+           }
+         }
+       }
+       return 'State not found in the response.';
+     } else {
+       return 'No address found for the provided coordinates.';
+     }
+   } catch (e) {
+     print('Error occurred while fetching the state: $e');
+     return 'Error: ${e.toString()}';
+   }
+ }
+ Future<String> getCurrentLocation() async {
+   bool serviceEnabled;
+   LocationPermission permission;
+
+   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+   if (!serviceEnabled) {
+     return Future.error('Location services are disabled.');
+   }
+
+   permission = await Geolocator.checkPermission();
+   if (permission == LocationPermission.denied) {
+     permission = await Geolocator.requestPermission();
+     if (permission == LocationPermission.denied) {
+       return Future.error('Location permissions are denied');
+     }
+   }
+
+   if (permission == LocationPermission.deniedForever) {
+     return Future.error(
+         'Location permissions are permanently denied, we cannot request permissions.');
+   }
+
+   // Get the current position
+   Position position = await Geolocator.getCurrentPosition(
+       desiredAccuracy: LocationAccuracy.high
+   );
+
+   print('Current location: ${position.latitude}, ${position.longitude}');
+
+   // Get the address from the current position
+   print('Position : ${position}');
+   return await getStateFromLatLng(position.latitude,position.longitude);
+ }
+
+
+ // Future<Map<String, double>?> _getGeolocation() async {
   //   final completer = Completer<Map<String, double>>();
   //
   //   void successCallback(html.Geoposition position) {
@@ -403,7 +450,7 @@ class _BottomBarRowState extends State<BottomBarRow> {
   //
   //   if (html.window.navigator.geolocation != null) {
   //     html.window.navigator.geolocation
-  //         .getCurrentPosition(successCallback, errorCallback);
+  //         .getCurrentPosition(successCallback, errorCallback,);
   //
   //   } else {
   //     completer.completeError('Geolocation is not supported');
@@ -438,69 +485,57 @@ class _BottomBarRowState extends State<BottomBarRow> {
             /// IP + Geolocation
             Row(
               children: [
-                Text(
-                  '--',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12, // FontSize.s12 or a constant value
-                    fontWeight: FontWeight.normal,
-                    color: Colors.grey, // ColorManager.grey or a color constant
-                    decoration: TextDecoration.none,
-                  ),
+                FutureBuilder(
+                  future: _stateFuture,
+                  builder: (context, geoSnapshot) {
+                    if (geoSnapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return Text(
+                        'Loading location...',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                          decoration: TextDecoration.none,
+                        ),
+                      );
+                    }  if (geoSnapshot.hasError) {
+                      return Text(
+                        'Error fetching location',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                          decoration: TextDecoration.none,
+                        ),
+                      );
+                    }  if (geoSnapshot.hasData) {
+                      // final location = geoSnapshot.data!;
+                      return Text(
+                        geoSnapshot.data ?? 'No location data',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                          decoration: TextDecoration.none,
+                        ),
+                      );
+                    } else {
+                      return Text(
+                        'No location data',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                          decoration: TextDecoration.none,
+                        ),
+                      );
+                    }
+                  },
                 ),
                 SizedBox(
                   width: AppSize.s30,
                 ),
-               // // Text("${localresponse["country"]}"),
-               //  FutureBuilder<Map<String, double>?>(
-               //    future: _geolocationFuture,
-               //    builder: (context, geoSnapshot) {
-               //      if (geoSnapshot.connectionState ==
-               //          ConnectionState.waiting) {
-               //        return Text(
-               //          'Loading location...',
-               //          style: GoogleFonts.firaSans(
-               //            fontSize: 12,
-               //            fontWeight: FontWeight.bold,
-               //            color: Colors.grey[800],
-               //            decoration: TextDecoration.none,
-               //          ),
-               //        );
-               //      } else if (geoSnapshot.hasError) {
-               //        return Text(
-               //          'Error fetching location',
-               //          style: GoogleFonts.firaSans(
-               //            fontSize: 12,
-               //            fontWeight: FontWeight.bold,
-               //            color: Colors.grey[800],
-               //            decoration: TextDecoration.none,
-               //          ),
-               //        );
-               //      } else if (geoSnapshot.hasData) {
-               //        final location = geoSnapshot.data!;
-               //        return Text(
-               //          //_location ?? 'no location',
-               //        'Lat: ${location['latitude']?.toStringAsFixed(2)}, Lon: ${location['longitude']?.toStringAsFixed(2)}',
-               //          style: GoogleFonts.firaSans(
-               //            fontSize: 12,
-               //            fontWeight: FontWeight.bold,
-               //            color: Colors.grey[800],
-               //            decoration: TextDecoration.none,
-               //          ),
-               //        );
-               //      } else {
-               //        return Text(
-               //          'No location data',
-               //          style: GoogleFonts.firaSans(
-               //            fontSize: 12,
-               //            fontWeight: FontWeight.bold,
-               //            color: Colors.grey[800],
-               //            decoration: TextDecoration.none,
-               //          ),
-               //        );
-               //      }
-               //    },
-               //  ),
-               //  SizedBox(width: 10), // AppSize.s10 or a constant value
                 _isFetchingIp
                     ? Text(
                         'Loading IP...',

@@ -1,15 +1,16 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_geocoding_api/google_geocoding_api.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/hr_home_screen.dart';
 import 'package:prohealth/presentation/screens/login_module/login/login_screen.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/sm_desktop_screen.dart';
-
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
@@ -19,8 +20,6 @@ import '../../../widgets/widgets/login_screen/widgets/child_container_constant_l
 import '../../em_module/responsive_screen_em.dart';
 import '../../scheduler_model/widgets/responsive_screen_sm.dart';
 import 'dart:convert';
-import 'dart:html' as html;
-
 import 'package:http/http.dart' as http;
 import 'dart:async';
 class HomeScreenWeb extends StatefulWidget {
@@ -34,11 +33,12 @@ class HomeScreenWeb extends StatefulWidget {
 }
 
 class _HomeScreenWebState extends State<HomeScreenWeb> {
-
+  late Future<String> _stateFuture;
   @override
   void initState() {
     super.initState();
     _fetchIPAddress();
+    _stateFuture = getCurrentLocation();
     //getLocation();
     // _geolocationFuture = _getGeolocation(); // Initialize geolocation fetching
   }
@@ -70,6 +70,71 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
       });
     }
 
+  }
+  Future<String> getStateFromLatLng(double latitude, double longitude) async {
+    try {
+      // Initialize the GoogleGeocodingApi with the API key
+      final googleGeocodingApi = GoogleGeocodingApi(AppConfig.googleApiKey);
+
+      // Perform reverse geocoding
+      final geocodingResponse = await googleGeocodingApi.reverse(
+        "${latitude.toString()}, ${longitude.toString()}",
+      );
+
+      if (geocodingResponse != null && geocodingResponse.results.isNotEmpty) {
+        for (var result in geocodingResponse.results) {
+          for (var component in result.addressComponents) {
+            if (component.types.contains('administrative_area_level_2')) {
+              print('Name : ${component.longName}');
+              return component.longName; // State name
+            }
+          }
+        }
+        return 'State not found in the response.';
+      } else {
+        return 'No address found for the provided coordinates.';
+      }
+    } catch (e) {
+      print('Error occurred while fetching the state: $e');
+      return 'Error: ${e.toString()}';
+    }
+  }
+
+
+
+
+  Future<String> getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // Get the current position
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high
+    );
+
+    print('Current location: ${position.latitude}, ${position.longitude}');
+
+    // Get the address from the current position
+    print('Position : ${position}');
+    return await getStateFromLatLng(position.latitude,position.longitude);
   }
 
 
@@ -360,14 +425,53 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                   ),
                    Row(
                     children: [
-                      Text(
-                        '--',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                          decoration: TextDecoration.none,
-                        ),
+                      FutureBuilder(
+                        future: _stateFuture,
+                        builder: (context, geoSnapshot) {
+                          if (geoSnapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text(
+                              'Loading location...',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[800],
+                                decoration: TextDecoration.none,
+                              ),
+                            );
+                          }  if (geoSnapshot.hasError) {
+                            return Text(
+                              'Error fetching location',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[800],
+                                decoration: TextDecoration.none,
+                              ),
+                            );
+                          }  if (geoSnapshot.hasData) {
+                            // final location = geoSnapshot.data!;
+                            return Text(
+                              geoSnapshot.data ?? 'No location data',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[800],
+                                decoration: TextDecoration.none,
+                              ),
+                            );
+                          } else {
+                            return Text(
+                              'No location data',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[800],
+                                decoration: TextDecoration.none,
+                              ),
+                            );
+                          }
+                        },
                       ),
                       SizedBox(
                         width: 50,

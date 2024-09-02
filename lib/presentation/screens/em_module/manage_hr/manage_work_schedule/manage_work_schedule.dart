@@ -92,7 +92,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15,top: 50),
+            padding: const EdgeInsets.only(left: 15,top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -160,20 +160,6 @@ class _WorkScheduleState extends State<WorkSchedule> {
                         offset: Offset(0, -4),
                       ),]
                   ),),
-                // widget.selectedIndex == 0 ? Offstage():   Positioned(
-                //   right: 40,
-                //   // top: 20,
-                //   child: CustomIconButtonConst(
-                //       icon: Icons.add,
-                //       text: "Add New Holiday", onPressed: (){
-                //     showDialog(context: context, builder: (BuildContext context){
-                //       return AddHolidayPopup(controller: holidayNameController, onPressed: () async{
-                //         await addHolidaysPost(context, holidayNameController.text, calenderController.text, 2024, 11);
-                //         holidaysListGet(context);
-                //       }, calenderDateController: calenderController,);
-                //     });
-                //   }),
-                // ),
                 Padding(
                 padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 45,right: MediaQuery.of(context).size.width / 45,
                 ),
