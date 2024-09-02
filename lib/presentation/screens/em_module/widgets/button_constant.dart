@@ -28,7 +28,7 @@ class CustomButtonTransparentSM extends StatelessWidget {
             style: GoogleFonts.firaSans(
               fontSize: 10,
               fontWeight: FontWeight.w700,
-              color: Color(0xFFF6928A),
+              color: ColorManager.blueprime//Color(0xFFF6928A),
             ),
           ),
           style: ElevatedButton.styleFrom(
@@ -36,7 +36,7 @@ class CustomButtonTransparentSM extends StatelessWidget {
             backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
-              side: BorderSide(color: Color(0xFFF6928A)),
+              side: BorderSide(color: ColorManager.blueprime),
             ),
           ),
         ),

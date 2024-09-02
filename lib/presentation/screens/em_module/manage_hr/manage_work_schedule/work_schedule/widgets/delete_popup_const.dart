@@ -78,7 +78,7 @@ class _DeletePopupState extends State<DeletePopup> {
               ),
               child: Row(
                 children: [
-                  Text('Do you really want to delete ?',
+                  Text('Do you really want to delete?',
                     style:CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.semiBold,
                       fontSize: FontSize.s12,
