@@ -85,7 +85,7 @@ class _CiCorporateComplianceScreenState
             children: [
               Container(
                 //color: Colors.greenAccent,
-                padding: EdgeInsets.only(top: 5),
+                padding: EdgeInsets.only(top: AppPadding.p8),
                 width: MediaQuery.of(context).size.width / 1.7,
                 height: AppSize.s50,
                 child: Row(

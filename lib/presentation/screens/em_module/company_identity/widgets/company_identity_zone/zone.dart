@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
@@ -241,6 +242,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                     right: MediaQuery.of(context).size.width / 6),
                 child: Container(
                   //color: Colors.greenAccent,
+                  padding: EdgeInsets.only(top: AppPadding.p10),
                   width: MediaQuery.of(context).size.width / 5.5,
                   height: 40,
                   child: Row(

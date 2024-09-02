@@ -10,6 +10,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
+
 class AddEmployeementPopup extends StatefulWidget {
   final TextEditingController positionTitleController;
   final TextEditingController leavingResonController;
@@ -73,7 +74,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.5,
-        height: MediaQuery.of(context).size.height / 1.8,
+        height: MediaQuery.of(context).size.height / 1.6,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -254,12 +255,12 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextFieldRegister(
-         phoneNumberField:  errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber' ? true : false,
+          phoneNumberField: errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber' ? true : false,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
           labelText: labelText,
-          keyboardType: TextInputType.number, // Ensure the keyboard type is numeric
+          keyboardType: TextInputType.text, // Ensure the keyboard type is text except for phone fields
           padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
           suffixIcon: suffixIcon,
           onTap: onTap,
@@ -267,93 +268,76 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
             setState(() {
               // General validation for empty fields
               errorStates[errorKey] = value.isEmpty;
-
-              // Specific validation for mobile number fields to ensure exactly 10 digits
-              // if (errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') {
-              //   errorStates[errorKey] = value.length != 10;
-              // }
             });
           },
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return AppString.enterText;
+              return 'Please fill this field';
             }
-            // Specific validation for mobile number fields to ensure exactly 10 digits
-            // if ((errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber') && value.length != 10) {
-            //   return 'Mobile number must be exactly 10 digits';
-            // }
             return null;
           },
         ),
-        //if (errorStates[errorKey]!)
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 5),
-          //   child: Text(
-          //     errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber'
-          //         ? 'Mobile number must be exactly 10 digits'
-          //         : 'Please enter $labelText',
-          //     style: TextStyle(color: Colors.red, fontSize: 10),
-          //   ),
-          // ),
+        if (errorStates[errorKey] == true)
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0),
+            child: Text(
+              'Please fill this field',
+              style: TextStyle(color: Colors.red, fontSize: 12),
+            ),
+          ),
       ],
     );
   }
 
-  Future<void> _selectDate(TextEditingController controller, DateTime initialDate) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-
-    if (pickedDate != null) {
-      setState(() {
-        controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
-      });
-    }
-  }
-
-  void _handleSave() async {
+  void _handleSave() {
     setState(() {
       isLoading = true;
-      errorStates['positionTitle'] = widget.positionTitleController.text.isEmpty;
-      errorStates['leavingReason'] = widget.leavingResonController.text.isEmpty;
-      errorStates['startDate'] = widget.startDateContoller.text.isEmpty;
-      errorStates['endDate'] = widget.endDateController.text.isEmpty;
-      errorStates['lastSupervisorName'] = widget.lastSupervisorNameController.text.isEmpty;
-     // errorStates['supervisorMobileNumber'] = widget.supervisorMobileNumber.text.length != 10;
-      errorStates['cityName'] = widget.cityNameController.text.isEmpty;
-      errorStates['employer'] = widget.employeerController.text.isEmpty;
-     // errorStates['emergencyMobileNumber'] = widget.emergencyMobileNumber.text.length != 10;
-      errorStates['countryname'] = widget.countryController.text.isEmpty;
     });
 
-    if (!errorStates.values.contains(true)) {
-      try {
-        await widget.onpressedSave();
-      } finally {
-        setState(() {
-          isLoading = false;
-        });
-        Navigator.pop(context);
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            Future.delayed(Duration(seconds: 3), () {
-              if (Navigator.of(context).canPop()) {
-                Navigator.of(context).pop();
-              }
-            });
-            return AddSuccessPopup(message: 'Added Successfully',);
-          },
-        );
-        _clearControllers();
+    bool hasError = false;
+    errorStates.forEach((key, value) {
+      if (key != 'supervisorMobileNumber' && key != 'emergencyMobileNumber') {
+        errorStates[key] = controllerByErrorKey(key).text.isEmpty;
+        if (errorStates[key] == true) {
+          hasError = true;
+        }
       }
-    } else {
+    });
+
+    if (hasError) {
       setState(() {
         isLoading = false;
       });
+      return;
+    }
+
+    widget.onpressedSave();
+  }
+
+  TextEditingController controllerByErrorKey(String errorKey) {
+    switch (errorKey) {
+      case 'positionTitle':
+        return widget.positionTitleController;
+      case 'leavingReason':
+        return widget.leavingResonController;
+      case 'startDate':
+        return widget.startDateContoller;
+      case 'endDate':
+        return widget.endDateController;
+      case 'lastSupervisorName':
+        return widget.lastSupervisorNameController;
+      case 'supervisorMobileNumber':
+        return widget.supervisorMobileNumber;
+      case 'cityName':
+        return widget.cityNameController;
+      case 'employer':
+        return widget.employeerController;
+      case 'emergencyMobileNumber':
+        return widget.emergencyMobileNumber;
+      case 'countryname':
+        return widget.countryController;
+      default:
+        return TextEditingController();
     }
   }
 
@@ -368,5 +352,20 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     widget.employeerController.clear();
     widget.emergencyMobileNumber.clear();
     widget.countryController.clear();
+  }
+
+  Future<void> _selectDate(TextEditingController controller, DateTime selectedDate) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1970),
+      lastDate: DateTime(2050),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        controller.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+      });
+    }
   }
 }

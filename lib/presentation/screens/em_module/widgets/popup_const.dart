@@ -156,7 +156,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     labelText: 'Role',
                     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
                     labelFontSize: 12,
-                    items: ['Admin', 'Staff', 'User'],
+                    items: ['Admin', 'Sales', 'Clinician'],
                   ),
                 ),
                 Padding(
