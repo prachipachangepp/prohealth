@@ -238,7 +238,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                         child: AppClickableWidget(
                                           onTap: () async{
                                             //const url = "http://localhost:52425/#/home";
-                                             const url = "https://staging.symmetry.care/demo/#/home";
+                                             const url = "https://staging.symmetry.care/#/home";
                                             if (await canLaunch(url)) {
                                             await launch(url);
                                             //    Navigator.push(

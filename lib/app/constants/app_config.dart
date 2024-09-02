@@ -5,7 +5,7 @@ class AppConfig {
   // static const String dev =  "https://demoapp.symmetry.care";
   static const String dev = "https://resource.symmetry.care";
   static const String demo = "https://demoapp.symmetry.care";
-static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
+  static const googleApiKey = "AIzaSyCw6mXOPCtbKn5i0bWcAcnfXCkb0y5G7Lg";
 
   static const String local = "";
   static const String prod = "";
