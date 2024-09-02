@@ -221,7 +221,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                        return StatefulBuilder(
                          builder: (BuildContext context, void Function(void Function()) setState) {
                            return AddOrgDocButton(
-                             title: "Add Corporate Compliance",
+                             title: "Add Corporate & Compliance",
                              calenderController: calenderController,
                              idDocController: docIdController,
                              nameDocController: docNamecontroller,
@@ -320,7 +320,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                          ),
                                          Icon(
                                            Icons.arrow_drop_down,
-                                           color: ColorManager.mediumgrey,
+                                           color: Colors.transparent,
                                          ),
                                        ],
                                      ),
@@ -348,7 +348,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                    }
 
                                    // Return the CICCDropdown with "Select Sub Document" as the initial value
-                                   return CICCDropdown(
+                                   return CICCDropDownExcel(
                                      initialValue: "Select Sub Document",
                                      onChange: (val) {
                                        if (val != "Select Sub Document") {
@@ -493,8 +493,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                              final date = await showDatePicker(
                                                context: context,
                                                initialDate: DateTime.now(),
-                                               firstDate: DateTime(2023),
-                                               lastDate: DateTime(2100),
+                                               firstDate: DateTime(1901),
+                                               lastDate: DateTime(3101),
                                              );
                                              calenderController.text = date != null ? DateFormat('MM-dd-yyyy').format(date) : '';
                                            },
@@ -636,7 +636,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                          ),
                                          Icon(
                                            Icons.arrow_drop_down,
-                                           color: ColorManager.mediumgrey,
+                                           color: Colors.transparent,
                                          ),
                                        ],
                                      ),
@@ -665,7 +665,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                    }
 
                                    // Return the CICCDropdown with "Select Sub Document" as the initial value
-                                   return CICCDropdown(
+                                   return CICCDropDownExcel(
                                      initialValue: "Select Sub Document",
                                      onChange: (val) {
                                        if (val != "Select Sub Document") {
@@ -811,8 +811,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                              final date = await showDatePicker(
                                                context: context,
                                                initialDate: DateTime.now(),
-                                               firstDate: DateTime(2023),
-                                               lastDate: DateTime(2100),
+                                               firstDate: DateTime(1901),
+                                               lastDate: DateTime(3101),
                                              );
                                              calenderController.text = date != null ? DateFormat('MM-dd-yyyy').format(date) : '';
                                            },
@@ -968,7 +968,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                            ),
                                            Icon(
                                              Icons.arrow_drop_down,
-                                             color: ColorManager.mediumgrey,
+                                             color: Colors.transparent,
                                            ),
                                          ],
                                        ),
@@ -1114,7 +1114,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                await showDatePicker(
                                                  context: context,
                                                  initialDate: DateTime.now(),
-                                                 firstDate: DateTime(2000),
+                                                 firstDate: DateTime(1901),
                                                  lastDate: DateTime(3101),
                                                );
                                                if (pickedDate != null) {

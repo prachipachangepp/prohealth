@@ -189,9 +189,11 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                   );
                 }
                 if (snapshot.hasData) {
+
                   int totalItems = snapshot.data!.length;
                   int totalPages = (totalItems / itemsPerPage).ceil();
                   List<DefineHolidayData> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                  //paginatedData.sort((a, b) => b.date.compareTo(a.date));
 
                   return Column(
                     children: [
@@ -200,9 +202,12 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                             scrollDirection: Axis.vertical,
                             itemCount: paginatedData.length,
                             itemBuilder: (context, index) {
+                              //paginatedData.sort((a, b) => b.date.compareTo(a.date));
                               int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                               String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
                               DefineHolidayData defineData = paginatedData[index];
+                             // paginatedData.sort((a, b) => b.date.compareTo(a.date));
+
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -279,8 +284,8 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    IconButton(
-                                                        onPressed: () {
+                                                    InkWell(
+                                                        onTap: () {
                                                           showDialog(
                                                               context: context,
                                                               builder: (BuildContext
@@ -323,13 +328,15 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                 );
                                                               });
                                                         },
-                                                        icon: Icon(
+                                                        child: Icon(
                                                           Icons.edit_outlined,
                                                           size: 18,
                                                           color: ColorManager.blueprime,
                                                         )),
-                                                    IconButton(
-                                                        onPressed: () {
+
+                                                    SizedBox(width: 10,),
+                                                    InkWell(
+                                                        onTap: () {
                                                           showDialog(
                                                               context: context,
                                                               builder: (context) =>
@@ -372,7 +379,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
 
                                                                   ));
                                                         },
-                                                        icon: Icon(
+                                                        child: Icon(
                                                           Icons.delete_outline,
                                                           size: 18,
                                                           color: ColorManager.red,

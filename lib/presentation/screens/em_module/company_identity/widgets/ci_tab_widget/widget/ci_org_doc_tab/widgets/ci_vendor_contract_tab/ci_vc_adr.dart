@@ -418,7 +418,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                                                           ),
                                                                           Icon(
                                                                             Icons.arrow_drop_down,
-                                                                            color: ColorManager.mediumgrey,
+                                                                            color: Colors.transparent,
                                                                           ),
                                                                         ],
                                                                       ),
@@ -498,7 +498,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                                                           ),
                                                                           Icon(
                                                                             Icons.arrow_drop_down,
-                                                                            color: ColorManager.mediumgrey,
+                                                                            color: Colors.transparent,
                                                                           ),
                                                                         ],
                                                                       ),
@@ -614,7 +614,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                                                               DateTime? pickedDate = await showDatePicker(
                                                                                 context: context,
                                                                                 initialDate: DateTime.now(),
-                                                                                firstDate: DateTime(2000),
+                                                                                firstDate: DateTime(1901),
                                                                                 lastDate: DateTime(3101),
                                                                               );
                                                                               if (pickedDate != null) {

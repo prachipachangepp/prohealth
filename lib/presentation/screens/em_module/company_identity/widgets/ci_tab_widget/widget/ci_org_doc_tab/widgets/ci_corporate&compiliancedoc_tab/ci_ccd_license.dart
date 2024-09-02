@@ -452,7 +452,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                                           ),
                                                                           Icon(
                                                                             Icons.arrow_drop_down,
-                                                                            color: ColorManager.mediumgrey,
+                                                                            color: Colors.transparent,
                                                                           ),
                                                                         ],
                                                                       ),
@@ -531,7 +531,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                                           ),
                                                                           Icon(
                                                                             Icons.arrow_drop_down,
-                                                                            color: ColorManager.mediumgrey,
+                                                                            color: Colors.transparent,
                                                                           ),
                                                                         ],
                                                                       ),
@@ -651,7 +651,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                                               DateTime? pickedDate = await showDatePicker(
                                                                                 context: context,
                                                                                 initialDate: DateTime.now(),
-                                                                                firstDate: DateTime(2000),
+                                                                                firstDate: DateTime(1901),
                                                                                 lastDate: DateTime(3101),
                                                                               );
                                                                               if (pickedDate != null) {
