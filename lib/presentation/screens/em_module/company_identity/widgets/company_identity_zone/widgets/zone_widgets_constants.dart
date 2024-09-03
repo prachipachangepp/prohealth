@@ -589,10 +589,6 @@ class AddZipCodePopup extends StatefulWidget {
 
 class _AddZipCodePopupState extends State<AddZipCodePopup> {
   bool isLoading = false;
-  // double? _latitude;
-  // double? _longitude;
-
-  // String? _location;
 
 
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
@@ -633,11 +629,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
       print('No location was picked.');
     }
   }
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _location = widget.location; // Initialize with the passed location
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -769,30 +761,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                           ),
                         ],
                       ),
-                      // Text(
-                      //   widget._location, // This will display 'Select Lat/Long' initially, then update to the selected coordinates.
-                      //   style: GoogleFonts.firaSans(
-                      //     fontSize: 12.0,
-                      //     fontWeight: FontWeight.w400,
-                      //     color: Colors.black,
-                      //   ),
-                      // ),
-                      // Text(
-                      //   widget.location,
-                      //   textAlign: TextAlign.start,
-                      //   style: GoogleFonts.firaSans(
-                      //     fontSize: FontSize.s12,
-                      //     fontWeight: FontWeightManager.regular,
-                      //     color: ColorManager.black,
-                      //   ),
-                      // ),
 
-                  // Text(
-                  //   _location ?? 'No location selected', // Display the location
-                  //   style: TextStyle(
-                  //     fontSize: 16,
-                  //     color: Colors.black,
-                  //   ),),
                       Text(
                         _location,
                         style: GoogleFonts.firaSans(
@@ -871,7 +840,7 @@ class EditZipCodePopup extends StatefulWidget {
   final Widget? child;
   final Widget? child1;
   final Future<void> Function() onSavePressed;
-  final VoidCallback? onPickLocation;
+  // final VoidCallback? onPickLocation;
   EditZipCodePopup({
     super.key,
     required this.title,
@@ -883,7 +852,7 @@ class EditZipCodePopup extends StatefulWidget {
     required this.onSavePressed,
     required this.cityNameController,
     this.child1,
-    this.onPickLocation,
+    // this.onPickLocation,
   });
 
   @override
@@ -892,6 +861,45 @@ class EditZipCodePopup extends StatefulWidget {
 
 class _EditZipCodePopupState extends State<EditZipCodePopup> {
   bool isLoading = false;
+
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  String _location = 'Lat/Long not selected'; // Default text
+  double? _latitude;
+  double? _longitude;
+
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) => MapScreen(
+          initialLocation: _selectedLocation,
+          onLocationPicked: (location) {
+            // Print debug information to ensure this is being called
+            print('Picked location inside MapScreen: $location');
+            setState(() {
+              _latitude = location.latitude;
+              _longitude = location.longitude;
+              _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+              //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+            });
+          },
+        ),
+      ),
+    );
+
+    if (pickedLocation != null) {
+      // Print debug information to ensure this is being reached
+      print('Picked location from Navigator: $pickedLocation');
+      setState(() {
+        _selectedLocation = pickedLocation;
+        _latitude = pickedLocation.latitude;
+        _longitude = pickedLocation.longitude;
+        _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+        //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+      });
+    } else {
+      print('No location was picked.');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -1001,11 +1009,11 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                       Row(
                         children: [
                           TextButton(
-                            onPressed: widget.onPickLocation,
+                            onPressed: _pickLocation,
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.transparent),
                             child: Text(
-                              'Change Location',
+                              'Pick Location',
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s12,
                                 fontWeight: FontWeightManager.bold,
@@ -1020,6 +1028,14 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             size: AppSize.s18,
                           ),
                         ],
+                      ),
+
+                      Text(
+                        _location,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          color: ColorManager.granitegray,
+                        ),
                       ),
                       SizedBox(height: AppSize.s15),
                       SMTextFConst(
