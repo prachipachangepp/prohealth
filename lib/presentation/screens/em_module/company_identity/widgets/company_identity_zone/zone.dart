@@ -214,21 +214,26 @@ class _CiOrgDocumentState extends State<CiZone> {
                               ),
                             );
                           }
-                          return CICCDropdown(
-                              initialValue: dropDownTypesList[0].value,
-                              onChange: (val) {
-                                for (var a in snapshotZone.data!) {
-                                  if (a.countyName == val) {
-                                    docType = a.countyId;
-                                    print("County id :: ${a.companyId}");
-                                    countySortId = docType;
-                                    _selectButton(1);
-                                  }
-                                }
-                                print(":::${docType}");
-                                print(":::<>${countySortId}");
-                              },
-                              items: dropDownTypesList);
+                          countySortId = snapshotZone.data![0].countyId;
+                          return StatefulBuilder(
+                            builder: (BuildContext context, void Function(void Function()) setState) {
+                              return  CICCDropdown(
+                                  initialValue: dropDownTypesList[0].value,
+                                  onChange: (val) {
+                                    for (var a in snapshotZone.data!) {
+                                      if (a.countyName == val) {
+                                        docType = a.countyId;
+                                        print("County id :: ${a.companyId}");
+                                        countySortId = docType;
+                                        _selectButton(1);
+                                      }
+                                    }
+                                    print(":::${docType}");
+                                    print(":::<>${countySortId}");
+                                  },
+                                  items: dropDownTypesList);
+                            },
+                          );
                         }
                         return const SizedBox();
                       })
@@ -443,6 +448,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                 ),
                                               );
                                             }
+                                            countyId = snapshotZone.data![0].countyId;
+                                            print('County Id : ${countyId}');
                                             return CICCDropdown(
                                                 initialValue:
                                                     dropDownTypesList[0].value,

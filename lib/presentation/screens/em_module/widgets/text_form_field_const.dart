@@ -750,7 +750,7 @@ class EditTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextFormField(
-            readOnly: false,
+            readOnly: true,
             autofocus: true,
             controller: controller,
             keyboardType: keyboardType,
@@ -824,7 +824,7 @@ class EditTextFieldPhone extends StatelessWidget {
             inputFormatters: [
               PhoneNumberInputFormatter(),
             ],
-            readOnly: false,
+            readOnly: true,
             autofocus: true,
             controller: controller,
             keyboardType: keyboardType,
