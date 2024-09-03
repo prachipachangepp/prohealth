@@ -1262,8 +1262,6 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          AppString.country,
                         Text(AppString.county,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,

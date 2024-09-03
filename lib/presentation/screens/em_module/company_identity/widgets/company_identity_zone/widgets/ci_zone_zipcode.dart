@@ -52,7 +52,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
       currentPage = pageNumber;
     });
   }
-  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194);
   String _location = 'Lat/Long not selected'; // Default text
   void _pickLocation() async {
     final pickedLocation = await Navigator.of(context).push<LatLng>(

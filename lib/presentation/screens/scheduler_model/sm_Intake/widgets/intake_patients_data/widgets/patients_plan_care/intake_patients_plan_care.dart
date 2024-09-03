@@ -335,25 +335,6 @@ class _IntakePlanCareScreenState extends State<IntakePlanCareScreen> {
   @override
   void initState() {
     super.initState();
-    addInitialWeek();
-  }
-
-  void addInitialWeek() {
-    setState(() {
-      containers.add({
-        'clinician': '',
-        'weeks': [{'week': 'Week 1', 'visits': ''}],
-      });
-    });
-  }
-
-  void addWeek(int index) {
-    setState(() {
-      containers[index]['weeks'].add({
-        'week': 'Week ${containers[index]['weeks'].length + 1}',
-        'visits': '',
-      });
-    });
   }
 
   Future<void> _showAddClinicianDialog() async {
@@ -423,6 +404,15 @@ class _IntakePlanCareScreenState extends State<IntakePlanCareScreen> {
         );
       },
     );
+  }
+
+  void addWeek(int index) {
+    setState(() {
+      containers[index]['weeks'].add({
+        'week': 'Week ${containers[index]['weeks'].length + 1}',
+        'visits': '',
+      });
+    });
   }
 
   @override
@@ -618,6 +608,310 @@ class ContainerWidget extends StatelessWidget {
   }
 }
 
+
+
+
+
+///old
+// class IntakePlanCareScreen extends StatefulWidget {
+//   final int patientId;
+//
+//   const IntakePlanCareScreen({super.key, required this.patientId});
+//
+//   @override
+//   State<IntakePlanCareScreen> createState() => _IntakePlanCareScreenState();
+// }
+//
+// class _IntakePlanCareScreenState extends State<IntakePlanCareScreen> {
+//   List<Map<String, dynamic>> containers = [];
+//   String? _selectedClinician;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     addInitialWeek();
+//   }
+//
+//   void addInitialWeek() {
+//     setState(() {
+//       containers.add({
+//         'clinician': '',
+//         'weeks': [{'week': 'Week 1', 'visits': ''}],
+//       });
+//     });
+//   }
+//
+//   void addWeek(int index) {
+//     setState(() {
+//       containers[index]['weeks'].add({
+//         'week': 'Week ${containers[index]['weeks'].length + 1}',
+//         'visits': '',
+//       });
+//     });
+//   }
+//
+//   Future<void> _showAddClinicianDialog() async {
+//     final deptId = AppConfig.clinicalId;
+//     await showDialog(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return StatefulBuilder(
+//           builder: (context, setState) {
+//             return AddClinicianPopup(
+//               title: 'Add Clinician',
+//               child: FutureBuilder<List<HRAllData>>(
+//                 future: getAllHrDeptWise(context, deptId),
+//                 builder: (context, snapshot) {
+//                   if (snapshot.connectionState == ConnectionState.waiting) {
+//                     return CustomDropDown(
+//                       labelText: 'Select Clinician',
+//                       labelStyle: GoogleFonts.firaSans(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.bold,
+//                         color: Colors.black,
+//                       ),
+//                       items: ['Loading...'],
+//                     );
+//                   } else if (snapshot.hasError) {
+//                     return Text('Error: ${snapshot.error}');
+//                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+//                     return Text('No data available');
+//                   } else {
+//                     List<String> abbreviations = snapshot.data!
+//                         .map((data) => data.abbrivation)
+//                         .where((abbr) => abbr != null)
+//                         .cast<String>()
+//                         .toSet()
+//                         .toList();
+//                     return CustomDropDown(
+//                       labelText: 'Select Clinician',
+//                       labelStyle: GoogleFonts.firaSans(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.bold,
+//                         color: Colors.black,
+//                       ),
+//                       items: abbreviations,
+//                       onChanged: (value) {
+//                         setState(() {
+//                           _selectedClinician = value;
+//                         });
+//                       },
+//                     );
+//                   }
+//                 },
+//               ),
+//               buttonTitle: 'Submit',
+//               onPressed: () {
+//                 if (_selectedClinician != null) {
+//                   setState(() {
+//                     containers.add({
+//                       'clinician': _selectedClinician!,
+//                       'weeks': [{'week': 'Week 1', 'visits': ''}],
+//                     });
+//                   });
+//                   Navigator.pop(context);
+//                 }
+//               },
+//             );
+//           },
+//         );
+//       },
+//     );
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: ColorManager.white,
+//       body: Consumer<ContainerProvider>(
+//         builder: (context, containerProvider, child) {
+//           return SingleChildScrollView(
+//             child: Column(
+//               children: [
+//                 SizedBox(height: 20),
+//                 Padding(
+//                   padding: const EdgeInsets.only(right: 40.0),
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.end,
+//                     children: [
+//                       Text(
+//                         'Completed',
+//                         style: GoogleFonts.firaSans(
+//                           decoration: TextDecoration.none,
+//                           fontSize: AppSize.s12,
+//                           fontWeight: FontWeight.w700,
+//                           color: Color(0xff008000),
+//                         ),
+//                       ),
+//                       SizedBox(width: MediaQuery.of(context).size.width / 60),
+//                       Container(
+//                         height: 32,
+//                         width: 128,
+//                         child: ElevatedButton.icon(
+//                           onPressed: _showAddClinicianDialog,
+//                           icon: Icon(Icons.add, color: Colors.white, size: 20),
+//                           label: Text(
+//                             'Add Clinician',
+//                             style: GoogleFonts.firaSans(
+//                               color: Colors.white,
+//                               fontSize: 12,
+//                               fontWeight: FontWeight.w700,
+//                             ),
+//                           ),
+//                           style: ElevatedButton.styleFrom(
+//                             backgroundColor: Color(0xFF50B5E5),
+//                             shape: RoundedRectangleBorder(
+//                               borderRadius: BorderRadius.circular(12),
+//                             ),
+//                             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(height: 20),
+//                 Wrap(
+//                   spacing: 16.0,
+//                   runSpacing: 16.0,
+//                   children: containers.asMap().entries.map((entry) {
+//                     int index = entry.key;
+//                     var container = entry.value;
+//                     return Container(
+//                       width: 240,
+//                       child: Padding(
+//                         padding: const EdgeInsets.only(bottom: 20.0),
+//                         child: ContainerWidget(
+//                           clinician: container['clinician'],
+//                           weeks: container['weeks'],
+//                           onAddWeek: () => addWeek(index),
+//                         ),
+//                       ),
+//                     );
+//                   }).toList(),
+//                 ),
+//               ],
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+//
+// class ContainerWidget extends StatelessWidget {
+//   final String? clinician;
+//   final List<Map<String, String>> weeks;
+//   final VoidCallback onAddWeek;
+//
+//   const ContainerWidget({
+//     Key? key,
+//     required this.clinician,
+//     required this.weeks,
+//     required this.onAddWeek,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 246,
+//       width: 295,
+//       padding: EdgeInsets.all(20),
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.circular(10),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.grey.withOpacity(0.5),
+//             spreadRadius: 0,
+//             blurRadius: 10,
+//             offset: Offset(0, 5),
+//           ),
+//         ],
+//       ),
+//       child: Column(
+//         children: [
+//           Row(
+//             children: [
+//               Text(
+//                 clinician ?? 'Select a Clinician',
+//                 style: TextStyle(
+//                   fontSize: 12,
+//                   fontWeight: FontWeight.w600,
+//                   color: Color(0xff686464),
+//                 ),
+//               ),
+//             ],
+//           ),
+//           SizedBox(height: 20),
+//           Expanded(
+//             child: ListView.builder(
+//               itemCount: weeks.length,
+//               itemBuilder: (context, index) {
+//                 final week = weeks[index];
+//                 return Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Row(
+//                       children: [
+//                         Text(
+//                           week['week']!,
+//                           style: TextStyle(
+//                             fontSize: 10,
+//                             fontWeight: FontWeight.w600,
+//                             color: Color(0xff686464),
+//                           ),
+//                         ),
+//                         SizedBox(width: 50),
+//                         Flexible(
+//                           child: PlanOfCareTextField(
+//                             labelText: 'Visits',
+//                             initialValue: week['visits']!,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                     SizedBox(height: 20),
+//                   ],
+//                 );
+//               },
+//             ),
+//           ),
+//           SizedBox(height: 20),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Container(
+//                 height: 32,
+//                 width: 112,
+//                 child: ElevatedButton.icon(
+//                   onPressed: onAddWeek,
+//                   icon: Icon(Icons.add, color: Colors.white, size: 20),
+//                   label: Text(
+//                     'Add Week',
+//                     style: GoogleFonts.firaSans(
+//                       color: Colors.white,
+//                       fontSize: 12,
+//                       fontWeight: FontWeight.w700,
+//                     ),
+//                   ),
+//                   style: ElevatedButton.styleFrom(
+//                     backgroundColor: Color(0xFF50B5E5),
+//                     shape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(12),
+//                     ),
+//                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+//
 
 class Week {
   final String weekNumber;
@@ -1203,7 +1497,7 @@ class PlanOfCareTextField extends StatelessWidget {
 //     );
 //   }
 // }
-///add clinician button old
+///add clinician button old available
 //     Container(
 //       height: 32,
 //       width: 128,
