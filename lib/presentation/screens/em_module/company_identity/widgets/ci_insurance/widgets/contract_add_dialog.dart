@@ -42,6 +42,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
+
           children: [
             Container(
               height: 40,
