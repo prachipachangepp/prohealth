@@ -91,7 +91,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SMTextFConst(
+                  FirstSMTextFConst(
                     controller: widget.contractNmaeController,
                     keyboardType: TextInputType.text,
                     text: 'Contract Name',
