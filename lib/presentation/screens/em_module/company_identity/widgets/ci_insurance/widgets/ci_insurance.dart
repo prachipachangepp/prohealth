@@ -105,7 +105,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         height: 30,
                         width: 354,
                         child: Text(
-                          "Loading data....... ",
+                          "Loading data.... ",
                           style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeightManager.medium,
                             fontSize: FontSize.s12,
@@ -115,27 +115,8 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                       );
                     }
                     if (snapshotZone.data!.isEmpty) {
-                      return CICCDropdown(items: [],initialValue: 'No data available',);
+                      return CICCDropdown(items: [],initialValue: 'No available vendors !!',);
                     }
-
-
-                    // if (snapshotZone.data!.isEmpty) {
-                    //   return Container(
-                    //     height: 30,
-                    //     width: 354,
-                    //     child: Center(
-                    //       child: Text(
-                    //         AppString.dataNotFound,
-                    //         style: CustomTextStylesCommon.commonStyle(
-                    //           fontWeight: FontWeightManager.medium,
-                    //           fontSize: FontSize.s12,
-                    //           color: ColorManager.mediumgrey,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   );
-                    // }
-
                     if (snapshotZone.hasData) {
                       List<DropdownMenuItem<String>> dropDownTypesList = [];
                       for (var i in snapshotZone.data!) {

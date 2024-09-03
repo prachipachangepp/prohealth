@@ -131,7 +131,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                         child: Text(
-                      AppString.dataNotFound,
+                      "No available vendors !!",
                       style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

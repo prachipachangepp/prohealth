@@ -17,16 +17,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.height / 99),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          /// green blue container
-          // ProfileBar(searchByEmployeeIdProfileData: widget.searchByEmployeeIdProfileData,),
-          SizedBox(
-            height: AppSize.s5,
-          ),
-        ]),
-      ),
+      body: Center(child: Container(child:Image.asset('images/HRDASHBOARD.png',fit: BoxFit.cover,))),
     );
   }
 }

@@ -86,7 +86,7 @@ class _CICCADRState extends State<CICCADR> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        AppString.dataNotFound,
+                        "No available ADR !!",
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

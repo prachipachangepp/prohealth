@@ -92,7 +92,7 @@ class _CiMdState extends State<CiMd> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        AppString.dataNotFound,
+                        "No available MD !!",
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

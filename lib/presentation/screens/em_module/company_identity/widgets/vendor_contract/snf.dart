@@ -89,7 +89,7 @@ class _CiSnfState extends State<CiSnf> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        AppString.dataNotFound,
+                        "No available SNF !!",
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

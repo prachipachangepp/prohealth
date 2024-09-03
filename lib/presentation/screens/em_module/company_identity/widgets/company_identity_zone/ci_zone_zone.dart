@@ -153,7 +153,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    AppString.dataNotFound,
+                    "No available zones !!",
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,

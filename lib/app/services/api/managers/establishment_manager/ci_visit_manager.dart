@@ -151,6 +151,12 @@ Future<ApiData> addVisitPost(BuildContext context,
 Future<ApiData> updateVisitPatch(BuildContext context, int typeVisist,String visitType, List<int> eligibleClinical) async {
   try {
     final companyId = await TokenManager.getCompanyId();
+    var dymmyData = {
+      'typeOfVisit':visitType,
+      'companyId':companyId,
+      'employeeTypeId':eligibleClinical
+    };
+    print("Updated pre data ${dymmyData}");
     var response = await Api(context).patch(path: EstablishmentManagerRepository.updateCiVisit(typeVisit: typeVisist), data: {
       'typeOfVisit':visitType,
       'companyId':companyId,
