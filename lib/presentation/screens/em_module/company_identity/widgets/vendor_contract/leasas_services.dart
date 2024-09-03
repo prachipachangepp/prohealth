@@ -101,7 +101,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No available leasas & services !!",
+                        "No available leases & services !!",
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

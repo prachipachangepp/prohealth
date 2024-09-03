@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,7 +48,7 @@ class _CustomDialogState extends State<CustomDialog> {
   void _generatePassword() {
     final random = Random();
     final characters =
-        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#\$%^&*+';
     String password = '';
     for (int i = 0; i < 8; i++) {
       password += characters[
@@ -61,6 +62,16 @@ class _CustomDialogState extends State<CustomDialog> {
     });
   }
 
+
+  void _copyToClipboard() {
+    final text = widget.passwordController.text;
+    if (text.isNotEmpty) {
+      Clipboard.setData(ClipboardData(text: text));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Copied to clipboard')),
+      );
+    }
+  }
 
 
   @override
@@ -205,6 +216,32 @@ class _CustomDialogState extends State<CustomDialog> {
                     errorText: 'Email is required',
                   ),
                 ),
+                //suffixIcon: Icon(Icons.copy,size: 15,color: ColorManager.mediumgrey,),
+
+                // Container(
+                //   width: 300,
+                //   child: Row(
+                //     children: [
+                //       HRManageTextFieldEmail(
+                //         width: 20,
+                //         controller: widget.passwordController,
+                //         keyboardType: TextInputType.text,
+                //         text: "Password",
+                //         cursorHeight: 12,
+                //         labelText: "Password",
+                //         labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                //         labelFontSize: 12,
+                //         errorText: 'Password is required',
+                //       ),
+                //       IconButton(
+                //         icon: Icon(Icons.copy, size: 15, color: Colors.grey),
+                //         onPressed: _copyToClipboard,
+                //       ),
+                //     ],
+                //   ),
+                // ),
+
+
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: HRManageTextFieldEmail(
@@ -217,8 +254,13 @@ class _CustomDialogState extends State<CustomDialog> {
                     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
                     labelFontSize: 12,
                     errorText: 'Password is required',
+                    suffix: IconButton(
+                      icon: Icon(Icons.copy, size: 15, color: Colors.grey),
+                      onPressed: _copyToClipboard,
+                    ),
                   ),
                 ),
+            //////////////////////////////////////////
                 // Padding(
                 //   padding: const EdgeInsets.only(bottom: 8.0),
                 //   child: HRManageTextField(
@@ -230,7 +272,10 @@ class _CustomDialogState extends State<CustomDialog> {
                 //     labelText: "Company ID",
                 //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
                 //     labelFontSize: 12,
-                //     //errorText: 'Company ID is required',
+                //     errorText: 'Company ID is required',
+                //     suffixIcon: InkWell(
+                //       onTap: (){},
+                //         child: Icon(Icons.copy, size: 15, color: Colors.grey)),
                 //   ),
                 // ),
                 SizedBox(height: 24.0),

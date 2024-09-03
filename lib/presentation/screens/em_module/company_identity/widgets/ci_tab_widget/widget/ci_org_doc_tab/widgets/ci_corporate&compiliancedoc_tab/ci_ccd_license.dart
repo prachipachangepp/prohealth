@@ -72,7 +72,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
         children: [
           Container(
             height: AppSize.s30,
-            margin: EdgeInsets.symmetric(horizontal: 40),
+            margin: EdgeInsets.symmetric(horizontal: 50),
             decoration: BoxDecoration(
               color: ColorManager.fmediumgrey,
               borderRadius: BorderRadius.circular(12),
@@ -80,6 +80,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Text("  "),
                 Expanded(
                   child: Center(
                     child: Text(
@@ -92,6 +93,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                     ),
                   ),
                 ),
+
                 Expanded(
                   child: Center(
                     child: Text(
@@ -256,6 +258,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                           ),
                                         ),
                                       ),
+                                      Text(" "),
                                       Expanded(
                                         child: Center(
                                           child: Text(
