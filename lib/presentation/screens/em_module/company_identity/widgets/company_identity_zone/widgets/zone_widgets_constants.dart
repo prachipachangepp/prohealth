@@ -378,7 +378,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         ],
                       ),
                       SizedBox(height: AppSize.s15),
-                      SMTextFConst(
+                      FirstSMTextFConst(
                         controller: widget.cityNameController,
                         keyboardType: TextInputType.text,
                         text: 'City Name',
@@ -426,7 +426,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       // Text('${widget.location}'),
                       // Text('Picked Location: ${widget.locationController.text}'),
                       SizedBox(height: AppSize.s15),
-                      SMTextFConst(
+                      FirstSMTextFConst(
                         controller: widget.landmarkController!,
                         keyboardType: TextInputType.text,
                         text: 'Landmark',
@@ -648,7 +648,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                         ],
                       ),
                       SizedBox(height: AppSize.s15),
-                      SMTextFConst(
+                      FirstSMTextFConst(
                         controller: widget.cityNameController,
                         keyboardType: TextInputType.text,
                         text: 'City Name',
@@ -693,7 +693,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                       ),
                       SizedBox(height: AppSize.s15),
 
-                      SMTextFConst(
+                      FirstSMTextFConst(
                         controller: widget.landmarkController!,
                         keyboardType: TextInputType.text,
                         text: 'Landmark',
@@ -894,7 +894,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SMTextFConst(
+                    FirstSMTextFConst(
                       controller: widget.zoneNumberController,
                       keyboardType: TextInputType.text,
                       text: 'Zone Number',

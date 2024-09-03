@@ -196,9 +196,26 @@ class _EditSuccessPopupState extends State<EditSuccessPopup> {
   }
 }
 
-class VendorSelectNoti extends StatelessWidget {
+class VendorSelectNoti extends StatefulWidget {
   final String message;
   const VendorSelectNoti({super.key, required this.message});
+
+  @override
+  State<VendorSelectNoti> createState() => _VendorSelectNotiState();
+}
+
+class _VendorSelectNotiState extends State<VendorSelectNoti> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(Duration(seconds: 3), () {
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -252,7 +269,7 @@ class VendorSelectNoti extends StatelessWidget {
                 height: AppSize.s50,
                 width: AppSize.s210,
                 child: Center(
-                  child: Text(message == ""?'Added Successfully \nThank You.':message,textAlign: TextAlign.center,
+                  child: Text(widget.message == ""?'Added Successfully \nThank You.':widget.message,textAlign: TextAlign.center,
                     style:GoogleFonts.firaSans(
                         fontWeight: FontWeightManager.regular,
                         fontSize: FontSize.s14,
@@ -269,10 +286,30 @@ class VendorSelectNoti extends StatelessWidget {
   }
 }
 
-class AddSuccessPopup extends StatelessWidget {
+class AddSuccessPopup extends StatefulWidget {
   final String message;
 
   const AddSuccessPopup({super.key, required this.message});
+
+  @override
+  State<AddSuccessPopup> createState() => _AddSuccessPopupState();
+}
+
+class _AddSuccessPopupState extends State<AddSuccessPopup> {
+
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(Duration(seconds: 3), () {
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -326,7 +363,7 @@ class AddSuccessPopup extends StatelessWidget {
                 height: AppSize.s50,
                 width: AppSize.s210,
                 child: Center(
-                  child: Text(message == ""?'Added Successfully \nThank You.':message,textAlign: TextAlign.center,
+                  child: Text(widget.message == ""?'Added Successfully \nThank You.':widget.message,textAlign: TextAlign.center,
                     style:GoogleFonts.firaSans(
                         fontWeight: FontWeightManager.regular,
                         fontSize: FontSize.s14,

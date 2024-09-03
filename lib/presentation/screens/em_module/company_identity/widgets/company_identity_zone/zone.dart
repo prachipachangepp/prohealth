@@ -105,7 +105,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                             width: 354,
                             child: Center(
                               child: Text(
-                               "No available counties !!",
+                             ErrorMessageString.noCounties,
                                 style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
                                   fontSize: FontSize.s12,
@@ -174,7 +174,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                           child: Column(
                             children: [
                               Text(
-                                "County",
+                                AppString.county,
                                 style: GoogleFonts.firaSans(
                                   fontSize: 12,
                                   fontWeight: _selectedIndex == 0
@@ -204,7 +204,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                           child: Column(
                             children: [
                               Text(
-                                "Zone",
+                                AppString.zone,
                                 style: GoogleFonts.firaSans(
                                   fontSize: 12,
                                   fontWeight: _selectedIndex == 1
@@ -234,7 +234,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                           child: Column(
                             children: [
                               Text(
-                                "Zip Code",
+                                AppString.zip_code,
                                 style: GoogleFonts.firaSans(
                                   fontSize: 12,
                                   fontWeight: _selectedIndex == 2
@@ -265,7 +265,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                   ? CustomIconButtonConst(
                                   width: 79,
                       icon: Icons.add,
-                      text: "Add",
+                      text:  AppStringEM.add,
                       onPressed: () {
                                     countynameController.clear();
                         countyController.clear();
@@ -339,7 +339,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                "No available counties !!",
+                                                ErrorMessageString.noCounties,
                                                 //AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
@@ -431,7 +431,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                "No county added.",
+                                                ErrorMessageString.noCountyAdded,
                                                // AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
@@ -517,7 +517,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                "No Zone Added.",
+                                                ErrorMessageString.noZoneAdded,
                                               //  AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(

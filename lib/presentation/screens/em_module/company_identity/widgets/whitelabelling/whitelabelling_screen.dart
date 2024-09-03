@@ -142,6 +142,9 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
     _suggestionsNotifier.value = suggestions;
   }
 
+
+  bool _isEditing = false;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -204,6 +207,9 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                           icon: Icons.edit_outlined,
                           text: "Edit Details",
                           onPressed: () async {
+                            setState(() {
+                              _isEditing = !_isEditing;
+                            });
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -900,6 +906,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           EditTextField(
+                                            enabled: _isEditing,
                                             controller: nameController,
                                             keyboardType: TextInputType.text,
                                             text: AppStringEM.companyName,
@@ -909,18 +916,22 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                             controller: secNumberController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.secNum,
+                                            enabled: _isEditing,
                                           ),
                                           SizedBox(height: AppSize.s9),
                                           EditTextField(
                                             controller: faxController,
                                             keyboardType: TextInputType.text,
                                             text: AppStringEM.fax,
+                                            enabled: _isEditing,
                                           ),
                                           SizedBox(height: AppSize.s9),
                                           EditTextField(
+
                                             controller: emailController,
                                             keyboardType: TextInputType.text,
                                             text: AppStringEM.primarymail,
+                                            enabled: _isEditing,
                                           ),
 
                                         ],
@@ -932,12 +943,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                             controller: primNumController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.primNum,
+                                            enabled: _isEditing,
                                           ),
                                           SizedBox(height: AppSize.s9),
                                           EditTextFieldPhone(
                                             controller: altNumController,
                                             keyboardType: TextInputType.number,
                                             text: AppStringEM.alternatephone,
+                                            enabled: _isEditing,
                                           ),
                                           SizedBox(height: AppSize.s9),
 
@@ -945,6 +958,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                             controller: addressController,
                                             keyboardType: TextInputType.text,
                                             text: "Street Address",
+                                            enabled: _isEditing,
                                           ),
                                           SizedBox(
                                             width: 354,

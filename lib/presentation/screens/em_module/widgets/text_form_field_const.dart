@@ -715,6 +715,7 @@ class EditTextField extends StatelessWidget {
   final Color textColor;
   final Icon? icon;
   final bool? readOnly;
+  final bool? enabled;
   final VoidCallback? onChange;
 
 
@@ -723,7 +724,7 @@ class EditTextField extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
     required this.text,
-    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly,
+    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enabled,
   }) : super(key: key);
 
   @override
@@ -750,6 +751,7 @@ class EditTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextFormField(
+            enabled: enabled,
             readOnly: true,
             autofocus: true,
             controller: controller,
@@ -786,6 +788,7 @@ class EditTextFieldPhone extends StatelessWidget {
   final Color textColor;
   final Icon? icon;
   final bool? readOnly;
+  final bool? enabled;
   final VoidCallback? onChange;
 
 
@@ -794,7 +797,7 @@ class EditTextFieldPhone extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
     required this.text,
-    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly,
+    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enabled,
   }) : super(key: key);
 
   @override
@@ -826,6 +829,7 @@ class EditTextFieldPhone extends StatelessWidget {
             ],
             readOnly: true,
             autofocus: true,
+            enabled: enabled,
             controller: controller,
             keyboardType: keyboardType,
             cursorHeight: 17,

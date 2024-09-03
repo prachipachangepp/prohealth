@@ -16,6 +16,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../app/constants/app_config.dart';
+import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -89,7 +90,7 @@ class _CiSnfState extends State<CiSnf> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No available SNF !!",
+                        ErrorMessageString.noSNF,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,
