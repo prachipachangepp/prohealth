@@ -398,7 +398,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                         ),
                                         Icon(
                                           Icons.arrow_drop_down,
-                                          color: ColorManager.mediumgrey,
+                                          color: Colors.transparent,
                                         ),
                                       ],
                                     ),
