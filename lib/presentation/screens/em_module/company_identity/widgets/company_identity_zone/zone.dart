@@ -510,6 +510,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                               10)),
                                                 ));
                                           }
+
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
