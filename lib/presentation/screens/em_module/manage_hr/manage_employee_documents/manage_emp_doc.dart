@@ -196,57 +196,53 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                         ],
                                       ),
                                     ),
-                                    radioButton: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Expiry Type",
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
                                           ),
-                                          CustomRadioListTile(
-                                            value: "Not Applicable",
-                                            groupValue: selectedExpiryType,
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
 
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: "Not Applicable",
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Scheduled',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Scheduled',
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Issuer Expiry',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Issuer Expiry',
-                                          ),
-                                        ],
-                                      ),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
                                     ),
                                     child2: Visibility(
                                       visible: selectedExpiryType ==
@@ -265,6 +261,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          SizedBox(height: AppSize.s5,),
                                           FormField<String>(
                                             builder:
                                                 (FormFieldState<String> field) {
@@ -454,57 +451,53 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                       ),
                                     ),
 
-                                    radioButton: Padding(
-                                      padding:
-                                      const EdgeInsets.only(left: 10.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Expiry Type",
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
                                           ),
-                                          CustomRadioListTile(
-                                            value: "Not Applicable",
-                                            groupValue: selectedExpiryType,
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
 
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: "Not Applicable",
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Scheduled',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Scheduled',
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Issuer Expiry',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Issuer Expiry',
-                                          ),
-                                        ],
-                                      ),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
                                     ),
                                     child2: Visibility(
                                       visible: selectedExpiryType ==
@@ -523,6 +516,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          SizedBox(height: AppSize.s5,),
                                           FormField<String>(
                                             builder:
                                                 (FormFieldState<String> field) {
@@ -731,57 +725,53 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     //   items: dropDownMenuItems,
                                     // ),
 
-                                    radioButton: Padding(
-                                      padding:
-                                      const EdgeInsets.only(left: 10.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Expiry Type",
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
                                           ),
-                                          CustomRadioListTile(
-                                            value: "Not Applicable",
-                                            groupValue: selectedExpiryType,
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
 
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: "Not Applicable",
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Scheduled',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Scheduled',
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Issuer Expiry',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Issuer Expiry',
-                                          ),
-                                        ],
-                                      ),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
                                     ),
                                     child2: Visibility(
                                       visible: selectedExpiryType ==
@@ -800,6 +790,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          SizedBox(height: AppSize.s5,),
                                           FormField<String>(
                                             builder:
                                                 (FormFieldState<String> field) {
@@ -1006,57 +997,53 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     //   items: dropDownMenuItems,
                                     // ),
 
-                                    radioButton: Padding(
-                                      padding:
-                                      const EdgeInsets.only(left: 10.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Expiry Type",
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
                                           ),
-                                          CustomRadioListTile(
-                                            value: "Not Applicable",
-                                            groupValue: selectedExpiryType,
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
 
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: "Not Applicable",
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Scheduled',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Scheduled',
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Issuer Expiry',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Issuer Expiry',
-                                          ),
-                                        ],
-                                      ),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
                                     ),
                                     child2: Visibility(
                                       visible: selectedExpiryType ==
@@ -1075,6 +1062,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          SizedBox(height: AppSize.s5,),
                                           FormField<String>(
                                             builder:
                                                 (FormFieldState<String> field) {
@@ -1180,7 +1168,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         icon: Icons.add,
                       )
                           : _selectedIndex == 4
-///Ackonwlwdgement
+                          ///Ackonwlwdgement
                           ? CustomIconButtonConst(
                         width: 170,
                         text: 'Add Document',
@@ -1282,57 +1270,53 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     //   items: dropDownMenuItems,
                                     // ),
 
-                                    radioButton: Padding(
-                                      padding:
-                                      const EdgeInsets.only(left: 10.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Expiry Type",
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
                                           ),
-                                          CustomRadioListTile(
-                                            value: "Not Applicable",
-                                            groupValue: selectedExpiryType,
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
 
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: "Not Applicable",
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Scheduled',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Scheduled',
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Issuer Expiry',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Issuer Expiry',
-                                          ),
-                                        ],
-                                      ),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
                                     ),
                                     child2: Visibility(
                                       visible: selectedExpiryType ==
@@ -1351,6 +1335,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          SizedBox(height: AppSize.s5,),
                                           FormField<String>(
                                             builder:
                                                 (FormFieldState<String> field) {
@@ -1701,7 +1686,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       // )
                       //     : _selectedIndex == 6
 
-///compensation
+                        ///compensation
                           ? CustomIconButtonConst(
                         width: 170,
                         text: 'Add Document',
@@ -1803,57 +1788,53 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     //   items: dropDownMenuItems,
                                     // ),
 
-                                    radioButton: Padding(
-                                      padding:
-                                      const EdgeInsets.only(left: 10.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Expiry Type",
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
                                           ),
-                                          CustomRadioListTile(
-                                            value: "Not Applicable",
-                                            groupValue: selectedExpiryType,
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
 
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: "Not Applicable",
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Scheduled',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Scheduled',
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Issuer Expiry',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Issuer Expiry',
-                                          ),
-                                        ],
-                                      ),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
                                     ),
                                     child2: Visibility(
                                       visible: selectedExpiryType ==
@@ -1872,6 +1853,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          SizedBox(height: AppSize.s5,),
                                           FormField<String>(
                                             builder:
                                                 (FormFieldState<String> field) {
@@ -2060,57 +2042,53 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                         ],
                                       ),
                                     ),
-                                    radioButton: Padding(
-                                      padding:
-                                      const EdgeInsets.only(left: 10.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Expiry Type",
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
                                           ),
-                                          CustomRadioListTile(
-                                            value: "Not Applicable",
-                                            groupValue: selectedExpiryType,
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
 
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: "Not Applicable",
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Scheduled',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Scheduled',
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Issuer Expiry',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Issuer Expiry',
-                                          ),
-                                        ],
-                                      ),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
                                     ),
                                     child2: Visibility(
                                       visible: selectedExpiryType ==
@@ -2129,6 +2107,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          SizedBox(height: AppSize.s5,),
                                           FormField<String>(
                                             builder:
                                                 (FormFieldState<String> field) {
@@ -2459,7 +2438,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 30,
           ),
           Expanded(
             flex: 10,
