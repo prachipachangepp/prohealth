@@ -451,8 +451,14 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                   size: 18,
                                                   color: ColorManager.blueprime,
                                                 ),
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
                                               ),
                                               IconButton(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
                                                   onPressed: () {
                                                     showDialog(
                                                         context: context,

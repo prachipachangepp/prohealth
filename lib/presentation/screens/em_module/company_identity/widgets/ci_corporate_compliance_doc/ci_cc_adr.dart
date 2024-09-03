@@ -327,7 +327,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                                   ),
                                                                                   Icon(
                                                                                     Icons.arrow_drop_down,
-                                                                                    color: ColorManager.mediumgrey,
+                                                                                    color: Colors.transparent,
                                                                                   ),
                                                                                 ],
                                                                               ),
@@ -406,7 +406,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                                   ),
                                                                                   Icon(
                                                                                     Icons.arrow_drop_down,
-                                                                                    color: ColorManager.mediumgrey,
+                                                                                    color: Colors.transparent,
                                                                                   ),
                                                                                 ],
                                                                               ),
@@ -518,7 +518,7 @@ class _CICCADRState extends State<CICCADR> {
                                                                                       DateTime? pickedDate = await showDatePicker(
                                                                                         context: context,
                                                                                         initialDate: DateTime.now(),
-                                                                                        firstDate: DateTime(2000),
+                                                                                        firstDate: DateTime(1901),
                                                                                         lastDate: DateTime(3101),
                                                                                       );
                                                                                       if (pickedDate != null) {
@@ -551,8 +551,14 @@ class _CICCADRState extends State<CICCADR> {
                                                         size: 18,
                                                         color: ColorManager.bluebottom,
                                                       ),
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                     ),
                                                     IconButton(
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                         onPressed: (){
                                                           showDialog(context: context,
                                                               builder: (context) => StatefulBuilder(
