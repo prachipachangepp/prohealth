@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -43,10 +44,65 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
   int currentPage = 1;
   final int itemsPerPage = 10;
   final int totalPages = 5;
+  double? _latitude;
+  double? _longitude;
 
   void onPageNumberPressed(int pageNumber) {
     setState(() {
       currentPage = pageNumber;
+    });
+  }
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  String _location = 'Lat/Long not selected'; // Default text
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) => MapScreen(
+          initialLocation: _selectedLocation,
+          onLocationPicked: (location) {
+            setState(() {
+              _selectedLocation = location;
+              _latitude = location.latitude;
+              _longitude = location.longitude;
+              String formatLatLong(double? latitude, double? longitude) {
+                if (latitude != null && longitude != null) {
+                  return 'Lat: ${latitude.toStringAsFixed(4)}, Long: ${longitude.toStringAsFixed(4)}';
+                } else {
+                  return 'Lat/Long not selected';
+                }
+              }
+
+              final latlong = formatLatLong(_latitude, _longitude);
+              //
+              // // Create locationString
+              // final latlong = _latitude != null && _longitude != null
+              //     ? 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}'
+              //     : 'Lat/Long not selected';
+
+              print("Selected LatLong :: $latlong");
+
+              // Update the location in the UI directly
+              _updateLocation(latlong);
+            });
+          },
+        ),
+      ),
+    );
+
+    if (pickedLocation != null) {
+      setState(() {
+        _selectedLocation = pickedLocation;
+        _latitude = pickedLocation.latitude;
+        _longitude = pickedLocation.longitude;
+      });
+    }
+  }
+
+
+  void _updateLocation(String latlong) {
+    setState(() {
+      _location = latlong;
+      print("Updated Location: $_location"); // Check this log to see if the value updates
     });
   }
   @override
@@ -411,6 +467,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                             return const SizedBox();
                                                           }
                                                       ),
+                                                      onPickLocation: _pickLocation,
                                                       onSavePressed: () async{
                                                       await updateZipCodeSetup(context,
                                                           zipcode.zipcodeSetupId!,
