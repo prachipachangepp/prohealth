@@ -234,7 +234,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                         if (snapshot.data!.isEmpty) {
                           return const Center(
                             child: Text(
-                              "No Data!",
+                              "No available offices !!",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,

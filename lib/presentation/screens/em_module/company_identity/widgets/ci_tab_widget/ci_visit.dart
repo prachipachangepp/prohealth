@@ -367,7 +367,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Center(
                       child: Text(
-                        AppString.dataNotFound,
+                        "No available visits !!",
+                        //AppString.dataNotFound,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

@@ -176,7 +176,8 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    AppString.dataNotFound,
+                    "No available medical cost reports !!",
+                    //AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,

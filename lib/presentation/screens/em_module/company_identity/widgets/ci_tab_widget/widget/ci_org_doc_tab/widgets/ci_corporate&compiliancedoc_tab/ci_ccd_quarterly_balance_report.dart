@@ -177,7 +177,8 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    AppString.dataNotFound,
+                    "No available quarterly balance reports !!",
+                    //AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,
