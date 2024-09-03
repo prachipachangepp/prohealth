@@ -27,10 +27,12 @@ class AppStringEM{
 
   ///CI Zone
   static const String countyName = "County Name";
+  static const String county = "County";
   static const String zipCode = "Zip Code";
   static const String map = "Map";
   static const String landmark = "Landmark";
   static const String zones = "Zones";
+  static const String zone = "Zone";
   static const String name = "Name";
 
   ///all hr screen
@@ -65,4 +67,24 @@ class AppStringEM{
 
 }
 
+class ErrorMessageString{
+  static const String noCounties =   "No available counties !!";
+  static const String noCountyAdded =  "No county added.";
+  static const String noZoneAdded =  "No zone added.";
+  static const String noZones =  "No available zones !!";
+  static const String noZipcode = "No available zipcodes !!";
+  static const String noLicenses =  "No available licenses !!";
+  static const String noADR =   "No available ADR !!";
+  static const String noMCR =  "No available medical cost reports !!";
+  static const String noCR =  "No available cap reports !!";
+  static const String noQBR =  "No available quaterly balance reports !!";
+  static const String noVendor =  "No available vendors !!";
+  static const String noVendorAdded =  "No vendor added";
+  static const String noContract =  "No available contracts !!";
+  static const String noLeases =  "No available leases & services !!";
+  static const String noSNF =  "No available SNF !!";
+  static const String noDME =  "No available DME !!";
+
+  static const String noSubdata = "No subdata added";
+}
 

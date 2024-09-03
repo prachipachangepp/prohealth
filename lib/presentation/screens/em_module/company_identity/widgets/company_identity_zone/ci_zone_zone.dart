@@ -8,6 +8,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
@@ -153,7 +154,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    "No available zones !!",
+                    ErrorMessageString.noZones,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,
@@ -372,7 +373,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                                               return Center(
                                                                                 child:
                                                                                     Text(
-                                                                                  AppString.dataNotFound,
+                                                                                      ErrorMessageString.noCountyAdded,
                                                                                   style:
                                                                                       CustomTextStylesCommon.commonStyle(
                                                                                     fontWeight: FontWeightManager.medium,

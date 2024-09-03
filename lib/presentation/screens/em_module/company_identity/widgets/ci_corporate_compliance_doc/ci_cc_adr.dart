@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
@@ -86,7 +87,7 @@ class _CICCADRState extends State<CICCADR> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No available ADR !!",
+                        ErrorMessageString.noADR,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

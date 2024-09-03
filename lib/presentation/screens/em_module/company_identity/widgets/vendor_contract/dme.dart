@@ -20,6 +20,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -95,7 +96,7 @@ class _CiDmeState extends State<CiDme> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No available DME !!",
+                        ErrorMessageString.noDME,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

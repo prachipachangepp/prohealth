@@ -115,7 +115,7 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                       );
                     }
                     if (snapshotZone.data!.isEmpty) {
-                      return CICCDropdown(items: [],initialValue: 'No available vendors !!',);
+                      return CICCDropdown(items: [],initialValue: ErrorMessageString.noVendorAdded,);
                     }
                     if (snapshotZone.hasData) {
                       List<DropdownMenuItem<String>> dropDownTypesList = [];
