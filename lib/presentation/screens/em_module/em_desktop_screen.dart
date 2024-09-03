@@ -353,7 +353,7 @@ class EMDesktopScreen extends StatelessWidget {
                 controller: _pageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  Container(color: ColorManager.white),
+                  Container(child:Image.asset('images/EMDASHBOARD.jpg',fit: BoxFit.contain,)),
                   CompanyIdentityScreen(),
                   HrScreen(),
                   ManageWorkSchedule(),

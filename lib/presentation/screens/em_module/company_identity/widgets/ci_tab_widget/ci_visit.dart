@@ -147,117 +147,131 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   selectedChips.clear();
                                   docNamecontroller.clear();
                                 },
-                                child1: Wrap(spacing: 8.0, children: listWidget),
-                                child: FutureBuilder<List<HRClinical>>(
-                                    future: companyAllHrClinicApi(context),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return Shimmer.fromColors(
-                                            baseColor: Colors.grey[300]!,
-                                            highlightColor: Colors.grey[100]!,
-                                            child: Container(
-                                              width: 354,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                  color: ColorManager.faintGrey,
-                                                  borderRadius:
-                                                  BorderRadius.circular(10)),
-                                            ));
-                                      }
-                                      if (snapshot.data!.isEmpty) {
-                                        return Center(
-                                          child: Text(
-                                            AppString.dataNotFound,
-                                            style: CustomTextStylesCommon
-                                                .commonStyle(
-                                              fontWeight:
-                                              FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshot.hasData) {
-                                        int docType = 0;
-                                        List<DropdownMenuItem<String>>
-                                        dropDownTypesList = [];
-                                        for (var i in snapshot.data!) {
-                                          dropDownTypesList.add(
-                                            DropdownMenuItem<String>(
-                                              child: Text(i.abbrivation!),
-                                              value: i.abbrivation,
-                                            ),
-                                          );
-                                        }
-                                        return CICCDropdown(
-                                            initialValue:
-                                            dropDownTypesList[0].value,
-                                            onChange: (val) {
-                                              for (var a in snapshot.data!) {
-                                                if (a.abbrivation == val) {
-                                                  docType = a.employeeTypesId;
-                                                  empTypeId = docType;
-                                                  setState(() {
-                                                    if (val.isNotEmpty) {
-                                                      selectedChips.add(
-                                                        Chip(
-                                                          backgroundColor:
-                                                          ColorManager.white,
-                                                          shape: StadiumBorder(
-                                                              side: BorderSide(
-                                                                  color: ColorManager
-                                                                      .blueprime)),
-                                                          deleteIcon: Icon(
-                                                            Icons.close,
-                                                            color: ColorManager
-                                                                .blueprime,
-                                                            size: 17,
-                                                          ),
-                                                          label: Text(
-                                                            val,
-                                                            style: CustomTextStylesCommon.commonStyle(
-                                                                fontWeight:
-                                                                FontWeightManager
-                                                                    .medium,
-                                                                fontSize:
-                                                                FontSize.s10,
-                                                                color: ColorManager
-                                                                    .mediumgrey),
-                                                          ),
-                                                          onDeleted: () {
-                                                            setState(() {
-                                                              deleteChip(
-                                                                  val, docType);
-                                                              selectedChips
-                                                                  .clear();
-                                                              selectedChipsId
-                                                                  .clear();
-                                                              print(
-                                                                  ":::Chips name ${selectedChips}");
-                                                              print(
-                                                                  ":::: Chips Id ${selectedChipsId}");
-                                                            });
-                                                          },
-                                                        ),
-                                                      );
-                                                      selectedChipsId
-                                                          .add(docType);
-                                                      print(
-                                                          "::${selectedChipsId}");
-                                                      print("::${selectedChips}");
-                                                    }
-                                                  });
-                                                }
+                                child: StatefulBuilder(
+                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                    return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        FutureBuilder<List<HRClinical>>(
+                                            future: companyAllHrClinicApi(context),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return Shimmer.fromColors(
+                                                    baseColor: Colors.grey[300]!,
+                                                    highlightColor: Colors.grey[100]!,
+                                                    child: Container(
+                                                      width: 354,
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                          color: ColorManager.faintGrey,
+                                                          borderRadius:
+                                                          BorderRadius.circular(10)),
+                                                    ));
                                               }
-                                              print(":::${docType}");
-                                              print(":::<>${empTypeId}");
-                                            },
-                                            items: dropDownTypesList);
-                                      }
-                                      return SizedBox();
-                                    }),
+                                              if (snapshot.data!.isEmpty) {
+                                                return Center(
+                                                  child: Text(
+                                                    AppString.dataNotFound,
+                                                    style: CustomTextStylesCommon
+                                                        .commonStyle(
+                                                      fontWeight:
+                                                      FontWeightManager.medium,
+                                                      fontSize: FontSize.s12,
+                                                      color: ColorManager.mediumgrey,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              if (snapshot.hasData) {
+                                                int docType = 0;
+                                                List<DropdownMenuItem<String>>
+                                                dropDownTypesList = [];
+                                                for (var i in snapshot.data!) {
+                                                  dropDownTypesList.add(
+                                                    DropdownMenuItem<String>(
+                                                      child: Text(i.abbrivation!),
+                                                      value: i.abbrivation,
+                                                    ),
+                                                  );
+                                                }
+                                                return StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                    return CICCDropdown(
+                                                        initialValue:
+                                                        dropDownTypesList[0].value,
+                                                        onChange: (val) {
+                                                          for (var a in snapshot.data!) {
+                                                            if (a.abbrivation == val) {
+                                                              docType = a.employeeTypesId;
+                                                              empTypeId = docType;
+                                                              setState(() {
+                                                                if (val.isNotEmpty) {
+                                                                  selectedChips.add(
+                                                                    Chip(
+                                                                      backgroundColor:
+                                                                      ColorManager.white,
+                                                                      shape: StadiumBorder(
+                                                                          side: BorderSide(
+                                                                              color: ColorManager
+                                                                                  .blueprime)),
+                                                                      deleteIcon: Icon(
+                                                                        Icons.close,
+                                                                        color: ColorManager
+                                                                            .blueprime,
+                                                                        size: 17,
+                                                                      ),
+                                                                      label: Text(
+                                                                        val,
+                                                                        style: CustomTextStylesCommon.commonStyle(
+                                                                            fontWeight:
+                                                                            FontWeightManager
+                                                                                .medium,
+                                                                            fontSize:
+                                                                            FontSize.s10,
+                                                                            color: ColorManager
+                                                                                .mediumgrey),
+                                                                      ),
+                                                                      onDeleted: () {
+                                                                        setState(() {
+                                                                          deleteChip(
+                                                                              val, docType);
+                                                                          selectedChips
+                                                                              .clear();
+                                                                          selectedChipsId
+                                                                              .clear();
+                                                                          print(
+                                                                              ":::Chips name ${selectedChips}");
+                                                                          print(
+                                                                              ":::: Chips Id ${selectedChipsId}");
+                                                                        });
+                                                                      },
+                                                                    ),
+                                                                  );
+                                                                  selectedChipsId
+                                                                      .add(docType);
+                                                                  print(
+                                                                      "::${selectedChipsId}");
+                                                                  print("::${selectedChips}");
+                                                                }
+                                                              });
+                                                            }
+                                                          }
+                                                          print(":::${docType}");
+                                                          print(":::<>${empTypeId}");
+                                                        },
+                                                        items: dropDownTypesList);
+                                                  },
+                                                );
+                                              }
+                                              return SizedBox();
+                                            }),
+                                        SizedBox(height: AppSize.s5),
+                                        Wrap(spacing: 8.0, children: listWidget),
+                                      ],
+                                    );
+                                  },
+                                ),
                               );
                             },
                           );
@@ -515,7 +529,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                               () async {
                                                                             await updateVisitPatch(
                                                                                 context,
-                                                                                visitData.visitId,
+                                                                                paginatedData[index].visitId,
                                                                                 visitName ==
                                                                                     docNamecontroller.text
                                                                                     ? visitName.toString()
@@ -544,110 +558,117 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                             _selectedItem =
                                                                             "Select";
                                                                           },
-                                                                          child1: Wrap(
-                                                                              spacing:
-                                                                              8.0,
-                                                                              children:
-                                                                              selectedEditChips),
                                                                           title: 'Edit Visit',
-                                                                          child: FutureBuilder<
-                                                                              List<
-                                                                                  HRClinical>>(
-                                                                              future: companyAllHrClinicApi(
-                                                                                  context),
-                                                                              builder:
-                                                                                  (context,
-                                                                                  snapshot) {
-                                                                                if (snapshot.connectionState ==
-                                                                                    ConnectionState.waiting) {
-                                                                                  return Shimmer.fromColors(
-                                                                                      baseColor: Colors.grey[300]!,
-                                                                                      highlightColor: Colors.grey[100]!,
-                                                                                      child: Container(
-                                                                                        width: 354,
-                                                                                        height: 30,
-                                                                                        decoration: BoxDecoration(color: ColorManager.faintGrey, borderRadius: BorderRadius.circular(10)),
-                                                                                      ));
-                                                                                }
-                                                                                if (snapshot
-                                                                                    .data!
-                                                                                    .isEmpty) {
-                                                                                  return Center(
-                                                                                    child:
-                                                                                    Text(
-                                                                                      AppString.dataNotFound,
-                                                                                      style: CustomTextStylesCommon.commonStyle(
-                                                                                        fontWeight: FontWeightManager.medium,
-                                                                                        fontSize: FontSize.s12,
-                                                                                        color: ColorManager.mediumgrey,
-                                                                                      ),
-                                                                                    ),
-                                                                                  );
-                                                                                }
-                                                                                if (snapshot
-                                                                                    .hasData) {
-                                                                                  int docType =
-                                                                                  0;
-                                                                                  List<DropdownMenuItem<String>>
-                                                                                  dropDownTypesList =
-                                                                                  [];
-                                                                                  for (var i
-                                                                                  in snapshot.data!) {
-                                                                                    dropDownTypesList.add(
-                                                                                      DropdownMenuItem<String>(
-                                                                                        child: Text(i.abbrivation!),
-                                                                                        value: i.abbrivation,
-                                                                                      ),
-                                                                                    );
-                                                                                  }
-                                                                                  return CICCDropdown(
-                                                                                      initialValue: dropDownTypesList[0].value,
-                                                                                      onChange: (val) {
-                                                                                        for (var a in snapshot.data!) {
-                                                                                          if (a.abbrivation == val) {
-                                                                                            docType = a.employeeTypesId;
-                                                                                            empTypeId = docType;
-                                                                                            setState(() {
-                                                                                              if (val.isNotEmpty) {
-                                                                                                selectedEditChips.add(
-                                                                                                  Chip(
-                                                                                                    shape: StadiumBorder(side: BorderSide(color: ColorManager.blueprime)),
-                                                                                                    //side: BorderSide(color: ColorManager.blueprime),
-                                                                                                    deleteIcon: Icon(
-                                                                                                      Icons.close,
-                                                                                                      color: ColorManager.blueprime,
-                                                                                                      size: 17,
-                                                                                                    ),
-                                                                                                    label: Text(
-                                                                                                      val,
-                                                                                                      style: CustomTextStylesCommon.commonStyle(fontWeight: FontWeightManager.medium, fontSize: FontSize.s10, color: ColorManager.mediumgrey),
-                                                                                                    ),
+                                                                          child: Column(
+                                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              FutureBuilder<
+                                                                                  List<
+                                                                                      HRClinical>>(
+                                                                                  future: companyAllHrClinicApi(
+                                                                                      context),
+                                                                                  builder:
+                                                                                      (context,
+                                                                                      snapshot) {
+                                                                                    if (snapshot.connectionState ==
+                                                                                        ConnectionState.waiting) {
+                                                                                      return Shimmer.fromColors(
+                                                                                          baseColor: Colors.grey[300]!,
+                                                                                          highlightColor: Colors.grey[100]!,
+                                                                                          child: Container(
+                                                                                            width: 354,
+                                                                                            height: 30,
+                                                                                            decoration: BoxDecoration(color: ColorManager.faintGrey, borderRadius: BorderRadius.circular(10)),
+                                                                                          ));
+                                                                                    }
+                                                                                    if (snapshot
+                                                                                        .data!
+                                                                                        .isEmpty) {
+                                                                                      return Center(
+                                                                                        child:
+                                                                                        Text(
+                                                                                          AppString.dataNotFound,
+                                                                                          style: CustomTextStylesCommon.commonStyle(
+                                                                                            fontWeight: FontWeightManager.medium,
+                                                                                            fontSize: FontSize.s12,
+                                                                                            color: ColorManager.mediumgrey,
+                                                                                          ),
+                                                                                        ),
+                                                                                      );
+                                                                                    }
+                                                                                    if (snapshot
+                                                                                        .hasData) {
+                                                                                      int docType =
+                                                                                      0;
+                                                                                      List<DropdownMenuItem<String>>
+                                                                                      dropDownTypesList =
+                                                                                      [];
+                                                                                      for (var i
+                                                                                      in snapshot.data!) {
+                                                                                        dropDownTypesList.add(
+                                                                                          DropdownMenuItem<String>(
+                                                                                            child: Text(i.abbrivation!),
+                                                                                            value: i.abbrivation,
+                                                                                          ),
+                                                                                        );
+                                                                                      }
+                                                                                      return CICCDropdown(
+                                                                                          initialValue: dropDownTypesList[0].value,
+                                                                                          onChange: (val) {
+                                                                                            for (var a in snapshot.data!) {
+                                                                                              if (a.abbrivation == val) {
+                                                                                                docType = a.employeeTypesId;
+                                                                                                empTypeId = docType;
+                                                                                                setState(() {
+                                                                                                  if (val.isNotEmpty) {
+                                                                                                    selectedEditChips.add(
+                                                                                                      Chip(
+                                                                                                        backgroundColor: ColorManager.white,
+                                                                                                        shape: StadiumBorder(side: BorderSide(color: ColorManager.blueprime)),
+                                                                                                        //side: BorderSide(color: ColorManager.blueprime),
+                                                                                                        deleteIcon: Icon(
+                                                                                                          Icons.close,
+                                                                                                          color: ColorManager.blueprime,
+                                                                                                          size: 17,
+                                                                                                        ),
+                                                                                                        label: Text(
+                                                                                                          val,
+                                                                                                          style: CustomTextStylesCommon.commonStyle(fontWeight: FontWeightManager.medium, fontSize: FontSize.s10, color: ColorManager.mediumgrey),
+                                                                                                        ),
 
-                                                                                                    onDeleted: () {
-                                                                                                      setState(() {
-                                                                                                        // deleteChip(val,docType);
-                                                                                                        selectedEditChips.clear();
-                                                                                                        selectedEditChipsId.clear();
-                                                                                                        print(":::Chips name ${selectedChips}");
-                                                                                                        print(":::: Chips Id ${selectedChipsId}");
-                                                                                                      });
-                                                                                                    },
-                                                                                                  ),
-                                                                                                );
-                                                                                                //addChip(val.trim(),docType);
-                                                                                                selectedEditChipsId.add(docType);
-                                                                                                print("chipsID:::${selectedChipsId}");
+                                                                                                        onDeleted: () {
+                                                                                                          setState(() {
+                                                                                                            // deleteChip(val,docType);
+                                                                                                            selectedEditChips.clear();
+                                                                                                            selectedEditChipsId.clear();
+                                                                                                            print(":::Chips name ${selectedChips}");
+                                                                                                            print(":::: Chips Id ${selectedChipsId}");
+                                                                                                          });
+                                                                                                        },
+                                                                                                      ),
+                                                                                                    );
+                                                                                                    //addChip(val.trim(),docType);
+                                                                                                    selectedEditChipsId.add(docType);
+                                                                                                    print("chipsID:::${selectedEditChipsId}");
+                                                                                                  }
+                                                                                                });
                                                                                               }
-                                                                                            });
-                                                                                          }
-                                                                                        }
-                                                                                        print(":::${docType}");
-                                                                                        print(":::<>${empTypeId}");
-                                                                                      },
-                                                                                      items: dropDownTypesList);
-                                                                                }
-                                                                                return SizedBox();
-                                                                              }),
+                                                                                            }
+                                                                                            print(":::${docType}");
+                                                                                            print(":::<>${empTypeId}");
+                                                                                          },
+                                                                                          items: dropDownTypesList);
+                                                                                    }
+                                                                                    return SizedBox();
+                                                                                  }),
+                                                                              SizedBox(height: AppSize.s5),
+                                                                              Wrap(
+                                                                                  spacing:
+                                                                                  8.0,
+                                                                                  children:
+                                                                                  selectedEditChips),
+                                                                            ],
+                                                                          ),
                                                                         );
                                                                       },
                                                                     );

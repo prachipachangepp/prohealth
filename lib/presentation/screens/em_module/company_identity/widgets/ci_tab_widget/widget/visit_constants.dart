@@ -14,7 +14,7 @@ class AddVisitPopup extends StatefulWidget {
   final TextEditingController idOfDocumentController;
   final Future<void> Function() onSavePressed;
   final Widget child;
-  final Widget child1;
+  //final Widget child1;
   final String title;
 
   const AddVisitPopup({
@@ -23,7 +23,7 @@ class AddVisitPopup extends StatefulWidget {
     required this.idOfDocumentController,
     required this.onSavePressed,
     required this.child,
-    required this.child1,
+    //required this.child1,
     required this.title,
   });
 
@@ -156,8 +156,6 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                         ),
                         SizedBox(height: AppSize.s5),
                         widget.child,
-                        SizedBox(height: AppSize.s5),
-                        widget.child1,
                       ],
                     ),
                   ],

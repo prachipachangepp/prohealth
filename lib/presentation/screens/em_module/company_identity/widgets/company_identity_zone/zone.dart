@@ -68,7 +68,7 @@ class _CiOrgDocumentState extends State<CiZone> {
     );
   }
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
-  String _location = 'Lat/Long not selected'; // Default text
+  String _location = 'Select Lat/Long';
   void _pickLocation() async {
     final pickedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
@@ -87,12 +87,12 @@ class _CiOrgDocumentState extends State<CiZone> {
                 }
               }
 
-              final latlong = formatLatLong(_latitude, _longitude);
-              //
-              // // Create locationString
-              // final latlong = _latitude != null && _longitude != null
-              //     ? 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}'
-              //     : 'Lat/Long not selected';
+              // final latlong = formatLatLong(_latitude, _longitude);
+
+              // Create locationString
+              final latlong = _latitude != null && _longitude != null
+                  ? 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}'
+                  : 'Select Lat/Long ';
 
               print("Selected LatLong :: $latlong");
 
@@ -192,7 +192,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                             width: 354,
                             child: Center(
                               child: Text(
-                                AppString.dataNotFound,
+                               "No available countys !!",
                                 style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
                                   fontSize: FontSize.s12,
