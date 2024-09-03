@@ -230,7 +230,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                 return StatefulBuilder(
                                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                                     return CCScreenEditPopup(
-                                                                      title: 'Edit Licence',
+                                                                      title: 'Edit Cap Reports',
                                                                       idOfDocController: idOfDocController,
                                                                       nameDocController: docNameController,
                                                                       loadingDuration: _isLoading,
@@ -476,15 +476,19 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                         child: Column(
                                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                                           children: [
-                                                                            Text(
-                                                                              "Expiry Date",
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: FontSize.s12,
-                                                                                fontWeight: FontWeight.w700,
-                                                                                color: ColorManager.mediumgrey,
-                                                                                decoration: TextDecoration.none,
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.only(left: 2),
+                                                                              child: Text(
+                                                                                "Expiry Date",
+                                                                                style: GoogleFonts.firaSans(
+                                                                                  fontSize: FontSize.s12,
+                                                                                  fontWeight: FontWeight.w700,
+                                                                                  color: ColorManager.mediumgrey,
+                                                                                  decoration: TextDecoration.none,
+                                                                                ),
                                                                               ),
                                                                             ),
+                                                                            SizedBox(height: 5,),
                                                                             FormField<String>(
                                                                               builder: (FormFieldState<String> field) {
                                                                                 return SizedBox(
