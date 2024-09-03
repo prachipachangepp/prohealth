@@ -354,6 +354,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                       icon: Icons.add,
                       text: "Add",
                       onPressed: () {
+                                    countynameController.clear();
+                        countyController.clear();
+                        stateController.clear();
                         showDialog(
                             context: context,
                             builder: (context) {
@@ -385,6 +388,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                             icon: Icons.add,
                           text: AppStringEM.add,
                           onPressed: () {
+                           zoneNumberController.clear();
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -478,6 +482,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                           icon: Icons.add,
                           text: "Add",
                           onPressed: () {
+                           countynameController.clear();
+                           cityController.clear();
+                           zipcodeController.clear();
                             showDialog(
                                 context: context,
                                 builder: (context) {
