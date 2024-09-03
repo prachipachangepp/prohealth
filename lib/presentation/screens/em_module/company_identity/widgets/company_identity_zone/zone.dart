@@ -105,7 +105,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                             width: 354,
                             child: Center(
                               child: Text(
-                               "No available countys !!",
+                               "No available counties !!",
                                 style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
                                   fontSize: FontSize.s12,
@@ -127,21 +127,26 @@ class _CiOrgDocumentState extends State<CiZone> {
                               ),
                             );
                           }
-                          return CICCDropdown(
-                              initialValue: dropDownTypesList[0].value,
-                              onChange: (val) {
-                                for (var a in snapshotZone.data!) {
-                                  if (a.countyName == val) {
-                                    docType = a.countyId;
-                                    print("County id :: ${a.companyId}");
-                                    countySortId = docType;
-                                    _selectButton(1);
-                                  }
-                                }
-                                print(":::${docType}");
-                                print(":::<>${countySortId}");
-                              },
-                              items: dropDownTypesList);
+                          countySortId = snapshotZone.data![0].countyId;
+                          return StatefulBuilder(
+                            builder: (BuildContext context, void Function(void Function()) setState) {
+                              return  CICCDropdown(
+                                  initialValue: dropDownTypesList[0].value,
+                                  onChange: (val) {
+                                    for (var a in snapshotZone.data!) {
+                                      if (a.countyName == val) {
+                                        docType = a.countyId;
+                                        print("County id :: ${a.companyId}");
+                                        countySortId = docType;
+                                        _selectButton(1);
+                                      }
+                                    }
+                                    print(":::${docType}");
+                                    print(":::<>${countySortId}");
+                                  },
+                                  items: dropDownTypesList);
+                            },
+                          );
                         }
                         return const SizedBox();
                       })
@@ -330,7 +335,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                AppString.dataNotFound,
+                                                "No available counties !!",
+                                                //AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
                                                   fontWeight:
@@ -355,6 +361,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                 ),
                                               );
                                             }
+                                            countyId = snapshotZone.data![0].countyId;
+                                            print('County Id : ${countyId}');
                                             return CICCDropdown(
                                                 initialValue:
                                                     dropDownTypesList[0].value,
@@ -412,10 +420,12 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                               10)),
                                                 ));
                                           }
+
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                AppString.dataNotFound,
+                                                "No county added.",
+                                               // AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
                                                   fontWeight:

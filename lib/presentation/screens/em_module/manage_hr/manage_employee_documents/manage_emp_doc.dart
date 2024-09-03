@@ -108,16 +108,15 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 24,
-                vertical: AppPadding.p20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                _selectedIndex == 0
-
-                    ///Health
-                    ? CustomIconButtonConst(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width / 24,
+                      vertical: AppPadding.p20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      _selectedIndex == 0
+                      ///Health
+                      ? CustomIconButtonConst(
                         width: 170,
                         text: 'Add Document',
                         onPressed: () async {
@@ -156,11 +155,10 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     loadingDuration: _isLoading,
                                     onSavePredded: () async {
                                       String expiryTypeToSend =
-                                          selectedExpiryType == "Not Applicable"
-                                              ? "Not Applicable"
-                                              : dateController.text;
-                                      await addEmployeeDocSetup(
-                                          context,
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
                                           AppConfig.healthDocId,
                                           nameDocController.text,
                                           expiryTypeToSend,
@@ -173,25 +171,19 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                     },
                                     child: Container(
                                       width: 354,
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 3, horizontal: 12),
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
                                       decoration: BoxDecoration(
                                         color: ColorManager.white,
                                         borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                            color: ColorManager.fmediumgrey,
-                                            width: 1),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
                                       ),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             'Health',
-                                            style: CustomTextStylesCommon
-                                                .commonStyle(
-                                              fontWeight:
-                                                  FontWeightManager.medium,
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
                                               fontSize: FontSize.s12,
                                               color: ColorManager.mediumgrey,
                                             ),
@@ -204,56 +196,53 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                         ],
                                       ),
                                     ),
-                                    radioButton: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Expiry Type",
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: FontSize.s12,
-                                              fontWeight: FontWeight.w700,
-                                              color: ColorManager.mediumgrey,
-                                              decoration: TextDecoration.none,
-                                            ),
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
                                           ),
-                                          CustomRadioListTile(
-                                            value: "Not Applicable",
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: "Not Applicable",
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Scheduled',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Scheduled',
-                                          ),
-                                          CustomRadioListTile(
-                                            value: 'Issuer Expiry',
-                                            groupValue: selectedExpiryType,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedExpiryType = value;
-                                              });
-                                            },
-                                            title: 'Issuer Expiry',
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
+
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
                                     ),
                                     child2: Visibility(
                                       visible: selectedExpiryType ==
@@ -272,6 +261,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          SizedBox(height: AppSize.s5,),
                                           FormField<String>(
                                             builder:
                                                 (FormFieldState<String> field) {
@@ -344,8 +334,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                                       context: context,
                                                       initialDate:
                                                           DateTime.now(),
-                                                      firstDate: DateTime(1900),
-                                                      lastDate: DateTime(2101),
+                                                          firstDate: DateTime(1900),
+                                                          lastDate: DateTime(2101),
                                                     );
                                                     if (pickedDate != null) {
                                                       dateController
@@ -376,2350 +366,1861 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                         },
                         icon: Icons.add,
                       )
-                    : _selectedIndex == 1
+                          : _selectedIndex == 1
+                      /// certification
+                          ? CustomIconButtonConst(
+                        width: 170,
+                        text: 'Add Document',
+                        onPressed: () async {
+                          idDocController.clear();
+                          nameDocController.clear();
+                          dateController.clear();
+                          expiryType = "";
+                          String? selectedDocType;
+                          String? selectedExpiryType = expiryType;
+                          int docMetaId = 0;
+                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                          final docTypes = await getEmployeeDocTab(context);
+                          if (docTypes.isNotEmpty) {
+                            for (var i in docTypes) {
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.employeeDocType),
+                                  value: i.employeeDocType,
+                                ),
+                              );
+                            }
+                            selectedDocType = dropDownMenuItems[0].value;
+                            docMetaId = docTypes[0].employeeDocMetaDataId;
+                          }
 
-                        /// certification
-                        ? CustomIconButtonConst(
-                            width: 170,
-                            text: 'Add Document',
-                            onPressed: () async {
-                              idDocController.clear();
-                              nameDocController.clear();
-                              dateController.clear();
-                              expiryType = "";
-                              String? selectedDocType;
-                              String? selectedExpiryType = expiryType;
-                              int docMetaId = 0;
-                              List<DropdownMenuItem<String>> dropDownMenuItems =
-                                  [];
-                              final docTypes = await getEmployeeDocTab(context);
-                              if (docTypes.isNotEmpty) {
-                                for (var i in docTypes) {
-                                  dropDownMenuItems.add(
-                                    DropdownMenuItem<String>(
-                                      child: Text(i.employeeDocType),
-                                      value: i.employeeDocType,
-                                    ),
-                                  );
-                                }
-                                selectedDocType = dropDownMenuItems[0].value;
-                                docMetaId = docTypes[0].employeeDocMetaDataId;
-                              }
-
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return StatefulBuilder(
-                                    builder: (BuildContext context,
-                                        void Function(void Function())
-                                            setState) {
-                                      return EmpDocEditPopup(
-                                        title: 'Add Document',
-                                        idOfDocController: idDocController,
-                                        nameDocController: nameDocController,
-                                        calenderController: dateController,
-                                        loadingDuration: _isLoading,
-                                        onSavePredded: () async {
-                                          String expiryTypeToSend =
-                                              selectedExpiryType ==
-                                                      "Not Applicable"
-                                                  ? "Not Applicable"
-                                                  : dateController.text;
-                                          await addEmployeeDocSetup(
-                                              context,
-                                              AppConfig.certificationDocId,
-                                              nameDocController.text,
-                                              expiryTypeToSend,
-                                              selectedExpiryType.toString(),
-                                              idDocController.text);
-                                          Navigator.pop(context);
-                                          nameDocController.clear();
-                                          dateController.clear();
-                                          print('$AppConfig.healthDocId');
-                                        },
-                                        child: Container(
-                                          width: 354,
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 3, horizontal: 12),
-                                          decoration: BoxDecoration(
-                                            color: ColorManager.white,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            border: Border.all(
-                                                color: ColorManager.fmediumgrey,
-                                                width: 1),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Certifications',
-                                                style: CustomTextStylesCommon
-                                                    .commonStyle(
-                                                  fontWeight:
-                                                      FontWeightManager.medium,
-                                                  fontSize: FontSize.s12,
-                                                  color:
-                                                      ColorManager.mediumgrey,
-                                                ),
-                                              ),
-                                              Icon(
-                                                Icons.arrow_drop_down,
-                                                color: Colors.transparent,
-                                                //color: ColorManager.mediumgrey,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        radioButton: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Expiry Type",
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color:
-                                                      ColorManager.mediumgrey,
-                                                  decoration:
-                                                      TextDecoration.none,
-                                                ),
-                                              ),
-                                              CustomRadioListTile(
-                                                value: "Not Applicable",
-                                                groupValue: selectedExpiryType,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    selectedExpiryType = value;
-                                                  });
-                                                },
-                                                title: "Not Applicable",
-                                              ),
-                                              CustomRadioListTile(
-                                                value: 'Scheduled',
-                                                groupValue: selectedExpiryType,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    selectedExpiryType = value;
-                                                  });
-                                                },
-                                                title: 'Scheduled',
-                                              ),
-                                              CustomRadioListTile(
-                                                value: 'Issuer Expiry',
-                                                groupValue: selectedExpiryType,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    selectedExpiryType = value;
-                                                  });
-                                                },
-                                                title: 'Issuer Expiry',
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        child2: Visibility(
-                                          visible: selectedExpiryType ==
-                                                  "Scheduled" ||
-                                              selectedExpiryType ==
-                                                  "Issuer Expiry",
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Expiry Date",
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color:
-                                                      ColorManager.mediumgrey,
-                                                  decoration:
-                                                      TextDecoration.none,
-                                                ),
-                                              ),
-                                              FormField<String>(
-                                                builder: (FormFieldState<String>
-                                                    field) {
-                                                  return SizedBox(
-                                                    width: 354,
-                                                    height: 30,
-                                                    child: TextFormField(
-                                                      controller:
-                                                          dateController,
-                                                      cursorColor:
-                                                          ColorManager.black,
-                                                      style:
-                                                          GoogleFonts.firaSans(
-                                                        fontSize: FontSize.s12,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: ColorManager
-                                                            .mediumgrey,
-                                                      ),
-                                                      decoration:
-                                                          InputDecoration(
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color: ColorManager
-                                                                  .fmediumgrey,
-                                                              width: 1),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color: ColorManager
-                                                                  .fmediumgrey,
-                                                              width: 1),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                        ),
-                                                        hintText: 'mm-dd-yyyy',
-                                                        hintStyle: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize:
-                                                              FontSize.s12,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          color: ColorManager
-                                                              .mediumgrey,
-                                                        ),
-                                                        border:
-                                                            OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                          borderSide: BorderSide(
-                                                              width: 1,
-                                                              color: ColorManager
-                                                                  .fmediumgrey),
-                                                        ),
-                                                        contentPadding:
-                                                            EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        16),
-                                                        suffixIcon: Icon(
-                                                          Icons
-                                                              .calendar_month_outlined,
-                                                          color: ColorManager
-                                                              .blueprime,
-                                                        ),
-                                                        errorText:
-                                                            field.errorText,
-                                                      ),
-                                                      onTap: () async {
-                                                        DateTime? pickedDate =
-                                                            await showDatePicker(
-                                                          context: context,
-                                                          initialDate:
-                                                              DateTime.now(),
-                                                          firstDate:
-                                                              DateTime(1900),
-                                                          lastDate:
-                                                              DateTime(2101),
-                                                        );
-                                                        if (pickedDate !=
-                                                            null) {
-                                                          dateController
-                                                              .text = DateFormat(
-                                                                  'MM-dd-yyyy')
-                                                              .format(
-                                                                  pickedDate);
-                                                        }
-                                                      },
-                                                      validator: (value) {
-                                                        if (value == null ||
-                                                            value.isEmpty) {
-                                                          return 'please select birth date';
-                                                        }
-                                                        return null;
-                                                      },
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return EmpDocEditPopup(
+                                    title: 'Add Document',
+                                    idOfDocController: idDocController,
+                                    nameDocController: nameDocController,
+                                    calenderController: dateController,
+                                    loadingDuration: _isLoading,
+                                    onSavePredded: () async {
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.certificationDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
+                                      Navigator.pop(context);
+                                      nameDocController.clear();
+                                      dateController.clear();
+                                      print('$AppConfig.healthDocId');
                                     },
+
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Certifications',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.transparent,
+                                            //color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
+
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
+                                    ),
+                                    child2: Visibility(
+                                      visible: selectedExpiryType ==
+                                          "Scheduled" ||
+                                          selectedExpiryType == "Issuer Expiry",
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Expiry Date",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                          SizedBox(height: AppSize.s5,),
+                                          FormField<String>(
+                                            builder:
+                                                (FormFieldState<String> field) {
+                                              return SizedBox(
+                                                width: 354,
+                                                height: 30,
+                                                child: TextFormField(
+                                                  controller: dateController,
+                                                  cursorColor:
+                                                  ColorManager.black,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                    ColorManager.mediumgrey,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    enabledBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                    ),
+                                                    focusedBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                    ),
+                                                    hintText: 'mm-dd-yyyy',
+                                                    hintStyle:
+                                                    GoogleFonts.firaSans(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight:
+                                                      FontWeight.w700,
+                                                      color: ColorManager
+                                                          .mediumgrey,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                      borderSide: BorderSide(
+                                                          width: 1,
+                                                          color: ColorManager
+                                                              .fmediumgrey),
+                                                    ),
+                                                    contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 16),
+                                                    suffixIcon: Icon(
+                                                      Icons
+                                                          .calendar_month_outlined,
+                                                      color: ColorManager
+                                                          .blueprime,
+                                                    ),
+                                                    errorText: field.errorText,
+                                                  ),
+                                                  onTap: () async {
+                                                    DateTime? pickedDate =
+                                                    await showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                      DateTime.now(),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
+                                                    );
+                                                    if (pickedDate != null) {
+                                                      dateController
+                                                          .text = DateFormat(
+                                                          'MM-dd-yyyy')
+                                                          .format(pickedDate);
+                                                    }
+                                                  },
+                                                  validator: (value) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
+                                                      return 'please select birth date';
+                                                    }
+                                                    return null;
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   );
                                 },
                               );
                             },
-                            icon: Icons.add,
-                          )
-                        : _selectedIndex == 2
+                          );
+                        },
+                        icon: Icons.add,
+                      )
+                          : _selectedIndex == 2
 
-                            ///Employement
-                            ? CustomIconButtonConst(
-                                width: 170,
-                                text: 'Add Document',
-                                onPressed: () async {
-                                  idDocController.clear();
-                                  nameDocController.clear();
-                                  dateController.clear();
-                                  expiryType = "";
-                                  String? selectedDocType;
-                                  String? selectedExpiryType = expiryType;
-                                  int docMetaId = 0;
-                                  List<DropdownMenuItem<String>>
-                                      dropDownMenuItems = [];
-                                  final docTypes =
-                                      await getEmployeeDocTab(context);
-                                  if (docTypes.isNotEmpty) {
-                                    for (var i in docTypes) {
-                                      dropDownMenuItems.add(
-                                        DropdownMenuItem<String>(
-                                          child: Text(i.employeeDocType),
-                                          value: i.employeeDocType,
-                                        ),
-                                      );
-                                    }
-                                    selectedDocType =
-                                        dropDownMenuItems[0].value;
-                                    docMetaId =
-                                        docTypes[0].employeeDocMetaDataId;
-                                  }
+                      ///Employement
+                          ? CustomIconButtonConst(
+                        width: 170,
+                        text: 'Add Document',
+                        onPressed: () async {
+                          idDocController.clear();
+                          nameDocController.clear();
+                          dateController.clear();
+                          expiryType = "";
+                          String? selectedDocType;
+                          String? selectedExpiryType = expiryType;
+                          int docMetaId = 0;
+                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                          final docTypes = await getEmployeeDocTab(context);
+                          if (docTypes.isNotEmpty) {
+                            for (var i in docTypes) {
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.employeeDocType),
+                                  value: i.employeeDocType,
+                                ),
+                              );
+                            }
+                            selectedDocType = dropDownMenuItems[0].value;
+                            docMetaId = docTypes[0].employeeDocMetaDataId;
+                          }
 
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return StatefulBuilder(
-                                        builder: (BuildContext context,
-                                            void Function(void Function())
-                                                setState) {
-                                          return EmpDocEditPopup(
-                                            title: 'Add Document',
-                                            idOfDocController: idDocController,
-                                            nameDocController:
-                                                nameDocController,
-                                            calenderController: dateController,
-                                            loadingDuration: _isLoading,
-                                            onSavePredded: () async {
-                                              String expiryTypeToSend =
-                                                  selectedExpiryType ==
-                                                          "Not Applicable"
-                                                      ? "Not Applicable"
-                                                      : dateController.text;
-                                              await addEmployeeDocSetup(
-                                                  context,
-                                                  AppConfig.employmentDocId,
-                                                  nameDocController.text,
-                                                  expiryTypeToSend,
-                                                  selectedExpiryType.toString(),
-                                                  idDocController.text);
-                                              Navigator.pop(context);
-                                              nameDocController.clear();
-                                              dateController.clear();
-                                              print(
-                                                  '$AppConfig.employmentDocId');
-                                            },
-
-                                            child: Container(
-                                              width: 354,
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 3, horizontal: 12),
-                                              decoration: BoxDecoration(
-                                                color: ColorManager.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                border: Border.all(
-                                                    color: ColorManager
-                                                        .fmediumgrey,
-                                                    width: 1),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    'Employment',
-                                                    style:
-                                                        CustomTextStylesCommon
-                                                            .commonStyle(
-                                                      fontWeight:
-                                                          FontWeightManager
-                                                              .medium,
-                                                      fontSize: FontSize.s12,
-                                                      color: ColorManager
-                                                          .mediumgrey,
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.arrow_drop_down,
-                                                    color: Colors.transparent,
-                                                    // color: ColorManager.mediumgrey,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            // child: CICCDropdown(
-                                            //   initialValue: "Select Employee Document",
-                                            //   hintText: "Select Employee Document",
-                                            //   onChange: (val) {
-                                            //     setState(() {
-                                            //       selectedDocType = val;
-                                            //     });
-                                            //     for (var a in docTypes) {
-                                            //       if (a.employeeDocType == val) {
-                                            //         setState(() {
-                                            //           docMetaId = a.employeeDocMetaDataId;
-                                            //         });
-                                            //       }
-                                            //     }
-                                            //     print(":::${docMetaId}");
-                                            //   },
-                                            //   items: dropDownMenuItems,
-                                            // ),
-
-                                            radioButton: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10.0),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Expiry Type",
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: FontSize.s12,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: ColorManager
-                                                          .mediumgrey,
-                                                      decoration:
-                                                          TextDecoration.none,
-                                                    ),
-                                                  ),
-                                                  CustomRadioListTile(
-                                                    value: "Not Applicable",
-                                                    groupValue:
-                                                        selectedExpiryType,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        selectedExpiryType =
-                                                            value;
-                                                      });
-                                                    },
-                                                    title: "Not Applicable",
-                                                  ),
-                                                  CustomRadioListTile(
-                                                    value: 'Scheduled',
-                                                    groupValue:
-                                                        selectedExpiryType,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        selectedExpiryType =
-                                                            value;
-                                                      });
-                                                    },
-                                                    title: 'Scheduled',
-                                                  ),
-                                                  CustomRadioListTile(
-                                                    value: 'Issuer Expiry',
-                                                    groupValue:
-                                                        selectedExpiryType,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        selectedExpiryType =
-                                                            value;
-                                                      });
-                                                    },
-                                                    title: 'Issuer Expiry',
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            child2: Visibility(
-                                              visible: selectedExpiryType ==
-                                                      "Scheduled" ||
-                                                  selectedExpiryType ==
-                                                      "Issuer Expiry",
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Expiry Date",
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: FontSize.s12,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: ColorManager
-                                                          .mediumgrey,
-                                                      decoration:
-                                                          TextDecoration.none,
-                                                    ),
-                                                  ),
-                                                  FormField<String>(
-                                                    builder:
-                                                        (FormFieldState<String>
-                                                            field) {
-                                                      return SizedBox(
-                                                        width: 354,
-                                                        height: 30,
-                                                        child: TextFormField(
-                                                          controller:
-                                                              dateController,
-                                                          cursorColor:
-                                                              ColorManager
-                                                                  .black,
-                                                          style: GoogleFonts
-                                                              .firaSans(
-                                                            fontSize:
-                                                                FontSize.s12,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            color: ColorManager
-                                                                .mediumgrey,
-                                                          ),
-                                                          decoration:
-                                                              InputDecoration(
-                                                            enabledBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: ColorManager
-                                                                      .fmediumgrey,
-                                                                  width: 1),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                            ),
-                                                            focusedBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: ColorManager
-                                                                      .fmediumgrey,
-                                                                  width: 1),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                            ),
-                                                            hintText:
-                                                                'mm-dd-yyyy',
-                                                            hintStyle:
-                                                                GoogleFonts
-                                                                    .firaSans(
-                                                              fontSize:
-                                                                  FontSize.s12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color: ColorManager
-                                                                  .mediumgrey,
-                                                            ),
-                                                            border:
-                                                                OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                              borderSide: BorderSide(
-                                                                  width: 1,
-                                                                  color: ColorManager
-                                                                      .fmediumgrey),
-                                                            ),
-                                                            contentPadding:
-                                                                EdgeInsets
-                                                                    .symmetric(
-                                                                        horizontal:
-                                                                            16),
-                                                            suffixIcon: Icon(
-                                                              Icons
-                                                                  .calendar_month_outlined,
-                                                              color: ColorManager
-                                                                  .blueprime,
-                                                            ),
-                                                            errorText:
-                                                                field.errorText,
-                                                          ),
-                                                          onTap: () async {
-                                                            DateTime?
-                                                                pickedDate =
-                                                                await showDatePicker(
-                                                              context: context,
-                                                              initialDate:
-                                                                  DateTime
-                                                                      .now(),
-                                                              firstDate:
-                                                                  DateTime(
-                                                                      1900),
-                                                              lastDate:
-                                                                  DateTime(
-                                                                      2101),
-                                                            );
-                                                            if (pickedDate !=
-                                                                null) {
-                                                              dateController
-                                                                  .text = DateFormat(
-                                                                      'MM-dd-yyyy')
-                                                                  .format(
-                                                                      pickedDate);
-                                                            }
-                                                          },
-                                                          validator: (value) {
-                                                            if (value == null ||
-                                                                value.isEmpty) {
-                                                              return 'please select birth date';
-                                                            }
-                                                            return null;
-                                                          },
-                                                        ),
-                                                      );
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                  );
-                                },
-                                icon: Icons.add,
-                              )
-                            : _selectedIndex == 3
-
-                                ///clinical verification
-                                ? CustomIconButtonConst(
-                                    width: 170,
-                                    text: 'Add Document',
-                                    onPressed: () async {
-                                      idDocController.clear();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return EmpDocEditPopup(
+                                    title: 'Add Document',
+                                    idOfDocController: idDocController,
+                                    nameDocController: nameDocController,
+                                    calenderController: dateController,
+                                    loadingDuration: _isLoading,
+                                    onSavePredded: () async {
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.employmentDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
+                                      Navigator.pop(context);
                                       nameDocController.clear();
                                       dateController.clear();
-                                      expiryType = "";
-                                      String? selectedDocType;
-                                      String? selectedExpiryType = expiryType;
-                                      int docMetaId = 0;
-                                      List<DropdownMenuItem<String>>
-                                          dropDownMenuItems = [];
-                                      final docTypes =
-                                          await getEmployeeDocTab(context);
-                                      if (docTypes.isNotEmpty) {
-                                        for (var i in docTypes) {
-                                          dropDownMenuItems.add(
-                                            DropdownMenuItem<String>(
-                                              child: Text(i.employeeDocType),
-                                              value: i.employeeDocType,
-                                            ),
-                                          );
-                                        }
-                                        selectedDocType =
-                                            dropDownMenuItems[0].value;
-                                        docMetaId =
-                                            docTypes[0].employeeDocMetaDataId;
-                                      }
-
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return StatefulBuilder(
-                                            builder: (BuildContext context,
-                                                void Function(void Function())
-                                                    setState) {
-                                              return EmpDocEditPopup(
-                                                title: 'Add Document',
-                                                idOfDocController:
-                                                    idDocController,
-                                                nameDocController:
-                                                    nameDocController,
-                                                calenderController:
-                                                    dateController,
-                                                loadingDuration: _isLoading,
-                                                onSavePredded: () async {
-                                                  String expiryTypeToSend =
-                                                      selectedExpiryType ==
-                                                              "Not Applicable"
-                                                          ? "Not Applicable"
-                                                          : dateController.text;
-                                                  await addEmployeeDocSetup(
-                                                      context,
-                                                      AppConfig
-                                                          .clinicalVerificationDocId,
-                                                      nameDocController.text,
-                                                      expiryTypeToSend,
-                                                      selectedExpiryType
-                                                          .toString(),
-                                                      idDocController.text);
-                                                  Navigator.pop(context);
-                                                  nameDocController.clear();
-                                                  dateController.clear();
-                                                  print(
-                                                      '$AppConfig.clinicalVerificationDocId');
-                                                },
-                                                child: Container(
-                                                  width: 354,
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 3,
-                                                      horizontal: 12),
-                                                  decoration: BoxDecoration(
-                                                    color: ColorManager.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                    border: Border.all(
-                                                        color: ColorManager
-                                                            .fmediumgrey,
-                                                        width: 1),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        'Clinical Verification',
-                                                        style:
-                                                            CustomTextStylesCommon
-                                                                .commonStyle(
-                                                          fontWeight:
-                                                              FontWeightManager
-                                                                  .medium,
-                                                          fontSize:
-                                                              FontSize.s12,
-                                                          color: ColorManager
-                                                              .mediumgrey,
-                                                        ),
-                                                      ),
-                                                      Icon(
-                                                        Icons.arrow_drop_down,
-                                                        color:
-                                                            Colors.transparent,
-                                                        // color: ColorManager.mediumgrey,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                // child: CICCDropdown(
-                                                //   initialValue: "Select Employee Document",
-                                                //   hintText: "Select Employee Document",
-                                                //   onChange: (val) {
-                                                //     setState(() {
-                                                //       selectedDocType = val;
-                                                //     });
-                                                //     for (var a in docTypes) {
-                                                //       if (a.employeeDocType == val) {
-                                                //         setState(() {
-                                                //           docMetaId = a.employeeDocMetaDataId;
-                                                //         });
-                                                //       }
-                                                //     }
-                                                //     print(":::${docMetaId}");
-                                                //   },
-                                                //   items: dropDownMenuItems,
-                                                // ),
-
-                                                radioButton: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 10.0),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        "Expiry Type",
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize:
-                                                              FontSize.s12,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          color: ColorManager
-                                                              .mediumgrey,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .none,
-                                                        ),
-                                                      ),
-                                                      CustomRadioListTile(
-                                                        value: "Not Applicable",
-                                                        groupValue:
-                                                            selectedExpiryType,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            selectedExpiryType =
-                                                                value;
-                                                          });
-                                                        },
-                                                        title: "Not Applicable",
-                                                      ),
-                                                      CustomRadioListTile(
-                                                        value: 'Scheduled',
-                                                        groupValue:
-                                                            selectedExpiryType,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            selectedExpiryType =
-                                                                value;
-                                                          });
-                                                        },
-                                                        title: 'Scheduled',
-                                                      ),
-                                                      CustomRadioListTile(
-                                                        value: 'Issuer Expiry',
-                                                        groupValue:
-                                                            selectedExpiryType,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            selectedExpiryType =
-                                                                value;
-                                                          });
-                                                        },
-                                                        title: 'Issuer Expiry',
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                child2: Visibility(
-                                                  visible: selectedExpiryType ==
-                                                          "Scheduled" ||
-                                                      selectedExpiryType ==
-                                                          "Issuer Expiry",
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        "Expiry Date",
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize:
-                                                              FontSize.s12,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          color: ColorManager
-                                                              .mediumgrey,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .none,
-                                                        ),
-                                                      ),
-                                                      FormField<String>(
-                                                        builder:
-                                                            (FormFieldState<
-                                                                    String>
-                                                                field) {
-                                                          return SizedBox(
-                                                            width: 354,
-                                                            height: 30,
-                                                            child:
-                                                                TextFormField(
-                                                              controller:
-                                                                  dateController,
-                                                              cursorColor:
-                                                                  ColorManager
-                                                                      .black,
-                                                              style: GoogleFonts
-                                                                  .firaSans(
-                                                                fontSize:
-                                                                    FontSize
-                                                                        .s12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: ColorManager
-                                                                    .mediumgrey,
-                                                              ),
-                                                              decoration:
-                                                                  InputDecoration(
-                                                                enabledBorder:
-                                                                    OutlineInputBorder(
-                                                                  borderSide: BorderSide(
-                                                                      color: ColorManager
-                                                                          .fmediumgrey,
-                                                                      width: 1),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8),
-                                                                ),
-                                                                focusedBorder:
-                                                                    OutlineInputBorder(
-                                                                  borderSide: BorderSide(
-                                                                      color: ColorManager
-                                                                          .fmediumgrey,
-                                                                      width: 1),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8),
-                                                                ),
-                                                                hintText:
-                                                                    'mm-dd-yyyy',
-                                                                hintStyle:
-                                                                    GoogleFonts
-                                                                        .firaSans(
-                                                                  fontSize:
-                                                                      FontSize
-                                                                          .s12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: ColorManager
-                                                                      .mediumgrey,
-                                                                ),
-                                                                border:
-                                                                    OutlineInputBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8),
-                                                                  borderSide:
-                                                                      BorderSide(
-                                                                          width:
-                                                                              1,
-                                                                          color:
-                                                                              ColorManager.fmediumgrey),
-                                                                ),
-                                                                contentPadding:
-                                                                    EdgeInsets.symmetric(
-                                                                        horizontal:
-                                                                            16),
-                                                                suffixIcon:
-                                                                    Icon(
-                                                                  Icons
-                                                                      .calendar_month_outlined,
-                                                                  color: ColorManager
-                                                                      .blueprime,
-                                                                ),
-                                                                errorText: field
-                                                                    .errorText,
-                                                              ),
-                                                              onTap: () async {
-                                                                DateTime?
-                                                                    pickedDate =
-                                                                    await showDatePicker(
-                                                                  context:
-                                                                      context,
-                                                                  initialDate:
-                                                                      DateTime
-                                                                          .now(),
-                                                                  firstDate:
-                                                                      DateTime(
-                                                                          1900),
-                                                                  lastDate:
-                                                                      DateTime(
-                                                                          2101),
-                                                                );
-                                                                if (pickedDate !=
-                                                                    null) {
-                                                                  dateController
-                                                                      .text = DateFormat(
-                                                                          'MM-dd-yyyy')
-                                                                      .format(
-                                                                          pickedDate);
-                                                                }
-                                                              },
-                                                              validator:
-                                                                  (value) {
-                                                                if (value ==
-                                                                        null ||
-                                                                    value
-                                                                        .isEmpty) {
-                                                                  return 'please select birth date';
-                                                                }
-                                                                return null;
-                                                              },
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          );
-                                        },
-                                      );
+                                      print('$AppConfig.employmentDocId');
                                     },
-                                    icon: Icons.add,
-                                  )
-                                : _selectedIndex == 4
 
-                                    ///Ackonwlwdgement
-                                    ? CustomIconButtonConst(
-                                        width: 170,
-                                        text: 'Add Document',
-                                        onPressed: () async {
-                                          idDocController.clear();
-                                          nameDocController.clear();
-                                          dateController.clear();
-                                          expiryType = "";
-                                          String? selectedDocType;
-                                          String? selectedExpiryType =
-                                              expiryType;
-                                          int docMetaId = 0;
-                                          List<DropdownMenuItem<String>>
-                                              dropDownMenuItems = [];
-                                          final docTypes =
-                                              await getEmployeeDocTab(context);
-                                          if (docTypes.isNotEmpty) {
-                                            for (var i in docTypes) {
-                                              dropDownMenuItems.add(
-                                                DropdownMenuItem<String>(
-                                                  child:
-                                                      Text(i.employeeDocType),
-                                                  value: i.employeeDocType,
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Employment',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.transparent,
+                                            // color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // child: CICCDropdown(
+                                    //   initialValue: "Select Employee Document",
+                                    //   hintText: "Select Employee Document",
+                                    //   onChange: (val) {
+                                    //     setState(() {
+                                    //       selectedDocType = val;
+                                    //     });
+                                    //     for (var a in docTypes) {
+                                    //       if (a.employeeDocType == val) {
+                                    //         setState(() {
+                                    //           docMetaId = a.employeeDocMetaDataId;
+                                    //         });
+                                    //       }
+                                    //     }
+                                    //     print(":::${docMetaId}");
+                                    //   },
+                                    //   items: dropDownMenuItems,
+                                    // ),
+
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
+
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
+                                    ),
+                                    child2: Visibility(
+                                      visible: selectedExpiryType ==
+                                          "Scheduled" ||
+                                          selectedExpiryType == "Issuer Expiry",
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Expiry Date",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                          SizedBox(height: AppSize.s5,),
+                                          FormField<String>(
+                                            builder:
+                                                (FormFieldState<String> field) {
+                                              return SizedBox(
+                                                width: 354,
+                                                height: 30,
+                                                child: TextFormField(
+                                                  controller: dateController,
+                                                  cursorColor:
+                                                  ColorManager.black,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                    ColorManager.mediumgrey,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    enabledBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                    ),
+                                                    focusedBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                    ),
+                                                    hintText: 'mm-dd-yyyy',
+                                                    hintStyle:
+                                                    GoogleFonts.firaSans(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight:
+                                                      FontWeight.w700,
+                                                      color: ColorManager
+                                                          .mediumgrey,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                      borderSide: BorderSide(
+                                                          width: 1,
+                                                          color: ColorManager
+                                                              .fmediumgrey),
+                                                    ),
+                                                    contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 16),
+                                                    suffixIcon: Icon(
+                                                      Icons
+                                                          .calendar_month_outlined,
+                                                      color: ColorManager
+                                                          .blueprime,
+                                                    ),
+                                                    errorText: field.errorText,
+                                                  ),
+                                                  onTap: () async {
+                                                    DateTime? pickedDate =
+                                                    await showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                      DateTime.now(),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
+                                                    );
+                                                    if (pickedDate != null) {
+                                                      dateController
+                                                          .text = DateFormat(
+                                                          'MM-dd-yyyy')
+                                                          .format(pickedDate);
+                                                    }
+                                                  },
+                                                  validator: (value) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
+                                                      return 'please select birth date';
+                                                    }
+                                                    return null;
+                                                  },
                                                 ),
                                               );
-                                            }
-                                            selectedDocType =
-                                                dropDownMenuItems[0].value;
-                                            docMetaId = docTypes[0]
-                                                .employeeDocMetaDataId;
-                                          }
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        icon: Icons.add,
+                      )
+                          : _selectedIndex == 3
+                      ///clinical verification
+                          ? CustomIconButtonConst(
+                        width: 170,
+                        text: 'Add Document',
+                        onPressed: () async {
+                          idDocController.clear();
+                          nameDocController.clear();
+                          dateController.clear();
+                          expiryType = "";
+                          String? selectedDocType;
+                          String? selectedExpiryType = expiryType;
+                          int docMetaId = 0;
+                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                          final docTypes = await getEmployeeDocTab(context);
+                          if (docTypes.isNotEmpty) {
+                            for (var i in docTypes) {
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.employeeDocType),
+                                  value: i.employeeDocType,
+                                ),
+                              );
+                            }
+                            selectedDocType = dropDownMenuItems[0].value;
+                            docMetaId = docTypes[0].employeeDocMetaDataId;
+                          }
 
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return StatefulBuilder(
-                                                builder: (BuildContext context,
-                                                    void Function(
-                                                            void Function())
-                                                        setState) {
-                                                  return EmpDocEditPopup(
-                                                    title: 'Add Document',
-                                                    idOfDocController:
-                                                        idDocController,
-                                                    nameDocController:
-                                                        nameDocController,
-                                                    calenderController:
-                                                        dateController,
-                                                    loadingDuration: _isLoading,
-                                                    onSavePredded: () async {
-                                                      String expiryTypeToSend =
-                                                          selectedExpiryType ==
-                                                                  "Not Applicable"
-                                                              ? "Not Applicable"
-                                                              : dateController
-                                                                  .text;
-                                                      await addEmployeeDocSetup(
-                                                          context,
-                                                          AppConfig
-                                                              .acknowledgementDocId,
-                                                          nameDocController
-                                                              .text,
-                                                          expiryTypeToSend,
-                                                          selectedExpiryType
-                                                              .toString(),
-                                                          idDocController.text);
-                                                      Navigator.pop(context);
-                                                      nameDocController.clear();
-                                                      dateController.clear();
-                                                      print(
-                                                          '$AppConfig.clinicalVerificationDocId');
-                                                    },
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return EmpDocEditPopup(
+                                    title: 'Add Document',
+                                    idOfDocController: idDocController,
+                                    nameDocController: nameDocController,
+                                    calenderController: dateController,
+                                    loadingDuration: _isLoading,
+                                    onSavePredded: () async {
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.clinicalVerificationDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
+                                      Navigator.pop(context);
+                                      nameDocController.clear();
+                                      dateController.clear();
+                                      print('$AppConfig.clinicalVerificationDocId');
+                                    },
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Clinical Verification',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.transparent,
+                                            // color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // child: CICCDropdown(
+                                    //   initialValue: "Select Employee Document",
+                                    //   hintText: "Select Employee Document",
+                                    //   onChange: (val) {
+                                    //     setState(() {
+                                    //       selectedDocType = val;
+                                    //     });
+                                    //     for (var a in docTypes) {
+                                    //       if (a.employeeDocType == val) {
+                                    //         setState(() {
+                                    //           docMetaId = a.employeeDocMetaDataId;
+                                    //         });
+                                    //       }
+                                    //     }
+                                    //     print(":::${docMetaId}");
+                                    //   },
+                                    //   items: dropDownMenuItems,
+                                    // ),
 
-                                                    child: Container(
-                                                      width: 354,
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 3,
-                                                              horizontal: 12),
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            ColorManager.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        border: Border.all(
-                                                            color: ColorManager
-                                                                .fmediumgrey,
-                                                            width: 1),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            'Acknowledgement',
-                                                            style:
-                                                                CustomTextStylesCommon
-                                                                    .commonStyle(
-                                                              fontWeight:
-                                                                  FontWeightManager
-                                                                      .medium,
-                                                              fontSize:
-                                                                  FontSize.s12,
-                                                              color: ColorManager
-                                                                  .mediumgrey,
-                                                            ),
-                                                          ),
-                                                          Icon(
-                                                            Icons
-                                                                .arrow_drop_down,
-                                                            color: Colors
-                                                                .transparent,
-                                                            // color: ColorManager.mediumgrey,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    // child: CICCDropdown(
-                                                    //   initialValue: "Select Employee Document",
-                                                    //   hintText: "Select Employee Document",
-                                                    //   onChange: (val) {
-                                                    //     setState(() {
-                                                    //       selectedDocType = val;
-                                                    //     });
-                                                    //     for (var a in docTypes) {
-                                                    //       if (a.employeeDocType == val) {
-                                                    //         setState(() {
-                                                    //           docMetaId = a.employeeDocMetaDataId;
-                                                    //         });
-                                                    //       }
-                                                    //     }
-                                                    //     print(":::${docMetaId}");
-                                                    //   },
-                                                    //   items: dropDownMenuItems,
-                                                    // ),
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
 
-                                                    radioButton: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 10.0),
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Expiry Type",
-                                                            style: GoogleFonts
-                                                                .firaSans(
-                                                              fontSize:
-                                                                  FontSize.s12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color: ColorManager
-                                                                  .mediumgrey,
-                                                              decoration:
-                                                                  TextDecoration
-                                                                      .none,
-                                                            ),
-                                                          ),
-                                                          CustomRadioListTile(
-                                                            value:
-                                                                "Not Applicable",
-                                                            groupValue:
-                                                                selectedExpiryType,
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                selectedExpiryType =
-                                                                    value;
-                                                              });
-                                                            },
-                                                            title:
-                                                                "Not Applicable",
-                                                          ),
-                                                          CustomRadioListTile(
-                                                            value: 'Scheduled',
-                                                            groupValue:
-                                                                selectedExpiryType,
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                selectedExpiryType =
-                                                                    value;
-                                                              });
-                                                            },
-                                                            title: 'Scheduled',
-                                                          ),
-                                                          CustomRadioListTile(
-                                                            value:
-                                                                'Issuer Expiry',
-                                                            groupValue:
-                                                                selectedExpiryType,
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                selectedExpiryType =
-                                                                    value;
-                                                              });
-                                                            },
-                                                            title:
-                                                                'Issuer Expiry',
-                                                          ),
-                                                        ],
-                                                      ),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
+                                    ),
+                                    child2: Visibility(
+                                      visible: selectedExpiryType ==
+                                          "Scheduled" ||
+                                          selectedExpiryType == "Issuer Expiry",
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Expiry Date",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                          SizedBox(height: AppSize.s5,),
+                                          FormField<String>(
+                                            builder:
+                                                (FormFieldState<String> field) {
+                                              return SizedBox(
+                                                width: 354,
+                                                height: 30,
+                                                child: TextFormField(
+                                                  controller: dateController,
+                                                  cursorColor:
+                                                  ColorManager.black,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                    ColorManager.mediumgrey,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    enabledBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
                                                     ),
-                                                    child2: Visibility(
-                                                      visible: selectedExpiryType ==
-                                                              "Scheduled" ||
-                                                          selectedExpiryType ==
-                                                              "Issuer Expiry",
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Expiry Date",
-                                                            style: GoogleFonts
-                                                                .firaSans(
-                                                              fontSize:
-                                                                  FontSize.s12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color: ColorManager
-                                                                  .mediumgrey,
-                                                              decoration:
-                                                                  TextDecoration
-                                                                      .none,
-                                                            ),
-                                                          ),
-                                                          FormField<String>(
-                                                            builder:
-                                                                (FormFieldState<
-                                                                        String>
-                                                                    field) {
-                                                              return SizedBox(
-                                                                width: 354,
-                                                                height: 30,
-                                                                child:
-                                                                    TextFormField(
-                                                                  controller:
-                                                                      dateController,
-                                                                  cursorColor:
-                                                                      ColorManager
-                                                                          .black,
-                                                                  style: GoogleFonts
-                                                                      .firaSans(
-                                                                    fontSize:
-                                                                        FontSize
-                                                                            .s12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: ColorManager
-                                                                        .mediumgrey,
-                                                                  ),
-                                                                  decoration:
-                                                                      InputDecoration(
-                                                                    enabledBorder:
-                                                                        OutlineInputBorder(
-                                                                      borderSide: BorderSide(
-                                                                          color: ColorManager
-                                                                              .fmediumgrey,
-                                                                          width:
-                                                                              1),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              8),
-                                                                    ),
-                                                                    focusedBorder:
-                                                                        OutlineInputBorder(
-                                                                      borderSide: BorderSide(
-                                                                          color: ColorManager
-                                                                              .fmediumgrey,
-                                                                          width:
-                                                                              1),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              8),
-                                                                    ),
-                                                                    hintText:
-                                                                        'mm-dd-yyyy',
-                                                                    hintStyle:
-                                                                        GoogleFonts
-                                                                            .firaSans(
-                                                                      fontSize:
-                                                                          FontSize
-                                                                              .s12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      color: ColorManager
-                                                                          .mediumgrey,
-                                                                    ),
-                                                                    border:
-                                                                        OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              8),
-                                                                      borderSide: BorderSide(
-                                                                          width:
-                                                                              1,
-                                                                          color:
-                                                                              ColorManager.fmediumgrey),
-                                                                    ),
-                                                                    contentPadding:
-                                                                        EdgeInsets.symmetric(
-                                                                            horizontal:
-                                                                                16),
-                                                                    suffixIcon:
-                                                                        Icon(
-                                                                      Icons
-                                                                          .calendar_month_outlined,
-                                                                      color: ColorManager
-                                                                          .blueprime,
-                                                                    ),
-                                                                    errorText: field
-                                                                        .errorText,
-                                                                  ),
-                                                                  onTap:
-                                                                      () async {
-                                                                    DateTime?
-                                                                        pickedDate =
-                                                                        await showDatePicker(
-                                                                      context:
-                                                                          context,
-                                                                      initialDate:
-                                                                          DateTime
-                                                                              .now(),
-                                                                      firstDate:
-                                                                          DateTime(
-                                                                              1900),
-                                                                      lastDate:
-                                                                          DateTime(
-                                                                              2101),
-                                                                    );
-                                                                    if (pickedDate !=
-                                                                        null) {
-                                                                      dateController
-                                                                          .text = DateFormat(
-                                                                              'MM-dd-yyyy')
-                                                                          .format(
-                                                                              pickedDate);
-                                                                    }
-                                                                  },
-                                                                  validator:
-                                                                      (value) {
-                                                                    if (value ==
-                                                                            null ||
-                                                                        value
-                                                                            .isEmpty) {
-                                                                      return 'please select birth date';
-                                                                    }
-                                                                    return null;
-                                                                  },
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
+                                                    focusedBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
                                                     ),
-                                                  );
-                                                },
+                                                    hintText: 'mm-dd-yyyy',
+                                                    hintStyle:
+                                                    GoogleFonts.firaSans(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight:
+                                                      FontWeight.w700,
+                                                      color: ColorManager
+                                                          .mediumgrey,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                      borderSide: BorderSide(
+                                                          width: 1,
+                                                          color: ColorManager
+                                                              .fmediumgrey),
+                                                    ),
+                                                    contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 16),
+                                                    suffixIcon: Icon(
+                                                      Icons
+                                                          .calendar_month_outlined,
+                                                      color: ColorManager
+                                                          .blueprime,
+                                                    ),
+                                                    errorText: field.errorText,
+                                                  ),
+                                                  onTap: () async {
+                                                    DateTime? pickedDate =
+                                                    await showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                      DateTime.now(),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
+                                                    );
+                                                    if (pickedDate != null) {
+                                                      dateController
+                                                          .text = DateFormat(
+                                                          'MM-dd-yyyy')
+                                                          .format(pickedDate);
+                                                    }
+                                                  },
+                                                  validator: (value) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
+                                                      return 'please select birth date';
+                                                    }
+                                                    return null;
+                                                  },
+                                                ),
                                               );
                                             },
-                                          );
-                                        },
-                                        icon: Icons.add,
-                                      )
-                                    : _selectedIndex == 5
-                                        //     ? CustomIconButtonConst(
-                                        //   width: 170,
-                                        //   text: 'Add Documenccc',
-                                        //   onPressed: () async {
-                                        //     idDocController.clear();
-                                        //     nameDocController.clear();
-                                        //     dateController.clear();
-                                        //     expiryType = "";
-                                        //     String? selectedDocType;
-                                        //     String? selectedExpiryType = expiryType;
-                                        //     int docMetaId = 0;
-                                        //     List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                        //     final docTypes = await getEmployeeDocTab(context);
-                                        //     if (docTypes.isNotEmpty) {
-                                        //       for (var i in docTypes) {
-                                        //         dropDownMenuItems.add(
-                                        //           DropdownMenuItem<String>(
-                                        //             child: Text(i.employeeDocType),
-                                        //             value: i.employeeDocType,
-                                        //           ),
-                                        //         );
-                                        //       }
-                                        //       selectedDocType = dropDownMenuItems[0].value;
-                                        //       docMetaId = docTypes[0].employeeDocMetaDataId;
-                                        //     }
-                                        //
-                                        //     showDialog(
-                                        //       context: context,
-                                        //       builder: (BuildContext context) {
-                                        //         return StatefulBuilder(
-                                        //           builder: (BuildContext context,
-                                        //               void Function(void Function()) setState) {
-                                        //             return EmpDocEditPopup(
-                                        //               title: 'Add Document',
-                                        //               idDocController: idDocController,
-                                        //               nameDocController: nameDocController,
-                                        //               calenderController: dateController,
-                                        //               loadingDuration: _isLoading,
-                                        //               onSavePredded: () async {
-                                        //                 await addEmployeeDocSetup(
-                                        //                   context,
-                                        //                   docMetaId,
-                                        //                   nameDocController.text,
-                                        //                   dateController.text,
-                                        //                   selectedExpiryType.toString(),
-                                        //                 );
-                                        //                 Navigator.pop(context);
-                                        //                 nameDocController.clear();
-                                        //                 dateController.clear();
-                                        //                 print('$docMetaId');
-                                        //               },
-                                        //               child: CICCDropdown(
-                                        //                 initialValue: "Select Employee Document",
-                                        //                 hintText: "Select Employee Document",
-                                        //                 onChange: (val) {
-                                        //                   setState(() {
-                                        //                     selectedDocType = val;
-                                        //                   });
-                                        //                   for (var a in docTypes) {
-                                        //                     if (a.employeeDocType == val) {
-                                        //                       setState(() {
-                                        //                         docMetaId = a.employeeDocMetaDataId;
-                                        //                       });
-                                        //                     }
-                                        //                   }
-                                        //                   print(":::${docMetaId}");
-                                        //                 },
-                                        //                 items: dropDownMenuItems,
-                                        //               ),
-                                        //
-                                        //               radioButton: Padding(
-                                        //                 padding:
-                                        //                 const EdgeInsets.only(left: 10.0),
-                                        //                 child: Column(
-                                        //                   mainAxisAlignment:
-                                        //                   MainAxisAlignment.start,
-                                        //                   crossAxisAlignment:
-                                        //                   CrossAxisAlignment.start,
-                                        //                   children: [
-                                        //                     Text(
-                                        //                       "Expiry Type",
-                                        //                       style: GoogleFonts.firaSans(
-                                        //                         fontSize: FontSize.s12,
-                                        //                         fontWeight: FontWeight.w700,
-                                        //                         color: ColorManager.mediumgrey,
-                                        //                         decoration: TextDecoration.none,
-                                        //                       ),
-                                        //                     ),
-                                        //                     CustomRadioListTile(
-                                        //                       value: "Not Applicable",
-                                        //                       groupValue: selectedExpiryType,
-                                        //
-                                        //                       onChanged: (value) {
-                                        //                         setState(() {
-                                        //                           selectedExpiryType = value;
-                                        //                         });
-                                        //                       },
-                                        //                       title: "Not Applicable",
-                                        //                     ),
-                                        //                     CustomRadioListTile(
-                                        //                       value: 'Scheduled',
-                                        //                       groupValue: selectedExpiryType,
-                                        //                       onChanged: (value) {
-                                        //                         setState(() {
-                                        //                           selectedExpiryType = value;
-                                        //                         });
-                                        //                       },
-                                        //                       title: 'Scheduled',
-                                        //                     ),
-                                        //                     CustomRadioListTile(
-                                        //                       value: 'Issuer Expiry',
-                                        //                       groupValue: selectedExpiryType,
-                                        //                       onChanged: (value) {
-                                        //                         setState(() {
-                                        //                           selectedExpiryType = value;
-                                        //                         });
-                                        //                       },
-                                        //                       title: 'Issuer Expiry',
-                                        //                     ),
-                                        //                   ],
-                                        //                 ),
-                                        //               ),
-                                        //               child2: Visibility(
-                                        //                 visible: selectedExpiryType ==
-                                        //                     "Scheduled" ||
-                                        //                     selectedExpiryType == "Issuer Expiry",
-                                        //                 child: Column(
-                                        //                   crossAxisAlignment:
-                                        //                   CrossAxisAlignment.start,
-                                        //                   children: [
-                                        //                     Text(
-                                        //                       "Expiry Date",
-                                        //                       style: GoogleFonts.firaSans(
-                                        //                         fontSize: FontSize.s12,
-                                        //                         fontWeight: FontWeight.w700,
-                                        //                         color: ColorManager.mediumgrey,
-                                        //                         decoration: TextDecoration.none,
-                                        //                       ),
-                                        //                     ),
-                                        //                     FormField<String>(
-                                        //                       builder:
-                                        //                           (FormFieldState<String> field) {
-                                        //                         return SizedBox(
-                                        //                           width: 354,
-                                        //                           height: 30,
-                                        //                           child: TextFormField(
-                                        //                             controller: dateController,
-                                        //                             cursorColor:
-                                        //                             ColorManager.black,
-                                        //                             style: GoogleFonts.firaSans(
-                                        //                               fontSize: FontSize.s12,
-                                        //                               fontWeight: FontWeight.w700,
-                                        //                               color:
-                                        //                               ColorManager.mediumgrey,
-                                        //                             ),
-                                        //                             decoration: InputDecoration(
-                                        //                               enabledBorder:
-                                        //                               OutlineInputBorder(
-                                        //                                 borderSide: BorderSide(
-                                        //                                     color: ColorManager
-                                        //                                         .fmediumgrey,
-                                        //                                     width: 1),
-                                        //                                 borderRadius:
-                                        //                                 BorderRadius.circular(
-                                        //                                     8),
-                                        //                               ),
-                                        //                               focusedBorder:
-                                        //                               OutlineInputBorder(
-                                        //                                 borderSide: BorderSide(
-                                        //                                     color: ColorManager
-                                        //                                         .fmediumgrey,
-                                        //                                     width: 1),
-                                        //                                 borderRadius:
-                                        //                                 BorderRadius.circular(
-                                        //                                     8),
-                                        //                               ),
-                                        //                               hintText: 'mm-dd-yyyy',
-                                        //                               hintStyle:
-                                        //                               GoogleFonts.firaSans(
-                                        //                                 fontSize: FontSize.s12,
-                                        //                                 fontWeight:
-                                        //                                 FontWeight.w700,
-                                        //                                 color: ColorManager
-                                        //                                     .mediumgrey,
-                                        //                               ),
-                                        //                               border: OutlineInputBorder(
-                                        //                                 borderRadius:
-                                        //                                 BorderRadius.circular(
-                                        //                                     8),
-                                        //                                 borderSide: BorderSide(
-                                        //                                     width: 1,
-                                        //                                     color: ColorManager
-                                        //                                         .fmediumgrey),
-                                        //                               ),
-                                        //                               contentPadding:
-                                        //                               EdgeInsets.symmetric(
-                                        //                                   horizontal: 16),
-                                        //                               suffixIcon: Icon(
-                                        //                                 Icons
-                                        //                                     .calendar_month_outlined,
-                                        //                                 color: ColorManager
-                                        //                                     .blueprime,
-                                        //                               ),
-                                        //                               errorText: field.errorText,
-                                        //                             ),
-                                        //                             onTap: () async {
-                                        //                               DateTime? pickedDate =
-                                        //                               await showDatePicker(
-                                        //                                 context: context,
-                                        //                                 initialDate:
-                                        //                                 DateTime.now(),
-                                        //                                 firstDate: DateTime(2000),
-                                        //                                 lastDate: DateTime(3101),
-                                        //                               );
-                                        //                               if (pickedDate != null) {
-                                        //                                 dateController
-                                        //                                     .text = DateFormat(
-                                        //                                     'MM-dd-yyyy')
-                                        //                                     .format(pickedDate);
-                                        //                               }
-                                        //                             },
-                                        //                             validator: (value) {
-                                        //                               if (value == null ||
-                                        //                                   value.isEmpty) {
-                                        //                                 return 'please select birth date';
-                                        //                               }
-                                        //                               return null;
-                                        //                             },
-                                        //                           ),
-                                        //                         );
-                                        //                       },
-                                        //                     ),
-                                        //                   ],
-                                        //                 ),
-                                        //               ),
-                                        //             );
-                                        //           },
-                                        //         );
-                                        //       },
-                                        //     );
-                                        //   },
-                                        //   icon: Icons.add,
-                                        // )
-                                        //     : _selectedIndex == 6
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        icon: Icons.add,
+                      )
+                          : _selectedIndex == 4
+                          ///Ackonwlwdgement
+                          ? CustomIconButtonConst(
+                        width: 170,
+                        text: 'Add Document',
+                        onPressed: () async {
+                          idDocController.clear();
+                          nameDocController.clear();
+                          dateController.clear();
+                          expiryType = "";
+                          String? selectedDocType;
+                          String? selectedExpiryType = expiryType;
+                          int docMetaId = 0;
+                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                          final docTypes = await getEmployeeDocTab(context);
+                          if (docTypes.isNotEmpty) {
+                            for (var i in docTypes) {
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.employeeDocType),
+                                  value: i.employeeDocType,
+                                ),
+                              );
+                            }
+                            selectedDocType = dropDownMenuItems[0].value;
+                            docMetaId = docTypes[0].employeeDocMetaDataId;
+                          }
 
-                                        ///compensation
-                                        ? CustomIconButtonConst(
-                                            width: 170,
-                                            text: 'Add Document',
-                                            onPressed: () async {
-                                              idDocController.clear();
-                                              nameDocController.clear();
-                                              dateController.clear();
-                                              expiryType = "";
-                                              String? selectedDocType;
-                                              String? selectedExpiryType =
-                                                  expiryType;
-                                              int docMetaId = 0;
-                                              List<DropdownMenuItem<String>>
-                                                  dropDownMenuItems = [];
-                                              final docTypes =
-                                                  await getEmployeeDocTab(
-                                                      context);
-                                              if (docTypes.isNotEmpty) {
-                                                for (var i in docTypes) {
-                                                  dropDownMenuItems.add(
-                                                    DropdownMenuItem<String>(
-                                                      child: Text(
-                                                          i.employeeDocType),
-                                                      value: i.employeeDocType,
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return EmpDocEditPopup(
+                                    title: 'Add Document',
+                                    idOfDocController: idDocController,
+                                    nameDocController: nameDocController,
+                                    calenderController: dateController,
+                                    loadingDuration: _isLoading,
+                                    onSavePredded: () async {
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.acknowledgementDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
+                                      Navigator.pop(context);
+                                      nameDocController.clear();
+                                      dateController.clear();
+                                      print('$AppConfig.clinicalVerificationDocId');
+                                    },
+
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Acknowledgement',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.transparent,
+                                            // color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // child: CICCDropdown(
+                                    //   initialValue: "Select Employee Document",
+                                    //   hintText: "Select Employee Document",
+                                    //   onChange: (val) {
+                                    //     setState(() {
+                                    //       selectedDocType = val;
+                                    //     });
+                                    //     for (var a in docTypes) {
+                                    //       if (a.employeeDocType == val) {
+                                    //         setState(() {
+                                    //           docMetaId = a.employeeDocMetaDataId;
+                                    //         });
+                                    //       }
+                                    //     }
+                                    //     print(":::${docMetaId}");
+                                    //   },
+                                    //   items: dropDownMenuItems,
+                                    // ),
+
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
+
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
+                                    ),
+                                    child2: Visibility(
+                                      visible: selectedExpiryType ==
+                                          "Scheduled" ||
+                                          selectedExpiryType == "Issuer Expiry",
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Expiry Date",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                          SizedBox(height: AppSize.s5,),
+                                          FormField<String>(
+                                            builder:
+                                                (FormFieldState<String> field) {
+                                              return SizedBox(
+                                                width: 354,
+                                                height: 30,
+                                                child: TextFormField(
+                                                  controller: dateController,
+                                                  cursorColor:
+                                                  ColorManager.black,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                    ColorManager.mediumgrey,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    enabledBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
                                                     ),
-                                                  );
-                                                }
-                                                selectedDocType =
-                                                    dropDownMenuItems[0].value;
-                                                docMetaId = docTypes[0]
-                                                    .employeeDocMetaDataId;
-                                              }
-
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return StatefulBuilder(
-                                                    builder: (BuildContext
-                                                            context,
-                                                        void Function(
-                                                                void Function())
-                                                            setState) {
-                                                      return EmpDocEditPopup(
-                                                        title: 'Add Document',
-                                                        idOfDocController:
-                                                            idDocController,
-                                                        nameDocController:
-                                                            nameDocController,
-                                                        calenderController:
-                                                            dateController,
-                                                        loadingDuration:
-                                                            _isLoading,
-                                                        onSavePredded:
-                                                            () async {
-                                                          String
-                                                              expiryTypeToSend =
-                                                              selectedExpiryType ==
-                                                                      "Not Applicable"
-                                                                  ? "Not Applicable"
-                                                                  : dateController
-                                                                      .text;
-                                                          await addEmployeeDocSetup(
-                                                              context,
-                                                              AppConfig
-                                                                  .compensationDocId,
-                                                              nameDocController
-                                                                  .text,
-                                                              expiryTypeToSend,
-                                                              selectedExpiryType
-                                                                  .toString(),
-                                                              idDocController
-                                                                  .text);
-                                                          Navigator.pop(
-                                                              context);
-                                                          nameDocController
-                                                              .clear();
-                                                          dateController
-                                                              .clear();
-                                                          print(
-                                                              '$AppConfig.compensationDocId');
-                                                        },
-
-                                                        child: Container(
-                                                          width: 354,
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  vertical: 3,
-                                                                  horizontal:
-                                                                      12),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: ColorManager
-                                                                .white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
-                                                            border: Border.all(
-                                                                color: ColorManager
-                                                                    .fmediumgrey,
-                                                                width: 1),
-                                                          ),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                'Compensation',
-                                                                style: CustomTextStylesCommon
-                                                                    .commonStyle(
-                                                                  fontWeight:
-                                                                      FontWeightManager
-                                                                          .medium,
-                                                                  fontSize:
-                                                                      FontSize
-                                                                          .s12,
-                                                                  color: ColorManager
-                                                                      .mediumgrey,
-                                                                ),
-                                                              ),
-                                                              Icon(
-                                                                Icons
-                                                                    .arrow_drop_down,
-                                                                color: Colors
-                                                                    .transparent,
-                                                                // color: ColorManager.mediumgrey,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        // child: CICCDropdown(
-                                                        //   initialValue: "Select Employee Document",
-                                                        //   hintText: "Select Employee Document",
-                                                        //   onChange: (val) {
-                                                        //     setState(() {
-                                                        //       selectedDocType = val;
-                                                        //     });
-                                                        //     for (var a in docTypes) {
-                                                        //       if (a.employeeDocType == val) {
-                                                        //         setState(() {
-                                                        //           docMetaId = a.employeeDocMetaDataId;
-                                                        //         });
-                                                        //       }
-                                                        //     }
-                                                        //     print(":::${docMetaId}");
-                                                        //   },
-                                                        //   items: dropDownMenuItems,
-                                                        // ),
-
-                                                        radioButton: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 10.0),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                "Expiry Type",
-                                                                style: GoogleFonts
-                                                                    .firaSans(
-                                                                  fontSize:
-                                                                      FontSize
-                                                                          .s12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: ColorManager
-                                                                      .mediumgrey,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .none,
-                                                                ),
-                                                              ),
-                                                              CustomRadioListTile(
-                                                                value:
-                                                                    "Not Applicable",
-                                                                groupValue:
-                                                                    selectedExpiryType,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  setState(() {
-                                                                    selectedExpiryType =
-                                                                        value;
-                                                                  });
-                                                                },
-                                                                title:
-                                                                    "Not Applicable",
-                                                              ),
-                                                              CustomRadioListTile(
-                                                                value:
-                                                                    'Scheduled',
-                                                                groupValue:
-                                                                    selectedExpiryType,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  setState(() {
-                                                                    selectedExpiryType =
-                                                                        value;
-                                                                  });
-                                                                },
-                                                                title:
-                                                                    'Scheduled',
-                                                              ),
-                                                              CustomRadioListTile(
-                                                                value:
-                                                                    'Issuer Expiry',
-                                                                groupValue:
-                                                                    selectedExpiryType,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  setState(() {
-                                                                    selectedExpiryType =
-                                                                        value;
-                                                                  });
-                                                                },
-                                                                title:
-                                                                    'Issuer Expiry',
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        child2: Visibility(
-                                                          visible: selectedExpiryType ==
-                                                                  "Scheduled" ||
-                                                              selectedExpiryType ==
-                                                                  "Issuer Expiry",
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                "Expiry Date",
-                                                                style: GoogleFonts
-                                                                    .firaSans(
-                                                                  fontSize:
-                                                                      FontSize
-                                                                          .s12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: ColorManager
-                                                                      .mediumgrey,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .none,
-                                                                ),
-                                                              ),
-                                                              FormField<String>(
-                                                                builder:
-                                                                    (FormFieldState<
-                                                                            String>
-                                                                        field) {
-                                                                  return SizedBox(
-                                                                    width: 354,
-                                                                    height: 30,
-                                                                    child:
-                                                                        TextFormField(
-                                                                      controller:
-                                                                          dateController,
-                                                                      cursorColor:
-                                                                          ColorManager
-                                                                              .black,
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize:
-                                                                            FontSize.s12,
-                                                                        fontWeight:
-                                                                            FontWeight.w700,
-                                                                        color: ColorManager
-                                                                            .mediumgrey,
-                                                                      ),
-                                                                      decoration:
-                                                                          InputDecoration(
-                                                                        enabledBorder:
-                                                                            OutlineInputBorder(
-                                                                          borderSide: BorderSide(
-                                                                              color: ColorManager.fmediumgrey,
-                                                                              width: 1),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(8),
-                                                                        ),
-                                                                        focusedBorder:
-                                                                            OutlineInputBorder(
-                                                                          borderSide: BorderSide(
-                                                                              color: ColorManager.fmediumgrey,
-                                                                              width: 1),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(8),
-                                                                        ),
-                                                                        hintText:
-                                                                            'mm-dd-yyyy',
-                                                                        hintStyle:
-                                                                            GoogleFonts.firaSans(
-                                                                          fontSize:
-                                                                              FontSize.s12,
-                                                                          fontWeight:
-                                                                              FontWeight.w700,
-                                                                          color:
-                                                                              ColorManager.mediumgrey,
-                                                                        ),
-                                                                        border:
-                                                                            OutlineInputBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(8),
-                                                                          borderSide: BorderSide(
-                                                                              width: 1,
-                                                                              color: ColorManager.fmediumgrey),
-                                                                        ),
-                                                                        contentPadding:
-                                                                            EdgeInsets.symmetric(horizontal: 16),
-                                                                        suffixIcon:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .calendar_month_outlined,
-                                                                          color:
-                                                                              ColorManager.blueprime,
-                                                                        ),
-                                                                        errorText:
-                                                                            field.errorText,
-                                                                      ),
-                                                                      onTap:
-                                                                          () async {
-                                                                        DateTime?
-                                                                            pickedDate =
-                                                                            await showDatePicker(
-                                                                          context:
-                                                                              context,
-                                                                          initialDate:
-                                                                              DateTime.now(),
-                                                                          firstDate:
-                                                                              DateTime(1900),
-                                                                          lastDate:
-                                                                              DateTime(2101),
-                                                                        );
-                                                                        if (pickedDate !=
-                                                                            null) {
-                                                                          dateController.text =
-                                                                              DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                                        }
-                                                                      },
-                                                                      validator:
-                                                                          (value) {
-                                                                        if (value ==
-                                                                                null ||
-                                                                            value.isEmpty) {
-                                                                          return 'please select birth date';
-                                                                        }
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                },
+                                                    focusedBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                    ),
+                                                    hintText: 'mm-dd-yyyy',
+                                                    hintStyle:
+                                                    GoogleFonts.firaSans(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight:
+                                                      FontWeight.w700,
+                                                      color: ColorManager
+                                                          .mediumgrey,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                      borderSide: BorderSide(
+                                                          width: 1,
+                                                          color: ColorManager
+                                                              .fmediumgrey),
+                                                    ),
+                                                    contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 16),
+                                                    suffixIcon: Icon(
+                                                      Icons
+                                                          .calendar_month_outlined,
+                                                      color: ColorManager
+                                                          .blueprime,
+                                                    ),
+                                                    errorText: field.errorText,
+                                                  ),
+                                                  onTap: () async {
+                                                    DateTime? pickedDate =
+                                                    await showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                      DateTime.now(),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
+                                                    );
+                                                    if (pickedDate != null) {
+                                                      dateController
+                                                          .text = DateFormat(
+                                                          'MM-dd-yyyy')
+                                                          .format(pickedDate);
+                                                    }
+                                                  },
+                                                  validator: (value) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
+                                                      return 'please select birth date';
+                                                    }
+                                                    return null;
+                                                  },
+                                                ),
                                               );
                                             },
-                                            icon: Icons.add,
-                                          )
-                                        :
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        icon: Icons.add,
+                      )
+                          : _selectedIndex == 5
+                      //     ? CustomIconButtonConst(
+                      //   width: 170,
+                      //   text: 'Add Documenccc',
+                      //   onPressed: () async {
+                      //     idDocController.clear();
+                      //     nameDocController.clear();
+                      //     dateController.clear();
+                      //     expiryType = "";
+                      //     String? selectedDocType;
+                      //     String? selectedExpiryType = expiryType;
+                      //     int docMetaId = 0;
+                      //     List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                      //     final docTypes = await getEmployeeDocTab(context);
+                      //     if (docTypes.isNotEmpty) {
+                      //       for (var i in docTypes) {
+                      //         dropDownMenuItems.add(
+                      //           DropdownMenuItem<String>(
+                      //             child: Text(i.employeeDocType),
+                      //             value: i.employeeDocType,
+                      //           ),
+                      //         );
+                      //       }
+                      //       selectedDocType = dropDownMenuItems[0].value;
+                      //       docMetaId = docTypes[0].employeeDocMetaDataId;
+                      //     }
+                      //
+                      //     showDialog(
+                      //       context: context,
+                      //       builder: (BuildContext context) {
+                      //         return StatefulBuilder(
+                      //           builder: (BuildContext context,
+                      //               void Function(void Function()) setState) {
+                      //             return EmpDocEditPopup(
+                      //               title: 'Add Document',
+                      //               idDocController: idDocController,
+                      //               nameDocController: nameDocController,
+                      //               calenderController: dateController,
+                      //               loadingDuration: _isLoading,
+                      //               onSavePredded: () async {
+                      //                 await addEmployeeDocSetup(
+                      //                   context,
+                      //                   docMetaId,
+                      //                   nameDocController.text,
+                      //                   dateController.text,
+                      //                   selectedExpiryType.toString(),
+                      //                 );
+                      //                 Navigator.pop(context);
+                      //                 nameDocController.clear();
+                      //                 dateController.clear();
+                      //                 print('$docMetaId');
+                      //               },
+                      //               child: CICCDropdown(
+                      //                 initialValue: "Select Employee Document",
+                      //                 hintText: "Select Employee Document",
+                      //                 onChange: (val) {
+                      //                   setState(() {
+                      //                     selectedDocType = val;
+                      //                   });
+                      //                   for (var a in docTypes) {
+                      //                     if (a.employeeDocType == val) {
+                      //                       setState(() {
+                      //                         docMetaId = a.employeeDocMetaDataId;
+                      //                       });
+                      //                     }
+                      //                   }
+                      //                   print(":::${docMetaId}");
+                      //                 },
+                      //                 items: dropDownMenuItems,
+                      //               ),
+                      //
+                      //               radioButton: Padding(
+                      //                 padding:
+                      //                 const EdgeInsets.only(left: 10.0),
+                      //                 child: Column(
+                      //                   mainAxisAlignment:
+                      //                   MainAxisAlignment.start,
+                      //                   crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //                   children: [
+                      //                     Text(
+                      //                       "Expiry Type",
+                      //                       style: GoogleFonts.firaSans(
+                      //                         fontSize: FontSize.s12,
+                      //                         fontWeight: FontWeight.w700,
+                      //                         color: ColorManager.mediumgrey,
+                      //                         decoration: TextDecoration.none,
+                      //                       ),
+                      //                     ),
+                      //                     CustomRadioListTile(
+                      //                       value: "Not Applicable",
+                      //                       groupValue: selectedExpiryType,
+                      //
+                      //                       onChanged: (value) {
+                      //                         setState(() {
+                      //                           selectedExpiryType = value;
+                      //                         });
+                      //                       },
+                      //                       title: "Not Applicable",
+                      //                     ),
+                      //                     CustomRadioListTile(
+                      //                       value: 'Scheduled',
+                      //                       groupValue: selectedExpiryType,
+                      //                       onChanged: (value) {
+                      //                         setState(() {
+                      //                           selectedExpiryType = value;
+                      //                         });
+                      //                       },
+                      //                       title: 'Scheduled',
+                      //                     ),
+                      //                     CustomRadioListTile(
+                      //                       value: 'Issuer Expiry',
+                      //                       groupValue: selectedExpiryType,
+                      //                       onChanged: (value) {
+                      //                         setState(() {
+                      //                           selectedExpiryType = value;
+                      //                         });
+                      //                       },
+                      //                       title: 'Issuer Expiry',
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //               child2: Visibility(
+                      //                 visible: selectedExpiryType ==
+                      //                     "Scheduled" ||
+                      //                     selectedExpiryType == "Issuer Expiry",
+                      //                 child: Column(
+                      //                   crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //                   children: [
+                      //                     Text(
+                      //                       "Expiry Date",
+                      //                       style: GoogleFonts.firaSans(
+                      //                         fontSize: FontSize.s12,
+                      //                         fontWeight: FontWeight.w700,
+                      //                         color: ColorManager.mediumgrey,
+                      //                         decoration: TextDecoration.none,
+                      //                       ),
+                      //                     ),
+                      //                     FormField<String>(
+                      //                       builder:
+                      //                           (FormFieldState<String> field) {
+                      //                         return SizedBox(
+                      //                           width: 354,
+                      //                           height: 30,
+                      //                           child: TextFormField(
+                      //                             controller: dateController,
+                      //                             cursorColor:
+                      //                             ColorManager.black,
+                      //                             style: GoogleFonts.firaSans(
+                      //                               fontSize: FontSize.s12,
+                      //                               fontWeight: FontWeight.w700,
+                      //                               color:
+                      //                               ColorManager.mediumgrey,
+                      //                             ),
+                      //                             decoration: InputDecoration(
+                      //                               enabledBorder:
+                      //                               OutlineInputBorder(
+                      //                                 borderSide: BorderSide(
+                      //                                     color: ColorManager
+                      //                                         .fmediumgrey,
+                      //                                     width: 1),
+                      //                                 borderRadius:
+                      //                                 BorderRadius.circular(
+                      //                                     8),
+                      //                               ),
+                      //                               focusedBorder:
+                      //                               OutlineInputBorder(
+                      //                                 borderSide: BorderSide(
+                      //                                     color: ColorManager
+                      //                                         .fmediumgrey,
+                      //                                     width: 1),
+                      //                                 borderRadius:
+                      //                                 BorderRadius.circular(
+                      //                                     8),
+                      //                               ),
+                      //                               hintText: 'mm-dd-yyyy',
+                      //                               hintStyle:
+                      //                               GoogleFonts.firaSans(
+                      //                                 fontSize: FontSize.s12,
+                      //                                 fontWeight:
+                      //                                 FontWeight.w700,
+                      //                                 color: ColorManager
+                      //                                     .mediumgrey,
+                      //                               ),
+                      //                               border: OutlineInputBorder(
+                      //                                 borderRadius:
+                      //                                 BorderRadius.circular(
+                      //                                     8),
+                      //                                 borderSide: BorderSide(
+                      //                                     width: 1,
+                      //                                     color: ColorManager
+                      //                                         .fmediumgrey),
+                      //                               ),
+                      //                               contentPadding:
+                      //                               EdgeInsets.symmetric(
+                      //                                   horizontal: 16),
+                      //                               suffixIcon: Icon(
+                      //                                 Icons
+                      //                                     .calendar_month_outlined,
+                      //                                 color: ColorManager
+                      //                                     .blueprime,
+                      //                               ),
+                      //                               errorText: field.errorText,
+                      //                             ),
+                      //                             onTap: () async {
+                      //                               DateTime? pickedDate =
+                      //                               await showDatePicker(
+                      //                                 context: context,
+                      //                                 initialDate:
+                      //                                 DateTime.now(),
+                      //                                 firstDate: DateTime(2000),
+                      //                                 lastDate: DateTime(3101),
+                      //                               );
+                      //                               if (pickedDate != null) {
+                      //                                 dateController
+                      //                                     .text = DateFormat(
+                      //                                     'MM-dd-yyyy')
+                      //                                     .format(pickedDate);
+                      //                               }
+                      //                             },
+                      //                             validator: (value) {
+                      //                               if (value == null ||
+                      //                                   value.isEmpty) {
+                      //                                 return 'please select birth date';
+                      //                               }
+                      //                               return null;
+                      //                             },
+                      //                           ),
+                      //                         );
+                      //                       },
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             );
+                      //           },
+                      //         );
+                      //       },
+                      //     );
+                      //   },
+                      //   icon: Icons.add,
+                      // )
+                      //     : _selectedIndex == 6
 
-                                        ///Performance
-                                        CustomIconButtonConst(
-                                            width: 170,
-                                            text: 'Add Document',
-                                            onPressed: () async {
-                                              idDocController.clear();
-                                              nameDocController.clear();
-                                              dateController.clear();
-                                              expiryType = "";
-                                              String? selectedDocType;
-                                              String? selectedExpiryType =
-                                                  expiryType;
-                                              int docMetaId = 0;
-                                              List<DropdownMenuItem<String>>
-                                                  dropDownMenuItems = [];
-                                              final docTypes =
-                                                  await getEmployeeDocTab(
-                                                      context);
-                                              if (docTypes.isNotEmpty) {
-                                                for (var i in docTypes) {
-                                                  dropDownMenuItems.add(
-                                                    DropdownMenuItem<String>(
-                                                      child: Text(
-                                                          i.employeeDocType),
-                                                      value: i.employeeDocType,
+                        ///compensation
+                          ? CustomIconButtonConst(
+                        width: 170,
+                        text: 'Add Document',
+                        onPressed: () async {
+                          idDocController.clear();
+                          nameDocController.clear();
+                          dateController.clear();
+                          expiryType = "";
+                          String? selectedDocType;
+                          String? selectedExpiryType = expiryType;
+                          int docMetaId = 0;
+                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                          final docTypes = await getEmployeeDocTab(context);
+                          if (docTypes.isNotEmpty) {
+                            for (var i in docTypes) {
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.employeeDocType),
+                                  value: i.employeeDocType,
+                                ),
+                              );
+                            }
+                            selectedDocType = dropDownMenuItems[0].value;
+                            docMetaId = docTypes[0].employeeDocMetaDataId;
+                          }
+
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return EmpDocEditPopup(
+                                    title: 'Add Document',
+                                    idOfDocController: idDocController,
+                                    nameDocController: nameDocController,
+                                    calenderController: dateController,
+                                    loadingDuration: _isLoading,
+                                    onSavePredded: () async {
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.compensationDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
+                                      Navigator.pop(context);
+                                      nameDocController.clear();
+                                      dateController.clear();
+                                      print('$AppConfig.compensationDocId');
+                                    },
+
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Compensation',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.transparent,
+                                            // color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // child: CICCDropdown(
+                                    //   initialValue: "Select Employee Document",
+                                    //   hintText: "Select Employee Document",
+                                    //   onChange: (val) {
+                                    //     setState(() {
+                                    //       selectedDocType = val;
+                                    //     });
+                                    //     for (var a in docTypes) {
+                                    //       if (a.employeeDocType == val) {
+                                    //         setState(() {
+                                    //           docMetaId = a.employeeDocMetaDataId;
+                                    //         });
+                                    //       }
+                                    //     }
+                                    //     print(":::${docMetaId}");
+                                    //   },
+                                    //   items: dropDownMenuItems,
+                                    // ),
+
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
+
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
+                                    ),
+                                    child2: Visibility(
+                                      visible: selectedExpiryType ==
+                                          "Scheduled" ||
+                                          selectedExpiryType == "Issuer Expiry",
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Expiry Date",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                          SizedBox(height: AppSize.s5,),
+                                          FormField<String>(
+                                            builder:
+                                                (FormFieldState<String> field) {
+                                              return SizedBox(
+                                                width: 354,
+                                                height: 30,
+                                                child: TextFormField(
+                                                  controller: dateController,
+                                                  cursorColor:
+                                                  ColorManager.black,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                    ColorManager.mediumgrey,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    enabledBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
                                                     ),
-                                                  );
-                                                }
-                                                selectedDocType =
-                                                    dropDownMenuItems[0].value;
-                                                docMetaId = docTypes[0]
-                                                    .employeeDocMetaDataId;
-                                              }
-
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return StatefulBuilder(
-                                                    builder: (BuildContext
-                                                            context,
-                                                        void Function(
-                                                                void Function())
-                                                            setState) {
-                                                      return EmpDocEditPopup(
-                                                        title: 'Add Document',
-                                                        idOfDocController:
-                                                            idDocController,
-                                                        nameDocController:
-                                                            nameDocController,
-                                                        calenderController:
-                                                            dateController,
-                                                        loadingDuration:
-                                                            _isLoading,
-                                                        onSavePredded:
-                                                            () async {
-                                                          String
-                                                              expiryTypeToSend =
-                                                              selectedExpiryType ==
-                                                                      "Not Applicable"
-                                                                  ? "Not Applicable"
-                                                                  : dateController
-                                                                      .text;
-                                                          await addEmployeeDocSetup(
-                                                              context,
-                                                              AppConfig
-                                                                  .performanceDocId,
-                                                              nameDocController
-                                                                  .text,
-                                                              expiryTypeToSend,
-                                                              selectedExpiryType
-                                                                  .toString(),
-                                                              idDocController
-                                                                  .text);
-                                                          Navigator.pop(
-                                                              context);
-                                                          nameDocController
-                                                              .clear();
-                                                          dateController
-                                                              .clear();
-                                                          print(
-                                                              '$AppConfig.performanceDocId');
-                                                        },
-                                                        child: Container(
-                                                          width: 354,
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  vertical: 3,
-                                                                  horizontal:
-                                                                      12),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: ColorManager
-                                                                .white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
-                                                            border: Border.all(
-                                                                color: ColorManager
-                                                                    .fmediumgrey,
-                                                                width: 1),
-                                                          ),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                'Performance',
-                                                                style: CustomTextStylesCommon
-                                                                    .commonStyle(
-                                                                  fontWeight:
-                                                                      FontWeightManager
-                                                                          .medium,
-                                                                  fontSize:
-                                                                      FontSize
-                                                                          .s12,
-                                                                  color: ColorManager
-                                                                      .mediumgrey,
-                                                                ),
-                                                              ),
-                                                              Icon(
-                                                                Icons
-                                                                    .arrow_drop_down,
-                                                                color: Colors
-                                                                    .transparent,
-                                                                // color: ColorManager.mediumgrey,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        radioButton: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 10.0),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                "Expiry Type",
-                                                                style: GoogleFonts
-                                                                    .firaSans(
-                                                                  fontSize:
-                                                                      FontSize
-                                                                          .s12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: ColorManager
-                                                                      .mediumgrey,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .none,
-                                                                ),
-                                                              ),
-                                                              CustomRadioListTile(
-                                                                value:
-                                                                    "Not Applicable",
-                                                                groupValue:
-                                                                    selectedExpiryType,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  setState(() {
-                                                                    selectedExpiryType =
-                                                                        value;
-                                                                  });
-                                                                },
-                                                                title:
-                                                                    "Not Applicable",
-                                                              ),
-                                                              CustomRadioListTile(
-                                                                value:
-                                                                    'Scheduled',
-                                                                groupValue:
-                                                                    selectedExpiryType,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  setState(() {
-                                                                    selectedExpiryType =
-                                                                        value;
-                                                                  });
-                                                                },
-                                                                title:
-                                                                    'Scheduled',
-                                                              ),
-                                                              CustomRadioListTile(
-                                                                value:
-                                                                    'Issuer Expiry',
-                                                                groupValue:
-                                                                    selectedExpiryType,
-                                                                onChanged:
-                                                                    (value) {
-                                                                  setState(() {
-                                                                    selectedExpiryType =
-                                                                        value;
-                                                                  });
-                                                                },
-                                                                title:
-                                                                    'Issuer Expiry',
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        child2: Visibility(
-                                                          visible: selectedExpiryType ==
-                                                                  "Scheduled" ||
-                                                              selectedExpiryType ==
-                                                                  "Issuer Expiry",
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                "Expiry Date",
-                                                                style: GoogleFonts
-                                                                    .firaSans(
-                                                                  fontSize:
-                                                                      FontSize
-                                                                          .s12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: ColorManager
-                                                                      .mediumgrey,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .none,
-                                                                ),
-                                                              ),
-                                                              FormField<String>(
-                                                                builder:
-                                                                    (FormFieldState<
-                                                                            String>
-                                                                        field) {
-                                                                  return SizedBox(
-                                                                    width: 354,
-                                                                    height: 30,
-                                                                    child:
-                                                                        TextFormField(
-                                                                      controller:
-                                                                          dateController,
-                                                                      cursorColor:
-                                                                          ColorManager
-                                                                              .black,
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize:
-                                                                            FontSize.s12,
-                                                                        fontWeight:
-                                                                            FontWeight.w700,
-                                                                        color: ColorManager
-                                                                            .mediumgrey,
-                                                                      ),
-                                                                      decoration:
-                                                                          InputDecoration(
-                                                                        enabledBorder:
-                                                                            OutlineInputBorder(
-                                                                          borderSide: BorderSide(
-                                                                              color: ColorManager.fmediumgrey,
-                                                                              width: 1),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(8),
-                                                                        ),
-                                                                        focusedBorder:
-                                                                            OutlineInputBorder(
-                                                                          borderSide: BorderSide(
-                                                                              color: ColorManager.fmediumgrey,
-                                                                              width: 1),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(8),
-                                                                        ),
-                                                                        hintText:
-                                                                            'mm-dd-yyyy',
-                                                                        hintStyle:
-                                                                            GoogleFonts.firaSans(
-                                                                          fontSize:
-                                                                              FontSize.s12,
-                                                                          fontWeight:
-                                                                              FontWeight.w700,
-                                                                          color:
-                                                                              ColorManager.mediumgrey,
-                                                                        ),
-                                                                        border:
-                                                                            OutlineInputBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(8),
-                                                                          borderSide: BorderSide(
-                                                                              width: 1,
-                                                                              color: ColorManager.fmediumgrey),
-                                                                        ),
-                                                                        contentPadding:
-                                                                            EdgeInsets.symmetric(horizontal: 16),
-                                                                        suffixIcon:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .calendar_month_outlined,
-                                                                          color:
-                                                                              ColorManager.blueprime,
-                                                                        ),
-                                                                        errorText:
-                                                                            field.errorText,
-                                                                      ),
-                                                                      onTap:
-                                                                          () async {
-                                                                        DateTime?
-                                                                            pickedDate =
-                                                                            await showDatePicker(
-                                                                          context:
-                                                                              context,
-                                                                          initialDate:
-                                                                              DateTime.now(),
-                                                                          // firstDate: DateTime(2000),
-                                                                          // lastDate: DateTime(3101),
-                                                                          firstDate:
-                                                                              DateTime(1900),
-                                                                          lastDate:
-                                                                              DateTime(2101),
-                                                                        );
-                                                                        if (pickedDate !=
-                                                                            null) {
-                                                                          dateController.text =
-                                                                              DateFormat('MM-dd-yyyy').format(pickedDate);
-                                                                        }
-                                                                      },
-                                                                      validator:
-                                                                          (value) {
-                                                                        if (value ==
-                                                                                null ||
-                                                                            value.isEmpty) {
-                                                                          return 'please select birth date';
-                                                                        }
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                },
+                                                    focusedBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                    ),
+                                                    hintText: 'mm-dd-yyyy',
+                                                    hintStyle:
+                                                    GoogleFonts.firaSans(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight:
+                                                      FontWeight.w700,
+                                                      color: ColorManager
+                                                          .mediumgrey,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                      borderSide: BorderSide(
+                                                          width: 1,
+                                                          color: ColorManager
+                                                              .fmediumgrey),
+                                                    ),
+                                                    contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 16),
+                                                    suffixIcon: Icon(
+                                                      Icons
+                                                          .calendar_month_outlined,
+                                                      color: ColorManager
+                                                          .blueprime,
+                                                    ),
+                                                    errorText: field.errorText,
+                                                  ),
+                                                  onTap: () async {
+                                                    DateTime? pickedDate =
+                                                    await showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                      DateTime.now(),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
+                                                    );
+                                                    if (pickedDate != null) {
+                                                      dateController
+                                                          .text = DateFormat(
+                                                          'MM-dd-yyyy')
+                                                          .format(pickedDate);
+                                                    }
+                                                  },
+                                                  validator: (value) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
+                                                      return 'please select birth date';
+                                                    }
+                                                    return null;
+                                                  },
+                                                ),
                                               );
                                             },
-                                            icon: Icons.add,
-                                          )
-              ],
-            ),
-          ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        icon: Icons.add,
+                      )
+                          :
+                          ///Performance
+                      CustomIconButtonConst(
+                        width: 170,
+                        text: 'Add Document',
+                        onPressed: () async {
+                          idDocController.clear();
+                          nameDocController.clear();
+                          dateController.clear();
+                          expiryType = "";
+                          String? selectedDocType;
+                          String? selectedExpiryType = expiryType;
+                          int docMetaId = 0;
+                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                          final docTypes = await getEmployeeDocTab(context);
+                          if (docTypes.isNotEmpty) {
+                            for (var i in docTypes) {
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.employeeDocType),
+                                  value: i.employeeDocType,
+                                ),
+                              );
+                            }
+                            selectedDocType = dropDownMenuItems[0].value;
+                            docMetaId = docTypes[0].employeeDocMetaDataId;
+                          }
+
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return EmpDocEditPopup(
+                                    title: 'Add Document',
+                                    idOfDocController: idDocController,
+                                    nameDocController: nameDocController,
+                                    calenderController: dateController,
+                                    loadingDuration: _isLoading,
+                                    onSavePredded: () async {
+                                      String expiryTypeToSend =
+                                      selectedExpiryType == "Not Applicable"
+                                          ? "Not Applicable"
+                                          : dateController.text;
+                                      await addEmployeeDocSetup(context,
+                                          AppConfig.performanceDocId,
+                                          nameDocController.text,
+                                          expiryTypeToSend,
+                                          selectedExpiryType.toString(),
+                                          idDocController.text);
+                                      Navigator.pop(context);
+                                      nameDocController.clear();
+                                      dateController.clear();
+                                      print('$AppConfig.performanceDocId');
+                                    },
+
+                                    child: Container(
+                                      width: 354,
+                                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Performance',
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.transparent,
+                                            // color: ColorManager.mediumgrey,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    radioButton: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Expiry Type",
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.mediumgrey,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        CustomRadioListTile(
+                                          value: "Not Applicable",
+                                          groupValue: selectedExpiryType,
+
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: "Not Applicable",
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Scheduled',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Scheduled',
+                                        ),
+                                        CustomRadioListTile(
+                                          value: 'Issuer Expiry',
+                                          groupValue: selectedExpiryType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedExpiryType = value;
+                                            });
+                                          },
+                                          title: 'Issuer Expiry',
+                                        ),
+                                      ],
+                                    ),
+                                    child2: Visibility(
+                                      visible: selectedExpiryType ==
+                                          "Scheduled" ||
+                                          selectedExpiryType == "Issuer Expiry",
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Expiry Date",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                          SizedBox(height: AppSize.s5,),
+                                          FormField<String>(
+                                            builder:
+                                                (FormFieldState<String> field) {
+                                              return SizedBox(
+                                                width: 354,
+                                                height: 30,
+                                                child: TextFormField(
+                                                  controller: dateController,
+                                                  cursorColor:
+                                                  ColorManager.black,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: FontSize.s12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color:
+                                                    ColorManager.mediumgrey,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    enabledBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                    ),
+                                                    focusedBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: ColorManager
+                                                              .fmediumgrey,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                    ),
+                                                    hintText: 'mm-dd-yyyy',
+                                                    hintStyle:
+                                                    GoogleFonts.firaSans(
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight:
+                                                      FontWeight.w700,
+                                                      color: ColorManager
+                                                          .mediumgrey,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          8),
+                                                      borderSide: BorderSide(
+                                                          width: 1,
+                                                          color: ColorManager
+                                                              .fmediumgrey),
+                                                    ),
+                                                    contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 16),
+                                                    suffixIcon: Icon(
+                                                      Icons
+                                                          .calendar_month_outlined,
+                                                      color: ColorManager
+                                                          .blueprime,
+                                                    ),
+                                                    errorText: field.errorText,
+                                                  ),
+                                                  onTap: () async {
+                                                    DateTime? pickedDate =
+                                                    await showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                      DateTime.now(),
+                                                      // firstDate: DateTime(2000),
+                                                      // lastDate: DateTime(3101),
+                                                      firstDate: DateTime(1900),
+                                                      lastDate: DateTime(2101),
+                                                    );
+                                                    if (pickedDate != null) {
+                                                      dateController
+                                                          .text = DateFormat(
+                                                          'MM-dd-yyyy')
+                                                          .format(pickedDate);
+                                                    }
+                                                  },
+                                                  validator: (value) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
+                                                      return 'please select birth date';
+                                                    }
+                                                    return null;
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        icon: Icons.add,
+                      )
+
+                    ],
+                  ),
+                ),
+
+
+
 
 ///////////////////////// tab bar
           Padding(
@@ -2937,7 +2438,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 30,
           ),
           Expanded(
             flex: 10,
@@ -2975,8 +2476,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       HealthEmpDoc(metaDocID: AppConfig.healthDocId),
                       HealthEmpDoc(metaDocID: AppConfig.certificationDocId),
                       HealthEmpDoc(metaDocID: AppConfig.employmentDocId),
-                      HealthEmpDoc(
-                          metaDocID: AppConfig.clinicalVerificationDocId),
+                      HealthEmpDoc(metaDocID: AppConfig.clinicalVerificationDocId),
                       HealthEmpDoc(metaDocID: AppConfig.acknowledgementDocId),
                       HealthEmpDoc(metaDocID: AppConfig.compensationDocId),
                       HealthEmpDoc(metaDocID: AppConfig.performanceDocId),

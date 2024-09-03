@@ -327,7 +327,7 @@ class _ManageWidgetState extends State<ManageWidget> {
             ),
           ),
           const SizedBox(
-            height: AppSize.s10,
+            height: AppSize.s30,
           ),
           Expanded(
             flex: 10,
@@ -337,7 +337,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                   : Container(
                       height: MediaQuery.of(context).size.height / 3,
                       decoration: BoxDecoration(
-                          color: const Color(0xFFF2F9FC),
+                          color: Color(0xFFF2F9FC),
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20)),

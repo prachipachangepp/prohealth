@@ -352,10 +352,13 @@
 //     );
 //   }
 // }
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -365,9 +368,11 @@ import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/text_form_field_const.dart';
 import '../../whitelabelling/success_popup.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 
 class CIZoneAddPopup extends StatefulWidget {
   final TextEditingController countynameController;
@@ -397,6 +402,7 @@ class CIZoneAddPopup extends StatefulWidget {
     this.title4,
     this.title5,
     this.title6,
+
     required this.countynameController,
     required this.zipcodeController,
     this.mapController,
@@ -550,6 +556,9 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
     );
   }
 }
+
+
+
 
 ///edit
 class AddZipCodePopup extends StatefulWidget {
@@ -778,6 +787,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         keyboardType: TextInputType.text,
                         text: 'Landmark',
                       ),
+
                     ],
                   ),
                 ),
@@ -828,6 +838,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
     );
   }
 }
+
 
 ///edit
 class EditZipCodePopup extends StatefulWidget {
@@ -1038,11 +1049,13 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                         ),
                       ),
                       SizedBox(height: AppSize.s15),
+
                       SMTextFConst(
                         controller: widget.landmarkController!,
                         keyboardType: TextInputType.text,
                         text: 'Landmark',
                       ),
+
                     ],
                   ),
                 ),
@@ -1094,7 +1107,9 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
   }
 }
 
+
 /// Pick google map location
+
 
 class MapScreen extends StatefulWidget {
   final LatLng initialLocation;
@@ -1249,6 +1264,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                       children: [
                         Text(
                           AppString.country,
+                        Text(AppString.county,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.bold,
@@ -1260,6 +1276,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                         widget.child!
                       ],
                     ),
+
                   ],
                 ),
               ),
