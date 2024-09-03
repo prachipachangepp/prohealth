@@ -594,13 +594,45 @@ class _HRTabScreensState extends State<HRTabScreens> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        AppString.dataNotFound,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey,
-                        ),
-                      ),
+                              "No available employee type !!",
+                              style: CustomTextStylesCommon.commonStyle(
+                                fontWeight: FontWeightManager.medium,
+                                fontSize: FontSize.s12,
+                                color: ColorManager.mediumgrey,
+                              ),
+                            )
+                          // Row(
+                          //   children: [
+                          //     snapshot.data!.isEmpty == AppConfig.clinicalId
+                          //         ? Text(
+                          //       "No available Clinical !!",
+                          //       style: CustomTextStylesCommon.commonStyle(
+                          //         fontWeight: FontWeightManager.medium,
+                          //         fontSize: FontSize.s12,
+                          //         color: ColorManager.mediumgrey,
+                          //       ),
+                          //     )
+                          //         : snapshot.data!.isEmpty == AppConfig.salesId
+                          //         ? Text(
+                          //       "No available Sales!!",
+                          //       style: CustomTextStylesCommon.commonStyle(
+                          //         fontWeight: FontWeightManager.medium,
+                          //         fontSize: FontSize.s12,
+                          //         color: ColorManager.mediumgrey,
+                          //       ),
+                          //     )
+                          //         : Text(
+                          //       "No available Administration !!",
+                          //       style: CustomTextStylesCommon.commonStyle(
+                          //         fontWeight: FontWeightManager.medium,
+                          //         fontSize: FontSize.s12,
+                          //         color: ColorManager.mediumgrey,
+                          //       ),
+                          //     )
+                          //
+                          //   ],
+                          // )
+
                     );
                   }
                   if (snapshot.hasData) {

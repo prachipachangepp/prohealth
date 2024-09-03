@@ -419,7 +419,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                                         ),
                                                                         Icon(
                                                                           Icons.arrow_drop_down,
-                                                                          color: ColorManager.mediumgrey,
+                                                                          color: Colors.transparent,
                                                                         ),
                                                                       ],
                                                                     ),

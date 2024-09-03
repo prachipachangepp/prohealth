@@ -69,7 +69,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
             if (snapshot.data!.isEmpty) {
               return Center(
                   child: Text(
-                AppString.dataNotFound,
+               "No available work weeks!!",
                 style: CustomTextStylesCommon.commonStyle(
                     fontWeight: FontWeightManager.medium,
                     fontSize: FontSize.s12,
@@ -392,8 +392,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                           .data!.isEmpty) {
                                                         return Center(
                                                             child: Text(
-                                                          AppString
-                                                              .dataNotFound,
+                                                        "No available shift !!",
                                                           style: CustomTextStylesCommon.commonStyle(
                                                               fontWeight:
                                                                   FontWeightManager

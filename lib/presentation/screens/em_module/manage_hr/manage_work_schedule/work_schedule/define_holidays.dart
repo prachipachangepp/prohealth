@@ -179,7 +179,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      AppString.dataNotFound,
+                    "No available holidays !!",
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s12,
