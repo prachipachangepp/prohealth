@@ -32,10 +32,7 @@ class AppStringEM{
   static const String landmark = "Landmark";
   static const String zones = "Zones";
   static const String name = "Name";
-  // static const String landmark = "Landmark";
-  // static const String landmark = "Landmark";
-  // static const String landmark = "Landmark";
-  // static const String landmark = "Landmark";
+
   ///all hr screen
   static const String cancel = 'Cancel';
   static const String delete = 'Delete';
@@ -66,6 +63,6 @@ class AppStringEM{
   static const String street = "Street";
   static const String primaryEmail = "Primary Email";
 
-
-
 }
+
+
