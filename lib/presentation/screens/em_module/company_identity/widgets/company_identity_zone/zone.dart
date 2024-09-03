@@ -192,7 +192,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                             width: 354,
                             child: Center(
                               child: Text(
-                               "No available countys !!",
+                               "No available counties !!",
                                 style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
                                   fontSize: FontSize.s12,
@@ -417,7 +417,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                AppString.dataNotFound,
+                                                "No available counties !!",
+                                                //AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
                                                   fontWeight:
@@ -512,7 +513,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                AppString.dataNotFound,
+                                                "No county added.",
+                                               // AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
                                                   fontWeight:
