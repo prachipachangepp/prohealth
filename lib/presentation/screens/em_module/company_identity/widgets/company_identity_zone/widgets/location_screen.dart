@@ -45,7 +45,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorManager.bluelight,
+        backgroundColor: ColorManager.blueprime,
         title: Text('Pick Location',style: GoogleFonts.firaSans(color: ColorManager.white)),
         actions: [
           IconButton(

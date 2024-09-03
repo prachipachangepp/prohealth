@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
@@ -152,7 +153,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
             horizontal: MediaQuery.of(context).size.width/24),
         child: Column(
           children: [
-
             ///Create User Button
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
