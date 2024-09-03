@@ -160,14 +160,14 @@ class EMDesktopScreen extends StatelessWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                  if (myController.selectedIndex.value != 2) {
-                                    myController.selectButton(2);
-                                    _pageController.animateToPage(
-                                      2,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
+                                  // if (myController.selectedIndex.value != 2) {
+                                  //   myController.selectButton(2);
+                                  //   _pageController.animateToPage(
+                                  //     2,
+                                  //     duration: Duration(milliseconds: 500),
+                                  //     curve: Curves.ease,
+                                  //   );
+                                  // }
                                 },
                               ),
                               DropdownMenuItem<String>(
@@ -261,14 +261,14 @@ class EMDesktopScreen extends StatelessWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                  if (myController.selectedIndex.value != 5) {
-                                    myController.selectButton(5);
-                                    _pageController.animateToPage(
-                                      5,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
+                                  // if (myController.selectedIndex.value != 5) {
+                                  //   myController.selectButton(5);
+                                  //   _pageController.animateToPage(
+                                  //     5,
+                                  //     duration: Duration(milliseconds: 500),
+                                  //     curve: Curves.ease,
+                                  //   );
+                                  // }
                                 },
                               ),
                               DropdownMenuItem<String>(
@@ -301,7 +301,7 @@ class EMDesktopScreen extends StatelessWidget {
                             selectedItem: myController.selectedIndex.value == 6
                                 ? 'Users'
                                 : myController.selectedIndex.value == 2
-                                ? 'HR'
+                                ? 'Designation Settings'
                                 : myController.selectedIndex.value == 3
                                 ? 'Work Schedule'
                                 : myController.selectedIndex.value == 4

@@ -183,7 +183,8 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        AppString.dataNotFound,
+                        "No available employee document !!",
+                        //AppString.dataNotFound,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,
@@ -219,7 +220,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                     padding:
                                         EdgeInsets.only(bottom: AppPadding.p5),
                                     margin: EdgeInsets.symmetric(
-                                        horizontal: AppMargin.m50),
+                                        horizontal: AppMargin.m40),
                                     decoration: BoxDecoration(
                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(4),
@@ -472,6 +473,15 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                                     children: [
+                                                                      Text(
+                                                                        "Expiry Type",
+                                                                        style: GoogleFonts.firaSans(
+                                                                          fontSize: FontSize.s12,
+                                                                          fontWeight: FontWeight.w700,
+                                                                          color: ColorManager.mediumgrey,
+                                                                          decoration: TextDecoration.none,
+                                                                        ),
+                                                                      ),
                                                                       CustomRadioListTile(
                                                                         value: "Not Applicable",
                                                                         groupValue: selectedExpiryType,
@@ -514,6 +524,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                                             decoration: TextDecoration.none,
                                                                           ),
                                                                         ),
+                                                                        SizedBox(height: AppSize.s5,),
                                                                         FormField<String>(builder: (FormFieldState<String> field) {
                                                                             return SizedBox(
                                                                               width: 354,
