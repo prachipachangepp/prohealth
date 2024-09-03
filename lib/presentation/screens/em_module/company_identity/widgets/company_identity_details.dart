@@ -1,9 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/manage_details_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_details_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
@@ -120,7 +123,26 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   @override
   void initState() {
     super.initState();
+    addressController.addListener(_onAddressChanged);
     print(":::::OFFICE ID ${widget.officeId} + ${widget.companyId}");
+  }
+  // List<String> _suggestions = [];
+  @override
+  void dispose() {
+    addressController.removeListener(_onAddressChanged);
+    super.dispose();
+  }
+  ValueNotifier<List<String>> _suggestionsNotifier = ValueNotifier([]);
+
+  void _onAddressChanged() async {
+    if (addressController.text.isEmpty) {
+      _suggestionsNotifier.value = [];
+      return;
+    }
+
+    // Fetch suggestions based on the addressController's text
+    final suggestions = await fetchSuggestions(addressController.text);
+    _suggestionsNotifier.value = suggestions;
   }
 
   // @override
@@ -539,7 +561,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     ),
                   ),
                   Container(
-                    height: AppSize.s250,
+                    height: AppSize.s350,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
@@ -579,6 +601,50 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               keyboardType: TextInputType.text,
                               text: AppStringEM.address,
                             ),
+                            //if (_suggestions.isNotEmpty)
+                              ValueListenableBuilder<List<String>>(
+                                valueListenable: _suggestionsNotifier,
+                                builder: (context, suggestions, child) {
+                                  if (suggestions.isEmpty) return SizedBox.shrink();
+                                  return Container(
+                                    height: 100,
+                                       width:300,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black26,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      //shrinkWrap: true,
+                                      itemCount: suggestions.length,
+                                      itemBuilder: (context, index) {
+                                        return ListTile(
+                                          title: Text(
+                                            suggestions[index],
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorManager.mediumgrey,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            addressController.text = suggestions[index];
+                                            _suggestionsNotifier.value = [];
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              )
                           ],
                         ),
                         Column(
