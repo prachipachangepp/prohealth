@@ -336,7 +336,7 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                                             BuildContext context,
                                                             void Function(void Function()) setState) {
                                                           return CCScreenEditPopup(
-                                                            title: 'Edit Licenses',
+                                                            title: 'Edit Medical Cost Report',
                                                             //id: documentPreId,
                                                             idOfDocController: idOfDocController,
                                                             nameDocController: docNameController,
@@ -582,15 +582,19 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                                               child: Column(
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
-                                                                  Text(
-                                                                    "Expiry Date",
-                                                                    style: GoogleFonts.firaSans(
-                                                                      fontSize: FontSize.s12,
-                                                                      fontWeight: FontWeight.w700,
-                                                                      color: ColorManager.mediumgrey,
-                                                                      decoration: TextDecoration.none,
+                                                                  Padding(
+                                                                    padding: const EdgeInsets.only(left: 2),
+                                                                    child: Text(
+                                                                      "Expiry Date",
+                                                                      style: GoogleFonts.firaSans(
+                                                                        fontSize: FontSize.s12,
+                                                                        fontWeight: FontWeight.w700,
+                                                                        color: ColorManager.mediumgrey,
+                                                                        decoration: TextDecoration.none,
+                                                                      ),
                                                                     ),
                                                                   ),
+                                                                  SizedBox(height: 5,),
                                                                   FormField<String>(
                                                                     builder: (FormFieldState<String> field) {
                                                                       return SizedBox(
