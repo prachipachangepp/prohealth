@@ -52,7 +52,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
       currentPage = pageNumber;
     });
   }
-  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194);
   String _location = 'Lat/Long not selected'; // Default text
   void _pickLocation() async {
     final pickedLocation = await Navigator.of(context).push<LatLng>(
@@ -73,11 +73,6 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
               }
 
               final latlong = formatLatLong(_latitude, _longitude);
-              //
-              // // Create locationString
-              // final latlong = _latitude != null && _longitude != null
-              //     ? 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}'
-              //     : 'Lat/Long not selected';
 
               print("Selected LatLong :: $latlong");
 
@@ -467,7 +462,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                             return const SizedBox();
                                                           }
                                                       ),
-                                                      onPickLocation: _pickLocation,
+                                                      // onPickLocation: _pickLocation,
                                                       onSavePressed: () async{
                                                       await updateZipCodeSetup(context,
                                                           zipcode.zipcodeSetupId!,
@@ -476,8 +471,10 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                           widget.officeId,
                                                          cityName ==  cityController.text ? cityName.toString() :cityController.text,
                                                          zipCode == zipcodeController.text ? zipCode.toString() : zipcodeController.text,
-                                                          "37.0902°",
-                                                          "95.7129°",
+                                                          _selectedLocation.latitude.toString(),
+                                                          _selectedLocation.longitude.toString(),
+                                                          // "37.0902°",
+                                                          // "95.7129°",
                                                           landmark == landmarkController.text ? landmark.toString() :landmarkController.text);
                                                       getZipcodeSetup(context, widget.officeId,1, 20).then((data){
                                                         _zipcodeController.add(data);
@@ -490,7 +487,8 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                   }
                                                 );
                                               });
-                                            }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                            },
+                                                icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                             IconButton(onPressed: (){
                                               showDialog(context: context, builder: (context) => DeletePopup(
                                                   title: 'Delete Zipcode',

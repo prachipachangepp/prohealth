@@ -392,6 +392,7 @@ class CIZoneAddPopup extends StatefulWidget {
   final String? title6;
   final String title;
 
+
   const CIZoneAddPopup({
     Key? key,
     required this.onSavePressed,
@@ -469,7 +470,9 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   ],
                 ),
               ),
-              SizedBox(height: AppSize.s20,),
+              SizedBox(
+                height: AppSize.s20,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: AppPadding.p6,
@@ -515,32 +518,36 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: AppSize.s25,
-                    width: AppSize.s25,
-                    child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                        height: AppSize.s25,
+                        width: AppSize.s25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ))
                     : Center(
-                  child: CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: AppStringEM.save,
-                    onPressed: () async {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      await widget.onSavePressed();
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          ///
-                          return CountySuccessPopup(message: 'Save Successfully',);
-                        },
-                      );
-                      setState(() {
-                        isLoading = false;
-                      });
-                    },
-                  ),
-                ),
+                        child: CustomElevatedButton(
+                          width: AppSize.s105,
+                          height: AppSize.s30,
+                          text: AppStringEM.save,
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await widget.onSavePressed();
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                ///
+                                return CountySuccessPopup(
+                                  message: 'Save Successfully',
+                                );
+                              },
+                            );
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
+                        ),
+                      ),
               ),
             ],
           ),
@@ -564,15 +571,26 @@ class AddZipCodePopup extends StatefulWidget {
   final Widget? child;
   final Widget? child1;
   final Widget? child2;
-  final String location;
+  // final String location;
   final TextEditingController? locationController;
   final Future<void> Function() onSavePressed;
   final VoidCallback? onPickLocation;
-   AddZipCodePopup({super.key,
-     required this.title, required this.countynameController, required this.zipcodeController,
-     required this.mapController, required this.landmarkController,
-     this.child, required this.onSavePressed, required this.cityNameController,
-     this.child1, this.onPickLocation, this.child2,  required this.location,  this.locationController,});
+  AddZipCodePopup({
+    super.key,
+    required this.title,
+    required this.countynameController,
+    required this.zipcodeController,
+    required this.mapController,
+    required this.landmarkController,
+    this.child,
+    required this.onSavePressed,
+    required this.cityNameController,
+    this.child1,
+    this.onPickLocation,
+    this.child2,
+    // required this.location,
+    this.locationController,
+  });
 
   @override
   State<AddZipCodePopup> createState() => _AddZipCodePopupState();
@@ -580,9 +598,47 @@ class AddZipCodePopup extends StatefulWidget {
 
 class _AddZipCodePopupState extends State<AddZipCodePopup> {
   bool isLoading = false;
+
+
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  String _location = 'Lat/Long not selected'; // Default text
   double? _latitude;
   double? _longitude;
-  String? _location;
+
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) => MapScreen(
+          initialLocation: _selectedLocation,
+          onLocationPicked: (location) {
+            // Print debug information to ensure this is being called
+            print('Picked location inside MapScreen: $location');
+            setState(() {
+              _latitude = location.latitude;
+              _longitude = location.longitude;
+              _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+              //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+            });
+          },
+        ),
+      ),
+    );
+
+    if (pickedLocation != null) {
+      // Print debug information to ensure this is being reached
+      print('Picked location from Navigator: $pickedLocation');
+      setState(() {
+        _selectedLocation = pickedLocation;
+        _latitude = pickedLocation.latitude;
+        _longitude = pickedLocation.longitude;
+        _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+        //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+      });
+    } else {
+      print('No location was picked.');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -640,7 +696,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                   horizontal: AppPadding.p20,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top:AppPadding.p15),
+                  padding: const EdgeInsets.only(top: AppPadding.p15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -694,7 +750,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       Row(
                         children: [
                           TextButton(
-                            onPressed: widget.onPickLocation,
+                            onPressed: _pickLocation,
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.transparent),
                             child: Text(
@@ -712,20 +768,18 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             color: ColorManager.granitegray,
                             size: AppSize.s18,
                           ),
-
                         ],
                       ),
+
                       Text(
-                        widget.location,
-                        textAlign: TextAlign.start,
+                        _location,
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.regular,
-                          color: ColorManager.black,
-                          //decoration: TextDecoration.none,
+                          color: ColorManager.granitegray,
                         ),
                       ),
-                       // Text('${widget.location}'),
+
+                      // Text('${widget.location}'),
                       // Text('Picked Location: ${widget.locationController.text}'),
                       SizedBox(height: AppSize.s15),
                       FirstSMTextFConst(
@@ -738,37 +792,44 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                   ),
                 ),
               ),
-              SizedBox(height: AppSize.s10,),
+              SizedBox(
+                height: AppSize.s10,
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: 25,width: 25,
-                    child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ))
                     : Center(
-                  child: CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: AppStringEM.save,
-                    onPressed: () async {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      await widget.onSavePressed();
-                     // Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return CountySuccessPopup(message: 'Save Successfully',);
-                        },
-                      );
-                      setState(() {
-                        isLoading = false;
-                      });
-                    },
-                  ),
-                ),
+                        child: CustomElevatedButton(
+                          width: AppSize.s105,
+                          height: AppSize.s30,
+                          text: AppStringEM.save,
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await widget.onSavePressed();
+                            // Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CountySuccessPopup(
+                                  message: 'Save Successfully',
+                                );
+                              },
+                            );
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
+                        ),
+                      ),
               ),
             ],
           ),
@@ -790,8 +851,20 @@ class EditZipCodePopup extends StatefulWidget {
   final Widget? child;
   final Widget? child1;
   final Future<void> Function() onSavePressed;
-  final VoidCallback? onPickLocation;
-  EditZipCodePopup({super.key, required this.title, required this.countynameController, required this.zipcodeController, required this.mapController, required this.landmarkController, this.child, required this.onSavePressed, required this.cityNameController, this.child1, this.onPickLocation,});
+  // final VoidCallback? onPickLocation;
+  EditZipCodePopup({
+    super.key,
+    required this.title,
+    required this.countynameController,
+    required this.zipcodeController,
+    required this.mapController,
+    required this.landmarkController,
+    this.child,
+    required this.onSavePressed,
+    required this.cityNameController,
+    this.child1,
+    // this.onPickLocation,
+  });
 
   @override
   State<EditZipCodePopup> createState() => _EditZipCodePopupState();
@@ -799,6 +872,45 @@ class EditZipCodePopup extends StatefulWidget {
 
 class _EditZipCodePopupState extends State<EditZipCodePopup> {
   bool isLoading = false;
+
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  String _location = 'Lat/Long not selected'; // Default text
+  double? _latitude;
+  double? _longitude;
+
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) => MapScreen(
+          initialLocation: _selectedLocation,
+          onLocationPicked: (location) {
+            // Print debug information to ensure this is being called
+            print('Picked location inside MapScreen: $location');
+            setState(() {
+              _latitude = location.latitude;
+              _longitude = location.longitude;
+              _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+              //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+            });
+          },
+        ),
+      ),
+    );
+
+    if (pickedLocation != null) {
+      // Print debug information to ensure this is being reached
+      print('Picked location from Navigator: $pickedLocation');
+      setState(() {
+        _selectedLocation = pickedLocation;
+        _latitude = pickedLocation.latitude;
+        _longitude = pickedLocation.longitude;
+        _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+        //_location = 'Lat: ${_latitude!}, Long: ${_longitude!}';
+      });
+    } else {
+      print('No location was picked.');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -855,7 +967,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                   horizontal: AppPadding.p20,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top:15),
+                  padding: const EdgeInsets.only(top: 15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -908,11 +1020,11 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                       Row(
                         children: [
                           TextButton(
-                            onPressed: widget.onPickLocation,
+                            onPressed: _pickLocation,
                             style: TextButton.styleFrom(
                                 backgroundColor: Colors.transparent),
                             child: Text(
-                              'Change Location',
+                              'Pick Location',
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s12,
                                 fontWeight: FontWeightManager.bold,
@@ -926,8 +1038,15 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                             color: ColorManager.granitegray,
                             size: AppSize.s18,
                           ),
-
                         ],
+                      ),
+
+                      Text(
+                        _location,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          color: ColorManager.granitegray,
+                        ),
                       ),
                       SizedBox(height: AppSize.s15),
 
@@ -941,37 +1060,44 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                   ),
                 ),
               ),
-              SizedBox(height: AppSize.s10,),
+              SizedBox(
+                height: AppSize.s10,
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: 25,width: 25,
-                    child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ))
                     : Center(
-                  child: CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: AppStringEM.save,
-                    onPressed: () async {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      await widget.onSavePressed();
-                      // Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return CountySuccessPopup(message: 'Save Successfully',);
-                        },
-                      );
-                      setState(() {
-                        isLoading = false;
-                      });
-                    },
-                  ),
-                ),
+                        child: CustomElevatedButton(
+                          width: AppSize.s105,
+                          height: AppSize.s30,
+                          text: AppStringEM.save,
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await widget.onSavePressed();
+                            // Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CountySuccessPopup(
+                                  message: 'Save Successfully',
+                                );
+                              },
+                            );
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
+                        ),
+                      ),
               ),
             ],
           ),
@@ -1057,7 +1183,12 @@ class AddZonePopup extends StatefulWidget {
   final Future<void> Function() onSavePressed;
   final Widget? child;
   final String title;
-   AddZonePopup({super.key, required this.zoneNumberController, this.child, required this.title, required this.onSavePressed});
+  AddZonePopup(
+      {super.key,
+      required this.zoneNumberController,
+      this.child,
+      required this.title,
+      required this.onSavePressed});
 
   @override
   State<AddZonePopup> createState() => _AddZonePopupState();
@@ -1152,33 +1283,36 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                    height: AppSize.s25,
-                    width: AppSize.s25,
-                    child: CircularProgressIndicator(
-                      color: ColorManager.blueprime,))
+                        height: AppSize.s25,
+                        width: AppSize.s25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ))
                     : Center(
-                  child: CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: AppStringEM.save,
-                    onPressed: () async {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      await widget.onSavePressed();
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return CountySuccessPopup(message: 'Save Successfully',);
-                        },
-                      );
-                      setState(() {
-                        isLoading = false;
-                      });
-                    },
-                  ),
-                ),
+                        child: CustomElevatedButton(
+                          width: AppSize.s105,
+                          height: AppSize.s30,
+                          text: AppStringEM.save,
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await widget.onSavePressed();
+                            Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CountySuccessPopup(
+                                  message: 'Save Successfully',
+                                );
+                              },
+                            );
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
+                        ),
+                      ),
               ),
             ],
           ),
