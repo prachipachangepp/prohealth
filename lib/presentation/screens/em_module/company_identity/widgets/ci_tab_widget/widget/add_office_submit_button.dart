@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/google_aotopromt_api_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:flutter/material.dart';
@@ -37,101 +38,11 @@ class AddOfficeSumbitButton extends StatefulWidget {
 }
 
 class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
-
-
-
-  // LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
-  // String _location = 'Lat/Long not selected'; // Default text
-  // void _pickLocation() async {
-  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
-  //     MaterialPageRoute(
-  //       builder: (context) => MapScreen(
-  //         initialLocation: _selectedLocation,
-  //         onLocationPicked: (location) {
-  //           setState(() {
-  //             _selectedLocation = location;
-  //             _latitude = location.latitude;
-  //             _longitude = location.longitude;
-  //             String formatLatLong(double? latitude, double? longitude) {
-  //               if (latitude != null && longitude != null) {
-  //                 return 'Lat: ${latitude.toStringAsFixed(4)}, Long: ${longitude.toStringAsFixed(4)}';
-  //               } else {
-  //                 return 'Lat/Long not selected';
-  //               }
-  //             }
-  //
-  //            // final latlong = formatLatLong(_latitude, _longitude);
-  //             //
-  //             // // Create locationString
-  //             // final latlong = _latitude != null && _longitude != null
-  //             //     ? 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}'
-  //             //     : 'Lat/Long not selected';
-  //
-  //             print("Selected LatLong :: $latlong");
-  //
-  //             // Update the location in the UI directly
-  //             _updateLocation(latlong);
-  //           });
-  //         },
-  //       ),
-  //     ),
-  //   );
-  //   }
-
-  //   if (pickedLocation != null) {
-  //     setState(() {
-  //       _selectedLocation = pickedLocation;
-  //       _latitude = pickedLocation.latitude;
-  //       _longitude = pickedLocation.longitude;
-  //     });
-  //   }
-  // }
-
-
-  // void _updateLocation(String latlong) {
-  //   setState(() {
-  //     _location = latlong;
-  //     print("Updated Location: $_location"); // Check this log to see if the value updates
-  //   });
-  // }
-
- bool isLoading = false;
-
+  bool isLoading = false;
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
   String _location = 'Lat/Long not selected'; // Default text
   double? _latitude;
   double? _longitude;
-
-  // void _pickLocation() async {
-  //   final pickedLocation = await Navigator.of(context).push<LatLng>(
-  //     MaterialPageRoute(
-  //       builder: (context) => MapScreen(
-  //         initialLocation: _selectedLocation,
-  //         onLocationPicked: (location) {
-  //           setState(() {
-  //             _selectedLocation = location;
-  //             _latitude = location.latitude;
-  //             _longitude = location.longitude;
-  //             _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-  //           });
-  //         },
-  //       ),
-  //     ),
-  //   );
-  //
-  //   if (pickedLocation != null) {
-  //     setState(() {
-  //       _selectedLocation = pickedLocation;
-  //       _latitude = pickedLocation.latitude;
-  //       _longitude = pickedLocation.longitude;
-  //       _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
-  //     });
-  //   }
-  // }
-
-
- ////////////////////////////
-
  void _pickLocation() async {
    final pickedLocation = await Navigator.of(context).push<LatLng>(
      MaterialPageRoute(
@@ -165,7 +76,31 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
      print('No location was picked.');
    }
  }
- ////////////////////
+  List<String> _suggestions = [];
+  @override
+  void initState() {
+    super.initState();
+    widget.addressController.addListener(_onCountyNameChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.addressController.removeListener(_onCountyNameChanged);
+    super.dispose();
+  }
+ void _onCountyNameChanged() async {
+   if (widget.addressController.text.isEmpty) {
+     setState(() {
+       _suggestions = [];
+     });
+     return;
+   }
+
+   final suggestions = await fetchSuggestions(widget.addressController.text);
+   setState(() {
+     _suggestions = suggestions;
+   });
+ }
 
   @override
   Widget build(BuildContext context) {
@@ -249,6 +184,40 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       TextInputType.streetAddress,
                       text: AppString.officeaddress,
                     ),
+                    if (_suggestions.isNotEmpty)
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: _suggestions.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(_suggestions[index],style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.mediumgrey,
+                                decoration: TextDecoration.none,
+                              ),),
+                              onTap: () {
+                                widget.addressController.text = _suggestions[index];
+                                setState(() {
+                                  _suggestions.clear();
+                                });
+                              },
+                            );
+                          },
+                        ),
+                      ),
                     const SizedBox(height: AppSize.s9),
 
                     DemailSMTextFConst(
