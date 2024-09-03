@@ -27,7 +27,7 @@ class _AppBarWebState extends State<AppBarWeb> {
 
   String? loginName = '';
 
-  Future<String> user() async{
+  Future<String> user() async {
     loginName = await TokenManager.getUserName();
     //loginName = userName;
     print("UserName login ${loginName}");
@@ -236,19 +236,20 @@ class _AppBarWebState extends State<AppBarWeb> {
                                       ),
                                       child: Center(
                                         child: AppClickableWidget(
-                                          onTap: () async{
+                                          onTap: () async {
                                             //const url = "http://localhost:52425/#/home";
-                                             const url = "https://staging.symmetry.care/#/home";
+                                            const url =
+                                                "https://staging.symmetry.care/#/home";
                                             if (await canLaunch(url)) {
-                                            await launch(url);
-                                            //    Navigator.push(
-                                            //      context,
-                                            //      MaterialPageRoute(
-                                            //       builder: (context) => OnBoardingWelcome(),
-                                            //     ),
-                                            //    );
+                                              await launch(url);
+                                              //    Navigator.push(
+                                              //      context,
+                                              //      MaterialPageRoute(
+                                              //       builder: (context) => OnBoardingWelcome(),
+                                              //     ),
+                                              //    );
                                             } else {
-                                            throw 'Could not launch $url';
+                                              throw 'Could not launch $url';
                                             }
                                           },
                                           onHover: (bool val) {},
@@ -323,6 +324,7 @@ class _AppBarWebState extends State<AppBarWeb> {
 
                                 MediaQuery.of(context).size.width >= 1024
                                     ?
+
                                     ///dropdown
                                     Expanded(
                                         flex: 3,
@@ -358,15 +360,23 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              items: <String>['Admin', 'Staff', 'Patient'].map((String value) {
+                                              items: <String>[
+                                                'Admin',
+                                                'Staff',
+                                                'Patient'
+                                              ].map((String value) {
                                                 return DropdownMenuItem<String>(
                                                   value: value,
                                                   child: Text(
                                                     value,
                                                     style: GoogleFonts.firaSans(
                                                       fontSize: 12,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: _selectedValue == value ? Colors.white : ColorManager.white,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: _selectedValue ==
+                                                              value
+                                                          ? Colors.white
+                                                          : ColorManager.white,
                                                     ),
                                                   ),
                                                 );
@@ -376,10 +386,10 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                   _selectedValue = newValue;
                                                 });
                                               },
-                                              dropdownColor: ColorManager.blueprime,
+                                              dropdownColor:
+                                                  ColorManager.blueprime,
                                             ),
                                           ),
-
                                         ),
                                       )
                                     : SizedBox(
@@ -435,7 +445,8 @@ class _AppBarWebState extends State<AppBarWeb> {
                                         onTap: () {},
                                         onHover: (bool val) {},
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 3),
                                           child: const Center(
                                             child: Icon(
                                               Icons.notifications_none_outlined,
@@ -445,13 +456,16 @@ class _AppBarWebState extends State<AppBarWeb> {
                                         ),
                                       ),
 
-                                      SizedBox(width: AppSize.s15), //width between the notifications_none_outlined & settings_outlined icon
+                                      SizedBox(
+                                          width: AppSize
+                                              .s15), //width between the notifications_none_outlined & settings_outlined icon
 
                                       AppClickableWidget(
                                         onTap: () {},
                                         onHover: (bool val) {},
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4, vertical: 3),
                                           child: const Center(
                                             child: Icon(
                                               Icons.settings_outlined,
@@ -464,7 +478,6 @@ class _AppBarWebState extends State<AppBarWeb> {
                                   ),
                                 ),
 
-
                                 // SizedBox(
                                 //   width: MediaQuery.of(context).size.width / 50,
                                 // ),
@@ -473,25 +486,29 @@ class _AppBarWebState extends State<AppBarWeb> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.person,color:Colors.white,),
-                                      const SizedBox(height:  AppSize.s2),
-                                      FutureBuilder(
-                                        future: user(),
-                                        builder: (context,snap) {
-                                          if(snap.connectionState == ConnectionState.waiting){
-                                            return SizedBox();
-                                          }
-                                          return Text(
-                                            loginName!,
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              color: Colors.white,
-                                              fontSize: FontSize.s8,
-                                              fontWeight: FontWeightManager.regular,
-                                            ),
-                                          );
-                                        }
+                                      Icon(
+                                        Icons.person,
+                                        color: Colors.white,
                                       ),
+                                      const SizedBox(height: AppSize.s2),
+                                      FutureBuilder(
+                                          future: user(),
+                                          builder: (context, snap) {
+                                            if (snap.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return SizedBox();
+                                            }
+                                            return Text(
+                                              loginName!,
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.firaSans(
+                                                color: Colors.white,
+                                                fontSize: FontSize.s8,
+                                                fontWeight:
+                                                    FontWeightManager.regular,
+                                              ),
+                                            );
+                                          }),
                                     ],
                                   ),
                                 ),

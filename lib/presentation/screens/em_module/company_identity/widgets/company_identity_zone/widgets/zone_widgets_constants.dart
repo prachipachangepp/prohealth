@@ -531,6 +531,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
+                          ///
                           return CountySuccessPopup(message: 'Save Successfully',);
                         },
                       );
@@ -1024,7 +1025,7 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Pick Location'),
-        backgroundColor: Colors.white,
+        backgroundColor: ColorManager.blueprime,
         actions: [
           IconButton(
             icon: Icon(Icons.check),
@@ -1130,7 +1131,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(AppString.country,
+                        Text(AppString.county,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.bold,

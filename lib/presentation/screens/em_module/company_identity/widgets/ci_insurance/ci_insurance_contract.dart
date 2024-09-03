@@ -169,6 +169,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                   ),
                                                 ),
                                               ),
+                                              SizedBox(width: 20),
                                               Column(
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -176,7 +177,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                 MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    contract.contractId.toString(),
+                                                   "ID: ${contract.contractId}",
                                                     textAlign: TextAlign.center,
                                                     style: GoogleFonts.firaSans(
                                                       fontSize: 10,
@@ -186,6 +187,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                       TextDecoration.none,
                                                     ),
                                                   ),
+                                                  SizedBox(height: AppSize.s5,),
                                                   Text(
                                                     contract.contractName
                                                         .toString()
@@ -205,6 +207,15 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                           ),
                                           Row(
                                             children: [
+                                              IconButton(
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,onPressed: () {  }, icon: Icon(
+                                                Icons.save_alt_outlined,
+                                                size: 18,
+                                                color:
+                                                ColorManager.blueprime,
+                                              ),),
                                               IconButton(
                                                 onPressed: () {
                                                   String? selectedExpiryType =
@@ -451,8 +462,14 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                   size: 18,
                                                   color: ColorManager.blueprime,
                                                 ),
+                                                splashColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
                                               ),
                                               IconButton(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
                                                   onPressed: () {
                                                     showDialog(
                                                         context: context,
@@ -494,6 +511,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                     color:
                                                     ColorManager.faintOrange,
                                                   )),
+
                                             ],
                                           ),
                                         ],

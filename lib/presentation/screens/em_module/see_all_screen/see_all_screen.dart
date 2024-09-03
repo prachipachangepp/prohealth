@@ -353,7 +353,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No Data!",
+                        "No available user !!"  ,                  // "No Data!",
                         style: TextStyle(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.medium,

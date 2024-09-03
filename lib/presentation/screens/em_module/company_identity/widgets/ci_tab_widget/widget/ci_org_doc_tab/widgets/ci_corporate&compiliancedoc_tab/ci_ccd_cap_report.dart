@@ -173,7 +173,8 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    AppString.dataNotFound,
+                    "No available cap reports !!",
+                    //AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,
@@ -332,7 +333,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                                             BuildContext context,
                                                             void Function(void Function()) setState) {
                                                           return CCScreenEditPopup(
-                                                            title: 'Edit Licenses',
+                                                            title: 'Edit Cap Reports',
                                                             //id: documentPreId,
                                                             idOfDocController: idOfDocController,
                                                             nameDocController: docNameController,
@@ -578,15 +579,19 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                                               child: Column(
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
-                                                                  Text(
-                                                                    "Expiry Date",
-                                                                    style: GoogleFonts.firaSans(
-                                                                      fontSize: FontSize.s12,
-                                                                      fontWeight: FontWeight.w700,
-                                                                      color: ColorManager.mediumgrey,
-                                                                      decoration: TextDecoration.none,
+                                                                  Padding(
+                                                                    padding: const EdgeInsets.only(left: 2),
+                                                                    child: Text(
+                                                                      "Expiry Date",
+                                                                      style: GoogleFonts.firaSans(
+                                                                        fontSize: FontSize.s12,
+                                                                        fontWeight: FontWeight.w700,
+                                                                        color: ColorManager.mediumgrey,
+                                                                        decoration: TextDecoration.none,
+                                                                      ),
                                                                     ),
                                                                   ),
+                                                                  SizedBox(height: 5,),
                                                                   FormField<String>(
                                                                     builder: (FormFieldState<String> field) {
                                                                       return SizedBox(

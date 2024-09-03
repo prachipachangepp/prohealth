@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,38 +21,38 @@ import '../../../../../../../../../../data/api_data/establishment_data/company_i
 import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
-class VendorContractQuarterlyBalanceReport extends StatefulWidget {
+class VendorContractMedicalCostReport extends StatefulWidget {
   final int docId;
   final int subDocId;
   //final String officeId;
-  const VendorContractQuarterlyBalanceReport({super.key, required this.docId, required this.subDocId, //required this.officeId
+  const VendorContractMedicalCostReport({super.key, required this.docId,
+    required this.subDocId,// required this.officeId
   });
 
   @override
-  State<VendorContractQuarterlyBalanceReport> createState() => _VendorContractQuarterlyBalanceReportState();
+  State<VendorContractMedicalCostReport> createState() => _VendorContractMedicalCostReportState();
 }
 
-class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQuarterlyBalanceReport> {
-  @override
+class _VendorContractMedicalCostReportState extends State<VendorContractMedicalCostReport> {
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
   int docTypeMetaIdVC = AppConfig.vendorContracts;
-  int docTypeMetaIdVCMisc = AppConfig.subDocId10MISC;
+  int docTypeMetaIdVCdme = AppConfig.subDocId8DME;
   final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
   //int docTypeMetaId =0;
   int docSubTypeMetaId =0;
   String? expiryType;
   bool _isLoading = false;
+
   String? selectedValue;
   late List<Color> hrcontainerColors;
   @override
   void initState() {
     super.initState();
-
-  }
+    }
   int currentPage = 1;
   final int itemsPerPage = 10;
   final int totalPages = 5;
@@ -111,6 +109,9 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                       style: RegisterTableHead.customTextStyle(context),
                     )),
               ),
+              // Expanded(
+              //     child: SizedBox(width: AppSize.s16,
+              //     )),
               Expanded(
                 child: Center(
                     child: Text(
@@ -118,6 +119,8 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                       style: RegisterTableHead.customTextStyle(context),
                     )),
               ),
+              // Center(child:
+              // Text(AppString.eligibleClinician,style: RegisterTableHead.customTextStyle(context),),),
               Expanded(
                 child: Center(
                     child: Text(
@@ -130,7 +133,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
         ),
         SizedBox(height: AppSize.s10,),
         Expanded(
-          child: StreamBuilder<List<CiOrgDocumentCC>>(
+          child:StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context, snapshot) {
                 getORGDoc(context,widget.docId,widget.subDocId,1,15
@@ -150,7 +153,8 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      AppString.dataNotFound,
+                      "No available DME !!",
+                     // AppString.dataNotFound,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s12,
@@ -172,7 +176,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                           itemBuilder: (context, index) {
                             int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                             String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            CiOrgDocumentCC miscData = paginatedData[index];
+                            CiOrgDocumentCC MCRdata = paginatedData[index];
                             return Column(
                               children: [
                                 SizedBox(height: AppSize.s5),
@@ -212,7 +216,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            miscData.idOfDocument,
+                                            MCRdata.idOfDocument,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w700,
@@ -224,7 +228,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              miscData.name.toString().capitalizeFirst!,
+                                              MCRdata.name.toString().capitalizeFirst!,
                                               style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w700,
@@ -236,7 +240,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              miscData.expirtDate.toString(),
+                                              MCRdata.expirtDate.toString(),
                                               style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w700,
@@ -248,7 +252,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              miscData.expirtReminder.toString().capitalizeFirst!,
+                                              MCRdata.expirtReminder.toString().capitalizeFirst!,
                                               style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w700,
@@ -268,7 +272,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                   context: context,
                                                   builder: (context) {
                                                     return FutureBuilder<CorporatePrefillDocumentData>(
-                                                      future: getPrefillCorporateDocument(context,miscData.docId),
+                                                      future: getPrefillCorporateDocument(context,MCRdata.docId),
                                                       builder: (context, snapshotPrefill) {
                                                         if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                           return Center(
@@ -311,7 +315,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                           builder: (BuildContext context,
                                                               void Function(void Function()) setState) {
                                                             return CCScreenEditPopup(
-                                                              title: 'Edit Leases & Services',
+                                                              title: 'Edit DME',
                                                               //id: documentPreId,
                                                               idOfDocController: idOfDocController,
                                                               nameDocController: docNameController,
@@ -333,9 +337,9 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                                       docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId ,
                                                                       docCreated: DateTime.now().toString(),
                                                                       url: "url",
-                                                                      expiryType: selectedExpiryType ?? expiryType.toString(),// expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
+                                                                      expiryType: selectedExpiryType ?? expiryType.toString(),//expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                                       expiryDate: expiryTypeToSend,//calender == calenderController.text ? calender.toString() : calenderController.text,
-                                                                      expiryReminder: selectedExpiryType ?? expiryType.toString(),//selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
+                                                                      expiryReminder: selectedExpiryType ?? expiryType.toString(),// selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
                                                                       officeId: "",//widget.officeId,
                                                                       idOfDoc: snapshotPrefill.data!.idOfDoc
                                                                   );
@@ -457,18 +461,18 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                                     );
                                                                   }
                                                                   if (snapshot.hasData) {
-                                                                    String selectedDocType = "MISC";
+                                                                    String selectedDocType = "DME";
                                                                     int docType = snapshot.data![0].docID;
 
                                                                     for (var i in snapshot.data!) {
-                                                                      if (i.docID == AppConfig.subDocId10MISC) {
+                                                                      if (i.docID == AppConfig.subDocId8DME) {
                                                                         selectedDocType = i.docType;
                                                                         docType = i.docID;
                                                                         break;
                                                                       }
                                                                     }
 
-                                                                    docTypeMetaIdVCMisc = docType;
+                                                                    docTypeMetaIdVCdme = docType;
 
                                                                     identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
                                                                       _identityDataController.add(data);
@@ -559,15 +563,19 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                                 child: Column(
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
-                                                                    Text(
-                                                                      "Expiry Date",
-                                                                      style: GoogleFonts.firaSans(
-                                                                        fontSize: FontSize.s12,
-                                                                        fontWeight: FontWeight.w700,
-                                                                        color: ColorManager.mediumgrey,
-                                                                        decoration: TextDecoration.none,
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.only(left: 5),
+                                                                      child: Text(
+                                                                        "Expiry Date",
+                                                                        style: GoogleFonts.firaSans(
+                                                                          fontSize: FontSize.s12,
+                                                                          fontWeight: FontWeight.w700,
+                                                                          color: ColorManager.mediumgrey,
+                                                                          decoration: TextDecoration.none,
+                                                                        ),
                                                                       ),
                                                                     ),
+                                                                    SizedBox(height: 5,),
                                                                     FormField<String>(
                                                                       builder: (FormFieldState<String> field) {
                                                                         return SizedBox (
@@ -653,7 +661,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                       builder: (context) => StatefulBuilder(
                                                         builder: (BuildContext context, void Function(void Function()) setState) {
                                                           return  DeletePopup(
-                                                              title: 'Delete MISC',
+                                                              title: 'Delete DME',
                                                               loadingDuration: _isLoading,
                                                               onCancel: (){
                                                                 Navigator.pop(context);

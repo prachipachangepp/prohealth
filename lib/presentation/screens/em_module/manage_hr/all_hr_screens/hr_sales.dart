@@ -359,6 +359,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       IconButton(
+
                                         onPressed: () {
                                           showDialog(
                                             context: context,

@@ -367,7 +367,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                  } else {
                                    return Center(
                                      child: Text(
-                                       AppString.dataNotFound,
+                                       "No available sub document type !!",
+                                      // AppString.dataNotFound,
                                        style: CustomTextStylesCommon.commonStyle(
                                          fontWeight: FontWeightManager.medium,
                                          fontSize: FontSize.s12,
@@ -684,7 +685,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                  } else {
                                    return Center(
                                      child: Text(
-                                       AppString.dataNotFound,
+                                       "No available sub document type !!",
+                                       //AppString.dataNotFound,
                                        style: CustomTextStylesCommon.commonStyle(
                                          fontWeight: FontWeightManager.medium,
                                          fontSize: FontSize.s12,
@@ -919,7 +921,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                    if (snapshot.data!.isEmpty) {
                                      return Center(
                                        child: Text(
-                                         AppString.dataNotFound,
+                                         "No available sub document type !!",
+                                         //AppString.dataNotFound,
                                          style: CustomTextStylesCommon.commonStyle(
                                            fontWeight: FontWeightManager.medium,
                                            fontSize: FontSize.s12,

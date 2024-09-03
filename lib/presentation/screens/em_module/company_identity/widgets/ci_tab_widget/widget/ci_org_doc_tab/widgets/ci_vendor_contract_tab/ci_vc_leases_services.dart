@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employ
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+
 import '../../../../../../../../../../app/constants/app_config.dart';
 import '../../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../../app/resources/const_string.dart';
@@ -21,33 +23,32 @@ import '../../../../../../../../../../data/api_data/establishment_data/company_i
 import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
-
-class VendorContractCapReport extends StatefulWidget {
+class VendorContractADR extends StatefulWidget {
   final int docId;
   final int subDocId;
   //final String officeId;
-  const VendorContractCapReport({super.key, required this.docId, required this.subDocId, //required this.officeId
+  const VendorContractADR({super.key, required this.docId, required this.subDocId,// required this.officeId
   });
 
   @override
-  State<VendorContractCapReport> createState() => _VendorContractCapReportState();
+  State<VendorContractADR> createState() => _VendorContractADRState();
 }
 
-class _VendorContractCapReportState extends State<VendorContractCapReport> {
-  String? selectedValue;
+class _VendorContractADRState extends State<VendorContractADR> {
+  @override
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
   int docTypeMetaIdVC = AppConfig.vendorContracts;
-  int docTypeMetaIdVCMD = AppConfig.subDocId9MD;
+  int docTypeMetaIdVCSnf = AppConfig.subDocId7SNF;
   final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
-  //int docTypeMetaId =0;
+ // int docTypeMetaId =0;
   int docSubTypeMetaId =0;
   String? expiryType;
   bool _isLoading = false;
-
+  String? selectedValue;
   late List<Color> hrcontainerColors;
   @override
   void initState() {
@@ -63,9 +64,11 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
       currentPage = pageNumber;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-   return Column(
+
+    return Column(
       children: [
         Container(
           height: AppSize.s30,
@@ -129,7 +132,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
         ),
         SizedBox(height: AppSize.s10,),
         Expanded(
-          child:StreamBuilder<List<CiOrgDocumentCC>>(
+          child: StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context, snapshot) {
                 getORGDoc(context,widget.docId,widget.subDocId,1,15
@@ -149,7 +152,8 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      AppString.dataNotFound,
+                      "No available SNF !!",
+                     // AppString.dataNotFound,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s12,
@@ -171,7 +175,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                           itemBuilder: (context, index) {
                             int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                             String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            CiOrgDocumentCC capsdata = paginatedData[index];
+                            CiOrgDocumentCC snfdata = paginatedData[index];
                             return Column(
                               children: [
                                 SizedBox(height: AppSize.s5),
@@ -211,7 +215,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            capsdata.idOfDocument,
+                                            snfdata.idOfDocument,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w700,
@@ -223,7 +227,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              capsdata.name.toString().capitalizeFirst!,
+                                              snfdata.name.toString().capitalizeFirst!,
                                               style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w700,
@@ -235,7 +239,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              capsdata.expirtDate.toString(),
+                                              snfdata.expirtDate.toString(),
                                               style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w700,
@@ -247,7 +251,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              capsdata.expirtReminder.toString().capitalizeFirst!,
+                                              snfdata.expirtReminder.toString().capitalizeFirst!,
                                               style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w700,
@@ -267,7 +271,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                   context: context,
                                                   builder: (context) {
                                                     return FutureBuilder<CorporatePrefillDocumentData>(
-                                                      future: getPrefillCorporateDocument(context,capsdata.docId),
+                                                      future: getPrefillCorporateDocument(context,snfdata.docId),
                                                       builder: (context, snapshotPrefill) {
                                                         if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                           return Center(
@@ -310,7 +314,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                           builder: (BuildContext context,
                                                               void Function(void Function()) setState) {
                                                             return CCScreenEditPopup(
-                                                              title: 'Edit Leases & Services',
+                                                              title: 'Edit SNF',
                                                               //id: documentPreId,
                                                               idOfDocController: idOfDocController,
                                                               nameDocController: docNameController,
@@ -332,7 +336,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                                       docSubTypeID: documentSubPreId == docSubTypeMetaId ? documentSubPreId : docSubTypeMetaId ,
                                                                       docCreated: DateTime.now().toString(),
                                                                       url: "url",
-                                                                      expiryType: selectedExpiryType ?? expiryType.toString(),//expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
+                                                                      expiryType: selectedExpiryType ?? expiryType.toString(),// expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                                       expiryDate: expiryTypeToSend,//calender == calenderController.text ? calender.toString() : calenderController.text,
                                                                       expiryReminder: selectedExpiryType ?? expiryType.toString(),//selectedExpiryType == selectedExpiryType.toString() ? selectedExpiryType.toString() : expiryType.toString(),
                                                                       officeId: "",//widget.officeId,
@@ -456,18 +460,18 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                                     );
                                                                   }
                                                                   if (snapshot.hasData) {
-                                                                    String selectedDocType = "MD";
+                                                                    String selectedDocType = "SNF";
                                                                     int docType = snapshot.data![0].docID;
 
                                                                     for (var i in snapshot.data!) {
-                                                                      if (i.docID == AppConfig.subDocId9MD) {
+                                                                      if (i.docID == AppConfig.subDocId7SNF) {
                                                                         selectedDocType = i.docType;
                                                                         docType = i.docID;
                                                                         break;
                                                                       }
                                                                     }
 
-                                                                    docTypeMetaIdVCMD = docType;
+                                                                    docTypeMetaIdVCSnf = docType;
 
                                                                     identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
                                                                       _identityDataController.add(data);
@@ -558,15 +562,19 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                                 child: Column(
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
-                                                                    Text(
-                                                                      "Expiry Date",
-                                                                      style: GoogleFonts.firaSans(
-                                                                        fontSize: FontSize.s12,
-                                                                        fontWeight: FontWeight.w700,
-                                                                        color: ColorManager.mediumgrey,
-                                                                        decoration: TextDecoration.none,
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.only(left: 2),
+                                                                      child: Text(
+                                                                        "Expiry Date",
+                                                                        style: GoogleFonts.firaSans(
+                                                                          fontSize: FontSize.s12,
+                                                                          fontWeight: FontWeight.w700,
+                                                                          color: ColorManager.mediumgrey,
+                                                                          decoration: TextDecoration.none,
+                                                                        ),
                                                                       ),
                                                                     ),
+                                                                    SizedBox(height: 5,),
                                                                     FormField<String>(
                                                                       builder: (FormFieldState<String> field) {
                                                                         return SizedBox (
@@ -652,7 +660,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                       builder: (context) => StatefulBuilder(
                                                         builder: (BuildContext context, void Function(void Function()) setState) {
                                                           return  DeletePopup(
-                                                              title: 'Delete MD',
+                                                              title: 'Delete SNF',
                                                               loadingDuration: _isLoading,
                                                               onCancel: (){
                                                                 Navigator.pop(context);
@@ -676,6 +684,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                                                               });
                                                               Navigator.pop(context);
                                                             }
+
                                                           });
                                                         },
 
@@ -725,4 +734,5 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
       ],
     );
   }
-}
+  }
+

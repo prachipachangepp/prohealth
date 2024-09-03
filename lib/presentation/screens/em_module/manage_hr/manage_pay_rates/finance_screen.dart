@@ -266,7 +266,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       if (snapshot.hasData && snapshot.data!.isEmpty) {
                                         return Center(
                                           child: Text(
-                                            AppString.dataNotFound,
+                                            "No available visits !!",
+                                            //AppString.dataNotFound,
                                             style: CustomTextStylesCommon.commonStyle(
                                               fontWeight: FontWeightManager.medium,
                                               fontSize: FontSize.s12,
@@ -321,7 +322,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       if (snapshotZone.hasData && snapshotZone.data!.isEmpty) {
                                         return Center(
                                           child: Text(
-                                            "No Zones Available",
+                                            "No available zones !!",
                                             //AppString.dataNotFound,
                                             style: CustomTextStylesCommon.commonStyle(
                                               fontWeight: FontWeightManager.medium,
@@ -437,7 +438,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        AppString.dataNotFound,
+                        "No available pay rates!!",
+                        //AppString.dataNotFound,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,
@@ -571,6 +573,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                   MainAxisAlignment.center,
                                                   children: [
                                                     IconButton(
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                       onPressed: () {
                                                         showDialog(
                                                           context: context,
@@ -709,6 +714,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                       ),
                                                     ),
                                                     IconButton(
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,

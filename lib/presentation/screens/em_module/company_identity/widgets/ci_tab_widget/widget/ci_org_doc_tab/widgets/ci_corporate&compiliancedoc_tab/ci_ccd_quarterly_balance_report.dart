@@ -177,7 +177,8 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    AppString.dataNotFound,
+                    "No available quarterly balance reports !!",
+                    //AppString.dataNotFound,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,
@@ -337,7 +338,7 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                                             BuildContext context,
                                                             void Function(void Function()) setState) {
                                                           return CCScreenEditPopup(
-                                                            title: 'Edit Licenses',
+                                                            title: 'Edit Quarterly Balance Report',
                                                             //id: documentPreId,
                                                             idOfDocController: idOfDocController,
                                                             nameDocController: docNameController,
@@ -452,7 +453,9 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                                                 }
                                                               },
                                                             ),
+
                                                             // Sub-Document Type Dropdown
+
                                                             child1:FutureBuilder<List<DocumentTypeData>>(
                                                               future: documentTypeGet(context),
                                                               builder: (context, snapshot) {
@@ -500,6 +503,7 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                                                   }).catchError((error) {
                                                                     // Handle error
                                                                   });
+                                                                  SizedBox(height: 5,);
                                                                   return Container(
                                                                     width: 354,
                                                                     padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
@@ -583,15 +587,19 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                                               child: Column(
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
-                                                                  Text(
-                                                                    "Expiry Date",
-                                                                    style: GoogleFonts.firaSans(
-                                                                      fontSize: FontSize.s12,
-                                                                      fontWeight: FontWeight.w700,
-                                                                      color: ColorManager.mediumgrey,
-                                                                      decoration: TextDecoration.none,
+                                                                  Padding(
+                                                                    padding: const EdgeInsets.only(left: 2),
+                                                                    child: Text(
+                                                                      "Expiry Date",
+                                                                      style: GoogleFonts.firaSans(
+                                                                        fontSize: FontSize.s12,
+                                                                        fontWeight: FontWeight.w700,
+                                                                        color: ColorManager.mediumgrey,
+                                                                        decoration: TextDecoration.none,
+                                                                      ),
                                                                     ),
                                                                   ),
+                                                                  SizedBox(height: 5,),
                                                                   FormField<String>(
                                                                     builder: (FormFieldState<String> field) {
                                                                       return SizedBox(

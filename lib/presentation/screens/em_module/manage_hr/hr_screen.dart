@@ -594,13 +594,45 @@ class _HRTabScreensState extends State<HRTabScreens> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        AppString.dataNotFound,
-                        style: CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s12,
-                          color: ColorManager.mediumgrey,
-                        ),
-                      ),
+                              "No available employee type !!",
+                              style: CustomTextStylesCommon.commonStyle(
+                                fontWeight: FontWeightManager.medium,
+                                fontSize: FontSize.s12,
+                                color: ColorManager.mediumgrey,
+                              ),
+                            )
+                          // Row(
+                          //   children: [
+                          //     snapshot.data!.isEmpty == AppConfig.clinicalId
+                          //         ? Text(
+                          //       "No available Clinical !!",
+                          //       style: CustomTextStylesCommon.commonStyle(
+                          //         fontWeight: FontWeightManager.medium,
+                          //         fontSize: FontSize.s12,
+                          //         color: ColorManager.mediumgrey,
+                          //       ),
+                          //     )
+                          //         : snapshot.data!.isEmpty == AppConfig.salesId
+                          //         ? Text(
+                          //       "No available Sales!!",
+                          //       style: CustomTextStylesCommon.commonStyle(
+                          //         fontWeight: FontWeightManager.medium,
+                          //         fontSize: FontSize.s12,
+                          //         color: ColorManager.mediumgrey,
+                          //       ),
+                          //     )
+                          //         : Text(
+                          //       "No available Administration !!",
+                          //       style: CustomTextStylesCommon.commonStyle(
+                          //         fontWeight: FontWeightManager.medium,
+                          //         fontSize: FontSize.s12,
+                          //         color: ColorManager.mediumgrey,
+                          //       ),
+                          //     )
+                          //
+                          //   ],
+                          // )
+
                     );
                   }
                   if (snapshot.hasData) {
@@ -734,6 +766,9 @@ class _HRTabScreensState extends State<HRTabScreens> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 IconButton(
+                                                    splashColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                    hoverColor: Colors.transparent,
                                                     onPressed: () {
                                                       showDialog(
                                                           context: context,
@@ -932,6 +967,9 @@ class _HRTabScreensState extends State<HRTabScreens> {
 
                                                 ///delete
                                                 IconButton(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
                                                   onPressed: () async {
                                                     await showDialog(
                                                         context: context,
