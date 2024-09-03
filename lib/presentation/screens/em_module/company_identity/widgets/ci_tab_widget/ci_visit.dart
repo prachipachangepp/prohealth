@@ -57,9 +57,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 
   List<Widget> selectedChips = [];
   List<Widget> chipsList = [];
+  List<String> editChipValues = [];
   List<int> selectedChipsId = [];
   List<Widget> selectedEditChips = [];
   List<int> selectedEditChipsId = [];
+  List<String> chipValues = [];
   String chips = "";
   bool _isLoading = false;
   bool _isDarkColor(Color color) {
@@ -70,11 +72,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   }
 //
   void deleteChip(String chip, int chipId) {
-    //setState(() {
+    setState(() {
     selectedChips.remove(chip);
     selectedChipsId.remove(chipId);
     //selectedChipsEmpId.remove(chipEmpId);
-    // });
+    });
   }
 
   void _loadColors() async {
@@ -147,9 +149,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   selectedChips.clear();
                                   docNamecontroller.clear();
                                 },
-                                child: StatefulBuilder(
-                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                    return Column(
+                                child:Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         FutureBuilder<List<HRClinical>>(
@@ -195,83 +195,83 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                     ),
                                                   );
                                                 }
-                                                return StatefulBuilder(
-                                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                                    return CICCDropdown(
-                                                        initialValue:
-                                                        dropDownTypesList[0].value,
-                                                        onChange: (val) {
-                                                          for (var a in snapshot.data!) {
-                                                            if (a.abbrivation == val) {
-                                                              docType = a.employeeTypesId;
-                                                              empTypeId = docType;
-                                                              setState(() {
-                                                                if (val.isNotEmpty) {
-                                                                  selectedChips.add(
-                                                                    Chip(
-                                                                      backgroundColor:
-                                                                      ColorManager.white,
-                                                                      shape: StadiumBorder(
-                                                                          side: BorderSide(
-                                                                              color: ColorManager
-                                                                                  .blueprime)),
-                                                                      deleteIcon: Icon(
-                                                                        Icons.close,
+                                                return CICCDropdown(
+                                                    initialValue:
+                                                    dropDownTypesList[0].value,
+                                                    onChange: (val) {
+                                                      for (var a in snapshot.data!) {
+                                                        if (a.abbrivation == val) {
+                                                          docType = a.employeeTypesId;
+                                                          empTypeId = docType;
+                                                          setState(() {
+                                                            if (val.isNotEmpty) {
+                                                              chipValues.add(val);
+                                                              selectedChips.add(
+                                                                Chip(
+                                                                  backgroundColor:
+                                                                  ColorManager.white,
+
+                                                                  shape: StadiumBorder(
+                                                                      side: BorderSide(
+                                                                          color: ColorManager
+                                                                              .blueprime)),
+                                                                  deleteIcon: Icon(
+                                                                    Icons.close,
+                                                                    color: ColorManager
+                                                                        .blueprime,
+                                                                    size: 17,
+                                                                  ),
+                                                                  label: Text(
+                                                                    val,
+                                                                    style: CustomTextStylesCommon.commonStyle(
+                                                                        fontWeight:
+                                                                        FontWeightManager
+                                                                            .medium,
+                                                                        fontSize:
+                                                                        FontSize.s10,
                                                                         color: ColorManager
-                                                                            .blueprime,
-                                                                        size: 17,
-                                                                      ),
-                                                                      label: Text(
-                                                                        val,
-                                                                        style: CustomTextStylesCommon.commonStyle(
-                                                                            fontWeight:
-                                                                            FontWeightManager
-                                                                                .medium,
-                                                                            fontSize:
-                                                                            FontSize.s10,
-                                                                            color: ColorManager
-                                                                                .mediumgrey),
-                                                                      ),
-                                                                      onDeleted: () {
-                                                                        setState(() {
-                                                                          deleteChip(
-                                                                              val, docType);
-                                                                          selectedChips
-                                                                              .clear();
-                                                                          selectedChipsId
-                                                                              .clear();
-                                                                          print(
-                                                                              ":::Chips name ${selectedChips}");
-                                                                          print(
-                                                                              ":::: Chips Id ${selectedChipsId}");
-                                                                        });
-                                                                      },
-                                                                    ),
-                                                                  );
-                                                                  selectedChipsId
-                                                                      .add(docType);
-                                                                  print(
-                                                                      "::${selectedChipsId}");
-                                                                  print("::${selectedChips}");
-                                                                }
-                                                              });
+                                                                            .mediumgrey),
+                                                                  ),
+                                                                  onDeleted: () {
+                                                                    setState(() {
+                                                                      // deleteChip(
+                                                                      //     val, docType);
+                                                                      chipValues.remove(val);
+                                                                      selectedChips.removeWhere((chip) {
+                                                                        final chipText = (chip as Chip).label as Text;
+                                                                        return chipText.data == val;
+                                                                      });
+                                                                      selectedChipsId
+                                                                          .remove(docType);
+                                                                      print(":::Chips values ${chipValues}");
+                                                                      print(
+                                                                          ":::Chips name ${selectedChips}");
+                                                                      print(
+                                                                          ":::: Chips Id ${selectedChipsId}");
+                                                                    });
+                                                                  },
+                                                                ),
+                                                              );
+                                                              selectedChipsId
+                                                                  .add(docType);
+                                                              print(
+                                                                  "::${selectedChipsId}");
+                                                              print("::${selectedChips}");
                                                             }
-                                                          }
-                                                          print(":::${docType}");
-                                                          print(":::<>${empTypeId}");
-                                                        },
-                                                        items: dropDownTypesList);
-                                                  },
-                                                );
+                                                          });
+                                                        }
+                                                      }
+                                                      print(":::${docType}");
+                                                      print(":::<>${empTypeId}");
+                                                    },
+                                                    items: dropDownTypesList);
                                               }
                                               return SizedBox();
                                             }),
                                         SizedBox(height: AppSize.s5),
                                         Wrap(spacing: 8.0, children: listWidget),
                                       ],
-                                    );
-                                  },
-                                ),
+                                    ),
                               );
                             },
                           );
@@ -621,6 +621,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                                 empTypeId = docType;
                                                                                                 setState(() {
                                                                                                   if (val.isNotEmpty) {
+                                                                                                    editChipValues.add(val);
                                                                                                     selectedEditChips.add(
                                                                                                       Chip(
                                                                                                         backgroundColor: ColorManager.white,
@@ -639,10 +640,18 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                                         onDeleted: () {
                                                                                                           setState(() {
                                                                                                             // deleteChip(val,docType);
-                                                                                                            selectedEditChips.clear();
-                                                                                                            selectedEditChipsId.clear();
-                                                                                                            print(":::Chips name ${selectedChips}");
-                                                                                                            print(":::: Chips Id ${selectedChipsId}");
+                                                                                                            editChipValues.remove(val);
+                                                                                                            selectedEditChips.removeWhere((chip) {
+                                                                                                              final chipText = (chip as Chip).label as Text;
+                                                                                                              return chipText.data == val;
+                                                                                                            });
+                                                                                                            selectedEditChipsId
+                                                                                                                .remove(docType);
+                                                                                                            print(":::Chips values ${editChipValues}");
+                                                                                                            print(
+                                                                                                                ":::Chips name ${selectedEditChips}");
+                                                                                                            print(
+                                                                                                                ":::: Chips Id ${selectedEditChipsId}");
                                                                                                           });
                                                                                                         },
                                                                                                       ),
