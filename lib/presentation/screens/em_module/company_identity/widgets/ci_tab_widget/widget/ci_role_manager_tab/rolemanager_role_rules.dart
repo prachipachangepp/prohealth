@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../../app/resources/theme_manager.dart';
+
 class RoleManagerRoleRules extends StatelessWidget {
   const RoleManagerRoleRules({super.key});
 
@@ -11,8 +15,15 @@ class RoleManagerRoleRules extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        Container(
-          color: Colors.purple,
+        Center(
+          child: Text(
+            "No available role rules !!",
+            style: CustomTextStylesCommon.commonStyle(
+              fontWeight: FontWeightManager.medium,
+              fontSize: FontSize.s12,
+              color: ColorManager.mediumgrey,
+            ),
+          ),
         ),
       ],
     );

@@ -153,7 +153,8 @@ class _VendorContractMedicalCostReportState extends State<VendorContractMedicalC
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      AppString.dataNotFound,
+                      "No available DME !!",
+                     // AppString.dataNotFound,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s12,

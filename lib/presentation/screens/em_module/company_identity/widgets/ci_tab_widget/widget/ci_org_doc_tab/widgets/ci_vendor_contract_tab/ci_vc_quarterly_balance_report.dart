@@ -150,7 +150,8 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      AppString.dataNotFound,
+                      "No available MISC !!",
+                     // AppString.dataNotFound,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s12,
