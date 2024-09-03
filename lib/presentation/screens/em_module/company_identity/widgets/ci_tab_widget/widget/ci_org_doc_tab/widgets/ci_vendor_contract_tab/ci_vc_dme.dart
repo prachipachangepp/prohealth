@@ -315,7 +315,7 @@ class _VendorContractMedicalCostReportState extends State<VendorContractMedicalC
                                                           builder: (BuildContext context,
                                                               void Function(void Function()) setState) {
                                                             return CCScreenEditPopup(
-                                                              title: 'Edit Leases & Services',
+                                                              title: 'Edit DME',
                                                               //id: documentPreId,
                                                               idOfDocController: idOfDocController,
                                                               nameDocController: docNameController,
@@ -563,15 +563,19 @@ class _VendorContractMedicalCostReportState extends State<VendorContractMedicalC
                                                                 child: Column(
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
-                                                                    Text(
-                                                                      "Expiry Date",
-                                                                      style: GoogleFonts.firaSans(
-                                                                        fontSize: FontSize.s12,
-                                                                        fontWeight: FontWeight.w700,
-                                                                        color: ColorManager.mediumgrey,
-                                                                        decoration: TextDecoration.none,
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.only(left: 5),
+                                                                      child: Text(
+                                                                        "Expiry Date",
+                                                                        style: GoogleFonts.firaSans(
+                                                                          fontSize: FontSize.s12,
+                                                                          fontWeight: FontWeight.w700,
+                                                                          color: ColorManager.mediumgrey,
+                                                                          decoration: TextDecoration.none,
+                                                                        ),
                                                                       ),
                                                                     ),
+                                                                    SizedBox(height: 5,),
                                                                     FormField<String>(
                                                                       builder: (FormFieldState<String> field) {
                                                                         return SizedBox (

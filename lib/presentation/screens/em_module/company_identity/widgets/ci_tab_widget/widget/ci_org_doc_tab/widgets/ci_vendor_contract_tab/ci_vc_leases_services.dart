@@ -23,28 +23,28 @@ import '../../../../../../../../../../data/api_data/establishment_data/company_i
 import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
-class VendorContractQuarterlyBalanceReport extends StatefulWidget {
+class VendorContractADR extends StatefulWidget {
   final int docId;
   final int subDocId;
   //final String officeId;
-  const VendorContractQuarterlyBalanceReport({super.key, required this.docId, required this.subDocId, //required this.officeId
+  const VendorContractADR({super.key, required this.docId, required this.subDocId,// required this.officeId
   });
 
   @override
-  State<VendorContractQuarterlyBalanceReport> createState() => _VendorContractQuarterlyBalanceReportState();
+  State<VendorContractADR> createState() => _VendorContractADRState();
 }
 
-class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQuarterlyBalanceReport> {
+class _VendorContractADRState extends State<VendorContractADR> {
   @override
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
   int docTypeMetaIdVC = AppConfig.vendorContracts;
-  int docTypeMetaIdVCMisc = AppConfig.subDocId10MISC;
+  int docTypeMetaIdVCSnf = AppConfig.subDocId7SNF;
   final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
-  //int docTypeMetaId =0;
+ // int docTypeMetaId =0;
   int docSubTypeMetaId =0;
   String? expiryType;
   bool _isLoading = false;
@@ -64,8 +64,10 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
       currentPage = pageNumber;
     });
   }
+
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         Container(
@@ -150,7 +152,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      "No available MISC !!",
+                      "No available SNF !!",
                      // AppString.dataNotFound,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
@@ -173,7 +175,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                           itemBuilder: (context, index) {
                             int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                             String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            CiOrgDocumentCC miscData = paginatedData[index];
+                            CiOrgDocumentCC snfdata = paginatedData[index];
                             return Column(
                               children: [
                                 SizedBox(height: AppSize.s5),
@@ -213,7 +215,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                       Expanded(
                                         child: Center(
                                           child: Text(
-                                            miscData.idOfDocument,
+                                            snfdata.idOfDocument,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w700,
@@ -225,7 +227,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              miscData.name.toString().capitalizeFirst!,
+                                              snfdata.name.toString().capitalizeFirst!,
                                               style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w700,
@@ -237,7 +239,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              miscData.expirtDate.toString(),
+                                              snfdata.expirtDate.toString(),
                                               style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w700,
@@ -249,7 +251,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                       Expanded(
                                         child: Center(
                                             child: Text(
-                                              miscData.expirtReminder.toString().capitalizeFirst!,
+                                              snfdata.expirtReminder.toString().capitalizeFirst!,
                                               style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w700,
@@ -269,7 +271,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                   context: context,
                                                   builder: (context) {
                                                     return FutureBuilder<CorporatePrefillDocumentData>(
-                                                      future: getPrefillCorporateDocument(context,miscData.docId),
+                                                      future: getPrefillCorporateDocument(context,snfdata.docId),
                                                       builder: (context, snapshotPrefill) {
                                                         if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                           return Center(
@@ -312,7 +314,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                           builder: (BuildContext context,
                                                               void Function(void Function()) setState) {
                                                             return CCScreenEditPopup(
-                                                              title: 'Edit Leases & Services',
+                                                              title: 'Edit SNF',
                                                               //id: documentPreId,
                                                               idOfDocController: idOfDocController,
                                                               nameDocController: docNameController,
@@ -458,18 +460,18 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                                     );
                                                                   }
                                                                   if (snapshot.hasData) {
-                                                                    String selectedDocType = "MISC";
+                                                                    String selectedDocType = "SNF";
                                                                     int docType = snapshot.data![0].docID;
 
                                                                     for (var i in snapshot.data!) {
-                                                                      if (i.docID == AppConfig.subDocId10MISC) {
+                                                                      if (i.docID == AppConfig.subDocId7SNF) {
                                                                         selectedDocType = i.docType;
                                                                         docType = i.docID;
                                                                         break;
                                                                       }
                                                                     }
 
-                                                                    docTypeMetaIdVCMisc = docType;
+                                                                    docTypeMetaIdVCSnf = docType;
 
                                                                     identityDocumentTypeGet(context, docTypeMetaIdVC).then((data) {
                                                                       _identityDataController.add(data);
@@ -560,15 +562,19 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                                 child: Column(
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
-                                                                    Text(
-                                                                      "Expiry Date",
-                                                                      style: GoogleFonts.firaSans(
-                                                                        fontSize: FontSize.s12,
-                                                                        fontWeight: FontWeight.w700,
-                                                                        color: ColorManager.mediumgrey,
-                                                                        decoration: TextDecoration.none,
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.only(left: 2),
+                                                                      child: Text(
+                                                                        "Expiry Date",
+                                                                        style: GoogleFonts.firaSans(
+                                                                          fontSize: FontSize.s12,
+                                                                          fontWeight: FontWeight.w700,
+                                                                          color: ColorManager.mediumgrey,
+                                                                          decoration: TextDecoration.none,
+                                                                        ),
                                                                       ),
                                                                     ),
+                                                                    SizedBox(height: 5,),
                                                                     FormField<String>(
                                                                       builder: (FormFieldState<String> field) {
                                                                         return SizedBox (
@@ -654,7 +660,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                       builder: (context) => StatefulBuilder(
                                                         builder: (BuildContext context, void Function(void Function()) setState) {
                                                           return  DeletePopup(
-                                                              title: 'Delete MISC',
+                                                              title: 'Delete SNF',
                                                               loadingDuration: _isLoading,
                                                               onCancel: (){
                                                                 Navigator.pop(context);
@@ -690,6 +696,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                     ],
                                   ),
                                 ),
+
                               ],
                             );
                           },
@@ -727,4 +734,5 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
       ],
     );
   }
-}
+  }
+
