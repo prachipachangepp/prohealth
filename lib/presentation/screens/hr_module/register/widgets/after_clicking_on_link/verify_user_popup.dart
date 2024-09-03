@@ -74,6 +74,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
           },
         );
       } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Authentication failed! Try again"),backgroundColor: ColorManager.red,),
+        );
         setState(() {
           _errorMessage = result.message;
         });
@@ -142,12 +145,12 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
       backgroundColor: Colors.white,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.3,
-        height: MediaQuery.of(context).size.height * 0.6,
+        height: MediaQuery.of(context).size.height * 0.5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              height: 50,
+              height: 40,
               decoration: const BoxDecoration(
                 color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.only(
@@ -170,11 +173,11 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     //     const Icon(
                     //         Icons.verified_user_outlined,
                     //         color: Colors.white, size: 16),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 10),
                         Text(
                           AppString.verify_user,
                           style: GoogleFonts.firaSans(
-                            fontSize: 12,
+                            fontSize: 13,
                             fontWeight: FontWeight.w700,
                             color: Colors.white,
                           ),
@@ -412,7 +415,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     //     return null;
                     //   },
                     // ),
-                    const SizedBox(height: 3),
+                    const SizedBox(height: 20),
                     otpEnabled
                         ? _remainingTime > 0
                             ? Align(

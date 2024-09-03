@@ -1,7 +1,7 @@
 class BankingDataForm {
   final int empBankingId;
-  final int employeeId;
   final String accountNumber;
+  final int employeeId;
   final String bankName;
   final int amountRequested;
   final String checkUrl;
@@ -13,8 +13,8 @@ class BankingDataForm {
 
   BankingDataForm({
     required this.empBankingId,
-    required this.employeeId,
     required this.accountNumber,
+    required this.employeeId,
     required this.bankName,
     required this.amountRequested,
     required this.checkUrl,

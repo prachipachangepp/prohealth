@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 
 class TextInkwellButton extends StatelessWidget {
   final String text;
@@ -14,7 +15,7 @@ class TextInkwellButton extends StatelessWidget {
       onTap: onTap,
       child: Text(text,style: TextStyle(
         fontFamily: 'FiraSans',
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeightManager.bold,
         fontSize: MediaQuery.of(context).size.width / 145,
         color: ColorManager.blueprime,
       ),),

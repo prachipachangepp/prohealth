@@ -267,7 +267,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 23.0),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(
@@ -287,6 +287,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                 ],
               ),
             ),
+            SizedBox(height: 5,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -298,7 +299,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SMTextFConst(
+                    FirstSMTextFConst(
                       controller: widget.controller,
                       keyboardType: TextInputType.text,
                       text: 'Holiday Name',
@@ -338,6 +339,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                         decoration: TextDecoration.none,
                       ),
                     ),
+                    SizedBox(height: 5),
                     SizedBox(
                       width: 354,
                       height: 30,
@@ -349,6 +351,14 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                           color: ColorManager.mediumgrey,
                         ),
                         decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           hintText: 'mm-dd-yyyy',
                           hintStyle: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
@@ -367,8 +377,8 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                           DateTime? date = await showDatePicker(
                             context: context,
                             initialDate: _selectedDate,
-                            firstDate: DateTime(1100),
-                            lastDate: DateTime(2025),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(2101),
                           );
                           if (date != null) {
                             String formattedDate = DateFormat('yyyy-MM-dd').format(date);
@@ -445,10 +455,3 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
     );
   }
 }
-
-
-
-
-
-
-

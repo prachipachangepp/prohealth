@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../controller/controller.dart';
 
@@ -19,7 +22,7 @@ class CenteredTabBarChild extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
-              color: Color(0xFF50B5E5),
+              color: ColorManager.calandercolour,
               boxShadow: [
                 BoxShadow(
                   // color: Colors.black.withOpacity(0.2),
@@ -30,7 +33,7 @@ class CenteredTabBarChild extends StatelessWidget {
                 ),
               ],
             ),
-            height: 30,
+            height: AppSize.s30,
             width: controller.tabBarViewWidth,
             child: TabBar(
               isScrollable: false,
@@ -38,22 +41,22 @@ class CenteredTabBarChild extends StatelessWidget {
               dividerColor: Colors.transparent,
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(50), // Creates border
-                  color: Colors.white),
+                  color: ColorManager.white),
               indicatorSize: TabBarIndicatorSize.tab,
-              indicatorColor: Colors.white,
-              labelColor: Color(0xFF686464),
+              indicatorColor: ColorManager.white,
+              labelColor: ColorManager.granitegray,
               unselectedLabelStyle: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
+                fontSize: FontSize.s12,
+                fontWeight: FontWeightManager.semiBold,
               ),
               labelStyle: GoogleFonts.firaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
+                fontSize: FontSize.s12,
+                fontWeight: FontWeightManager.bold,
               ),
-              unselectedLabelColor: Colors.white,
+              unselectedLabelColor: ColorManager.white,
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: AppSize.s20),
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Container(

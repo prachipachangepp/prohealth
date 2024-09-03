@@ -263,7 +263,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
     });
 
     if (shiftNameError == null && startTimeError == null && endTimeError == null) {
-      // If no errors, proceed with the onPressed action
+
       widget.onPressed().whenComplete(() {
         setState(() {
           isLoading = false;
@@ -306,7 +306,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 23.0),
                     child: Text(
                       'Add Shift',
                       style: GoogleFonts.firaSans(
@@ -328,13 +328,13 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
+                vertical: AppPadding.p20,
                 horizontal: AppPadding.p20,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SMTextFConst(
+                  FirstSMTextFConst(
                     controller: widget.shiftNameController,
                     keyboardType: TextInputType.text,
                     text: 'Shift Name',
@@ -384,7 +384,7 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
+              padding: const EdgeInsets.only(bottom: AppPadding.p30),
               child: Center(
                 child: isLoading
                     ? SizedBox(

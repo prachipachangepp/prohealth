@@ -7,7 +7,6 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/payrates_manager.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/payrates_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -26,8 +25,6 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
   TextEditingController vendorName = TextEditingController();
   final StreamController<List<PayratesData>> _payratesStreamController = StreamController<List<PayratesData>>();
 
-  late CompanyIdentityManager _companyManager;
-
   late int currentPage;
 
   late int itemsPerPage;
@@ -40,11 +37,11 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
     currentPage = 1;
     itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    _companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
 
-  String selectedValue = 'Per visit';
+  // String selectedValue = 'Per visit';
+  String? selectedValue = 'Per Zone';
   @override
   Widget build(BuildContext context) {
     String? _expiryType;
@@ -57,12 +54,14 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0),
-                  child: Container(
+                  child:
+
+                  Container(
                     height: 25,
                     width: 200,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(25),
                       border: Border.all(color: const Color(0xff44435E)),
                     ),
@@ -76,7 +75,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                       elevation: 16,
                       style: GoogleFonts.firaSans(
                           color: const Color(0xff43425D),
-                          fontSize: 12,
+                          fontSize: 10,
                           fontWeight: FontWeight.w500),
                       underline: const SizedBox(),
                       onChanged: (String? newValue) {
@@ -84,7 +83,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                           selectedValue = newValue!;
                         });
                       },
-                      items: <String>['Per visit', 'Per hour', 'Per day']
+                      items: <String>['Per Zone', 'Per Mileage']
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -93,6 +92,43 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                       }).toList(),
                     ),
                   ),
+///
+                  // Container(
+                  //   height: 25,
+                  //   width: 200,
+                  //   padding: const EdgeInsets.symmetric(horizontal: 16),
+                  //   decoration: BoxDecoration(
+                  //       color: Colors.white,
+                  //     borderRadius: BorderRadius.circular(25),
+                  //     border: Border.all(color: const Color(0xff44435E)),
+                  //   ),
+                  //   child: DropdownButton<String>(
+                  //     value: selectedValue,
+                  //     icon: const Padding(
+                  //       padding: EdgeInsets.only(left: 80.0),
+                  //       child: Icon(Icons.arrow_drop_down),
+                  //     ),
+                  //     iconSize: 24,
+                  //     elevation: 16,
+                  //     style: GoogleFonts.firaSans(
+                  //         color: const Color(0xff43425D),
+                  //         fontSize: 12,
+                  //         fontWeight: FontWeight.w500),
+                  //     underline: const SizedBox(),
+                  //     onChanged: (String? newValue) {
+                  //       setState(() {
+                  //         selectedValue = newValue!;
+                  //       });
+                  //     },
+                  //     items: <String>['Per visit', 'Per hour', 'Per day']
+                  //         .map<DropdownMenuItem<String>>((String value) {
+                  //       return DropdownMenuItem<String>(
+                  //         value: value,
+                  //         child: Text(value),
+                  //       );
+                  //     }).toList(),
+                  //   ),
+                  // ),
                 ),
               ],
             ),
@@ -101,6 +137,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
             ),
             Container(
               height: 30,
+              margin: EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(12),
@@ -224,6 +261,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                                         ),
                                       ],
                                     ),
+                                    margin: EdgeInsets.symmetric(horizontal: 9),
                                     height: 40,
                                     child: Stack(children: [
                                       Container(

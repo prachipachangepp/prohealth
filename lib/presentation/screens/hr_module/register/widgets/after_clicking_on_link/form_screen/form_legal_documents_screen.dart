@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/i9_form_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
@@ -28,7 +31,7 @@ class LegalDocumentsScreen extends StatefulWidget {
 
 class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
 
-
+ bool isSelected = false;
   List<String> _fileNames = [];
   bool _loading = false;
 
@@ -106,16 +109,6 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
       throw Exception('File not found');
     }
   }
-
-
-
-  ////////////////////////////
-  ///////
-  //
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -173,8 +166,6 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                       SizedBox(width: MediaQuery.of(context).size.width / 10),
                       ElevatedButton.icon(
                         onPressed:
-
-
                          ()async {
                         // FilePickerResult? result = await FilePicker.platform.pickFiles(
                         //   allowMultiple: false,
@@ -190,15 +181,11 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
 
                             print("::::XFile To File ${xfileToFile.toString()}");
                             XFile xFile = await convertBytesToXFile(bytes!, result.xFiles.first.name);
-                            // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-                            // html.File file = webFile.file;
-                            //  print("XFILE ${xFile.path}");
-                            //  //filePath = xfileToFile as XFile?;
-                            //  print("L::::::${filePath}");
                             _fileNames.addAll(result.files.map((file) => file.name!));
                             print('File picked: ${_fileNames}');
                             //print(String.fromCharCodes(file));
                             finalPath = result.files.first.bytes;
+                            fileName = result.files.first.name;
                             setState(() {
                               _fileNames;
                               _documentUploaded = true;
@@ -297,17 +284,25 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const FormNineScreen()));
+                                       FormNineScreen(employeeID: widget.employeeID,)));
+                          Timer(Duration(seconds: 2), () {
+                            print("Timer call");
+                            setState(() {
+                              isSelected = true;
+                            });
+                          });
+
+
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
+                          backgroundColor: isSelected == false ? Color(0xff50B5E5) : ColorManager.green,
                           // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
                         child: Text(
-                          'Fill Info',
+                          isSelected == false ? 'Fill Info' : "Done",
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
                             fontWeight: FontWeight.w700,
@@ -369,7 +364,7 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomButton(
+            isSelected == false ?Text(''): CustomButton(
                   width: 117,
                   height: 30,
                   text: 'Save',
@@ -379,36 +374,33 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     fontWeight: FontWeight.w700,
                   ),
                   borderRadius: 12,
-
                 onPressed: () async {
                   if (finalPath == null || finalPath.isEmpty) {
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('No file selected. Please select a file to upload.'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                    print('Loading');
                   } else {
                     try {
-                      await uploadDocuments(
-                          context: context,
-                          employeeDocumentMetaId: 10,
-                          employeeDocumentTypeSetupId: 48,
+                      ApiDataRegister result = await legalDocumentAdd(context: context,
                           employeeId: widget.employeeID,
-                          documentFile: finalPath,
-                          documentName: 'Legal Document ID'
+                          documentName: fileName,
+                          docUrl: '',
+                          officeId: '');
+                      var response = await uploadLegalDocumentBase64(context: context,
+                          employeeLegalDocumentId: result.legalDocumentId!,
+                          documentFile: finalPath
                       );
 
+                      if(response.statusCode == 201 || response.statusCode == 200){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Document uploaded successfully!'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      }else{
+                        print('Document upload Error');
+                      }
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Document uploaded successfully!'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
                     } catch (e) {
-
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Failed to upload document: $e'),
@@ -418,7 +410,6 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                     }
                   }
                 },
-
                 // onPressed: () async {
                 //
                 //   try {
@@ -462,8 +453,6 @@ class _LegalDocumentsScreenState extends State<LegalDocumentsScreen> {
                   //
                   // },
               ),
-
-
             ],
           )
         ],

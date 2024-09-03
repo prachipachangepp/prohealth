@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class IntakeMedicationProfileScreen extends StatefulWidget {
+
   const IntakeMedicationProfileScreen({super.key});
 
   @override
@@ -11,7 +12,6 @@ class _IntakeMedicationProfileScreenState extends State<IntakeMedicationProfileS
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
     );
   }
 }

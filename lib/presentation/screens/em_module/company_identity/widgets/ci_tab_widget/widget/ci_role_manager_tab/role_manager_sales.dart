@@ -39,11 +39,11 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
   @override
   void initState() {
     super.initState();
-    payRatesDataGet(context,1,1,10).then((data) {
-      _roleMDropDownController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+     // payRatesDataGet(context,1,1,10).then((data) {
+    //   _roleMDropDownController.add(data);
+    // }).catchError((error) {
+    //   // Handle error
+    // });
     roleMabagerMetaData(context).then((data) {
       roleMetaDataSaleController.add(data);
     }).catchError((error) {

@@ -33,6 +33,33 @@ class UploadCompanyLogoModel {
   UploadCompanyLogoModel({this.companyId, this.type});
 }
 
+class CompanyOfficeListData {
+  final int companyOfficeId;
+  final int companyId;
+  final String officeId;
+  final String primaryNbr;
+  final String secondaryNbr;
+  final String slternativeNbr;
+  final String primaryFax;
+  final String secondaryFax;
+  final String email;
+  final String name;
+  final String address;
+  CompanyOfficeListData(
+      {
+        required this.primaryFax,
+        required this.secondaryFax,
+        required this.companyOfficeId,
+        required this.companyId,
+      required this.officeId,
+      required this.primaryNbr,
+      required this.secondaryNbr,
+      required this.slternativeNbr,
+      required this.email,
+      required this.name,
+      required this.address});
+}
+
 class CompanyIdentityModel {
   final String? name;
   final String address;
@@ -45,7 +72,7 @@ class CompanyIdentityModel {
   final bool sucess;
   final String message;
   final String officeId;
-  CompanyIdentityModel( {
+  CompanyIdentityModel({
     required this.officeId,
     required this.companyOfficeId,
     this.name,

@@ -11,13 +11,14 @@ class CustomIconButtonConst extends StatelessWidget {
   final IconData? icon;
   final VoidCallback onPressed;
   final double? width;
+  final bool? enabled;
 
   const CustomIconButtonConst({
     this.text,
     this.icon,
     required this.onPressed,
     this.width,
-    Key? key,
+    Key? key, this.enabled,
   }) : super(key: key);
 
   @override
@@ -38,7 +39,7 @@ class CustomIconButtonConst extends StatelessWidget {
         onPressed: onPressed,
         icon: icon != null
             ? Icon(icon!, color: ColorManager.white, size: AppSize.s20)
-            : SizedBox.shrink(),
+            : Offstage(),
         label: Text(
           text!,
           style: GoogleFonts.firaSans(

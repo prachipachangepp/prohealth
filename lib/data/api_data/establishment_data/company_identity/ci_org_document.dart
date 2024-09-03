@@ -2,15 +2,15 @@ class CiOrgDocumentCC {
   final int docId;
   final int documentTypeId;
   final int documentSubTypeId;
-  final String? name;
+  final String name;
   final String createdAt;
   final String url;
-  final String? expiry;
-  final String? reminderThreshold;
-  final String? calenderData;
+  final String? expiryType;
+  final String? expirtDate;
   final String expirtReminder;
   final int companyId;
   final String officeId;
+  final String idOfDocument;
   final bool sucess;
   final String message;
 
@@ -30,7 +30,6 @@ class CiOrgDocumentCC {
       {required this.documentTypeId,
       required this.documentSubTypeId,
       required this.url,
-      this.calenderData,
       required this.expirtReminder,
       required this.companyId,
       required this.officeId,
@@ -38,9 +37,10 @@ class CiOrgDocumentCC {
       required this.message,
       required this.createdAt,
       required this.docId,
-      this.name,
-      this.expiry,
-      this.reminderThreshold});
+      required this.name,
+        required this.idOfDocument,
+      this.expiryType,
+      this.expirtDate});
 }
 
 class OrgDocModal {
@@ -109,6 +109,7 @@ class CorporatePrefillDocumentData {
   final String expiryReminder;
   final int companyId;
   final String officeId;
+  final String idOfDoc;
   final bool sucess;
   final String message;
   CorporatePrefillDocumentData({
@@ -123,6 +124,7 @@ class CorporatePrefillDocumentData {
     required this.expiryReminder,
     required this.companyId,
     required this.officeId,
+    required this.idOfDoc,
     required this.sucess,
     required this.message,
   });

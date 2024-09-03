@@ -10,7 +10,8 @@ import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
-import 'package:prohealth/app/services/encode_decode_base64.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -38,12 +39,13 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
   @override
   void initState() {
     super.initState();
-    getAckHealthRecord(context, 10, 48, widget.employeeId,"no").then((data) {
+    getAckHealthRecord(context, 10, 48, widget.employeeId,"yes").then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,63 +67,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         employeeId: widget.employeeId,
                         AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
                         },
-                        child: FutureBuilder<List<EmployeeDocTabModal>>(
-                            future: getEmployeeDocTab(context),
-                            builder: (context,snapshot) {
-                              if(snapshot.connectionState == ConnectionState.waiting){
-                                return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Container(
-                                      width: 350,
-                                      height: 30,
-                                      decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                    )
-                                );
-                              }
-                              if (snapshot.data!.isEmpty) {
-                                return Center(
-                                  child: Text(
-                                    AppString.dataNotFound,
-                                    style: CustomTextStylesCommon.commonStyle(
-                                      fontWeight: FontWeightManager.medium,
-                                      fontSize: FontSize.s12,
-                                      color: ColorManager.mediumgrey,
-                                    ),
-                                  ),
-                                );
-                              }
-                              if(snapshot.hasData){
-                                List dropDown = [];
-                                int docType = 0;
-                                List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                for(var i in snapshot.data!){
-                                  dropDownMenuItems.add(
-                                    DropdownMenuItem<String>(
-                                      child: Text(i.employeeDocType),
-                                      value: i.employeeDocType,
-                                    ),
-                                  );
-                                }
-                                return CICCDropdown(
-                                    initialValue: dropDownMenuItems[0].value,
-                                    onChange: (val){
-                                      for(var a in snapshot.data!){
-                                        if(a.employeeDocType == val){
-                                          docType = a.employeeDocMetaDataId;
-                                          //docMetaId = docType;
-                                        }
-                                      }
-                                      print(":::${docType}");
-                                      //print(":::<>${docMetaId}");
-                                    },
-                                    items:dropDownMenuItems
-                                );
-                              }else{
-                                return SizedBox();
-                              }
-                            }
-                        ),);
+                        );
                     });
                     //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                   }),
@@ -193,7 +139,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                     // }
                     //var decodeBse64 = EncodeDecodeBase64.getDecodeBase64(fetchedUrl: "e7c0ec2f-e346-41dc-90bb-a33b2546da4d-uORbh4Ir0xlsTcArxhByr0O");
                     // print("File:::>>${decodeBse64}");
-                    final fileExtension = fileUrl.split('.').last.toLowerCase();
+                    final fileExtension = fileUrl.split('/').last;
 
                     Widget fileWidget;
                     if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
@@ -232,7 +178,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                         child: Row(
                           children: [
                             GestureDetector(
-                              onTap: () => downloadFile(fileUrl), // Use the utility function
+                              onTap: () => DowloadFile().downloadPdfFromBase64(fileExtension,"Acknowledgement"), // Use the utility function
                               child: Container(
                                 width: 62,
                                 height: 45,

@@ -12,7 +12,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 import '../../../../../../app/resources/theme_manager.dart';
 
 class EmpDocEditPopup extends StatefulWidget {
-  final TextEditingController idDocController;
+  final TextEditingController idOfDocController;
   final TextEditingController nameDocController;
   final TextEditingController calenderController;
   final Future<void> Function() onSavePredded;
@@ -20,22 +20,24 @@ class EmpDocEditPopup extends StatefulWidget {
   String? expiryType;
   final Widget radioButton;
   final Widget child;
-  final int? loadingDuration;
+  final Widget child2;
+  final bool? loadingDuration;
   final String title;
   bool? enable;
 
   EmpDocEditPopup({
     Key? key,
     this.enable,
-    required this.idDocController,
+    required this.idOfDocController,
     required this.nameDocController,
     required this.child,
+    required this.child2,
     required this.calenderController,
     this.expiryType,
     required this.onSavePredded,
     required this.radioButton,
     this.isSaving,
-    this.loadingDuration = 3,
+    this.loadingDuration,
     required this.title,
   }) : super(key: key);
 
@@ -51,7 +53,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
 
   void _validateFields() {
     setState(() {
-      _idError = widget.idDocController.text.isEmpty ? 'Please Enter ID of Document' : null;
+      _idError = widget.idOfDocController.text.isEmpty ? 'Please Enter ID of Document' : null;
       _nameError = widget.nameDocController.text.isEmpty ? 'Please Enter Name of thr Document ' : null;
     });
   }
@@ -62,7 +64,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s460,
+        height: AppSize.s480,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -82,7 +84,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 23),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(
@@ -102,6 +104,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 ],
               ),
             ),
+            SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -116,14 +119,14 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                     children: [
                       SMTextFConst(
                         enable: widget.enable == false ? true : widget.enable,
-                        controller: widget.idDocController,
+                        controller: widget.idOfDocController,
                         keyboardType: TextInputType.text,
                         text: 'ID of the Document',
                       ),
                       if (_idError != null)
                         Text(
                           _idError!,
-                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          style: TextStyle(color: Colors.red, fontSize: 10),
                         ),
                     ],
                   ),
@@ -131,7 +134,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SMTextFConst(
+                      FirstSMTextFConst(
                         controller: widget.nameDocController,
                         keyboardType: TextInputType.text,
                         text: 'Name of the Document',
@@ -164,116 +167,129 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
             ),
             SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Expiry Type',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  widget.radioButton
-                ],
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p25),
+              child: widget.radioButton,
             ),
+            SizedBox(height: AppSize.s10),
+
             Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
+              padding: const EdgeInsets.only(
+                left: AppPadding.p20,
+                right: AppPadding.p20,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Expiry Date',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  FormField<String>(
-                    builder: (FormFieldState<String> field) {
-                      return SizedBox(
-                        width: 354,
-                        height: 30,
-                        child: TextFormField(
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.mediumgrey,
-                          ),
-                          controller: widget.calenderController,
-                          decoration: InputDecoration(
-                            focusColor: ColorManager.mediumgrey,
-                            hoverColor: ColorManager.mediumgrey,
-                            hintText: 'mm-dd-yyyy',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                  width: 1, color: ColorManager.mediumgrey),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                  width: 1,
-                                  color: ColorManager.mediumgrey),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                  width: 1,
-                                  color: ColorManager.mediumgrey),
-                            ),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: 16),
-                            suffixIcon: Icon(Icons.calendar_month_outlined,
-                                color: ColorManager.blueprime),
-                            errorText: field.errorText,
-                          ),
-                          readOnly: true,
-                          onTap: () async {
-                            DateTime? date = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1100),
-                              lastDate: DateTime(2025),
-                            );
-                            if (date != null) {
-                              String formattedDate =
-                              DateFormat('MM-dd-yyyy').format(date);
-                              widget.calenderController.text = formattedDate;
-                              field.didChange(formattedDate);
-                            }
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'please select birth date';
-                            }
-                            return null;
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+              child: widget.child2,
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     vertical: AppPadding.p3,
+            //     horizontal: AppPadding.p20,
+            //   ),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         'Expiry Type',
+            //         style: GoogleFonts.firaSans(
+            //           fontSize: FontSize.s12,
+            //           fontWeight: FontWeight.w700,
+            //           color: ColorManager.mediumgrey,
+            //           decoration: TextDecoration.none,
+            //         ),
+            //       ),
+            //       widget.radioButton
+            //     ],
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     vertical: AppPadding.p3,
+            //     horizontal: AppPadding.p20,
+            //   ),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         'Expiry Date',
+            //         style: GoogleFonts.firaSans(
+            //           fontSize: FontSize.s12,
+            //           fontWeight: FontWeight.w700,
+            //           color: ColorManager.mediumgrey,
+            //           decoration: TextDecoration.none,
+            //         ),
+            //       ),
+            //       SizedBox(height: 4),
+            //       FormField<String>(
+            //         builder: (FormFieldState<String> field) {
+            //           return SizedBox(
+            //             width: 354,
+            //             height: 30,
+            //             child: TextFormField(
+            //               style: GoogleFonts.firaSans(
+            //                 fontSize: FontSize.s12,
+            //                 fontWeight: FontWeight.w700,
+            //                 color: ColorManager.mediumgrey,
+            //               ),
+            //               controller: widget.calenderController,
+            //               decoration: InputDecoration(
+            //                 focusColor: ColorManager.mediumgrey,
+            //                 hoverColor: ColorManager.mediumgrey,
+            //                 hintText: 'mm-dd-yyyy',
+            //                 hintStyle: GoogleFonts.firaSans(
+            //                   fontSize: FontSize.s12,
+            //                   fontWeight: FontWeight.w700,
+            //                   color: ColorManager.mediumgrey,
+            //                 ),
+            //                 border: OutlineInputBorder(
+            //                   borderRadius: BorderRadius.circular(8),
+            //                   borderSide: BorderSide(
+            //                       width: 1, color: ColorManager.mediumgrey),
+            //                 ),
+            //                 focusedBorder: OutlineInputBorder(
+            //                   borderRadius: BorderRadius.circular(8),
+            //                   borderSide: BorderSide(
+            //                       width: 1,
+            //                       color: ColorManager.mediumgrey),
+            //                 ),
+            //                 enabledBorder: OutlineInputBorder(
+            //                   borderRadius: BorderRadius.circular(8),
+            //                   borderSide: BorderSide(
+            //                       width: 1,
+            //                       color: ColorManager.mediumgrey),
+            //                 ),
+            //                 contentPadding:
+            //                 EdgeInsets.symmetric(horizontal: 16),
+            //                 suffixIcon: Icon(Icons.calendar_month_outlined,
+            //                     color: ColorManager.blueprime),
+            //                 errorText: field.errorText,
+            //               ),
+            //               readOnly: true,
+            //               onTap: () async {
+            //                 DateTime? date = await showDatePicker(
+            //                   context: context,
+            //                   initialDate: DateTime.now(),
+            //                   firstDate: DateTime(1100),
+            //                   lastDate: DateTime(2025),
+            //                 );
+            //                 if (date != null) {
+            //                   String formattedDate =
+            //                   DateFormat('MM-dd-yyyy').format(date);
+            //                   widget.calenderController.text = formattedDate;
+            //                   field.didChange(formattedDate);
+            //                 }
+            //               },
+            //               validator: (value) {
+            //                 if (value == null || value.isEmpty) {
+            //                   return 'please select birth date';
+            //                 }
+            //                 return null;
+            //               },
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
             SizedBox(height: 10),
             _isLoading
                 ? SizedBox(

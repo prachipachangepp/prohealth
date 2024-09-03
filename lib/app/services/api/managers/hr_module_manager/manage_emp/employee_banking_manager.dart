@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
-import 'package:prohealth/app/services/encode_decode_base64.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employee_banking_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
@@ -134,18 +134,6 @@ Future<ApiData> PatchEmployeeBanking(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Banking updated");
-      // orgDocumentGet(context);
-      // showDialog(
-      //   context: context,
-      //   builder: (BuildContext context) {
-      //     Future.delayed(Duration(seconds: 3), () {
-      //       if (Navigator.of(context).canPop()) {
-      //         Navigator.of(context).pop();
-      //       }
-      //     });
-      //     return AddSuccessPopup(message: 'Data Updated Successfully',);
-      //   },
-      // );
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
@@ -165,6 +153,57 @@ Future<ApiData> PatchEmployeeBanking(
   }
 }
 
+/// Add bancking
+Future<ApiData> addNewEmployeeBanking(
+{
+    required BuildContext context,
+  required int employeeId,
+  required String accountNumber,
+  required String bankName,
+  required int amountRequested,
+  required String checkUrl,
+  required String effectiveDate,
+  required String routingNumber,
+  required String percentage,
+  required String type}) async {
+  try {
+    var response = await Api(context).post(
+      path: ManageReposotory.addNewBankingEmployee(),
+      data: {
+        "employeeId": employeeId,
+        "accountNumber": accountNumber,
+        "bankName": bankName,
+        "amountRequested": amountRequested,
+        "checkUrl": checkUrl,
+        "effectiveDate":"${effectiveDate}T00:00:00Z",
+        "routingNumber": routingNumber,
+        "type": type,
+        "requestedPercentage": percentage
+      }
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Banking Added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+
 /// Attach bncking document
 Future<ApiData> uploadBanckingDocument(
     BuildContext context,
@@ -179,7 +218,7 @@ Future<ApiData> uploadBanckingDocument(
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Document uploaded");
+      print("Bank Document uploaded");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
@@ -199,7 +238,7 @@ Future<ApiData> uploadBanckingDocument(
   }
 }
 
-/// Reject license
+/// Reject bank
 Future<ApiData> rejectBankPatch(BuildContext context, int empBankingId) async {
   try {
     var response = await Api(context).patch(
@@ -227,7 +266,7 @@ Future<ApiData> rejectBankPatch(BuildContext context, int empBankingId) async {
   }
 }
 
-/// Approve license
+/// Approve bank
 Future<ApiData> approveBankPatch(BuildContext context, int empBankingId) async {
   try {
     var response = await Api(context).patch(

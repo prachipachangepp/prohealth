@@ -3,13 +3,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular_create/widget/calender_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/button_constant.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../app/resources/color.dart';
+import '../schedular/sm_scheduler_screen.dart';
 
 class SmProfileBar extends StatefulWidget {
-  const SmProfileBar({super.key});
+  final VoidCallback onBack;
+  const SmProfileBar({super.key, required this.onBack});
 
   @override
   State<SmProfileBar> createState() => _SmProfileBarState();
@@ -18,7 +21,7 @@ class SmProfileBar extends StatefulWidget {
 class _SmProfileBarState extends State<SmProfileBar> {
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return SingleChildScrollView(
       child: Column(
         children: [
           Container(
@@ -38,65 +41,83 @@ class _SmProfileBarState extends State<SmProfileBar> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: AppPadding.p40),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(Icons.keyboard_arrow_left_rounded),
-                          ),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width / 180),
-                          TextButton(
-                            onPressed: () {
-                             Navigator.pop(context);
-                            },
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              minimumSize: Size.zero,
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            ),
-                            child: Text(
-                              'Back',
-                              style: GoogleFonts.firaSans(
+                Column(
+                  children: [
+                    Row(
+           // mainAxisAlignment: MainAxisAlignment.start,
+
+           // mainAxisAlignment = MainAxisAlignment.start
+                      children: [
+                        TextButton.icon(
+
+                          onPressed: widget.onBack,
+                          // onPressed: () {
+                          //   Navigator.pop(context);
+                          //   // Navigator.push(
+                          //   //     context,
+                          //   //     MaterialPageRoute(
+                          //   //         builder: (context) => SMSchedulerScreen()));
+                          // },
+                          label: Text(
+                            'Back',
+                            style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s14,
                                 fontWeight: FontWeightManager.medium,
-                                color: ColorManager.textBlack
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height / 140),
-                      CircleAvatar(
-                        radius: 40, //MediaQuery.of(context).size.width * 0.03
-                        backgroundImage: AssetImage('images/profile.png'),
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      Text(
-                        'JOHN SCOTT',
-                        style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            // fontSize: MediaQuery.of(context).size.width * 0.006,
-                            fontWeight: FontWeightManager.medium),
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 30),
-                      Text(
-                        'Active',
-                        style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            // fontSize: MediaQuery.of(context).size.width * 0.006,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.textPrimaryColor),
-                      )
-                    ],
-                  ),
+                                color: ColorManager.textBlack),
+                          ),
+                          icon: Icon(Icons.keyboard_arrow_left_rounded, color: ColorManager.textBlack),
+                        )
+                        // IconButton(
+                        //   onPressed: () {
+                        //    // Navigator.pop(context);
+                        //   },
+                        //   icon: Icon(Icons.keyboard_arrow_left_rounded),
+                        // ),
+                        // SizedBox(
+                        //     width: MediaQuery.of(context).size.width / 180),
+                        // TextButton(
+                        //   onPressed: () {
+                        //    Navigator.pop(context);
+                        //   },
+                        //   style: TextButton.styleFrom(
+                        //     padding: EdgeInsets.zero,
+                        //     minimumSize: Size.zero,
+                        //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        //   ),
+                        //   child: Text(
+                        //     'Back',
+                        //     style: GoogleFonts.firaSans(
+                        //       fontSize: FontSize.s14,
+                        //       fontWeight: FontWeightManager.medium,
+                        //       color: ColorManager.textBlack
+                        //     ),
+                        //   ),
+                        // )
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 140),
+                    CircleAvatar(
+                      radius: 40, //MediaQuery.of(context).size.width * 0.03
+                      backgroundImage: AssetImage('images/profile.png'),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    Text(
+                      'JOHN SCOTT',
+                      style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s10,
+                          // fontSize: MediaQuery.of(context).size.width * 0.006,
+                          fontWeight: FontWeightManager.medium),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    Text(
+                      'Active',
+                      style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s10,
+                          // fontSize: MediaQuery.of(context).size.width * 0.006,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.textPrimaryColor),
+                    )
+                  ],
                 ),
                 // SizedBox(width: MediaQuery.of(context).size.width / 40),
                 Padding(
@@ -217,69 +238,48 @@ class _SmProfileBarState extends State<SmProfileBar> {
                     Text(
                       'Summary',
                       style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s10,
+                        fontWeight: FontWeightManager.medium,
                       ),
                     ),
-
-
                     Container(
                       height: AppSize.s144,
-                      width: MediaQuery.of(context).size.width/7,
+                      width: MediaQuery.of(context).size.width / 7,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
-                            spreadRadius: 0,
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(8.0)
-                      ),
-
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.25),
+                              spreadRadius: 0,
+                              blurRadius: 4,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(8.0)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SummaryRowConst(
-                              title: 'Visits',
-                              count1: '4',
-                              count2: '20'
-                          ),
+                              title: 'Visits', count1: '4', count2: '20'),
                           SummaryRowConst(
                               title: 'Travel',
                               count1: '16 miles',
-                              count2: '50 miles'
-                          ),
+                              count2: '50 miles'),
                           SummaryRowConst(
                               title: 'Earning',
                               count1: '\$600',
-                              count2: '\$1300'
-                          ),
+                              count2: '\$1300'),
                           SummaryRowConst(
-                              title: 'Total OAISIS',
-                              count1: '2',
-                              count2: '2'
-                          ),
+                              title: 'Total OAISIS', count1: '2', count2: '2'),
                           SummaryRowConst(
-                              title: 'Rescheduled',
-                              count1: '1',
-                              count2: '4'
-                          ),
+                              title: 'Rescheduled', count1: '1', count2: '4'),
                           SummaryRowConst(
-                              title: 'Reassigned',
-                              count1: '4',
-                              count2: '4'
-                          )
+                              title: 'Reassigned', count1: '4', count2: '4')
                         ],
                       ),
-
                     )
                   ],
                 ),
-
-
 
                 // SizedBox(width: MediaQuery.of(context).size.width/140),
                 Column(
@@ -297,7 +297,7 @@ class _SmProfileBarState extends State<SmProfileBar> {
                     // SizedBox(height: MediaQuery.of(context).size.height/160),
                     Container(
                       height: AppSize.s77,
-                      width: MediaQuery.of(context).size.width/10,
+                      width: MediaQuery.of(context).size.width / 10,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           boxShadow: [
@@ -308,27 +308,23 @@ class _SmProfileBarState extends State<SmProfileBar> {
                               offset: Offset(0, 4),
                             ),
                           ],
-                          borderRadius: BorderRadius.circular(8.0)
-                      ),
-
+                          borderRadius: BorderRadius.circular(8.0)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           ComplianceRowConst(
-                              title: 'Missed Visits',
-                              count1: '4',
+                            title: 'Missed Visits',
+                            count1: '4',
                           ),
                           ComplianceRowConst(
-                              title: 'OAISIS Forms License',
-                              count1: '2 Expiring',
+                            title: 'OAISIS Forms License',
+                            count1: '2 Expiring',
                           )
                         ],
                       ),
-
                     )
                   ],
                 ),
-
 
                 // SizedBox(width: MediaQuery.of(context).size.width/120),
                 Stack(
@@ -336,15 +332,15 @@ class _SmProfileBarState extends State<SmProfileBar> {
                     Padding(
                       padding: const EdgeInsets.only(top: AppPadding.p15),
                       child: Container(
-                      height: AppSize.s166,
-                      width: MediaQuery.of(context).size.width/5,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('images/mapImage.png'),
-                          fit: BoxFit.cover,
+                        height: AppSize.s166,
+                        width: MediaQuery.of(context).size.width / 5,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('images/mapImage.png'),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                                            ),
                     ),
                     Positioned.fill(
                       child: Center(
@@ -386,13 +382,14 @@ class _SmProfileBarState extends State<SmProfileBar> {
               ],
             ),
           ),
+          Container(
+              height: MediaQuery.of(context).size.height / 1,
+              child: CalenderConstant())
         ],
       ),
     );
   }
 }
-
-
 
 class SummaryRowConst extends StatelessWidget {
   final String title;
@@ -409,7 +406,8 @@ class SummaryRowConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p10),
+      padding:
+          const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -422,8 +420,7 @@ class SummaryRowConst extends StatelessWidget {
                     // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
                     fontWeight: FontWeightManager.bold,
-                    color: ColorManager.blueprime
-                ),
+                    color: ColorManager.blueprime),
               ),
             ),
           ),
@@ -436,8 +433,7 @@ class SummaryRowConst extends StatelessWidget {
                     // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
                     fontWeight: FontWeightManager.regular,
-                    color: ColorManager.textBlack
-                ),
+                    color: ColorManager.textBlack),
               ),
             ),
           ),
@@ -450,8 +446,7 @@ class SummaryRowConst extends StatelessWidget {
                     // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
                     fontWeight: FontWeightManager.regular,
-                    color: ColorManager.textBlack
-                ),
+                    color: ColorManager.textBlack),
               ),
             ),
           ),
@@ -460,8 +455,6 @@ class SummaryRowConst extends StatelessWidget {
     );
   }
 }
-
-
 
 class ComplianceRowConst extends StatelessWidget {
   final String title;
@@ -476,7 +469,8 @@ class ComplianceRowConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p10),
+      padding:
+          const EdgeInsets.only(left: AppPadding.p10, right: AppPadding.p10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -489,8 +483,7 @@ class ComplianceRowConst extends StatelessWidget {
                     // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
                     fontWeight: FontWeightManager.bold,
-                    color: ColorManager.blueprime
-                ),
+                    color: ColorManager.blueprime),
               ),
             ),
           ),
@@ -503,8 +496,7 @@ class ComplianceRowConst extends StatelessWidget {
                     // fontSize: FontSize.s10,
                     fontSize: MediaQuery.of(context).size.width * 0.007,
                     fontWeight: FontWeightManager.regular,
-                    color: ColorManager.textBlack
-                ),
+                    color: ColorManager.textBlack),
               ),
             ),
           ),

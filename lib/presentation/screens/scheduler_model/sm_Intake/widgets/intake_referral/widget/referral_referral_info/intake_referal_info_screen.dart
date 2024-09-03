@@ -2,7 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/referral_data/referral_info_manager.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/widgets/constant_widgets/button_constant.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../../../app/resources/font_manager.dart';
@@ -10,7 +13,8 @@ import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 
 class IntakeReferralInfoScreen extends StatefulWidget {
-  const IntakeReferralInfoScreen({super.key});
+  final int patientId;
+  IntakeReferralInfoScreen({super.key, required this.patientId});
 
   @override
   State<IntakeReferralInfoScreen> createState() => _ReferralInfoScreenstate();
@@ -18,6 +22,24 @@ class IntakeReferralInfoScreen extends StatefulWidget {
 
 class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
   String? status = '';
+  String? selectedReferalSource;
+  String? selectedCompanyName;
+  String? selectedFax;
+  String? selectedPhone;
+  TextEditingController ctlrReferralDate = TextEditingController();
+  TextEditingController ctlrProjectedSOCDate = TextEditingController();
+  TextEditingController ctlrReferralSource = TextEditingController();
+  TextEditingController ctlrRefereeFirstName= TextEditingController();
+  TextEditingController ctlrRefereeLastName = TextEditingController();
+  TextEditingController ctlrRefereeCompanyName = TextEditingController();
+  TextEditingController ctlrphone = TextEditingController();
+  TextEditingController ctlrfax = TextEditingController();
+  TextEditingController ctlrprotocol= TextEditingController();
+  TextEditingController ctlradmissionSource = TextEditingController();
+  TextEditingController ctlrepisodeTimingOverride = TextEditingController();
+  TextEditingController ctlrReferralTakenBy = TextEditingController();
+  TextEditingController ctlrReasonForVisitin48 = TextEditingController();
+  TextEditingController ctlrComments = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +60,37 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
-                      ),
-                    ),
+                      ),),
+                    SizedBox(width: 15,),
+                SchedularIconButtonConst(
+                  text: AppString.save,
+                  onPressed: () async {
+                    await AddReferralInfo(context,
+                        widget.patientId,
+                        ctlrReferralDate.text,
+                        ctlrProjectedSOCDate.text,
+                        ctlrReferralSource.text,
+                        ctlrRefereeFirstName.text,
+                        ctlrRefereeLastName.text,
+                        ctlrRefereeCompanyName.text,
+                        ctlrphone.text,
+                        ctlrfax.text,
+                        ctlrprotocol.text,
+                        ctlradmissionSource.text,
+                        status.toString(),
+                        ctlrReferralTakenBy.text,
+                        ctlrReasonForVisitin48.text,
+                        ctlrComments.text);
+                    print('${ctlrReferralDate.text}');
+                    print('${ctlrProjectedSOCDate.text}');
+                  },
+                ),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: AppSize.s10),
               Container(
-                height: 275,
+                height: AppSize.s275,
                 width: MediaQuery.of(context).size.width * 0.95,
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -62,70 +107,92 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 20),
+                    SizedBox(height: AppSize.s20),
                     Row(
                       children: [
                         Flexible(
-                            child: SchedularTextField(
-                              labelText: 'Referral Date',)
+                            child:
+                            SchedularTextField(
+                              controller: ctlrReferralDate ,
+                              labelText: 'Referral Date',
+                              suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                            )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
-                            child: SchedularTextField(
-                              labelText: 'Projected SOC Delete', )
+                            child:
+                            SchedularTextField(
+                              controller: ctlrProjectedSOCDate ,
+                              labelText: 'Projected SOC Date',
+                              suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                            )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
-                            child: SchedularDropdown(
+                            child:   SchedularTextField(
+                              controller: ctlrReferralSource ,
                               labelText: 'Referral Source',
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+
+                            )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrRefereeFirstName,
                               labelText: 'Referee’s First Name',)
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrRefereeLastName,
                               labelText: 'Referee’s Last Name', )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
-                            child: SchedularDropdown(
-                              labelText: 'Referee’s Company Name',
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                            child:   SchedularTextField(
+                              controller: ctlrRefereeCompanyName ,
+                              labelText: "Refferee's Company Name ",
+
+                            )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
-                            child: SchedularDropdown(
-                              labelText: 'Phone',
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                            child: SchedularTextField(
+                              controller: ctlrphone ,
+                              labelText: "Phone",
+
+                            )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
-                            child: SchedularDropdown(
-                              labelText: 'Fax',
-                                items: ['Option 1', 'Option 2', 'Option 3'])
+                            child: SchedularTextField(
+                              controller: ctlrfax ,
+                              labelText: "Fax",
+
+                            )
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(child: SchedularTextField(
-                            labelText: 'Prefix')
+                          controller: ctlrprotocol ,
+                          labelText: "Protocol",
+
+                        )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
-                              labelText: 'Protocol', )
+                              controller: ctlradmissionSource,
+                              labelText: 'Admission Source', )
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +201,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                                   style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s10, fontWeight: FontWeightManager.regular)
                               ),
-                              SizedBox(height: 1),
+                              SizedBox(height: AppSize.s1),
                               Row(
                                 children: [
                                   Radio<String>(
@@ -146,7 +213,7 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                                       style: GoogleFonts.firaSans(
                                           fontSize: FontSize.s12, fontWeight: FontWeightManager.regular)
                                   ),
-                                  SizedBox(width: 35),
+                                  SizedBox(width: AppSize.s35),
                                   Radio<String>(
                                     value: 'Late',
                                     groupValue: status,
@@ -154,35 +221,39 @@ class _ReferralInfoScreenstate extends State<IntakeReferralInfoScreen> {
                                   ),
                                   Text('Late',
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s12, fontWeight: FontWeightManager.regular)
+                                          fontSize: FontSize.s12,
+                                          fontWeight: FontWeightManager.regular)
                                   ),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(child: SchedularTextField(
+                          controller: ctlrReferralTakenBy,
                             labelText: 'Referral Taken By')
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: AppSize.s16),
                     Row(
                       children: [
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrReasonForVisitin48,
                                 labelText: 'Reason if not visited within 48 hours')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: SchedularTextField(
+                              controller: ctlrComments,
                                 labelText: 'Comments')
                         ),
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: Container()), // Empty container for alignment
-                        SizedBox(width: 35),
+                        SizedBox(width: AppSize.s35),
                         Flexible(
                             child: Container()), // Empty container for alignment
                       ],

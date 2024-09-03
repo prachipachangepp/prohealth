@@ -252,12 +252,11 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
 
     if (startTimeError == null && endTimeError == null) {
       // If no errors, proceed with the onPressed action
-      widget.onPressed().whenComplete(() {
+      widget.onPressed();
         setState(() {
           isLoading = false;
         });
         Navigator.pop(context);
-      });
     } else {
       setState(() {
         isLoading = false;
@@ -271,7 +270,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s250,
+        height: AppSize.s300,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -291,7 +290,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 23.0),
                     child: Text(
                       'Edit Batches',
                       style: GoogleFonts.firaSans(
@@ -313,7 +312,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
+                vertical: AppPadding.p20,
                 horizontal: AppPadding.p20,
               ),
               child: Column(
@@ -372,7 +371,6 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                         isLoading = true;
                       });
                       _validateAndSubmit();
-                      Navigator.pop(context);
                     }
                 ),
               ),

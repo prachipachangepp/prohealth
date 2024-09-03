@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/api_offer.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/progress_form_data/form_education_data.dart';
@@ -40,8 +41,10 @@ class FormEducationManager {
         },
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = response.data;
+        var educationId = data['employeeId'];
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Education data saved")),
+          SnackBar(content: Text("Education data saved"),backgroundColor: Colors.green,),
         );
 
         print("education Added");
@@ -50,7 +53,8 @@ class FormEducationManager {
         return ApiDataRegister(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage!,
+            educationId: educationId);
       } else {
         print("Error 1");
         return ApiDataRegister(
@@ -67,13 +71,8 @@ class FormEducationManager {
     }
   }
 
-  ///////////////////////
-  /// get prifillapi
-  ///
 
-  ///
-  ///
-  ///
+  /// get prifillapi
   // Future<ApiDataRegister> getEmployeeEducationForm(
   //     BuildContext context,
   //      int employeeID,
@@ -166,30 +165,7 @@ class FormEducationManager {
 
   ///
   ///
-  Future<List<EduactionDegree>> HrEmplyDegreedropdown(
-      BuildContext context, int degreeId) async {
-    List<EduactionDegree> itemsList = [];
-    try {
-      final response = await ApiOffer(context).get(
-          path: ProgressBarRepository.patchEmployeeDegree(degreeId: degreeId));
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        for (var item in response.data) {
-          itemsList.add(EduactionDegree(
-            degreeId: item['degreeId'],
-            degree: item['degree'],
-            companyId: item['companyId'],
-          ));
-        }
-      } else {
-        print('Api Error');
-      }
-      print("Response:::::${response}");
-      return itemsList;
-    } catch (e) {
-      print("Error $e");
-      return itemsList;
-    }
-  }
+
 }
 
 Future<List<EducationDataForm>> getEmployeeEducationForm(
@@ -212,14 +188,14 @@ Future<List<EducationDataForm>> getEmployeeEducationForm(
   try {
     final response = await ApiOffer(context).get(
         path:
-            ProgressBarRepository().getEmployeeByEmpID(employeeID: employeeId));
+            ProgressBarRepository.getEmployeeByEmpID(employeeID: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         //String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);
         //String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
         itemsData.add(EducationDataForm(
+          docName: item['documentName'],
           educationID: item['educationId'],
-
           empId: item['employeeId'],
           graduate: item['graduate'],
           degree: item['degree'],
@@ -228,7 +204,7 @@ Future<List<EducationDataForm>> getEmployeeEducationForm(
           college: item['college'],
           phone: item['phone'],
           state: item['state'],
-          approved: item['approved'] ?? false,
+          approved: item['approved'],
           // sucess: true,
           // message: response.statusMessage!,
           country: item['country'] ?? "__",
@@ -243,5 +219,65 @@ Future<List<EducationDataForm>> getEmployeeEducationForm(
   } catch (e) {
     print("error${e}");
     return itemsData;
+  }
+}
+Future<List<EduactionDegree>> getDegreeDropDown(
+    BuildContext context,) async {
+  List<EduactionDegree> itemsList = [];
+  try {
+    final response = await ApiOffer(context).get(
+        path: ProgressBarRepository.getEmployeeDegreeDropDown());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(EduactionDegree(
+          degreeId: item['degreeId'],
+          degree: item['degree'],
+          companyId: item['companyId'],
+        ));
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+Future<ApiDataRegister> uploadEducationDocument(
+    BuildContext context,
+    int educationId,
+    dynamic documentFile,
+    String documentName,
+    ) async {
+  try {
+    var document = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    var response = await ApiOffer(context).post(
+      path: ProgressBarRepository.uploadEducationDocument(educationId: educationId, documentName: documentName),
+      data: {
+        "base64": document,
+      },
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Education Document Uploaded");
+      // orgDocumentGet(context);
+      return ApiDataRegister(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiDataRegister(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiDataRegister(
+        statusCode: 404,
+        success: false,
+        message: AppString.somethingWentWrong);
   }
 }

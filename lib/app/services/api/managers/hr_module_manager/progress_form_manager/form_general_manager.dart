@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/api_offer.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../resources/const_string.dart';
@@ -135,6 +136,42 @@ Future<ApiDataRegister> postgeneralscreendata(
   } catch (e) {
     print("Error $e");
     return ApiDataRegister(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+Future<ApiData> UploadEmployeePhoto({
+  required BuildContext context,
+  required int employeeId,
+  required dynamic documentFile,
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path:ProgressBarRepository.uploadEmployeePhotoBase64(employeeID: employeeId),
+      data: {
+        'base64':documents
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Photo uploded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

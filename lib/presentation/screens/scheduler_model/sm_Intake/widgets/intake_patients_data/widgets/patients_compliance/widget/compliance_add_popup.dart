@@ -4,27 +4,42 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../../../em_module/widgets/button_constant.dart';
+import '../../patients_plan_care/intake_patients_plan_care.dart';
 
 class ComplianceAddPopUp extends StatefulWidget {
-  const ComplianceAddPopUp({super.key});
+  final TextEditingController idDocController;
+  final TextEditingController nameDocController;
+  final TextEditingController calenderController;
+  final VoidCallback onPressed;
+  final Widget? child;
+  final String title;
+  final Widget? radioButton;
+  final Widget? child2;
+  final bool? loadingDuration;
+
+  ComplianceAddPopUp({
+    super.key,
+    required this.idDocController,
+    required this.nameDocController,
+    required this.calenderController,
+    required this.onPressed,
+    required this.title,
+    this.radioButton,
+    this.child2,
+    this.child,
+    this.loadingDuration,
+  });
 
   @override
   State<ComplianceAddPopUp> createState() => _ComplianceAddPopUpState();
 }
 
 class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
-
-  final TextEditingController _typeDocumentController = TextEditingController();
-  final TextEditingController _nameDocumentController = TextEditingController();
-  final TextEditingController _uploadDocumentController = TextEditingController();
-  final List<String> _typeDocumentOptions = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
-
-
-  String? _typeDocumentSelectedOption;
-  String _selectedExpiryType = '';
-
   String _fileName = 'Upload';
 
   Future<void> _pickFile() async {
@@ -44,299 +59,183 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
       ),
       backgroundColor: ColorManager.white,
       titlePadding: EdgeInsets.zero,
-      title: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
-          color: Color(0xff50B5E5),
-        ),
-        height: AppSize.s47,
-        width: 408,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Add New Compliance Document',
-                style: GoogleFonts.firaSans(
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.bold,
-                  color: ColorManager.white,
+      title: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(
+                  12,
+                ),
+                topLeft: Radius.circular(
+                  12,
                 ),
               ),
+              color: Color(0xff50B5E5),
             ),
-            Spacer(),
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.close,
-                color: ColorManager.white,
-              ),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              hoverColor: Colors.transparent,
+            height: AppSize.s40,
+            width: 408,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Text(
+                    widget.title,
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s14,
+                      fontWeight: FontWeightManager.bold,
+                      color: ColorManager.white,
+                    ),
+                  ),
+                ),
+                Spacer(),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: ColorManager.white,
+                  ),
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-      content: SingleChildScrollView(
-        child: Container(
-          height: 475,
-          width: AppSize.s350,
-          color: ColorManager.white,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height /60),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(AppString.type_of_the_document,
-                        style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.textPrimaryColor
-                        ),),
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 80,
-                  ),
-                  Container(
-                    height: AppSize.s30,
-                    child: TextFormField(
-                      cursorColor: ColorManager.black,
-                      cursorHeight: 18,
-                      controller: _typeDocumentController,
+      content: Container(
+        height: 480,
+        width: AppSize.s350,
+        color: Colors.white,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 10),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppString.type_of_the_document,
                       style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.regular,
-                          color: ColorManager.textPrimaryColor
-                      ),
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: InputDecoration(
-                        labelText: 'Compliance Type 1',
-                        labelStyle: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.regular,
-                            color: ColorManager.lightgreyheading
-                        ),
-                        border: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ColorManager.containerBorderGrey,
-                              width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ColorManager.containerBorderGrey,
-                              width: 1.0),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 10),
-                        suffixIcon: PopupMenuButton<String>(
-                          icon: Align(
-                              alignment: Alignment.center,
-                              child: Icon(Icons.arrow_drop_down,
-                                  color: ColorManager.black)
-                          ),
-                          onSelected: (String value) {
-                            setState(() {
-                              _typeDocumentSelectedOption = value;
-                              _typeDocumentController.text = value;
-                            });
-                          },
-                          itemBuilder: (BuildContext context) {
-                            return _typeDocumentOptions.map<PopupMenuItem<String>>((String value) {
-                              return PopupMenuItem(
-                                value: value,
-                                child: Text(value,
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.lightgreyheading
-                                  ),),
-                              );
-                            }).toList();
-                          },
-                        ),
-                        isDense: true
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.textPrimaryColor,
                       ),
                     ),
-                  ),
-
-
-                  SizedBox(height: MediaQuery.of(context).size.height/30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppString.name_of_the_document,
-                        style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.textPrimaryColor
-                        ),),
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 120,
-                  ),
-                  Container(
-                    height: AppSize.s30,
-                    child: TextFormField(
-                      cursorColor: Colors.black,
-                      cursorHeight: 18,
-                      controller: _nameDocumentController,
+                  ],
+                ),
+                SizedBox(height: 10),
+                widget.child ?? SizedBox(),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppString.name_of_the_document,
                       style: GoogleFonts.firaSans(
-                          fontSize: AppSize.s12,
-                          fontWeight: FontWeightManager.regular,
-                          color: ColorManager.lightgreyheading
-                      ),
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ColorManager.containerBorderGrey,
-                              width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: ColorManager.containerBorderGrey,
-                              width: 1.0),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.textPrimaryColor,
                       ),
                     ),
-                  ),
+                  ],
+                ),
+                SizedBox(height: 10),
 
-                  SizedBox(height: MediaQuery.of(context).size.height/30),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Expiry Type',
-                        style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.textPrimaryColor
+                ///name of doc
+                Container(
+                  height: AppSize.s30,
+                  child: TextFormField(
+                    cursorColor: Colors.black,
+                    cursorHeight: 18,
+                    controller: widget.nameDocController,
+                    style: GoogleFonts.firaSans(
+                      fontSize: AppSize.s12,
+                      fontWeight: FontWeightManager.regular,
+                      color: ColorManager.lightgreyheading,
+                    ),
+                    textAlignVertical: TextAlignVertical.center,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: ColorManager.containerBorderGrey,
+                          width: 1.0,
                         ),
                       ),
-                      RadioListTile<String>(
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-                        title: Text(
-                          'Not Applicable',
-                          style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.regular
-                          ),),
-                        value: 'Not Applicable',
-                        groupValue: _selectedExpiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedExpiryType = value!;
-                          });
-                        },
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: ColorManager.containerBorderGrey,
+                          width: 1.0,
+                        ),
                       ),
-                      RadioListTile<String>(
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity(horizontal: -4, vertical: -2),
-                        title: Text(
-                          'Scheduled',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.regular,
-                          ),),
-                        value: 'Scheduled',
-                        groupValue: _selectedExpiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedExpiryType = value!;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-                        title: Text(
-                          'Issuer Expiry',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeight.w400,
-                          ),),
-                        value: 'Issuer Expiry',
-                        groupValue: _selectedExpiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedExpiryType = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-
-
-                  SizedBox(height: MediaQuery.of(context).size.height/30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppString.upload_document,
-                        style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.textPrimaryColor
-                        ),),
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 120,
-                  ),
-                  Container(
-                    height: AppSize.s30,
-                    width: AppSize.s360,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: ColorManager.containerBorderGrey,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                     ),
+                  ),
+                ),
+                SizedBox(height: 5),
+                widget.radioButton ?? Offstage(),
+                SizedBox(height: MediaQuery.of(context).size.height / 20),
+                widget.child2 ?? Offstage(),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppString.upload_document,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.textPrimaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
+                /// upload  doc
+                Container(
+                  height: AppSize.s30,
+                  width: AppSize.s360,
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorManager.containerBorderGrey,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
-                              child: Text(
-                                _fileName,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s12,
-                                  fontWeight: FontWeightManager.regular,
-                                  color: ColorManager.lightgreyheading,
-                                ),
-                              ),
-                            ),
-                          ],
+                        Text(
+                          _fileName,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeightManager.regular,
+                            color: ColorManager.lightgreyheading,
+                          ),
                         ),
-                        Spacer(),
-                        IconButton(padding: EdgeInsets.only(top: 6),
+                        IconButton(
+                          padding: EdgeInsets.all(4),
                           onPressed: _pickFile,
                           icon: Icon(
-                              Icons.file_upload_outlined,
-                              color: ColorManager.black,
-                          size: 20),
+                            Icons.file_upload_outlined,
+                            color: ColorManager.black,
+                            size: 17,
+                          ),
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           hoverColor: Colors.transparent,
@@ -344,38 +243,289 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                       ],
                     ),
                   ),
-                ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+              child: Center(
+                child: widget.loadingDuration == true
+                    ? SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        ),
+                      )
+                    : CustomElevatedButton(
+                        width: AppSize.s105,
+                        height: AppSize.s30,
+                        text: AppStringEM.save,
+                        onPressed: widget.onPressed,
+                      ),
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      AppString.submit,
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 25,
-                        vertical: 10,
-                      ),
-                      backgroundColor: Color(0xff1696C8),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+///old
+//
+// class AddClinicianPopup extends StatefulWidget {
+//
+//   final VoidCallback onPressed;
+//    final Widget? child;
+//   final String title;
+//   final String buttonTitle;
+//
+//    final bool? loadingDuration;
+//
+//   AddClinicianPopup({
+//     super.key,
+//
+//      required this.onPressed,
+//     required this.title,
+//      this.child,
+//      this.loadingDuration, required this.buttonTitle,
+//   });
+//
+//   @override
+//   State<AddClinicianPopup> createState() => _AddClinicianPopupState();
+// }
+//
+// class _AddClinicianPopupState extends State<AddClinicianPopup> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(20.0),
+//       ),
+//       backgroundColor: ColorManager.white,
+//       titlePadding: EdgeInsets.zero,
+//       title: Column(
+//         children: [
+//           Container(
+//             decoration: BoxDecoration(
+//               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+//               borderRadius: BorderRadius.only(
+//                 topRight: Radius.circular(
+//                   12,
+//                 ),
+//                 topLeft: Radius.circular(
+//                   12,
+//                 ),
+//               ),
+//               color: Color(0xff50B5E5),
+//             ),
+//             height: AppSize.s40,
+//             width: 408,
+//             child: Row(
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
+//                   child: Text(
+//                     widget.title,
+//                     style: GoogleFonts.firaSans(
+//                       fontSize: FontSize.s14,
+//                       fontWeight: FontWeightManager.bold,
+//                       color: ColorManager.white,
+//                     ),
+//                   ),
+//                 ),
+//                 Spacer(),
+//                 IconButton(
+//                   onPressed: () {
+//                     Navigator.pop(context);
+//                   },
+//                   icon: Icon(
+//                     Icons.close,
+//                     color: ColorManager.white,
+//                   ),
+//                   splashColor: Colors.transparent,
+//                   highlightColor: Colors.transparent,
+//                   hoverColor: Colors.transparent,
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//       content: Container(
+//         height: 200,
+//         width: AppSize.s250,
+//         color: Colors.white,
+//         child: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Text(
+//               "Select Type of Clinician",
+//               style: GoogleFonts.firaSans(
+//                 fontSize: FontSize.s12,
+//                 fontWeight: FontWeightManager.bold,
+//                 color: ColorManager.textPrimaryColor,
+//               ),
+//             ),
+//             SizedBox(
+//               height: AppSize.s5,
+//             ),
+//             SizedBox(height: 10),
+//             widget.child ?? SizedBox(),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+//               child: Center(
+//                 child: widget.loadingDuration == true
+//                     ? SizedBox(
+//                   height: 25,
+//                   width: 25,
+//                   child: CircularProgressIndicator(
+//                     color: ColorManager.blueprime,
+//                   ),
+//                 )
+//                     : CustomElevatedButton(
+//                   width: AppSize.s105,
+//                   height: AppSize.s30,
+//                   text: widget.buttonTitle,
+//                   onPressed: widget.onPressed,
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+/// new
+class AddClinicianPopup extends StatefulWidget {
+  final VoidCallback onPressed;
+  final Widget? child;
+  final String title;
+  final String buttonTitle;
+  final bool? loadingDuration;
+
+  AddClinicianPopup({
+    super.key,
+    required this.onPressed,
+    required this.title,
+    this.child,
+    this.loadingDuration,
+    required this.buttonTitle,
+  });
+
+  @override
+  State<AddClinicianPopup> createState() => _AddClinicianPopupState();
+}
+
+class _AddClinicianPopupState extends State<AddClinicianPopup> {
+  List<Map<String, String>> weeks = [];
+
+  void addWeek() {
+    setState(() {
+      weeks.add({'week': 'Week ${weeks.length + 1}', 'visits': ''});
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      backgroundColor: Colors.white,
+      titlePadding: EdgeInsets.zero,
+      title: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(12),
+                topLeft: Radius.circular(12),
+              ),
+              color: Color(0xff50B5E5),
+            ),
+            height: 40,
+            width: 408,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Text(
+                    widget.title,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+                Spacer(),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                ),
+              ],
+            ),
           ),
+        ],
+      ),
+      content: Container(
+        height: 200,
+        width: 250,
+        color: Colors.white,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Select Type of Clinician",
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 5),
+            widget.child ?? SizedBox(),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Center(
+                child: widget.loadingDuration == true
+                    ? SizedBox(
+                  height: 25,
+                  width: 25,
+                  child: CircularProgressIndicator(
+                    color: Color(0xFF50B5E5),
+                  ),
+                )
+                    : ElevatedButton(
+                  onPressed: widget.onPressed,
+                  child: Text(widget.buttonTitle),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

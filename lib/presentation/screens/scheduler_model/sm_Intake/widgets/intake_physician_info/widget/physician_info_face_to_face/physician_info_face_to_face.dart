@@ -4,28 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
+import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/face_to_face_manager.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 
 class PhysicianFaceToFace extends StatefulWidget {
-  const PhysicianFaceToFace({super.key});
+  final int patientId;
+  PhysicianFaceToFace({super.key, required this.patientId});
 
   @override
   State<PhysicianFaceToFace> createState() => _PhysicianFaceToFaceState();
 }
 
 class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
-  String? status = '';
-  String? statusA = '';
-  String? statusB = '';
+  String? requiredftof;
+  String? seenby;
+  String? visitSchudule;
 
   // TextEditingController _dateController = TextEditingController();
 
-
-  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController encounterdate = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? selectedDate = await showDatePicker(
@@ -36,31 +38,69 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
     );
 
     if (selectedDate != null) {
-      _dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+      encounterdate.text = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.only(right: AppPadding.p32),
-          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            Text(
-              'Status Completed',
-              style: GoogleFonts.firaSans(
-                  fontSize: FontSize.s12,
-                  fontWeight: FontWeightManager.bold,
-                  color: ColorManager.greenDark),
-            ),
-          ]),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                'Status Completed',
+                style: GoogleFonts.firaSans(
+                    fontSize: FontSize.s12,
+                    fontWeight: FontWeightManager.bold,
+                    color: ColorManager.greenDark),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await postFaceToFaceScreen(
+                    context,
+                    widget.patientId,
+                    requiredftof.toString(),
+                    encounterdate.text,//"2024-08-09",
+                    seenby.toString(),
+                    encounterdate.text,
+                    visitSchudule.toString(),
+                  );
+                },
+                child: Text(
+                  AppString.save,
+                  style: GoogleFonts.firaSans(
+                    fontSize: FontSize.s12,
+                    fontWeight: FontWeightManager.bold,
+                    color: ColorManager.white,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 25,
+                    vertical: 10,
+                  ),
+                  backgroundColor: ColorManager.blueprime,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height / 60),
         Padding(
           padding: const EdgeInsets.only(
               left: AppPadding.p29, right: AppPadding.p32),
           child: Container(
-            height: 317,
+            height: AppSize.s317,
             decoration: BoxDecoration(
               color: ColorManager.white,
               border: Border.all(
@@ -97,29 +137,31 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: AppPadding.p18),
+                            padding:
+                                const EdgeInsets.only(left: AppPadding.p18),
                             child: Row(
                               children: [
                                 Radio<String>(
                                   value: 'Male',
-                                  groupValue: status,
+                                  groupValue: requiredftof,
                                   onChanged: (value) =>
-                                      setState(() => status = value),
+                                      setState(() => requiredftof = value),
                                 ),
-                                Text('Male',
+                                Text(AppString.male,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.regular,
                                         color: ColorManager.greylight)),
                                 SizedBox(
-                                    width: MediaQuery.of(context).size.width / 45),
+                                    width:
+                                        MediaQuery.of(context).size.width / 45),
                                 Radio<String>(
                                   value: 'Female',
-                                  groupValue: status,
+                                  groupValue: requiredftof,
                                   onChanged: (value) =>
-                                      setState(() => status = value),
+                                      setState(() => requiredftof = value),
                                 ),
-                                Text('Female',
+                                Text(AppString.female,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.regular,
@@ -143,42 +185,45 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: AppPadding.p60),
+                            padding:
+                                const EdgeInsets.only(left: AppPadding.p60),
                             child: Row(
                               children: [
                                 Radio<String>(
                                   value: 'Yes',
-                                  groupValue: statusA,
+                                  groupValue: seenby,
                                   onChanged: (value) =>
-                                      setState(() => statusA = value),
+                                      setState(() => seenby = value),
                                 ),
-                                Text('Yes',
+                                Text(AppString.yes,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.regular,
                                         color: ColorManager.greylight)),
                                 SizedBox(
-                                    width: MediaQuery.of(context).size.width / 45),
+                                    width:
+                                        MediaQuery.of(context).size.width / 45),
                                 Radio<String>(
                                   value: 'No',
-                                  groupValue: statusA,
+                                  groupValue: seenby,
                                   onChanged: (value) =>
-                                      setState(() => statusA = value),
+                                      setState(() => seenby = value),
                                 ),
-                                Text('No',
+                                Text(AppString.no,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.regular,
                                         color: ColorManager.greylight)),
                                 SizedBox(
-                                    width: MediaQuery.of(context).size.width / 45),
+                                    width:
+                                        MediaQuery.of(context).size.width / 45),
                                 Radio<String>(
                                   value: 'unknown',
-                                  groupValue: statusA,
+                                  groupValue: seenby,
                                   onChanged: (value) =>
-                                      setState(() => statusA = value),
+                                      setState(() => seenby = value),
                                 ),
-                                Text('Unknown',
+                                Text(AppString.unknown,
                                     style: GoogleFonts.firaSans(
                                         fontSize: FontSize.s12,
                                         fontWeight: FontWeightManager.regular,
@@ -190,18 +235,20 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                       ),
                     ],
                   ),
-                  
-
-                  SizedBox(height: MediaQuery.of(context).size.height/15),
+                  SizedBox(height: MediaQuery.of(context).size.height / 15),
                   Padding(
                     padding: const EdgeInsets.only(left: AppPadding.p24),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        width: 267,
+                        width: AppSize.s267,
                         child: SchedularTextField(
+                            controller: encounterdate,
                             labelText: 'Date of face-to face encounter',
-                            isDate: true),
+                            suffixIcon: Icon(
+                              Icons.calendar_month_outlined,
+                              size: 18,
+                            )),
                       ),
                     ),
 
@@ -251,8 +298,6 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                     //   ],
                     // ),
                   ),
-
-
                   SizedBox(height: MediaQuery.of(context).size.height / 15),
                   Column(
                     children: [
@@ -275,11 +320,11 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                           children: [
                             Radio<String>(
                               value: 'Yes',
-                              groupValue: statusB,
+                              groupValue: visitSchudule,
                               onChanged: (value) =>
-                                  setState(() => statusB = value),
+                                  setState(() => visitSchudule = value),
                             ),
-                            Text('Yes',
+                            Text(AppString.yes,
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s12,
                                     fontWeight: FontWeightManager.regular,
@@ -288,11 +333,11 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                 width: MediaQuery.of(context).size.width / 45),
                             Radio<String>(
                               value: 'No',
-                              groupValue: statusB,
+                              groupValue: visitSchudule,
                               onChanged: (value) =>
-                                  setState(() => statusB = value),
+                                  setState(() => visitSchudule = value),
                             ),
-                            Text('No',
+                            Text(AppString.no,
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s12,
                                     fontWeight: FontWeightManager.regular,
@@ -301,26 +346,24 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
                                 width: MediaQuery.of(context).size.width / 45),
                             Radio<String>(
                               value: 'Unknown',
-                              groupValue: statusB,
+                              groupValue: visitSchudule,
                               onChanged: (value) =>
-                                  setState(() => statusB = value),
+                                  setState(() => visitSchudule = value),
                             ),
-                            Text('Unknown',
+                            Text(AppString.unknown,
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s12,
                                     fontWeight: FontWeightManager.regular,
-                                    color: ColorManager.greylight)
-                            ),
+                                    color: ColorManager.greylight)),
                             SizedBox(
                                 width: MediaQuery.of(context).size.width / 45),
                             Radio<String>(
                               value: 'N/A',
-                              groupValue: statusB,
+                              groupValue: visitSchudule,
                               onChanged: (value) =>
-                                  setState(() => statusB = value),
+                                  setState(() => visitSchudule = value),
                             ),
-                            Text(
-                                'N/A',
+                            Text('N/A',
                                 style: GoogleFonts.firaSans(
                                     fontSize: FontSize.s12,
                                     fontWeight: FontWeightManager.regular,
@@ -335,7 +378,6 @@ class _PhysicianFaceToFaceState extends State<PhysicianFaceToFace> {
             ),
           ),
         ),
-
       ],
     );
   }

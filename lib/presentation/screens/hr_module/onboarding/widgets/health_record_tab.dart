@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
-import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/widgets/health_record_tab_constant.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
-import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
-import '../../manage/const_wrap_widget.dart';
 import '../approve_reject_dialog_constant.dart';
 import '../download_doc_const.dart';
 
@@ -30,7 +28,7 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
   @override
   void initState() {
     super.initState();
-   _fetchData();
+    _fetchData();
   }
 
   void _handleCheckboxChanged(bool? value, int index, int employeeDocumentId) {
@@ -68,7 +66,6 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
         _selectedDocumentIds.clear();
       });
     } else {
-      // Handle error
       print(result.message);
     }
   }
@@ -92,6 +89,16 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
   Future<void> _fetchData() async {
     try {
       var data = await getAckHealthRecord(context, 1, 10, widget.employeeId, 'no');
+      data.sort((a, b) {
+        if (a.approved == true && b.approved != true) {
+          return -1;
+        } else if (a.approved != true && b.approved == true) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
       _fetchedData = data;
       _controller.add(data);
       _checked = List.generate(data.length, (_) => false);
@@ -114,7 +121,6 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
         _selectedDocumentIds.clear();
       });
     } else {
-      // Handle error
       print(result.message);
     }
   }
@@ -122,7 +128,6 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context).size;
     return StreamBuilder<List<OnboardingAckHealthData>>(
       stream: _controller.stream,
       builder: (context, snapshot) {
@@ -162,97 +167,142 @@ class _HealthRecordConstantState extends State<HealthRecordConstant> {
                 ),
               ));
         }
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Wrap(
-              children: List.generate(snapshot.data!.length, (index) {
-                final data = snapshot.data![index];
-                return Column(
+        return Padding(
+          padding: const EdgeInsets.only(left: 180),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Wrap(
+                children: [
+                  ...List.generate(snapshot.data!.length, (index) {
+                    final data = snapshot.data![index];
+                    final fileUrl = data.DocumentUrl;
+                    final fileExtension = fileUrl.split('/').last;
+                    Widget fileWidget;
+                    if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                      fileWidget = Image.network(
+                        fileUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Icon(
+                            Icons.description_outlined,
+                            size: 25,
+                            color: ColorManager.blueprime,
+                          );
+                        },
+                      );
+                    } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                      fileWidget = Icon(
+                        Icons.description_outlined,
+                        size: 25,
+                        color: ColorManager.blueprime,
+                      );
+                    } else {
+                      fileWidget = Icon(
+                        Icons.description_outlined,
+                        size: 25,
+                        color: ColorManager.blueprime,
+                      );
+                    }
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 3,
+                            child: Row(
+                              children: [
+                                data.approved == true
+                                    ? SizedBox(width: 31,)
+                                    : Checkbox(
+                                  value: _checked[index],
+                                  onChanged: data.approved == null
+                                      ? (value) {
+                                    _handleCheckboxChanged(
+                                        value,
+                                        index,
+                                        snapshot.data![index].employeeDocumentId);
+                                  }
+                                      : null,
+                                ),
+                                SizedBox(width: 10),
+                                GestureDetector(
+                                  onTap: () => DowloadFile().downloadPdfFromBase64(fileExtension,"Health"),
+                                  child: Container(
+                                    width: 62,
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(width: 2, color: ColorManager.faintGrey),
+                                    ),
+                                    child: fileWidget,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    data.DocumentName,
+                                    style: AknowledgementStyleConst.customTextStyle(context),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    );
+                  }),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, right: 120),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Container(
-                        width: mediaQuery.width / 3,
-                        child: Row(
-                          children: [
-                            Checkbox(
-                              value: _checked[index],
-                              onChanged: (bool? value) {
-                                _handleCheckboxChanged(value, index, data.employeeDocumentId);
-                              },
-                            ),
-                            SizedBox(width: mediaQuery.width / 140),
-                            GestureDetector(
-                              onTap: () => downloadFile(data.DocumentUrl),
-                              child: Container(
-                                width: 200,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  border: Border.all(color: Color(0xffC6C6C6)),
-                                ),
-                                child: HealthRecordConstantWithContainer(
-                                  data.DocumentName,
-                                  data.ReminderThreshold,
-                                  Icons.description_outlined,
-                                  Color(0xff50B5E5),
-                                ),
-                              ),
-                            ),
-                          ],
+                    ElevatedButton(
+                      onPressed: _handleRejectSelected,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Color(0xff1696C8),
+                        side: BorderSide(color: Color(0xff1696C8)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        'Reject',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width / 75),
+                    ElevatedButton(
+                      onPressed: _handleApproveSelected,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff1696C8),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        'Approve',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
                   ],
-                );
-              }),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(right: 120),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                    onPressed: _handleRejectSelected,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Color(0xff1696C8),
-                      side: BorderSide(color: Color(0xff1696C8)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      'Reject',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: mediaQuery.width / 75),
-                  ElevatedButton(
-                    onPressed: _handleApproveSelected,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff1696C8),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      'Approve',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

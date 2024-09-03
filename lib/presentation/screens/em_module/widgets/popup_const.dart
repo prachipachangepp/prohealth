@@ -5,9 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
+import 'dart:math';
 
 
 class CustomDialog extends StatefulWidget {
@@ -38,24 +40,56 @@ class CustomDialog extends StatefulWidget {
 }
 
 class _CustomDialogState extends State<CustomDialog> {
+
+
+  String _password = '';
+  // Method for Generating Random Passwords
+  void _generatePassword() {
+    final random = Random();
+    final characters =
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
+    String password = '';
+    for (int i = 0; i < 8; i++) {
+      password += characters[
+      // Generate a random password
+      random.nextInt(characters.length)];
+    }
+    setState(() {
+      // Update the displayed password
+      _password = password;
+      widget.passwordController.text = password;
+    });
+  }
+
+
+
+  @override
+  initState() {
+    super.initState();
+    _generatePassword();
+  }
+
+
+
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(8),
       ),
       elevation: 0.0,
       backgroundColor: Colors.transparent,
       child: Stack(
         children: <Widget>[
           Container(
-            height: 470,
-            width: 400,
+            height: 420,
+            width: 360,
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black26,
@@ -74,8 +108,8 @@ class _CustomDialogState extends State<CustomDialog> {
                   decoration: BoxDecoration(
                     color: ColorManager.bluebottom,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
                     ),
                   ),
                   child: Form(
@@ -84,12 +118,15 @@ class _CustomDialogState extends State<CustomDialog> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          widget.title,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                        Padding(
+                          padding: const EdgeInsets.only(left: AppPadding.p25),
+                          child: Text(
+                            widget.title,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         IconButton(
@@ -152,7 +189,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     labelText: 'Role',
                     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
                     labelFontSize: 12,
-                    items: ['Admin', 'Staff', 'User'],
+                    items: ['Admin', 'Sales', 'Clinician'],
                   ),
                 ),
                 Padding(
@@ -170,30 +207,32 @@ class _CustomDialogState extends State<CustomDialog> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextField(
+                  child: HRManageTextFieldEmail(
                     controller: widget.passwordController,
-                    keyboardType: TextInputType.phone,
+
+                    keyboardType: TextInputType.text,
                     text: "Password",
                     cursorHeight: 12,
-                    labelText: "Password",
+                    labelText: "Password",       //  _password,
                     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
                     labelFontSize: 12,
                     errorText: 'Password is required',
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextField(
-                    controller: widget.companyIdController,
-                    keyboardType: TextInputType.phone,
-                    text: "Company ID",
-                    cursorHeight: 12,
-                    labelText: "Company ID",
-                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                    labelFontSize: 12,
-                    errorText: 'Company ID is required',
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 8.0),
+                //   child: HRManageTextField(
+                //     readOnly: true,
+                //     controller: widget.companyIdController,
+                //     keyboardType: TextInputType.phone,
+                //     text: "Company ID",
+                //     cursorHeight: 12,
+                //     labelText: "Company ID",
+                //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                //     labelFontSize: 12,
+                //     //errorText: 'Company ID is required',
+                //   ),
+                // ),
                 SizedBox(height: 24.0),
                 ReusableLoadingButton(
                   text: 'Create',
@@ -209,8 +248,13 @@ class _CustomDialogState extends State<CustomDialog> {
       )
     );
   }
-
 }
+
+
+
+
+
+
 
 /// edit user
 class EditUserPopUp extends StatefulWidget {
@@ -246,7 +290,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
   Widget build(BuildContext context) {
     return Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(8),
         ),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
@@ -254,11 +298,11 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
           children: <Widget>[
             Container(
               height: 500,
-              width: 400,
+              width: 360,
               decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(20.0),
+                borderRadius: BorderRadius.circular(8),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
@@ -280,20 +324,23 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         decoration: BoxDecoration(
                           color: ColorManager.bluebottom,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(12),
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8),
                           ),
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              widget.title,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
+                            Padding(
+                              padding: const EdgeInsets.only(left: AppPadding.p25),
+                              child: Text(
+                                widget.title,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                             IconButton(
@@ -357,7 +404,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: HRManageTextField(
+                        child: HRManageTextFieldEmail(
                           controller: widget.emailController,
                           keyboardType: TextInputType.phone,
                           text: "Email",
@@ -368,19 +415,19 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           errorText: 'Email is required',
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: HRManageTextField(
-                          controller: widget.companyIdController,
-                          keyboardType: TextInputType.phone,
-                          text: "Company ID",
-                          cursorHeight: 12,
-                          labelText: "Company ID",
-                          labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                          labelFontSize: 12,
-                          errorText: 'Company ID is required',
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: HRManageTextField(
+                      //     controller: widget.companyIdController,
+                      //     keyboardType: TextInputType.phone,
+                      //     text: "Company ID",
+                      //     cursorHeight: 12,
+                      //     labelText: "Company ID",
+                      //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                      //     labelFontSize: 12,
+                      //     errorText: 'Company ID is required',
+                      //   ),
+                      // ),
                       SizedBox(height: 24.0),
                       ReusableLoadingButton(
                         text: 'Submit',
@@ -399,340 +446,3 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
     );
   }
 }
-
-
-// // Function to show the custom dialog
-// void showCustomDialog({
-//   required BuildContext context,
-//   required String title,
-//   required VoidCallback onSubmit,
-//   required TextEditingController userIdController,
-//   required TextEditingController lastNameController,
-//   required TextEditingController emailController,
-//   required TextEditingController firstNameController,
-//   required TextEditingController roleController,
-//   required TextEditingController passwordController,
-// }) {
-//   showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-
-
-    ///
-// class CustomDialog extends StatefulWidget {
-//   final String title, description;
-//   final VoidCallback onSubmit;
-//
-//   CustomDialog({
-//     required this.title,
-//     required this.description,
-//     required this.onSubmit,
-//   });
-//
-//   @override
-//   State<CustomDialog> createState() => _CustomDialogState();
-// }
-//
-// class _CustomDialogState extends State<CustomDialog> {
-//   final StreamController<List<CompanyModel>> _controller =
-//       StreamController<List<CompanyModel>>();
-//
-//   TextEditingController userIdController = TextEditingController();
-//
-//   TextEditingController lastNameController = TextEditingController();
-//
-//   TextEditingController emailController = TextEditingController();
-//
-//   TextEditingController firstNameController = TextEditingController();
-//
-//   TextEditingController roleController = TextEditingController();
-//
-//   TextEditingController companyIdController = TextEditingController();
-//
-//   TextEditingController passwordController = TextEditingController();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Dialog(
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(20.0),
-//       ),
-//       elevation: 0.0,
-//       backgroundColor: Colors.transparent,
-//       child: dialogContent(context),
-//     );
-//   }
-//
-//   Widget dialogContent(BuildContext context) {
-//     return Stack(
-//       children: <Widget>[
-//         Container(
-//           height: 500,
-//           width: 440,
-//           decoration: BoxDecoration(
-//             color: Colors.white,
-//             shape: BoxShape.rectangle,
-//             borderRadius: BorderRadius.circular(20.0),
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.black26,
-//                 blurRadius: 10.0,
-//                 offset: const Offset(0.0, 10.0),
-//               ),
-//             ],
-//           ),
-//           child: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: <Widget>[
-//               Container(
-//                 height: 40,
-//                 width: 440,
-//                 padding: EdgeInsets.all(5),
-//                 decoration: BoxDecoration(
-//                     color: Colors.blue,
-//                     borderRadius: BorderRadius.only(
-//                       topLeft: Radius.circular(12),
-//                       topRight: Radius.circular(12),
-//                     )),
-//                 child: Row(
-//                   crossAxisAlignment: CrossAxisAlignment.center,
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Text(
-//                       widget.title,
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: 12.0,
-//                         fontWeight: FontWeight.w700,
-//                         color: Colors.white,
-//                       ),
-//                     ),
-//                     IconButton(
-//                       onPressed: () {
-//                         Navigator.pop(context);
-//                       },
-//                       icon: Icon(
-//                         Icons.close,
-//                         color: Colors.white,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(height: 16.0),
-//               Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: HRManageTextField(
-//                   controller: lastNameController,
-//                   keyboardType: TextInputType.phone,
-//                   text: "User ID",
-//                   cursorHeight: 12,
-//                   labelText: "User ID",
-//                   labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-//                   labelFontSize: 12,
-//                   errorText: 'User ID is required',
-//                 ),
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: HRManageTextField(
-//                   controller: firstNameController,
-//                   keyboardType: TextInputType.phone,
-//                   text: "Last Name",
-//                   cursorHeight: 12,
-//                   labelText: "Last Name",
-//                   labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-//                   labelFontSize: 12,
-//                   errorText: 'Last Name is required',
-//                 ),
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: HRManageTextField(
-//                   controller: lastNameController,
-//                   keyboardType: TextInputType.phone,
-//                   text: "First Name",
-//                   cursorHeight: 12,
-//                   labelText: "First Name",
-//                   labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-//                   labelFontSize: 12,
-//                   errorText: 'First Name is required',
-//                 ),
-//               ),
-//               HRManageDropdown(
-//                 controller: roleController,
-//                 labelText: 'Role',
-//                 labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-//                 labelFontSize: 12,
-//                 items: ['Admin', 'Staff', 'User'],
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: HRManageTextField(
-//                   controller: lastNameController,
-//                   keyboardType: TextInputType.phone,
-//                   text: "Email",
-//                   cursorHeight: 12,
-//                   labelText: "Email",
-//                   labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-//                   labelFontSize: 12,
-//                   errorText: 'Email is required',
-//                 ),
-//               ),
-//               SizedBox(height: 24.0),
-//               ReusableLoadingButton(
-//                 text: 'Create',
-//                 onPressed: () {},
-//                 loadingDuration: 2,
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-///
-// class CustomDialog extends StatelessWidget {
-//   final String title, description ;
-//
-//   CustomDialog({
-//     required this.title,
-//     required this.description,
-//
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Dialog(
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(20.0),
-//       ),
-//       elevation: 0.0,
-//       backgroundColor: Colors.transparent,
-//       child: dialogContent(context),
-//     );
-//   }
-//
-//   Widget dialogContent(BuildContext context) {
-//     return Stack(
-//       children: <Widget>[
-//         Container(
-//          height: 500,
-//           width: 440,
-//           decoration: BoxDecoration(
-//             color: Colors.white,
-//             shape: BoxShape.rectangle,
-//             borderRadius: BorderRadius.circular(20.0),
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.black26,
-//                 blurRadius: 10.0,
-//                 offset: const Offset(0.0, 10.0),
-//               ),
-//             ],
-//           ),
-//           child: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: <Widget>[
-//              Container(
-//                height: 40,
-//                width: 440,
-//                padding: EdgeInsets.all(5),
-//                decoration: BoxDecoration(
-//                  color: Colors.blue,
-//                borderRadius: BorderRadius.only(
-//                  topLeft: Radius.circular(12), topRight: Radius.circular(12)
-//                )),
-//                child:Row(
-//                  crossAxisAlignment: CrossAxisAlignment.center,
-//                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                  children: [
-//                    Text(
-//                      title,
-//                      style: GoogleFonts.firaSans(
-//                        fontSize: 12.0,
-//                        fontWeight: FontWeight.w700,
-//                        color: Colors.white,
-//                      ),
-//                    ),
-//                    IconButton(
-//                        onPressed: (){
-//                          Navigator.pop(context);
-//                        },
-//                        icon: Icon( Icons.close,
-//                          color: Colors.white,))
-//                  ],
-//                )
-//              ),
-//               SizedBox(height: 16.0),
-//               // Text(
-//               //   description,
-//               //   textAlign: TextAlign.center,
-//               //   style: TextStyle(
-//               //     fontSize: 12.0,
-//               //   ),
-//               // ),
-//               SizedBox(height: 24.0),
-//               // Align(
-//               //   alignment: Alignment.bottomRight,
-//               //   child: ElevatedButton(
-//               //     onPressed: () {
-//               //       Navigator.of(context).pop(); // To close the dialog
-//               //     },
-//               //     child: Text(buttonText),
-//               //   ),
-//
-//             ],
-//           ),
-//         ),
-//         // Positioned(
-//         //   left: 16.0,
-//         //   right: 16.0,
-//         //   child: CircleAvatar(
-//         //     backgroundColor: Colors.blueAccent,
-//         //     radius: 66.0,
-//         //     child: ClipRRect(
-//         //       borderRadius: BorderRadius.all(Radius.circular(66.0)),
-//         //       child: Icon(
-//         //         Icons.info,
-//         //         size: 20.0,
-//         //         color: Colors.white,
-//         //       ),
-//         //     ),
-//         //   ),
-//         // ),
-//       ],
-//     );
-//   }
-// }
-// createUserPost(
-// context,
-// firstNameController.text,
-// lastNameController.text,
-// roleController.text,
-// emailController.text,
-// int.parse(
-// companyIdController
-//     .text),
-// passwordController.text);
-// getUser(context).then((data) {
-// _companyUsersList.add(data);
-// }).catchError((error) {
-// // Handle error
-// });
-// Navigator.pop(context);
-// firstNameController.clear();
-// lastNameController.clear();
-// roleController.clear();
-// emailController.clear();
-// companyIdController.clear();
-// passwordController.clear();
-// Future.delayed(
-// Duration(
-// seconds: 2),
-// () {
-// print(
-// 'Submit action completed!');
-// });
-// print('Form validated and submitted!');

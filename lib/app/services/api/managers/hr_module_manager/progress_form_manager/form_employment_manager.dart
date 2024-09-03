@@ -8,7 +8,7 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-Future<ApiDataRegister> postemploymentscreen(
+Future<ApiDataRegister> postemploymentscreenData(
     BuildContext context,
     int employeeId,
     String employer,
@@ -41,7 +41,8 @@ Future<ApiDataRegister> postemploymentscreen(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("employment Added");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Employment data saved")),
+        SnackBar(content: Text("Employment data saved"),
+          backgroundColor: Colors.green,),
       );
       // orgDocumentGet(context);
       return ApiDataRegister(
@@ -85,12 +86,13 @@ Future<List<EmploymentDataForm>> getEmployeeHistoryForm(
   List<EmploymentDataForm> itemsData = [];
   try {
     final response = await ApiOffer(context).get(
-        path: ProgressBarRepository()
+        path: ProgressBarRepository
             .getEmploymentByEmpID(employeeID: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        //String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);
-        //String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        // String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);
+        String issueFormattedDate = convertIsoToDayMonthYear(item['dateOfJoining']);
+        String endDateFormattedDate = convertIsoToDayMonthYear(item['endDate']);
         itemsData.add(EmploymentDataForm(
             employmentId: item['employmentId']??"--",
             employeeId: item['employeeId']??"--",
@@ -100,12 +102,12 @@ Future<List<EmploymentDataForm>> getEmployeeHistoryForm(
             supervisor: item['supervisor']??"--",
             supMobile: item['supMobile']??"--",
             title: item['title']??"--",
-            dateOfJoining: item['dateOfJoining']??"--",
-            endDate: item['endDate']??"--",
+            dateOfJoining: issueFormattedDate??"--",
+            endDate: endDateFormattedDate??"--",
             emgMobile: item['emgMobile']??"--",
             country: item['country']??"--",
         ));
-        // itemsData.sort((a, b) => a.educationId.compareTo(b.educationId));
+         itemsData.sort((a, b) => a.employmentId.compareTo(b.employmentId));
       }
     } else {
       print("Employee Education");

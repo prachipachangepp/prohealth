@@ -91,7 +91,8 @@ class _BankingTabContainerConstantState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Bank #${snapshot.data![index].empBankId.toString()}',
+                      'Bank #${index + 1}',
+                      // 'Bank #${snapshot.data![index].empBankId.toString()}',
                       style: GoogleFonts.firaSans(
                         fontSize: 13,
                         color: Color(0xFF333333),
@@ -524,7 +525,7 @@ class InfoData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text, style:  ThemeManager.customTextStyle(context)),
+        Text(text, style:  ThemeManagerDark.customTextStyle(context)),
         const SizedBox(height: 10),
       ],
     );

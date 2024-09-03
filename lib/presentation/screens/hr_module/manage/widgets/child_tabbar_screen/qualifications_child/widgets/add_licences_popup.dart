@@ -12,6 +12,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/button_constant
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 
+
 class AddLicencesPopup extends StatefulWidget {
   final TextEditingController LivensureController;
   final TextEditingController issueDateController;
@@ -24,18 +25,19 @@ class AddLicencesPopup extends StatefulWidget {
   final VoidCallback onpressedClose;
   final Future<void> Function() onpressedSave;
 
-  AddLicencesPopup(
-      {super.key,
-      required this.LivensureController,
-      required this.issueDateController,
-      required this.expiryDateController,
-      required this.issuingOrganizationController,
-      required this.countryController,
-      required this.numberIDController,
-      required this.onpressedClose,
-      required this.onpressedSave,
-      required this.title,
-      required this.child});
+  AddLicencesPopup({
+    super.key,
+    required this.LivensureController,
+    required this.issueDateController,
+    required this.expiryDateController,
+    required this.issuingOrganizationController,
+    required this.countryController,
+    required this.numberIDController,
+    required this.onpressedClose,
+    required this.onpressedSave,
+    required this.title,
+    required this.child,
+  });
 
   @override
   State<AddLicencesPopup> createState() => _AddLicencesPopupState();
@@ -47,6 +49,17 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
   dynamic pickedFile;
   String? pickedFileName;
   bool isLoading = false;
+
+  // Error states for validations
+  Map<String, bool> errorStates = {
+    'Livensure': false,
+    'issueDate': false,
+    'expiryDate': false,
+    'issuingOrganization': false,
+    'country': false,
+    'numberID': false,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -99,30 +112,30 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
             Padding(
-              padding: const EdgeInsets.only(right: 60),
+              padding: const EdgeInsets.symmetric(horizontal: 63),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   widget.child,
                   const SizedBox(
                     width: 20,
                   ),
+                  ///upload
                   CustomIconButton(
                     icon: Icons.file_upload_outlined,
                     text: 'Upload License',
                     onPressed: () async {
                       FilePickerResult? result =
-                          await FilePicker.platform.pickFiles(
+                      await FilePicker.platform.pickFiles(
                         allowMultiple: false,
                       );
                       if (result != null) {
-                        //PlatformFile file = result.files.first;
                         setState(() {
                           pickedFileName = result.files.first.name;
                           pickedFile = result.files.first.bytes;
                         });
 
-                        print('File picked: ${pickedFileName}');
+                        print('File picked: $pickedFileName');
                       } else {
                         // User canceled the picker
                       }
@@ -131,102 +144,41 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 ],
               ),
             ),
-            SizedBox(height: 5,),
-            pickedFileName == null ? const Offstage():Align(
+            SizedBox(height: 5),
+            pickedFileName == null
+                ? const Offstage()
+                : Align(
               alignment: Alignment.centerRight,
               child: Padding(
                 padding: const EdgeInsets.only(right: 60),
-                child: Text(pickedFileName!,style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s10,
-                    color: ColorManager.mediumgrey
-                ),),
+                child: Text(
+                  pickedFileName!,
+                  style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s10,
+                      color: ColorManager.mediumgrey),
+                ),
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 22), //10
+            SizedBox(height: MediaQuery.of(context).size.height / 22),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.LivensureController,
                   labelText: "Livensure/Certification",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'Livensure',
                 ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildDateField(
                   controller: widget.issueDateController,
                   labelText: "Issue Date",
-                  keyboardType: TextInputType.text,
-                  suffixIcon: Icon(
-                    Icons.calendar_month_outlined,
-                    color: ColorManager.blueprime,
-                  ),
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onTap: () async {
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: _selectedIssueDate,
-                      firstDate: DateTime(1100),
-                      lastDate: DateTime(2025),
-                    );
-                    if (date != null) {
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(date);
-                      widget.issueDateController.text = formattedDate;
-                      //field.didChange(formattedDate);
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'issueDate',
+                  initialDate: _selectedIssueDate,
                 ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildDateField(
                   controller: widget.expiryDateController,
                   labelText: "Expiry Date",
-                  keyboardType: TextInputType.text,
-                  suffixIcon: Icon(
-                    Icons.calendar_month_outlined,
-                    color: ColorManager.blueprime,
-                  ),
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onTap: () async {
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: _selectedExpDate,
-                      firstDate: DateTime(1100),
-                      lastDate: DateTime(2025),
-                    );
-                    if (date != null) {
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(date);
-                      widget.expiryDateController.text = formattedDate;
-                      //field.didChange(formattedDate);
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'expiryDate',
+                  initialDate: _selectedExpDate,
                 ),
               ],
             ),
@@ -234,53 +186,20 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.issuingOrganizationController,
                   labelText: "Issuing Organization",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'issuingOrganization',
                 ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.countryController,
                   labelText: "Country",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'country',
                 ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width / 6,
+                _buildTextField(
                   controller: widget.numberIDController,
                   labelText: "Number/ID",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.p5, left: AppPadding.p20),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+                  errorKey: 'numberID',
                 ),
               ],
             ),
@@ -291,54 +210,57 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CustomButtonTransparent(
-                      text: "Cancel",
+                      text: AppString.cancel,
                       onPressed: () async {
                         widget.onpressedClose();
                       }),
                   const SizedBox(
-                    width: 10,
+                    width:  AppSize.s10,
                   ),
                   isLoading
                       ? SizedBox(
-                          width: 25,
-                          height: 25,
-                          child: CircularProgressIndicator(
-                            color: ColorManager.blueprime,
-                          ))
+                      width:  AppSize.s25,
+                      height:  AppSize.s25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ))
                       : CustomElevatedButton(
-                    width: 100,
-                          text: "Save",
-                          onPressed: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            try {
-                              await widget.onpressedSave();
-                              widget.LivensureController.clear();
-                              widget.issuingOrganizationController.clear();
-                              widget.issueDateController.clear();
-                              widget.expiryDateController.clear();
-                              widget.countryController.clear();
-                              widget.numberIDController.clear();
-                            } finally {
-                              setState(() {
-                                isLoading = false;
+                    width: AppSize.s100,
+                    text: AppString.save,
+                    onPressed: () async {
+                      setState(() {
+                        _validateFields();
+                      });
+
+                      if (!_hasErrors()) {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        try {
+                          await widget.onpressedSave();
+                          _clearControllers();
+                        } finally {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              Future.delayed(
+                                  const Duration(seconds: 3), () {
+                                if (Navigator.of(context).canPop()) {
+                                  Navigator.of(context).pop();
+                                }
                               });
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  Future.delayed(const Duration(seconds: 3), () {
-                                    if (Navigator.of(context).canPop()) {
-                                      Navigator.of(context).pop();
-                                    }
-                                  });
-                                  return const AddSuccessPopup(
-                                    message: 'Added Successfully',
-                                  );
-                                },
+                              return const AddSuccessPopup(
+                                message: 'Added Successfully',
                               );
-                            }
-                          }),
+                            },
+                          );
+                        }
+                      }
+                    },
+                  ),
                 ],
               ),
             )
@@ -346,5 +268,142 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
         ),
       ),
     );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String labelText,
+    required String errorKey,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomTextFieldRegister(
+          height: AppSize.s30,
+          width: MediaQuery.of(context).size.width / 6,
+          controller: controller,
+          labelText: labelText,
+          keyboardType: TextInputType.text,
+          padding: const EdgeInsets.only(
+              bottom: AppPadding.p5, left: AppPadding.p20),
+          onChanged: (value) {
+            setState(() {
+              errorStates[errorKey] = value.isEmpty;
+            });
+          },
+        ),
+        if (errorStates[errorKey]!)
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Text(
+              'Please Enter $labelText',
+              style: TextStyle(
+                color: ColorManager.red,
+                fontSize: FontSize.s10,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildDateField({
+    required TextEditingController controller,
+    required String labelText,
+    required String errorKey,
+    required DateTime initialDate,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomTextFieldRegister(
+          height: AppSize.s30,
+          width: MediaQuery.of(context).size.width / 6,
+          controller: controller,
+          labelText: labelText,
+          keyboardType: TextInputType.text,
+          suffixIcon: Icon(
+            Icons.calendar_month_outlined,
+            color: ColorManager.blueprime,
+          ),
+          padding: const EdgeInsets.only(
+              bottom: AppPadding.p5, left: AppPadding.p20),
+          onTap: () async {
+            DateTime? date = await showDatePicker(
+              context: context,
+              initialDate: initialDate,
+              firstDate: DateTime(1100),
+              lastDate: DateTime(2025),
+            );
+            if (date != null) {
+              String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+              setState(() {
+                controller.text = formattedDate;
+                errorStates[errorKey] = controller.text.isEmpty;
+              });
+            }
+          },
+          onChanged: (value) {
+            setState(() {
+              errorStates[errorKey] = value.isEmpty;
+            });
+          },
+        ),
+        if (errorStates[errorKey]!)
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Text(
+              'Please select a valid $labelText',
+              style: TextStyle(
+                color: ColorManager.red,
+                fontSize: FontSize.s10,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  void _validateFields() {
+    errorStates.forEach((key, value) {
+      setState(() {
+        if (key == 'Livensure' && widget.LivensureController.text.isEmpty) {
+          errorStates[key] = true;
+        }
+        if (key == 'issueDate' && widget.issueDateController.text.isEmpty) {
+          errorStates[key] = true;
+        }
+        if (key == 'expiryDate' && widget.expiryDateController.text.isEmpty) {
+          errorStates[key] = true;
+        }
+        if (key == 'issuingOrganization' &&
+            widget.issuingOrganizationController.text.isEmpty) {
+          errorStates[key] = true;
+        }
+        if (key == 'country' && widget.countryController.text.isEmpty) {
+          errorStates[key] = true;
+        }
+        if (key == 'numberID' && widget.numberIDController.text.isEmpty) {
+          errorStates[key] = true;
+        }
+      });
+    });
+  }
+
+  bool _hasErrors() {
+    return errorStates.containsValue(true);
+  }
+
+  void _clearControllers() {
+    widget.LivensureController.clear();
+    widget.issuingOrganizationController.clear();
+    widget.issueDateController.clear();
+    widget.expiryDateController.clear();
+    widget.countryController.clear();
+    widget.numberIDController.clear();
+    setState(() {
+      pickedFileName = null;
+      errorStates.updateAll((key, value) => false);
+    });
   }
 }

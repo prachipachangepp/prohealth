@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_country.dart';
@@ -44,11 +48,14 @@ class _CiOrgDocumentState extends State<CiZone> {
   TextEditingController zoneController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController zoneNumberController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
 
   int _selectedIndex = 0;
   int docZoneId = 0;
   int countyId = 0;
   int countySortId = 0;
+  double? _latitude;
+  double? _longitude;
 
   void _selectButton(int index) {
     setState(() {
@@ -61,8 +68,12 @@ class _CiOrgDocumentState extends State<CiZone> {
     );
   }
 
+  LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
+  String _location = 'Lat/Long not selected'; // Default text
+
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         Padding(
@@ -94,7 +105,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                             width: 354,
                             child: Center(
                               child: Text(
-                                AppString.dataNotFound,
+                               "No available counties !!",
                                 style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
                                   fontSize: FontSize.s12,
@@ -116,21 +127,26 @@ class _CiOrgDocumentState extends State<CiZone> {
                               ),
                             );
                           }
-                          return CICCDropdown(
-                              initialValue: dropDownTypesList[0].value,
-                              onChange: (val) {
-                                for (var a in snapshotZone.data!) {
-                                  if (a.countyName == val) {
-                                    docType = a.countyId;
-                                    print("County id :: ${a.companyId}");
-                                    countySortId = docType;
-                                    _selectButton(1);
-                                  }
-                                }
-                                print(":::${docType}");
-                                print(":::<>${countySortId}");
-                              },
-                              items: dropDownTypesList);
+                          countySortId = snapshotZone.data![0].countyId;
+                          return StatefulBuilder(
+                            builder: (BuildContext context, void Function(void Function()) setState) {
+                              return  CICCDropdown(
+                                  initialValue: dropDownTypesList[0].value,
+                                  onChange: (val) {
+                                    for (var a in snapshotZone.data!) {
+                                      if (a.countyName == val) {
+                                        docType = a.countyId;
+                                        print("County id :: ${a.companyId}");
+                                        countySortId = docType;
+                                        _selectButton(1);
+                                      }
+                                    }
+                                    print(":::${docType}");
+                                    print(":::<>${countySortId}");
+                                  },
+                                  items: dropDownTypesList);
+                            },
+                          );
                         }
                         return const SizedBox();
                       })
@@ -144,6 +160,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                     right: MediaQuery.of(context).size.width / 6),
                 child: Container(
                   //color: Colors.greenAccent,
+                  padding: EdgeInsets.only(top: AppPadding.p10),
                   width: MediaQuery.of(context).size.width / 5.5,
                   height: 40,
                   child: Row(
@@ -216,18 +233,16 @@ class _CiOrgDocumentState extends State<CiZone> {
                           width: MediaQuery.of(context).size.width / 20, // 80,
                           child: Column(
                             children: [
-                              Expanded(
-                                child: Text(
-                                  "Zip Code",
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: _selectedIndex == 2
-                                        ? FontWeightManager.bold
-                                        : FontWeightManager.regular,
-                                    color: _selectedIndex == 2
-                                        ? ColorManager.blueprime
-                                        : ColorManager.mediumgrey,
-                                  ),
+                              Text(
+                                "Zip Code",
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: _selectedIndex == 2
+                                      ? FontWeightManager.bold
+                                      : FontWeightManager.regular,
+                                  color: _selectedIndex == 2
+                                      ? ColorManager.blueprime
+                                      : ColorManager.mediumgrey,
                                 ),
                               ),
                               _selectedIndex == 2
@@ -247,44 +262,46 @@ class _CiOrgDocumentState extends State<CiZone> {
 
               ///button
               _selectedIndex == 0
-                  ? Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: CustomIconButtonConst(
-                                    // width: MediaQuery.of(context).size.width/15,
-                        icon: Icons.add,
-                        text: "Add",
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return CIZoneAddPopup(
-                                  title: 'Add County',
-                                  onSavePressed: () async {
-                                    await addCounty(
-                                        context,
-                                        countynameController.text,
-                                        stateController.text,
-                                        countyController.text,
-                                        "37.0902°",
-                                        "95.7129°",
-                                        widget.officeId);
-                                  },
-                                  title1: 'State Name',
-                                  countynameController: stateController,
-                                  title2: 'Country Name',
-                                  zipcodeController: countyController,
-                                  title3: 'County Name',
-                                  mapController: countynameController,
-                                );
-                              });
-                        }),
-                  )
+                  ? CustomIconButtonConst(
+                                  width: 79,
+                      icon: Icons.add,
+                      text: "Add",
+                      onPressed: () {
+                                    countynameController.clear();
+                        countyController.clear();
+                        stateController.clear();
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return CIZoneAddPopup(
+                                title: 'Add County',
+                                onSavePressed: () async {
+                                  await addCounty(
+                                      context,
+                                      countynameController.text,
+                                      stateController.text,
+                                      countyController.text,
+                                      "37.0902°",
+                                      "95.7129°",
+                                      widget.officeId);
+                                  Navigator.pop(context);
+                                },
+                                title1: 'State Name',
+                                countynameController: stateController,
+                                title2: 'Country Name',
+                                zipcodeController: countyController,
+                                title3: 'County Name',
+                                mapController: countynameController,
+                              );
+                            });
+                      })
                   : _selectedIndex == 1
-                      ? CustomIconButtonConst(
-                  width: MediaQuery.of(context).size.width/10,
-                          icon: Icons.add,
+                       ? CustomIconButtonConst(
+                         width: 79,
+                            icon: Icons.add,
                           text: AppStringEM.add,
                           onPressed: () {
+                           zoneNumberController.clear();
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -322,7 +339,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                AppString.dataNotFound,
+                                                "No available counties !!",
+                                                //AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
                                                   fontWeight:
@@ -347,6 +365,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                 ),
                                               );
                                             }
+                                            countyId = snapshotZone.data![0].countyId;
+                                            print('County Id : ${countyId}');
                                             return CICCDropdown(
                                                 initialValue:
                                                     dropDownTypesList[0].value,
@@ -371,20 +391,23 @@ class _CiOrgDocumentState extends State<CiZone> {
                                 });
                           })
                       : CustomIconButtonConst(
-                  width: MediaQuery.of(context).size.width/10,
+                         width: 79,
                           icon: Icons.add,
                           text: "Add",
                           onPressed: () {
+                           countynameController.clear();
+                           cityController.clear();
+                           zipcodeController.clear();
                             showDialog(
                                 context: context,
                                 builder: (context) {
+                                  print("Location passed to dialog: $_location");
                                   return AddZipCodePopup(
                                     title: 'Add Zip Code',
                                     countynameController: countynameController,
                                     cityNameController: cityController,
                                     zipcodeController: zipcodeController,
-                                    child1: FutureBuilder<
-                                            List<AllCountyGetList>>(
+                                     child1: FutureBuilder<List<AllCountyGetList>>(
                                         future: getCountyZoneList(context),
                                         builder: (context, snapshotZone) {
                                           if (snapshotZone.connectionState ==
@@ -404,10 +427,12 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                               10)),
                                                 ));
                                           }
+
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                AppString.dataNotFound,
+                                                "No county added.",
+                                               // AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
                                                   fontWeight:
@@ -460,14 +485,17 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           widget.officeId,
                                           cityController.text,
                                           zipcodeController.text,
-                                          "37.0902°",
-                                          "95.7129°",
+                                          _selectedLocation.latitude.toString(),
+                                          _selectedLocation.longitude.toString(),
                                           landmarkController.text);
+                                      print("Saved lat long${_selectedLocation.latitude.toString()} + ${_selectedLocation.longitude.toString()}");
+                                      Navigator.pop(context);
                                     },
                                     mapController: mapController,
                                     landmarkController: landmarkController,
-                                    child: FutureBuilder<List<AllZoneData>>(
-                                        future: getAllZone(context),
+                                    // locationController:    locationController ,
+                                    child: FutureBuilder<List<SortByZoneData>>(
+                                        future: PayRateZoneDropdown(context),
                                         builder: (context, snapshotZone) {
                                           if (snapshotZone.connectionState ==
                                               ConnectionState.waiting) {
@@ -489,7 +517,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           if (snapshotZone.data!.isEmpty) {
                                             return Center(
                                               child: Text(
-                                                AppString.dataNotFound,
+                                                "No Zone Added.",
+                                              //  AppString.dataNotFound,
                                                 style: CustomTextStylesCommon
                                                     .commonStyle(
                                                   fontWeight:
@@ -577,3 +606,42 @@ class _CiOrgDocumentState extends State<CiZone> {
     );
   }
 }
+
+
+
+
+///old
+// void _pickLocation() async {
+//   final pickedLocation = await Navigator.of(context).push<LatLng>(
+//     MaterialPageRoute(
+//       builder: (context) =>
+//           MapScreen(
+//             initialLocation: _selectedLocation,
+//
+//             onLocationPicked: (location) {
+//               setState(() {
+//                 _selectedLocation = location;
+//                 _latitude = location.latitude;
+//                 _longitude = location.longitude;
+//                 // Update _location with the new values
+//                 _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+//                 print("Selected LatLong :: ${_latitude} + ${_longitude}");
+//                 // _selectedLocation = location;
+//                 // print("Selected LatLong :: ${_selectedLocation
+//                 //     .latitude} + ${_selectedLocation.longitude}");
+//               });
+//             },
+//           ),
+//     ),
+//   );
+//
+//   if (pickedLocation != null) {
+//     setState(() {
+//       _selectedLocation = pickedLocation;
+//       _latitude = pickedLocation.latitude;
+//       _longitude = pickedLocation.longitude;
+//       _location = 'Lat: ${_latitude!.toStringAsFixed(4)}, Long: ${_longitude!.toStringAsFixed(4)}';
+//       // _selectedLocation = pickedLocation;
+//     });
+//   }
+// }

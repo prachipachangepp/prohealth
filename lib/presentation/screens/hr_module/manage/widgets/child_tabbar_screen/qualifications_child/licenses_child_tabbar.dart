@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_licences_popup.dart';
@@ -47,19 +51,15 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FutureBuilder<List<SelectDocuments>>(
-                future: selectDocument(context),
+            FutureBuilder<List<CiOrgDocumentCC>>(
+                future: getORGDoc(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                 builder: (context,snapshot) {
                   if(snapshot.connectionState == ConnectionState.waiting){
-                    return Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Container(
-                          width: 350,
+                    return  Container(
+                          width: 200,
                           height: 30,
-                          decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                        )
-                    );
+                          decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
+                        );
                   }
                   if (snapshot.data!.isEmpty) {
                     return Center(
@@ -73,8 +73,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                     for(var i in snapshot.data!){
                       dropDownMenuItems.add(
                         DropdownMenuItem<String>(
-                          child: Text(i.docName),
-                          value: i.docName,
+                          child: Text(i.name),
+                          value: i.name,
                         ),
                       );
                     }
@@ -83,8 +83,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                         initialValue: dropDownMenuItems[0].value,
                         onChange: (val){
                           for(var a in snapshot.data!){
-                            if(a.docName == val){
-                              docType = a.docName;
+                            if(a.name == val){
+                              docType = a.name;
                               docName = docType;
                               //docMetaId = docType;
                             }
@@ -100,9 +100,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                 }
             ),
             SizedBox(width: 20),
+            ///Add button
             Container(
               width: 100,
-              margin: EdgeInsets.only(right: 20),
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
                   icon: Icons.add,
@@ -119,7 +120,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                             countryController: countryController,
                             numberIDController: numberIDController,
                             onpressedClose: () {
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
                             },
                             onpressedSave: () async {
                               await addLicensePost(context, countryController.text, widget.employeeId!, expiryDateController.text, issueDateController.text,
@@ -127,19 +128,16 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                               Navigator.pop(context);
                             },
                             title: 'Add Licence',
-                            child: FutureBuilder<List<SelectDocuments>>(
-                                future: selectDocument(context),
+                            child: FutureBuilder<List<CiOrgDocumentCC>>(
+                                future: getORGDoc(context, AppConfig.corporateAndCompliance, AppConfig.subDocId1Licenses, 1, 200),
                                 builder: (context,snapshot) {
                                   if(snapshot.connectionState == ConnectionState.waiting){
-                                    return Shimmer.fromColors(
-                                        baseColor: Colors.grey[300]!,
-                                        highlightColor: Colors.grey[100]!,
-                                        child: Container(
-                                          width: 350,
+                                    return Container(
+                                          width: 200,
                                           height: 30,
-                                          decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                        )
-                                    );
+                                          decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
+                                        );
+
                                   }
                                   if (snapshot.data!.isEmpty) {
                                     return Center(
@@ -153,8 +151,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     for(var i in snapshot.data!){
                                       dropDownMenuItems.add(
                                         DropdownMenuItem<String>(
-                                          child: Text(i.docName),
-                                          value: i.docName,
+                                          child: Text(i.name),
+                                          value: i.name,
                                         ),
                                       );
                                     }
@@ -163,8 +161,8 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                         initialValue: dropDownMenuItems[0].value,
                                         onChange: (val){
                                           for(var a in snapshot.data!){
-                                            if(a.docName == val){
-                                              docType = a.docName;
+                                            if(a.name == val){
+                                              docType = a.name;
                                               docName = docType;
                                               //docMetaId = docType;
                                             }
@@ -238,67 +236,70 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           color: Colors.white,
                           borderRadius: const BorderRadius.all(Radius.circular(12)),
                         ),
-                        height:  MediaQuery.of(context).size.height/3.3,
+                        // height:  MediaQuery.of(context).size.height/3.5,
+                        height: MediaQuery.of(context).size.height/3.9,
+                        padding: EdgeInsets.all(5),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: MediaQuery.of(context).size.width / 80,
                             vertical: MediaQuery.of(context).size.height / 120,
                           ),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                                Row(
                                 children: [
-                                  Text('License #${snapshot.data![index].licenseId}',
-                                    style: TextStyle(
-                                      fontFamily: 'FiraSans',
+                                  Text(
+                                    'License #${index + 1}',
+                                    // 'License #${snapshot.data![index].licenseId}',
+                                    style: GoogleFonts.firaSans(
                                       fontSize: 13,
                                       color: Color(0xFF333333),
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeightManager.medium,
                                     ),),
                                 ],
                               ),
-                              SizedBox(height: MediaQuery.of(context).size.height/50,),
-                              Row(
+                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Licensure/Certification',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('Licensure/Certification :',
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                       const SizedBox(height: 10,),
-                                      Text('Issuing Organization',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('Issuing Organization :',
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                       const SizedBox(height: 10,),
-                                      Text('Country',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('Country :',
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                       const SizedBox(height: 10,),
-                                      Text('Number/ID',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('Number/ID :',
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                     ],),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(snapshot.data![index].licenure,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                       const SizedBox(height: 10,),
                                       Text(snapshot.data![index].org,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                       const SizedBox(height: 10,),
                                       Text(snapshot.data![index].country,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                       const SizedBox(height: 10,),
                                       Text(snapshot.data![index].licenseNumber,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                     ],
                                   ),
                                   Column(
                                     children: [
-                                      Text('Issue Date',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('Issue Date :',
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                       const SizedBox(height: 10,),
-                                      Text('End Date',
-                                          style: ThemeManager.customTextStyle(context)),
+                                      Text('End Date :',
+                                          style: ThemeManagerDark.customTextStyle(context)),
                                       const SizedBox(height: 50,)
                                     ],
                                   ),
@@ -306,37 +307,38 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(snapshot.data![index].issueDate,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                       const SizedBox(height: 10,),
                                       Text(snapshot.data![index].expData,
-                                        style: ThemeManagerDark.customTextStyle(context),),
+                                        style: ThemeManagerDarkFont.customTextStyle(context),),
                                       const SizedBox(height: 50,)
 
                                     ],
                                   ),
                                 ],
                               ),
-                              SizedBox(height: MediaQuery.of(context).size.height/40,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  snapshot.data![index].approved == false ?
-                                  CustomIconButton(text: 'Reject', color: ColorManager.white,textColor: ColorManager.blueprime,onPressed: () async{
-                                    await rejectLicensePatch(context, snapshot.data![index].licenseId);
-                                  }) :SizedBox() ,
-                                  const SizedBox(width: 5,),
-                                  snapshot.data![index].approved == true ?
-                                  Text('Approved',
-                                      textAlign: TextAlign.center,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                          fontSize: FontSize.s12,
-                                          fontWeight: FontWeightManager.bold,
-                                          color: ColorManager.blueprime)) :  CustomIconButton(
-                                      text: 'Approve', onPressed: () async{
-                                    await approveLicensePatch(context, snapshot.data![index].licenseId);
-                                  })
-                                ],
-                              )
+
+                              ///approve reject button
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.end,
+                              //   children: [
+                              //     snapshot.data![index].approved == false ?
+                              //     CustomIconButton(text: 'Reject', color: ColorManager.white,textColor: ColorManager.blueprime,onPressed: () async{
+                              //       await rejectLicensePatch(context, snapshot.data![index].licenseId);
+                              //     }) :SizedBox() ,
+                              //     const SizedBox(width: 5,),
+                              //     snapshot.data![index].approved == true ?
+                              //     Text('Approved',
+                              //         textAlign: TextAlign.center,
+                              //         style: CustomTextStylesCommon.commonStyle(
+                              //             fontSize: FontSize.s12,
+                              //             fontWeight: FontWeightManager.bold,
+                              //             color: ColorManager.blueprime)) :  CustomIconButton(
+                              //         text: 'Approve', onPressed: () async{
+                              //       await approveLicensePatch(context, snapshot.data![index].licenseId);
+                              //     })
+                              //   ],
+                              // )
                             ],
                           ),
                         ),

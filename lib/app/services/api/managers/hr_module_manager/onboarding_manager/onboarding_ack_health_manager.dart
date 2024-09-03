@@ -15,7 +15,6 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
     final response = await Api(context)
         .get(path: OnboardingQualificationRepo.getAckHealthRecord(
         EmpDocTypeMetaDataId: EmpDocTypeMetaDataId,
-        EmpDocTypeSetupId: EmpDocTypeSetupId,
         employeeId: employeeId,
         approveOnly: approveOnly
     ));
@@ -35,12 +34,6 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
             Expiry: item['Expiry'] ?? '--',
             DocumentType: item['DocumentType'] ?? '--',
               approved: item['approved'])
-          // EmployeeDocTabModal(
-          //   employeeDocType: item['EmployeeDocumentType']== null ?"null" :item['EmployeeDocumentType'],
-          //   employeeDocMetaDataId: item['EmployeeDocumentTypeMetaDataId']== null ? 0 :item['EmployeeDocumentTypeMetaDataId'],
-          //   success: true,
-          //   message: response.statusMessage!,
-          // ),
            );
         print(".....Get ack Health......$response");
       }
@@ -119,7 +112,7 @@ Future<ApiData> batchApproveOnboardAckHealthPatch(BuildContext context,List<int>
     var response = await Api(context).patch(
       path: OnboardingQualificationRepo.batchApproveAckHealthRecord(),
       data:  {
-        "employeeDocumentId": employeeDocumentId.map((id) => id.toString()).toList(),
+        "Ids": employeeDocumentId.map((id) => id).toList(),
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -149,7 +142,7 @@ Future<ApiData> batchRejectOnboardAckHealthPatch(BuildContext context,List<int> 
     var response = await Api(context).patch(
       path: OnboardingQualificationRepo.batchRejectAckHealthRecord(),
       data:  {
-        "employeeDocumentId": employeeDocumentId.map((id) => id.toString()).toList(),
+        "Ids": employeeDocumentId.map((id) => id.toString()).toList(),
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

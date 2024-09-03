@@ -20,7 +20,8 @@ class AuthManager {
         String? access = response.data['accessToken'];
         String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
         int companyID = response.data['user']['company_id'];
-        TokenManager.setAccessToken(token: access ?? "",username: userName, companyId: companyID);
+        int userId = response.data['user']['userId'];
+        TokenManager.setAccessToken(token: access ?? "",username: userName, companyId: companyID,userID: userId);
         return ApiData(
             success: true,
             message: response.statusMessage ?? "",
@@ -135,7 +136,8 @@ class AuthManager {
         String accessToken = response.data["accessToken"] ?? "";
         String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
         int companyID = response.data['user']['company_id'];
-        TokenManager.setAccessToken(token: accessToken, username: userName, companyId: companyID);
+        int userId = response.data['user']['userId'];
+        TokenManager.setAccessToken(token: accessToken, username: userName, companyId: companyID, userID: userId);
         // Navigator.pushNamed(context, HomeScreen.routeName);
 
         return ApiData(

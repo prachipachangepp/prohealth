@@ -69,9 +69,9 @@ class _MultiStepFormState extends State<MultiStepForm> {
   @override
   Widget build(BuildContext context) {
     return
-      // isCompleted
-      //   ? OnBoardingThankYou()
-      //   :
+      isCompleted
+        ? OnBoardingThankYou()
+        :
     Scaffold(
             backgroundColor: Colors.white,
             appBar: const PreferredSize(
@@ -84,9 +84,8 @@ class _MultiStepFormState extends State<MultiStepForm> {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("     "),
                       Text(
                         "Details",
                         style: GoogleFonts.firaSans(
@@ -96,24 +95,24 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           decoration: TextDecoration.none,
                         ),
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff50B5E5),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          "Save Progress",
-                          style: GoogleFonts.firaSans(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                      // ElevatedButton(
+                      //   style: ElevatedButton.styleFrom(
+                      //     backgroundColor: const Color(0xff50B5E5),
+                      //     foregroundColor: Colors.white,
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(8),
+                      //     ),
+                      //   ),
+                      //   onPressed: () {},
+                      //   child: Text(
+                      //     "Save Progress",
+                      //     style: GoogleFonts.firaSans(
+                      //       fontSize: 14.0,
+                      //       fontWeight: FontWeight.w700,
+                      //       color: Colors.white,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -131,6 +130,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         data: Theme.of(context).copyWith(
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent
                         ),
                         child: Stepper(
                           physics: const ScrollPhysics(),
@@ -222,9 +222,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   width: 140,
                                   child: CustomIconButton(
                                     icon: Icons.arrow_forward_rounded,
-                                    text: isLastStep ? 'Confirm' : 'Continue',
-                                    onPressed: () async {
-                                      details.onStepContinue!();
+                                    text: isLastStep ? 'Submit' : 'Continue',
+                                    onPressed: () async{
+                                      //details.onStepContinue!();
+                                      isLastStep ? Navigator.push(context, MaterialPageRoute(builder: (_)=>OnBoardingThankYou())): details.onStepContinue!();
                                     },
                                   ),
                                 ),
@@ -572,7 +573,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
 //         )
 //       ];
 }
-
+//
 // ElevatedButton.icon(
 //   style: ElevatedButton.styleFrom(
 //     backgroundColor: const Color(0xff1696C8),

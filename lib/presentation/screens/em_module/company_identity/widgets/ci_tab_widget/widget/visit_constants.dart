@@ -14,7 +14,7 @@ class AddVisitPopup extends StatefulWidget {
   final TextEditingController idOfDocumentController;
   final Future<void> Function() onSavePressed;
   final Widget child;
-  final Widget child1;
+  //final Widget child1;
   final String title;
 
   const AddVisitPopup({
@@ -23,7 +23,7 @@ class AddVisitPopup extends StatefulWidget {
     required this.idOfDocumentController,
     required this.onSavePressed,
     required this.child,
-    required this.child1,
+    //required this.child1,
     required this.title,
   });
 
@@ -31,13 +31,29 @@ class AddVisitPopup extends StatefulWidget {
   State<AddVisitPopup> createState() => _AddVisitPopupState();
 }
 
+
 class _AddVisitPopupState extends State<AddVisitPopup> {
   bool isLoading = false;
   bool _isNameOfDocumentValid = true;
+  String _nameOfDocumentErrorText = '';
 
   void _validateInputs() {
     setState(() {
-      _isNameOfDocumentValid = widget.nameOfDocumentController.text.isNotEmpty;
+      final nameOfDocumentText = widget.nameOfDocumentController.text;
+
+      if (nameOfDocumentText.isEmpty) {
+        _isNameOfDocumentValid = false;
+        _nameOfDocumentErrorText = 'Please Enter Type of Visit';
+      } else if (nameOfDocumentText.isNotEmpty &&
+          nameOfDocumentText[0] != nameOfDocumentText[0].toUpperCase())
+      {
+        _isNameOfDocumentValid = false;
+        _nameOfDocumentErrorText = 'First letter must be capitalized';
+      }
+      else {
+        _isNameOfDocumentValid = true;
+        _nameOfDocumentErrorText = '';
+      }
     });
   }
 
@@ -47,7 +63,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s300,
+        height: AppSize.s330,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -55,7 +71,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
         child: Column(
           children: [
             Container(
-              height: 40,
+              height: AppSize.s40,
               width: AppSize.s400,
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
@@ -68,14 +84,17 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.title,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 13,
-                      fontWeight: FontWeightManager.semiBold,
-                      color: ColorManager.white,
-                      decoration: TextDecoration.none,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 23),
+                    child: Text(
+                      widget.title,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s13,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                   IconButton(
@@ -90,10 +109,10 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: AppSize.s20),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
+                vertical: AppPadding.p5,
                 horizontal: AppPadding.p20,
               ),
               child: Center(
@@ -101,38 +120,42 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SMTextFConst(
-                      controller: widget.nameOfDocumentController,
-                      keyboardType: TextInputType.text,
-                      text: 'Type of Visit',
-                    ),
-                    if (!_isNameOfDocumentValid)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          'Please enter some text',
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 12,
-                          ),
+                    // TextField with Validation Message
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FirstSMTextFConst(
+                          controller: widget.nameOfDocumentController,
+                          keyboardType: TextInputType.text,
+                          text: 'Type of Visit',
                         ),
-                      ),
+                        if (!_isNameOfDocumentValid)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: Text(
+                              _nameOfDocumentErrorText,
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: FontSize.s12,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                     SizedBox(height: AppSize.s30),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Eligible Clinician',
+                          'Select Eligible Clinician',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: FontWeight.w700,
                             color: ColorManager.mediumgrey,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: AppSize.s5),
                         widget.child,
-                        SizedBox(height: 5),
-                        widget.child1,
                       ],
                     ),
                   ],
@@ -141,7 +164,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
+              padding: const EdgeInsets.only(bottom: AppPadding.p30),
               child: Center(
                 child: isLoading
                     ? CircularProgressIndicator(
@@ -150,7 +173,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                     : CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.add,
+                  text: AppStringEM.save,
                   onPressed: () async {
                     _validateInputs();
                     if (_isNameOfDocumentValid) {

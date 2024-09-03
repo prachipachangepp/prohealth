@@ -138,9 +138,9 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
 
   Widget _buildDialogTitle() {
     return Container(
-      height: 34,
+      height: AppSize.s34,
       decoration: BoxDecoration(
-        color: Color(0xff50B5E5),
+        color: ColorManager.blueprime,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(12),
           topRight: Radius.circular(12),
@@ -155,8 +155,8 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
               widget.labelName,
               style: GoogleFonts.firaSans(
                 fontSize: FontSize.s14,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
+                fontWeight: FontWeightManager.bold,
+                color: ColorManager.white,
               ),
             ),
           ),
@@ -164,7 +164,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.close, color: Colors.white),
+            icon: Icon(Icons.close, color: ColorManager.white),
           ),
         ],
       ),
@@ -183,7 +183,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
           text: labelText,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter valid details';
+              return 'Please Enter valid details';
             }
             return null;
           },
@@ -191,10 +191,10 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: Text(
-            controller.text.isEmpty ? 'Please enter some text' : '',
+            controller.text.isEmpty ? 'Please Enter some text' : '',
             style: TextStyle(
-              color: Colors.red,
-              fontSize: 12,
+              color: ColorManager.red,
+              fontSize: FontSize.s12,
             ),
           ),
         ),

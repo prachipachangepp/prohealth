@@ -1,6 +1,9 @@
 class ProgressBarRepository{
 
   static String grneralpage ="/employees/add";
+  static String uploadEmployeePhoto = "/employees/attach-photobase64";
+
+  static String educationDocument = "/employee-educations/attach-documentbase64";
 
  static String employmentpage ="/employee-employment-histories/add";
 
@@ -8,7 +11,7 @@ class ProgressBarRepository{
 
  static String  referencepage  ="/reference/add";
 
-
+ static String empI9 = "/employee-i9/add";
  static String licensespage   = "/employee-licenses/add";
 
  static String   bankingpage  = "/employee-bankings/add";
@@ -18,7 +21,8 @@ class ProgressBarRepository{
 
 static String verifyuserpopup = "/auth/Otp";
 
-
+static String addLegalDocument = "/employee-legal-document/add";
+static String uploadLegalDocument = "/employee-legal-document/attach-docbase64";
 ///patch api
   ///
   static String educationscreen  ="/employee-educations";
@@ -38,23 +42,27 @@ static String verifyuserpopup = "/auth/Otp";
  static  String licensesformprifill ="/employee-licenses";
 
 
-   String getEmployeeByEmpID({required int employeeID} ){
+   static String getEmployeeByEmpID({required int employeeID} ){
     return "$educationformprifill/ByemployeeId/$employeeID/no";
   }
+  static String uploadEmployeePhotoBase64({required int employeeID} ){
+    return "$uploadEmployeePhoto/$employeeID";
+  }
 
-  String getEmploymentByEmpID({required int employeeID} ){
+  static String getEmploymentByEmpID({required int employeeID} ){
     return "$employmentformprifill/ByemployeeId/$employeeID/no";
   }
 
-  String getReferenceByEmpID({required int employeeID} ){
+  static String getReferenceByEmpID({required int employeeID} ){
     return "$referenceformprifill/ByemployeeId/$employeeID/no";
   }
 
-  String getBankingByEmpID({required int employeeID} ){
+  static String getBankingByEmpID({required int employeeID} ){
     return "$bankingformprifill/ByemployeeId/$employeeID/no";
 
 
-  }  String getLicensesByEmpID({required int employeeID} ){
+  }
+  static String getLicensesByEmpID({required int employeeID} ){
     return "$licensesformprifill/ByemployeeId/$employeeID/no";
   }
 
@@ -82,6 +90,15 @@ static String postlicensesscreen(){
  static String postbankingscreen(){
     return "$bankingpage";
  }
+  static String uploadEducationDocument({required int educationId, required String documentName}){
+    return "$educationDocument/$educationId/$documentName";
+  }
+  static String uploadLegalDocumentBase64({required int legalDocumentId}){
+    return "$uploadLegalDocument/$legalDocumentId";
+  }
+  static String addLegalDocumentForm(){
+    return "$addLegalDocument";
+  }
 
 
 
@@ -113,8 +130,8 @@ static String postverifyuser(){
 
  ///degree dropdown
 
-  static String patchEmployeeDegree({required int degreeId }){
-    return "$educationdegree/$degreeId";
+  static String getEmployeeDegreeDropDown(){
+    return "$educationdegree";
   }
 
 
@@ -122,6 +139,9 @@ static String postverifyuser(){
 
   static String educationformget({required int educationId }){
     return "$educationformprifill/$educationId";
+  }
+  static String addEmployeeI9Form(){
+    return "$empI9";
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -44,8 +45,7 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      'Reject',
+                    child: Text(AppString.reject,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
@@ -58,7 +58,8 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close, color: ColorManager.white),
+                    icon: Icon(Icons.close,
+                        color: ColorManager.white),
                   ),
                 ],
               ),
@@ -73,7 +74,7 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                   Text(
                     "Do you really want to reject the selected files?",
                     style: GoogleFonts.firaSans(
-                      fontSize: 14,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.regular,
                       color: ColorManager.mediumgrey,
                     ),
@@ -89,22 +90,21 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SizedBox(
-                    width: 100,
+                    width: AppSize.s100,
                     child: ElevatedButton(
                       onPressed: widget.onCancel,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Color(0xff1696C8),
-                        side: BorderSide(color: Color(0xff1696C8)),
+                        backgroundColor: ColorManager.white,
+                        foregroundColor: ColorManager.bluebottom,
+                        side: BorderSide(color: ColorManager.bluebottom),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
-                        'Cancel',
+                      child: Text(AppString.cancel,
                         style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w700,
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeightManager.bold,
                         ),
                       ),
                     ),
@@ -115,17 +115,16 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                     child: ElevatedButton(
                       onPressed: widget.onReject,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff1696C8),
-                        foregroundColor: Colors.white,
+                        backgroundColor: ColorManager.bluebottom,
+                        foregroundColor: ColorManager.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
-                        'Yes',
+                      child: Text(AppString.yes,
                         style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w700,
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeightManager.bold,
                         ),
                       ),
                     ),
@@ -175,7 +174,7 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 35,
+              height: AppSize.s35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -210,7 +209,7 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                   Text(
                     "Do you really want to approve this?",
                     style: GoogleFonts.firaSans(
-                      fontSize: 14,
+                      fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.regular,
                       color: ColorManager.mediumgrey,
                     ),
@@ -226,43 +225,41 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SizedBox(
-                    width: 100,
+                    width: AppSize.s100,
                     child: ElevatedButton(
                       onPressed: widget.onCancel,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Color(0xff1696C8),
-                        side: BorderSide(color: Color(0xff1696C8)),
+                        backgroundColor: ColorManager.white,
+                        foregroundColor: ColorManager.bluebottom,
+                        side: BorderSide(color: ColorManager.bluebottom),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
-                        'Cancel',
+                      child: Text(AppString.cancel,
                         style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w700,
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeightManager.bold,
                         ),
                       ),
                     ),
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width / 75),
                   SizedBox(
-                    width: 100,
+                    width: AppSize.s100,
                     child: ElevatedButton(
                       onPressed: widget.onApprove,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff1696C8),
-                        foregroundColor: Colors.white,
+                        backgroundColor: ColorManager.bluebottom,
+                        foregroundColor: ColorManager.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
-                        'Yes',
+                      child: Text(AppString.yes,
                         style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w700,
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeightManager.bold,
                         ),
                       ),
                     ),

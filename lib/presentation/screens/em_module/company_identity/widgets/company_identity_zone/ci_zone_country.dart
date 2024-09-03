@@ -26,9 +26,6 @@ class CIZoneCountry extends StatefulWidget {
 }
 
 class _CIZoneCountryState extends State<CIZoneCountry> {
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
   TextEditingController countynameController = TextEditingController();
   TextEditingController zipcodeController = TextEditingController();
   TextEditingController mapController = TextEditingController();
@@ -40,18 +37,18 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 20;
-    items = List.generate(60, (index) => 'Item ${index + 1}');
-
   }
 
+  int currentPage = 1;
+  final int itemsPerPage = 10;
+  final int totalPages = 5;
+  void onPageNumberPressed(int pageNumber) {
+    setState(() {
+      currentPage = pageNumber;
+    });
+  }
     @override
   Widget build(BuildContext context) {
-      List<String> currentPageItems = items.sublist(
-        (currentPage - 1) * itemsPerPage,
-        min(currentPage * itemsPerPage, items.length),
-      );
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -127,7 +124,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    AppString.dataNotFound,
+                    "No available counties !!",
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,
@@ -137,172 +134,173 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                 );
               }
               if (snapshot.hasData) {
-                return
-          ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                int serialNumber =
-                    index + 1 + (currentPage - 1) * itemsPerPage;
-                String formattedSerialNumber =
-                serialNumber.toString().padLeft(2, '0');
+                int totalItems = snapshot.data!.length;
+                int totalPages = (totalItems / itemsPerPage).ceil();
+                List<AllCountyGet> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // SizedBox(height: 5),
-                    Padding(
-                      padding: const EdgeInsets.all(AppPadding.p8),
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color: ColorManager.white,
-                            borderRadius: BorderRadius.circular(4),
-                            boxShadow: [
-                              BoxShadow(
-                                color: ColorManager.black.withOpacity(0.25),
-                                spreadRadius: 0,
-                                blurRadius: 4,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
+                    Expanded(
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: paginatedData.length,
+                          itemBuilder: (context, index) {
+                            int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                            String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                            AllCountyGet county = paginatedData[index];
+                            return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // SizedBox(height: 5),
+                          Padding(
+                            padding: const EdgeInsets.all(AppPadding.p8),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color: ColorManager.white,
+                                  borderRadius: BorderRadius.circular(4),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: ColorManager.black.withOpacity(0.25),
+                                      spreadRadius: 0,
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                height: AppSize.s56,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                             formattedSerialNumber,
+                                            style: AllHRTableData.customTextStyle(context)
+                                          ),
+                                        ),
+                                      ),
+                                      // Text(''),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                              county.countyName.toString(),
+                                          textAlign:TextAlign.center,
+                                            style: AllHRTableData.customTextStyle(context)
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                              county.zoneName.toString(),
+                                            style: AllHRTableData.customTextStyle(context)
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              IconButton(onPressed: (){
+                                                showDialog(context: context, builder: (context){
+                                                  return FutureBuilder<CountyPrefillGet>(
+                                                    future: countyPrefillGet(context,county.countyId),
+                                                    builder: (context,snapshotPrefill) {
+                                                      if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                        return Center(
+                                                          child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                                        );
+                                                      }
+                                                      var countyName = snapshotPrefill.data!.countyName;
+                                                      countynameController = TextEditingController(text:snapshotPrefill.data!.countyName );
+
+                                                      var stateName = snapshotPrefill.data!.state;
+                                                      stateController = TextEditingController(text: snapshotPrefill.data!.state);
+
+                                                      var countryName = snapshotPrefill.data!.country;
+                                                      countyController = TextEditingController(text:snapshotPrefill.data!.country);
+
+
+                                                      return CIZoneAddPopup(
+                                                        onSavePressed: ()async{
+                                                          await updateCounty(context, county.countyId,
+                                                              countyName == countynameController.text ? countyName.toString() : countynameController.text,
+                                                              stateName == stateController.text ? stateName.toString() :  stateController.text,
+                                                              countryName == countyController.text ? countryName.toString() : countyController.text,
+                                                              "37.0902°",
+                                                              "95.7129°", widget.companyID, widget.officeId);
+                                                          getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
+                                                            _contyController.add(data);
+                                                          }).catchError((error){});
+                                                        },
+                                                        title: 'Edit County',
+                                                        title1: 'State Name',
+                                                        countynameController: stateController,
+                                                        title2: 'Country Name',
+                                                        zipcodeController: countyController,
+                                                        title3: 'County Name',
+                                                        mapController: countynameController,
+                                                        );
+                                                    }
+                                                  );
+                                                });
+                                              }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                              IconButton(onPressed: (){
+                                                showDialog(context: context, builder: (context) => DeletePopup(
+                                                    title: 'Delete Country',
+                                                    onCancel: (){
+                                                  Navigator.pop(context);
+                                                }, onDelete: ()async{
+                                                  await deleteCounty(context, county.countyId);
+                                                  getZoneBYcompOffice(context, '18', 1, 15).then((data){
+                                                    _contyController.add(data);
+                                                  }).catchError((error){});
+                                                }));
+                                              }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )),
                           ),
-                          height: AppSize.s56,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceAround,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                       formattedSerialNumber,
-                                      style: AllHRTableData.customTextStyle(context)
-                                    ),
-                                  ),
-                                ),
-                                // Text(''),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                        snapshot.data![index].countyName.toString(),
-                                    textAlign:TextAlign.center,
-                                      style: AllHRTableData.customTextStyle(context)
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                        snapshot.data![index].zoneName.toString(),
-                                      style: AllHRTableData.customTextStyle(context)
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        IconButton(onPressed: (){
-                                          showDialog(context: context, builder: (context){
-                                            return FutureBuilder<CountyPrefillGet>(
-                                              future: countyPrefillGet(context,snapshot.data![index].countyId),
-                                              builder: (context,snapshotPrefill) {
-                                                if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                  return Center(
-                                                    child: CircularProgressIndicator(color: ColorManager.blueprime,),
-                                                  );
-                                                }
-                                                var countyName = snapshotPrefill.data!.countyName;
-                                                countynameController = TextEditingController(text:snapshotPrefill.data!.countyName );
-
-                                                var stateName = snapshotPrefill.data!.state;
-                                                stateController = TextEditingController(text: snapshotPrefill.data!.state);
-
-                                                var countryName = snapshotPrefill.data!.country;
-                                                countyController = TextEditingController(text:snapshotPrefill.data!.country);
-
-
-                                                return CIZoneAddPopup(
-                                                  onSavePressed: ()async{
-                                                    await updateCounty(context, snapshot.data![index].countyId,
-                                                        countyName == countynameController.text ? countyName.toString() : countynameController.text,
-                                                        stateName == stateController.text ? stateName.toString() :  stateController.text,
-                                                        countryName == countyController.text ? countryName.toString() : countyController.text,
-                                                        "37.0902°",
-                                                        "95.7129°", widget.companyID, widget.officeId);
-                                                    getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
-                                                      _contyController.add(data);
-                                                    }).catchError((error){});
-                                                  },
-                                                  title: 'Edit County',
-                                                  title1: 'State Name',
-                                                  countynameController: stateController,
-                                                  title2: 'Country Name',
-                                                  zipcodeController: countyController,
-                                                  title3: 'County Name',
-                                                  mapController: countynameController,
-                                                  );
-                                              }
-                                            );
-                                          });
-                                        }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                        IconButton(onPressed: (){
-                                          showDialog(context: context, builder: (context) => DeletePopup(
-                                              title: 'Delete Country',
-                                              onCancel: (){
-                                            Navigator.pop(context);
-                                          }, onDelete: ()async{
-                                            await deleteCounty(context, snapshot.data![index].countyId);
-                                            getZoneBYcompOffice(context, '18', 1, 15).then((data){
-                                              _contyController.add(data);
-                                            }).catchError((error){});
-                                          }));
-                                        }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )),
+                        ],
+                      );
+                                    }),
+                    ),
+                    // Pagination Controls
+                    PaginationControlsWidget(
+                      currentPage: currentPage,
+                      items: snapshot.data!,
+                      itemsPerPage: itemsPerPage,
+                      onPreviousPagePressed: () {
+                        setState(() {
+                          currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                        });
+                      },
+                      onPageNumberPressed: (pageNumber) {
+                        setState(() {
+                          currentPage = pageNumber;
+                        });
+                      },
+                      onNextPagePressed: () {
+                        setState(() {
+                          currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+                        });
+                      },
                     ),
                   ],
                 );
-              });
     }
-  return const Offstage();
+  return Offstage();
 },
 ),
         ),
-        // const SizedBox(
-        //   height: AppSize.s10,
-        // ),
-        // PaginationControlsWidget(
-        //   currentPage: currentPage,
-        //   items: items,
-        //   itemsPerPage: itemsPerPage,
-        //   onPreviousPagePressed: () {
-        //     /// Handle previous page button press
-        //     setState(() {
-        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
-        //     });
-        //   },
-        //   onPageNumberPressed: (pageNumber) {
-        //     /// Handle page number tap
-        //     setState(() {
-        //       currentPage = pageNumber;
-        //     });
-        //   },
-        //   onNextPagePressed: () {
-        //     /// Handle next page button press
-        //     setState(() {
-        //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
-        //           ? currentPage + 1
-        //           : (items.length / itemsPerPage).ceil();
-        //     });
-        //   },
-        // ),
       ],
     );
   }

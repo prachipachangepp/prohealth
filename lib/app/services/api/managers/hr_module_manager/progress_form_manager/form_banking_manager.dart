@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/api_offer.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
-import 'package:prohealth/app/services/encode_decode_base64.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/progress_form_data/form_banking_data.dart';
@@ -10,7 +11,7 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-Future<ApiDataRegister> postbankingscreen(
+Future<ApiDataRegister> postbankingscreenData(
     BuildContext context,
     int employeeId,
     String accountNumber,
@@ -40,7 +41,7 @@ Future<ApiDataRegister> postbankingscreen(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("banking Added");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Banking data saved")),
+        SnackBar(content: Text("Banking data saved"),backgroundColor: Colors.green,),
       );
       var bankResponse = response.data;
       var banckingId = bankResponse['empBankingId'];
@@ -107,8 +108,7 @@ Future<ApiData> uploadcheck({
 
 
 
-////get prifill api
-
+///get prifill api
 Future<List<BankingDataForm>> getBankingForm(
     BuildContext context, int employeeId) async {
   String convertIsoToDayMonthYear(String isoDate) {
@@ -128,12 +128,12 @@ Future<List<BankingDataForm>> getBankingForm(
   List<BankingDataForm> itemsData = [];
   try {
     final response = await ApiOffer(context).get(
-        path: ProgressBarRepository()
+        path: ProgressBarRepository
             .getBankingByEmpID(employeeID: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         //String startDateFormattedDate = item['startDate'] == null ? "--" :convertIsoToDayMonthYear(item['expDate']);
-        //String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        String FormattedDate = convertIsoToDayMonthYear(item['effectiveDate']);
         itemsData.add(BankingDataForm(
           empBankingId: item['empBankingId']??00,
           employeeId: item['employeeId']??00,
@@ -141,7 +141,7 @@ Future<List<BankingDataForm>> getBankingForm(
           bankName: item['bankName']??"--",
           amountRequested: item['amountRequested']??00,
           checkUrl: item['checkUrl']??"--",
-          effectiveDate: item['effectiveDate']??"--",
+          effectiveDate: FormattedDate,
           routingNumber: item['routingNumber']??"--",
           type: item['type']??"--",
           requestedPercentage: item['requestedPercentage']??"--",

@@ -4,24 +4,36 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../app/resources/color.dart';
 import '../../../app/resources/font_manager.dart';
+import '../../../app/resources/value_manager.dart';
 import '../../screens/home_module/home_screen.dart';
 import '../widgets/const_appbar/controller.dart';
 
-class AppBarWeb extends StatelessWidget {
+class AppBarWeb extends StatefulWidget {
   AppBarWeb({super.key, required this.headingText});
-  final HRController hrController = Get.put(HRController());
   final String headingText;
 
+  @override
+  State<AppBarWeb> createState() => _AppBarWebState();
+}
+
+class _AppBarWebState extends State<AppBarWeb> {
+  final HRController hrController = Get.put(HRController());
+
+  String? _selectedValue;
+
   String? loginName = '';
-  Future<String> user() async{
+
+  Future<String> user() async {
     loginName = await TokenManager.getUserName();
     //loginName = userName;
     print("UserName login ${loginName}");
     return loginName!;
   }
+
   @override
   Widget build(BuildContext context) {
     //user();
@@ -37,7 +49,7 @@ class AppBarWeb extends StatelessWidget {
           children: [
             ///logo
             Container(
-              width: 200,
+              width: AppSize.s200,
               // color: Colors.white,
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               child: Image.asset(
@@ -133,8 +145,8 @@ class AppBarWeb extends StatelessWidget {
                                             ),
                                             Text("KLIP",
                                                 style: GoogleFonts.jost(
-                                                  color: Colors.white,
-                                                  fontSize: 12,
+                                                  color: ColorManager.white,
+                                                  fontSize: FontSize.s12,
                                                   fontWeight: FontWeight.w400,
                                                   decoration:
                                                       TextDecoration.none,
@@ -157,7 +169,7 @@ class AppBarWeb extends StatelessWidget {
                                       ),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(18),
-                                        color: Colors.white,
+                                        color: ColorManager.white,
                                         boxShadow: const [
                                           BoxShadow(
                                             color: Color(0x40000000),
@@ -171,7 +183,7 @@ class AppBarWeb extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            headingText,
+                                            widget.headingText,
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w700,
@@ -180,7 +192,7 @@ class AppBarWeb extends StatelessWidget {
                                             ),
                                           ),
                                           const SizedBox(
-                                            width: 10,
+                                            width: AppSize.s10,
                                           ),
                                           AppClickableWidget(
                                             onTap: () {
@@ -204,13 +216,13 @@ class AppBarWeb extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(
-                                      width: 10,
+                                      width: AppSize.s10,
                                     ),
 
                                     ///add button
                                     Container(
-                                      width: 33,
-                                      height: 33,
+                                      width: AppSize.s33,
+                                      height: AppSize.s33,
                                       decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         boxShadow: [
@@ -224,12 +236,21 @@ class AppBarWeb extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: AppClickableWidget(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const HomeScreen()));
+                                          onTap: () async {
+                                            //const url = "http://localhost:52425/#/home";
+                                            const url =
+                                                "https://staging.symmetry.care/#/home";
+                                            if (await canLaunch(url)) {
+                                              await launch(url);
+                                              //    Navigator.push(
+                                              //      context,
+                                              //      MaterialPageRoute(
+                                              //       builder: (context) => OnBoardingWelcome(),
+                                              //     ),
+                                              //    );
+                                            } else {
+                                              throw 'Could not launch $url';
+                                            }
                                           },
                                           onHover: (bool val) {},
                                           child: const Icon(
@@ -246,10 +267,6 @@ class AppBarWeb extends StatelessWidget {
                               ],
                             ),
                           ),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width / 8,
-                          // ),
-
                           Expanded(
                             flex: 2,
                             child: Row(
@@ -307,6 +324,7 @@ class AppBarWeb extends StatelessWidget {
 
                                 MediaQuery.of(context).size.width >= 1024
                                     ?
+
                                     ///dropdown
                                     Expanded(
                                         flex: 3,
@@ -325,85 +343,57 @@ class AppBarWeb extends StatelessWidget {
                                                 color: Colors.white, width: 2),
                                             color: Colors.transparent,
                                           ),
-                                          child: Obx(
-                                            () => Center(
-                                              child: DropdownButton<String>(
-                                                icon: Icon(
-                                                  Icons.arrow_drop_down,
-                                                  size: 15,
+                                          child: Center(
+                                            child: DropdownButton<String>(
+                                              underline: Container(),
+                                              icon: Icon(
+                                                Icons.arrow_drop_down,
+                                                size: 15,
+                                                color: Colors.white,
+                                              ),
+                                              value: _selectedValue,
+                                              hint: Text(
+                                                'Role',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600,
                                                   color: Colors.white,
                                                 ),
-                                                dropdownColor:
-                                                    ColorManager.white,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s10,
-                                                  fontWeight: hrController
-                                                          .selectedItem
-                                                          .value
-                                                          .isNotEmpty
-                                                      ? FontWeight.bold
-                                                      : FontWeight.w500,
-                                                  color: hrController
-                                                          .selectedItem
-                                                          .value
-                                                          .isNotEmpty
-                                                      ? ColorManager
-                                                          .textPrimaryColor
-                                                      : const Color(0xff9B9B9B),
-                                                ),
-                                                underline: Container(),
-                                                value: hrController
-                                                    .selectedItem.value,
-                                                onChanged: (String? newValue) {
-                                                  if (newValue != null) {
-                                                    hrController
-                                                        .changeSelectedItem(
-                                                            newValue);
-                                                  }
-                                                },
-                                                items: [
-                                                  'Admin',
-                                                  'Staff',
-                                                  'Patient'
-                                                ]
-                                                    .map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                      (String value) =>
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                        value: value,
-                                                        child: Text(
-                                                          value,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                            color: hrController
-                                                                        .selectedItem
-                                                                        .value ==
-                                                                    value
-                                                                ? ColorManager
-                                                                    .white
-                                                                : const Color(
-                                                                    0xff9B9B9B),
-                                                            fontFamily:
-                                                                'FiraSans',
-                                                            fontSize:
-                                                                FontSize.s10,
-                                                            fontWeight:
-                                                                FontWeight.w200,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )
-                                                    .toList(),
                                               ),
+                                              items: <String>[
+                                                'Admin',
+                                                'Staff',
+                                                'Patient'
+                                              ].map((String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: GoogleFonts.firaSans(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: _selectedValue ==
+                                                              value
+                                                          ? Colors.white
+                                                          : ColorManager.white,
+                                                    ),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: (String? newValue) {
+                                                setState(() {
+                                                  _selectedValue = newValue;
+                                                });
+                                              },
+                                              dropdownColor:
+                                                  ColorManager.blueprime,
                                             ),
                                           ),
                                         ),
                                       )
                                     : SizedBox(
-                                        width: 1,
+                                        width: AppSize.s1,
                                       ),
                                 // SizedBox(
                                 //   width: MediaQuery.of(context).size.width / 50,
@@ -455,7 +445,8 @@ class AppBarWeb extends StatelessWidget {
                                         onTap: () {},
                                         onHover: (bool val) {},
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 3),
                                           child: const Center(
                                             child: Icon(
                                               Icons.notifications_none_outlined,
@@ -465,13 +456,16 @@ class AppBarWeb extends StatelessWidget {
                                         ),
                                       ),
 
-                                      SizedBox(width: 18), //width between the notifications_none_outlined & settings_outlined icon
+                                      SizedBox(
+                                          width: AppSize
+                                              .s15), //width between the notifications_none_outlined & settings_outlined icon
 
                                       AppClickableWidget(
                                         onTap: () {},
                                         onHover: (bool val) {},
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4, vertical: 3),
                                           child: const Center(
                                             child: Icon(
                                               Icons.settings_outlined,
@@ -484,7 +478,6 @@ class AppBarWeb extends StatelessWidget {
                                   ),
                                 ),
 
-
                                 // SizedBox(
                                 //   width: MediaQuery.of(context).size.width / 50,
                                 // ),
@@ -493,24 +486,29 @@ class AppBarWeb extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.person,color:Colors.white,),
-                                      const SizedBox(height: 2),
-                                      FutureBuilder(
-                                        future: user(),
-                                        builder: (context,snap) {
-                                          if(snap.connectionState == ConnectionState.waiting){
-                                            return SizedBox();
-                                          }
-                                          return Text(
-                                            loginName!,
-                                            style: GoogleFonts.firaSans(
-                                              color: Colors.white,
-                                              fontSize: FontSize.s9,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          );
-                                        }
+                                      Icon(
+                                        Icons.person,
+                                        color: Colors.white,
                                       ),
+                                      const SizedBox(height: AppSize.s2),
+                                      FutureBuilder(
+                                          future: user(),
+                                          builder: (context, snap) {
+                                            if (snap.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return SizedBox();
+                                            }
+                                            return Text(
+                                              loginName!,
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.firaSans(
+                                                color: Colors.white,
+                                                fontSize: FontSize.s8,
+                                                fontWeight:
+                                                    FontWeightManager.regular,
+                                              ),
+                                            );
+                                          }),
                                     ],
                                   ),
                                 ),

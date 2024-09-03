@@ -7,8 +7,8 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/timeoff_manager.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/timeoff_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/timeoff_child/edit_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/timeoff_child/inkewell_text_const.dart';
@@ -22,7 +22,6 @@ class TimeOffHeadTabbar extends StatefulWidget {
 }
 
 class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
-  late CompanyIdentityManager _companyManager;
   TextEditingController ptoController = TextEditingController();
   TextEditingController _controllerStartDate = TextEditingController();
   TextEditingController _controllerEndDate = TextEditingController();
@@ -45,7 +44,6 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
     currentPage = 1;
     itemsPerPage = 20;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    _companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
 
@@ -81,91 +79,96 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
           }
           if (snapshot.hasData) {
             return Container(
+
               height: MediaQuery.of(context).size.height / 1,
               child: Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height/40,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                                DateFormat('MM/dd/yyyy').format(pickedDate);
-                            _controllerStartDate.text = formattedDate;
-                          }
-                        },
-                        icon: Icon(
-                          Icons.calendar_month,
-                          color: Color(0xff686464),
-                          size: 18,
-                        ),
-                        label: Text(
-                          _controllerStartDate.text == "" ?'Start Date':_controllerStartDate.text,
-                          style: GoogleFonts.roboto(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickedDate != null) {
+                              String formattedDate =
+                                  DateFormat('MM/dd/yyyy').format(pickedDate);
+                              _controllerStartDate.text = formattedDate;
+                            }
+                          },
+                          icon: Icon(
+                            Icons.calendar_month,
+                            color: ColorManager.granitegray,
+                            size: 18,
+                          ),
+                          label: Text(
+                            _controllerStartDate.text == "" ?'Start Date':_controllerStartDate.text,
+                            style: GoogleFonts.roboto(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.medium,
+                              color: ColorManager.granitegray,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorManager.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              side: BorderSide(color: Color(0xffB6B6B6)),
+                            ),
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(color: Color(0xffB6B6B6)),
+                        SizedBox(width: AppSize.s10),
+                        ElevatedButton.icon(
+                          onPressed: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickedDate != null) {
+                              String formattedDate =
+                                  DateFormat('MM/dd/yyyy').format(pickedDate);
+                              _controllerEndDate.text = formattedDate;
+                            }
+                          },
+                          icon: Icon(
+                            Icons.calendar_month,
+                            color: ColorManager.granitegray,
+                            size: AppSize.s18,
+                          ),
+                          label: Text(
+                          _controllerEndDate.text == "" ?'End Date':_controllerEndDate.text,
+                            style: GoogleFonts.roboto(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.medium,
+                              color: ColorManager.granitegray,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorManager.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              side: BorderSide(color: Color(0xffB6B6B6)),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: 10),
-                      ElevatedButton.icon(
-                        onPressed: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                                DateFormat('MM/dd/yyyy').format(pickedDate);
-                            _controllerEndDate.text = formattedDate;
-                          }
-                        },
-                        icon: Icon(
-                          Icons.calendar_month,
-                          color: Color(0xff686464),
-                          size: 18,
-                        ),
-                        label: Text(
-                        _controllerEndDate.text == "" ?'End Date':_controllerEndDate.text,
-                          style: GoogleFonts.roboto(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464),
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(color: Color(0xffB6B6B6)),
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height/40,),
                   Container(
-                    height: 30,
+                    height: AppSize.s30,
+                    margin: EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: ColorManager.grey,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
@@ -179,9 +182,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                               child: Text(
                                 AppString.znNo,
                                 style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.white,
                                   decoration: TextDecoration.none,
                                 ),
                               ),
@@ -190,12 +193,12 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                           Expanded(
                             child: Center(
-                              child: Text('Action',
+                              child: Text(AppString.actions,
                                   //textAlign: TextAlign.start,
                                   style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeightManager.bold,
+                                    color: ColorManager.white,
                                     decoration: TextDecoration.none,
                                   )),
                             ),
@@ -205,21 +208,21 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                               child: Text('Time off Request',
                                   //textAlign: TextAlign.start,
                                   style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeightManager.bold,
+                                    color: ColorManager.white,
                                     decoration: TextDecoration.none,
                                   )),
                             ),
                           ),
                           Expanded(
                             child: Center(
-                              child: Text('Reason',
+                              child: Text(AppString.reason,
                                   //textAlign: TextAlign.start,
                                   style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeightManager.bold,
+                                    color: ColorManager.white,
                                     decoration: TextDecoration.none,
                                   )),
                             ),
@@ -229,9 +232,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                               child: Text('Hours',
                                   //textAlign: TextAlign.start,
                                   style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeightManager.bold,
+                                    color: ColorManager.white,
                                     decoration: TextDecoration.none,
                                   )),
                             ),
@@ -241,9 +244,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                               child: Text('Start Time',
                                   //textAlign: TextAlign.start,
                                   style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeightManager.bold,
+                                    color: ColorManager.white,
                                     decoration: TextDecoration.none,
                                   )),
                             ),
@@ -253,9 +256,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                               child: Text('End Time',
                                   //textAlign: TextAlign.start,
                                   style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeightManager.bold,
+                                    color: ColorManager.white,
                                     decoration: TextDecoration.none,
                                   )),
                             ),
@@ -265,9 +268,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                               child: Text('Sick Time',
                                   //textAlign: TextAlign.start,
                                   style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
+                                    fontSize: FontSize.s12,
+                                    fontWeight: FontWeightManager.bold,
+                                    color: ColorManager.white,
                                     decoration: TextDecoration.none,
                                   )),
                             ),
@@ -276,9 +279,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           Text('  ',
                               textAlign: TextAlign.start,
                               style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeightManager.bold,
+                                color: ColorManager.white,
                                 decoration: TextDecoration.none,
                               )),
                         ],
@@ -286,7 +289,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: AppSize.s10,
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -305,11 +308,11 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                       color: ColorManager.white,
                                       borderRadius: BorderRadius.circular(4),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Color(0xff000000)
+                                          color: ColorManager.black
                                               .withOpacity(0.25),
                                           spreadRadius: 0,
                                           blurRadius: 4,
@@ -317,10 +320,11 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                         ),
                                       ],
                                     ),
-                                    height: 40,
+                                    height: AppSize.s40,
+                                    margin: EdgeInsets.symmetric(horizontal: 9),
                                     child: Stack(children: [
                                       Container(
-                                        width: 10,
+                                        width: AppSize.s10,
                                         color: ColorManager.blueprime,
                                       ),
                                       Padding(
@@ -335,9 +339,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                 child: Text(
                                                   formattedSerialNumber,
                                                   style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
+                                                    fontSize: FontSize.s10,
+                                                    fontWeight: FontWeightManager.medium,
+                                                    color: ColorManager.granitegray,
                                                     decoration:
                                                         TextDecoration.none,
                                                   ),
@@ -355,17 +359,19 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                     //   radius: 10,
                                                     //   child:  Center(child: Icon(Icons.person,color:Colors.grey,)),
                                                     // ),
-                                                    Icon(Icons.person,color:Colors.grey,size: 17,),
+                                                    Icon(Icons.person,color:Colors.grey,size: 15,
+
+                                                    ),
                                                     Text(
                                                       timeOff.employeeName,
                                                       //textAlign: TextAlign.center,
                                                       style:
                                                           GoogleFonts.firaSans(
-                                                        fontSize: 10,
+                                                        fontSize: FontSize.s10,
                                                         fontWeight:
-                                                            FontWeight.w700,
+                                                            FontWeightManager.bold,
                                                         color:
-                                                            Color(0xff686464),
+                                                            ColorManager.granitegray,
                                                         decoration:
                                                             TextDecoration.none,
                                                       ),
@@ -380,9 +386,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                   timeOff.timeOffRequest,
                                                   //textAlign: TextAlign.center,
                                                   style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
+                                                    fontSize: FontSize.s10,
+                                                    fontWeight: FontWeightManager.medium,
+                                                    color: ColorManager.granitegray,
                                                     decoration:
                                                         TextDecoration.none,
                                                   ),
@@ -395,9 +401,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                   timeOff.reson,
                                                   //textAlign: TextAlign.center,
                                                   style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
+                                                    fontSize: FontSize.s10,
+                                                    fontWeight: FontWeightManager.medium,
+                                                    color: ColorManager.granitegray,
                                                     decoration:
                                                         TextDecoration.none,
                                                   ),
@@ -410,9 +416,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                   timeOff.hours,
                                                   //textAlign: TextAlign.center,
                                                   style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
+                                                    fontSize: FontSize.s10,
+                                                    fontWeight: FontWeightManager.medium,
+                                                    color: ColorManager.granitegray,
                                                     decoration:
                                                         TextDecoration.none,
                                                   ),
@@ -425,9 +431,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                   timeOff.startTime,
                                                   //textAlign: TextAlign.center,
                                                   style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
+                                                    fontSize: FontSize.s10,
+                                                    fontWeight: FontWeightManager.medium,
+                                                    color: ColorManager.granitegray,
                                                     decoration:
                                                         TextDecoration.none,
                                                   ),
@@ -440,9 +446,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                   timeOff.endTime,
                                                   //textAlign: TextAlign.center,
                                                   style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
+                                                    fontSize: FontSize.s10,
+                                                    fontWeight: FontWeightManager.medium,
+                                                    color: ColorManager.granitegray,
                                                     decoration:
                                                         TextDecoration.none,
                                                   ),
@@ -455,9 +461,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                   timeOff.sickTime,
                                                   //textAlign: TextAlign.center,
                                                   style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff686464),
+                                                    fontSize: FontSize.s10,
+                                                    fontWeight: FontWeightManager.medium,
+                                                    color: ColorManager.granitegray,
                                                     decoration:
                                                         TextDecoration.none,
                                                   ),
@@ -472,7 +478,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                           .spaceAround,
                                                   children: [
                                                     snapshot.data![index].approved == true ?
-                                                    Text('Approved',
+                                                    Text(AppString.approve,
                                                         textAlign: TextAlign.center,
                                                         style: CustomTextStylesCommon.commonStyle(
                                                             fontSize: FontSize.s12,

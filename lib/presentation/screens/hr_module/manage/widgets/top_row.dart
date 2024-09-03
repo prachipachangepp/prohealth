@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+
+import '../../../../../app/resources/value_manager.dart';
 
 
 
@@ -11,7 +15,7 @@ class TopRowConstant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: AppSize.s60,
       width: double.infinity,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16), // Adjust padding as needed
@@ -20,16 +24,16 @@ class TopRowConstant extends StatelessWidget {
           children: [
             Image.asset(
               'images/powered_logo.png',
-              height: 27, // Specify height if needed
+              height: AppSize.s27, // Specify height if needed
             ),
-            SizedBox(width: 12), // Adjust spacing as needed
+            SizedBox(width: AppSize.s12), // Adjust spacing as needed
             Expanded(
               child: RichText(
                 text: TextSpan(
                   style: GoogleFonts.firaSans(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff686464),
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeightManager.semiBold,
+                    color: ColorManager.granitegray,
                   ),
                   children: [
                     TextSpan(text: 'symmetry'),
@@ -39,18 +43,18 @@ class TopRowConstant extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 12), // Adjust spacing as needed
+            SizedBox(width: AppSize.s12), // Adjust spacing as needed
             SvgPicture.asset(
               'images/face_man.svg',
-              height: 30, // Specify height if needed
+              height: AppSize.s30, // Specify height if needed
             ),
-            SizedBox(width: 12), // Adjust spacing as needed
+            SizedBox(width: AppSize.s12), // Adjust spacing as needed
             RichText(
               text: TextSpan(
                 style: GoogleFonts.firaSans(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xff50B5E5),
+                  fontSize: FontSize.s16,
+                  fontWeight: FontWeightManager.bold,
+                  color: ColorManager.calandercolour,
                   decoration: TextDecoration.underline,
                 ),
                 children: [
@@ -61,7 +65,7 @@ class TopRowConstant extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 20), // Adjust spacing as needed
+            SizedBox(width: AppSize.s20), // Adjust spacing as needed
             Image.asset('images/logo.png',height: 27, ),
           ],
         ),

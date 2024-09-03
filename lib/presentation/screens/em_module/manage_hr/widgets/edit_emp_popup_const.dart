@@ -62,7 +62,15 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Pick a color'),
+          title: Padding(
+            padding: const EdgeInsets.only(left: AppPadding.p20),
+            child: Text('Pick a Color',style: GoogleFonts.firaSans(
+                fontSize: FontSize.s14,
+                fontWeight: FontWeightManager.bold,
+                color: ColorManager.blueprime
+              // color: isSelected ? Colors.white : Colors.black,
+            ),),
+          ),
           content: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -124,7 +132,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(left: 20.0),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(
@@ -153,7 +161,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(height: AppSize.s10,),
-                    SMTextFConst(
+                    FirstSMTextFConst(
                       controller: widget.typeController,
                       keyboardType: TextInputType.text,
                       text: 'Type',
@@ -167,7 +175,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                     SizedBox(
                       height: AppSize.s16,
                     ),
-                    SMTextFConst(
+                    CapitalSMTextFConst(
                       controller: widget.shorthandController,
                       keyboardType: TextInputType.streetAddress,
                       text: 'Abbreviation',
@@ -193,7 +201,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                             decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 2),
+                        SizedBox(height: 5),
                         widget.child,
                       ],
                     ),
@@ -211,7 +219,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                             decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: AppSize.s25),
                         Container(
                           padding: EdgeInsets.all(2),
                           width: 62,
@@ -241,7 +249,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.width / 22,
+                      height: MediaQuery.of(context).size.width / 30,
                     ),
                     Center(
                       child: isLoading

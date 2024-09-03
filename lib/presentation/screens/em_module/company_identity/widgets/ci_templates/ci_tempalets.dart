@@ -24,7 +24,7 @@ class _CiTempaletsState extends State<CiTempalets> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CustomIconButtonConst(
-                  width: 160,
+                  width: 130,
                     icon: Icons.add,
                     text: "Add Template", onPressed: ()
                 {},

@@ -216,7 +216,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
     DateTime dateTime = DateTime.parse(isoDate);
 
     // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('MM-dd-yyyy');
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
@@ -233,6 +233,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
     print("Getting response");
     print("Search response ::: ${response}");
     if (response.statusCode == 200 || response.statusCode == 201) {
+     String DOB = convertIsoToDayMonthYear(response.data['dateOfBirth']);
       itemsData = SearchByEmployeeIdProfileData(
         employeeId: response.data['employeeId']??0,
         code: response.data['code'] ?? '--',
@@ -251,7 +252,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
         regOfficId: response.data['regOfficId'] ?? '--',
         personalEmail: response.data['personalEmail'] ?? '--',
         workEmail: response.data['workEmail'] ?? '--',
-        dateOfBirth: response.data['dateOfBirth'] ?? "--",
+        dateOfBirth: DOB ?? "--",
         emergencyContact: response.data['emergencyContact'] ?? '--',
         covreage: response.data['covreage'] ?? '--',
         employment: response.data['employment'] ?? '--',

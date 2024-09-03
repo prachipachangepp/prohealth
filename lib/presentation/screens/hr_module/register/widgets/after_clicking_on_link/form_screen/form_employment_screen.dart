@@ -2,8 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:html' as html;
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,52 +20,61 @@ import '../../../../../../../data/api_data/hr_module_data/progress_form_data/for
 import '../../../../manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../../../taxtfield_constant.dart';
 
-///
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_employment_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/progress_form_data/form_employment_data.dart';
+import 'dart:convert';
+
+import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 class Employment_screen extends StatefulWidget {
   final int employeeID;
+  final BuildContext context;
   const Employment_screen({
     super.key,
-    required this.context,
-    required this.employeeID,
+    required this.employeeID, required this.context,
   });
-
-  final BuildContext context;
 
   @override
   State<Employment_screen> createState() => _Employment_screenState();
 }
 
 class _Employment_screenState extends State<Employment_screen> {
-  double textFieldWidth = 430;
-  double textFieldHeight = 38;
-
-  TextEditingController firstName = TextEditingController();
-
-  int _currentStep = 0;
-
-  bool isChecked = false;
-
-  // dynamic? filePath;
-  //
-  // var finalPath;
-
-  bool get isFirstStep => _currentStep == 0;
-
-  bool isCompleted = false;
-
-  TextEditingController finalposition = TextEditingController();
-  TextEditingController employer = TextEditingController();
-  TextEditingController rforleaving = TextEditingController();
-  TextEditingController lSupervisorName = TextEditingController();
-  TextEditingController supervisormobnum = TextEditingController();
-  TextEditingController city = TextEditingController();
-
   List<GlobalKey<_EmploymentFormState>> employmentFormKeys = [];
+  bool isVisible = false;
 
   @override
   void initState() {
     super.initState();
-    addEmploymentForm();
+    _loadEmploymentData();
+  }
+
+  Future<void> _loadEmploymentData() async {
+    try {
+      List<EmploymentDataForm> prefilledData = await getEmployeeHistoryForm(context,widget.employeeID);
+      setState(() {
+        employmentFormKeys = List.generate(
+          prefilledData.length,
+              (index) => GlobalKey<_EmploymentFormState>(),
+        );
+      });
+    } catch (e) {
+      print('Error loading employment data: $e');
+    }
   }
 
   void addEmploymentForm() {
@@ -77,23 +88,6 @@ class _Employment_screenState extends State<Employment_screen> {
       employmentFormKeys.remove(key);
     });
   }
-  //
-  // Future<void> postEmploymentScreenData(
-  //     BuildContext context,
-  //     int employeeId,
-  //     String employer,
-  //     String city,
-  //     String reasonForLeaving,
-  //     String supervisorName,
-  //     String supervisorMobileNumber,
-  //     String finalPosition,
-  //     String startDate,
-  //     String endDate,
-  //     ) async {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //      const SnackBar(content: Text("Employment data saved")),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +131,7 @@ class _Employment_screenState extends State<Employment_screen> {
                 index: index + 1,
                 onRemove: () => removeEmploymentForm(key),
                 employeeID: widget.employeeID,
+                isVisible: isVisible,
               );
             }).toList(),
           ),
@@ -147,7 +142,6 @@ class _Employment_screenState extends State<Employment_screen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 ElevatedButton.icon(
-                  onPressed: addEmploymentForm,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff50B5E5),
                     shape: RoundedRectangleBorder(
@@ -163,6 +157,12 @@ class _Employment_screenState extends State<Employment_screen> {
                       color: Colors.white,
                     ),
                   ),
+                  onPressed: () {
+                    setState(() {
+                      isVisible = true;
+                      addEmploymentForm();
+                    });
+                  },
                 ),
               ],
             ),
@@ -175,7 +175,7 @@ class _Employment_screenState extends State<Employment_screen> {
                 width: 117,
                 height: 30,
                 text: 'Save',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'FiraSans',
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
@@ -184,36 +184,30 @@ class _Employment_screenState extends State<Employment_screen> {
                 onPressed: () async {
                   for (var key in employmentFormKeys) {
                     final state = key.currentState!;
-                    await postemploymentscreen(
-                        context,
-                        state.widget.employeeID,
-                        state.employerController.text,
-                        state.cityController.text,
-                        state.reasonForLeavingController.text,
-                        state.supervisorNameController.text,
-                        state.supervisorMobileNumberController.text,
-                        state.finalPositionController.text,
-                        state.startDateController.text,
-                        state.isChecked
-                            ? 'Present'
-                            : state.endDateController.text,
-                        "NA",
-                        "USA");
-                    if (state.finalPath == null || state.finalPath.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              'No file selected. Please select a file to upload.'),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
+                    if (state.finalPath == null || state.finalPath!.isEmpty) {
+                      print("Loading");
                     } else {
                       try {
+                        await postemploymentscreenData(
+                            context,
+                            state.widget.employeeID,
+                            state.employerController.text,
+                            state.cityController.text,
+                            state.reasonForLeavingController.text,
+                            state.supervisorNameController.text,
+                            state.supervisorMobileNumberController.text,
+                            state.finalPositionController.text,
+                            state.startDateController.text,
+                            state.isChecked
+                                ? '0000-00-00'
+                                : state.endDateController.text,
+                            "NA",
+                            "USA");
                         await uploadEmployeeResume(
                           context: context,
                           employeementId: widget.employeeID,
-                          documentFile: state.finalPath,
-                          documentName: state.fileName.toString(),
+                          documentFile: state.finalPath!,
+                          documentName: state.fileName ?? '',
                         );
 
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -223,12 +217,7 @@ class _Employment_screenState extends State<Employment_screen> {
                           ),
                         );
                       } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Failed to upload document: $e'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
+                        print(e);
                       }
                     }
                   }
@@ -242,117 +231,6 @@ class _Employment_screenState extends State<Employment_screen> {
                   ),
                 ),
               ),
-
-              ///
-
-              // CustomButton(
-              //   width: 117,
-              //   height: 30,
-              //   text: 'Save',
-              //   style: TextStyle(
-              //     fontFamily: 'FiraSans',
-              //     fontSize: 12,
-              //     fontWeight: FontWeight.w700,
-              //   ),
-              //   borderRadius: 12,
-              //   onPressed: () async {
-              //     // Loop through each form and extract data to post
-              //     for (var key in employmentFormKeys) {
-              //       final state = key.currentState!;
-              //       await postemploymentscreen(
-              //           context,
-              //           15,
-              //           state.employerController.text,
-              //           state.cityController.text,
-              //           state.reasonForLeavingController.text,
-              //           state.supervisorNameController.text,
-              //           state.supervisorMobileNumberController.text,
-              //           state.finalPositionController.text,
-              //           state.startDateController.text,
-              //           isChecked ? 'Present' : state.endDateController.text);
-              //     }
-              //     for (var key in employmentFormKeys) {
-              //       final state = key.currentState!;
-              //       if (finalPath == null || finalPath.isEmpty) {
-              //         ScaffoldMessenger.of(context).showSnackBar(
-              //           SnackBar(
-              //             content: Text(
-              //                 'No file selected. Please select a file to upload.'),
-              //             backgroundColor: Colors.red,
-              //           ),
-              //         );
-              //       } else {
-              //         try {
-              //           await uploadDocuments(
-              //               context: context,
-              //               employeeDocumentMetaId: 10,
-              //               employeeDocumentTypeSetupId: 48,
-              //               employeeId: 2,
-              //               documentFile: finalPath,
-              //               documentName: 'Legal Document ID');
-              //
-              //           ScaffoldMessenger.of(context).showSnackBar(
-              //             SnackBar(
-              //               content: Text('Document uploaded successfully!'),
-              //               backgroundColor: Colors.green,
-              //             ),
-              //           );
-              //         } catch (e) {
-              //           ScaffoldMessenger.of(context).showSnackBar(
-              //             SnackBar(
-              //               content: Text('Failed to upload document: $e'),
-              //               backgroundColor: Colors.red,
-              //             ),
-              //           );
-              //         }
-              //       }
-              //     }
-              //
-              //     if (finalPath == null || finalPath.isEmpty) {
-              //       ScaffoldMessenger.of(context).showSnackBar(
-              //         SnackBar(
-              //           content: Text(
-              //               'No file selected. Please select a file to upload.'),
-              //           backgroundColor: Colors.red,
-              //         ),
-              //       );
-              //     } else {
-              //       try {
-              //         await uploadDocuments(
-              //             context: context,
-              //             employeeDocumentMetaId: 10,
-              //             employeeDocumentTypeSetupId: 48,
-              //             employeeId: 2,
-              //             documentFile: finalPath,
-              //             documentName: 'Legal Document ID');
-              //
-              //         ScaffoldMessenger.of(context).showSnackBar(
-              //           SnackBar(
-              //             content: Text('Document uploaded successfully!'),
-              //             backgroundColor: Colors.green,
-              //           ),
-              //         );
-              //       } catch (e) {
-              //         ScaffoldMessenger.of(context).showSnackBar(
-              //           SnackBar(
-              //             content: Text('Failed to upload document: $e'),
-              //             backgroundColor: Colors.red,
-              //           ),
-              //         );
-              //       }
-              //     }
-              //
-              //     //employerController.clear();
-              //   },
-              //   child: Text(
-              //     'Save',
-              //     style: GoogleFonts.firaSans(
-              //       fontSize: 12.0,
-              //       fontWeight: FontWeight.w700,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ],
@@ -361,17 +239,20 @@ class _Employment_screenState extends State<Employment_screen> {
   }
 }
 
-/// Emp old
+
 class EmploymentForm extends StatefulWidget {
   final int employeeID;
   final VoidCallback onRemove;
   final int index;
-  EmploymentForm(
-      {Key? key,
-      required this.onRemove,
-      required this.index,
-      required this.employeeID})
-      : super(key: key);
+  final bool isVisible;
+
+  EmploymentForm({
+    Key? key,
+    required this.onRemove,
+    required this.index,
+    required this.employeeID,
+    required this.isVisible,
+  }) : super(key: key);
 
   @override
   _EmploymentFormState createState() => _EmploymentFormState();
@@ -382,8 +263,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
   TextEditingController cityController = TextEditingController();
   TextEditingController reasonForLeavingController = TextEditingController();
   TextEditingController supervisorNameController = TextEditingController();
-  TextEditingController supervisorMobileNumberController =
-      TextEditingController();
+  TextEditingController supervisorMobileNumberController = TextEditingController();
   TextEditingController finalPositionController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
@@ -391,2963 +271,394 @@ class _EmploymentFormState extends State<EmploymentForm> {
 
   List<String> _fileNames = [];
   bool _loading = false;
+  Uint8List? finalPath;
+  String? fileName;
+  int? employementIndex;
 
-  // void _pickFiles() async {
-  //   setState(() {
-  //     _loading = true; // Show loader
-  //     _fileNames.clear(); // Clear previous file names if any
-  //   });
-  //
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //     allowMultiple: true,
-  //   );
-  //
-  //   if (result != null) {
-  //     setState(() {
-  //       _fileNames.addAll(result.files.map((file) => file.name!));
-  //       _loading = false; // Hide loader
-  //     });
-  //     print('Files picked: $_fileNames');
-  //   } else {
-  //     setState(() {
-  //       _loading = false; // Hide loader on cancel
-  //     });
-  //     print('User canceled the picker');
-  //   }
-  // }
-  // Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
-  //   // Create a Blob from the bytes
-  //   final blob = html.Blob([bytes]);
-  //
-  //   // Create an object URL from the Blob
-  //   final url = html.Url.createObjectUrlFromBlob(blob);
-  //
-  //   // Create a File from the Blob
-  //   final file = html.File([blob], fileName);
-  //
-  //   print("XFILE ${url}");
-  //
-  //   // Return the XFile created from the object URL
-  //   return XFile(url);
-  // }
-  //
-  // Future<Uint8List> loadFileBytes() async {
-  //   final directory = await getApplicationDocumentsDirectory();
-  //   final file = File('${directory.path}/somefile.txt');
-  //   if (await file.exists()) {
-  //     return await file.readAsBytes();
-  //   } else {
-  //     throw Exception('File not found');
-  //   }
-  // }
-
-  Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
-    final blob = html.Blob([bytes]);
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    final file = html.File([blob], fileName);
-    return XFile(url);
+  @override
+  void initState() {
+    super.initState();
+    _initializeFormWithPrefilledData();
   }
 
-  bool _documentUploaded = true;
-  var fileName;
-  var fileName1;
-  dynamic? filePath;
-  File? xfileToFile;
-  var finalPath;
+  Future<void> _initializeFormWithPrefilledData() async {
+    try {
+      List<EmploymentDataForm> prefilledData = await getEmployeeHistoryForm(context, widget.employeeID);
+      if (prefilledData.isNotEmpty) {
+        var data = prefilledData[widget.index - 1]; // Assuming index matches the data list
+        setState(() {
+          employerController.text = data.employer ?? '';
+          cityController.text = data.city ?? '';
+          reasonForLeavingController.text = data.reason ?? '';
+          supervisorNameController.text = data.supervisor ?? '';
+          supervisorMobileNumberController.text = data.supMobile ?? '';
+          finalPositionController.text = data.title ?? '';
+          startDateController.text = data.dateOfJoining ?? '';
+          endDateController.text = data.endDate ?? '';
+          isChecked = data.endDate == null;
+          employementIndex = data.employmentId ?? 0;
+
+        });
+      }
+    } catch (e) {
+      print('Failed to load prefilled data: $e');
+    }
+  }
+
+  Future<void> _handleFileUpload() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      final file = result.files.first;
+      setState(() {
+        fileName = file.name;
+        finalPath = file.bytes;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<EmploymentDataForm>>(
-        future: getEmployeeHistoryForm(context, widget.employeeID),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 150),
-                child: CircularProgressIndicator(
-                  color: Color(0xff50B5E5),
-                ),
-              ),
-            );
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 150),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 120),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
                 child: Text(
-                  'Error: ${snapshot.error}',
-                  style: TextStyle(color: Colors.red),
+                  'Upload your resume as a docx or pdf with a maximum size of 2 mb',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w600,
+                    color: ColorManager.mediumgrey,
+                  ),
                 ),
               ),
-            );
-          }
-          if (snapshot.hasData) {
-            List<EmploymentDataForm>? data = snapshot.data;
-            //print{::::::::=> "$snapshot.data"};
-            print(":::::: :=>${snapshot.data!}");
-            //final data = snapshot.data;
-            // Update controllers with API data
-
-            return Container(
-              height: MediaQuery.of(context).size.height / 1,
-              width: MediaQuery.of(context).size.width / 1,
-              child: ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  employerController = TextEditingController(text:snapshot.data![index].employer);
-                  cityController = TextEditingController(text:snapshot.data![index].city);
-                   reasonForLeavingController = TextEditingController(text:snapshot.data![index].reason);
-                   supervisorNameController = TextEditingController(text:snapshot.data![index].supervisor);
-                   supervisorMobileNumberController =
-                  TextEditingController(text:snapshot.data![index].supMobile);
-                   finalPositionController = TextEditingController(text:snapshot.data![index].title);
-                   startDateController = TextEditingController(text:snapshot.data![index].dateOfJoining);
-                   endDateController = TextEditingController(text:snapshot.data![index].endDate);
-
-
-
-
-
-
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 166.0, right: 166),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              SizedBox(width: MediaQuery.of(context).size.width / 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: _handleFileUpload,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff50B5E5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      icon: Icon(Icons.upload, color: Colors.white),
+                      label: Text(
+                        'Upload File',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height:8),
+                    if (fileName != null)
+                      AutoSizeText('Selected file: $fileName',style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        color: ColorManager.mediumgrey,
+                      )),
+                  ],
+                ),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                employementIndex == null ? 'Employment ${widget.index}' :'Employment ${employementIndex}',
+                style: GoogleFonts.firaSans(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff686464),
+                ),
+              ),
+              if (widget.index > 1)
+                IconButton(
+                  icon: Icon(Icons.remove_circle, color: Colors.red),
+                  onPressed: widget.onRemove,
+                ),
+            ],
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Final Position Title',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFieldRegister(
+                      controller: finalPositionController,
+                      hintText: 'Enter Title',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32.0,
+                     // width: MediaQuery.of(context).size.width / 5,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Start Date',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFieldRegister(
+                      controller: startDateController,
+                      hintText: 'dd-mm-yyyy',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32.0,
+                      //width: MediaQuery.of(context).size.width / 5,
+                      suffixIcon: IconButton(
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        icon: Icon(
+                          Icons.calendar_month_outlined,
+                          color: Color(0xff50B5E5),
+                          size: 16,
+                        ),
+                        onPressed: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(2101),
+                          );
+                          if (pickedDate != null) {
+                            startDateController.text = "${pickedDate.toLocal()}".split(' ')[0];
+                          }
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'End Date',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFieldRegister(
+                      controller: endDateController,
+                      hintText: 'dd-mm-yyyy',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32.0,
+                      //width: MediaQuery.of(context).size.width / 5,
+                      suffixIcon: IconButton(
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        icon: Icon(
+                          Icons.calendar_month_outlined,
+                          color: Color(0xff50B5E5),
+                          size: 16,
+                        ),
+                        onPressed: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(2101),
+                          );
+                          if (pickedDate != null || isChecked) {
+                            endDateController.text = "${pickedDate?.toLocal()}".split(' ')[0];
+                          }
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Row(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove_circle,
-                                  color: Colors.red),
-                              onPressed: widget.onRemove,
-                            ),
-                          ],
+                        Checkbox(
+                          activeColor: Color(0xff50B5E5),
+                          value: isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isChecked = value!;
+                              if (isChecked) {
+                                endDateController.clear();
+                              }
+                            });
+                          },
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'Upload your resume as a docx or pdf with a maximum size of 2 mb',
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xff686464),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width / 20),
-                            ElevatedButton.icon(
-                              onPressed: () async {
-                                FilePickerResult? result =
-                                    await FilePicker.platform.pickFiles();
-                                if (result != null) {
-                                  try {
-                                    Uint8List? bytes = result.files.first.bytes;
-                                    XFile xFile = await convertBytesToXFile(
-                                        bytes!, result.files.first.name);
-                                    finalPath = result.files.first.bytes;
-                                    fileName = result.files.first.name;
-                                    setState(() {
-                                      _fileNames.addAll(result.files
-                                          .map((file) => file.name!));
-                                      _loading = false;
-                                    });
-                                  } catch (e) {
-                                    print(e);
-                                  }
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff50B5E5),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
-                              icon: Icon(Icons.upload, color: Colors.white),
-                              label: Text(
-                                'Upload File',
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            _loading
-                                ? SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: CircularProgressIndicator(
-                                      color: ColorManager
-                                          .blueprime, // Loader color
-                                      // Loader size
-                                    ),
-                                  )
-                                : _fileNames.isNotEmpty
-                                    ? Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: _fileNames
-                                            .map((fileName) => Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    'File picked: $fileName',
-                                                    style: GoogleFonts.firaSans(
-                                                        fontSize: 12.0,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color:
-                                                            Color(0xff686464)),
-                                                  ),
-                                                ))
-                                            .toList(),
-                                      )
-                                    : SizedBox(),
-
-                            ///
-                            // ElevatedButton.icon(
-                            //   onPressed: () async {
-                            //     // FilePickerResult? result = await FilePicker.platform.pickFiles(
-                            //     //   allowMultiple: false,
-                            //     // );
-                            //     FilePickerResult? result =
-                            //         await FilePicker.platform.pickFiles();
-                            //     if (result != null) {
-                            //       print("Result::: ${result}");
-                            //
-                            //       try {
-                            //         Uint8List? bytes = result.files.first.bytes;
-                            //         XFile xlfile = XFile(result.xFiles.first.path);
-                            //         xfileToFile = File(xlfile.path);
-                            //
-                            //         print("::::XFile To File ${xfileToFile.toString()}");
-                            //         XFile xFile = await convertBytesToXFile(
-                            //             bytes!, result.xFiles.first.name);
-                            //         // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-                            //         // html.File file = webFile.file;
-                            //         //  print("XFILE ${xFile.path}");
-                            //         //  //filePath = xfileToFile as XFile?;
-                            //         //  print("L::::::${filePath}");
-                            //         _fileNames.addAll(result.files.map((file) => file.name!));
-                            //         print('File picked: ${_fileNames}');
-                            //         //print(String.fromCharCodes(file));
-                            //         finalPath = result.files.first.bytes;
-                            //         setState(() {
-                            //           _fileNames;
-                            //           _documentUploaded = true;
-                            //         });
-                            //       } catch (e) {
-                            //         print(e);
-                            //       }
-                            //     }
-                            //   },
-                            //
-                            //   //_pickFiles,
-                            //   // onPressed: () async {
-                            //   //   FilePickerResult? result =
-                            //   //       await FilePicker.platform.pickFiles(
-                            //   //     allowMultiple: false,
-                            //   //   );
-                            //   //   if (result != null) {
-                            //   //     PlatformFile file = result.files.first;
-                            //   //     print('File picked: ${file.name}');
-                            //   //   } else {
-                            //   //     // User canceled the picker
-                            //   //   }
-                            //   // },
-                            //   style: ElevatedButton.styleFrom(
-                            //     backgroundColor: Color(0xff50B5E5),
-                            //     // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                            //     shape: RoundedRectangleBorder(
-                            //       borderRadius: BorderRadius.circular(8.0),
-                            //     ),
-                            //   ),
-                            //   icon: Icon(Icons.file_upload_outlined, color: Colors.white),
-                            //   label: Text(
-                            //     'Upload Document',
-                            //     style: GoogleFonts.firaSans(
-                            //       fontSize: 14.0,
-                            //       fontWeight: FontWeight.w700,
-                            //       color: Colors.white,
-                            //     ),
-                            //   ),
-                            // ),
-                            // _loading
-                            //     ? SizedBox(
-                            //         width: 25,
-                            //         height: 25,
-                            //         child: CircularProgressIndicator(
-                            //           color: ColorManager.blueprime, // Loader color
-                            //           // Loader size
-                            //         ),
-                            //       )
-                            //     : _fileNames.isNotEmpty
-                            //         ? Column(
-                            //             crossAxisAlignment: CrossAxisAlignment.start,
-                            //             children: _fileNames
-                            //                 .map((fileName) => Padding(
-                            //                       padding: const EdgeInsets.all(8.0),
-                            //                       child: Text(
-                            //                         'File picked: $fileName',
-                            //                         style: GoogleFonts.firaSans(
-                            //                             fontSize: 12.0,
-                            //                             fontWeight: FontWeight.w400,
-                            //                             color: Color(0xff686464)),
-                            //                       ),
-                            //                     ))
-                            //                 .toList(),
-                            //           )
-                            //         : SizedBox(), // Display file names if picked
-                          ],
+                        Text(
+                          'Currently work here',
+                          style: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff686464),
+                          ),
                         ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 30),
-                        Column(
-                          children: [
-                            Text(
-                              'Employment #${snapshot.data![index].employmentId}',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xff686464)),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 20),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              30),
-                                  Text(
-                                    'Final Position Title',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldRegister(
-                                    controller: finalPositionController,
-                                    hintText: 'Enter Text',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
-                                    height: 32,
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              40),
-                                  Text(
-                                    'Start Date',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldRegister(
-                                    controller: startDateController,
-                                    hintText: 'dd-mm-yyyy',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
-                                    height: 32,
-                                    suffixIcon: IconButton(
-                                      icon: Icon(
-                                        Icons.calendar_month_outlined,
-                                        color: Color(0xff50B5E5),
-                                        size: 16,
-                                      ),
-                                      onPressed: () async {
-                                        DateTime? pickedDate =
-                                            await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(2000),
-                                          lastDate: DateTime(2101),
-                                        );
-                                        if (pickedDate != null) {
-                                          startDateController.text =
-                                              "${pickedDate.toLocal()}"
-                                                  .split(' ')[0];
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              40),
-                                  Text(
-                                    'End Date',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldRegister(
-                                    controller: endDateController,
-                                    hintText: 'dd-mm-yyyy',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
-                                    height: 32,
-                                    suffixIcon: IconButton(
-                                      icon: Icon(
-                                        Icons.calendar_month_outlined,
-                                        color: Color(0xff50B5E5),
-                                        size: 16,
-                                      ),
-                                      onPressed: () async {
-                                        DateTime? pickedDate =
-                                            await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(2000),
-                                          lastDate: DateTime(2101),
-                                        );
-                                        if (pickedDate != null ||
-                                            isChecked == true) {
-                                          endDateController.text =
-                                              "${pickedDate?.toLocal()}"
-                                                  .split(' ')[0];
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                        activeColor: Color(0xff50B5E5),
-                                        value: isChecked,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            isChecked = value!;
-                                            if (isChecked) {
-                                              endDateController.clear();
-                                            }
-                                          });
-                                        },
-                                      ),
-                                      Text(
-                                        'Currently work here',
-                                        style: GoogleFonts.firaSans(
-                                            fontSize: 10.0,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff686464)),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              40),
-                                  Text(
-                                    'Employer',
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464)),
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              60),
-                                  CustomTextFieldRegister(
-                                    controller: employerController,
-                                    hintText: 'Enter Text',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
-                                    height: 32,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width / 20),
-                            Expanded(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        40),
-                                Text(
-                                  'Reason for Leaving',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff686464)),
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        60),
-                                CustomTextFieldRegister(
-                                  controller: reasonForLeavingController,
-                                  hintText: 'Enter Text',
-                                  hintStyle: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff9B9B9B),
-                                  ),
-                                  height: 32,
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        40),
-                                Text(
-                                  'Last Supervisor’s Name',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff686464)),
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        60),
-                                CustomTextFieldRegister(
-                                  controller: supervisorNameController,
-                                  hintText: 'Enter Text',
-                                  hintStyle: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff9B9B9B),
-                                  ),
-                                  height: 32,
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        40),
-                                Text(
-                                  'Supervisor’s Mobile Number',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff686464)),
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        60),
-                                CustomTextFieldRegister(
-                                  controller: supervisorMobileNumberController,
-                                  hintText: 'Enter Text',
-                                  hintStyle: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff9B9B9B),
-                                  ),
-                                  height: 32,
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        40),
-                                Text(
-                                  'City',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff686464)),
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        60),
-                                CustomTextFieldRegister(
-                                  controller: cityController,
-                                  hintText: 'Enter Text',
-                                  hintStyle: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff9B9B9B),
-                                  ),
-                                  height: 32,
-                                ),
-                              ],
-                            )),
-                          ],
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 20),
-                        const Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        )
                       ],
                     ),
-                  );
-                },
-              ),
-            );
-          }
+                    SizedBox(height: 16),
+                    Text(
+                      'Employer',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFieldRegister(
+                      controller: employerController,
+                      hintText: 'Enter Text',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32.0,
+                      // width: MediaQuery.of(context).size.width / 5,
+                    ),
 
-          return SizedBox();
-        });
+                  ],
+                ),
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width / 15),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Reason for Leaving',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFieldRegister(
+                      controller: reasonForLeavingController,
+                      hintText: 'Enter Leaving Reason',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32.0,
+                     // width: MediaQuery.of(context).size.width / 5,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Last Supervisor’s Name',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFieldRegister(
+                      controller: supervisorNameController,
+                      hintText: 'Enter Supervisor’s Name',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32.0,
+                      //width: MediaQuery.of(context).size.width / 5,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Supervisor’s Mobile Number',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFieldRegister(
+                      controller: supervisorMobileNumberController,
+                      hintText: 'Enter Mobile Number',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32.0,
+                     // width: MediaQuery.of(context).size.width / 5,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'City',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextFieldRegister(
+                      controller: cityController,
+                      hintText: 'Enter City',
+                      hintStyle: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      height: 32.0,
+                     // width: MediaQuery.of(context).size.width / 5,
+                    ),
+                  ],
+                ),
+              ),
+
+            ],
+          ),
+          // SizedBox(height: 16),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          const Divider(
+            color: Colors.grey,
+            thickness: 2,
+          ),
+
+        ],
+      ),
+    );
   }
 }
 
-//
-//
-//
-//
-// class Employment_screen extends StatefulWidget {
-//   final dynamic filepath;
-//   const Employment_screen({
-//     super.key,
-//     required this.context, this.filepath,
-//   });
-//
-//   final BuildContext context;
-//
-//
-//   @override
-//   State<Employment_screen> createState() => _Employment_screenState();
-// }
-//
-// class _Employment_screenState extends State<Employment_screen> {
-//   double textFieldWidth = 430;
-//   double textFieldHeight = 38;
-//
-//   TextEditingController firstName = TextEditingController();
-//
-//   /////
-//   // TextEditingController _controllersod = TextEditingController();
-//   // TextEditingController _controllereod = TextEditingController();
-//
-//   // Current step in the stepper0[
-//   int _currentStep = 0;
-//
-//   bool isChecked = false;
-//
-//   dynamic? filePath;
-//
-//   var finalPath;
-//
-//   bool get isFirstStep => _currentStep == 0;
-//
-//   bool isCompleted = false;
-//
-//   TextEditingController finalposition = TextEditingController();
-//   TextEditingController employer = TextEditingController();
-//   TextEditingController rforleaving = TextEditingController();
-//   TextEditingController lSupervisorName = TextEditingController();
-//   TextEditingController supervisormobnum = TextEditingController();
-//   TextEditingController city = TextEditingController();
-//
-//   List<GlobalKey<_EmploymentFormState>> employmentFormKeys = [];
-//
-//   // get finalPath {
-//   //   // TODO: implement finalPath
-//   //   throw UnimplementedError();
-//   // }
-//   // dynamic? filePath;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     addEmploymentForm();
-//   }
-//
-//   void addEmploymentForm() {
-//     setState(() {
-//       employmentFormKeys.add(GlobalKey<_EmploymentFormState>());
-//     });
-//   }
-//
-//   void removeEmploymentForm(GlobalKey<_EmploymentFormState> key) {
-//     setState(() {
-//       employmentFormKeys.remove(key);
-//     });
-//   }
-//
-//   Future<void> postemploymentscreendata(
-//     BuildContext context,
-//     int id,
-//     String employer,
-//     String city,
-//     String reasonForLeaving,
-//     String supervisorName,
-//     String supervisorMobileNumber,
-//     String finalPosition,
-//     String startDate,
-//     String endDate,
-//   ) async {
-//     // Your API call logic here
-//     // This is just a placeholder
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(content: Text("Employment data saved")),
-//     );
-//   }
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: EdgeInsets.all(16.0),
-//       child: Column(
-//         children: [
-//           Center(
-//             child: Text(
-//               'Employment',
-//               style: GoogleFonts.firaSans(
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.w700,
-//                 color: Color(0xff50B5E5),
-//               ),
-//             ),
-//           ),
-//           SizedBox(height: MediaQuery.of(context).size.height / 60),
-//           Container(
-//             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-//             decoration: BoxDecoration(
-//               color: Color(0xFFE6F7FF),
-//               borderRadius: BorderRadius.circular(12),
-//             ),
-//             child: Text(
-//               'Your personal details will be required to proceed through the recruitment process.',
-//               style: GoogleFonts.firaSans(
-//                 color: Color(0xFF686464),
-//                 fontSize: 12,
-//                 fontWeight: FontWeight.w500,
-//               ),
-//             ),
-//           ),
-//           SizedBox(height: MediaQuery.of(context).size.height / 20),
-//           Column(
-//             children: employmentFormKeys.asMap().entries.map((entry) {
-//               int index = entry.key;
-//               GlobalKey<_EmploymentFormState> key = entry.value;
-//               return EmploymentForm(
-//                 key: key,
-//                 index: index + 1,
-//                 onRemove: () => removeEmploymentForm(key),
-//               );
-//             }).toList(),
-//           ),
-//           SizedBox(height: MediaQuery.of(context).size.height / 20),
-//           Padding(
-//             padding: const EdgeInsets.only(left: 150),
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.start,
-//               children: [
-//                 ElevatedButton.icon(
-//                   onPressed: addEmploymentForm,
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: Color(0xff50B5E5),
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                   ),
-//                   icon: Icon(Icons.add, color: Colors.white),
-//                   label: Text(
-//                     'Add Experience',
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: 12.0,
-//                       fontWeight: FontWeight.w700,
-//                       color: Colors.white,
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           SizedBox(height: MediaQuery.of(context).size.height / 20),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               CustomButton(
-//                 width: 117,
-//                 height: 30,
-//                 text: 'Save',
-//                 style: TextStyle(
-//                   fontFamily: 'FiraSans',
-//                   fontSize: 12,
-//                   fontWeight: FontWeight.w700,
-//                 ),
-//                 borderRadius: 12,
-//                 onPressed: () async {
-//                   // Loop through each form and extract data to post
-//                   for (var key in employmentFormKeys) {
-//                     final state = key.currentState!;
-//                     await postemploymentscreen(
-//                         context,
-//                         15,
-//                         state.employerController.text,
-//                         state.cityController.text,
-//                         state.reasonForLeavingController.text,
-//                         state.supervisorNameController.text,
-//                         state.supervisorMobileNumberController.text,
-//                         state.finalPositionController.text,
-//                         state.startDateController.text,
-//                         isChecked ? 'Present' : state.endDateController.text);
-//                   }
-//                   for (var key in employmentFormKeys) {
-//                     final state = key.currentState!;
-//                     if (finalPath == null || finalPath.isEmpty) {
-//                       ScaffoldMessenger.of(context).showSnackBar(
-//                         SnackBar(
-//                           content: Text(
-//                               'No file selected. Please select a file to upload.'),
-//                           backgroundColor: Colors.red,
-//                         ),
-//                       );
-//                     } else {
-//                       try {
-//                         await uploadDocuments(
-//                             context: context,
-//                             employeeDocumentMetaId: 10,
-//                             employeeDocumentTypeSetupId: 48,
-//                             employeeId: 2,
-//                             documentFile: finalPath,
-//                             documentName: 'Legal Document ID');
-//
-//                         ScaffoldMessenger.of(context).showSnackBar(
-//                           SnackBar(
-//                             content: Text('Document uploaded successfully!'),
-//                             backgroundColor: Colors.green,
-//                           ),
-//                         );
-//                       } catch (e) {
-//                         ScaffoldMessenger.of(context).showSnackBar(
-//                           SnackBar(
-//                             content: Text('Failed to upload document: $e'),
-//                             backgroundColor: Colors.red,
-//                           ),
-//                         );
-//                       }
-//                     }
-//                   }
-//
-//                   // if (finalPath == null || finalPath.isEmpty) {
-//                   //   ScaffoldMessenger.of(context).showSnackBar(
-//                   //     SnackBar(
-//                   //       content: Text(
-//                   //           'No file selected. Please select a file to upload.'),
-//                   //       backgroundColor: Colors.red,
-//                   //     ),
-//                   //   );
-//                   // } else {
-//                   //   try {
-//                   //     await uploadDocuments(
-//                   //         context: context,
-//                   //         employeeDocumentMetaId: 10,
-//                   //         employeeDocumentTypeSetupId: 48,
-//                   //         employeeId: 2,
-//                   //         documentFile: finalPath,
-//                   //         documentName: 'Legal Document ID');
-//                   //
-//                   //     ScaffoldMessenger.of(context).showSnackBar(
-//                   //       SnackBar(
-//                   //         content: Text('Document uploaded successfully!'),
-//                   //         backgroundColor: Colors.green,
-//                   //       ),
-//                   //     );
-//                   //   } catch (e) {
-//                   //     ScaffoldMessenger.of(context).showSnackBar(
-//                   //       SnackBar(
-//                   //         content: Text('Failed to upload document: $e'),
-//                   //         backgroundColor: Colors.red,
-//                   //       ),
-//                   //     );
-//                   //   }
-//                   // }
-//
-//                   //employerController.clear();
-//                 },
-//                 child: Text(
-//                   'Save',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 12.0,
-//                     fontWeight: FontWeight.w700,
-//                     color: Colors.white,
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-//
-// ///
-// class EmploymentForm extends StatefulWidget {
-//   final VoidCallback onRemove;
-//   final int index;
-//   EmploymentForm({Key? key, required this.onRemove, required this.index})
-//       : super(key: key);
-//
-//   @override
-//   _EmploymentFormState createState() => _EmploymentFormState();
-// }
-//
-// class _EmploymentFormState extends State<EmploymentForm> {
-//   TextEditingController employerController = TextEditingController();
-//   TextEditingController cityController = TextEditingController();
-//   TextEditingController reasonForLeavingController = TextEditingController();
-//   TextEditingController supervisorNameController = TextEditingController();
-//   TextEditingController supervisorMobileNumberController =
-//       TextEditingController();
-//   TextEditingController finalPositionController = TextEditingController();
-//   TextEditingController startDateController = TextEditingController();
-//   TextEditingController endDateController = TextEditingController();
-//   bool isChecked = false;
-//
-//   List<String> _fileNames = [];
-//   bool _loading = false;
-//
-//   void _pickFiles() async {
-//     setState(() {
-//       _loading = true; // Show loader
-//       _fileNames.clear(); // Clear previous file names if any
-//     });
-//
-//     FilePickerResult? result = await FilePicker.platform.pickFiles(
-//       allowMultiple: true,
-//     );
-//
-//     if (result != null) {
-//       setState(() {
-//         _fileNames.addAll(result.files.map((file) => file.name!));
-//         _loading = false; // Hide loader
-//       });
-//       print('Files picked: $_fileNames');
-//     } else {
-//       setState(() {
-//         _loading = false; // Hide loader on cancel
-//       });
-//       print('User canceled the picker');
-//     }
-//   }
-//
-//   ////////////////////////////////////
-//
-//   bool _documentUploaded = true;
-//   var fileName;
-//   var fileName1;
-//   dynamic? filePath;
-//   File? xfileToFile;
-//   var finalPath;
-//   // PlatformFile? fileName;
-//
-//   Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
-//     // Get the directory to save the file.
-//     final blob = html.Blob(bytes);
-//     final url = html.Url.createObjectUrlFromBlob(blob);
-//
-//     // Create the file.
-//     //final anchor = html.AnchorElement(href: url)..setAttribute("download", fileName)..click();
-//     final file = html.File([blob], fileName);
-//     // Write the bytes to the file.
-//     print(file.toString());
-//     return WebFile(file, url);
-//   }
-//
-//   Future<XFile> convertBytesToXFile(Uint8List bytes, String fileName) async {
-//     // Create a Blob from the bytes
-//     final blob = html.Blob([bytes]);
-//
-//     // Create an object URL from the Blob
-//     final url = html.Url.createObjectUrlFromBlob(blob);
-//
-//     // Create a File from the Blob
-//     final file = html.File([blob], fileName);
-//
-//     print("XFILE ${url}");
-//
-//     // Return the XFile created from the object URL
-//     return XFile(url);
-//   }
-//
-//   Future<Uint8List> loadFileBytes() async {
-//     final directory = await getApplicationDocumentsDirectory();
-//     final file = File('${directory.path}/somefile.txt');
-//     if (await file.exists()) {
-//       return await file.readAsBytes();
-//     } else {
-//       throw Exception('File not found');
-//     }
-//   }
-//
-//   ////////////////////////////
-//   ///////
-//   //
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.only(left: 166.0, right: 166),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.end,
-//             children: [
-//               IconButton(
-//                 icon: const Icon(Icons.remove_circle, color: Colors.red),
-//                 onPressed: widget.onRemove,
-//               ),
-//             ],
-//           ),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Expanded(
-//                 child: Text(
-//                   'Upload your resume as a docx or pdf with a maximum size of 2 mb',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 14.0,
-//                     fontWeight: FontWeight.w500,
-//                     color: Color(0xff686464),
-//                   ),
-//                 ),
-//               ),
-//               SizedBox(width: MediaQuery.of(context).size.width / 20),
-//               ElevatedButton.icon(
-//                 onPressed: () async {
-//                   // FilePickerResult? result = await FilePicker.platform.pickFiles(
-//                   //   allowMultiple: false,
-//                   // );
-//                   FilePickerResult? result =
-//                       await FilePicker.platform.pickFiles();
-//                   if (result != null) {
-//                     print("Result::: ${result}");
-//
-//                     try {
-//                       Uint8List? bytes = result.files.first.bytes;
-//                       XFile xlfile = XFile(result.xFiles.first.path);
-//                       xfileToFile = File(xlfile.path);
-//
-//                       print("::::XFile To File ${xfileToFile.toString()}");
-//                       XFile xFile = await convertBytesToXFile(
-//                           bytes!, result.xFiles.first.name);
-//                       // WebFile webFile = await saveFileFromBytes(result.files.first.bytes, result.files.first.name);
-//                       // html.File file = webFile.file;
-//                       //  print("XFILE ${xFile.path}");
-//                       //  //filePath = xfileToFile as XFile?;
-//                       //  print("L::::::${filePath}");
-//                       _fileNames.addAll(result.files.map((file) => file.name!));
-//                       print('File picked: ${_fileNames}');
-//                       //print(String.fromCharCodes(file));
-//                       finalPath = result.files.first.bytes;
-//                       setState(() {
-//                         _fileNames;
-//                         _documentUploaded = true;
-//                       });
-//                     } catch (e) {
-//                       print(e);
-//                     }
-//                   }
-//                 },
-//
-//                 //_pickFiles,
-//                 // onPressed: () async {
-//                 //   FilePickerResult? result =
-//                 //       await FilePicker.platform.pickFiles(
-//                 //     allowMultiple: false,
-//                 //   );
-//                 //   if (result != null) {
-//                 //     PlatformFile file = result.files.first;
-//                 //     print('File picked: ${file.name}');
-//                 //   } else {
-//                 //     // User canceled the picker
-//                 //   }
-//                 // },
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: Color(0xff50B5E5),
-//                   // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(8.0),
-//                   ),
-//                 ),
-//                 icon: Icon(Icons.file_upload_outlined, color: Colors.white),
-//                 label: Text(
-//                   'Upload Document',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 14.0,
-//                     fontWeight: FontWeight.w700,
-//                     color: Colors.white,
-//                   ),
-//                 ),
-//               ),
-//               _loading
-//                   ? SizedBox(
-//                       width: 25,
-//                       height: 25,
-//                       child: CircularProgressIndicator(
-//                         color: ColorManager.blueprime, // Loader color
-//                         // Loader size
-//                       ),
-//                     )
-//                   : _fileNames.isNotEmpty
-//                       ? Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: _fileNames
-//                               .map((fileName) => Padding(
-//                                     padding: const EdgeInsets.all(8.0),
-//                                     child: Text(
-//                                       'File picked: $fileName',
-//                                       style: GoogleFonts.firaSans(
-//                                           fontSize: 12.0,
-//                                           fontWeight: FontWeight.w400,
-//                                           color: Color(0xff686464)),
-//                                     ),
-//                                   ))
-//                               .toList(),
-//                         )
-//                       : SizedBox(), // Display file names if picked
-//             ],
-//           ),
-//           SizedBox(height: MediaQuery.of(context).size.height / 30),
-//           Column(
-//             children: [
-//               Text(
-//                 'Employment #${widget.index}',
-//                 style: GoogleFonts.firaSans(
-//                     fontSize: 14.0,
-//                     fontWeight: FontWeight.w700,
-//                     color: Color(0xff686464)),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: MediaQuery.of(context).size.height / 20),
-//           Row(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     SizedBox(height: MediaQuery.of(context).size.height / 30),
-//                     Text(
-//                       'Final Position Title',
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff686464)),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     CustomTextFieldRegister(
-//                       controller: finalPositionController,
-//                       hintText: 'Enter Text',
-//                       hintStyle: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff9B9B9B),
-//                       ),
-//                       height: 32,
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'Start Date',
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff686464)),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     CustomTextFieldRegister(
-//                       controller: startDateController,
-//                       hintText: 'dd-mm-yyyy',
-//                       hintStyle: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff9B9B9B),
-//                       ),
-//                       height: 32,
-//                       suffixIcon: IconButton(
-//                         icon: Icon(
-//                           Icons.calendar_month_outlined,
-//                           color: Color(0xff50B5E5),
-//                           size: 16,
-//                         ),
-//                         onPressed: () async {
-//                           DateTime? pickedDate = await showDatePicker(
-//                             context: context,
-//                             initialDate: DateTime.now(),
-//                             firstDate: DateTime(2000),
-//                             lastDate: DateTime(2101),
-//                           );
-//                           if (pickedDate != null) {
-//                             startDateController.text =
-//                                 "${pickedDate.toLocal()}".split(' ')[0];
-//                           }
-//                         },
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'End Date',
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff686464)),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     CustomTextFieldRegister(
-//                       controller: endDateController,
-//                       hintText: 'dd-mm-yyyy',
-//                       hintStyle: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff9B9B9B),
-//                       ),
-//                       height: 32,
-//                       suffixIcon: IconButton(
-//                         icon: Icon(
-//                           Icons.calendar_month_outlined,
-//                           color: Color(0xff50B5E5),
-//                           size: 16,
-//                         ),
-//                         onPressed: () async {
-//                           DateTime? pickedDate = await showDatePicker(
-//                             context: context,
-//                             initialDate: DateTime.now(),
-//                             firstDate: DateTime(2000),
-//                             lastDate: DateTime(2101),
-//                           );
-//                           if (pickedDate != null || isChecked == true) {
-//                             endDateController.text =
-//                                 "${pickedDate?.toLocal()}".split(' ')[0];
-//                           }
-//                         },
-//                       ),
-//                     ),
-//                     Row(
-//                       children: [
-//                         Checkbox(
-//                           activeColor: Color(0xff50B5E5),
-//                           value: isChecked,
-//                           onChanged: (bool? value) {
-//                             setState(() {
-//                               isChecked = value!;
-//                               if (isChecked) {
-//                                 endDateController.clear();
-//                               }
-//                             });
-//                           },
-//                         ),
-//                         Text(
-//                           'Currently work here',
-//                           style: GoogleFonts.firaSans(
-//                               fontSize: 10.0,
-//                               fontWeight: FontWeight.w400,
-//                               color: Color(0xff686464)),
-//                         ),
-//                       ],
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'Employer',
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff686464)),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     CustomTextFieldRegister(
-//                       controller: employerController,
-//                       hintText: 'Enter Text',
-//                       hintStyle: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff9B9B9B),
-//                       ),
-//                       height: 32,
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(width: MediaQuery.of(context).size.width / 20),
-//               Expanded(
-//                   child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                   Text(
-//                     'Reason for Leaving',
-//                     style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464)),
-//                   ),
-//                   SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                   CustomTextFieldRegister(
-//                     controller: reasonForLeavingController,
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     height: 32,
-//                   ),
-//                   SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                   Text(
-//                     'Last Supervisor’s Name',
-//                     style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464)),
-//                   ),
-//                   SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                   CustomTextFieldRegister(
-//                     controller: supervisorNameController,
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     height: 32,
-//                   ),
-//                   SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                   Text(
-//                     'Supervisor’s Mobile Number',
-//                     style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464)),
-//                   ),
-//                   SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                   CustomTextFieldRegister(
-//                     controller: supervisorMobileNumberController,
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     height: 32,
-//                   ),
-//                   SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                   Text(
-//                     'City',
-//                     style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464)),
-//                   ),
-//                   SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                   CustomTextFieldRegister(
-//                     controller: cityController,
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     height: 32,
-//                   ),
-//                 ],
-//               )),
-//             ],
-//           ),
-//           SizedBox(height: MediaQuery.of(context).size.height / 20),
-//           const Divider(
-//             color: Colors.grey,
-//             thickness: 2,
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-// Padding(
-//   padding: const EdgeInsets.only(left: 100,right: 100),
-//   child: Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           Text(
-//             'Employment #${widget.index}',
-//             style: GoogleFonts.firaSans(
-//               fontSize: 14.0,
-//               fontWeight: FontWeight.w700,
-//               color: Color(0xff686464),
-//             ),
-//           ),
-//           IconButton(
-//             icon: Icon(Icons.remove_circle, color: Colors.red),
-//             onPressed: widget.onRemove,
-//           ),
-//         ],
-//       ),
-//       SizedBox(height: MediaQuery
-//           .of(context)
-//           .size
-//           .height / 20),
-//       Row(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Final Position Title',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 10.0,
-//                     fontWeight: FontWeight.w400,
-//                     color: Color(0xff686464),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 60),
-//                 TextField(
-//                   controller: finalPositionController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 40),
-//                 Text(
-//                   'Start Date',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 10.0,
-//                     fontWeight: FontWeight.w400,
-//                     color: Color(0xff686464),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 60),
-//                 TextField(
-//                   controller: startDateController,
-//                   decoration: InputDecoration(
-//                     hintText: 'dd-mm-yyyy',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                     suffixIcon: IconButton(
-//                       icon: Icon(
-//                         Icons.calendar_month_outlined,
-//                         color: Color(0xff50B5E5),
-//                         size: 16,
-//                       ),
-//                       onPressed: () async {
-//                         DateTime? pickedDate = await showDatePicker(
-//                           context: context,
-//                           initialDate: DateTime.now(),
-//                           firstDate: DateTime(2000),
-//                           lastDate: DateTime(2101),
-//                         );
-//                         if (pickedDate != null) {
-//                           startDateController.text =
-//                           "${pickedDate.toLocal()}".split(' ')[0];
-//                         }
-//                       },
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 40),
-//                 Text(
-//                   'End Date',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 10.0,
-//                     fontWeight: FontWeight.w400,
-//                     color: Color(0xff686464),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 60),
-//                 TextField(
-//                   controller: endDateController,
-//                   decoration: InputDecoration(
-//                     hintText: 'dd-mm-yyyy',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                     suffixIcon: IconButton(
-//                       icon: const Icon(
-//                         Icons.calendar_month_outlined,
-//                         color: Color(0xff50B5E5),
-//                         size: 16,
-//                       ),
-//                       onPressed: () async {
-//                         DateTime? pickedDate = await showDatePicker(
-//                           context: context,
-//                           initialDate: DateTime.now(),
-//                           firstDate: DateTime(2000),
-//                           lastDate: DateTime(2101),
-//                         );
-//                         if (pickedDate != null) {
-//                           endDateController.text =
-//                           "${pickedDate.toLocal()}".split(' ')[0];
-//                         }
-//                       },
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           SizedBox(width: MediaQuery
-//               .of(context)
-//               .size
-//               .width / 20),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Employer Name',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 10.0,
-//                     fontWeight: FontWeight.w400,
-//                     color: Color(0xff686464),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 60),
-//                 TextField(
-//                   controller: employerController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 40),
-//                 Text(
-//                   'City/State',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 10.0,
-//                     fontWeight: FontWeight.w400,
-//                     color: Color(0xff686464),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 60),
-//                 TextField(
-//                   controller: cityController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 40),
-//                 Text(
-//                   'Reason for Leaving',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 10.0,
-//                     fontWeight: FontWeight.w400,
-//                     color: Color(0xff686464),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 60),
-//                 TextField(
-//                   controller: reasonForLeavingController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//       SizedBox(height: MediaQuery
-//           .of(context)
-//           .size
-//           .height / 40),
-//       Row(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Supervisor Name',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 10.0,
-//                     fontWeight: FontWeight.w400,
-//                     color: Color(0xff686464),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 60),
-//                 TextField(
-//                   controller: supervisorNameController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           SizedBox(width: MediaQuery
-//               .of(context)
-//               .size
-//               .width / 20),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Supervisor Mobile Number',
-//                   style: GoogleFonts.firaSans(
-//                     fontSize: 10.0,
-//                     fontWeight: FontWeight.w400,
-//                     color: Color(0xff686464),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery
-//                     .of(context)
-//                     .size
-//                     .height / 60),
-//                 TextField(
-//                   controller: supervisorMobileNumberController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//       SizedBox(height: MediaQuery
-//           .of(context)
-//           .size
-//           .height / 40),
-//       Row(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Expanded(
-//             child: Row(
-//               children: [
-//                 Checkbox(
-//                   value: isChecked,
-//                   onChanged: (bool? value) {
-//                     setState(() {
-//                       isChecked = value ?? false;
-//                     });
-//                   },
-//                 ),
-//                 Expanded(
-//                   child: Text(
-//                     'Please check this box if you do not want us to contact your employer.',
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff686464),
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//       const Divider(color: Colors.grey,thickness: 2,)
-//     ],
-//   ),
-// );
-/////////////////////////////////////
-/////////////////////
-//////////
-///
-//   Container(
-//   child: Column(
-//     children: [
-//       Center(
-//         child: Text(
-//           'Employment',
-//           style: GoogleFonts.firaSans(
-//               fontSize: 18,
-//               fontWeight: FontWeight.w700,
-//               color: Color(0xff50B5E5)),
-//         ),
-//       ),
-//       SizedBox(height: MediaQuery.of(context).size.height / 60),
-//       Container(
-//         padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-//         decoration: BoxDecoration(
-//           color: Color(0xFFE6F7FF),
-//           borderRadius: BorderRadius.circular(12),
-//         ),
-//         child: Text(
-//           'Your personal details will be required to proceed through the recruitment process.',
-//           style: GoogleFonts.firaSans(
-//             color: Color(0xFF686464),
-//             fontSize: 12,
-//             fontWeight: FontWeight.w500,
-//           ),
-//         ),
-//       ),
-//       SizedBox(height: MediaQuery.of(context).size.height / 20),
-//       Padding(
-//         padding: const EdgeInsets.only(left: 166.0, right: 166),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Expanded(
-//                   child: Text(
-//                     'Upload your resume as a docx or pdf with a maximum size of 2 mb',
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: 14.0,
-//                       fontWeight: FontWeight.w500,
-//                       color: Color(0xff686464),
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                     width: MediaQuery.of(context).size.width / 20),
-//                 ElevatedButton.icon(
-//                   onPressed: _pickFiles,
-//                   // onPressed: () async {
-//                   //   FilePickerResult? result =
-//                   //       await FilePicker.platform.pickFiles(
-//                   //     allowMultiple: false,
-//                   //   );
-//                   //   if (result != null) {
-//                   //     PlatformFile file = result.files.first;
-//                   //     print('File picked: ${file.name}');
-//                   //   } else {
-//                   //     // User canceled the picker
-//                   //   }
-//                   // },
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: Color(0xff50B5E5),
-//                     // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                   ),
-//                   icon: Icon(Icons.file_upload_outlined,
-//                       color: Colors.white),
-//                   label: Text(
-//                     'Upload Document',
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: 14.0,
-//                       fontWeight: FontWeight.w700,
-//                       color: Colors.white,
-//                     ),
-//                   ),
-//                 ),
-//                 _loading
-//                     ? SizedBox(width: 25,
-//                   height: 25,
-//                   child: CircularProgressIndicator(
-//                     color: ColorManager.blueprime, // Loader color
-//                     // Loader size
-//                   ),
-//                 )
-//                     : _fileNames.isNotEmpty
-//                     ? Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: _fileNames
-//                       .map((fileName) => Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: Text(
-//                       'File picked: $fileName',
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 12.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff686464)),
-//                     ),
-//                   ))
-//                       .toList(),
-//                 )
-//                     : SizedBox(), // Display file names if picked
-//
-//               ],
-//             ),
-//             SizedBox(height: MediaQuery.of(context).size.height / 30),
-//             Column(
-//               children: [
-//                 Text(
-//                   'Employment #1',
-//                   style: GoogleFonts.firaSans(
-//                       fontSize: 14.0,
-//                       fontWeight: FontWeight.w700,
-//                       color: Color(0xff686464)),
-//                 ),
-//               ],
-//             ),
-//             SizedBox(height: MediaQuery.of(context).size.height / 20),
-//             Row(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Expanded(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       SizedBox(
-//                           height: MediaQuery.of(context).size.height /
-//                               30),
-//                       Text(
-//                         'Final Position Title',
-//                         style: GoogleFonts.firaSans(
-//                             fontSize: 10.0,
-//                             fontWeight: FontWeight.w400,
-//                             color: Color(0xff686464)),
-//                       ),
-//                       SizedBox(
-//                           height: MediaQuery.of(context).size.height /
-//                               60),
-//                       CustomTextFieldRegister(
-//                        controller: finalposition,
-//                         hintText: 'Enter Text',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         height: 32,
-//                       ),
-//                       SizedBox(
-//                           height: MediaQuery.of(context).size.height /
-//                               40),
-//                       Text(
-//                         'Start Date',
-//                         style: GoogleFonts.firaSans(
-//                             fontSize: 10.0,
-//                             fontWeight: FontWeight.w400,
-//                             color: Color(0xff686464)),
-//                       ),
-//                       SizedBox(
-//                           height: MediaQuery.of(context).size.height /
-//                               60),
-//                       CustomTextFieldRegister(
-//                         controller: _controllersod,
-//                         hintText: 'dd-mm-yyyy',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         height: 32,
-//                         suffixIcon: IconButton(
-//                           icon: Icon(
-//                             Icons.calendar_month_outlined,
-//                             color: Color(0xff50B5E5),
-//                             size: 16,
-//                           ),
-//                           onPressed: () async {
-//                             DateTime? pickedDate =
-//                                 await showDatePicker(
-//                               context: context,
-//                               initialDate: DateTime.now(),
-//                               firstDate: DateTime(2000),
-//                               lastDate: DateTime(2101),
-//                             );
-//                             if (pickedDate != null) {
-//                               _controllersod.text =
-//                                   "${pickedDate.toLocal()}"
-//                                       .split(' ')[0];
-//                             }
-//                           },
-//                         ),
-//                       ),
-//                       SizedBox(
-//                           height: MediaQuery.of(context).size.height /
-//                               40),
-//                       Text(
-//                         'End Date',
-//                         style: GoogleFonts.firaSans(
-//                             fontSize: 10.0,
-//                             fontWeight: FontWeight.w400,
-//                             color: Color(0xff686464)),
-//                       ),
-//                       SizedBox(
-//                           height: MediaQuery.of(context).size.height /
-//                               60),
-//                       CustomTextFieldRegister(
-//                         controller: _controllereod,
-//                         hintText: 'dd-mm-yyyy',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         height: 32,
-//                         suffixIcon: IconButton(
-//                           icon: Icon(
-//                             Icons.calendar_month_outlined,
-//                             color: Color(0xff50B5E5),
-//                             size: 16,
-//                           ),
-//                           onPressed: () async {
-//                             DateTime? pickedDate =
-//                                 await showDatePicker(
-//                               context: context,
-//                               initialDate: DateTime.now(),
-//                               firstDate: DateTime(2000),
-//                               lastDate: DateTime(2101),
-//                             );
-//                             if (pickedDate != null) {
-//                               _controllereod.text =
-//                                   "${pickedDate.toLocal()}"
-//                                       .split(' ')[0];
-//                             }
-//                           },
-//                         ),
-//                       ),
-//                       Row(
-//                         children: [
-//                           Checkbox(
-//                             activeColor: Color(0xff50B5E5),
-//                             value: isChecked,
-//                             onChanged: (bool? value) {
-//                               setState(() {
-//                                 isChecked = value!;
-//                               });
-//                             },
-//                           ),
-//                           Text(
-//                             'Currently work here',
-//                             style: GoogleFonts.firaSans(
-//                                 fontSize: 10.0,
-//                                 fontWeight: FontWeight.w400,
-//                                 color: Color(0xff686464)),
-//                           ),
-//                         ],
-//                       ),
-//                       SizedBox(
-//                           height: MediaQuery.of(context).size.height /
-//                               40),
-//                       Text(
-//                         'Employer',
-//                         style: GoogleFonts.firaSans(
-//                             fontSize: 10.0,
-//                             fontWeight: FontWeight.w400,
-//                             color: Color(0xff686464)),
-//                       ),
-//                       SizedBox(
-//                           height: MediaQuery.of(context).size.height /
-//                               60),
-//                       CustomTextFieldRegister(
-//                         controller: employer,
-//                         hintText: 'Enter Text',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         height: 32,
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 SizedBox(
-//                     width: MediaQuery.of(context).size.width / 20),
-//                 Expanded(
-//                     child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     SizedBox(
-//                         height:
-//                             MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'Reason for Leaving',
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff686464)),
-//                     ),
-//                     SizedBox(
-//                         height:
-//                             MediaQuery.of(context).size.height / 60),
-//                     CustomTextFieldRegister(
-//                       controller: rforleaving,
-//                       hintText: 'Enter Text',
-//                       hintStyle: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff9B9B9B),
-//                       ),
-//                       height: 32,
-//                     ),
-//                     SizedBox(
-//                         height:
-//                             MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'Last Supervisor’s Name',
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff686464)),
-//                     ),
-//                     SizedBox(
-//                         height:
-//                             MediaQuery.of(context).size.height / 60),
-//                     CustomTextFieldRegister(
-//                       controller: lSupervisorName,
-//                       hintText: 'Enter Text',
-//                       hintStyle: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff9B9B9B),
-//                       ),
-//                       height: 32,
-//                     ),
-//                     SizedBox(
-//                         height:
-//                             MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'Supervisor’s Mobile Number',
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff686464)),
-//                     ),
-//                     SizedBox(
-//                         height:
-//                             MediaQuery.of(context).size.height / 60),
-//                     CustomTextFieldRegister(
-//                       controller: supervisormobnum,
-//                       hintText: 'Enter Text',
-//                       hintStyle: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff9B9B9B),
-//                       ),
-//                       height: 32,
-//                     ),
-//                     SizedBox(
-//                         height:
-//                             MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'City',
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff686464)),
-//                     ),
-//                     SizedBox(
-//                         height:
-//                             MediaQuery.of(context).size.height / 60),
-//                     CustomTextFieldRegister(
-//                       controller: city,
-//                       hintText: 'Enter Text',
-//                       hintStyle: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff9B9B9B),
-//                       ),
-//                       height: 32,
-//                     ),
-//                   ],
-//                 )),
-//               ],
-//             ),
-//             SizedBox(height: MediaQuery.of(context).size.height / 20),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.start,
-//               children: [
-//                 ElevatedButton.icon(
-//                   onPressed: () {
-//                     // Handle add education action
-//                   },
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: Color(0xff50B5E5),
-//                     // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                   ),
-//                   icon: Icon(Icons.add, color: Colors.white),
-//                   label: Text(
-//                     'Add Experience ',
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: 14.0,
-//                       fontWeight: FontWeight.w700,
-//                       color: Colors.white,
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//       Row(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//
-//           ElevatedButton(
-//             style: ElevatedButton.styleFrom(
-//               backgroundColor:  Color(0xff1696C8),
-//               foregroundColor: Colors.white,
-//               shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(8),
-//               ),
-//             ),
-//             onPressed:
-//                 () async {
-//              await postemploymentscreen(context, 0, employer.text, city.text,  rforleaving.text, lSupervisorName.text, supervisormobnum.text, finalposition.text, "__", "__");
-//             },
-//             child: Text(
-//               'Save',
-//               style: GoogleFonts.firaSans(
-//                 fontSize: 14.0,
-//                 fontWeight: FontWeight.w700,
-//                 color: Colors.white,
-//               ),
-//             ),
-//
-//           ),
-//         ],
-//       )
-//
-//     ],
-//   ),
-// );
-//
-// class EmploymentForm extends StatefulWidget {
-//   final VoidCallback onRemove;
-//   final int index;
-//   EmploymentForm({Key? key, required this.onRemove, required this.index})
-//       : super(key: key);
-//
-//   @override
-//   _EmploymentFormState createState() => _EmploymentFormState();
-// }
-//
-// class _EmploymentFormState extends State<EmploymentForm> {
-//   TextEditingController employerController = TextEditingController();
-//   TextEditingController cityController = TextEditingController();
-//   TextEditingController reasonForLeavingController = TextEditingController();
-//   TextEditingController supervisorNameController = TextEditingController();
-//   TextEditingController supervisorMobileNumberController =
-//       TextEditingController();
-//   TextEditingController finalPositionController = TextEditingController();
-//   TextEditingController startDateController = TextEditingController();
-//   TextEditingController endDateController = TextEditingController();
-//   bool isChecked = false;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 12.0),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Text(
-//                 'Employment #${widget.index}',
-//                 style: GoogleFonts.firaSans(
-//                   fontSize: 14.0,
-//                   fontWeight: FontWeight.w700,
-//                   color: Color(0xff686464),
-//                 ),
-//               ),
-//               IconButton(
-//                 icon: Icon(Icons.remove_circle, color: Colors.red),
-//                 onPressed: widget.onRemove,
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: MediaQuery.of(context).size.height / 20),
-//           Row(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       'Final Position Title',
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     TextField(
-//                       controller: finalPositionController,
-//                       decoration: InputDecoration(
-//                         hintText: 'Enter Text',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(8.0),
-//                         ),
-//                         contentPadding: EdgeInsets.all(12.0),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'Start Date',
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     TextField(
-//                       controller: startDateController,
-//                       decoration: InputDecoration(
-//                         hintText: 'dd-mm-yyyy',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(8.0),
-//                         ),
-//                         contentPadding: EdgeInsets.all(12.0),
-//                         suffixIcon: IconButton(
-//                           icon: Icon(
-//                             Icons.calendar_month_outlined,
-//                             color: Color(0xff50B5E5),
-//                             size: 16,
-//                           ),
-//                           onPressed: () async {
-//                             DateTime? pickedDate = await showDatePicker(
-//                               context: context,
-//                               initialDate: DateTime.now(),
-//                               firstDate: DateTime(2000),
-//                               lastDate: DateTime(2101),
-//                             );
-//                             if (pickedDate != null) {
-//                               startDateController.text =
-//                                   "${pickedDate.toLocal()}".split(' ')[0];
-//                             }
-//                           },
-//                         ),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'End Date',
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     TextField(
-//                       controller: endDateController,
-//                       decoration: InputDecoration(
-//                         hintText: 'dd-mm-yyyy',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(8.0),
-//                         ),
-//                         contentPadding: EdgeInsets.all(12.0),
-//                         suffixIcon: IconButton(
-//                           icon: Icon(
-//                             Icons.calendar_month_outlined,
-//                             color: Color(0xff50B5E5),
-//                             size: 16,
-//                           ),
-//                           onPressed: () async {
-//                             DateTime? pickedDate = await showDatePicker(
-//                               context: context,
-//                               initialDate: DateTime.now(),
-//                               firstDate: DateTime(2000),
-//                               lastDate: DateTime(2101),
-//                             );
-//                             if (pickedDate != null) {
-//                               endDateController.text =
-//                                   "${pickedDate.toLocal()}".split(' ')[0];
-//                             }
-//                           },
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(width: MediaQuery.of(context).size.width / 20),
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       'Employer Name',
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     TextField(
-//                       controller: employerController,
-//                       decoration: InputDecoration(
-//                         hintText: 'Enter Text',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(8.0),
-//                         ),
-//                         contentPadding: EdgeInsets.all(12.0),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'City/State',
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     TextField(
-//                       controller: cityController,
-//                       decoration: InputDecoration(
-//                         hintText: 'Enter Text',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(8.0),
-//                         ),
-//                         contentPadding: EdgeInsets.all(12.0),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                     Text(
-//                       'Reason for Leaving',
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     TextField(
-//                       controller: reasonForLeavingController,
-//                       decoration: InputDecoration(
-//                         hintText: 'Enter Text',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(8.0),
-//                         ),
-//                         contentPadding: EdgeInsets.all(12.0),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: MediaQuery.of(context).size.height / 40),
-//           Row(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       'Supervisor Name',
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     TextField(
-//                       controller: supervisorNameController,
-//                       decoration: InputDecoration(
-//                         hintText: 'Enter Text',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(8.0),
-//                         ),
-//                         contentPadding: EdgeInsets.all(12.0),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(width: MediaQuery.of(context).size.width / 20),
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       'Supervisor Mobile Number',
-//                       style: GoogleFonts.firaSans(
-//                         fontSize: 10.0,
-//                         fontWeight: FontWeight.w400,
-//                         color: Color(0xff686464),
-//                       ),
-//                     ),
-//                     SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                     TextField(
-//                       controller: supervisorMobileNumberController,
-//                       decoration: InputDecoration(
-//                         hintText: 'Enter Text',
-//                         hintStyle: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B),
-//                         ),
-//                         border: OutlineInputBorder(
-//                           borderRadius: BorderRadius.circular(8.0),
-//                         ),
-//                         contentPadding: EdgeInsets.all(12.0),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: MediaQuery.of(context).size.height / 40),
-//           Row(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Expanded(
-//                 child: Row(
-//                   children: [
-//                     Checkbox(
-//                       value: isChecked,
-//                       onChanged: (bool? value) {
-//                         setState(() {
-//                           isChecked = value ?? false;
-//                         });
-//                       },
-//                     ),
-//                     Expanded(
-//                       child: Text(
-//                         'Please check this box if you do not want us to contact your employer.',
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff686464),
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-
-///
-//   Padding(
-//   padding: const EdgeInsets.symmetric(vertical: 12.0),
-//   child: Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       Text(
-//         'Employment #${widget.key}',
-//         style: GoogleFonts.firaSans(
-//             fontSize: 14.0,
-//             fontWeight: FontWeight.w700,
-//             color: Color(0xff686464)),
-//       ),
-//       SizedBox(height: MediaQuery.of(context).size.height / 20),
-//       Row(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Final Position Title',
-//                   style: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff686464)),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                 TextField(
-//                   controller: finalPositionController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                 Text(
-//                   'Start Date',
-//                   style: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff686464)),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                 TextField(
-//                   controller: startDateController,
-//                   decoration: InputDecoration(
-//                     hintText: 'dd-mm-yyyy',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                     suffixIcon: IconButton(
-//                       icon: Icon(
-//                         Icons.calendar_month_outlined,
-//                         color: Color(0xff50B5E5),
-//                         size: 16,
-//                       ),
-//                       onPressed: () async {
-//                         DateTime? pickedDate = await showDatePicker(
-//                           context: context,
-//                           initialDate: DateTime.now(),
-//                           firstDate: DateTime(2000),
-//                           lastDate: DateTime(2101),
-//                         );
-//                         if (pickedDate != null) {
-//                           startDateController.text =
-//                           "${pickedDate.toLocal()}".split(' ')[0];
-//                         }
-//                       },
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                 Text(
-//                   'End Date',
-//                   style: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff686464)),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                 TextField(
-//                   controller: endDateController,
-//                   decoration: InputDecoration(
-//                     hintText: 'dd-mm-yyyy',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                     suffixIcon: IconButton(
-//                       icon: Icon(
-//                         Icons.calendar_month_outlined,
-//                         color: Color(0xff50B5E5),
-//                         size: 16,
-//                       ),
-//                       onPressed: () async {
-//                         DateTime? pickedDate = await showDatePicker(
-//                           context: context,
-//                           initialDate: DateTime.now(),
-//                           firstDate: DateTime(2000),
-//                           lastDate: DateTime(2101),
-//                         );
-//                         if (pickedDate != null) {
-//                           endDateController.text =
-//                           "${pickedDate.toLocal()}".split(' ')[0];
-//                         }
-//                       },
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                 Row(
-//                   children: [
-//                     Checkbox(
-//                       checkColor: Colors.white,
-//                       activeColor: Color(0xff50B5E5),
-//                       value: isChecked,
-//                       onChanged: (bool? value) {
-//                         setState(() {
-//                           isChecked = value!;
-//                         });
-//                       },
-//                     ),
-//                     Text(
-//                       'Currently Working',
-//                       style: GoogleFonts.firaSans(
-//                           fontSize: 10.0,
-//                           fontWeight: FontWeight.w400,
-//                           color: Color(0xff9B9B9B)),
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//           SizedBox(width: MediaQuery.of(context).size.width / 60),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Employer',
-//                   style: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff686464)),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                 TextField(
-//                   controller: employerController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                 Text(
-//                   'City',
-//                   style: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff686464)),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                 TextField(
-//                   controller: cityController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                 Text(
-//                   'Reason for Leaving',
-//                   style: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff686464)),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                 TextField(
-//                   controller: reasonForLeavingController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                 Text(
-//                   'Supervisor’s Name',
-//                   style: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff686464)),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                 TextField(
-//                   controller: supervisorNameController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-//                 Text(
-//                   'Supervisor’s Mobile Number',
-//                   style: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff686464)),
-//                 ),
-//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-//                 TextField(
-//                   controller: supervisorMobileNumberController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter Text',
-//                     hintStyle: GoogleFonts.firaSans(
-//                       fontSize: 10.0,
-//                       fontWeight: FontWeight.w400,
-//                       color: Color(0xff9B9B9B),
-//                     ),
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(8.0),
-//                     ),
-//                     contentPadding: EdgeInsets.all(12.0),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//       SizedBox(height: MediaQuery.of(context).size.height / 40),
-//       Divider(color: Color(0xFFE6E6E6), thickness: 1.0),
-//     ],
-//   ),
-// );
-
-//
-//
-// ElevatedButton(
-// onPressed: () async {
-// if (soConductFiles.isEmpty && harassmentFiles.isEmpty) {
-// ScaffoldMessenger.of(context).showSnackBar(
-// SnackBar(
-// content: Text('No files selected. Please select files to upload.'),
-// backgroundColor: Colors.red,
-// ),
-// );
-// return;
-// }
-//
-// try {
-// // Upload "Standards Of Conduct" documents
-// for (var file in soConductFiles) {
-// await uploadDocuments(
-// context: context,
-// employeeDocumentMetaId: 10,
-// employeeDocumentTypeSetupId: 48,
-// employeeId: 2,
-// documentFile: file,
-// documentName: 'Standards Of Conduct'
-// );
-// }
-//
-// // Upload "California Sexual Harassment Training" documents
-// for (var file in harassmentFiles) {
-// await uploadDocuments(
-// context: context,
-// employeeDocumentMetaId: 10,
-// employeeDocumentTypeSetupId: 48,
-// employeeId: 2,
-// documentFile: file,
-// documentName: 'California Sexual Harassment Training'
-// );
-// }
-//
-// ScaffoldMessenger.of(context).showSnackBar(
-// SnackBar(
-// content: Text('Documents uploaded successfully!'),
-// backgroundColor: Colors.green,
-// ),
-// );
-// } catch (e) {
-// ScaffoldMessenger.of(context).showSnackBar(
-// SnackBar(
-// content: Text('Failed to upload documents: $e'),
-// backgroundColor: Colors.red,
-// ),
-// );
-// }
-// },
-// style: ElevatedButton.styleFrom(
-// backgroundColor: Color(0xff50B5E5),
-// shape: RoundedRectangleBorder(
-// borderRadius: BorderRadius.circular(8.0),
-// ),
-// ),
-// child: Text(
-// 'Upload All',
-// style: GoogleFonts.firaSans(
-// fontSize: 14.0,
-// fontWeight: FontWeight.w700,
-// color: Colors.white,
-// ),
-// ),
-//),

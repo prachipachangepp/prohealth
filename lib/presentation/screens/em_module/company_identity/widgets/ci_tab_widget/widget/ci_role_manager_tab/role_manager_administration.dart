@@ -42,11 +42,11 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
   @override
   void initState() {
     super.initState();
-    payRatesDataGet(context,1,1,10).then((data) {
-      _roleMDropDownController.add     (data);
-    }).catchError((error) {
-      // Handle error
-    });
+       // payRatesDataGet(context,1,1,10).then((data) {
+    //   _roleMDropDownController.add     (data);
+    // }).catchError((error) {
+    //   // Handle error
+    // });
     roleMabagerMetaData(context).then((data) {
       roleMetaDataAdminController.add(data);
     }).catchError((error) {
@@ -107,11 +107,11 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                                 return Row(
                                   children: [
                                     Container(
-                                      height: 30,
+                                      height: AppSize.s30,
                                       width: 354,
                                       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: ColorManager.white,
                                         border: Border.all(
                                           color: Color(0xff686464).withOpacity(0.5),
                                           width: 1,

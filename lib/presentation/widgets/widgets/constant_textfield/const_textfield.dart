@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 import '../../../../../app/resources/value_manager.dart';
 import '../../../screens/hr_module/register/taxtfield_constant.dart';
@@ -47,7 +49,11 @@ class CustomTextField extends StatelessWidget {
           focusNode: focusNode,
           controller: controller,
           textAlign: TextAlign.start,
-          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
+          style: GoogleFonts.firaSans(
+            fontSize: AppSize.s12,
+            color: ColorManager.mediumgrey,
+            fontWeight: FontWeightManager.regular
+          ),
           textAlignVertical: TextAlignVertical.center,
           cursorHeight: cursorHeight,
           decoration: InputDecoration(
@@ -75,7 +81,8 @@ class CustomTextField extends StatelessWidget {
 ///todo prachi
 class CustomDropdownTextField extends StatefulWidget {
   final String? value;
-  final List<String> items;
+  final List<String>? items;
+  final List<DropdownMenuItem<String>>? dropDownMenuList;
   final String labelText;
   final String? hintText;
   final TextStyle? labelStyle;
@@ -87,8 +94,9 @@ class CustomDropdownTextField extends StatefulWidget {
 
   const CustomDropdownTextField({
     Key? key,
+    this.dropDownMenuList,
     this.value,
-    required this.items,
+    this.items,
     required this.labelText,
     this.labelStyle,
     this.labelFontSize,
@@ -123,7 +131,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
         child: DropdownButtonFormField<String>(
           icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
           value: _selectedValue,
-          items: widget.items.map((String value) {
+          items: widget.dropDownMenuList == null ? widget.items!.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value, style: GoogleFonts.firaSans(
@@ -132,7 +140,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
                 fontWeight: FontWeight.w400,
               ),),
             );
-          }).toList(),
+          }).toList() : widget.dropDownMenuList,
           onChanged: (newValue) {
             setState(() {
               _selectedValue = newValue;
@@ -143,14 +151,14 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
           },
           isExpanded: true,
           decoration: InputDecoration(
+            hoverColor: ColorManager.white,
             contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.black),
             ),
             labelText: widget.labelText,
-            labelStyle:
-                widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
+            labelStyle: widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
           ),
         ),
       ),
@@ -312,16 +320,16 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
             contentPadding: EdgeInsets.only(bottom: AppPadding.p3,
                 top: AppPadding.p5, left: AppPadding.p5),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             labelText: widget.labelText,
-            labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize),
+            labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize,color: ColorManager.mediumgrey),
             errorText: hasError ? widget.errorText : null,
             suffixIcon: Padding(
               padding: const EdgeInsets.only(left: AppPadding.p14),
@@ -396,7 +404,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
+          style: GoogleFonts.firaSans(fontSize: 10,),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -412,16 +420,16 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
             contentPadding: EdgeInsets.only(bottom: AppPadding.p3,
                 top: AppPadding.p5, left: AppPadding.p5),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.mediumgrey),
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
             ),
             labelText: widget.labelText,
-            labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize),
+            labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize,color: ColorManager.mediumgrey),
             errorText: hasError ? widget.errorText : null,
             suffixIcon: Padding(
               padding: const EdgeInsets.only(left: AppPadding.p14),
@@ -482,10 +490,12 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width / 130,
-                  color: Color(0xff686464),
-                ),
+                style:GoogleFonts.firaSans(fontWeight: FontWeightManager.regular, fontSize: 10),
+
+                // TextStyle(
+                //   fontSize: MediaQuery.of(context).size.width / 130,
+                //   color: Color(0xff686464),
+                // ),
               ),
             );
           }).toList(),
@@ -508,13 +518,98 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
             ),
             labelText: widget.labelText,
             labelStyle: widget.labelStyle.copyWith(
-              fontSize: widget.labelFontSize,
+              fontSize: widget.labelFontSize,color: ColorManager.mediumgrey
             ),
 
             // errorText: widget.errorText,
             // validator: validator,
           ),
         ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+class PatientCustomDropDown extends StatefulWidget {
+  final String? value;
+  final List<String> items;
+  final String labelText;
+  final String? hintText;
+  final TextStyle? labelStyle;
+  final double? labelFontSize;
+  final void Function(String?)? onChanged;
+  final double? width;
+  final double? height;
+  final String? initialValue;
+  PatientCustomDropDown({super.key, this.value,
+    required this.items,
+    required this.labelText,
+    this.labelStyle,
+    this.labelFontSize,
+    this.onChanged,
+    this.width,
+    this.height, this.initialValue, this.hintText,});
+
+  @override
+  State<PatientCustomDropDown> createState() => _PatientCustomDropDownState();
+}
+
+class _PatientCustomDropDownState extends State<PatientCustomDropDown> {
+  late String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.value;
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+            color: const Color(0xff686464).withOpacity(0.5),
+            width: 1), // Black border
+        borderRadius:
+        BorderRadius.circular(6), // Rounded corners
+      ),
+      height: 31,
+      padding:
+      const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+      child: DropdownButtonFormField<String>(
+        icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.black),
+        value: _selectedValue,
+        items: widget.items.map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value, style: GoogleFonts.firaSans(
+              fontSize: 12,
+              color: Color(0xff575757),
+              fontWeight: FontWeight.w600,
+            ),),
+          );
+        }).toList(),
+        onChanged: (newValue) {
+          setState(() {
+            _selectedValue = newValue;
+          });
+          if (widget.onChanged != null) {
+            widget.onChanged!(newValue);
+          }
+        },
+          style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: const Color(0xff686464),
+            decoration: TextDecoration.none,
+          ),
+        isExpanded: true,
+        decoration: const InputDecoration.collapsed(hintText: '')
       ),
     );
   }

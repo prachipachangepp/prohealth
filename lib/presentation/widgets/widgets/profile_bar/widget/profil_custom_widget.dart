@@ -6,7 +6,7 @@ import '../../../../../../app/resources/theme_manager.dart';
 ///saloni
 class MyConstants {
   static List<Widget> personalInfoTexts(BuildContext context) {
-    final textStyle = ThemeManagerDark.customTextStyle(context);
+    final textStyle = ThemeManager.customTextStyle(context);
     return [
       Text(
         AppString.age,
@@ -38,7 +38,7 @@ class MyConstants {
 
 class MyConstantsColumn {
   static List<Widget> personalInfoTexts(BuildContext context) {
-    final textStyle = ThemeManagerDark.customTextStyle(context);
+    final textStyle = ThemeManager.customTextStyle(context);
     return [
       Text(
           AppString.personalEmail,

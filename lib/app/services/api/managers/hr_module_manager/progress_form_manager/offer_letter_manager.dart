@@ -3,8 +3,10 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/api_offer.dart';
-import 'package:prohealth/app/services/encode_decode_base64.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/offer_letter_html_data/offer_letter_html.dart';
@@ -25,14 +27,23 @@ Future<OfferLetterData> GetOfferLetter(BuildContext context,
         .get(path: OfferLetterHtmlRepo.getOfferLetterHtml(
         employeeId: employeeId, templateId: templateId));
     if (response.statusCode == 200 || response.statusCode == 201) {
-
         itemsList =
             OfferLetterData(
+              offerId: response.data['offerId'],
                 docUploadStatus: response.data['DocumentUploadStatus'],
                 templateName: response.data['templateName'],
-                template: response.data['template']
+                template: response.data['template'],
+                statusCode: response.statusCode
             );
-    } else {
+    }else if(response.statusCode == 409){
+      itemsList = OfferLetterData(
+          docUploadStatus: "",
+          templateName: "",
+          template: "",
+          statusCode: response.statusCode, offerId: 0
+      );
+    }
+    else {
       print('Api Error');
     }
     print("Response:::::${response}");

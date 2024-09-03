@@ -11,9 +11,9 @@ class ReferenceData {
   final String name;
   final String references;
   final String title;
-  final bool approve;
+   bool? approve;
   ReferenceData({required this.sucess, required this.message,
-    required this.approve,
+     this.approve,
     required this.referenceId,
     required this.association,
     required this.comment,
@@ -39,11 +39,11 @@ class ReferencePrefillData {
   final String name;
   final String references;
   final String title;
-  final bool approve;
+   bool? approve;
   ReferencePrefillData({
     required this.sucess,
     required this.message,
-    required this.approve,
+    this.approve,
     required this.referenceId,
     required this.association,
     required this.comment,

@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/education_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
@@ -48,9 +49,10 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            ///add button
             Container(
               width: 100,
-              margin: EdgeInsets.only(right: 20),
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
                   icon: Icons.add,
@@ -71,7 +73,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                             countryNameController:
                             countryNameController,
                             onpressedClose: () {
-                              Navigator.pop(context);
+
                             },
                             onpressedSave: () async {
                               await addEmployeeEducation(
@@ -167,6 +169,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   padding:const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
                   child: Container(
                     width: MediaQuery.of(context).size.width/2.5,
+                    padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -179,7 +182,8 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    height:  MediaQuery.of(context).size.height/3.3,
+                    // height:  MediaQuery.of(context).size.height/3.3,
+                    height: MediaQuery.of(context).size.height/3.8,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 120,
@@ -189,12 +193,15 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                            Row(children: [
-                             Text('Education #${snapshot.data![index].educationId}',
+                             Text(
+
+                               'Education #${index + 1}',
+                               // 'Education #${snapshot.data![index].educationId}',
                                style: GoogleFonts.firaSans(
                                  // fontFamily: 'FiraSans',
-                                 fontSize: 13,
-                                 color: Colors.black,
-                                 fontWeight: FontWeight.w500,
+                                 fontSize: FontSize.s13,
+                                 color: ColorManager.black,
+                                 fontWeight: FontWeightManager.medium,
                                ),),
                           ],),
                           SizedBox(height: MediaQuery.of(context).size.height/50,),
@@ -204,66 +211,66 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Degree',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('Graduate',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('Educational Institute',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('Major Subject',
-                                      style: ThemeManager.customTextStyle(context)),
+                                  Text('Degree :',
+                                      style: ThemeManagerDark.customTextStyle(context)),
+                                  const SizedBox(height: AppSize.s10,),
+                                  Text('Graduate :',
+                                      style: ThemeManagerDark.customTextStyle(context)),
+                                  const SizedBox(height: AppSize.s10),
+                                  Text('Educational Institute :',
+                                      style: ThemeManagerDark.customTextStyle(context)),
+                                  const SizedBox(height: AppSize.s10),
+                                  Text('Major Subject :',
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(snapshot.data![index].degree,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
+                                  const SizedBox(height: AppSize.s10,),
                                   Text(snapshot.data![index].graduate,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
+                                  const SizedBox(height: AppSize.s10,),
                                   Text(snapshot.data![index].college,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
+                                  const SizedBox(height: AppSize.s10),
                                   Text(snapshot.data![index].major,
-                                    style: ThemeManagerDark.customTextStyle(context),),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text('Phone',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('City',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('State',
-                                      style: ThemeManager.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
-                                  Text('Country',
-                                      style: ThemeManager.customTextStyle(context)),
+                                  Text('Phone :',
+                                      style: ThemeManagerDark.customTextStyle(context)),
+                                  const SizedBox(height: AppSize.s10,),
+                                  Text("City :",
+                                      style: ThemeManagerDark.customTextStyle(context)),
+                                  const SizedBox(height: AppSize.s10),
+                                  Text("State :",
+                                      style: ThemeManagerDark.customTextStyle(context)),
+                                  const SizedBox(height: AppSize.s10),
+                                  Text("Country :",
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(snapshot.data![index].phone,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
+                                  const SizedBox(height: AppSize.s10),
                                   Text(snapshot.data![index].city,
-                                    style: ThemeManagerDark.customTextStyle(context),),
-                                  const SizedBox(height: 10,),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
+                                  const SizedBox(height: AppSize.s10),
                                   Text(snapshot.data![index].state,
-                                      style: ThemeManagerDark.customTextStyle(context)),
-                                  const SizedBox(height: 10,),
+                                      style: ThemeManagerDarkFont.customTextStyle(context)),
+                                  const SizedBox(height: AppSize.s10),
                                   Text(snapshot.data![index].country,
-                                      style: ThemeManagerDark.customTextStyle(context)),
+                                      style: ThemeManagerDarkFont.customTextStyle(context)),
                                 ],
                               ),
                             ],
@@ -271,8 +278,12 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                           SizedBox(height: MediaQuery.of(context).size.height/40,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              BorderIconButton(iconData: Icons.edit_outlined,
+                            children: [snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(
+                              fontSize: MediaQuery.of(context).size.width/120,
+                              color: ColorManager.mediumgrey,
+                              fontWeight: FontWeight.w600,
+                            )):
+                            BorderIconButton(iconData: Icons.edit_outlined,
                                   buttonText: 'Edit', onPressed: (){
                                 showDialog(context: context, builder: (BuildContext context){
                                   return FutureBuilder<EducationPrefillData>(
@@ -338,7 +349,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                               expiryType = '';
                                             },
                                             radioButton:Container(
-                                              width: 280,
+                                              width: AppSize.s280,
                                               child: Row(
                                                 children: [
                                                   Expanded(

@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -35,6 +37,9 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
   final StreamController<List<WorkWeekShiftScheduleData>>
       workWeekShiftController =
       StreamController<List<WorkWeekShiftScheduleData>>();
+  final StreamController<List<ShiftBachesData>>
+  batchStreamController =
+  StreamController<List<ShiftBachesData>>();
   @override
   void initState() {
     super.initState();
@@ -44,6 +49,11 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
       // Handle error
     });
   }
+
+
+  // Future<void> reloadBatch(String shiftName, String weekName) async{
+  //   List<ShiftBachesData> shiftBachesData = await  shiftBatchesGet(context,shiftName,weekName);
+  // }
  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -63,7 +73,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
             if (snapshot.data!.isEmpty) {
               return Center(
                   child: Text(
-                AppString.dataNotFound,
+               "No available work weeks!!",
                 style: CustomTextStylesCommon.commonStyle(
                     fontWeight: FontWeightManager.medium,
                     fontSize: FontSize.s12,
@@ -71,7 +81,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
               ));
             }
             if (snapshot.hasData) {
-
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +111,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                     height: mediaQuery.height / 1,
                                     width: mediaQuery.width / 50,
                                     decoration: BoxDecoration(
-                                        color: ColorManager.faintOrange,
+                                        color: ColorManager.blueprime,
                                         borderRadius: const BorderRadius.only(
                                             topLeft: Radius.circular(10),
                                             bottomLeft: Radius.circular(10))),
@@ -112,7 +121,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                         child: Text(
                                           data.weekDays,
                                           style: GoogleFonts.firaSans(
-                                            fontSize: mediaQuery.width / 90,
+                                            fontSize: 15,
                                             fontWeight: FontWeight.w600,
                                             color: ColorManager.white,
                                             decoration: TextDecoration.none,
@@ -129,7 +138,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                         height: mediaQuery.height / 22.5,
                                         width: mediaQuery.width / 4,
                                         decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey,
+                                            color: Color(0xFFF4F4F4),
                                             borderRadius:
                                                 const BorderRadius.only(
                                               topRight: Radius.circular(10),
@@ -139,28 +148,34 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                               horizontal: 8, vertical: 2),
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                'Office Start Time',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize:
-                                                      mediaQuery.width / 110,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: ColorManager.white,
-                                                  decoration:
-                                                      TextDecoration.none,
+                                              Padding(
+                                                padding: const EdgeInsets.only(left:AppPadding.p10),
+                                                child: Text(
+                                                  'Office Start Time',
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize:
+                                                        13,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.mediumgrey,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
                                                 ),
                                               ),
-                                              Text(
-                                                'Office End Time',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize:
-                                                      mediaQuery.width / 110,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: ColorManager.white,
-                                                  decoration:
-                                                      TextDecoration.none,
+                                              Padding(
+                                                padding: const EdgeInsets.only(right:AppPadding.p50),
+                                                child: Text(
+                                                  'Office End Time',
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize:
+                                                        13,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.mediumgrey,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -208,9 +223,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                   .officeStartTime,
                                                               style: GoogleFonts
                                                                   .firaSans(
-                                                                fontSize: mediaQuery
-                                                                        .width /
-                                                                    115,
+                                                                fontSize: 13,
                                                                 fontWeight:
                                                                     FontWeightManager
                                                                         .semiBold,
@@ -253,9 +266,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                   .officeEndTime,
                                                               style: GoogleFonts
                                                                   .firaSans(
-                                                                fontSize: mediaQuery
-                                                                        .width /
-                                                                    115,
+                                                                fontSize: 13,
                                                                 fontWeight:
                                                                     FontWeightManager
                                                                         .semiBold,
@@ -325,8 +336,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                   _isLoading = false;
                                                                                 });
                                                                               }
-
-
                                                                             });
                                                                   });
                                                             },
@@ -363,7 +372,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                         workWeekShiftScheduleGet(
                                                             context,
                                                             //snapshot.data![index].companyId,
-                                                            snapshot.data![index].officeId,
                                                             data.weekDays),
                                                     builder: (context,
                                                         snapshotShift) {
@@ -384,14 +392,13 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                           .data!.isEmpty) {
                                                         return Center(
                                                             child: Text(
-                                                          AppString
-                                                              .dataNotFound,
+                                                        "No available shift !!",
                                                           style: CustomTextStylesCommon.commonStyle(
                                                               fontWeight:
                                                                   FontWeightManager
                                                                       .medium,
                                                               fontSize:
-                                                                  FontSize.s10,
+                                                                  FontSize.s13,
                                                               color: ColorManager
                                                                   .mediumgrey),
                                                         ));
@@ -437,52 +444,79 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                             Text(
                                                                               snapshotShift.data![index].shiftName,
                                                                               style: GoogleFonts.firaSans(
-                                                                                fontSize: mediaQuery.width / 100,
+                                                                                fontSize: 12,
                                                                                 fontWeight: FontWeightManager.bold,
                                                                                 color: ColorManager.mediumgrey,
                                                                                 decoration: TextDecoration.none,
                                                                               ),
                                                                             ),
-                                                                            Container(
-                                                                              height: mediaQuery.height / 30,
-                                                                              width: mediaQuery.width / 15,
-                                                                              decoration: BoxDecoration(color: ColorManager.white, border: Border.all(color: Color(0xFFEEEEEE), width: 1), borderRadius: BorderRadius.circular(20)),
-                                                                              child: Center(
-                                                                                  child: Text(
-                                                                                snapshotShift.data![index].officeStartTime,
-                                                                                style: GoogleFonts.firaSans(
-                                                                                  fontSize: mediaQuery.width / 115,
-                                                                                  fontWeight: FontWeightManager.semiBold,
-                                                                                  color: ColorManager.mediumgrey,
-                                                                                  decoration: TextDecoration.none,
-                                                                                ),
-                                                                              )),
-                                                                            ),
-                                                                            InkWell(
-                                                                              onTap: () {
-                                                                                showDialog(
-                                                                                    context: context,
-                                                                                    builder: (BuildContext context) {
-                                                                                      return ViewBatchesPopup(shiftName: snapshotShift.data![index].shiftName,
-                                                                                        weekName: snapshot.data![index].weekDays, officeId: snapshot.data![index].officeId,
-                                                                                        //companyId: snapshot.data![index].companyId,
+                                                                            FutureBuilder<List<ShiftBachesData>>(
+                                                                                future: shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays),
+                                                                                builder: (context,snapshot) {
+                                                                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                                                                    return Text('');
+                                                                                  }
+                                                                                  if(snapshot.data!.isEmpty){
+                                                                                    return SizedBox(width:150);
+                                                                                  }
+                                                                                  if(snapshot.hasData){
+                                                                                    return  Row(
+                                                                                      children: [
+                                                                                        ...List.generate(min(snapshot.data!.length, 1),(index){
+                                                                                          return Container(
+                                                                                            height: mediaQuery.height / 30,
+                                                                                            width: mediaQuery.width / 15,
+                                                                                            decoration: BoxDecoration(color: ColorManager.white,
+                                                                                                border: Border.all(color: Color(0xFFEEEEEE), width: 1),
+                                                                                                borderRadius: BorderRadius.circular(20)),
+                                                                                            child: Center(
+                                                                                                child: Text(
+                                                                                                  snapshot.data![index].officeStartTime,
+                                                                                                  style: GoogleFonts.firaSans(
+                                                                                                    fontSize: 12,
+                                                                                                    fontWeight: FontWeightManager.semiBold,
+                                                                                                    color: ColorManager.mediumgrey,
+                                                                                                    decoration: TextDecoration.none,
+                                                                                                  ),
+                                                                                                )),
                                                                                           );
-                                                                                    });
-                                                                              },
-                                                                              child: Text(
-                                                                                'Batches more',
-                                                                                style: GoogleFonts.firaSans(
-                                                                                  fontSize: mediaQuery.width / 115,
-                                                                                  fontWeight: FontWeightManager.light,
-                                                                                  color: ColorManager.faintgrey,
-                                                                                  decoration: TextDecoration.none,
-                                                                                ),
-                                                                              ),
-                                                                            ),
+                                                                                        }),
+                                                                                        SizedBox(width:10),
+                                                                                        snapshot.data!.length <= 1 ? SizedBox(width: 80,):
+                                                                                        InkWell(
+                                                                                          onTap: () {
+                                                                                            showDialog(
+                                                                                                context: context,
+                                                                                                builder: (BuildContext context) {
+                                                                                                  return ViewBatchesPopup(shiftName: snapshotShift.data![index].shiftName,
+                                                                                                    weekName: snapshotShift.data![index].weekDays,
+                                                                                                    //companyId: snapshot.data![index].companyId,
+                                                                                                  );
+                                                                                                });
+                                                                                          },
+                                                                                          child: Text(
+                                                                                            'Batches more',
+                                                                                            style: GoogleFonts.firaSans(
+                                                                                              fontSize: 12,
+                                                                                              fontWeight: FontWeightManager.light,
+                                                                                              color: ColorManager.faintgrey,
+                                                                                              decoration: TextDecoration.none,
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+                                                                                  }else{
+                                                                                    return SizedBox();
+                                                                                  }
+                                                                                      }
+                                                                                  ),
                                                                             Container(
                                                                                 height: mediaQuery.height / 26,
                                                                                 width: mediaQuery.width / 55,
-                                                                                decoration: BoxDecoration(border: Border.all(color: ColorManager.faintOrange), borderRadius: BorderRadius.circular(5), color: ColorManager.white),
+                                                                                decoration: BoxDecoration(border: Border.all(
+                                                                                    color: ColorManager.faintOrange),
+                                                                                    borderRadius: BorderRadius.circular(5), color: ColorManager.white),
                                                                                 child: InkWell(
                                                                                   onTap: () {
                                                                                     showDialog(
@@ -493,8 +527,13 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                             controller2: endTimeController,
                                                                                             onPressed: () async{
                                                                                               await addShiftBatch(context, snapshotShift.data![index].shiftName,
-                                                                                                  snapshotShift.data![index].officeId,
-                                                                                                  snapshot.data![index].weekDays, startTimeController.text, endTimeController.text);
+                                                                                                  snapshotShift
+                                                                                                      .data![index].weekDays, startTimeController.text, endTimeController.text);
+                                                                                              setState((){
+                                                                                                shiftBatchesGet(context,snapshotShift.data![index].shiftName,snapshotShift.data![index].weekDays);
+                                                                                              });
+                                                                                              startTimeController.clear();
+                                                                                              endTimeController.clear();
                                                                                               //Navigator.pop(context);
                                                                                             },
                                                                                           );
@@ -543,12 +582,10 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                 shiftnameController.text,
                                                                 shiftStartTimeController.text,
                                                                 shiftEndTimeController.text,
-                                                                snapshot.data![index].officeId,
-                                                                snapshot.data![index].companyId);
+                                                                );
                                                             workWeekShiftScheduleGet(
                                                                 context,
                                                                 //snapshot.data![index].companyId,
-                                                                snapshot.data![index].officeId,
                                                                 data.weekDays);
                                                             workWeekScheduleGet(context).then((data) {
                                                               workWeekController.add(data);

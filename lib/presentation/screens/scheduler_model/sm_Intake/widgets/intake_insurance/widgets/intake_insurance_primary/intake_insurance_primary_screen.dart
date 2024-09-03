@@ -5,20 +5,53 @@ import 'package:intl/intl.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../app/services/api/managers/sm_module_manager/insurance/primary_mamager.dart';
+import '../../../../../../../../app/services/api/managers/sm_module_manager/physician_info/physician_info_manager.dart';
+import '../../../../../../../../data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import '../../../../../textfield_dropdown_constant/double_date_picker_textfield.dart';
 import '../../../../../textfield_dropdown_constant/schedular_dropdown_const.dart';
 import '../../../../../textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../../intake_patients_data/widgets/patients_info/intake_patients_info.dart';
 
 class IntakeInsurancePrimaryScreen extends StatefulWidget {
-  const IntakeInsurancePrimaryScreen({super.key});
+  final int patientId;
+  const IntakeInsurancePrimaryScreen({super.key, required this.patientId});
 
   @override
   State<IntakeInsurancePrimaryScreen> createState() => _IntakeInsurancePrimaryScreenState();
 }
 
 class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScreen> {
-  String? status = '';
+
+  String? varifiedinsurance;
+  String? eligiblityStatus;
+  String? selectedState;
+  String? selectedCity;
+  String? selectedCategory;
+
+  TextEditingController primaryinsuranceController =TextEditingController();
+  TextEditingController prnameController =TextEditingController();
+  TextEditingController prstreetController =TextEditingController();
+  TextEditingController prcodeController =TextEditingController();
+  TextEditingController suiteAptController =TextEditingController();
+  TextEditingController cityController =TextEditingController();
+  TextEditingController stateController =TextEditingController();
+  TextEditingController zipcodeController =TextEditingController();
+  TextEditingController typeController =TextEditingController();
+  TextEditingController phoneController =TextEditingController();
+  TextEditingController categoryController =TextEditingController();
+  TextEditingController authorisationController =TextEditingController();
+  TextEditingController effectiveFromController =TextEditingController();
+  TextEditingController effectiveToController =TextEditingController();
+  TextEditingController groupNbrController =TextEditingController();
+  TextEditingController groupNameController =TextEditingController();
+  TextEditingController policyHICNbrController =TextEditingController();
+  //TextEditingController eligiblityStatusController =TextEditingController();
+  TextEditingController insuranceVerifiedController =TextEditingController();
+  TextEditingController commentController =TextEditingController();
+  TextEditingController dummyCtrl = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +71,62 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.bold,
                           color: ColorManager.greenDark
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await postIPrimaryScreen(
+                          context,
+                          widget.patientId,
+                          primaryinsuranceController.text,
+                          prnameController.text,
+                          prstreetController.text,
+                          prcodeController.text,
+                          suiteAptController.text,
+                            selectedCity.toString(),
+                          selectedState.toString(),
+                          zipcodeController.text,
+                          typeController.text,
+                          phoneController.text,
+                          selectedCategory.toString(),
+                          authorisationController.text,
+                          //"2024-08-09",
+                          effectiveFromController.text,
+                          //"2024-08-09",
+                          effectiveToController.text,
+                          groupNbrController.text,
+                          groupNameController.text,
+                          policyHICNbrController.text,
+                          eligiblityStatus.toString(),
+                          varifiedinsurance.toString(),
+                          commentController.text,
+
+
+                        );
+                        print("${effectiveFromController.text}");
+                        print("${effectiveToController.text}");
+
+                      },
+                      child: Text(
+                        AppString.save,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.white,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 10,
+                        ),
+                        backgroundColor: ColorManager.blueprime,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
                   ],
@@ -67,119 +156,488 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                         children: [
                           Flexible(
                               child: SchedularTextField(
+                                controller: primaryinsuranceController,
+
                                   labelText: 'Primary Insurance')
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Name')
+                                controller: prnameController,
+                                  labelText: AppString.name)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Street')
+                                controller: prstreetController,
+                                  labelText: AppString.street)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText: 'Code')
+                                controller: prcodeController,
+                                  labelText: AppString.code)
                           ),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
                               child: SchedularTextField(
+                                controller: suiteAptController,
                                   labelText: 'Suite/Apt #')
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
-                              child: SchedularTextField(
-                                  labelText:'City')
+
+
+                            child: FutureBuilder<List<CityData>>(
+                              future: getCityDropDown(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'City',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
+                                }
+                                if (snapshot.hasData) {
+                                  List<String> dropDownList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(i.cityName!);
+                                  }
+
+                                  return SizedBox(
+                                    height: 27,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'City',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.greylight,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .containerBorderGrey),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff686464),
+                                      ),
+
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.cityName == newValue) {
+                                            selectedCity = a.cityName!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
+
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
-                              child: SchedularTextField(
-                                labelText: 'State',)
+
+                            child:FutureBuilder<List<StateData>>(
+                              future: getStateDropDown(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'State',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
+                                }
+                                if (snapshot.hasData) {
+                                  List<String> dropDownList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(i.name!);
+                                  }
+
+                                  return SizedBox(
+                                    height: 27,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'State',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.greylight,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: ColorManager.containerBorderGrey), // border color
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(Icons.arrow_drop_down,
+                                        color: ColorManager.blueprime,),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff686464),
+                                      ),
+
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.name == newValue) {
+                                            selectedState = a.name!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
+                              // child: SchedularTextField(
+                              //   controller: stateController,
+                              //   labelText: AppString.state,)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'Zip Code')
+                                controller: zipcodeController,
+                                  labelText:AppString.zip_code)
                           ),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
                               child: SchedularTextField(
-                                  labelText:'Type')
+                                controller: typeController,
+                                  labelText:AppString.type)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: phoneController,
                                   labelText:'Phone')
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
-                              child: SchedularDropdown(
-                                labelText: 'Category',
-                                  items: ['Option 1', 'Option 2', 'Option 3']
-                              )
+
+
+
+                            child: FutureBuilder<List<CategoryData>>(
+                              future: getCategoryDropDown(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'Category',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
+                                }
+                                if (snapshot.hasData) {
+                                  List<String> dropDownList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(i.idText!);
+                                  }
+
+                                  return SizedBox(
+                                    height: 27,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'category',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.greylight,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .containerBorderGrey),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff686464),
+                                      ),
+
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.idText == newValue) {
+                                            selectedCategory = a.idText!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
+
+
+
+
+
+
+
+
+                              // child: SchedularDropdown(
+                              //   labelText: AppString.category,
+                              //     items: ['Option 1', 'Option 2', 'Option 3'], onChanged: (newValue) {  },
+                              // )
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: authorisationController,
                                   labelText:'Authorisation')
                           ),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
                               child: DoubleDatePickerTextField(
-                                  labelText: 'Effective from', isDate: true)
+                                  labelText: 'Effective from',
+                                  isDate: true,
+                                startDateController: effectiveFromController,
+                                endDateController: effectiveToController,)
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: groupNbrController,
                                   labelText:'Group #')
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: groupNameController,
                                   labelText: 'Group Name')
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: SchedularTextField(
+                                controller: policyHICNbrController,
                                   labelText:'Policy/ HIC #')
                           ),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
-                              child: SchedularDropdown(
-                                labelText: 'Eligibility Status',
-                                  items: ['Option 1', 'Option 2', 'Option 3'])
+
+
+
+
+
+                            child: FutureBuilder<List<EligiblityStatusData>>(
+                              future: getEligiblityStatusDropDown(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return SchedularTextField(
+                                    controller: dummyCtrl,
+                                    labelText: 'Status',
+                                    suffixIcon: Icon(Icons.arrow_drop_down,
+                                      color: ColorManager.blueprime,),);
+                                }
+                                if (snapshot.hasData) {
+                                  List<String> dropDownList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownList.add(i.idText!);
+                                  }
+
+                                  return SizedBox(
+                                    height: 27,
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'Eligibility Status',
+                                        labelStyle: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorManager.greylight,
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .containerBorderGrey),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(4.0),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                          //   //  vertical: 5,
+                                            horizontal: 12),
+                                      ),
+                                      // value: selectedCountry,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff686464),
+                                      ),
+
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.idText == newValue) {
+                                            eligiblityStatus = a.idText!;
+                                            //country = a
+                                            // int? docType = a.companyOfficeID;
+                                          }
+                                        }
+                                      },
+                                      items: dropDownList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                } else {
+                                  return const Offstage();
+                                }
+                              },
+                            ),
                           ),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: Container()),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: Container()),
-                          SizedBox(width: 35),
+                          SizedBox(width: AppSize.s35),
                           Flexible(
                               child: Container()),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
@@ -196,10 +654,10 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                   children: [
                                     Radio<String>(
                                       value: 'Yes',
-                                      groupValue: status,
-                                      onChanged: (value) => setState(() => status = value),
+                                      groupValue: varifiedinsurance,
+                                      onChanged: (value) => setState(() => varifiedinsurance = value),
                                     ),
-                                    Text('Yes',
+                                    Text(AppString.yes,
                                         style: GoogleFonts.firaSans(
                                             fontSize: FontSize.s12
                                             , fontWeight: FontWeightManager.regular)
@@ -207,17 +665,17 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                                     SizedBox(width: MediaQuery.of(context).size.width/100),
                                     Radio<String>(
                                       value: 'No',
-                                      groupValue: status,
-                                      onChanged: (value) => setState(() => status = value),
+                                      groupValue: varifiedinsurance,
+                                      onChanged: (value) => setState(() => varifiedinsurance = value),
                                     ),
-                                    Text('No',
+                                    Text(AppString.no,
                                         style: GoogleFonts.firaSans(
                                             fontSize: FontSize.s12
                                             , fontWeight: FontWeightManager.regular)
                                     ),
                                     SizedBox(width: MediaQuery.of(context).size.width/100),
                                     TextButton(
-                                      onPressed: () => setState(() => status = null), // Clear selection
+                                      onPressed: () => setState(() => varifiedinsurance = null), // Clear selection
                                       child: Text(
                                         'Clear',
                                         style: GoogleFonts.firaSans(
@@ -232,28 +690,21 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
                               ],
                             ),
                           ),
-                          // SizedBox(width: MediaQuery.of(context).size.width/100),
-                          // Flexible(
-                          //     child: Container()),
-                          // SizedBox(width: 35),
-                          // Flexible(
-                          //     child: Container()),
-                          // SizedBox(width: 35),
-                          // Flexible(
-                          //     child: Container()),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: AppSize.s16),
                       Row(
                         children: [
                           Flexible(
                             child: Container(
-                              height: 99,
+
+                              height: AppSize.s99,
                               child: TextFormField(
+                                controller: commentController,
                                 maxLines: 3,
                                 cursorColor: Colors.black,
                                 decoration: InputDecoration(
-                                  labelText: 'Contact',
+                                  labelText: 'Comments',
                                   labelStyle: GoogleFonts.firaSans(
                                     fontSize: FontSize.s10,
                                     fontWeight: FontWeightManager.regular,
@@ -297,5 +748,3 @@ class _IntakeInsurancePrimaryScreenState extends State<IntakeInsurancePrimaryScr
     );
   }
 }
-
-

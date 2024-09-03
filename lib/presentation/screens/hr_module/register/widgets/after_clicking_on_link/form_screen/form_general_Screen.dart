@@ -65,17 +65,52 @@ class _generalFormState extends State<generalForm> {
   String? _selectedDegree;
   late bool _passwordVisible = false;
   String? gendertype;
+  int? generalId;
 
   String? racetype;
 
-  List<String> _fileNames = [];
+  String? _fileNames;
   bool _loading = false;
   bool _documentUploaded = true;
   var fileName;
   var fileName1;
-  dynamic? filePath;
+  dynamic filePath;
   File? xfileToFile;
   var finalPath;
+  String? signatureUrl;
+  void initState() {
+    super.initState();
+    _initializeFormWithPrefilledData();
+  }
+  var fetchedData;
+  Future<void> _initializeFormWithPrefilledData() async {
+    try {
+      OnlinkGeneralData onlinkGeneralData = await getGeneralIdPrefill(context, widget.employeeID);
+     // if (onlinkGeneralData) {
+      fetchedData = onlinkGeneralData;
+        var data = onlinkGeneralData; // Assuming index matches the data list
+        setState(() {
+          print("Inside function");
+          dobcontroller.text = data.dateOfBirth ?? '';
+          firstname.text = data.firstName ?? '';
+          lastname.text = data.lastName ?? '';
+          ssecuritynumber.text = data.SSNNbr ?? '';
+          phonenumber.text = data.primaryPhoneNbr ?? '';
+          personalemail.text = data.personalEmail ?? '';
+          driverlicensenumb.text = data.driverLicenceNbr ?? '';
+          address.text = data.finalAddress ?? '';
+          racetype = data.race ?? "";
+          //isChecked = data.endDate == null;
+          gendertype = data.gender ?? "";
+          generalId = data.employeeId ?? 0;
+          signatureUrl = data.signatureURL ?? "";
+          fileName = data.imgurl.split("/").last??"";
+        });
+      //}
+    } catch (e) {
+      print('Failed to load prefilled data: $e');
+    }
+  }
 
   Future<WebFile> saveFileFromBytes(dynamic bytes, String fileName) async {
     // Get the directory to save the file.
@@ -113,30 +148,6 @@ class _generalFormState extends State<generalForm> {
       return await file.readAsBytes();
     } else {
       throw Exception('File not found');
-    }
-  }
-
-  void _pickFiles() async {
-    setState(() {
-      _loading = true; // Show loader
-      _fileNames.clear(); // Clear previous file names if any
-    });
-
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
-    );
-
-    if (result != null) {
-      setState(() {
-        _fileNames.addAll(result.files.map((file) => file.name!));
-        _loading = false; // Hide loader
-      });
-      print('Files picked: $_fileNames');
-    } else {
-      setState(() {
-        _loading = false; // Hide loader on cancel
-      });
-      print('User canceled the picker');
     }
   }
 
@@ -185,31 +196,8 @@ class _generalFormState extends State<generalForm> {
           ),
           Padding(
               padding: const EdgeInsets.only(left: 140, right: 140, top: 20),
-              child: FutureBuilder<OnlinkGeneralData>(
-                future: getGeneralIdPrefill(context, widget.employeeID),
-                builder: (context, snapshotPrefill) {
-                  if (snapshotPrefill.connectionState ==
-                      ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                          color: ColorManager.blueprime),
-                    );
-                  }
-                  firstname = TextEditingController(
-                      text: snapshotPrefill.data!.firstName);
-                  lastname = TextEditingController(
-                      text: snapshotPrefill.data!.lastName);
-                  personalemail = TextEditingController(
-                      text: snapshotPrefill.data!.personalEmail);
-                  phonenumber = TextEditingController(
-                      text: snapshotPrefill.data!.primaryPhoneNbr);
-                  address = TextEditingController(
-                      text: snapshotPrefill.data!.finalAddress);
-                  ssecuritynumber =
-                      TextEditingController(text: snapshotPrefill.data!.SSNNbr);
-                  driverlicensenumb = TextEditingController(
-                      text: snapshotPrefill.data!.driverLicenceNbr);
-                  return Row(
+              child:
+              Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -262,9 +250,9 @@ class _generalFormState extends State<generalForm> {
                                     //  print("XFILE ${xFile.path}");
                                     //  //filePath = xfileToFile as XFile?;
                                     //  print("L::::::${filePath}");
-                                    _fileNames.addAll(
-                                        result.files.map((file) => file.name!));
-                                    print('File picked: ${_fileNames}');
+                                    // _fileNames.addAll(
+                                    //     result.files.map((file) => file.name!));
+                                    print('File picked: ${fileName}');
                                     //print(String.fromCharCodes(file));
                                     fileName = result.files.first.name;
                                     finalPath = result.files.first.bytes;
@@ -298,12 +286,8 @@ class _generalFormState extends State<generalForm> {
                                       // Loader size
                                     ),
                                   )
-                                : _fileNames.isNotEmpty
-                                    ? Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: _fileNames
-                                            .map((fileName) => Padding(
+                                : fileName != null
+                                    ? Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
                                                   child: Text(
@@ -315,10 +299,8 @@ class _generalFormState extends State<generalForm> {
                                                         color: const Color(
                                                             0xff686464)),
                                                   ),
-                                                ))
-                                            .toList(),
-                                      )
-                                    : const SizedBox(), // Display file names if picked
+                                                )
+                                    :  SizedBox(height: 40,width: 10,), // Display file names if picked
 
                             SizedBox(
                                 height:
@@ -751,7 +733,7 @@ class _generalFormState extends State<generalForm> {
                             ),
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height / 30),
+                                    MediaQuery.of(context).size.height / 8),
                             Text(
                               'Type of Clinician',
                               style: GoogleFonts.firaSans(
@@ -770,20 +752,17 @@ class _generalFormState extends State<generalForm> {
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
+                                  return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 7),
                                       child: Container(
                                         width: AppSize.s250,
-                                        height: AppSize.s40,
+                                        height: AppSize.s32,
                                         decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
+                                            color: ColorManager.white),
                                       ),
-                                    ),
-                                  );
+                                    );
+
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -851,53 +830,6 @@ class _generalFormState extends State<generalForm> {
                                 }
                               },
                             ),
-                            // SizedBox(
-                            //   height: 32,
-                            //   child: DropdownButtonFormField<String>(
-                            //     decoration: InputDecoration(
-                            //      // hintText: 'Select Clinician',
-                            //       hintStyle: GoogleFonts.firaSans(
-                            //         fontSize: 10.0,
-                            //         fontWeight: FontWeight.w400,
-                            //         color: const Color(0xff9B9B9B),
-                            //       ),
-                            //       border: OutlineInputBorder(
-                            //         borderRadius: BorderRadius.circular(4.0),
-                            //         borderSide: const BorderSide(color: Colors.grey),
-                            //       ),
-                            //       contentPadding: const EdgeInsets.symmetric(
-                            //           //   //  vertical: 5,
-                            //           horizontal: 12),
-                            //     ),
-                            //     value: _selectedClinician,
-                            //     icon: const Icon(Icons.arrow_drop_down,
-                            //         color: Color(0xff9B9B9B)),
-                            //     iconSize: 24,
-                            //     elevation: 16,
-                            //     style: GoogleFonts.firaSans(
-                            //       fontSize: 10.0,
-                            //       fontWeight: FontWeight.w400,
-                            //       color: const Color(0xff686464),
-                            //     ),
-                            //     onChanged: (String? newValue) {
-                            //       setState(() {
-                            //         _selectedClinician = newValue;
-                            //       });
-                            //     },
-                            //     items: <String>[
-                            //       'Clinician 1',
-                            //       'Clinicin ',
-                            //       'Clinican',
-                            //       'Cliniian'
-                            //     ] // List of countries
-                            //         .map<DropdownMenuItem<String>>((String value) {
-                            //       return DropdownMenuItem<String>(
-                            //         value: value,
-                            //         child: Text(value),
-                            //       );
-                            //     }).toList(),
-                            //   ),
-                            // ),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height / 30),
@@ -918,20 +850,17 @@ class _generalFormState extends State<generalForm> {
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
+                                  return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 7),
                                       child: Container(
                                         width: AppSize.s250,
-                                        height: AppSize.s40,
+                                        height: AppSize.s32,
                                         decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
+                                            color: ColorManager.white),
                                       ),
-                                    ),
-                                  );
+                                    );
+
                                 }
                                 if (snapshot.hasData) {
                                   List<String> dropDownList = [];
@@ -1000,180 +929,12 @@ class _generalFormState extends State<generalForm> {
                                 }
                               },
                             ),
-
-                            // CustomDropdownTextField(
-                            //   width: 600,
-                            //   height: 32,
-                            //  // hintText: 'Select Speciality ',
-                            //
-                            //   items: [
-                            //     'Speciality1',
-                            //     'Speciality2',
-                            //     'CSpeciality',
-                            //     'Speciality'
-                            //   ],
-                            //   value: _selectedSpeciality,
-                            //   // List of countries
-                            //   //     .map<DropdownMenuItem<String>>((String value) {
-                            //   //   return DropdownMenuItem<String>(
-                            //   //     value: value,
-                            //   //     child: Text(value),
-                            //   //   );
-                            //   // }).toList(),
-                            //
-                            //   labelText: 'Select Speciality',
-                            //   labelStyle: GoogleFonts.firaSans(
-                            //     fontSize: 10,
-                            //     fontWeight: FontWeight.w400,
-                            //     color: const Color(0xff9B9B9B),
-                            //   ),
-                            // ),
-
-                            // Container(
-                            //   height: 32,
-                            //   child: DropdownButtonFormField<String>(
-                            //     // alignment: AlignmentDirectional.centerStart,
-                            //     decoration: InputDecoration(
-                            //       //hintText:
-                            //           //'Select Speciality                                      ',
-                            //       hintStyle: GoogleFonts.firaSans(
-                            //         fontSize: 10,
-                            //         fontWeight: FontWeight.w400,
-                            //         color: const Color(0xff9B9B9B),
-                            //       ),
-                            //       border: OutlineInputBorder(
-                            //         borderRadius: BorderRadius.circular(4.0),
-                            //         borderSide: const BorderSide(color: Colors.grey),
-                            //       ),
-                            //       contentPadding: const EdgeInsets.only(
-                            //           bottom: AppPadding.p5, left: 12),
-                            //     ),
-                            //     value: _selectedSpeciality,
-                            //     icon: const Icon(Icons.arrow_drop_down,
-                            //         color: Color(0xff9B9B9B)),
-                            //     iconSize: 24,
-                            //     elevation: 16,
-                            //     style: GoogleFonts.firaSans(
-                            //       fontSize: 10.0,
-                            //       fontWeight: FontWeight.w400,
-                            //       color: const Color(0xff686464),
-                            //     ),
-                            //     onChanged: (String? newValue) {
-                            //       setState(() {
-                            //         _selectedSpeciality = newValue;
-                            //       });
-                            //     },
-                            //     items: <String>[
-                            //       'Speciality1',
-                            //       'Speciality2',
-                            //       'CSpeciality',
-                            //       'Speciality'
-                            //     ] // List of countries
-                            //         .map<DropdownMenuItem<String>>((String value) {
-                            //       return DropdownMenuItem<String>(
-                            //         value: value,
-                            //         child: Text(value),
-                            //       );
-                            //     }).toList(),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),
                     ],
-                  );
-                },
-              )),
-
+                  ),),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
-          ///patch
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     CustomButton(
-          //       width: 117,
-          //       height: 30,
-          //       text: 'Save',
-          //       style: const TextStyle(
-          //         fontFamily: 'FiraSans',
-          //         fontSize: 12,
-          //         fontWeight: FontWeight.w700,
-          //       ),
-          //       borderRadius: 12,
-          //       onPressed: () async {
-          //         final companyId = await TokenManager.getCompanyId();
-          //         final userId = await TokenManager.getUserID();
-          //
-          //         await updateOnlinkGeneralPatch(
-          //             context,
-          //             widget.employeeID,
-          //             'EMP-C10-U48',
-          //             userId,
-          //             firstname.text,
-          //             lastname.text,
-          //             1,
-          //             1,
-          //             _selectedSpeciality.toString(),
-          //             1,
-          //             1,
-          //             1,
-          //             1,
-          //             ssecuritynumber.text,
-          //             phonenumber.text,
-          //             '1234',
-          //             '1234',
-          //             'Robert Tech Services',
-          //             personalemail.text,
-          //             personalemail.text,
-          //             address.text,
-          //             dobcontroller.text,
-          //             '1234',
-          //             'covreage',
-          //             'employment',
-          //             gendertype.toString(),
-          //             'Partial',
-          //             'service',
-          //             'imgurl',
-          //             'resumeurl',
-          //             companyId,
-          //             'Active',
-          //             driverlicensenumb.text,
-          //             '2024-01-01',
-          //             '2024-01-01',
-          //             '2024-01-01',
-          //             'rehirable',
-          //             'position',
-          //             address.text,
-          //             _selectedClinician.toString(),
-          //             'reason',
-          //             1,
-          //            ' 2024-01-01',
-          //             1,
-          //             1,
-          //             'methods',
-          //             'materials',
-          //             racetype.toString(),
-          //             'rating',
-          //             'signatureURL');
-          //
-          //         ScaffoldMessenger.of(context).showSnackBar(
-          //           SnackBar(content: Text("User data updated")),
-          //         );
-          //
-          //         // Clear fields after saving
-          //         firstname.clear();
-          //         lastname.clear();
-          //         ssecuritynumber.clear();
-          //         phonenumber.clear();
-          //         personalemail.clear();
-          //         driverlicensenumb.clear();
-          //         address.clear();
-          //         dobcontroller.clear();
-          //       },
-          //     ),
-          //   ],
-          // )
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -1203,6 +964,7 @@ class _generalFormState extends State<generalForm> {
                   print("First Name: ${firstname.text}");
                   print("Last Name: ${lastname.text}");
                   print("Speciality: ${_selectedSpeciality.toString()}");
+                  print("File: ${filePath}");
                   print("SSN: ${ssecuritynumber.text}");
                   print("Phone Number: ${phonenumber.text}");
                   print("Personal Email: ${personalemail.text}");
@@ -1217,8 +979,8 @@ class _generalFormState extends State<generalForm> {
                   // Call the update function
                   var response = await updateOnlinkGeneralPatch(
                     context,
-                    widget.employeeID,
-                    'EMP-C10-U48',
+                    generalId!,
+                    '',
                     userId,
                     firstname.text,
                     lastname.text,
@@ -1265,16 +1027,17 @@ class _generalFormState extends State<generalForm> {
                     'materials',
                     racetype.toString(),
                     'rating',
-                    'signatureURL',
+                    signatureUrl!,
                   );
-
+                  var uploadResponse = await UploadEmployeePhoto(context: context,documentFile: finalPath,employeeId: generalId!);
                   print("Response Status Code: ${response.statusCode}");
                   print("Response Body: ${response.data}");
 
-                  if (response.statusCode == 200 || response.statusCode == 201) {
+                  if (response.statusCode == 200 || response.statusCode == 201 && uploadResponse.statusCode == 200 || uploadResponse.statusCode == 201) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("User data updated")),
+                      SnackBar(content: Text("User data updated"),backgroundColor: Colors.green,),
                     );
+                    _initializeFormWithPrefilledData();
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("Failed to update user data")),
@@ -1293,250 +1056,10 @@ class _generalFormState extends State<generalForm> {
                 },
               ),
             ],
-          )
-
-          ///post api
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     CustomButton(
-          //         width: 117,
-          //         height: 30,
-          //         text: 'Save',
-          //         style: const TextStyle(
-          //           fontFamily: 'FiraSans',
-          //           fontSize: 12,
-          //           fontWeight: FontWeight.w700,
-          //         ),
-          //         borderRadius: 12,
-          //         onPressed: () async {
-          //           final companyId = await TokenManager.getCompanyId();
-          //           final userId = await TokenManager.getUserID();
-          //           await postgeneralscreendata(
-          //               context,
-          //               'G023',
-          //               userId, //widget.userId,
-          //               firstname.text,
-          //               lastname.text,
-          //               1,
-          //               1,
-          //               'Expertise',
-          //               1,
-          //               1,
-          //               1,
-          //               true,
-          //               false,
-          //               1,
-          //               'SSN123',
-          //               ssecuritynumber.text,
-          //               phonenumber.text,
-          //               '1234',
-          //               '12345',
-          //               '1245',
-          //               personalemail.text,
-          //               address.text,
-          //               dobcontroller.text,
-          //               '1245',
-          //               'Coverage',
-          //               'Employment',
-          //               gendertype.toString(),
-          //               'Active',
-          //               'Service',
-          //               'imgurl',
-          //               'resumeurl',
-          //               companyId,
-          //               'Onboarding',
-          //               driverlicensenumb.text,
-          //               '2024-01-01',
-          //               '2024-01-01',
-          //               '2024-01-01',
-          //               'Yes',
-          //               'Position',
-          //               '123 Final St',
-          //               'Type',
-          //               'Reason',
-          //               1,
-          //               '2024-01-01',
-          //               1,
-          //               1,
-          //               'Method',
-          //               'Material',
-          //               racetype.toString(),
-          //               'rating',
-          //               'SignatureURL');
-          //           ScaffoldMessenger.of(context).showSnackBar(
-          //             SnackBar(content: Text("General data saved")),
-          //           );
-          //
-          //             if (finalPath == null || finalPath.isEmpty) {
-          //
-          //               ScaffoldMessenger.of(context).showSnackBar(
-          //                 SnackBar(
-          //                   content: Text('No file selected. Please select a file to upload.'),
-          //                   backgroundColor: Colors.red,
-          //                 ),
-          //               );
-          //             } else {
-          //               try  {
-          //                 await uploadphoto(
-          //                     context: context,
-          //                     employeeid: widget.employeeID,
-          //                     documentFile: finalPath,
-          //                     documentName: fileName,
-          //                 );
-          //
-          //
-          //                 ScaffoldMessenger.of(context).showSnackBar(
-          //                   SnackBar(
-          //                     content: Text('Document uploaded successfully!'),
-          //                     backgroundColor: Colors.green,
-          //                   ),
-          //                 );
-          //               } catch (e) {
-          //
-          //                 ScaffoldMessenger.of(context).showSnackBar(
-          //                   SnackBar(
-          //                     content: Text('Failed to upload document: $e'),
-          //                     backgroundColor: Colors.red,
-          //                   ),
-          //                 );
-          //               }
-          //             }
-          //
-          //           firstname.clear();
-          //           lastname.clear();
-          //           ssecuritynumber.clear();
-          //           phonenumber.clear();
-          //           personalemail.clear();
-          //           driverlicensenumb.clear();
-          //           address.clear();
-          //           dobcontroller.clear();
-          //         }),
-          //   ],
-          // )
+          ),
         ],
       ),
     );
   }
 }
 
-///post api
-// SizedBox(height: MediaQuery.of(context).size.height / 20),
-// Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: [
-// CustomButton(
-// width: 117,
-// height: 30,
-// text: 'Save',
-// style: const TextStyle(
-// fontFamily: 'FiraSans',
-// fontSize: 12,
-// fontWeight: FontWeight.w700,
-// ),
-// borderRadius: 12,
-// onPressed: () async {
-// final companyId = await TokenManager.getCompanyId();
-// final userId = await TokenManager.getUserID();
-// await postgeneralscreendata(
-// context,
-// 'G023',
-// userId, //widget.userId,
-// firstname.text,
-// lastname.text,
-// 1,
-// 1,
-// 'Expertise',
-// 1,
-// 1,
-// 1,
-// true,
-// false,
-// 1,
-// 'SSN123',
-// ssecuritynumber.text,
-// phonenumber.text,
-// '1234',
-// '12345',
-// '1245',
-// personalemail.text,
-// address.text,
-// dobcontroller.text,
-// '1245',
-// 'Coverage',
-// 'Employment',
-// gendertype.toString(),
-// 'Active',
-// 'Service',
-// 'imgurl',
-// 'resumeurl',
-// companyId,
-// 'Onboarding',
-// driverlicensenumb.text,
-// '2024-01-01',
-// '2024-01-01',
-// '2024-01-01',
-// 'Yes',
-// 'Position',
-// '123 Final St',
-// 'Type',
-// 'Reason',
-// 1,
-// '2024-01-01',
-// 1,
-// 1,
-// 'Method',
-// 'Material',
-// racetype.toString(),
-// 'rating',
-// 'SignatureURL');
-// ScaffoldMessenger.of(context).showSnackBar(
-// SnackBar(content: Text("General data saved")),
-// );
-//
-// if (finalPath == null || finalPath.isEmpty) {
-//
-// ScaffoldMessenger.of(context).showSnackBar(
-// SnackBar(
-// content: Text('No file selected. Please select a file to upload.'),
-// backgroundColor: Colors.red,
-// ),
-// );
-// } else {
-// try  {
-// await uploadphoto(
-// context: context,
-// employeeid: widget.employeeID,
-// documentFile: finalPath,
-// documentName: fileName,
-// );
-//
-//
-// ScaffoldMessenger.of(context).showSnackBar(
-// SnackBar(
-// content: Text('Document uploaded successfully!'),
-// backgroundColor: Colors.green,
-// ),
-// );
-// } catch (e) {
-//
-// ScaffoldMessenger.of(context).showSnackBar(
-// SnackBar(
-// content: Text('Failed to upload document: $e'),
-// backgroundColor: Colors.red,
-// ),
-// );
-// }
-// }
-//
-// firstname.clear();
-// lastname.clear();
-// ssecuritynumber.clear();
-// phonenumber.clear();
-// personalemail.clear();
-// driverlicensenumb.clear();
-// address.clear();
-// dobcontroller.clear();
-// }),
-// ],
-// )

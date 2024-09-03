@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
-import 'package:prohealth/app/services/encode_decode_base64.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/qualification_licenses.dart';
 
@@ -168,13 +168,14 @@ Future<List<SelectDocuments>> selectDocument(
             documentTypeId: item['document_type_id'],
             documentSubTypeId: item['document_subtype_id'],
             docName: item['doc_name'],
-            docCreated: item['doc_created_at'],
-            url: item['url'],
+            docCreated: item['doc_created_at']??"",
+            url: item['url']??"",
             expiryType: item['expiry_type'],
             expiryDate: item['expiry_date'],
             expiryReminder: item['expiry_reminder'],
             companyId: item['company_id'],
-            officeId: item['office_id']));
+            officeId: item['office_id'],
+            idOfDocument: item['idOfDocument']??""));
       }
     } else {
       print("Select Documents");

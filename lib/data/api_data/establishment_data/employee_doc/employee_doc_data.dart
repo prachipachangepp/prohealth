@@ -18,6 +18,7 @@ class EmployeeDocumentModal {
   final String docName;
   final String expiry;
   final String reminderThreshold;
+  final String idOfDocument;
   final int employeeDocTypesetupId;
   final int employeeDocTypeMetaId;
   final bool sucess;
@@ -27,6 +28,7 @@ class EmployeeDocumentModal {
     required this.employeeDocTypeMetaId,
     required this.employeeDocTypesetupId,
     required this.docName,
+    required this.idOfDocument,
     required this.expiry,
     required this.reminderThreshold,
     required this.sucess,
@@ -112,6 +114,7 @@ class GetEmployeeSetupPrefillData {
   final String docName;
   final String expiry;
   final String reminderThreshold;
+  final String idOfDocument;
   final int employeeDocTypesetupId;
   final int employeeDocTypeMetaId;
   final bool sucess;
@@ -121,6 +124,7 @@ class GetEmployeeSetupPrefillData {
     required this.docName,
     required this.expiry,
     required this.reminderThreshold,
+    required this.idOfDocument,
     required this.employeeDocTypesetupId,
     required this.employeeDocTypeMetaId,
     required this.sucess,

@@ -28,9 +28,13 @@ class AllZoneRepository{
   static String zoneCounty = "/zone-county";
   static String add = "/add";
   static String zipcodesetup = "/zipcode-setup";
+  static String country = "/country";
 
   static String zoneGet(){
     return "$zone";
+  }
+  static String countryGet(){
+    return "$country";
   }
   static String deleteZipCodeSetup({required int zipCodeSetupId}){
     return "$zipcodesetup/$zipCodeSetupId";

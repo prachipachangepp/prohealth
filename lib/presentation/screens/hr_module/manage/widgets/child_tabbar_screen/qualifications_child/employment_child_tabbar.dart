@@ -58,9 +58,10 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            ///add button
             Container(
               width: 100,
-              margin: EdgeInsets.only(right: 40),
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
                   icon: Icons.add,
@@ -129,7 +130,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       onChanged: (value) {},
                                     ),
                                   )),
-                              tite: 'Add Employeement', onpressedClose: () {Navigator.pop(context);},
+                              tite: 'Add Employment', onpressedClose: () {Navigator.pop(context);},
                             );
                           },
                         );
@@ -183,9 +184,10 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                     String formattedSerialNumber =
                     serialNumber.toString().padLeft(2, '0');
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 30),
                       child: Container(
                         width: MediaQuery.of(context).size.width/2.5,
+                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -198,23 +200,26 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
-                        height: MediaQuery.of(context).size.height/3.3,
+                        height: MediaQuery.of(context).size.height/3.8,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: MediaQuery.of(context).size.width / 80,
-                            vertical: MediaQuery.of(context).size.height / 120,
+                            vertical: MediaQuery.of(context).size.height / 160,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Employment #${snapshot.data![index].employmentId}',
+                              Text(
+                                'Employment #${index + 1}',
+                                // 'Employment #${snapshot.data![index].employmentId}',
                                 style: GoogleFonts.firaSans(
                                   // fontFamily: 'FiraSans',
                                   fontSize: 13,
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
                                 ),),
+                              // SizedBox(height: 7,),
                               Row(
                                 children: [
                                   Row(
@@ -223,65 +228,66 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text('Final Position Title',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Final Position Title :',
+                                              style: ThemeManagerDark.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Start Date',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Start Date :',
+                                              style: ThemeManagerDark.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('End Date',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('End Date :',
+                                              style: ThemeManagerDark.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Employer',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Employer :',
+                                              style: ThemeManagerDark.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Emergency Contact',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Emergency Contact :',
+                                              style: ThemeManagerDark.customTextStyle(context)),
                                         ],
                                       ),
                                       SizedBox(width: MediaQuery.of(context).size.width/35,),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+
                                           Text(
                                             snapshot.data![index].title,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].dateOfJoining,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].endDate,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].employer,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].emgMobile,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                         ],
                                       ),
@@ -294,28 +300,28 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text('Reason of Leaving',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Reason of Leaving :',
+                                              style: ThemeManagerDark.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Last Supervisor’s Name',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Last Supervisor’s Name :',
+                                              style: ThemeManagerDark.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('SuperVisor\'s Phone No.',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('SuperVisor\'s Phone No. :',
+                                              style: ThemeManagerDark.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('City',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('City :',
+                                              style: ThemeManagerDark.customTextStyle(context)),
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Country',
-                                              style: ThemeManager.customTextStyle(context)),
+                                          Text('Country :',
+                                              style: ThemeManagerDark.customTextStyle(context)),
                                         ],
                                       ),
                                       SizedBox(width: MediaQuery.of(context).size.width/35,),
@@ -324,35 +330,35 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                         children: [
                                           Text(
                                             snapshot.data![index].reason,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].supervisor,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].supMobile,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].city,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             snapshot.data![index].country,
-                                            style: ThemeManagerDark.customTextStyle(context),
+                                            style: ThemeManagerDarkFont.customTextStyle(context),
                                           ),
                                         ],
                                       ),
@@ -360,6 +366,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                   )
                                 ],
                               ),
+                              // SizedBox(height: 4,),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: snapshot.data![index].approved == null ? Text('Not Approved',style:GoogleFonts.firaSans(
@@ -438,7 +445,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                     width: 300,
                                                     child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
                                                     },)),
-                                              ), tite: 'Edit Employeement', onpressedClose: () {Navigator.pop(context);  },);
+                                              ), tite: 'Edit Employment', onpressedClose: () {Navigator.pop(context);  },);
                                           }
                                       );
                                     });

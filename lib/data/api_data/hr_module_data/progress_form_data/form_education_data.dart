@@ -2,13 +2,12 @@
 class EduactionDegree {
   final bool? success;
   final String? message;
-
-  final int? degreeId;
-  final String? degree;
-  final int? companyId;
+  final int degreeId;
+  final String degree;
+  final int companyId;
 
   EduactionDegree(
-      {this.degreeId, this.degree, this.companyId, this.success, this.message});
+      {required this.degreeId, required this.degree, required this.companyId, this.success, this.message});
 }
 
 //"degreeId": 0,
@@ -19,18 +18,19 @@ class EduactionDegree {
 
 ///onboarding-qualification-education
 class EducationDataForm {
-final int educationID;
-  final int empId;
+final int? educationID;
+  final int? empId;
   final String? graduate;
-  final String degree;
-  final String major;
-  final String city;
-  final String college;
-  final String phone;
-  final String state;
+  final String? degree;
+  final String? major;
+  final String? city;
+  final String? college;
+  final String? phone;
+  final String? state;
   bool? approved;
-  final String country;
-  final String startDate;
+  final String? country;
+  final String? startDate;
+  final String? docName;
 
 
   EducationDataForm(
@@ -44,6 +44,7 @@ final int educationID;
         required this.college,
         required this.phone,
         required this.state,
+        this.docName,
         this.approved,
         required this.country,
         required this.startDate,

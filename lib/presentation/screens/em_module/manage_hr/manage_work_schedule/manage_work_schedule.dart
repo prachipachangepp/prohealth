@@ -1,16 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
-import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_week_data.dart';
-import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
-
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'work_schedule/define_holidays.dart';
 import 'work_schedule/define_work_weeks.dart';
-import 'work_schedule/widgets/add_holiday_popup_const.dart';
+
 
 class ManageWorkSchedule extends StatefulWidget {
   const ManageWorkSchedule({super.key});
@@ -96,7 +92,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15,top: 50),
+            padding: const EdgeInsets.only(left: 15,top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -104,10 +100,10 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   elevation: 4,
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    height: 28,
+                    height: AppSize.s30,
                     width: MediaQuery.of(context).size.width / 4.2,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(14),
                       color: ColorManager.blueprime,
                     ),
                     child: Row(
@@ -119,10 +115,10 @@ class _WorkScheduleState extends State<WorkSchedule> {
                             (entry) => InkWell(
                           child: Container(
                             height: 30,
-                            width: MediaQuery.of(context).size.width / 8.42,
+                            width: MediaQuery.of(context).size.width / 8.40,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(14),
                               color: widget.selectedIndex == entry.key
                                   ? Colors.white
                                   : null,
@@ -130,13 +126,13 @@ class _WorkScheduleState extends State<WorkSchedule> {
                             child: Text(
                               entry.value,
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.firaSans(textStyle:TextStyle(
-                                fontSize: 12,
+                              style: GoogleFonts.firaSans(
+                                fontSize: AppSize.s12,
                                 fontWeight: FontWeightManager.semiBold,
                                 color: widget.selectedIndex == entry.key
                                     ? ColorManager.mediumgrey
                                     : Colors.white,
-                              ),)
+                              )
                             ),
                           ),
                           onTap: () => widget.selectButton(entry.key),
@@ -164,23 +160,9 @@ class _WorkScheduleState extends State<WorkSchedule> {
                         offset: Offset(0, -4),
                       ),]
                   ),),
-                // widget.selectedIndex == 0 ? Offstage():   Positioned(
-                //   right: 40,
-                //   // top: 20,
-                //   child: CustomIconButtonConst(
-                //       icon: Icons.add,
-                //       text: "Add New Holiday", onPressed: (){
-                //     showDialog(context: context, builder: (BuildContext context){
-                //       return AddHolidayPopup(controller: holidayNameController, onPressed: () async{
-                //         await addHolidaysPost(context, holidayNameController.text, calenderController.text, 2024, 11);
-                //         holidaysListGet(context);
-                //       }, calenderDateController: calenderController,);
-                //     });
-                //   }),
-                // ),
                 Padding(
                 padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 45,right: MediaQuery.of(context).size.width / 45,
-                    top: MediaQuery.of(context).size.width / 45 ),
+                ),
                 child: PageView(
                     controller: widget.managePageController,
                     physics: NeverScrollableScrollPhysics(),

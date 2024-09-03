@@ -38,8 +38,18 @@ class _App extends State<App> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          // primary: const Colors.yellow[700],
+          // secondary: const Colors.yellow.shade700,
+
+          // or from RGB
+
+          primary: const Color(0xff50B5E5),
+          //secondary: const Color(0xff50B5E5),
+
+        ),
         useMaterial3: false,
-        primarySwatch: Colors.lightBlue,
+       // primarySwatch: Ma,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: _hasShownSplash ? '/' :widget.signedIn == true?HomeScreen.routeName:LoginScreen.routeName,

@@ -2,12 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/popup_const.dart';
 import '../../../../app/resources/color.dart';
-import '../../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import '../../../../app/resources/font_manager.dart';
 import '../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
+import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
@@ -19,7 +21,6 @@ class SeeAllScreen extends StatefulWidget {
 }
 
 class _SeeAllScreenState extends State<SeeAllScreen> {
-  late CompanyIdentityManager _companyManager;
   final StreamController<List<CompanyModel>> _controller =
   StreamController<List<CompanyModel>>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -141,29 +142,24 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   }
 
   @override
+
   ///old
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-              right: MediaQuery
-                  .of(context)
-                  .size
-                  .width / 25,
-              bottom: MediaQuery
-                  .of(context)
-                  .size
-                  .width / 120,
-            ),
-            child: Row(
+      backgroundColor: ColorManager.white,
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width/24),
+        child: Column(
+          children: [
+
+            ///Create User Button
+            Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  height: 30,
-                  width: 130,
+                  height: AppSize.s30,
+                  width: AppSize.s130,
                   child: CustomIconButton(
                     icon: Icons.add,
                     text: 'Create User',
@@ -195,8 +191,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   lastNameController.text,
                                   roleController.text,
                                   emailController.text,
-                                  int.parse(companyIdController.text),
+                                  1, // int.parse(companyIdController.text),
                                   passwordController.text);
+
                               getUser(context).then((data) {
                                 _companyUsersList.add(data);
                               }).catchError((error) {});
@@ -208,513 +205,554 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               companyIdController.clear();
                               passwordController.clear();
                             },
-
                           );
                         },
                       );
                     },
-
                   ),
                 ),
               ],
             ),
-          ),
-          Column(
-            children: [
-              Container(
-                height: 30,
-                margin: EdgeInsets.symmetric(horizontal: 50),
-                decoration: BoxDecoration(
-                  color: ColorManager.fmediumgrey,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 1),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: const Text(
-                            AppString.srNo,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
+            SizedBox(height: 10,),
+            Column(
+              children: [
+                Container(
+                  height: AppSize.s30,
+                  //margin: EdgeInsets.symmetric(horizontal: 50),
+                  decoration: BoxDecoration(
+                    color: ColorManager.fmediumgrey,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 1),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 100.0),
+                            child: const Text(
+                              AppString.srNo,
+                              style: TextStyle(
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeightManager.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 65.0),
+                            child: Text(
+                              "User ID",
+                              style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.white),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: Text(
+                              AppString.fname,
+                              style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.white),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 40.0),
+                            child: Text(
+                              AppString.lname,
+                              textAlign: TextAlign.start,
+                              style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.white),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
                           child: Text(
-                            "User ID",
+                            AppString.role,
                             style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeightManager.bold,
                                 color: ColorManager.white),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
+                        Expanded(
+                          flex: 2,
                           child: Text(
-                            "First Name",
-                            style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.white),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Text(
-                            "Last Name",
+                            AppString.email,
                             textAlign: TextAlign.start,
                             style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeightManager.bold,
                                 color: ColorManager.white),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 30.0),
-                          child: Text(
-                            "Role",
-                            style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.white),
+                        // Expanded(
+                        //   flex: 2,
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.only(right: 30.0),
+                        //     child: Text(
+                        //       "Company ID",
+                        //       textAlign: TextAlign.center,
+                        //       style: GoogleFonts.firaSans(
+                        //           fontSize: FontSize.s12,
+                        //           fontWeight: FontWeightManager.bold,
+                        //           color: ColorManager.white),
+                        //     ),
+                        //   ),
+                        // ),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 40.0),
+                            child: Text(
+                              AppString.actions,
+                              textAlign: TextAlign.start,
+                              style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.white),
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          "Email",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.white),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 30.0),
-                          child: Text(
-                            "Company ID",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.white),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Text(
-                            "Actions",
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: ColorManager.white),
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 10),
-            ],
-          ),
+                SizedBox(height: AppSize.s10),
+              ],
+            ),
+            Expanded(
+              child: StreamBuilder<List<UserModal>>(
+                stream: _companyUsersList.stream,
+                builder: (BuildContext context, snapshot) {
 
-          Expanded(
-            child: StreamBuilder<List<UserModal>>(
-              stream: _companyUsersList.stream,
-              builder: (BuildContext context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
-                    ),
-                  );
-                }
-                if (snapshot.data!.isEmpty) {
-                  return Center(
-                    child: Text(
-                      "No Data!",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey,
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.blue,
                       ),
-                    ),
-                  );
-                }
-                if (snapshot.hasData) {
-                  int totalItems = snapshot.data!.length;
-                  int totalPages = (totalItems / itemsPerPage).ceil();
-                  List<UserModal> paginatedData = snapshot.data!.skip((currentPage - 1) * itemsPerPage).take(itemsPerPage).toList();
+                    );
+                  }
+                  if (snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "No available user !!"  ,                  // "No Data!",
+                        style: TextStyle(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.medium,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    List<UserModal> sortedData = snapshot.data!;
+                    sortedData.sort((a, b) => b.userId.compareTo(a.userId));
 
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: paginatedData.length,
-                          itemBuilder: (context, index) {
-                            int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                            String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
-                            UserModal user = paginatedData[index];
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 5),
-                                Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 50),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(4),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 4,
-                                        offset: Offset(0, 2),
-                                      ),
-                                      BoxShadow(
-                                        color: Colors.blue.withOpacity(0.5),
-                                        offset: Offset(-4, 0),
-                                      ),
-                                    ],
-                                  ),
-                                  height: 56,
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 50),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            formattedSerialNumber,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
+                    int totalItems = sortedData.length;
+                    int totalPages = (totalItems / itemsPerPage).ceil();
+                    List<UserModal> paginatedData = sortedData
+                        .skip((currentPage - 1) * itemsPerPage)
+                        .take(itemsPerPage)
+                        .toList();
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: paginatedData.length,
+                            itemBuilder: (context, index) {
+                              int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                              String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                              UserModal user = paginatedData[index];
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 5),
+                                  Container(
+                                    //margin: EdgeInsets.symmetric(horizontal: 50),
+                                    decoration: BoxDecoration(
+                                      color: ColorManager.white,
+                                      borderRadius: BorderRadius.circular(4),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
                                         ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            user.userId.toString(),
-                                            textAlign: TextAlign.start,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            user.firstName,
-                                            textAlign: TextAlign.start,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            user.lastName,
-                                            textAlign: TextAlign.start,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            user.role,
-                                            textAlign: TextAlign.start,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            user.email,
-                                            textAlign: TextAlign.start,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Text(
-                                            user.companyId.toString(),
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Row(
-                                            children: [
-                                              /// Edit button
-                                              InkWell(
-                                                child: Container(
-                                                  height: MediaQuery.of(context).size.height / 30,
-                                                  width: MediaQuery.of(context).size.width / 25,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    border: Border.all(color: ColorManager.bluebottom),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Edit",
-                                                      style: TextStyle(fontSize: 8),
-                                                    ),
-                                                  ),
-                                                ),
-                                                onTap: () {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (BuildContext context) {
-                                                      return FutureBuilder<UserModalPrefill>(
-                                                        future: getUserPrefill(context, user.userId),
-                                                        builder: (context, snapshotPrefill) {
-                                                          if (snapshotPrefill.connectionState == ConnectionState.waiting) {
-                                                            return Center(
-                                                              child: CircularProgressIndicator(color: ColorManager.blueprime),
-                                                            );
-                                                          }
-                                                          // Populate the controllers with the prefetched data
-                                                          userIdController = TextEditingController(text: snapshotPrefill.data!.userId.toString());
-                                                          firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName);
-                                                          lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName);
-                                                          emailController = TextEditingController(text: snapshotPrefill.data!.email);
-                                                          companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString());
-                                                          return EditUserPopUp(
-                                                            title: "Edit User ",
-                                                            userIdController: userIdController,
-                                                            lastNameController: lastNameController,
-                                                            emailController: emailController,
-                                                            firstNameController: firstNameController,
-                                                            roleController: roleController,
-                                                            companyIdController: companyIdController,
-                                                            onSubmit: () async {
-                                                              await updateUserPatch(
-                                                                context,
-                                                                user.userId,
-                                                                firstNameController.text,
-                                                                lastNameController.text,
-                                                                roleController.text,
-                                                                emailController.text,
-                                                                int.parse(companyIdController.text),
-                                                              );
-                                                              getUser(context).then((data) {
-                                                                _companyUsersList.add(data);
-                                                              }).catchError((error) {
-                                                                // Handle error
-                                                              });
-                                                              Navigator.pop(context);
-                                                              firstNameController.clear();
-                                                              lastNameController.clear();
-                                                              roleController.clear();
-                                                              emailController.clear();
-                                                              companyIdController.clear();
-                                                            },
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              ),
-                                              SizedBox(width: 10),
-                                              /// Delete button
-                                              InkWell(
-                                                onTap: () async {
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder: (context) => DeletePopup(
-                                                      title: 'Delete User',
-                                                      onCancel: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      onDelete: () {
-                                                        setState(() async {
-                                                          await deleteUser(context, user.userId);
-                                                          getUser(context).then((data) {
-                                                            _companyUsersList.add(data);
-                                                          }).catchError((error) {
-                                                            // Handle error
-                                                          });
-                                                          Navigator.pop(context);
-                                                        });
-                                                      },
-                                                    ),
-                                                  );
-                                                },
-                                                child: Container(
-                                                  height: MediaQuery.of(context).size.height / 30,
-                                                  width: MediaQuery.of(context).size.width / 25,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    border: Border.all(color: ColorManager.bluebottom),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Delete",
-                                                      style: TextStyle(fontSize: 8),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                        BoxShadow(
+                                          color: Colors.blue.withOpacity(0.5),
+                                          offset: Offset(-4, 0),
                                         ),
                                       ],
                                     ),
+                                    height: AppSize.s56,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                          MediaQuery.of(context).size.width /
+                                              50),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              formattedSerialNumber,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: FontSize.s10,
+                                                fontWeight:
+                                                FontWeightManager.bold,
+                                                color: ColorManager.granitegray,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              user.userId.toString(),
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: FontSize.s10,
+                                                fontWeight:
+                                                FontWeightManager.bold,
+                                                color: ColorManager.granitegray,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              user.firstName,
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: FontSize.s10,
+                                                fontWeight:
+                                                FontWeightManager.bold,
+                                                color: ColorManager.granitegray,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 20.0),
+                                              child: Text(
+                                                user.lastName,
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight:
+                                                  FontWeightManager.bold,
+                                                  color: ColorManager.granitegray,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 50.0),
+                                              child: Text(
+                                                user.role,
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight:
+                                                  FontWeightManager.bold,
+                                                  color: ColorManager.granitegray,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left:100.0),
+                                              child: Text(
+                                                user.email,
+                                                textAlign: TextAlign.start,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight:
+                                                  FontWeightManager.bold,
+                                                  color: ColorManager.granitegray,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          // Expanded(
+                                          //   flex: 2,
+                                          //   child: Text(
+                                          //     user.companyId.toString(),
+                                          //     textAlign: TextAlign.center,
+                                          //     style: GoogleFonts.firaSans(
+                                          //       fontSize: FontSize.s10,
+                                          //       fontWeight:
+                                          //           FontWeightManager.bold,
+                                          //       color: ColorManager.granitegray,
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Row(
+                                              children: [
+                                                /// Edit button
+                                                InkWell(
+                                                  child: Container(
+                                                    height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                        30,
+                                                    width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                        25,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          10),
+                                                      border: Border.all(
+                                                          color: ColorManager
+                                                              .bluebottom),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Edit",
+                                                        style: GoogleFonts.firaSans(
+                                                            fontSize: FontSize.s10),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  onTap: () {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (BuildContext context) {
+                                                        return FutureBuilder<
+                                                            UserModalPrefill>(
+                                                          future: getUserPrefill(
+                                                              context,
+                                                              user.userId),
+                                                          builder: (context,
+                                                              snapshotPrefill) {
+                                                            if (snapshotPrefill
+                                                                .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return Center(
+                                                                child: CircularProgressIndicator(
+                                                                    color: ColorManager
+                                                                        .blueprime),
+                                                              );
+                                                            }
+                                                            // Populate the controllers with the prefetched data
+                                                            userIdController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .userId
+                                                                        .toString());
+                                                            firstNameController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .firstName);
+                                                            lastNameController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .lastName);
+                                                            emailController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .email);
+                                                            companyIdController =
+                                                                TextEditingController(
+                                                                    text: snapshotPrefill
+                                                                        .data!
+                                                                        .companyId
+                                                                        .toString());
+                                                            return EditUserPopUp(
+                                                              title: "Edit User ",
+                                                              userIdController:
+                                                              userIdController,
+                                                              lastNameController:
+                                                              lastNameController,
+                                                              emailController:
+                                                              emailController,
+                                                              firstNameController:
+                                                              firstNameController,
+                                                              roleController:
+                                                              roleController,
+                                                              companyIdController:
+                                                              companyIdController,
+                                                              onSubmit: () async {
+                                                                await updateUserPatch(
+                                                                    context,
+                                                                    user.userId,
+                                                                    firstNameController
+                                                                        .text,
+                                                                    lastNameController
+                                                                        .text,
+                                                                    roleController
+                                                                        .text,
+                                                                    emailController
+                                                                        .text,
+                                                                    1
+                                                                );
+                                                                getUser(context)
+                                                                    .then((data) {
+                                                                  _companyUsersList
+                                                                      .add(data);
+                                                                }).catchError(
+                                                                        (error) {
+                                                                      // Handle error
+                                                                    });
+                                                                Navigator.pop(
+                                                                    context);
+                                                                firstNameController
+                                                                    .clear();
+                                                                lastNameController
+                                                                    .clear();
+                                                                roleController
+                                                                    .clear();
+                                                                emailController
+                                                                    .clear();
+                                                                companyIdController
+                                                                    .clear();
+                                                              },
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                ),
+                                                SizedBox(width: AppSize.s10),
+
+                                                /// Delete button
+                                                InkWell(
+                                                  onTap: () async {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          DeletePopup(
+                                                            title: 'Delete User',
+                                                            onCancel: () {
+                                                              Navigator.pop(context);
+                                                            },
+                                                            onDelete: () {
+                                                              setState(() async {
+                                                                await deleteUser(
+                                                                    context,
+                                                                    user.userId);
+                                                                getUser(context)
+                                                                    .then((data) {
+                                                                  _companyUsersList
+                                                                      .add(data);
+                                                                }).catchError(
+                                                                        (error) {
+                                                                      // Handle error
+                                                                    });
+                                                                Navigator.pop(
+                                                                    context);
+                                                              });
+                                                            },
+                                                          ),
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                        30,
+                                                    width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                        25,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          10),
+                                                      border: Border.all(
+                                                          color: ColorManager
+                                                              .bluebottom),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        AppString.delete,
+                                                        style: GoogleFonts.firaSans(
+                                                            fontSize: FontSize.s10),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
+                                ],
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      // Pagination Controls
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Previous Page Button
-                          InkWell(
-                            onTap: currentPage > 1 ? () {
-                              setState(() {
-                                currentPage--;
-                              });
-                            } : null,
-                            child: Container(
-                              height: 20,
-                              width: 20,
-                              margin: EdgeInsets.only(left: 5, right: 5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: ColorManager.bluelight,
-                              ),
-                              child: Icon(Icons.arrow_back_ios_sharp, size: 14, color: Colors.white),
-                            ),
-                          ),
-                          for (var i = 1; i <= totalPages; i++)
-                            if (i == 1 ||
-                                i == totalPages ||
-                                i == currentPage ||
-                                (i == currentPage - 1 && i > 1) ||
-                                (i == currentPage + 1 && i < totalPages))
-                              InkWell(
-                                onTap: () => onPageNumberPressed(i),
-                                child: Container(
-                                  width: 20,
-                                  height: 20,
-                                  margin: EdgeInsets.only(left: 5, right: 5),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(
-                                      color: currentPage == i ? ColorManager.bluelight : ColorManager.fmediumgrey.withOpacity(0.2),
-                                      width: currentPage == i ? 2.0 : 1.0,
-                                    ),
-                                    color: currentPage == i ? ColorManager.bluelight : Colors.transparent,
-                                  ),
-                                  child: Text(
-                                    '$i',
-                                    style: TextStyle(
-                                      color: currentPage == i ? Colors.white : ColorManager.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            else if (i == currentPage - 2 || i == currentPage + 2)
-                              Text(
-                                '..',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                          ///Page Number Buttons
-                          InkWell(
-                            onTap: currentPage < totalPages ? () {
-                              setState(() {
-                                currentPage++;
-                              });
-                            } : null,
-                            child: Container(
-                              height: 20,
-                              width: 20,
-                              margin: EdgeInsets.only(left: 5, right: 5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: ColorManager.bluelight,
-                              ),
-                              child: Icon(Icons.arrow_forward_ios, size: 14, color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                }
-                return Scaffold();
-              },
-            ),
-          )
-        ],
+                        PaginationControlsWidget(
+                          currentPage: currentPage,
+                          items: snapshot.data!,
+                          itemsPerPage: itemsPerPage,
+                          onPreviousPagePressed: () {
+                            setState(() {
+                              currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                            });
+                          },
+                          onPageNumberPressed: (pageNumber) {
+                            setState(() {
+                              currentPage = pageNumber;
+                            });
+                          },
+                          onNextPagePressed: () {
+                            setState(() {
+                              currentPage = currentPage < totalPages
+                                  ? currentPage + 1
+                                  : totalPages;
+                            });
+                          },
+                        )
+                      ],
+                    );
+                  }
+                  return Scaffold();
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -45,12 +46,13 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
     final mediaQuery = MediaQuery.of(context).size;
     return Column(
       children: [
+        ///add button
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
               width: 100,
-              margin: EdgeInsets.only(right: 20),
+              margin: EdgeInsets.only(right: 60),
               child: CustomIconButtonConst(
                   text: AppStringHr.add,
                   icon: Icons.add,
@@ -142,27 +144,31 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                       color: Colors.white,
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                     ),
-                    height:  MediaQuery.of(context).size.height/3.3,
+                    // height:  MediaQuery.of(context).size.height/3.3,
+                    height: MediaQuery.of(context).size.height/3.9,
+                    padding: EdgeInsets.all(5),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 80,
                         vertical: MediaQuery.of(context).size.height / 120,
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                            Row(
                             children: [
-                              Text('References #${snapshot.data![index].referenceId}',
-                                style: TextStyle(
-                                  fontFamily: 'FiraSans',
+                              Text(
+                                'References #${index + 1}',
+                                // 'References #${snapshot.data![index].referenceId}',
+                                style: GoogleFonts.firaSans(
                                   fontSize: 13,
                                   color: Color(0xFF333333),
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeightManager.medium,
                                 ),),
                             ],
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height/50,),
+                          // SizedBox(height: MediaQuery.of(context).size.height/50,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -170,72 +176,78 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Name',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 10,),
                                   Text('Title/ Position',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 15,),
                                   Text('Company/ Organization',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 10,),
                                   Text('Mobile Number',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(snapshot.data![index].name,
-                                    style: ThemeManagerDark.customTextStyle(context),),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
                                   const SizedBox(height: 10,),
                                   Text(snapshot.data![index].title,
-                                    style: ThemeManagerDark.customTextStyle(context),),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
                                   const SizedBox(height: 15,),
                                   Text(snapshot.data![index].company,
-                                    style: ThemeManagerDark.customTextStyle(context),),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
                                   const SizedBox(height: 10,),
                                   Text(snapshot.data![index].mobNumber,
-                                    style: ThemeManagerDark.customTextStyle(context),),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Email',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 10,),
                                   Text('How do you know this\nperson ?',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 5,),
                                   Text('Length of Association',
-                                      style: ThemeManager.customTextStyle(context)),
+                                      style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 5,),
-                                  Text('Referred By',
-                                      style: ThemeManager.customTextStyle(context)),
+                                  SizedBox(height: 30, width: 90,)
+                                  // Text('Referred By',
+                                  //     style: ThemeManager.customTextStyle(context)),
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(snapshot.data![index].email,
-                                    style: ThemeManagerDark.customTextStyle(context),),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
                                   const SizedBox(height: 10,),
                                   Text('LinkedIn',
-                                    style: ThemeManagerDark.customTextStyle(context),),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
                                   const SizedBox(height: 15,),
                                   Text(snapshot.data![index].association,
-                                    style: ThemeManagerDark.customTextStyle(context),),
+                                    style: ThemeManagerDarkFont.customTextStyle(context),),
                                   const SizedBox(height: 10,),
-                                  Text(snapshot.data![index].references,
-                                    style: ThemeManagerDark.customTextStyle(context),),
+                                  SizedBox(height: 30, width: 90,)
+                                  // Text(snapshot.data![index].references,
+                                  //   style: ThemeManagerDarkFont.customTextStyle(context),),
                                 ],
                               ),
                             ],),
-                          SizedBox(height: MediaQuery.of(context).size.height/40,),
+                          // SizedBox(height: MediaQuery.of(context).size.height/40,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              BorderIconButton(iconData: Icons.edit_outlined,
+                            children: [snapshot.data![index].approve == null ? Text('Not Approved',style:GoogleFonts.firaSans(
+                              fontSize: MediaQuery.of(context).size.width/120,
+                              color: ColorManager.mediumgrey,
+                              fontWeight: FontWeight.w600,
+                            )):
+                            BorderIconButton(iconData: Icons.edit_outlined,
                                   buttonText: 'Edit', onPressed: (){
                                 showDialog(context: context, builder: (BuildContext context){
                                   return FutureBuilder<ReferencePrefillData>(
@@ -293,7 +305,6 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                     referredby== referredBController.text? referredby.toString():referredBController.text,
                                                     title == titlePositionController.text ? title.toString() : titlePositionController.text,
                                                  );
-
                                                 getReferences(context,5).then((data) {
                                                   referenceStreamController.add(data);
                                                 }).catchError((error) {

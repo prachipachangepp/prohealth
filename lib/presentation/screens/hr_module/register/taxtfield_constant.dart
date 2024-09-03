@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
+import '../../em_module/widgets/text_form_field_const.dart';
+
 
 
 
@@ -132,18 +134,6 @@ class CustomTextFieldForEmail extends StatelessWidget {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 ///normal textfield
 class CustomTextFieldRegister extends StatelessWidget {
   final TextEditingController? controller;
@@ -157,7 +147,139 @@ class CustomTextFieldRegister extends StatelessWidget {
   final Widget? suffixIcon;
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
-   VoidCallback? onTap;
+  VoidCallback? onTap;
+  final FocusNode? focusNode;
+  final ValueChanged<String>? onFieldSubmitted;
+  final EdgeInsetsGeometry? padding;
+  final double? width;
+  final double? height;
+  final String? hintText;
+  final TextStyle? hintStyle;
+  final TextStyle? prefixStyle;
+  final String? prefixText;
+  final double? cursorHeight;
+  final int? maxLength;
+  final bool capitalIsSelect;
+  final bool? phoneNumberField;
+
+  CustomTextFieldRegister({
+    Key? key,
+    this.phoneNumberField = false,
+    this.capitalIsSelect = false, // Default to false
+    this.maxLength,
+    this.controller,
+    this.labelText,
+    this.keyboardType,
+    this.textInputAction,
+    this.obscureText = false,
+    this.autofocus = false,
+    this.enabled = true,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.hintText,
+    this.hintStyle,
+    this.prefixText,
+    this.prefixStyle,
+    this.onChanged,
+    this.validator,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.padding,
+    this.width,
+    this.height,
+    this.cursorHeight,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: Padding(
+        padding: const EdgeInsets.all(1.0),
+        child: TextFormField(
+          controller: controller,
+          cursorHeight: cursorHeight,
+          cursorColor: Colors.black,
+          cursorWidth: 1.5,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: hintStyle,
+            prefixText: prefixText,
+            prefixStyle: prefixStyle,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: const BorderSide(
+                color: Color(0xffB1B1B1),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: const BorderSide(
+                color: Color(0xffB1B1B1),
+              ),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: const BorderSide(
+                color: Color(0xffB1B1B1),
+              ),
+            ),
+            labelText: labelText,
+            labelStyle: GoogleFonts.firaSans(
+              fontSize: FontSize.s13,
+            ),
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            contentPadding: padding,
+          ),
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          style: GoogleFonts.firaSans(
+            fontSize: FontSize.s12,
+          ),
+          obscureText: obscureText,
+          autofocus: autofocus,
+          enabled: enabled,
+          onTap: onTap,
+          onChanged: onChanged,
+          validator: validator,
+          focusNode: focusNode,
+          onFieldSubmitted: onFieldSubmitted,
+          inputFormatters: phoneNumberField! ?[PhoneNumberInputFormatter()]:[
+            if (capitalIsSelect) CapitalizeFirstLetterFormatter(), // Apply formatter conditionally
+            LengthLimitingTextInputFormatter(maxLength),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+///enroll popup only
+///
+
+///normal textfield
+class CustomTextFieldEnroll extends StatelessWidget {
+  final TextEditingController? controller;
+  final String? labelText;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final bool obscureText;
+  final bool autofocus;
+  final bool enabled;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final ValueChanged<String>? onChanged;
+  final FormFieldValidator<String>? validator;
+  VoidCallback? onTap;
   final FocusNode? focusNode;
   final ValueChanged<String>? onFieldSubmitted;
   final EdgeInsetsGeometry? padding;
@@ -170,7 +292,7 @@ class CustomTextFieldRegister extends StatelessWidget {
   final double? cursorHeight;
 
 
-   CustomTextFieldRegister({
+  CustomTextFieldEnroll({
     Key? key,
     this.controller,
     this.labelText,
@@ -209,7 +331,7 @@ class CustomTextFieldRegister extends StatelessWidget {
           cursorColor: Colors.black,
           cursorWidth: 1.5,
           decoration: InputDecoration(
-            hintText: hintText,
+              hintText: hintText,
               hintStyle: hintStyle,
               prefixText: prefixText,
               prefixStyle: prefixStyle,
@@ -237,8 +359,8 @@ class CustomTextFieldRegister extends StatelessWidget {
               // ),
               labelText: labelText,
               labelStyle: GoogleFonts.firaSans(
-            fontSize: FontSize.s10,
-          ),
+                fontSize: FontSize.s10,
+              ),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
               contentPadding: padding
@@ -266,28 +388,29 @@ class CustomTextFieldRegister extends StatelessWidget {
   }
 }
 
-class CapitalizeFirstLetterFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue,
-      TextEditingValue newValue,
-      ) {
-    // If the new text is empty or just whitespace, return it as is
-    if (newValue.text.isEmpty) {
-      return newValue;
-    }
 
-    // Capitalize the first letter
-    final String newText = newValue.text.substring(0, 1).toUpperCase() +
-        newValue.text.substring(1);
 
-    // Return the updated text value
-    return newValue.copyWith(
-      text: newText,
-      selection: TextSelection.collapsed(offset: newText.length),
-    );
-  }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //

@@ -240,3 +240,9 @@ class ZipcodeByCountyIdData {
     required this.officeId,
   });
 }
+class CountryGetData{
+  final int countryId;
+  final String name;
+  final String short;
+  CountryGetData({required this.countryId,required this.name,required this.short});
+}

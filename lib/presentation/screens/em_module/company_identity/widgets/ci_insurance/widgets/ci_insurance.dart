@@ -1,22 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/manage_insurance_manager/insurance_vendor_contract_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
+import '../../../../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../../../../data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
+import '../../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../company_identity_screen.dart';
 import '../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../../whitelabelling/success_popup.dart';
 import 'contract_add_dialog.dart';
 import 'custome_dialog.dart';
 
 class CIInsurance extends StatefulWidget {
-  const CIInsurance({super.key});
+  final String officeId;
+  final int docID;
+  final int subDocID;
+  final int companyID;
+
+  const CIInsurance({
+    super.key,
+    required this.officeId,
+    required this.docID,
+    required this.subDocID,
+    required this.companyID,
+  });
 
   @override
   State<CIInsurance> createState() => _CiOrgDocumentState();
@@ -24,21 +43,21 @@ class CIInsurance extends StatefulWidget {
 
 class _CiOrgDocumentState extends State<CIInsurance> {
   final PageController _tabPageController = PageController();
-  TextEditingController docNamecontroller = TextEditingController();
-  TextEditingController docIdController = TextEditingController();
-  TextEditingController countynameController = TextEditingController();
-  TextEditingController zipcodeController = TextEditingController();
-  TextEditingController mapController = TextEditingController();
-  TextEditingController landmarkController = TextEditingController();
-  TextEditingController vendorName = TextEditingController();
+  TextEditingController vendorNameController = TextEditingController();
   TextEditingController contractNameController = TextEditingController();
   TextEditingController contractIdController = TextEditingController();
-
+  TextEditingController calenderController = TextEditingController();
   int _selectedIndex = 0;
+  int selectedVendorId = 0;
+  String? selectedVendorName;
+  String? selectedExpiryType;
 
-  void _selectButton(int index) {
+  bool isAddButtonEnabled = false;
+
+  void _selectButton(int index,[bool? selected]) {
     setState(() {
       _selectedIndex = index;
+      selected = false;
     });
     _tabPageController.animateToPage(
       index,
@@ -47,38 +66,31 @@ class _CiOrgDocumentState extends State<CIInsurance> {
     );
   }
 
+  String? expiryType;
+  String? selectedValue;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width / 50.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _selectedIndex == 0
-                  ? SizedBox(
-                      width: 354,
-                    )
-                  :  FutureBuilder<List<ManageInsuranceVendorData>>(
-                  future: companyVendorGet(context),
-                  builder: (context,snapshot) {
-                    if(snapshot.connectionState == ConnectionState.waiting){
-                      return Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Colors.grey[100]!,
-                          child: Container(
-                            width: 350,
-                            height: 30,
-                            decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                          )
-                      );
-                    }
-                    if (snapshot.data!.isEmpty) {
-                      return Center(
+    return Container(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 50.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _selectedIndex == 0
+                    ? SizedBox(width: 354)
+                    : FutureBuilder<List<ManageVendorData>>(
+                  future: companyVendorGet(context, widget.officeId, 1, 20),
+                  builder: (context, snapshotZone) {
+                    if (snapshotZone.connectionState == ConnectionState.waiting &&
+                        selectedValue == null) {
+                      return Container(
+                        width: 300,
                         child: Text(
-                          AppString.dataNotFound,
+                          "Loading...... ",
                           style: CustomTextStylesCommon.commonStyle(
                             fontWeight: FontWeightManager.medium,
                             fontSize: FontSize.s12,
@@ -87,212 +99,363 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                         ),
                       );
                     }
-                    if(snapshot.hasData){
-                      List dropDown = [];
-                      String docType = 'vendor name';
-                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                      for(var i in snapshot.data!){
-                        dropDownMenuItems.add(
+
+                    if (snapshotZone.hasError || snapshotZone.data == null) {
+                      return Container(
+                        height: 30,
+                        width: 354,
+                        child: Text(
+                          "Loading data.... ",
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontWeight: FontWeightManager.medium,
+                            fontSize: FontSize.s12,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                      );
+                    }
+                    if (snapshotZone.data!.isEmpty) {
+                      return CICCDropdown(items: [],initialValue: 'No available vendors !!',);
+                    }
+                    if (snapshotZone.hasData) {
+                      List<DropdownMenuItem<String>> dropDownTypesList = [];
+                      for (var i in snapshotZone.data!) {
+                        dropDownTypesList.add(
                           DropdownMenuItem<String>(
-                            child: Text(i.vendorName!),
                             value: i.vendorName,
+                            child: Text(i.vendorName),
                           ),
                         );
                       }
-                      return CICCDropdown(
-                          initialValue: 'Vendor Contract',
-                          onChange: (val){
-                            for(var a in snapshot.data!){
-                              if(a.vendorName == val){
-                                docType = a.vendorName!;
-                                //DepartmentId = docType;
 
+                      // Initialize selectedValue if not already selected
+                      if (selectedValue == null && dropDownTypesList.isNotEmpty) {
+                        selectedValue = dropDownTypesList[0].value;
+                      }
+
+                      return CICCDropdown(
+                        initialValue: selectedValue,
+                        onChange: (val) {
+                          setState(() {
+                            selectedValue = val;
+                            for (var a in snapshotZone.data!) {
+                              if (a.vendorName == val) {
+                                int docType = a.insuranceVendorId;
+                                print("Insurance vendor id :: ${a.insuranceVendorId}");
+                                selectedVendorId = docType;
+                                isAddButtonEnabled = true;
+                                _selectButton(1);
+                                break;
                               }
                             }
-
-                            print(":::${docType}");
-                            //print(":::<>${DepartmentId}");
-                          },
-                          items:dropDownMenuItems
+                          });
+                        },
+                        items: dropDownTypesList,
                       );
-                    }else{
-                      return SizedBox();
                     }
-                  }
-              ),
-              // Container(
-              //         height: 30,
-              //         width: 354,
-              //         // margin: EdgeInsets.symmetric(horizontal: 20),
-              //         padding:
-              //             EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-              //         decoration: BoxDecoration(
-              //           color: Colors.white,
-              //           border: Border.all(
-              //               color: Color(0xff686464).withOpacity(0.5),
-              //               width: 1), // Black border
-              //           borderRadius:
-              //               BorderRadius.circular(8), // Rounded corners
-              //         ),
-              //         child: DropdownButtonFormField<String>(
-              //           focusColor: Colors.transparent,
-              //           icon: Icon(
-              //             Icons.arrow_drop_down_sharp,
-              //             color: Color(0xff686464),
-              //           ),
-              //           decoration: InputDecoration.collapsed(hintText: ''),
-              //           items: <String>[
-              //             'Sample Vendor',
-              //             'Option 1',
-              //             'Option 2',
-              //             'Option 3',
-              //             'Option 4'
-              //           ].map<DropdownMenuItem<String>>((String value) {
-              //             return DropdownMenuItem<String>(
-              //               value: value,
-              //               child: Text(value),
-              //             );
-              //           }).toList(),
-              //           onChanged: (String? newValue) {},
-              //           value: 'Sample Vendor',
-              //           style: GoogleFonts.firaSans(
-              //             fontSize: 12,
-              //             fontWeight: FontWeight.w600,
-              //             color: Color(0xff686464),
-              //             decoration: TextDecoration.none,
-              //           ),
-              //         ),
-              //       ),
 
-              ///tabbar
-              Padding(
-                padding: const EdgeInsets.only(right: 250),
-                child: Container(
-                  //color: Colors.greenAccent,
-                  width: MediaQuery.of(context).size.width / 7,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () => _selectButton(0),
-                        child: Container(
-                          height: 40,
-                          width: 80,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Vendor",
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: _selectedIndex == 0
-                                      ? FontWeightManager.bold
-                                      : FontWeightManager.regular,
-                                  color: _selectedIndex == 0
-                                      ? ColorManager.blueprime
-                                      : ColorManager.mediumgrey,
+                    return const SizedBox();
+                  },
+                ),
+
+
+                ///tabbar
+                Padding(
+                  padding: const EdgeInsets.only(right: 250,top: AppPadding.p10),
+                  child: Container(
+                   // color: Colors.red,
+                    width: MediaQuery.of(context).size.width / 12,
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () => _selectButton(0,isAddButtonEnabled),
+                          child: Container(
+                            height: 40,
+                            width: 50,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Vendor",
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: _selectedIndex == 0
+                                        ? FontWeightManager.bold
+                                        : FontWeightManager.regular,
+                                    color: _selectedIndex == 0
+                                        ? ColorManager.blueprime
+                                        : ColorManager.mediumgrey,
+                                  ),
                                 ),
-                              ),
-                              _selectedIndex == 0
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
+                                _selectedIndex == 0
+                                    ? Divider(
+                                        color: ColorManager.blueprime,
+                                        thickness: 2,
+                                      )
+                                    : Offstage()
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      InkWell(
-                        onTap: () => _selectButton(1),
-                        child: Container(
-                          height: 40,
-                          width: 80,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Contract",
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: _selectedIndex == 1
-                                      ? FontWeightManager.bold
-                                      : FontWeightManager.regular,
-                                  color: _selectedIndex == 1
-                                      ? ColorManager.blueprime
-                                      : ColorManager.mediumgrey,
+                        InkWell(
+                          onTap: () => _selectButton(1),
+                          child: Container(
+                            height: 40,
+                            width: 50,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Contract",
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: _selectedIndex == 1
+                                        ? FontWeightManager.bold
+                                        : FontWeightManager.regular,
+                                    color: _selectedIndex == 1
+                                        ? ColorManager.blueprime
+                                        : ColorManager.mediumgrey,
+                                  ),
                                 ),
-                              ),
-                              _selectedIndex == 1
-                                  ? Divider(
-                                      color: ColorManager.blueprime,
-                                      thickness: 2,
-                                    )
-                                  : Offstage()
-                            ],
+                                _selectedIndex == 1
+                                    ? Divider(
+                                        color: ColorManager.blueprime,
+                                        thickness: 2,
+                                      )
+                                    : Offstage()
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-
-              ///button
-              _selectedIndex == 0
-                  ? CustomIconButtonConst(
-                      icon: Icons.add,
-                      text: "Add",
-                      onPressed: () {
-                        showDialog(
+                _selectedIndex == 0
+                    ? Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: CustomIconButtonConst(
+                            width: 79,
+                            icon: Icons.add,
+                            text: "Add",
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return CustomPopup(
+                                    title: 'Add Vendor',
+                                    namecontroller: vendorNameController,
+                                    onPressed: () async {
+                                      await addVendors(
+                                        context,
+                                        widget.officeId,
+                                        vendorNameController.text,
+                                      );
+                                    },
+                                    buttontxt: AppStringEM.Add,
+                                    successpopuptext: 'Added Successfully',
+                                  );
+                                },
+                              );
+                            }),
+                      )
+                    : CustomIconButtonConst(
+                        width: 130,
+                        icon: Icons.add,
+                        text: "Add Doctype",
+                        onPressed:
+                        isAddButtonEnabled?  () {
+                                //selectedExpiryType = expiryType;
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return StatefulBuilder(
+                                      builder: (BuildContext context, void Function(void Function()) setState) {
+                                        return ContractAddDialog(
+                                          contractNmaeController: contractNameController,
+                                          radiobutton:Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Expiry Type',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: ColorManager.mediumgrey,
+                                                ),
+                                              ),
+                                              // CustomRadioListTile(
+                                              //   value: "Not Applicable",
+                                              //   groupValue: selectedExpiryType,
+                                              //   onChanged: (value) {
+                                              //     setState(() {
+                                              //       selectedExpiryType = value!;
+                                              //     });
+                                              //   },
+                                              //   title: "Not Applicable",
+                                              // ),
+                                              CustomRadioListTile(
+                                                value: 'Scheduled',
+                                                groupValue: selectedExpiryType,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    selectedExpiryType = value!;
+                                                  });
+                                                },
+                                                title: 'Scheduled',
+                                              ),
+                                              CustomRadioListTile(
+                                                value: 'Issuer Expiry',
+                                                groupValue: selectedExpiryType,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    selectedExpiryType = value!;
+                                                  });
+                                                },
+                                                title: 'Issuer Expiry',
+                                              ),
+                                            ],
+                                          ),
+                                          child2: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Expiry Date",
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: ColorManager.mediumgrey,
+                                                  decoration: TextDecoration.none,
+                                                ),
+                                              ),
+                                              SizedBox(height: AppSize.s5,),
+                                              FormField<String>(
+                                                builder: (FormFieldState<String> field) {
+                                                  return SizedBox (
+                                                    width: 354,
+                                                    height: 30,
+                                                    child:   TextFormField(
+                                                      controller: calenderController,
+                                                      cursorColor: ColorManager.black,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorManager.mediumgrey,
+                                                        //decoration: TextDecoration.none,
+                                                      ),
+                                                      decoration: InputDecoration(
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        ),
+                                                        focusedBorder: OutlineInputBorder(
+                                                          borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        ),
+                                                        hintText: 'mm-dd-yyyy',
+                                                        hintStyle: GoogleFonts.firaSans(
+                                                          fontSize: FontSize.s12,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: ColorManager.mediumgrey,
+                                                          //decoration: TextDecoration.none,
+                                                        ),
+                                                        border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
+                                                        ),
+                                                        contentPadding:
+                                                        EdgeInsets.symmetric(horizontal: 16),
+                                                        suffixIcon: Icon(Icons.calendar_month_outlined,
+                                                            color: ColorManager.blueprime),
+                                                        errorText: field.errorText,
+                                                      ),
+                                                      onTap: () async {
+                                                        DateTime? pickedDate = await showDatePicker(
+                                                          context: context,
+                                                          initialDate: DateTime.now(),
+                                                          firstDate: DateTime(2000),
+                                                          lastDate: DateTime(3101),
+                                                        );
+                                                        if (pickedDate != null) {
+                                                          calenderController.text =
+                                                              DateFormat('MM-dd-yyyy').format(pickedDate);
+                                                        }
+                                                      },
+                                                      validator: (value) {
+                                                        if (value == null || value.isEmpty) {
+                                                          return 'please select birth date';
+                                                        }
+                                                        return null;
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                          onSubmitPressed: () async {
+                                            //if (selectedVendorId == 0) {
+                                            await addVendorContract(
+                                              context,
+                                              selectedVendorId,
+                                              contractNameController.text,
+                                              selectedExpiryType!,
+                                              widget.officeId,
+                                              contractIdController.text,
+                                              calenderController.text
+                                            );
+                                          },
+                                          contractIdController:
+                                          contractIdController,
+                                          title: 'Add Contract',
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              }
+                            : () {
+                          showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return CustomPopup(
-                                controller: vendorName,
-                                onPressed: () {}, title: 'Add Vendor',
-                              );
-                            });
-                      })
-                  : CustomIconButtonConst(
-                width: 150,
-                      icon: Icons.add,
-                      text: "Add Doctype",
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return ContractAddDialog(
-                                contractNmaeController: contractNameController,
-                                onSubmitPressed: () {},
-                                contractIdController: contractIdController, title: 'Add Contract',
-                              );
-                            });
-                      }),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 50),
-            child: NonScrollablePageView(
-              controller: _tabPageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              children: [
-                // Page 1
-                CiInsuranceVendor(),
-                CiInsuranceContract(),
+                              return VendorSelectNoti(message: "No Vendor Added.",);
+                            },
+                          );
+                              },
+                        enabled: isAddButtonEnabled,
+                      ),
               ],
             ),
           ),
-        )
-      ],
+          SizedBox(height: 30),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 40),
+              child: NonScrollablePageView(
+                controller: _tabPageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                children: [
+                  // Page 1
+                  CiInsuranceVendor(
+                    officeId: widget.officeId,
+                  ),
+                  CiInsuranceContract(
+                    insuranceVendorId: selectedVendorId,
+                    officeId: widget.officeId,
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
+

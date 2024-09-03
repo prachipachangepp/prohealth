@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 
@@ -23,7 +24,7 @@ class AddEmployeementPopup extends StatefulWidget {
   final TextEditingController countryController;
   final String tite;
   final VoidCallback onpressedClose;
-  Future<void> Function() onpressedSave;
+  final Future<void> Function() onpressedSave;
   final Widget checkBoxTile;
 
   AddEmployeementPopup({
@@ -40,7 +41,8 @@ class AddEmployeementPopup extends StatefulWidget {
     required this.onpressedSave,
     required this.checkBoxTile,
     required this.tite,
-    required this.onpressedClose, required this.countryController,
+    required this.onpressedClose,
+    required this.countryController,
   });
 
   @override
@@ -48,8 +50,8 @@ class AddEmployeementPopup extends StatefulWidget {
 }
 
 class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
-  final DateTime _selectedStartDate = DateTime.now();
-  final DateTime _selectedEndDate = DateTime.now();
+  DateTime _selectedStartDate = DateTime.now();
+  DateTime _selectedEndDate = DateTime.now();
   bool isLoading = false;
 
   // Error states
@@ -63,8 +65,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     'cityName': false,
     'employer': false,
     'emergencyMobileNumber': false,
-    'countryname':false
-
+    'countryname': false,
   };
 
   @override
@@ -73,7 +74,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.5,
-        height:  MediaQuery.of(context).size.height / 1.6,
+        height: MediaQuery.of(context).size.height / 1.6,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -81,9 +82,9 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
         child: Column(
           children: [
             Container(
-              height: 34,
+              height: AppSize.s34,
               decoration: BoxDecoration(
-                color: Color(0xff50B5E5),
+                color: ColorManager.blueprime,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
@@ -93,13 +94,13 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10.0),
+                    padding: EdgeInsets.only(left: 45.0),
                     child: Text(
                       widget.tite,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s16,
                         fontWeight: FontWeightManager.bold,
-                        color: Colors.white,
+                        color: ColorManager.white,
                         decoration: TextDecoration.none,
                       ),
                     ),
@@ -107,6 +108,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      _clearControllers();
                     },
                     icon: const Icon(
                       Icons.close,
@@ -118,7 +120,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 30),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildTextField(
                   controller: widget.positionTitleController,
@@ -141,7 +143,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 30),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildTextField(
                   controller: widget.endDateController,
@@ -172,11 +174,11 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildTextField(
                   controller: widget.cityNameController,
-                  labelText: "City",
+                  labelText: AppString.city,
                   errorKey: 'cityName',
                 ),
                 _buildTextField(
@@ -193,7 +195,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 30),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildTextField(
                   controller: widget.countryController,
@@ -215,26 +217,27 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CustomButtonTransparent(
-                    text: "Cancel",
+                    text: AppString.cancel,
                     onPressed: () {
                       Navigator.pop(context);
+                      _clearControllers();
                     },
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: AppSize.s10),
                   isLoading
                       ? SizedBox(
-                    height: 25,
-                    width: 25,
+                    height: AppSize.s25,
+                    width: AppSize.s25,
                     child: CircularProgressIndicator(color: ColorManager.blueprime),
                   )
                       : CustomElevatedButton(
-                    width: 100,
-                    text: "Save",
+                    width: AppSize.s100,
+                    text: AppString.save,
                     onPressed: _handleSave,
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -252,108 +255,117 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextFieldRegister(
+          phoneNumberField: errorKey == 'supervisorMobileNumber' || errorKey == 'emergencyMobileNumber' ? true : false,
           height: AppSize.s30,
           width: MediaQuery.of(context).size.width / 6,
           controller: controller,
           labelText: labelText,
-          keyboardType: TextInputType.text,
+          keyboardType: TextInputType.text, // Ensure the keyboard type is text except for phone fields
           padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
           suffixIcon: suffixIcon,
           onTap: onTap,
           onChanged: (value) {
             setState(() {
+              // General validation for empty fields
               errorStates[errorKey] = value.isEmpty;
             });
           },
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return AppString.enterText;
+              return 'Please fill this field';
             }
             return null;
           },
         ),
-        if (errorStates[errorKey]!)
+        if (errorStates[errorKey] == true)
           Padding(
-            padding: const EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.only(top: 5.0),
             child: Text(
-              'Please enter $labelText',
-              style: TextStyle(color: Colors.red, fontSize: 10),
+              'Please fill this field',
+              style: TextStyle(color: Colors.red, fontSize: 12),
             ),
           ),
       ],
     );
   }
 
-  Future<void> _selectDate(TextEditingController controller, DateTime initialDate) async {
-    DateTime? date = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(1100),
-      lastDate: DateTime(2025),
-    );
-    if (date != null) {
-      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-      controller.text = formattedDate;
-      setState(() {
-        errorStates[controller == widget.startDateContoller ? 'startDate' : 'endDate'] = false;
-      });
-    }
-  }
-
-  void _handleSave() async {
+  void _handleSave() {
     setState(() {
       isLoading = true;
-      errorStates['positionTitle'] = widget.positionTitleController.text.isEmpty;
-      errorStates['leavingReason'] = widget.leavingResonController.text.isEmpty;
-      errorStates['startDate'] = widget.startDateContoller.text.isEmpty;
-      errorStates['endDate'] = widget.endDateController.text.isEmpty;
-      errorStates['lastSupervisorName'] = widget.lastSupervisorNameController.text.isEmpty;
-      errorStates['supervisorMobileNumber'] = widget.supervisorMobileNumber.text.isEmpty;
-      errorStates['cityName'] = widget.cityNameController.text.isEmpty;
-      errorStates['employer'] = widget.employeerController.text.isEmpty;
-      errorStates['emergencyMobileNumber'] = widget.emergencyMobileNumber.text.isEmpty;
-      errorStates['countryname']=widget.countryController.text.isEmpty;
     });
 
-    if (!errorStates.values.contains(true)) {
-      try {
-        await widget.onpressedSave();
-      } finally {
-        setState(() {
-          isLoading = false;
-        });
-        Navigator.pop(context);
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            Future.delayed(Duration(seconds: 3), () {
-              if (Navigator.of(context).canPop()) {
-                Navigator.of(context).pop();
-              }
-            });
-            return AddSuccessPopup(message: 'Added Successfully',);
-          },
-        );
-        _clearControllers();
+    bool hasError = false;
+    errorStates.forEach((key, value) {
+      if (key != 'supervisorMobileNumber' && key != 'emergencyMobileNumber') {
+        errorStates[key] = controllerByErrorKey(key).text.isEmpty;
+        if (errorStates[key] == true) {
+          hasError = true;
+        }
       }
-    } else {
+    });
+
+    if (hasError) {
       setState(() {
         isLoading = false;
       });
+      return;
+    }
+
+    widget.onpressedSave();
+  }
+
+  TextEditingController controllerByErrorKey(String errorKey) {
+    switch (errorKey) {
+      case 'positionTitle':
+        return widget.positionTitleController;
+      case 'leavingReason':
+        return widget.leavingResonController;
+      case 'startDate':
+        return widget.startDateContoller;
+      case 'endDate':
+        return widget.endDateController;
+      case 'lastSupervisorName':
+        return widget.lastSupervisorNameController;
+      case 'supervisorMobileNumber':
+        return widget.supervisorMobileNumber;
+      case 'cityName':
+        return widget.cityNameController;
+      case 'employer':
+        return widget.employeerController;
+      case 'emergencyMobileNumber':
+        return widget.emergencyMobileNumber;
+      case 'countryname':
+        return widget.countryController;
+      default:
+        return TextEditingController();
     }
   }
 
   void _clearControllers() {
+    widget.positionTitleController.clear();
+    widget.leavingResonController.clear();
     widget.startDateContoller.clear();
     widget.endDateController.clear();
-    widget.leavingResonController.clear();
-    widget.cityNameController.clear();
     widget.lastSupervisorNameController.clear();
     widget.supervisorMobileNumber.clear();
+    widget.cityNameController.clear();
     widget.employeerController.clear();
-    widget.positionTitleController.clear();
     widget.emergencyMobileNumber.clear();
     widget.countryController.clear();
   }
-}
 
+  Future<void> _selectDate(TextEditingController controller, DateTime selectedDate) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1970),
+      lastDate: DateTime(2050),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        controller.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+      });
+    }
+  }
+}

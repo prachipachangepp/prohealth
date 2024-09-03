@@ -33,7 +33,7 @@ class MobMenuScreenConst extends StatelessWidget {
                 width: 19.39,
                 height: 20.39,
               ),
-              SizedBox(height: 5),
+              SizedBox(height:  AppSize.s5),
               Flexible(
                 child: Text(
                   text,

@@ -8,7 +8,7 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-Future<ApiDataRegister> postreferencescreen(
+Future<ApiDataRegister> postreferencescreenData(
     BuildContext context,
     String association,
     String comment,
@@ -37,7 +37,7 @@ Future<ApiDataRegister> postreferencescreen(
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("reference Added");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Reference data saved")),
+        SnackBar(content: Text("Reference data saved"),backgroundColor: Colors.green,),
       );
       // orgDocumentGet(context);
       return ApiDataRegister(
@@ -79,7 +79,7 @@ Future<List<ReferenceDataForm>> getEmployeeReferenceForm(
   List<ReferenceDataForm> itemsData = [];
   try {
     final response = await ApiOffer(context).get(
-        path: ProgressBarRepository()
+        path: ProgressBarRepository
             .getReferenceByEmpID(employeeID: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {

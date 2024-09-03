@@ -226,9 +226,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
       );
     }
   }
-
-
-
   @override
   void initState() {
     super.initState();
@@ -259,396 +256,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
         width: 400,
         child: Column(
           children: [
-            ///upload photo button
-            ///"https://symmetry-office-document.s3.us-west-2.amazonaws.com/documents/e6585043-c645-4a38-aead-799aa1fca4a2-usaman.png",
-            // CustomButton(
-            //   width: 125,
-            //   height: 30,
-            //   text: 'Upload Photo',
-            //   style: TextStyle(
-            //     fontFamily: 'FiraSans',
-            //     fontSize: 12,
-            //     fontWeight: FontWeight.w700,
-            //   ),
-            //   borderRadius: 12,
-            //   onPressed: () async {
-            //     FilePickerResult? result = await FilePicker.platform.pickFiles(
-            //       type: FileType.image,
-            //       allowMultiple: false,
-            //     );
-            //
-            //     if (result != null) {
-            //       PlatformFile file = result.files.first;
-            //       setState(() {
-            //         _fileName = file.name;
-            //       });
-            //       print('File path: ${file.path}');
-            //       showDialog(
-            //         context: context,
-            //         builder: (BuildContext context) {
-            //           return ConfirmPopup(
-            //             title: 'Confirm Upload Photo',
-            //             onCancel: () {
-            //               Navigator.pop(context);
-            //             },
-            //             onConfirm: () async {
-            //               Navigator.pop(context);
-            //
-            //               ///  addEmployeeClinical API
-            //               // await addEmployeeClinical(
-            //               //     context,
-            //               //     1,
-            //               //     'E082',
-            //               //     82,
-            //               //     ctlrfirstName.text,
-            //               //     ctlrlastName.text,
-            //               //     1,
-            //               //     1,
-            //               //     'Expertise',
-            //               //     1,
-            //               //     1,
-            //               //     1,
-            //               //     'SSN123',
-            //               //     ctlrSocialSecurity.text,
-            //               //     ctlrprimeNo.text,
-            //               //     ctlrsecNo.text,
-            //               //     ctlrworkNo.text,
-            //               //     ctlrWorkEmail.text,
-            //               //     ctlrPersonalEmail.text,
-            //               //     ctlrAddress.text,
-            //               //     '2024-01-01',
-            //               //     ctlrEmContact.text,
-            //               //     'Coverage',
-            //               //     'Employment',
-            //               //     'Male',
-            //               //     'Active',
-            //               //     'Service',
-            //               //     'imgurl.com',
-            //               //     'resumeurl.com',
-            //               //     5,
-            //               //     true,
-            //               //     true,
-            //               //     'Onboarding',
-            //               //     'DL123',
-            //               //     '2024-01-01',
-            //               //     '2024-01-01',
-            //               //     '2024-01-01',
-            //               //     'Yes',
-            //               //     'Position',
-            //               //     '123 Final St',
-            //               //     '2024-01-01',
-            //               //     1,
-            //               //     'Type',
-            //               //     'Reason',
-            //               //     1,
-            //               //     1000,
-            //               //     'Method',
-            //               //     'Material',
-            //               //     'Race',
-            //               //     'rating'
-            //               // );
-            //               // print("Clinical Employee Added");
-            //               //
-            //               // // Clear text controllers
-            //               // ctlrfirstName.clear();
-            //               // ctlrPersonalEmail.clear();
-            //               // ctlrsecNo.clear();
-            //               // ctlrWorkEmail.clear();
-            //               // ctlrEmContact.clear();
-            //               // ctlrDob.clear();
-            //               // ctlrprimeNo.clear();
-            //               // ctlrworkNo.clear();
-            //               // ctlrlastName.clear();
-            //               // ctlrSocialSecurity.clear();
-            //               ///Call addPhotoUpload API
-            //               await addPhotoUpload(
-            //                   context,
-            //                   1,
-            //                   'S01',
-            //                   23,
-            //                   'Alina',
-            //                   'Doe',
-            //                   1,
-            //                   1,
-            //                   'Expert',
-            //                   1,
-            //                   1,
-            //                   1,
-            //                   'SSNBr01',
-            //                   '235890',
-            //                   '09875',
-            //                   '87689',
-            //                   'RegIOfficeId123',
-            //                   'alina@gmail.com',
-            //                   'a@gmail.com',
-            //                   'At LA',
-            //                   '1990-01-01',
-            //                   '4456373',
-            //                   'Full',
-            //                   'Permanent',
-            //                   'Female',
-            //                   'Active',
-            //                   'IT',
-            //                   'https://symmetry-office-document.s3.us-west-2.amazonaws.com/b91ca3e2-c02c-4891-b733-a67f40afa636-photoprohealth.webp',
-            //                   'ResumeUrl',
-            //                   1,
-            //                   true,
-            //                   true,
-            //                   'Completed',
-            //                   '2023-01-01',
-            //                   'DL12345',
-            //                   '2024-01-01',
-            //                   '2024-01-01',
-            //                   '2023-01-01',
-            //                   'Yes',
-            //                   'Developer',
-            //                   'Final Address',
-            //                   '2024-01-01',
-            //                   3000,
-            //                   'type',
-            //                   'reason',
-            //                   100000,
-            //                   90000,
-            //                   'method',
-            //                   'Material',
-            //                   'Race'
-            //               );
-            //               print("Photo Uploaded");
-            //             },
-            //           );
-            //         },
-            //       );
-            //     }
-            //   },
-            // ),
-            ///applied upload photo api
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.end,
-            //   children: [
-            //     if (_fileName != null)
-            //       Padding(
-            //         padding: EdgeInsets.only(right: 8.0),
-            //         child: Text(
-            //           _fileName!,
-            //           style: TextStyle(
-            //             fontFamily: 'FiraSans',
-            //             fontSize: 12,
-            //             fontWeight: FontWeight.w700,
-            //             color: Colors.black,
-            //           ),
-            //         ),
-            //       ),
-            //     CustomButton(
-            //       width: 125,
-            //       height: 30,
-            //       text: 'Upload Photo',
-            //       style: TextStyle(
-            //         fontFamily: 'FiraSans',
-            //         fontSize: 12,
-            //         fontWeight: FontWeight.w700,
-            //       ),
-            //       borderRadius: 12,
-            //       onPressed: () async {
-            //         FilePickerResult? result = await FilePicker.platform.pickFiles(
-            //           type: FileType.image,
-            //           allowMultiple: false,
-            //         );
-            //
-            //         if (result != null) {
-            //           PlatformFile file = result.files.first;
-            //           setState(() {
-            //             _fileName = file.name;
-            //           });
-            //           print('File path: ${file.path}');
-            //           showDialog(
-            //             context: context,
-            //             builder: (BuildContext context) {
-            //               return ConfirmPopup(
-            //                 title: 'Confirm Upload Photo',
-            //                 onCancel: () {
-            //                   Navigator.pop(context);
-            //                 },
-            //                 onConfirm: () async {
-            //                   Navigator.pop(context);
-            //                   await addPhotoUpload(
-            //                     context,
-            //                     1,
-            //                     'A145',
-            //                      45,
-            //                     'Alina',
-            //                     'Doe',
-            //                     1,
-            //                     1,
-            //                     'Expert',
-            //                     1,
-            //                     1,
-            //                     1,
-            //                     'SSNBr01',
-            //                     '235890',
-            //                     '09875',
-            //                     '87689',
-            //                     'RegIOfficeId123',
-            //                     'alina@gmail.com',
-            //                     'a@gmail.com',
-            //                     'At LA',
-            //                     '1990-01-01',
-            //                     '4456373',
-            //                     'Full',
-            //                     'Permanent',
-            //                     'Female',
-            //                     'Active',
-            //                     'IT',
-            //                     'https://symmetry-office-document.s3.us-west-2.amazonaws.com/b91ca3e2-c02c-4891-b733-a67f40afa636-photoprohealth.webp',
-            //                     'ResumeUrl',
-            //                     1,
-            //                     true,
-            //                     true,
-            //                     'Completed',
-            //                     '2023-01-01',
-            //                     'DL12345',
-            //                     '2024-01-01',
-            //                     '2024-01-01',
-            //                     '2023-01-01',
-            //                     'Yes',
-            //                     'Developer',
-            //                     'Final Address',
-            //                     '2024-01-01',
-            //                     3000,
-            //                     'type',
-            //                     'reason',
-            //                     100000,
-            //                     90000,
-            //                     'method',
-            //                     'Material',
-            //                     'Race',
-            //                   );
-            //                   print("Photo Uploaded");
-            //                 },
-            //               );
-            //             },
-            //           );
-            //         }
-            //       },
-            //     ),
-            //
-            //   ],
-            // ),
-            ///
-            // CustomButton(
-            //   width: 125,
-            //   height: 30,
-            //   text: 'Upload Photo',
-            //   style: TextStyle(
-            //     fontFamily: 'FiraSans',
-            //     fontSize: 12,
-            //     fontWeight: FontWeight.w700,
-            //   ),
-            //   borderRadius: 12,
-            //   onPressed: () async {
-            //     FilePickerResult? result = await FilePicker.platform.pickFiles(
-            //       type: FileType.image,
-            //       allowMultiple: false,
-            //     );
-            //
-            //     if (result != null) {
-            //       PlatformFile file = result.files.first;
-            //       setState(() {
-            //         _fileName = file.name;
-            //       });
-            //       print('File path: ${file.path}');
-            //
-            //       showDialog(
-            //         context: context,
-            //         builder: (BuildContext context) {
-            //           return ConfirmPopup(
-            //             title: 'Confirm Upload Photo',
-            //             onCancel: () {
-            //               Navigator.pop(context);
-            //             },
-            //             onConfirm: () async {
-            //               Navigator.pop(context);
-            //              await addPhotoUpload(
-            //                context,
-            //                  1,
-            //                  'S01',
-            //                  023,
-            //                  'Alina',
-            //                  'Joe',
-            //                  1,
-            //                  1,
-            //                  'Expert',
-            //                  1,
-            //                  1,
-            //                  1,
-            //                  'SSNBr01',
-            //                  '235890',
-            //                  '09875',
-            //                  '87689'
-            //                  'RegIOfficeId123',
-            //                  'alina@gmail.com',
-            //                  'a@gmail.com',
-            //                  'At LA',
-            //                  '1990-01-01',
-            //                  '4456373',
-            //                  'Full',
-            //                  'Permanent',
-            //                  'Female',
-            //                  'Active',
-            //                  'IT',
-            //                  'https://symmetry-office-document.s3.us-west-2.amazonaws.com/b91ca3e2-c02c-4891-b733-a67f40afa636-photoprohealth.webp',
-            //                  'ResumeUrl',
-            //                   'yuio',
-            //                  1,
-            //                  true,
-            //                   true,
-            //                  '1990-01-01',
-            //                  'driverLicenceNbr',
-            //                  '1990-01-01',
-            //                  '1990-01-01',
-            //                  '1990-01-01',
-            //                  'rehirable',
-            //                  'position',
-            //                  'finalAddress',
-            //                  '1990-01-01',
-            //                  'hello',
-            //                  1,
-            //                  "reason",
-            //                  'lkjh',
-            //                  1,
-            //                  1,
-            //                  'method',
-            //                  'material',
-            //                  'race'
-            //              );
-            //               print("Photo Added");
-            //
-            //             },
-            //           );
-            //         },
-            //       );
-            //     }
-            //   },
-            // ),
-            /// you
-             //   Center(
-      //   child: Column(
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //     children: <Widget>[
-      //       if (_imageFile != null)
-      //         Image.file(File(_imageFile!.path), height: 100, width: 100),
-      //       SizedBox(height: 20),
-      //       ElevatedButton(
-      //         onPressed: _pickImage,
-      //         child: Text('Pick Image'),
-      //       ),
-      //       SizedBox(height: 20),
-      //       ElevatedButton(
-      //         onPressed: _uploadImage,
-      //         child: Text('Upload Image'),
-      //       ),
-      //     ],
-      //   ),
-      // ),
         Center(
         child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -2164,7 +1771,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                             List<AEClinicalService>>(
                                         future:
                                             HrAddEmplyClinicalServiceRadioButtonApi(
-                                                context, 1),
+                                                context,),
                                         builder: (context, snap) {
                                           if (snap.connectionState ==
                                               ConnectionState.waiting) {
@@ -3786,3 +3393,393 @@ class _ConfirmPopupState extends State<ConfirmPopup> {
 //     ],
 //     ),
 
+///upload photo button
+///"https://symmetry-office-document.s3.us-west-2.amazonaws.com/documents/e6585043-c645-4a38-aead-799aa1fca4a2-usaman.png",
+// CustomButton(
+//   width: 125,
+//   height: 30,
+//   text: 'Upload Photo',
+//   style: TextStyle(
+//     fontFamily: 'FiraSans',
+//     fontSize: 12,
+//     fontWeight: FontWeight.w700,
+//   ),
+//   borderRadius: 12,
+//   onPressed: () async {
+//     FilePickerResult? result = await FilePicker.platform.pickFiles(
+//       type: FileType.image,
+//       allowMultiple: false,
+//     );
+//
+//     if (result != null) {
+//       PlatformFile file = result.files.first;
+//       setState(() {
+//         _fileName = file.name;
+//       });
+//       print('File path: ${file.path}');
+//       showDialog(
+//         context: context,
+//         builder: (BuildContext context) {
+//           return ConfirmPopup(
+//             title: 'Confirm Upload Photo',
+//             onCancel: () {
+//               Navigator.pop(context);
+//             },
+//             onConfirm: () async {
+//               Navigator.pop(context);
+//
+//               ///  addEmployeeClinical API
+//               // await addEmployeeClinical(
+//               //     context,
+//               //     1,
+//               //     'E082',
+//               //     82,
+//               //     ctlrfirstName.text,
+//               //     ctlrlastName.text,
+//               //     1,
+//               //     1,
+//               //     'Expertise',
+//               //     1,
+//               //     1,
+//               //     1,
+//               //     'SSN123',
+//               //     ctlrSocialSecurity.text,
+//               //     ctlrprimeNo.text,
+//               //     ctlrsecNo.text,
+//               //     ctlrworkNo.text,
+//               //     ctlrWorkEmail.text,
+//               //     ctlrPersonalEmail.text,
+//               //     ctlrAddress.text,
+//               //     '2024-01-01',
+//               //     ctlrEmContact.text,
+//               //     'Coverage',
+//               //     'Employment',
+//               //     'Male',
+//               //     'Active',
+//               //     'Service',
+//               //     'imgurl.com',
+//               //     'resumeurl.com',
+//               //     5,
+//               //     true,
+//               //     true,
+//               //     'Onboarding',
+//               //     'DL123',
+//               //     '2024-01-01',
+//               //     '2024-01-01',
+//               //     '2024-01-01',
+//               //     'Yes',
+//               //     'Position',
+//               //     '123 Final St',
+//               //     '2024-01-01',
+//               //     1,
+//               //     'Type',
+//               //     'Reason',
+//               //     1,
+//               //     1000,
+//               //     'Method',
+//               //     'Material',
+//               //     'Race',
+//               //     'rating'
+//               // );
+//               // print("Clinical Employee Added");
+//               //
+//               // // Clear text controllers
+//               // ctlrfirstName.clear();
+//               // ctlrPersonalEmail.clear();
+//               // ctlrsecNo.clear();
+//               // ctlrWorkEmail.clear();
+//               // ctlrEmContact.clear();
+//               // ctlrDob.clear();
+//               // ctlrprimeNo.clear();
+//               // ctlrworkNo.clear();
+//               // ctlrlastName.clear();
+//               // ctlrSocialSecurity.clear();
+//               ///Call addPhotoUpload API
+//               await addPhotoUpload(
+//                   context,
+//                   1,
+//                   'S01',
+//                   23,
+//                   'Alina',
+//                   'Doe',
+//                   1,
+//                   1,
+//                   'Expert',
+//                   1,
+//                   1,
+//                   1,
+//                   'SSNBr01',
+//                   '235890',
+//                   '09875',
+//                   '87689',
+//                   'RegIOfficeId123',
+//                   'alina@gmail.com',
+//                   'a@gmail.com',
+//                   'At LA',
+//                   '1990-01-01',
+//                   '4456373',
+//                   'Full',
+//                   'Permanent',
+//                   'Female',
+//                   'Active',
+//                   'IT',
+//                   'https://symmetry-office-document.s3.us-west-2.amazonaws.com/b91ca3e2-c02c-4891-b733-a67f40afa636-photoprohealth.webp',
+//                   'ResumeUrl',
+//                   1,
+//                   true,
+//                   true,
+//                   'Completed',
+//                   '2023-01-01',
+//                   'DL12345',
+//                   '2024-01-01',
+//                   '2024-01-01',
+//                   '2023-01-01',
+//                   'Yes',
+//                   'Developer',
+//                   'Final Address',
+//                   '2024-01-01',
+//                   3000,
+//                   'type',
+//                   'reason',
+//                   100000,
+//                   90000,
+//                   'method',
+//                   'Material',
+//                   'Race'
+//               );
+//               print("Photo Uploaded");
+//             },
+//           );
+//         },
+//       );
+//     }
+//   },
+// ),
+///applied upload photo api
+// Row(
+//   mainAxisAlignment: MainAxisAlignment.end,
+//   children: [
+//     if (_fileName != null)
+//       Padding(
+//         padding: EdgeInsets.only(right: 8.0),
+//         child: Text(
+//           _fileName!,
+//           style: TextStyle(
+//             fontFamily: 'FiraSans',
+//             fontSize: 12,
+//             fontWeight: FontWeight.w700,
+//             color: Colors.black,
+//           ),
+//         ),
+//       ),
+//     CustomButton(
+//       width: 125,
+//       height: 30,
+//       text: 'Upload Photo',
+//       style: TextStyle(
+//         fontFamily: 'FiraSans',
+//         fontSize: 12,
+//         fontWeight: FontWeight.w700,
+//       ),
+//       borderRadius: 12,
+//       onPressed: () async {
+//         FilePickerResult? result = await FilePicker.platform.pickFiles(
+//           type: FileType.image,
+//           allowMultiple: false,
+//         );
+//
+//         if (result != null) {
+//           PlatformFile file = result.files.first;
+//           setState(() {
+//             _fileName = file.name;
+//           });
+//           print('File path: ${file.path}');
+//           showDialog(
+//             context: context,
+//             builder: (BuildContext context) {
+//               return ConfirmPopup(
+//                 title: 'Confirm Upload Photo',
+//                 onCancel: () {
+//                   Navigator.pop(context);
+//                 },
+//                 onConfirm: () async {
+//                   Navigator.pop(context);
+//                   await addPhotoUpload(
+//                     context,
+//                     1,
+//                     'A145',
+//                      45,
+//                     'Alina',
+//                     'Doe',
+//                     1,
+//                     1,
+//                     'Expert',
+//                     1,
+//                     1,
+//                     1,
+//                     'SSNBr01',
+//                     '235890',
+//                     '09875',
+//                     '87689',
+//                     'RegIOfficeId123',
+//                     'alina@gmail.com',
+//                     'a@gmail.com',
+//                     'At LA',
+//                     '1990-01-01',
+//                     '4456373',
+//                     'Full',
+//                     'Permanent',
+//                     'Female',
+//                     'Active',
+//                     'IT',
+//                     'https://symmetry-office-document.s3.us-west-2.amazonaws.com/b91ca3e2-c02c-4891-b733-a67f40afa636-photoprohealth.webp',
+//                     'ResumeUrl',
+//                     1,
+//                     true,
+//                     true,
+//                     'Completed',
+//                     '2023-01-01',
+//                     'DL12345',
+//                     '2024-01-01',
+//                     '2024-01-01',
+//                     '2023-01-01',
+//                     'Yes',
+//                     'Developer',
+//                     'Final Address',
+//                     '2024-01-01',
+//                     3000,
+//                     'type',
+//                     'reason',
+//                     100000,
+//                     90000,
+//                     'method',
+//                     'Material',
+//                     'Race',
+//                   );
+//                   print("Photo Uploaded");
+//                 },
+//               );
+//             },
+//           );
+//         }
+//       },
+//     ),
+//
+//   ],
+// ),
+///
+// CustomButton(
+//   width: 125,
+//   height: 30,
+//   text: 'Upload Photo',
+//   style: TextStyle(
+//     fontFamily: 'FiraSans',
+//     fontSize: 12,
+//     fontWeight: FontWeight.w700,
+//   ),
+//   borderRadius: 12,
+//   onPressed: () async {
+//     FilePickerResult? result = await FilePicker.platform.pickFiles(
+//       type: FileType.image,
+//       allowMultiple: false,
+//     );
+//
+//     if (result != null) {
+//       PlatformFile file = result.files.first;
+//       setState(() {
+//         _fileName = file.name;
+//       });
+//       print('File path: ${file.path}');
+//
+//       showDialog(
+//         context: context,
+//         builder: (BuildContext context) {
+//           return ConfirmPopup(
+//             title: 'Confirm Upload Photo',
+//             onCancel: () {
+//               Navigator.pop(context);
+//             },
+//             onConfirm: () async {
+//               Navigator.pop(context);
+//              await addPhotoUpload(
+//                context,
+//                  1,
+//                  'S01',
+//                  023,
+//                  'Alina',
+//                  'Joe',
+//                  1,
+//                  1,
+//                  'Expert',
+//                  1,
+//                  1,
+//                  1,
+//                  'SSNBr01',
+//                  '235890',
+//                  '09875',
+//                  '87689'
+//                  'RegIOfficeId123',
+//                  'alina@gmail.com',
+//                  'a@gmail.com',
+//                  'At LA',
+//                  '1990-01-01',
+//                  '4456373',
+//                  'Full',
+//                  'Permanent',
+//                  'Female',
+//                  'Active',
+//                  'IT',
+//                  'https://symmetry-office-document.s3.us-west-2.amazonaws.com/b91ca3e2-c02c-4891-b733-a67f40afa636-photoprohealth.webp',
+//                  'ResumeUrl',
+//                   'yuio',
+//                  1,
+//                  true,
+//                   true,
+//                  '1990-01-01',
+//                  'driverLicenceNbr',
+//                  '1990-01-01',
+//                  '1990-01-01',
+//                  '1990-01-01',
+//                  'rehirable',
+//                  'position',
+//                  'finalAddress',
+//                  '1990-01-01',
+//                  'hello',
+//                  1,
+//                  "reason",
+//                  'lkjh',
+//                  1,
+//                  1,
+//                  'method',
+//                  'material',
+//                  'race'
+//              );
+//               print("Photo Added");
+//
+//             },
+//           );
+//         },
+//       );
+//     }
+//   },
+// ),
+/// you
+//   Center(
+//   child: Column(
+//   mainAxisAlignment: MainAxisAlignment.center,
+//     children: <Widget>[
+//       if (_imageFile != null)
+//         Image.file(File(_imageFile!.path), height: 100, width: 100),
+//       SizedBox(height: 20),
+//       ElevatedButton(
+//         onPressed: _pickImage,
+//         child: Text('Pick Image'),
+//       ),
+//       SizedBox(height: 20),
+//       ElevatedButton(
+//         onPressed: _uploadImage,
+//         child: Text('Upload Image'),
+//       ),
+//     ],
+//   ),
+// ),

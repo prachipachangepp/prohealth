@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
+import 'package:prohealth/app/services/base64/download_file_base64.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/approve_reject_dialog_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
-import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
-import '../../manage/const_wrap_widget.dart';
 
 ///saloni
 class AcknowledgementTab extends StatefulWidget {
@@ -23,7 +23,7 @@ class AcknowledgementTab extends StatefulWidget {
 
 class _AcknowledgementTabState extends State<AcknowledgementTab> {
   final StreamController<List<OnboardingAckHealthData>> _controller =
-      StreamController<List<OnboardingAckHealthData>>();
+  StreamController<List<OnboardingAckHealthData>>();
   List<OnboardingAckHealthData> _fetchedData = [];
   List<bool> _checked = [];
   List<int> _selectedDocumentIds = [];
@@ -36,7 +36,17 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
 
   Future<void> _fetchData() async {
     try {
-      var data = await getAckHealthRecord(context, 10, 48, widget.employeeId,'no');
+      var data = await getAckHealthRecord(context, 10, 48, widget.employeeId, 'no');
+      data.sort((a, b) {
+        if (a.approved == true && b.approved != true) {
+          return -1;
+        } else if (a.approved != true && b.approved == true) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
       _fetchedData = data;
       _controller.add(data);
       _checked = List.generate(data.length, (_) => false);
@@ -74,7 +84,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
 
   Future<void> _rejectSelectedDocuments() async {
     var result =
-        await batchRejectOnboardAckHealthPatch(context, _selectedDocumentIds);
+    await batchRejectOnboardAckHealthPatch(context, _selectedDocumentIds);
     if (result.success) {
       await _fetchData();
       setState(() {
@@ -104,13 +114,13 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
 
   Future<void> _approveSelectedDocuments() async {
     var result =
-        await batchApproveOnboardAckHealthPatch(context, _selectedDocumentIds);
+    await batchApproveOnboardAckHealthPatch(context, _selectedDocumentIds);
     if (result.success) {
       await _fetchData();
       setState(() {
         for (var id in _selectedDocumentIds) {
           int index =
-              _fetchedData.indexWhere((data) => data.employeeDocumentId == id);
+          _fetchedData.indexWhere((data) => data.employeeDocumentId == id);
           if (index != -1) {
             _checked[index] = false;
           }
@@ -118,7 +128,6 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
         _selectedDocumentIds.clear();
       });
     } else {
-      // Handle error
       print(result.message);
     }
   }
@@ -142,7 +151,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
           return Center(
             child: Text(
               'Error: ${snapshot.error}',
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(color: ColorManager.red),
             ),
           );
         }
@@ -165,15 +174,13 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Wrap(
-                  children: [
+                children: [
                   ...List.generate(snapshot.data!.length, (index) {
                     final data = snapshot.data![index];
                     final fileUrl = data.DocumentUrl;
                     final fileExtension =
-                        fileUrl.split('.').last.toLowerCase();
-
+                    fileUrl.split('/').last;
                     Widget fileWidget;
-
                     if (['jpg', 'jpeg', 'png', 'gif']
                         .contains(fileExtension)) {
                       fileWidget = Image.network(
@@ -208,37 +215,40 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: Container(
-                           // color: Colors.blue,
                             width: MediaQuery.of(context).size.width / 3,
                             child: Row(
                               children: [
-                              data.approved == true ?
-                                Offstage():Checkbox(
-                                value: _checked[index],
-                                onChanged: (value) {
-                                  _handleCheckboxChanged(
-                                      value,
-                                      index,
-                                      snapshot
-                                          .data![index].employeeDocumentId);
-                                },
-                              ),
-                                SizedBox(width: 10),
+                                data.approved == true ?
+                                SizedBox(width: AppSize.s31):Checkbox(
+                                  value: _checked[index],
+                                  onChanged: data.approved == null ?
+                                      (value) {
+                                    _handleCheckboxChanged(
+                                        value,
+                                        index,
+                                        snapshot
+                                            .data![index].employeeDocumentId);
+                                  } : null
+                                ),
+                                SizedBox(width: AppSize.s10),
                                 GestureDetector(
-                                  onTap: () => downloadFile(fileUrl),
+                                  onTap: (){
+                                    print("FileExtension:${fileExtension}");
+                                    DowloadFile().downloadPdfFromBase64(fileExtension,"Acknowledgement");
+                                  },
                                   child: Container(
-                                    width: 62,
-                                    height: 45,
+                                    width: AppSize.s62,
+                                    height: AppSize.s45,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       border: Border.all(
-                                          width: 2,
+                                          width: AppSize.s2,
                                           color: ColorManager.faintGrey),
                                     ),
                                     child: fileWidget,
                                   ),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: AppSize.s10),
                                 Expanded(
                                   child: Text(
                                     data.DocumentName,
@@ -250,7 +260,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: AppSize.s10),
                       ],
                     );
                   }),
@@ -264,18 +274,17 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                     ElevatedButton(
                       onPressed: _handleRejectSelected,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Color(0xff1696C8),
-                        side: BorderSide(color: Color(0xff1696C8)),
+                        backgroundColor: ColorManager.white,
+                        foregroundColor: ColorManager.bluebottom,
+                        side: BorderSide(color: ColorManager.bluebottom),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
-                        'Reject',
+                      child: Text(AppString.reject,
                         style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w500,
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeightManager.medium,
                         ),
                       ),
                     ),
@@ -283,8 +292,8 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                     ElevatedButton(
                       onPressed: _handleApproveSelected,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff1696C8),
-                        foregroundColor: Colors.white,
+                        backgroundColor: ColorManager.bluebottom,
+                        foregroundColor: ColorManager.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -292,8 +301,8 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
                       child: Text(
                         'Approve',
                         style: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w700,
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeightManager.bold,
                         ),
                       ),
                     ),

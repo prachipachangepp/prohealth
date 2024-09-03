@@ -80,12 +80,14 @@ class SchedularDropdown extends StatefulWidget {
   final String labelText;
   final List<String>? items;
   final String? initialValue;
+  // final controller;
 
   const SchedularDropdown({
     super.key,
     required this.labelText,
     this.items,
-    this.initialValue,
+    this.initialValue, required  Function(dynamic newValue) onChanged,
+    // this.controller,
   });
 
   @override
@@ -116,13 +118,13 @@ class _SchedularDropdownState extends State<SchedularDropdown> {
         decoration: InputDecoration(
           labelText: widget.labelText,
           labelStyle: GoogleFonts.firaSans(
-            fontSize: 10,
+            fontSize: FontSize.s10,
             fontWeight: FontWeightManager.regular,
             color: ColorManager.greylight, // text color in dropdown
           ),
           border: const OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFB1B1B1)), // border color
+            borderSide: BorderSide(color: ColorManager.containerBorderGrey), // border color
           ),
           contentPadding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
         ),
@@ -144,7 +146,7 @@ class _SchedularDropdownState extends State<SchedularDropdown> {
             child: Icon(
               Icons.arrow_drop_down,
               color: ColorManager.blueprime, // dropdown icon color
-              size: 24, // size of icon
+              size: AppSize.s24, // size of icon
             ),
           ),
         ),

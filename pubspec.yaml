@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.2+1
+version: 1.0.3+1
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -55,7 +55,8 @@ dependencies:
   amplify_flutter: any
   amplify_storage_s3: any
   flutter_aws_s3_client: ^0.5.2
-  http: ^0.13.3
+  #http: ^0.13.3
+  http: any
   aws_s3_upload: any
   amplify_core: ^1.0.0
   crypto: ^3.0.0
@@ -78,7 +79,27 @@ dependencies:
   universal_io: any
   encrypt: any
   cached_network_image: any
-  google_maps_flutter: any
+  google_maps_flutter: ^2.9.0
+  google_maps_flutter_web: ^0.5.10
+  geocoding: ^2.0.0
+  auto_size_text: any
+  calendar_view: ^1.2.0
+  fl_chart: any
+  mime: ^1.0.5
+  flutter_masked_text2: ^0.9.1
+  intl_phone_number_input: any
+  intl_phone_field: ^3.0.0
+  mask_text_input_formatter: ^2.9.0
+  html: any
+  geolocator: any
+  google_geocoding_api: any
+
+
+#  riverpod: ^2.5.1
+
+
+
+
 
 
 
@@ -94,6 +115,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

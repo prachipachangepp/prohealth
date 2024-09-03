@@ -108,6 +108,13 @@ class ManageScreen extends StatelessWidget {
                                           ],
                                         dividerColor: Colors.transparent,
                                         indicator: BoxDecoration(
+                                          boxShadow: [BoxShadow(
+                                            // color: Colors.black.withOpacity(0.2),
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 1,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 3),
+                                          ),],
                                             borderRadius: BorderRadius.circular(50), // Creates border
                                             color: Colors.white),
                                         indicatorSize: TabBarIndicatorSize.tab,
@@ -124,6 +131,7 @@ class ManageScreen extends StatelessWidget {
                                         unselectedLabelColor: Colors.white,
                                       ),
                                     ),
+                                    SizedBox(height:5),
                                     SizedBox(
                                       height: 265.0, // Adjust height as needed
                                       child: TabBarView(
@@ -272,7 +280,7 @@ class ManageScreen extends StatelessWidget {
                              PayRatesHeadTabbar(employeeId: searchByEmployeeIdProfileData!.employeeId!,),
 
                             // Termination Tab
-                            const TerminationHeadTabbar(),
+                             TerminationHeadTabbar(employeeId: searchByEmployeeIdProfileData!.employeeId!,),
 
                             // Time Off Tab
                             const TimeOffHeadTabbar(),

@@ -39,7 +39,7 @@ Future<List<EducationData>> getEmployeeEducation(
             college: item['college'],
             phone: item['phone'],
             state: item['state'],
-            approved: item['approved']??false,
+            approved: item['approved'],
             sucess: true,
             message: response.statusMessage!,
             country: item['country']??"--",

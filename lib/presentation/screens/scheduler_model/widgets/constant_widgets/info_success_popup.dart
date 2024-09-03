@@ -35,11 +35,11 @@ class _SchedularInfoSuccessPopupState extends State<SchedularInfoSuccessPopup> {
         ),
         child: Column(
           children: [
-            SizedBox(height: 40),
+            SizedBox(height: AppSize.s40),
             Icon(
               Icons.check_circle_outline,
               size: 125,
-              color: Color(0xff50B5E5),
+              color: ColorManager.blueprime,
             ),
              SizedBox(height: 20),
             Center(
@@ -57,10 +57,10 @@ class _SchedularInfoSuccessPopupState extends State<SchedularInfoSuccessPopup> {
                 ),
               ),
             ),
-           SizedBox(height: 40),
+           SizedBox(height: AppSize.s40),
             Container(
-              height: 46,
-              width: 282,
+              height: AppSize.s46,
+              width: AppSize.s282,
               child: ElevatedButton(
                 onPressed: () {
                   // toggleProfileBar();
@@ -71,7 +71,7 @@ class _SchedularInfoSuccessPopupState extends State<SchedularInfoSuccessPopup> {
                   style: GoogleFonts.firaSans(
                     fontSize: FontSize.s14,
                     fontWeight: FontWeightManager.semiBold,
-                    color: Colors.white,
+                    color: ColorManager.white,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
