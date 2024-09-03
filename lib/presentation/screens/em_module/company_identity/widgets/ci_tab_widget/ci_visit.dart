@@ -118,7 +118,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
           children: [
             Container(
               width: AppSize.s150,
-             // margin: EdgeInsets.only(right: AppMargin.m30),
+              // margin: EdgeInsets.only(right: AppMargin.m30),
               child: CustomIconButtonConst(
                 // heightContainer: 30,
                 //   widthContainer: 120,
@@ -508,7 +508,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                             builder:
                                                                 (BuildContext context) {
                                                               return FutureBuilder<VisitListDataPrefill>(future:
-                                                                  getVisitListPrefill(context, visitData.visitId),
+                                                              getVisitListPrefill(context, visitData.visitId),
                                                                   builder: (context, snapshotPrefill) {
                                                                     if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                                       return Center(
@@ -704,14 +704,14 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                 Navigator.pop(context);
                                                               },
                                                               onDelete: () async {
-                                                            await deleteVisit(context, snapshot.data![index].visitId);
-                                                            getVisit(context, 1, 10).then((data) {
-                                                              _visitController.add(data);
-                                                            }).catchError((error) {
-                                                              // Handle error
-                                                            });
-                                                            Navigator.pop(context);
-                                                          }));
+                                                                await deleteVisit(context, snapshot.data![index].visitId);
+                                                                getVisit(context, 1, 10).then((data) {
+                                                                  _visitController.add(data);
+                                                                }).catchError((error) {
+                                                                  // Handle error
+                                                                });
+                                                                Navigator.pop(context);
+                                                              }));
 
                                                     },
                                                     icon: const Icon(

@@ -9,6 +9,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
+import 'dart:math';
 
 
 class CustomDialog extends StatefulWidget {
@@ -39,6 +40,38 @@ class CustomDialog extends StatefulWidget {
 }
 
 class _CustomDialogState extends State<CustomDialog> {
+
+
+  String _password = '';
+  // Method for Generating Random Passwords
+  void _generatePassword() {
+    final random = Random();
+    final characters =
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
+    String password = '';
+    for (int i = 0; i < 8; i++) {
+      password += characters[
+      // Generate a random password
+      random.nextInt(characters.length)];
+    }
+    setState(() {
+      // Update the displayed password
+      _password = password;
+      widget.passwordController.text = password;
+    });
+  }
+
+
+
+  @override
+  initState() {
+    super.initState();
+    _generatePassword();
+  }
+
+
+
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -176,10 +209,11 @@ class _CustomDialogState extends State<CustomDialog> {
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: HRManageTextFieldEmail(
                     controller: widget.passwordController,
-                    keyboardType: TextInputType.phone,
+
+                    keyboardType: TextInputType.text,
                     text: "Password",
                     cursorHeight: 12,
-                    labelText: "Password",
+                    labelText: "Password",       //  _password,
                     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
                     labelFontSize: 12,
                     errorText: 'Password is required',
@@ -214,8 +248,13 @@ class _CustomDialogState extends State<CustomDialog> {
       )
     );
   }
-
 }
+
+
+
+
+
+
 
 /// edit user
 class EditUserPopUp extends StatefulWidget {
