@@ -439,6 +439,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                               ),
                                             );
                                           }
+
                                           if (snapshotZone.hasData) {
                                             List dropDown = [];
                                             int docType = 0;
