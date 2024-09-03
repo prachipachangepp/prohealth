@@ -484,6 +484,7 @@ class _BottomBarRowState extends State<BottomBarRow> {
 
             /// IP + Geolocation
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FutureBuilder(
                   future: _stateFuture,
@@ -534,7 +535,7 @@ class _BottomBarRowState extends State<BottomBarRow> {
                   },
                 ),
                 SizedBox(
-                  width: AppSize.s30,
+                  width: AppSize.s20,
                 ),
                 _isFetchingIp
                     ? Text(

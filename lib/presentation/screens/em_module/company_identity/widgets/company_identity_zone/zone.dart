@@ -192,7 +192,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                             width: 354,
                             child: Center(
                               child: Text(
-                                AppString.dataNotFound,
+                               "No available countys !!",
                                 style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
                                   fontSize: FontSize.s12,

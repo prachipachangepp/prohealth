@@ -95,7 +95,7 @@ class _CiDmeState extends State<CiDme> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        AppString.dataNotFound,
+                        "No available DME !!",
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

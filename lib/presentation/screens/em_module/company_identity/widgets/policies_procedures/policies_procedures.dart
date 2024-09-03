@@ -475,7 +475,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      AppString.dataNotFound,
+                      "No available policies & procedures !!",
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s12,

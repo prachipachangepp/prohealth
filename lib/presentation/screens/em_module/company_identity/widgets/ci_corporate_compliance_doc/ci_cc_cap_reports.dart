@@ -92,7 +92,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        AppString.dataNotFound,
+                        "No available cap reports !!",
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,
