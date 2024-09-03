@@ -394,7 +394,7 @@ class _CiCorporateComplianceScreenState
                                           ),
                                           Icon(
                                             Icons.arrow_drop_down,
-                                            color: ColorManager.mediumgrey,
+                                            color: Colors.transparent
                                           ),
                                         ],
                                       ),
@@ -423,7 +423,7 @@ class _CiCorporateComplianceScreenState
                                     }
 
                                     // Return the CICCDropdown with "Select Sub Document" as the initial value
-                                    return CICCDropdown(
+                                    return CICCDropDownExcel(
                                       initialValue: "Select Sub Document",
                                       onChange: (val) {
                                         if (val != "Select Sub Document") {
@@ -575,7 +575,7 @@ class _CiCorporateComplianceScreenState
                                                   await showDatePicker(
                                                 context: context,
                                                 initialDate: DateTime.now(),
-                                                firstDate: DateTime(2000),
+                                                firstDate: DateTime(1901),
                                                 lastDate: DateTime(3101),
                                               );
                                               if (pickedDate != null) {

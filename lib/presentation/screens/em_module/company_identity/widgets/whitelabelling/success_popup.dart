@@ -6,9 +6,31 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import 'dart:async';
 
-class CCSuccessPopup extends StatelessWidget {
+
+class CCSuccessPopup extends StatefulWidget {
   const CCSuccessPopup({super.key});
+
+  @override
+  State<CCSuccessPopup> createState() => _CCSuccessPopupState();
+}
+
+class _CCSuccessPopupState extends State<CCSuccessPopup> {
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(Duration(seconds: 3), () {
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +107,27 @@ class CCSuccessPopup extends StatelessWidget {
   }
 }
 
-class EditSuccessPopup extends StatelessWidget {
+class EditSuccessPopup extends StatefulWidget {
   final String message;
 
   const EditSuccessPopup({super.key, required this.message});
+
+  @override
+  State<EditSuccessPopup> createState() => _EditSuccessPopupState();
+}
+
+class _EditSuccessPopupState extends State<EditSuccessPopup> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(Duration(seconds: 3), () {
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -230,8 +269,6 @@ class VendorSelectNoti extends StatelessWidget {
   }
 }
 
-
-
 class AddSuccessPopup extends StatelessWidget {
   final String message;
 
@@ -307,10 +344,28 @@ class AddSuccessPopup extends StatelessWidget {
 }
 
 
-class CountySuccessPopup extends StatelessWidget {
+class CountySuccessPopup extends StatefulWidget {
   final String message;
 
   const CountySuccessPopup({super.key, required this.message});
+
+  @override
+  State<CountySuccessPopup> createState() => _CountySuccessPopupState();
+}
+
+class _CountySuccessPopupState extends State<CountySuccessPopup> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(Duration(seconds: 3), () {
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -342,7 +397,7 @@ class CountySuccessPopup extends StatelessWidget {
                     child: Text(
                       "Success",
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
+                        fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.semiBold,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
@@ -365,8 +420,8 @@ class CountySuccessPopup extends StatelessWidget {
                 width: AppSize.s210,
                 child: Text('Save Successfully \nThank You.',textAlign: TextAlign.center,
                   style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.regular,
-                      fontSize: FontSize.s16,
+                      fontWeight: FontWeightManager.semiBold,
+                      fontSize: FontSize.s14,
                       color: ColorManager.mediumgrey
                   ),),
               ),

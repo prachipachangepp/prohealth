@@ -399,7 +399,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                         ),
                                         Icon(
                                           Icons.arrow_drop_down,
-                                          color: ColorManager.mediumgrey,
+                                          color: Colors.transparent,
                                         ),
                                       ],
                                     ),
@@ -426,7 +426,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                   }
 
                                   // Return the CICCDropdown with "Select Sub Document" as the initial value
-                                  return CICCDropdown(
+                                  return CICCDropDownExcel(
                                     initialValue: "Select Sub Document",
                                     onChange: (val) {
                                       if (val != "Select Sub Document") {
