@@ -14,6 +14,7 @@ import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_pay_rates/widgets/custom_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/presentation/widgets/establishment_text_const/text_widget_const.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../app/resources/const_string.dart';
@@ -57,13 +58,27 @@ class _FinanceScreenState extends State<FinanceScreen> {
   int? selectedServiceId;
   bool isServiceSelected = false;
   String? selectedServiceName;
+  int? firstServiceId;
 
   @override
   void initState() {
     super.initState();
     _loadPayRatesData();
+   // fetchData();
   }
-
+  // List<PayRatesGet> allData = [];
+  //
+  // Future<void> fetchData() async {
+  //   try {
+  //     List<PayRatesGet> data = await companyPayratesGet(context);
+  //     setState(() {
+  //       allData = data;
+  //     });
+  //     _payRatesController.add(data);
+  //   } catch (error) {
+  //     // Handle error
+  //   }
+  // }
   void _loadPayRatesData() async {
     try {
       List<PayRatesGet> data = await companyPayratesGet(context);
@@ -80,7 +95,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
     List<PayRatesGet> filteredData = _selectedZone == null
         ? _fullPayRatesList
         : _fullPayRatesList.where((rate) => rate.ZoneId.toString() == _selectedZone!.split('-')[0]).toList();
-
     _payRatesController.add(filteredData);
   }
 
@@ -164,242 +178,243 @@ class _FinanceScreenState extends State<FinanceScreen> {
                           ),
                         ),
                         SizedBox(width: 10,),
-        FutureBuilder<List<ServiceData>>(
-          future: PayRateServiceDropdown(context),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              // Replace Shimmer with Loading text
-              return Container(
-                width: 180,
-                height: 30,
-                alignment: Alignment.center,
-                child: Text(
-                  'Loading...',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeightManager.bold,
-                    color: ColorManager.fmediumgrey,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              );
-            }
-            if (snapshot.hasData && snapshot.data!.isEmpty) {
-              return Center(
-                child: Text(
-                  AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey,
-                  ),
-                ),
-              );
-            }
-            if (snapshot.hasData) {
-              List<DropdownMenuItem<String>> dropDownServiceList = [];
-              for (var service in snapshot.data!) {
-                dropDownServiceList.add(
-                  DropdownMenuItem<String>(
-                    value: service.serviceName,
-                    child: Text(service.serviceName ?? ''),
-                  ),
-                );
-              }
-              if (selectedServiceName == null && dropDownServiceList.isNotEmpty) {
-                selectedServiceName = dropDownServiceList[0].value;
-              }
-              return Container(
-                width: 200,
-                child: CICCDropdown(
-                  initialValue: selectedServiceName,
-                  onChange: (val) {
-                    setState(() {
-                      selectedServiceName = val;
-                      for (var service in snapshot.data!) {
-                        if (service.serviceName == val) {
-                          selectedServiceId = service.officeServiceId;
-                          isServiceSelected = true;
-                          print('Selected Service ID: $selectedServiceId');
-                        }
-                      }
-                    });
-                  },
-                  items: dropDownServiceList,
-                ),
-              );
-            }
-            return const SizedBox();
-          },
-        ),
+                        FutureBuilder<List<ServiceData>>(
+                          future: PayRateServiceDropdown(context),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Container(
+                                width: 180,
+                                height: 30,
+                                alignment: Alignment.center,
+                                child: loadingText,
+                              );
+                            }
+                            if (snapshot.hasData && snapshot.data!.isEmpty) {
+                              return Center(
+                                child: Text(
+                                  ErrorMessageString.noserviceAdded,
+                                  style: CustomTextStylesCommon.commonStyle(
+                                    fontWeight: FontWeightManager.medium,
+                                    fontSize: FontSize.s12,
+                                    color: ColorManager.mediumgrey,
+                                  ),
+                                ),
+                              );
+                            }
+                            if (snapshot.hasData) {
+                              List<DropdownMenuItem<String>> dropDownServiceList = [];
+                              for (var service in snapshot.data!) {
+                                dropDownServiceList.add(
+                                  DropdownMenuItem<String>(
+                                    value: service.serviceName,
+                                    child: Text(service.serviceName ?? ''),
+                                  ),
+                                );
+                              }
+
+                              // Store the service ID of the 0th position
+                              if (dropDownServiceList.isNotEmpty) {
+                                firstServiceId = snapshot.data![0].officeServiceId;
+                              }
+
+                              if (selectedServiceName == null && dropDownServiceList.isNotEmpty) {
+                                selectedServiceName = dropDownServiceList[0].value;
+                                selectedServiceId = firstServiceId;
+                              }
+
+                              return Container(
+                                width: 200,
+                                child: CICCDropdown(
+                                  initialValue: selectedServiceName,
+                                  onChange: (val) {
+                                    setState(() {
+                                      selectedServiceName = val;
+                                      for (var service in snapshot.data!) {
+                                        if (service.serviceName == val) {
+                                          selectedServiceId = service.officeServiceId;
+                                        }
+                                      }
+                                    });
+                                  },
+                                  items: dropDownServiceList,
+                                ),
+                              );
+                            }
+                            return const SizedBox();
+                          },
+                        ),
                       ],
                     ),
-                    ///trial
+                   // SizedBox(width: 10,),
                     Container(
                       width: 130,
                       height: 32,
                       child: CustomIconButtonConst(
                         text: 'Add Payrate',
                         icon: Icons.add,
-                        onPressed: isServiceSelected ?  () {
+                        onPressed: () {
+                          if (selectedServiceId == null) {
+                            // If no service selected, use the ID of the first service
+                            setState(() {
+                              selectedServiceId = firstServiceId;
+                            });
+                          }
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return PayRatesPopup(
                                 visitTypeTextActive: true,
-                                  title: 'Add Payrates',
-                                  child1: FutureBuilder<List<VisitListData>>(
-                                    future: getVisitList(context),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
-                                        return Container(
-                                          width: 300,
-                                          child: Text(
-                                            'Loading...',
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              fontWeight: FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshot.hasData && snapshot.data!.isEmpty) {
-                                        return Center(
-                                          child: Text(
-                                            ErrorMessageString.noVisitAdd,
-                                            //AppString.dataNotFound,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              fontWeight: FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshot.hasData) {
-                                        List<DropdownMenuItem<String>> dropDownZoneList = [];
-                                        for (var i in snapshot.data!) {
-                                          dropDownZoneList.add(
-                                            DropdownMenuItem<String>(
-                                              child: Text(i.visitType),
-                                              value: i.visitType,
-                                            ),
-                                          );
-                                        }
-                                        return CICCDropdown(
-                                          initialValue: dropDownZoneList.isNotEmpty
-                                              ? dropDownZoneList[0].value
-                                              : null,
-                                          onChange: (val) {
-                                            for (var a in snapshot.data!) {
-                                              if (a.visitType == val) {
-                                                docAddVisitTypeId = a.visitType;
-                                              }
-                                            }
-                                          },
-                                          items: dropDownZoneList,
-                                        );
-                                      }
-                                      return const SizedBox();
-                                    },
-                                  ),
-                                  child2: FutureBuilder<List<SortByZoneData>>(
-                                    future: PayRateZoneDropdown(context),
-                                    builder: (context, snapshotZone) {
-                                      if (snapshotZone.connectionState == ConnectionState.waiting) {
-                                        return Container(
-                                          width: 300,
-                                          child: Text(
-                                            'Loading...',
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              fontWeight: FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshotZone.hasData && snapshotZone.data!.isEmpty) {
-                                        return Center(
-                                          child: Text(
-                                            ErrorMessageString.noZoneAdded,
-                                            //AppString.dataNotFound,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              fontWeight: FontWeightManager.medium,
-                                              fontSize: FontSize.s12,
-                                              color: ColorManager.mediumgrey,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      if (snapshotZone.hasData) {
-                                        List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                        for (var i in snapshotZone.data!) {
-                                          dropDownTypesList.add(
-                                            DropdownMenuItem<String>(
-                                              value: i.zoneName,
-                                              child: Text(i.zoneName),
-                                            ),
-                                          );
-                                        }
-                                        return CICCDropdown(
-                                          initialValue: dropDownTypesList.isNotEmpty
-                                              ? dropDownTypesList[0].value
-                                              : null,
-                                          onChange: (val) {
-                                            for (var a in snapshotZone.data!) {
-                                              if (a.zoneName == val) {
-                                                docZoneId = a.zoneId;
-                                              }
-                                            }
-                                          },
-                                          items: dropDownTypesList,
-                                        );
-                                      }
-                                      return const SizedBox();
-                                    },
-                                  ),
-                                  payRatesController: payRatesController,
-                                  perMilesController: perMilesController,
-                                  onPressed: () async {
-                                    if (docAddVisitTypeId != null && docZoneId != null) {
-                                      try {
-                                        int zoneId = docZoneId;
-                                        int rate = int.parse(payRatesController.text);
-                                        String typeOfVisitId = docAddVisitTypeId.toString();
-                                        int perMile = int.parse(perMilesController.text);
-                                        int serviceTypeId = selectedServiceId!;
+                                payRatesController: payRatesController,
+                                perMilesController: perMilesController,
+                                title: 'Add Payrates',
+                                // Pass the selectedServiceId to the API call
+                                onPressed: () async {
+                                  if (docAddVisitTypeId != null && docZoneId != null) {
+                                    try {
+                                      int zoneId = docZoneId;
+                                      int rate = int.parse(payRatesController.text);
+                                      String typeOfVisitId = docAddVisitTypeId.toString();
+                                      int perMile = int.parse(perMilesController.text);
+                                      int serviceTypeId = selectedServiceId!;
 
-                                        await addPayrates(
-                                          context,
-                                          zoneId,
-                                          rate,
-                                          typeOfVisitId,
-                                          perMile,
-                                          serviceTypeId,
-                                        );
+                                      await addPayrates(
+                                        context,
+                                        zoneId,
+                                        rate,
+                                        typeOfVisitId,
+                                        perMile,
+                                        serviceTypeId,
+                                      );
+                                      setState(() {
                                         companyPayratesGet(context);
-
-                                        payRatesController.clear();
-                                        perMilesController.clear();
-                                      } catch (e) {
-                                        print("Failed to add pay rates: $e");
-                                      }
-                                    } else {
-                                      print("Required data is missing.");
+                                      });
+                                      payRatesController.clear();
+                                      perMilesController.clear();
+                                    } catch (e) {
+                                      print("Failed to add pay rates: $e");
                                     }
+                                  } else {
+                                    print("Required data is missing.");
                                   }
+                                },
+                                child1: FutureBuilder<List<VisitListData>>(
+                                  future: getVisitList(context),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                      return Container(
+                                        width: 300,
+                                        child: Text(
+                                          'Loading...',
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                      return Center(
+                                        child: Text(
+                                          "No available visits !!",
+                                          //AppString.dataNotFound,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    if (snapshot.hasData) {
+                                      List<DropdownMenuItem<String>> dropDownZoneList = [];
+                                      for (var i in snapshot.data!) {
+                                        dropDownZoneList.add(
+                                          DropdownMenuItem<String>(
+                                            child: Text(i.visitType),
+                                            value: i.visitType,
+                                          ),
+                                        );
+                                      }
+                                      return CICCDropdown(
+                                        initialValue: dropDownZoneList.isNotEmpty
+                                            ? dropDownZoneList[0].value
+                                            : null,
+                                        onChange: (val) {
+                                          for (var a in snapshot.data!) {
+                                            if (a.visitType == val) {
+                                              docAddVisitTypeId = a.visitType;
+                                            }
+                                          }
+                                        },
+                                        items: dropDownZoneList,
+                                      );
+                                    }
+                                    return const SizedBox();
+                                  },
+                                ),
+                                child2: FutureBuilder<List<SortByZoneData>>(
+                                  future: PayRateZoneDropdown(context),
+                                  builder: (context, snapshotZone) {
+                                    if (snapshotZone.connectionState == ConnectionState.waiting) {
+                                      return Container(
+                                        width: 300,
+                                        child: Text(
+                                          'Loading...',
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    if (snapshotZone.hasData && snapshotZone.data!.isEmpty) {
+                                      return Center(
+                                        child: Text(
+                                          "No available zones !!",
+                                          //AppString.dataNotFound,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    if (snapshotZone.hasData) {
+                                      List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                      for (var i in snapshotZone.data!) {
+                                        dropDownTypesList.add(
+                                          DropdownMenuItem<String>(
+                                            value: i.zoneName,
+                                            child: Text(i.zoneName),
+                                          ),
+                                        );
+                                      }
+                                      return CICCDropdown(
+                                        initialValue: dropDownTypesList.isNotEmpty
+                                            ? dropDownTypesList[0].value
+                                            : null,
+                                        onChange: (val) {
+                                          for (var a in snapshotZone.data!) {
+                                            if (a.zoneName == val) {
+                                              docZoneId = a.zoneId;
+                                            }
+                                          }
+                                        },
+                                        items: dropDownTypesList,
+                                      );
+                                    }
+                                    return const SizedBox();
+                                  },
+                                ),
                               );
                             },
                           );
-                        } : ()async {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Please select a service first.')),
-                          );
                         },
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],
@@ -407,7 +422,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
             const SizedBox(
               height: 15,
             ),
-
             const TableHeadConstant(
               items: [
                 TableHeadItem(text: 'Sr No.', textAlign: TextAlign.center),
@@ -428,7 +442,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
               child: StreamBuilder<List<PayRatesGet>>(
                 stream: _payRatesController.stream,
                 builder: (context, snapshot) {
-                  companyPayratesGet(context);
+                  //companyPayratesGet(context);
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
@@ -555,7 +569,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                             Expanded(
                                               child: Center(
                                                 child: Text(
-                                                  finance.ZoneName,
+                                                  finance.ZoneName ?? "--",
                                                   style: GoogleFonts.firaSans(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w500,
@@ -736,11 +750,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                             });
                                                                             try {
                                                                               await deletePayRatesId(context,finance.payratesId);
-
                                                                             } finally {
                                                                               setState(() {
                                                                                 _isLoading = false;
                                                                               });
+                                                                              companyPayratesGet(context);
                                                                               Navigator.pop(context);
                                                                             }
                                                                           });
@@ -807,18 +821,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
         future: PayRateZoneDropdown(context),
     builder: (context, snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-    return Text(
-    "Loading...",
-    style: GoogleFonts.firaSans(
-    fontSize: FontSize.s10,
-    fontWeight: FontWeightManager.medium,
-    color: ColorManager.mediumgrey,
-    ),
-    );
+    return loadingText;
     } else if (snapshot.hasError) {
     return Text('Error: ${snapshot.error}');
     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-    return Text('No zones available',style: CustomTextStylesCommon.commonStyle(
+    return Text(ErrorMessageString.noZoneAdded,style: CustomTextStylesCommon.commonStyle(
       fontWeight: FontWeightManager.medium,
       fontSize: FontSize.s12,
       color: ColorManager.mediumgrey,
