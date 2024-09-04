@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -207,7 +208,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    "No available zipcodes !!",
+                    ErrorMessageString.noZipcode,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,
@@ -365,7 +366,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                             if (snapshotZone.data!.isEmpty) {
                                                               return Center(
                                                                 child: Text(
-                                                                  AppString.dataNotFound,
+                                                                  ErrorMessageString.noCountyAdded,
                                                                   style: CustomTextStylesCommon.commonStyle(
                                                                     fontWeight: FontWeightManager.medium,
                                                                     fontSize: FontSize.s12,
@@ -422,7 +423,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                             if (snapshotZone.data!.isEmpty) {
                                                               return Center(
                                                                 child: Text(
-                                                                  AppString.dataNotFound,
+                                                                  ErrorMessageString.noZoneAdded,
                                                                   style: CustomTextStylesCommon.commonStyle(
                                                                     fontWeight: FontWeightManager.medium,
                                                                     fontSize: FontSize.s12,

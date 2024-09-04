@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/string_extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
@@ -72,7 +73,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
         children: [
           Container(
             height: AppSize.s30,
-            margin: EdgeInsets.symmetric(horizontal: 40),
+            margin: EdgeInsets.symmetric(horizontal: 50),
             decoration: BoxDecoration(
               color: ColorManager.fmediumgrey,
               borderRadius: BorderRadius.circular(12),
@@ -80,6 +81,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Text("  "),
                 Expanded(
                   child: Center(
                     child: Text(
@@ -92,6 +94,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                     ),
                   ),
                 ),
+
                 Expanded(
                   child: Center(
                     child: Text(
@@ -178,7 +181,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      "No available Licenses !!",
+                     ErrorMessageString.noLicenses,
                      // AppString.dataNotFound,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
@@ -256,6 +259,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                           ),
                                         ),
                                       ),
+                                      Text(" "),
                                       Expanded(
                                         child: Center(
                                           child: Text(

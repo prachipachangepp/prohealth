@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
@@ -17,7 +18,7 @@ class RoleManagerRoleRules extends StatelessWidget {
         ),
         Center(
           child: Text(
-            "No available role rules !!",
+            ErrorMessageString.noRoleRules,
             style: CustomTextStylesCommon.commonStyle(
               fontWeight: FontWeightManager.medium,
               fontSize: FontSize.s12,

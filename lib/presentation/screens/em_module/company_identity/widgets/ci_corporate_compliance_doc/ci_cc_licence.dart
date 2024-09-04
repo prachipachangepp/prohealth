@@ -11,6 +11,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
@@ -93,7 +94,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No available licenses !!",
+                        ErrorMessageString.noLicenses,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,
@@ -377,12 +378,9 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                       },
 
                                                                       child: FutureBuilder<
-                                                                          List<
-                                                                              DocumentTypeData>>(
-                                                                        future:
-                                                                            documentTypeGet(context),
-                                                                        builder:
-                                                                            (context,
+                                                                          List<DocumentTypeData>>(
+                                                                        future: documentTypeGet(context),
+                                                                        builder: (context,
                                                                                 snapshot) {
                                                                           if (snapshot.connectionState ==
                                                                               ConnectionState.waiting) {
@@ -403,6 +401,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                               .isEmpty) {
                                                                             return Center(
                                                                               child: Text(
+
                                                                                 AppString.dataNotFound,
                                                                                 style: CustomTextStylesCommon.commonStyle(
                                                                                   fontWeight: FontWeightManager.medium,
@@ -429,8 +428,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                               }
                                                                             }
 
-                                                                            docTypeMetaIdCC =
-                                                                                docType;
+                                                                            docTypeMetaIdCC = docType;
 
                                                                             identityDocumentTypeGet(context, docTypeMetaIdCC).then((data) {
                                                                               _identityDataController.add(data);
@@ -469,9 +467,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                                         },
                                                                       ),
                                                                       // Sub-Document Type Dropdown
-                                                                      child1: FutureBuilder<
-                                                                          List<
-                                                                              DocumentTypeData>>(
+                                                                      child1: FutureBuilder<List<DocumentTypeData>>(
                                                                         future:
                                                                             documentTypeGet(context),
                                                                         builder:

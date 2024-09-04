@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,8 +9,11 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import 'dart:math';
+
+import '../see_all_screen/see_all_screen.dart';
 
 
 class CustomDialog extends StatefulWidget {
@@ -41,35 +45,33 @@ class CustomDialog extends StatefulWidget {
 
 class _CustomDialogState extends State<CustomDialog> {
 
+  @override
+  void initState() {
+    super.initState();
+    _generatePassword(); // Generate password when dialog is initialized
+  }
 
-  String _password = '';
-  // Method for Generating Random Passwords
   void _generatePassword() {
     final random = Random();
     final characters =
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@';
     String password = '';
     for (int i = 0; i < 8; i++) {
-      password += characters[
-      // Generate a random password
-      random.nextInt(characters.length)];
+      password += characters[random.nextInt(characters.length)];
     }
     setState(() {
-      // Update the displayed password
-      _password = password;
-      widget.passwordController.text = password;
+      widget.passwordController.text = password; // Update the controller text
     });
   }
 
-
-
-  @override
-  initState() {
-    super.initState();
-    _generatePassword();
+  void _copyToClipboard() {
+    Clipboard.setData(ClipboardData(text: widget.passwordController.text)).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Copied to clipboard')),
+      );
+    });
   }
-
-
+  final TextEditingController passwordController = TextEditingController();
 
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -207,18 +209,33 @@ class _CustomDialogState extends State<CustomDialog> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageTextFieldEmail(
+                  child: CustomTextFieldWithIcon(
                     controller: widget.passwordController,
-
+                    suffixIcon: Icon(Icons.copy, size: 14),
                     keyboardType: TextInputType.text,
                     text: "Password",
                     cursorHeight: 12,
-                    labelText: "Password",       //  _password,
+                    labelText: "Password",
                     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
                     labelFontSize: 12,
                     errorText: 'Password is required',
+                    onSuffixIconPressed: _copyToClipboard, // Pass the copy callback
                   ),
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 8.0),
+                //   child: HRManageTextFieldEmail(
+                //     controller: widget.passwordController,
+                //     suffixIcon: Icon(Icons.copy,size: 14,),
+                //     keyboardType: TextInputType.text,
+                //     text: "Password",
+                //     cursorHeight: 12,
+                //     labelText: "Password",       //  _password,
+                //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                //     labelFontSize: 12,
+                //     errorText: 'Password is required',
+                //   ),
+                // ),
                 // Padding(
                 //   padding: const EdgeInsets.only(bottom: 8.0),
                 //   child: HRManageTextField(
@@ -246,6 +263,95 @@ class _CustomDialogState extends State<CustomDialog> {
           ),
         ],
       )
+    );
+  }
+}
+class CustomTextFieldWithIcon extends StatefulWidget {
+  final TextEditingController controller;
+  final Icon? suffixIcon;
+  final TextInputType keyboardType;
+  final String text;
+  final double cursorHeight;
+  final String labelText;
+  final TextStyle? labelStyle;
+  final double labelFontSize;
+  final FocusNode? focusNode;
+  final String? errorText;
+  final VoidCallback? onSuffixIconPressed;  // Callback for suffix icon
+
+  const CustomTextFieldWithIcon({
+    Key? key,
+    required this.controller,
+    this.suffixIcon,
+    required this.keyboardType,
+    required this.text,
+    required this.cursorHeight,
+    required this.labelText,
+    this.labelStyle,
+    required this.labelFontSize,
+    this.errorText,
+    this.onSuffixIconPressed,  // Callback for suffix icon
+    this.focusNode,
+  }) : super(key: key);
+
+  @override
+  State<CustomTextFieldWithIcon> createState() => _CustomTextFieldWithIconState();
+}
+
+class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
+   bool hasError = false;
+
+   @override
+   void initState() {
+     super.initState();
+     hasError = false;
+   }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 320,
+      height: 40,
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p5),
+        child: TextFormField(
+          focusNode: widget.focusNode,
+          controller: widget.controller,
+          textAlign: TextAlign.start,
+          style: GoogleFonts.firaSans(fontSize: 10,),
+          textAlignVertical: TextAlignVertical.center,
+          cursorColor: ColorManager.black,
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(
+                bottom: AppPadding.p3,
+                top: AppPadding.p5,
+                left: AppPadding.p5
+            ),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.containerBorderGrey),
+            ),
+            labelText: widget.labelText,
+            labelStyle: widget.labelStyle?.copyWith(
+                fontSize: widget.labelFontSize,
+                color: ColorManager.mediumgrey
+            ),
+             errorText: hasError ? widget.errorText : null,
+            suffixIcon: IconButton(
+              icon: widget.suffixIcon ?? Icon(Icons.copy, size: 14),
+              onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
+            ),
+          ),
+          inputFormatters: [
+            CapitalizeFirstLetterFormatter(),
+          ],
+        ),
+      ),
     );
   }
 }

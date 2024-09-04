@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -594,7 +594,7 @@ class _HRTabScreensState extends State<HRTabScreens> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                              "No available employee type !!",
+                              ErrorMessageString.noEmpType,
                               style: CustomTextStylesCommon.commonStyle(
                                 fontWeight: FontWeightManager.medium,
                                 fontSize: FontSize.s12,

@@ -9,6 +9,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/constants/app_config.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_details_manager.dart';
@@ -86,7 +87,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No available medical cost reports !!",
+                        ErrorMessageString.noMCR,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,

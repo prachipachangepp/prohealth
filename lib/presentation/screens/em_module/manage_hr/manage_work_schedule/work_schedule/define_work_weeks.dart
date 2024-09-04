@@ -73,7 +73,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
             if (snapshot.data!.isEmpty) {
               return Center(
                   child: Text(
-               "No available work weeks!!",
+               ErrorMessageString.noWorkWeek,
                 style: CustomTextStylesCommon.commonStyle(
                     fontWeight: FontWeightManager.medium,
                     fontSize: FontSize.s12,

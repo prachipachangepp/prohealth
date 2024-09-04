@@ -124,7 +124,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    "No available counties !!",
+                    ErrorMessageString.noCounties,
                     style: CustomTextStylesCommon.commonStyle(
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s12,

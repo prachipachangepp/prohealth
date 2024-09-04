@@ -42,6 +42,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
+
           children: [
             Container(
               height: 40,
@@ -91,7 +92,7 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SMTextFConst(
+                  FirstSMTextFConst(
                     controller: widget.contractNmaeController,
                     keyboardType: TextInputType.text,
                     text: 'Contract Name',
