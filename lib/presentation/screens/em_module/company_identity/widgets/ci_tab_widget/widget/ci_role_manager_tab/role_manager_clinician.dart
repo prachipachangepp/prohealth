@@ -106,7 +106,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                           if (snapshot.data!.isEmpty) {
                             return Center(
                               child: Text(
-                                "No available department !!",
+                               ErrorMessageString.noSDepartment,
                                // AppString.dataNotFound,
                                 style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
@@ -192,7 +192,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                           if (snapshot.data!.isEmpty) {
                             return Center(
                               child: Text(
-                                "No available clinician role !!",
+                                ErrorMessageString.noClinicianRole,
                                 // AppString.dataNotFound,
                                 style: CustomTextStylesCommon.commonStyle(
                                   fontWeight: FontWeightManager.medium,
@@ -282,7 +282,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No available modules !!",
+                        ErrorMessageString.noModules,
                        // AppString.dataNotFound,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,

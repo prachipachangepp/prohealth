@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
+import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -179,7 +181,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                    "No available holidays !!",
+                    ErrorMessageString.noHoliday,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s12,

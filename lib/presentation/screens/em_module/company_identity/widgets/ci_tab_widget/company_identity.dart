@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
@@ -234,7 +235,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                         if (snapshot.data!.isEmpty) {
                           return const Center(
                             child: Text(
-                              "No available offices !!",
+                             ErrorMessageString.noOffice,
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
