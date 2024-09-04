@@ -616,7 +616,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                   print(":::PAYRATESTYPE${visitTypeId}");
                                                                   var zoneTypeId = snapshotPrefill.data?.ZoneId;
                                                                   payRatesController = TextEditingController(
-                                                                      text: snapshotPrefill.data?.payratesId.toString());
+                                                                      text: snapshotPrefill.data?.rate.toString());
                                                                   perMilesController = TextEditingController(text: snapshotPrefill.data?.perMile.toString());
                                                                   return PayRatesPopup(
                                                                     visitTypeTextActive: false,

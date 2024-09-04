@@ -63,6 +63,8 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
   bool _isLoading = false;
   String? selectedDocTypeValue;
   String? selectedSubDocTypeValue;
+  String selectedSubDocType = "";
+  int selectedSubDocIdVC = AppConfig.subDocId6Leases;
   late Future<List<DocumentTypeData>> docTypeFuture;
   @override
   void initState() {
@@ -70,17 +72,52 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
     selectedDocTypeValue = "Select Document Type";
     selectedSubDocTypeValue = "Select Sub Document";
     docTypeFuture = documentTypeGet(context);
+    _updateSelectedSubDocIdVC(selectedSubDocIdVC);
   }
 
   void _selectButton(int index) {
     setState(() {
       _selectedIndex = index;
+
+      _updateSelectedSubDocIdVC(
+          index == 0 ? AppConfig.subDocId6Leases :
+          index == 1 ? AppConfig.subDocId7SNF :
+          index == 2 ? AppConfig.subDocId8DME :
+          index == 3 ? AppConfig.subDocId9MD :
+          AppConfig.subDocId10MISC
+      );
     });
     _tabPageController.animateToPage(
       index,
       duration: Duration(milliseconds: 500),
       curve: Curves.ease,
     );
+  }
+
+
+
+  void _updateSelectedSubDocIdVC(int subDocIdVC) {
+    setState(() {
+      selectedSubDocIdVC = subDocIdVC;
+      selectedSubDocType = getSubDocTypeTextVC(subDocIdVC);
+    });
+  }
+
+  String getSubDocTypeTextVC(int subDocIdVC) {
+    switch (subDocIdVC) {
+      case AppConfig.subDocId6Leases:
+        return "Leases & Services";
+      case AppConfig.subDocId7SNF:
+        return "SNF";
+      case AppConfig.subDocId8DME:
+        return "DME";
+      case AppConfig.subDocId9MD:
+        return "MD";
+      case AppConfig.subDocId10MISC:
+        return "MISC";
+      default:
+        return "Unknown Document Type";
+    }
   }
 
   @override
@@ -111,7 +148,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
-                              _selectedIndex == 0 ? Colors.transparent : null,
+                          _selectedIndex == 0 ? Colors.transparent : null,
                         ),
                         child: Column(
                           children: [
@@ -130,9 +167,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                             ),
                             _selectedIndex == 0
                                 ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
+                              color: ColorManager.blueprime,
+                              thickness: 2,
+                            )
                                 : Offstage()
                           ],
                         ),
@@ -147,7 +184,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
-                              _selectedIndex == 1 ? Colors.transparent : null,
+                          _selectedIndex == 1 ? Colors.transparent : null,
                         ),
                         child: Column(
                           children: [
@@ -166,9 +203,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                             ),
                             _selectedIndex == 1
                                 ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
+                              color: ColorManager.blueprime,
+                              thickness: 2,
+                            )
                                 : Offstage()
                           ],
                         ),
@@ -183,7 +220,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
-                              _selectedIndex == 2 ? Colors.transparent : null,
+                          _selectedIndex == 2 ? Colors.transparent : null,
                         ),
                         child: Column(
                           children: [
@@ -202,9 +239,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                             ),
                             _selectedIndex == 2
                                 ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
+                              color: ColorManager.blueprime,
+                              thickness: 2,
+                            )
                                 : Offstage()
                           ],
                         ),
@@ -219,7 +256,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
-                              _selectedIndex == 3 ? Colors.transparent : null,
+                          _selectedIndex == 3 ? Colors.transparent : null,
                         ),
                         child: Column(
                           children: [
@@ -238,9 +275,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                             ),
                             _selectedIndex == 3
                                 ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
+                              color: ColorManager.blueprime,
+                              thickness: 2,
+                            )
                                 : Offstage()
                           ],
                         ),
@@ -255,7 +292,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color:
-                              _selectedIndex == 4 ? Colors.transparent : null,
+                          _selectedIndex == 4 ? Colors.transparent : null,
                         ),
                         child: Column(
                           children: [
@@ -274,9 +311,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                             ),
                             _selectedIndex == 4
                                 ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 2,
-                                  )
+                              color: ColorManager.blueprime,
+                              thickness: 2,
+                            )
                                 : Offstage()
                           ],
                         ),
@@ -308,6 +345,12 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                               setState(() {
                                 _isLoading = true;
                               });
+                              int subDocId = _selectedIndex == 0 ? AppConfig.subDocId6Leases :
+                              _selectedIndex == 1 ? AppConfig.subDocId7SNF :
+                              _selectedIndex == 2 ? AppConfig.subDocId8DME :
+                              _selectedIndex == 3 ? AppConfig.subDocId9MD :
+                              AppConfig.subDocId10MISC;
+
                               String expiryTypeToSend =
                               selectedExpiryType == "Not Applicable"
                                   ? "Not Applicable"
@@ -317,7 +360,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                   context: context,
                                   name: docNamecontroller.text,
                                   docTypeID: docTypeMetaIdVC,
-                                  docSubTypeID: docSubTypeMetaId,
+                                  docSubTypeID: selectedSubDocIdVC,//docSubTypeMetaId,
                                   expiryType: selectedExpiryType.toString(),
                                   expiryDate: calenderController.text,//expiryTypeToSend,
                                   expiryReminder: selectedExpiryType.toString(),
@@ -409,52 +452,32 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                 }
                               },
                             ),
-                            child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                              stream: _identityDataController.stream,
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                  List<DropdownMenuItem<String>> dropDownMenuItems = [];
-
-                                  // Create dropdown items from the fetched data
-                                  for (var i in snapshot.data!) {
-                                    dropDownMenuItems.add(
-                                      DropdownMenuItem<String>(
-                                        value: i.subDocType,
-                                        child: Text(i.subDocType),
-                                      ),
-                                    );
-                                  }
-
-                                  // Return the CICCDropdown with "Select Sub Document" as the initial value
-                                  return CICCDropDownExcel(
-                                    initialValue: "Select Sub Document",
-                                    onChange: (val) {
-                                      if (val != "Select Sub Document") {
-                                        for (var a in snapshot.data!) {
-                                          if (a.subDocType == val) {
-                                            docSubTypeMetaId = a.subDocID;
-                                          }
-                                        }
-                                      }
-                                    },
-                                    items: dropDownMenuItems,
-                                    hintText: "Select Sub Document",
-                                  );
-                                } else if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return SizedBox();
-                                } else {
-                                  return Center(
-                                    child: Text(
-                                      AppString.dataNotFound,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: FontSize.s12,
-                                        color: ColorManager.mediumgrey,
-                                      ),
+                            selectedSubDocType: selectedSubDocType,
+                            child1: Container(
+                              width: 354,
+                              padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                              decoration: BoxDecoration(
+                                color: ColorManager.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    selectedSubDocType,
+                                    style: CustomTextStylesCommon.commonStyle(
+                                      fontWeight: FontWeightManager.medium,
+                                      fontSize: FontSize.s12,
+                                      color: ColorManager.mediumgrey,
                                     ),
-                                  );
-                                }
-                              },
+                                  ),
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.transparent,
+                                  ),
+                                ],
+                              ),
                             ),
                             radioButton: Padding(
                               padding: const EdgeInsets.only(left: 10.0),

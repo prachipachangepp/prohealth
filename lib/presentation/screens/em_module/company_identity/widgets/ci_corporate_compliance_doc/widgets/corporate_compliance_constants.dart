@@ -595,6 +595,7 @@ class AddOrgDocButton extends StatefulWidget {
   final Widget? radioButton;
   final Visibility? child2;
   final bool? loadingDuration;
+  final String? selectedSubDocType;
   AddOrgDocButton(
       {super.key,
       required this.idDocController,
@@ -607,7 +608,7 @@ class AddOrgDocButton extends StatefulWidget {
       this.loadingDuration,
       required this.title,
       this.child2,
-      this.height});
+      this.height, this.selectedSubDocType});
 
   @override
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();

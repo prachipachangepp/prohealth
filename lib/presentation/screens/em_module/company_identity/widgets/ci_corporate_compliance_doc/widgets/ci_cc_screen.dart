@@ -53,6 +53,8 @@ class _CiCorporateComplianceScreenState
   bool _isLoading = false;
   String? selectedDocTypeValue;
   String? selectedSubDocTypeValue;
+  int selectedSubDocId = AppConfig.subDocId1Licenses; // Default value
+  String selectedSubDocType = "";
   late Future<List<DocumentTypeData>> docTypeFuture;
 
   @override
@@ -61,17 +63,50 @@ class _CiCorporateComplianceScreenState
     selectedDocTypeValue = "Select Document Type";
     selectedSubDocTypeValue = "Select Sub Document";
     docTypeFuture = documentTypeGet(context);
+    _updateSelectedSubDocId(selectedSubDocId);
   }
 
   void _selectButton(int index) {
     setState(() {
       _selectedIndex = index;
+
+      _updateSelectedSubDocId(
+          index == 0 ? AppConfig.subDocId1Licenses :
+          index == 1 ? AppConfig.subDocId2Adr :
+          index == 2 ? AppConfig.subDocId3CICCMedicalCR:
+          index == 3 ? AppConfig.subDocId4CapReport :
+          AppConfig.subDocId5BalReport
+      );
     });
     _tabPageController.animateToPage(
       index,
       duration: Duration(milliseconds: 500),
       curve: Curves.ease,
     );
+  }
+
+  void _updateSelectedSubDocId(int subDocId) {
+    setState(() {
+      selectedSubDocId = subDocId;
+      selectedSubDocType = getSubDocTypeText(subDocId);
+    });
+  }
+
+  String getSubDocTypeText(int subDocId) {
+    switch (subDocId) {
+      case AppConfig.subDocId1Licenses:
+        return "Licenses";
+      case AppConfig.subDocId2Adr:
+        return "ADR";
+      case AppConfig.subDocId3CICCMedicalCR:
+        return "Medical Cost Reports";
+      case AppConfig.subDocId4CapReport:
+        return "Cap Reports";
+      case AppConfig.subDocId5BalReport:
+        return "Quarterly Balance Reports";
+      default:
+        return "Unknown Document Type";
+    }
   }
 
   @override
@@ -303,6 +338,12 @@ class _CiCorporateComplianceScreenState
                                 setState(() {
                                   _isLoading = true;
                                 });
+                                int subDocId = _selectedIndex == 0 ? AppConfig.subDocId1Licenses :
+                                _selectedIndex == 1 ? AppConfig.subDocId2Adr :
+                                _selectedIndex == 2 ? AppConfig.subDocId3CICCMedicalCR :
+                                _selectedIndex == 3 ? AppConfig.subDocId4CapReport :
+                                AppConfig.subDocId5BalReport;
+
                                 String expiryTypeToSend =
                                     selectedExpiryType == "Not Applicable"
                                         ? "Not Applicable"
@@ -312,7 +353,7 @@ class _CiCorporateComplianceScreenState
                                     context: context,
                                     name: docNamecontroller.text,
                                     docTypeID: docTypeMetaIdCC,
-                                    docSubTypeID: docSubTypeMetaId,
+                                    docSubTypeID: selectedSubDocId,//docSubTypeMetaId,
                                     expiryType: selectedExpiryType.toString(),
                                     expiryDate: calenderController.text,//expiryTypeToSend,
                                     expiryReminder: selectedExpiryType.toString(),
@@ -405,53 +446,32 @@ class _CiCorporateComplianceScreenState
                                 },
                               ),
 
-                              // Subdocument Type Dropdown
-                              child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                                stream: _identityDataController.stream,
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                                    List<DropdownMenuItem<String>> dropDownMenuItems = [];
-
-                                    // Create dropdown items from the fetched data
-                                    for (var i in snapshot.data!) {
-                                      dropDownMenuItems.add(
-                                        DropdownMenuItem<String>(
-                                          value: i.subDocType,
-                                          child: Text(i.subDocType),
-                                        ),
-                                      );
-                                    }
-
-                                    // Return the CICCDropdown with "Select Sub Document" as the initial value
-                                    return CICCDropDownExcel(
-                                      initialValue: "Select Sub Document",
-                                      onChange: (val) {
-                                        if (val != "Select Sub Document") {
-                                          for (var a in snapshot.data!) {
-                                            if (a.subDocType == val) {
-                                              docSubTypeMetaId = a.subDocID;
-                                            }
-                                          }
-                                        }
-                                      },
-                                      items: dropDownMenuItems,
-                                      hintText: "Select Sub Document",
-                                    );
-                                  } else if (snapshot.connectionState == ConnectionState.waiting) {
-                                    return SizedBox();
-                                  } else {
-                                    return Center(
-                                      child: Text(
-                                        AppString.dataNotFound,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          fontWeight: FontWeightManager.medium,
-                                          fontSize: FontSize.s12,
-                                          color: ColorManager.mediumgrey,
-                                        ),
+                              selectedSubDocType: selectedSubDocType,
+                              child1: Container(
+                                width: 354,
+                                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: ColorManager.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: ColorManager.fmediumgrey,width: 1),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      selectedSubDocType,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontWeight: FontWeightManager.medium,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
                                       ),
-                                    );
-                                  }
-                                },
+                                    ),
+                                    Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Colors.transparent,
+                                    ),
+                                  ],
+                                ),
                               ),
                               radioButton: Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
