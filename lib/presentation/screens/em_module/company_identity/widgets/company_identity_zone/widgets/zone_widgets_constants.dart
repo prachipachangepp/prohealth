@@ -245,7 +245,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
 
 
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
-  String _location = 'Lat/Long not selected'; // Default text
+  String _location = 'Select Lat/Long '; // Default text
   double? _latitude;
   double? _longitude;
 
@@ -415,14 +415,24 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         ],
                       ),
 
-                      Text(
-                        _location,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          color: ColorManager.granitegray,
-                        ),
-                      ),
+                     Padding(
+                       padding: const EdgeInsets.only(left: 10),
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.start,
+                         children: [
+                           Text(
+                             _location,
+                             style: GoogleFonts.firaSans(
+                               fontSize: 11,
+                               fontWeight: FontWeight.w500,
+                               color: const Color(0xff686464),
+                               decoration: TextDecoration.none,
+                             ),
+                           ),
 
+                         ],
+                       ),
+                     ),
                       // Text('${widget.location}'),
                       // Text('Picked Location: ${widget.locationController.text}'),
                       SizedBox(height: AppSize.s15),
@@ -517,7 +527,7 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
   bool isLoading = false;
 
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
-  String _location = 'Lat/Long not selected'; // Default text
+  String _location = 'Select Lat/Long'; // Default text
   double? _latitude;
   double? _longitude;
 
@@ -684,11 +694,22 @@ class _EditZipCodePopupState extends State<EditZipCodePopup> {
                         ],
                       ),
 
-                      Text(
-                        _location,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          color: ColorManager.granitegray,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              _location,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xff686464),
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+
+                          ],
                         ),
                       ),
                       SizedBox(height: AppSize.s15),
