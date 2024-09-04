@@ -429,7 +429,6 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                                decoration: TextDecoration.none,
                              ),
                            ),
-
                          ],
                        ),
                      ),
@@ -441,7 +440,6 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         keyboardType: TextInputType.text,
                         text: 'Landmark',
                       ),
-
                     ],
                   ),
                 ),

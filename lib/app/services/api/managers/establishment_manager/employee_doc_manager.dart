@@ -103,7 +103,7 @@ Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
               reminderThreshold: item["ReminderThreshold"],
               employeeDocTypesetupId: item['EmployeeDocumentTypeSetupId'],
               employeeDocTypeMetaId: item['EmployeeDocumentTypeMetaDataId'],
-            idOfDocument: item['idOfDocument'],
+              idOfDocument: item['idOfDocument'],
               sucess: true,
               message: response.statusMessage!
           ),
