@@ -484,7 +484,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                             );
                                                                                           }),
                                                                                           SizedBox(width:10),
-                                                                                          snapshot.data!.length <= 1 ? SizedBox(width: 80,):
+                                                                                          snapshot.data!.length <= 1 ? SizedBox(width: 60,):
                                                                                           InkWell(
                                                                                             onTap: () {
                                                                                               showDialog(

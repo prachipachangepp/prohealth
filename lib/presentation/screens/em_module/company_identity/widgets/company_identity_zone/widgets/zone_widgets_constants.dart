@@ -422,7 +422,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            AppString.zone,
+                            'County Name',
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeightManager.bold,
@@ -439,7 +439,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'County Name',
+                            AppString.zone,
                             style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeightManager.bold,
@@ -486,15 +486,14 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             color: ColorManager.granitegray,
                             size: AppSize.s18,
                           ),
+                          Text(
+                            _location,
+                            style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              color: ColorManager.granitegray,
+                            ),
+                          ),
                         ],
-                      ),
-
-                      Text(
-                        _location,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          color: ColorManager.granitegray,
-                        ),
                       ),
 
                       // Text('${widget.location}'),
@@ -534,14 +533,6 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                             });
                             await widget.onSavePressed();
                             // Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return CountySuccessPopup(
-                                  message: 'Save Successfully',
-                                );
-                              },
-                            );
                             setState(() {
                               isLoading = false;
                             });
@@ -989,7 +980,7 @@ class _AddZonePopupState extends State<AddZonePopup> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p3,
+                  vertical: AppPadding.p15,
                   horizontal: AppPadding.p20,
                 ),
                 child: Column(

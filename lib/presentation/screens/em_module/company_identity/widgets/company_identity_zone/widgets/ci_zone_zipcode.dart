@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -368,13 +370,30 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                               );
                                                             }
                                                             if (snapshotZone.data!.isEmpty) {
-                                                              return Center(
-                                                                child: Text(
-                                                                  ErrorMessageString.noCountyAdded,
-                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                    fontWeight: FontWeightManager.medium,
-                                                                    fontSize: FontSize.s12,
-                                                                    color: ColorManager.mediumgrey,
+                                                              return Container(
+                                                                width: 354,
+                                                                height: 30,
+                                                                decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                                                  borderRadius: BorderRadius.circular(4),
+                                                                ),
+                                                                child: Align(
+                                                                  alignment: Alignment.centerLeft,
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                                    child: Text(
+                                                                      ErrorMessageString.noCountyAdded,
+                                                                      // AppString.dataNotFound,
+                                                                      style: CustomTextStylesCommon
+                                                                          .commonStyle(
+                                                                        fontWeight:
+                                                                        FontWeightManager.medium,
+                                                                        fontSize: FontSize.s12,
+                                                                        color:
+                                                                        ColorManager.mediumgrey,
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               );
@@ -391,6 +410,9 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                                   ),
                                                                 );
                                                               }
+                                                              // if (countyName == null) {
+                                                              //   countyName = 'Select County';
+                                                              // }
                                                               return CICCDropdown(
                                                                   initialValue: dropDownTypesList[0].value,
                                                                   onChange: (val){
@@ -425,13 +447,30 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                               );
                                                             }
                                                             if (snapshotZone.data!.isEmpty) {
-                                                              return Center(
-                                                                child: Text(
-                                                                  ErrorMessageString.noZoneAdded,
-                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                    fontWeight: FontWeightManager.medium,
-                                                                    fontSize: FontSize.s12,
-                                                                    color: ColorManager.mediumgrey,
+                                                              return Container(
+                                                                width: 354,
+                                                                height: 30,
+                                                                decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: ColorManager.containerBorderGrey, width: AppSize.s1),
+                                                                  borderRadius: BorderRadius.circular(4),
+                                                                ),
+                                                                child: Align(
+                                                                  alignment: Alignment.centerLeft,
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                                    child: Text(
+                                                                      ErrorMessageString.noZoneAdded,
+                                                                      //  AppString.dataNotFound,
+                                                                      style: CustomTextStylesCommon
+                                                                          .commonStyle(
+                                                                        fontWeight:
+                                                                        FontWeightManager.medium,
+                                                                        fontSize: FontSize.s12,
+                                                                        color:
+                                                                        ColorManager.mediumgrey,
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               );
@@ -469,7 +508,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                       ),
                                                       // onPickLocation: _pickLocation,
                                                       onSavePressed: () async{
-                                                      await updateZipCodeSetup(context,
+                                                     var response = await updateZipCodeSetup(context,
                                                           zipcode.zipcodeSetupId!,
                                                           zoinId == docZoneId ? zoinId : docZoneId,
                                                           countyPreId == countyId ? countyPreId : countyId,
@@ -481,6 +520,16 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                           // "37.0902°",
                                                           // "95.7129°",
                                                           landmark == landmarkController.text ? landmark.toString() :landmarkController.text);
+                                                     if(response.statusCode == 200 || response.statusCode == 201){
+                                                       showDialog(
+                                                         context: context,
+                                                         builder: (BuildContext context) {
+                                                           return CountySuccessPopup(
+                                                             message: 'Save Successfully',
+                                                           );
+                                                         },
+                                                       );
+                                                     }
                                                       getZipcodeSetup(context, widget.officeId,1, 20).then((data){
                                                         _zipcodeController.add(data);
                                                       }).catchError((error){
