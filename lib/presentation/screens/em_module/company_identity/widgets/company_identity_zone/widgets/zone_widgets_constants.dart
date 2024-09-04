@@ -180,6 +180,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                       ),
                     SizedBox(height: AppSize.s20),
                     FirstSMTextFConst(
+                      inputFormated: [UpperCaseTextFormatter()],
                       controller: widget.zipcodeController,
                       keyboardType: TextInputType.text,
                       text: widget.title2,
