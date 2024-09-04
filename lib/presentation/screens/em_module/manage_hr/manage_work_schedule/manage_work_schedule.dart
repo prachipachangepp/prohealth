@@ -59,7 +59,7 @@ class WorkSchedule extends StatefulWidget {
 
 class _WorkScheduleState extends State<WorkSchedule> {
   final List<String> _categories = [
-    'Define Work Weeks',
+    'Shift & Batches',
     'Define Holidays',
   ];
 

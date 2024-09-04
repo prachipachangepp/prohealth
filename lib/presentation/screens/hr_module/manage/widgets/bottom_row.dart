@@ -320,11 +320,24 @@ class _BottomBarRowState extends State<BottomBarRow> {
   void initState() {
     super.initState();
     _fetchIPAddress();
+    lookupUserCountry();
     _stateFuture = getCurrentLocation();
     //getCurrentLocation();
     // getLocation();
    // _geolocationFuture = _getGeolocation(); // Initialize geolocation fetching
   }
+ Future<String> lookupUserCountry() async {
+   final response = await http.get(Uri.parse('https://api.ipregistry.co?key=${AppConfig.googleApiKey}'));
+
+   if (response.statusCode == 200) {
+     final countryData = jsonDecode(response.body)['location']['country']['name'];
+     final cityData = jsonDecode(response.body)['location']['city'];
+     print("City and Country ${countryData} + ${cityData}");
+     return json.decode(response.body)['location']['country']['name'];
+   } else {
+     throw Exception('Failed to get user country from IP address');
+   }
+ }
 
   Future<void> _fetchIPAddress() async {
     try {
@@ -332,6 +345,7 @@ class _BottomBarRowState extends State<BottomBarRow> {
           await http.get(Uri.parse('https://api.ipify.org?format=json'));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
+
         setState(() {
           _ipAddress = data['ip'];
           _isFetchingIp = false;
