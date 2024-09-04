@@ -595,6 +595,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                       ),
                                                                     );
                                                                   }
+
                                                                   var payRates = snapshotPrefill.data?.payratesId;
                                                                   var visitTypeId = snapshotPrefill.data?.typeOfVisitId;
                                                                   var perMile = snapshotPrefill.data?.perMile;
