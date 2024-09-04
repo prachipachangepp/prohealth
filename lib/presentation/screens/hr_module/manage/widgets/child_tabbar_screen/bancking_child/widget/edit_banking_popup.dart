@@ -438,6 +438,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
               padding: const EdgeInsets.only(right: 20.0, bottom: 20),
               child:
               CustomElevatedButton(
+                width: 100,
                 text: "Save",
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
