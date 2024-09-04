@@ -73,7 +73,46 @@ class _CiOrgDocumentState extends State<CiZone> {
   String? selectedZipCodeCounty;
   String? selectedZipCodeZone;
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
-  String _location = 'Lat/Long not selected'; // Default text
+  String _location = 'Lat/Long not selected';
+  void _pickLocation() async {
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) => MapScreen(
+          initialLocation: _selectedLocation,
+          onLocationPicked: (location) {
+            setState(() {
+              _selectedLocation = location;
+              _latitude = location.latitude;
+              _longitude = location.longitude;
+              String formatLatLong(double? latitude, double? longitude) {
+                if (latitude != null && longitude != null) {
+                  // print('Lat : ${latitude}')
+                  return 'Lat: ${latitude.toStringAsFixed(4)}, Long: ${longitude.toStringAsFixed(4)}';
+                } else {
+                  return 'Lat/Long not selected';
+                }
+              }
+
+              final latlong = formatLatLong(_latitude, _longitude);
+
+              print("Selected LatLong :: $latlong");
+
+              // Update the location in the UI directly
+              //_updateLocation(latlong);
+            });
+          },
+        ),
+      ),
+    );
+
+    if (pickedLocation != null) {
+      setState(() {
+        _selectedLocation = pickedLocation;
+        _latitude = pickedLocation.latitude;
+        _longitude = pickedLocation.longitude;
+      });
+    }
+  }// Default text
 
   @override
   Widget build(BuildContext context) {
@@ -451,6 +490,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                     countynameController: countynameController,
                                     cityNameController: cityController,
                                     zipcodeController: zipcodeController,
+                                     onPickLocation: _pickLocation,
                                      child: FutureBuilder<List<AllCountyGetList>>(
                                         future: getCountyZoneList(context),
                                         builder: (context, snapshotZone) {
@@ -554,22 +594,13 @@ class _CiOrgDocumentState extends State<CiZone> {
                                           _selectedLocation.latitude.toString(),
                                           _selectedLocation.longitude.toString(),
                                           landmarkController.text);
-                                     if(response.statusCode == 200 || response.statusCode == 201){
-                                       showDialog(
-                                         context: context,
-                                         builder: (BuildContext context) {
-                                           return CountySuccessPopup(
-                                             message: 'Save Successfully',
-                                           );
-                                         },
-                                       );
-                                     }
+
                                       print("Saved lat long${_selectedLocation.latitude.toString()} + ${_selectedLocation.longitude.toString()}");
                                       Navigator.pop(context);
                                     },
                                     mapController: mapController,
                                     landmarkController: landmarkController,
-                                    // locationController:    locationController ,
+                                    locationController: locationController,
                                     child1: FutureBuilder<List<SortByZoneData>>(
                                         future: PayRateZoneDropdown(context),
                                         builder: (context, snapshotZone) {

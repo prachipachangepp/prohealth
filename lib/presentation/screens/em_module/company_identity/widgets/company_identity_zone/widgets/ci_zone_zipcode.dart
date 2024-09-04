@@ -520,16 +520,6 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                           // "37.0902°",
                                                           // "95.7129°",
                                                           landmark == landmarkController.text ? landmark.toString() :landmarkController.text);
-                                                     if(response.statusCode == 200 || response.statusCode == 201){
-                                                       showDialog(
-                                                         context: context,
-                                                         builder: (BuildContext context) {
-                                                           return CountySuccessPopup(
-                                                             message: 'Save Successfully',
-                                                           );
-                                                         },
-                                                       );
-                                                     }
                                                       getZipcodeSetup(context, widget.officeId,1, 20).then((data){
                                                         _zipcodeController.add(data);
                                                       }).catchError((error){

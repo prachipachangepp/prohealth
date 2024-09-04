@@ -532,6 +532,14 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                               isLoading = true;
                             });
                             await widget.onSavePressed();
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CountySuccessPopup(
+                                  message: 'Save Successfully',
+                                );
+                              },
+                            );
                             // Navigator.pop(context);
                             setState(() {
                               isLoading = false;
