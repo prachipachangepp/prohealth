@@ -43,7 +43,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   TextEditingController payRatesController = TextEditingController();
   TextEditingController perMilesController = TextEditingController();
   final StreamController<List<PayRatesGet>> _payRatesController =
-      StreamController<List<PayRatesGet>>();
+  StreamController<List<PayRatesGet>>();
 
   String? _selectedZone;
   int currentPage = 1;
@@ -64,9 +64,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
   void initState() {
     super.initState();
     _loadPayRatesData();
-    // fetchData();
+   // fetchData();
   }
-
   // List<PayRatesGet> allData = [];
   //
   // Future<void> fetchData() async {
@@ -95,10 +94,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   void _filterPayRatesByZone() {
     List<PayRatesGet> filteredData = _selectedZone == null
         ? _fullPayRatesList
-        : _fullPayRatesList
-            .where((rate) =>
-                rate.ZoneId.toString() == _selectedZone!.split('-')[0])
-            .toList();
+        : _fullPayRatesList.where((rate) => rate.ZoneId.toString() == _selectedZone!.split('-')[0]).toList();
     _payRatesController.add(filteredData);
   }
 
@@ -112,9 +108,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                buildDropdownButton(context)
-              ],
+              children: [buildDropdownButton(context)],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,17 +154,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         Container(
                           height: 30,
                           width: 150,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 6, horizontal: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            border: Border.all(
-                                color: ColorManager.fmediumgrey, width: 1.2),
+                            border: Border.all(color: ColorManager.fmediumgrey, width: 1.2),
                             borderRadius: BorderRadius.circular(4),
                             boxShadow: [
                               BoxShadow(
-                                color:
-                                    const Color(0xff000000).withOpacity(0.25),
+                                color: const Color(0xff000000).withOpacity(0.25),
                                 blurRadius: 2,
                                 offset: const Offset(0, 2),
                               ),
@@ -186,14 +177,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        SizedBox(width: 10,),
                         FutureBuilder<List<ServiceData>>(
                           future: PayRateServiceDropdown(context),
                           builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
                               return Container(
                                 width: 180,
                                 height: 30,
@@ -214,8 +202,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                               );
                             }
                             if (snapshot.hasData) {
-                              List<DropdownMenuItem<String>>
-                                  dropDownServiceList = [];
+                              List<DropdownMenuItem<String>> dropDownServiceList = [];
                               for (var service in snapshot.data!) {
                                 dropDownServiceList.add(
                                   DropdownMenuItem<String>(
@@ -227,14 +214,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
 
                               // Store the service ID of the 0th position
                               if (dropDownServiceList.isNotEmpty) {
-                                firstServiceId =
-                                    snapshot.data![0].officeServiceId;
+                                firstServiceId = snapshot.data![0].officeServiceId;
                               }
 
-                              if (selectedServiceName == null &&
-                                  dropDownServiceList.isNotEmpty) {
-                                selectedServiceName =
-                                    dropDownServiceList[0].value;
+                              if (selectedServiceName == null && dropDownServiceList.isNotEmpty) {
+                                selectedServiceName = dropDownServiceList[0].value;
                                 selectedServiceId = firstServiceId;
                               }
 
@@ -247,8 +231,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       selectedServiceName = val;
                                       for (var service in snapshot.data!) {
                                         if (service.serviceName == val) {
-                                          selectedServiceId =
-                                              service.officeServiceId;
+                                          selectedServiceId = service.officeServiceId;
                                         }
                                       }
                                     });
@@ -262,7 +245,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         ),
                       ],
                     ),
-                    // SizedBox(width: 10,),
+                   // SizedBox(width: 10,),
                     Container(
                       width: 130,
                       height: 32,
@@ -286,16 +269,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 title: 'Add Payrates',
                                 // Pass the selectedServiceId to the API call
                                 onPressed: () async {
-                                  if (docAddVisitTypeId != null &&
-                                      docZoneId != null) {
+                                  if (docAddVisitTypeId != null && docZoneId != null) {
                                     try {
                                       int zoneId = docZoneId;
-                                      int rate =
-                                          int.parse(payRatesController.text);
-                                      String typeOfVisitId =
-                                          docAddVisitTypeId.toString();
-                                      int perMile =
-                                          int.parse(perMilesController.text);
+                                      int rate = int.parse(payRatesController.text);
+                                      String typeOfVisitId = docAddVisitTypeId.toString();
+                                      int perMile = int.parse(perMilesController.text);
                                       int serviceTypeId = selectedServiceId!;
 
                                       await addPayrates(
@@ -321,32 +300,26 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 child1: FutureBuilder<List<VisitListData>>(
                                   future: getVisitList(context),
                                   builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
+                                    if (snapshot.connectionState == ConnectionState.waiting) {
                                       return Container(
                                         width: 300,
                                         child: Text(
                                           'Loading...',
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                                FontWeightManager.medium,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
                                         ),
                                       );
                                     }
-                                    if (snapshot.hasData &&
-                                        snapshot.data!.isEmpty) {
+                                    if (snapshot.hasData && snapshot.data!.isEmpty) {
                                       return Center(
                                         child: Text(
                                           "No available visits !!",
                                           //AppString.dataNotFound,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                                FontWeightManager.medium,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
@@ -354,8 +327,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       );
                                     }
                                     if (snapshot.hasData) {
-                                      List<DropdownMenuItem<String>>
-                                          dropDownZoneList = [];
+                                      List<DropdownMenuItem<String>> dropDownZoneList = [];
                                       for (var i in snapshot.data!) {
                                         dropDownZoneList.add(
                                           DropdownMenuItem<String>(
@@ -365,10 +337,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                         );
                                       }
                                       return CICCDropdown(
-                                        initialValue:
-                                            dropDownZoneList.isNotEmpty
-                                                ? dropDownZoneList[0].value
-                                                : null,
+                                        initialValue: dropDownZoneList.isNotEmpty
+                                            ? dropDownZoneList[0].value
+                                            : null,
                                         onChange: (val) {
                                           for (var a in snapshot.data!) {
                                             if (a.visitType == val) {
@@ -385,32 +356,26 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 child2: FutureBuilder<List<SortByZoneData>>(
                                   future: PayRateZoneDropdown(context),
                                   builder: (context, snapshotZone) {
-                                    if (snapshotZone.connectionState ==
-                                        ConnectionState.waiting) {
+                                    if (snapshotZone.connectionState == ConnectionState.waiting) {
                                       return Container(
                                         width: 300,
                                         child: Text(
                                           'Loading...',
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                                FontWeightManager.medium,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
                                         ),
                                       );
                                     }
-                                    if (snapshotZone.hasData &&
-                                        snapshotZone.data!.isEmpty) {
+                                    if (snapshotZone.hasData && snapshotZone.data!.isEmpty) {
                                       return Center(
                                         child: Text(
                                           "No available zones !!",
                                           //AppString.dataNotFound,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                                FontWeightManager.medium,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
@@ -418,8 +383,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       );
                                     }
                                     if (snapshotZone.hasData) {
-                                      List<DropdownMenuItem<String>>
-                                          dropDownTypesList = [];
+                                      List<DropdownMenuItem<String>> dropDownTypesList = [];
                                       for (var i in snapshotZone.data!) {
                                         dropDownTypesList.add(
                                           DropdownMenuItem<String>(
@@ -429,10 +393,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                         );
                                       }
                                       return CICCDropdown(
-                                        initialValue:
-                                            dropDownTypesList.isNotEmpty
-                                                ? dropDownTypesList[0].value
-                                                : null,
+                                        initialValue: dropDownTypesList.isNotEmpty
+                                            ? dropDownTypesList[0].value
+                                            : null,
                                         onChange: (val) {
                                           for (var a in snapshotZone.data!) {
                                             if (a.zoneName == val) {
@@ -515,12 +478,10 @@ class _FinanceScreenState extends State<FinanceScreen> {
                               scrollDirection: Axis.vertical,
                               itemCount: paginatedData.length,
                               itemBuilder: (context, index) {
-                                int serialNumber = index +
-                                    1 +
-                                    (currentPage - 1) * itemsPerPage;
-                                String formattedSerialNumber =
-                                    serialNumber.toString().padLeft(2, '0');
-                                PayRatesGet finance = paginatedData[index];
+                                int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                                String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+                                PayRatesGet finance =
+                                paginatedData[index];
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -529,7 +490,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
-                                              BorderRadius.circular(4),
+                                          BorderRadius.circular(4),
                                           boxShadow: [
                                             BoxShadow(
                                               color: const Color(0xff000000)
@@ -543,7 +504,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                         height: 50,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.spaceAround,
                                           children: [
                                             Expanded(
                                               child: Center(
@@ -553,9 +514,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w500,
                                                     color:
-                                                        const Color(0xff686464),
+                                                    const Color(0xff686464),
                                                     decoration:
-                                                        TextDecoration.none,
+                                                    TextDecoration.none,
                                                   ),
                                                 ),
                                               ),
@@ -568,9 +529,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w500,
                                                     color:
-                                                        const Color(0xff686464),
+                                                    const Color(0xff686464),
                                                     decoration:
-                                                        TextDecoration.none,
+                                                    TextDecoration.none,
                                                   ),
                                                 ),
                                               ),
@@ -583,9 +544,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w500,
                                                     color:
-                                                        const Color(0xff686464),
+                                                    const Color(0xff686464),
                                                     decoration:
-                                                        TextDecoration.none,
+                                                    TextDecoration.none,
                                                   ),
                                                 ),
                                               ),
@@ -598,9 +559,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w500,
                                                     color:
-                                                        const Color(0xff686464),
+                                                    const Color(0xff686464),
                                                     decoration:
-                                                        TextDecoration.none,
+                                                    TextDecoration.none,
                                                   ),
                                                 ),
                                               ),
@@ -613,9 +574,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w500,
                                                     color:
-                                                        const Color(0xff686464),
+                                                    const Color(0xff686464),
                                                     decoration:
-                                                        TextDecoration.none,
+                                                    TextDecoration.none,
                                                   ),
                                                 ),
                                               ),
@@ -624,99 +585,54 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               child: Center(
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                                   children: [
                                                     IconButton(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
+                                                      splashColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
                                                       onPressed: () {
                                                         showDialog(
                                                           context: context,
-                                                          builder: (BuildContext
-                                                              context) {
+                                                          builder: (BuildContext context) {
                                                             return FutureBuilder<
-                                                                    PayRatePrefillFinanceData>(
-                                                                future: payPrefillRatesDataGet(
-                                                                    context,
-                                                                    finance
-                                                                        .payratesId),
+                                                                PayRatePrefillFinanceData>(
+                                                                future: payPrefillRatesDataGet(context, finance.payratesId),
                                                                 builder: (context,
                                                                     snapshotPrefill) {
-                                                                  if (snapshotPrefill
-                                                                          .connectionState ==
-                                                                      ConnectionState
-                                                                          .waiting) {
+                                                                  if (snapshotPrefill.connectionState == ConnectionState.waiting) {
                                                                     return Center(
                                                                       child:
-                                                                          CircularProgressIndicator(
+                                                                      CircularProgressIndicator(
                                                                         color: ColorManager
                                                                             .blueprime,
                                                                       ),
                                                                     );
                                                                   }
 
-                                                                  var payRates =
-                                                                      snapshotPrefill
-                                                                          .data
-                                                                          ?.payratesId;
-                                                                  var visitTypeId =
-                                                                      snapshotPrefill
-                                                                          .data
-                                                                          ?.typeOfVisitId;
-                                                                  var perMile =
-                                                                      snapshotPrefill
-                                                                          .data
-                                                                          ?.perMile;
-                                                                  print(
-                                                                      ":::PAYRATESTYPE${visitTypeId}");
-                                                                  var zoneTypeId =
-                                                                      snapshotPrefill
-                                                                          .data
-                                                                          ?.ZoneId;
+                                                                  var payRates = snapshotPrefill.data?.payratesId;
+                                                                  var visitTypeId = snapshotPrefill.data?.typeOfVisitId;
+                                                                  var perMile = snapshotPrefill.data?.perMile;
+                                                                  print(":::PAYRATESTYPE${visitTypeId}");
+                                                                  var zoneTypeId = snapshotPrefill.data?.ZoneId;
                                                                   payRatesController = TextEditingController(
-                                                                      text: snapshotPrefill
-                                                                          .data
-                                                                          ?.payratesId
-                                                                          .toString());
-                                                                  perMilesController = TextEditingController(
-                                                                      text: snapshotPrefill
-                                                                          .data
-                                                                          ?.perMile
-                                                                          .toString());
+                                                                      text: snapshotPrefill.data?.rate.toString());
+                                                                  perMilesController = TextEditingController(text: snapshotPrefill.data?.perMile.toString());
                                                                   return PayRatesPopup(
-                                                                    visitTypeTextActive:
-                                                                        false,
-                                                                    title:
-                                                                        'Edit Payrate',
-                                                                    child1:
-                                                                        SMTextFConst(
-                                                                      enable:
-                                                                          false,
-                                                                      readOnly:
-                                                                          true,
-                                                                      controller:
-                                                                          TextEditingController(
-                                                                        text: visitTypeId
-                                                                            .toString(),
-                                                                      ),
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .number,
-                                                                      text:
-                                                                          'Type of Visit',
+                                                                    visitTypeTextActive: false,
+                                                                    title: 'Edit Payrate',
+                                                                    child1: SMTextFConst(enable: false,
+                                                                      readOnly: true,
+                                                                      controller: TextEditingController(text: visitTypeId.toString(),),
+                                                                      keyboardType: TextInputType.number,
+                                                                      text: 'Type of Visit',
                                                                     ),
-                                                                    child2: FutureBuilder<
-                                                                            List<
-                                                                                SortByZoneData>>(
+                                                                    child2: FutureBuilder<List<SortByZoneData>>(
                                                                         future: PayRateZoneDropdown(
                                                                             context),
                                                                         builder:
                                                                             (context,
-                                                                                snapshot) {
+                                                                            snapshot) {
                                                                           if (snapshot.connectionState ==
                                                                               ConnectionState.waiting) {
                                                                             return Shimmer.fromColors(
@@ -745,15 +661,15 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                           if (snapshot
                                                                               .hasData) {
                                                                             List
-                                                                                dropDown =
-                                                                                [];
+                                                                            dropDown =
+                                                                            [];
                                                                             int docType =
-                                                                                0;
+                                                                            0;
                                                                             List<DropdownMenuItem<String>>
-                                                                                dropDownTypesList =
-                                                                                [];
+                                                                            dropDownTypesList =
+                                                                            [];
                                                                             for (var i
-                                                                                in snapshot.data!) {
+                                                                            in snapshot.data!) {
                                                                               dropDownTypesList.add(
                                                                                 DropdownMenuItem<String>(
                                                                                   child: Text(i.zoneName),
@@ -777,35 +693,21 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                           }
                                                                           return const SizedBox();
                                                                         }),
-                                                                    payRatesController:
-                                                                        payRatesController,
-                                                                    perMilesController:
-                                                                        perMilesController,
-                                                                    onPressed:
-                                                                        () async {
-                                                                      await updatePayRatesSetupPost(
-                                                                          context,
-                                                                          finance
-                                                                              .payratesId,
+                                                                    payRatesController: payRatesController,
+                                                                    perMilesController: perMilesController,
+                                                                    onPressed: () async {
+                                                                      await updatePayRatesSetupPost(context,
+                                                                          finance.payratesId,
                                                                           docZoneId,
-                                                                          payRates == int.parse(payRatesController.text)
-                                                                              ? payRates!
-                                                                              : int.parse(payRatesController
-                                                                                  .text),
+                                                                          payRates == int.parse(payRatesController.text) ? payRates! : int.parse(payRatesController.text),
                                                                           visitTypeId!,
-                                                                          perMile == int.parse(perMilesController.text)
-                                                                              ? perMile!
-                                                                              : int.parse(perMilesController.text),
+                                                                          perMile == int.parse(perMilesController.text) ? perMile! : int.parse(perMilesController.text),
                                                                           selectedServiceId!);
-                                                                      print(
-                                                                          "ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
-                                                                      companyPayratesGet(
-                                                                          context);
+                                                                      print("ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
+                                                                      companyPayratesGet(context);
 
-                                                                      payRatesController
-                                                                          .clear();
-                                                                      perMilesController
-                                                                          .clear();
+                                                                      payRatesController.clear();
+                                                                      perMilesController.clear();
                                                                     },
                                                                   );
                                                                 });
@@ -820,26 +722,23 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                       ),
                                                     ),
                                                     IconButton(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
+                                                        splashColor: Colors.transparent,
+                                                        highlightColor: Colors.transparent,
+                                                        hoverColor: Colors.transparent,
                                                         onPressed: () {
                                                           showDialog(
                                                               context: context,
                                                               builder: (context) =>
                                                                   StatefulBuilder(
                                                                     builder: (BuildContext
-                                                                            context,
+                                                                    context,
                                                                         void Function(void Function())
-                                                                            setState) {
+                                                                        setState) {
                                                                       return DeletePopup(
                                                                           title:
-                                                                              'Delete Pay Rates',
+                                                                          'Delete Pay Rates',
                                                                           loadingDuration:
-                                                                              _isLoading,
+                                                                          _isLoading,
                                                                           onCancel:
                                                                               () {
                                                                             Navigator.pop(context);
@@ -850,7 +749,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                               _isLoading = true;
                                                                             });
                                                                             try {
-                                                                              await deletePayRatesId(context, finance.payratesId);
+                                                                              await deletePayRatesId(context,finance.payratesId);
                                                                             } finally {
                                                                               setState(() {
                                                                                 _isLoading = false;
@@ -867,7 +766,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                               .delete_outline_outlined,
                                                           size: 18,
                                                           color:
-                                                              ColorManager.red,
+                                                          ColorManager.red,
                                                         ))
                                                   ],
                                                 ),
@@ -887,7 +786,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                           onPreviousPagePressed: () {
                             setState(() {
                               currentPage =
-                                  currentPage > 1 ? currentPage - 1 : 1;
+                              currentPage > 1 ? currentPage - 1 : 1;
                             });
                           },
                           onPageNumberPressed: (pageNumber) {
@@ -919,82 +818,81 @@ class _FinanceScreenState extends State<FinanceScreen> {
 
   Widget buildDropdownButton(BuildContext context) {
     return FutureBuilder<List<SortByZoneData>>(
-      future: PayRateZoneDropdown(context),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return loadingText;
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Text(
-            ErrorMessageString.noZoneAdded,
-            style: CustomTextStylesCommon.commonStyle(
-              fontWeight: FontWeightManager.medium,
-              fontSize: FontSize.s12,
-              color: ColorManager.mediumgrey,
-            ),
-          );
-        } else {
-          List<SortByZoneData> zoneList = snapshot.data!;
-          return Container(
-            height: 31,
-            width: 110,
-            padding: const EdgeInsets.only(top: 5, bottom: 5, left: 3, right: 3),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
-              borderRadius: BorderRadius.circular(12.0),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xff000000).withOpacity(0.25),
-                  blurRadius: 2,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: DropdownButton<String>(
-              value: _selectedZone,
-              hint: Text(
-                'Sort By',
-                style: GoogleFonts.firaSans(
-                  fontSize: FontSize.s12,
-                  fontWeight: FontWeightManager.bold,
-                  color: ColorManager.blueprime,
-                  decoration: TextDecoration.none,
-                ),
-              ),
-              icon: const Icon(
-                Icons.arrow_drop_down,
-                color: Color(0xff50B5E5),
-              ),
-              iconSize: 20,
-              underline: const SizedBox(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedZone = newValue;
-                  _filterPayRatesByZone();
-                });
-              },
-              isDense: true,
-              items: zoneList.map<DropdownMenuItem<String>>((SortByZoneData zone) {
-                String dropdownValue = "${zone.zoneId}-${zone.zoneName}";
-                return DropdownMenuItem<String>(
-                  value: dropdownValue,
-                  child: Text(
-                    zone.zoneName,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.medium,
-                      color: ColorManager.blueprime,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          );
-        }
-      },
+        future: PayRateZoneDropdown(context),
+    builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+    return loadingText;
+    } else if (snapshot.hasError) {
+    return Text('Error: ${snapshot.error}');
+    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+    return Text(ErrorMessageString.noZoneAdded,style: CustomTextStylesCommon.commonStyle(
+      fontWeight: FontWeightManager.medium,
+      fontSize: FontSize.s12,
+      color: ColorManager.mediumgrey,
+    ),);
+    } else {
+    List<SortByZoneData> zoneList = snapshot.data!;
+    return Container(
+    height: 31,
+    width: 100,
+    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+    decoration: BoxDecoration(
+    color: Colors.white,
+    border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
+    borderRadius: BorderRadius.circular(12.0),
+    boxShadow: [
+    BoxShadow(
+    color: const Color(0xff000000).withOpacity(0.25),
+    blurRadius: 2,
+    offset: const Offset(0, 2),
+    ),
+    ],
+    ),
+    child: DropdownButton<String>(
+    value: _selectedZone,
+    hint: Text(
+    'Sort By',
+    style: GoogleFonts.firaSans(
+    fontSize: FontSize.s12,
+    fontWeight: FontWeightManager.bold,
+    color: ColorManager.blueprime,
+    decoration: TextDecoration.none,
+    ),
+    ),
+    icon: const Icon(
+    Icons.arrow_drop_down,
+    color: Color(0xff50B5E5),
+    ),
+    iconSize: 20,
+    underline: const SizedBox(),
+    onChanged: (String? newValue) {
+    setState(() {
+    _selectedZone = newValue;
+    _filterPayRatesByZone();
+    });
+    },
+    isDense: true,
+    items: zoneList
+        .map<DropdownMenuItem<String>>((SortByZoneData zone) {
+    String dropdownValue = "${zone.zoneId}-${zone.zoneName}";
+    return DropdownMenuItem<String>(
+    value: dropdownValue,
+    child: Text(
+    zone.zoneName,
+    style: GoogleFonts.firaSans(
+    fontSize: FontSize.s12,
+    fontWeight: FontWeightManager.medium,
+    color: ColorManager.blueprime,
+    decoration: TextDecoration.none,
+    ),
+    ),
+    );
+    }).toList(),
+    ),
+    );
+    }
+    },
     );
   }
 }
+
