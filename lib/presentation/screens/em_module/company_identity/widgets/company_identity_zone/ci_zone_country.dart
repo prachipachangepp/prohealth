@@ -259,7 +259,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                   highlightColor: Colors.transparent,
                                                   onPressed: (){
                                                 showDialog(context: context, builder: (context) => DeletePopup(
-                                                    title: 'Delete Country',
+                                                    title: 'Delete County',
                                                     onCancel: (){
                                                   Navigator.pop(context);
                                                 }, onDelete: ()async{

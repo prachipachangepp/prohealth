@@ -403,7 +403,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
         child: Stack(
           children: <Widget>[
             Container(
-              height: 500,
+              height: 420,
               width: 360,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -439,7 +439,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: AppPadding.p25),
+                              padding: const EdgeInsets.only(left: AppPadding.p23),
                               child: Text(
                                 widget.title,
                                 style: GoogleFonts.firaSans(
