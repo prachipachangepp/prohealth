@@ -153,7 +153,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      ErrorMessageString.noADR,
+                      ErrorMessageString.noSNF,
                      // AppString.dataNotFound,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
