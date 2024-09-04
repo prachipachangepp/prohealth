@@ -360,9 +360,16 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/scheduler/scheduler_create_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/data/api_data/sm_data/scheduler_create_data/schedular_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widget/schedular_create/widget/edit_calender_schedule_popup.dart';
 
 import 'assign_visit_pop_up.dart';
 
@@ -426,14 +433,7 @@ class _CalenderConstantState extends State<CalenderConstant> {
         );
         eventController.add(event);
         print('EventController ${eventController}');
-        // allEvents.add(
-        //     CalendarEventData(
-        //   title: calendarItem.visitType,
-        //   description: calendarItem.details,
-        //   date: startDate,
-        //   startTime: startDate,
-        //   endTime: endDate,
-        // ));
+
         print("Event ${eventController.allEvents}");
         try{
           //CalendarControllerProvider.of(context).controller.add(eventData);
@@ -450,7 +450,14 @@ class _CalenderConstantState extends State<CalenderConstant> {
       print("No events found or data is null.");
     }
   }
+  TextEditingController ctlrdetails = TextEditingController();
+  TextEditingController ctlrassignedate = TextEditingController();
+  TextEditingController ctlrstarttime = TextEditingController();
+  TextEditingController ctlrendtime = TextEditingController();
+  //TextEditingController  = TextEditingController();
 
+  String? selectedValue;
+  String? docAddVisitType;
 
   @override
   Widget build(BuildContext context) {
@@ -523,35 +530,170 @@ class _CalenderConstantState extends State<CalenderConstant> {
             eventTileBuilder: (date, events, boundary, start, end) {
               return ListView(
                 children: events.map((event) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: ColorManager.blueprime,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(event.title, style: GoogleFonts.firaSans(
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.white,
-                        )),
-                        Text(event.description!,style: GoogleFonts.firaSans(
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.white,
-                        )),
-                        Text('Start: ${DateFormat('hh:mm a').format(event.startTime!)}', style: GoogleFonts.firaSans(
-                          fontWeight: FontWeightManager.bold,
-                          fontSize: FontSize.s10,
-                          color: ColorManager.white,
-                        )),
-                        Text('End: ${DateFormat('hh:mm a').format(event.endTime!)}', style: GoogleFonts.firaSans(
-                          fontWeight: FontWeightManager.bold,
-                          fontSize: FontSize.s10,
-                          color: ColorManager.white,
-                        )),
-                      ],
+                  return InkWell(
+                    onTap: (){
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return EditCalenderSchedulePopup(onPressed: () async{
+                            var response = await updateScheduleCalender(context: context, schedulerCreateId: 15,
+                              patientId: 1, clinicianId: 134, visitType: docAddVisitType!, assignDate: ctlrassignedate.text, startTime: ctlrstarttime.text,
+                              endTime: ctlrendtime.text, details: ctlrdetails.text,);
+                            fetchAndSetEvents(context, 134);
+
+                            if(response.statusCode == 200 || response.statusCode == 201){
+                              ctlrassignedate.clear();
+                              ctlrstarttime.clear();
+                              ctlrendtime.clear();
+                              ctlrdetails.clear();
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0), // Rounded corners
+                                    ),
+                                    child: Container(
+                                      height: 270,
+                                      width: 300,
+                                      padding: EdgeInsets.all(20.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15.0), // Rounded corners
+                                        color: Colors.white, // Background color
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.check_circle_outline,
+                                            color: Color(0xFF50B5E5),
+                                            size: 80.0,
+                                          ),
+                                          SizedBox(height: 20.0),
+                                          Text(
+                                            "Successfully Edit !",
+                                            style: GoogleFonts.firaSans(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w700),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          SizedBox(height: 30.0),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              CustomButton(
+                                                  height: 30,
+                                                  width: 130,
+                                                  text: 'Continue',
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  })
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          },
+                            ctlrdetails: ctlrdetails, ctlrassignedate: ctlrassignedate,
+                            ctlrstarttime: ctlrstarttime, ctlrendtime: ctlrendtime,
+                            child: FutureBuilder<List<VisitListData>>(
+                              future: getVisitList(context),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return Container(
+                                    width: 354,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      color: ColorManager.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  );
+                                }
+                                if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                  return Center(
+                                    child: Text(
+                                      AppString.dataNotFound,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontWeight: FontWeightManager.medium,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                if (snapshot.hasData) {
+                                  List<DropdownMenuItem<String>> dropDownZoneList = [];
+                                  for (var i in snapshot.data!) {
+                                    dropDownZoneList.add(
+                                      DropdownMenuItem<String>(
+                                        child: Text(i.visitType),
+                                        value: i.visitType,
+                                      ),
+                                    );
+                                  }
+                                  return CICCDropdown(
+                                    initialValue: dropDownZoneList.isNotEmpty
+                                        ? dropDownZoneList[0].value
+                                        : null,
+                                    onChange: (val) {
+                                      for (var a in snapshot.data!) {
+                                        if (a.visitType == val) {
+                                          docAddVisitType = a.visitType;
+                                        }
+                                      }
+                                    },
+                                    items: dropDownZoneList,
+                                  );
+                                }
+                                return const SizedBox();
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: ColorManager.white,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border(
+                          top: BorderSide(color: ColorManager.red, width: 2.0),
+                          right: BorderSide(color: ColorManager.red, width: 2.0),
+                          bottom: BorderSide(color: ColorManager.red, width: 2.0),
+                          left: BorderSide(color: ColorManager.red, width: 2.0),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(event.title, style: GoogleFonts.firaSans(
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.mediumgrey,
+                          )),
+                          Text(event.description!,style: GoogleFonts.firaSans(
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.mediumgrey,
+                          )),
+                          Text('Start: ${DateFormat('hh:mm a').format(event.startTime!)}', style: GoogleFonts.firaSans(
+                            fontWeight: FontWeightManager.bold,
+                            fontSize: FontSize.s10,
+                            color: ColorManager.mediumgrey,
+                          )),
+                          Text('End: ${DateFormat('hh:mm a').format(event.endTime!)}', style: GoogleFonts.firaSans(
+                            fontWeight: FontWeightManager.bold,
+                            fontSize: FontSize.s10,
+                            color: ColorManager.mediumgrey,
+                          )),
+                        ],
+                      ),
                     ),
                   );
                 }).toList(),

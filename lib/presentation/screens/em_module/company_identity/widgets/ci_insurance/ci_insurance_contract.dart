@@ -288,6 +288,9 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                                    }else{
 
                                                                    }
+                                                                    contractNameController.clear();
+                                                                    contractIdController.clear();
+                                                                    calenderController.clear();
                                                                   });
                                                                     } finally {
                                                                       setState(() {

@@ -246,11 +246,20 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                                     title: 'Add Vendor',
                                     namecontroller: vendorNameController,
                                     onPressed: () async {
-                                      await addVendors(
+                                    var response = await addVendors(
                                         context,
                                         widget.officeId,
                                         vendorNameController.text,
                                       );
+                                    if(response.statusCode == 200 || response.statusCode == 201){
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AddSuccessPopup(message:'Added Successfully');
+                                        },
+                                      );
+                                    }
+                                    vendorNameController.clear();
                                     },
                                     buttontxt: AppStringEM.Add,
                                     successpopuptext: 'Added Successfully',

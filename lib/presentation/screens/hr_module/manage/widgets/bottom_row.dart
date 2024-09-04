@@ -325,35 +325,51 @@ class _BottomBarRowState extends State<BottomBarRow> {
     // getLocation();
    // _geolocationFuture = _getGeolocation(); // Initialize geolocation fetching
   }
+String? _city;
+  String? _country;
+ Future<void> _fetchIPAddress() async {
+   try {
+     // Fetch the IP address first
+     final ipResponse = await http.get(Uri.parse('https://api.ipify.org?format=json'));
+     if (ipResponse.statusCode == 200) {
+       final ipData = jsonDecode(ipResponse.body);
+       _ipAddress = ipData['ip'];
 
-  Future<void> _fetchIPAddress() async {
-    try {
-      final response =
-          await http.get(Uri.parse('https://api.ipify.org?format=json'));
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        setState(() {
-          _ipAddress = data['ip'];
-          _isFetchingIp = false;
-        });
-      } else {
-        print('Failed to load IP address');
-        setState(() {
-          _isFetchingIp = false;
-        });
-      }
-    } catch (e) {
-      print('Error: $e');
-      setState(() {
-        _isFetchingIp = false;
-      });
-    }
-    ip =_ipAddress;
-  }
+       // Use the IP address to fetch city and country information
+       final locationResponse = await http.get(Uri.parse('http://ip-api.com/json/$_ipAddress'));
+       if (locationResponse.statusCode == 200) {
+         final locationData = jsonDecode(locationResponse.body);
+
+         setState(() {
+           _city = locationData['city'];
+           _country = locationData['country'];
+           _isFetchingIp = false;
+         });
+         print('Fetched city and country ${_country} + ${_city}');
+       } else {
+         print('Failed to load location data');
+         setState(() {
+           _isFetchingIp = false;
+         });
+       }
+     } else {
+       print('Failed to load IP address');
+       setState(() {
+         _isFetchingIp = false;
+       });
+     }
+   } catch (e) {
+     print('Error: $e');
+     setState(() {
+       _isFetchingIp = false;
+     });
+   }
+ }
 
 
 
-  Future getLocation() async {
+
+ Future getLocation() async {
     var response = await http.get(Uri.parse("http://ip-api.com/json/${ip}"));
     var jsonpares = json.decode(response.body);
     localresponse=jsonpares;
@@ -426,39 +442,6 @@ class _BottomBarRowState extends State<BottomBarRow> {
    print('Position : ${position}');
    return await getStateFromLatLng(position.latitude,position.longitude);
  }
-
-
- // Future<Map<String, double>?> _getGeolocation() async {
-  //   final completer = Completer<Map<String, double>>();
-  //
-  //   void successCallback(html.Geoposition position) {
-  //     final coords = position.coords!;
-  //     completer.complete({
-  //       'latitude': coords.latitude?.toDouble() ?? 00,
-  //       'longitude': coords.longitude?.toDouble() ?? 00,
-  //     });
-  //
-  //
-  //
-  //   }
-  //
-  //
-  //   void errorCallback(html.PositionError error) {
-  //     completer.completeError('Failed to get location');
-  //
-  //   }
-  //
-  //   if (html.window.navigator.geolocation != null) {
-  //     html.window.navigator.geolocation
-  //         .getCurrentPosition(successCallback, errorCallback,);
-  //
-  //   } else {
-  //     completer.completeError('Geolocation is not supported');
-  //   }
-  //
-  //   return completer.future;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -486,54 +469,71 @@ class _BottomBarRowState extends State<BottomBarRow> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FutureBuilder(
-                  future: _stateFuture,
-                  builder: (context, geoSnapshot) {
-                    if (geoSnapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return Text(
-                        'Loading location...',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                          decoration: TextDecoration.none,
-                        ),
-                      );
-                    }  if (geoSnapshot.hasError) {
-                      return Text(
-                        'Error fetching location',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                          decoration: TextDecoration.none,
-                        ),
-                      );
-                    }  if (geoSnapshot.hasData) {
-                      // final location = geoSnapshot.data!;
-                      return Text(
-                        geoSnapshot.data ?? 'No location data',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                          decoration: TextDecoration.none,
-                        ),
-                      );
-                    } else {
-                      return Text(
-                        'No location data',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                          decoration: TextDecoration.none,
-                        ),
-                      );
-                    }
-                  },
-                ),
+                _city != null ? Text(
+            '${_country} (${_city})',
+              style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[800],
+                decoration: TextDecoration.none,
+              ),
+            ) : Text(
+        'No location data',
+        style: GoogleFonts.firaSans(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: Colors.grey[800],
+          decoration: TextDecoration.none,
+        ),
+      ),
+                // FutureBuilder(
+                //   future: _stateFuture,
+                //   builder: (context, geoSnapshot) {
+                //     if (geoSnapshot.connectionState ==
+                //         ConnectionState.waiting) {
+                //       return Text(
+                //         'Loading location...',
+                //         style: GoogleFonts.firaSans(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.grey[800],
+                //           decoration: TextDecoration.none,
+                //         ),
+                //       );
+                //     }  if (geoSnapshot.hasError) {
+                //       return Text(
+                //         'Error fetching location',
+                //         style: GoogleFonts.firaSans(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.grey[800],
+                //           decoration: TextDecoration.none,
+                //         ),
+                //       );
+                //     }  if (geoSnapshot.hasData) {
+                //       // final location = geoSnapshot.data!;
+                //       return Text(
+                //         geoSnapshot.data ?? 'No location data',
+                //         style: GoogleFonts.firaSans(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.grey[800],
+                //           decoration: TextDecoration.none,
+                //         ),
+                //       );
+                //     } else {
+                //       return Text(
+                //         'No location data',
+                //         style: GoogleFonts.firaSans(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.grey[800],
+                //           decoration: TextDecoration.none,
+                //         ),
+                //       );
+                //     }
+                //   },
+                // ),
                 SizedBox(
                   width: AppSize.s20,
                 ),

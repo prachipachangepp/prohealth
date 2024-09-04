@@ -188,9 +188,11 @@ class AddBatchPopup extends StatefulWidget {
   final TextEditingController controller1;
   final TextEditingController controller2;
   Future<void> Function() onPressed;
+  final String title;
 
   AddBatchPopup({
     super.key,
+    required this.title,
     required this.controller1,
     required this.controller2,
     required this.onPressed
@@ -292,7 +294,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                   Padding(
                     padding: const EdgeInsets.only(left: 23.0),
                     child: Text(
-                      'Edit Batches',
+                      widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,

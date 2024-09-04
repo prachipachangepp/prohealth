@@ -120,7 +120,6 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                         _saveColor(1, seletedColor);
                       });
                     },
-
                     title: 'Add Administration',
                     child: FutureBuilder<List<HRHeadBar>>(
                         future: companyHRHeadApi(context,widget.deptId),
