@@ -54,7 +54,7 @@
 //   static const int AdministrationId = 3;
 // }
 
-// ///dev instance
+ ///dev instance
 class AppConfig {
   static const String demo =  "https://demoapp.symmetry.care";
   static const String dev = "https://resource.symmetry.care";
@@ -105,5 +105,4 @@ class AppConfig {
   static const int clinicalId = 1;
   static const int salesId = 2;
   static const int AdministrationId = 3;
-
 }
