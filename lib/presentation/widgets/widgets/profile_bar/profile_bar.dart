@@ -648,14 +648,17 @@ class _ProfileBarState extends State<ProfileBar> {
                       ),
                     ],
                   ),
+
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -664,13 +667,13 @@ class _ProfileBarState extends State<ProfileBar> {
                                     style: GoogleFonts.firaSans(
                                         color: ColorManager.textPrimaryColor,
                                         fontWeight: FontWeightManager.medium,
-                                        fontSize: 12)),
+                                        fontSize: 10)),
                                 SizedBox(height: 10,),
                                 Text('PTA',
                                     style: GoogleFonts.firaSans(
                                         color: ColorManager.textPrimaryColor,
                                         fontWeight: FontWeightManager.medium,
-                                        fontSize: 12)),
+                                        fontSize: 10)),
                               ],
                             ),
                             SizedBox(width: 30,),

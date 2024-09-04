@@ -126,7 +126,7 @@ class _CustomDialogState extends State<CustomDialog> {
                             widget.title,
                             style: GoogleFonts.firaSans(
                               fontSize: 12.0,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),
                           ),
@@ -175,6 +175,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: HRManageTextField(
                     controller: widget.lastNameController,
+
                     keyboardType: TextInputType.phone,
                     text: "Last Name",
                     cursorHeight: 12,
@@ -211,7 +212,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: CustomTextFieldWithIcon(
                     controller: widget.passwordController,
-                    suffixIcon: Icon(Icons.copy, size: 14),
+                    suffixIcon: Icon(Icons.copy, size: 14,color: Colors.black),
                     keyboardType: TextInputType.text,
                     text: "Password",
                     cursorHeight: 12,
@@ -317,7 +318,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: GoogleFonts.firaSans(fontSize: 10,),
+          style: GoogleFonts.firaSans(fontSize: 12,fontWeight: FontWeight.w500, color: ColorManager.mediumgrey,),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -343,7 +344,7 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
             ),
              errorText: hasError ? widget.errorText : null,
             suffixIcon: IconButton(
-              icon: widget.suffixIcon ?? Icon(Icons.copy, size: 14),
+              icon: widget.suffixIcon ?? Icon(Icons.copy, size: 14,color: Colors.black),
               onPressed: widget.onSuffixIconPressed, // Use widget.onSuffixIconPressed
             ),
           ),

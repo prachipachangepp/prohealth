@@ -175,16 +175,16 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Name',
+                                  Text('Name :',
                                       style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 10,),
-                                  Text('Title/ Position',
+                                  Text('Title/ Position :',
                                       style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 15,),
-                                  Text('Company/ Organization',
+                                  Text('Company/ Organization :',
                                       style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 10,),
-                                  Text('Mobile Number',
+                                  Text('Mobile Number :',
                                       style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               ),
@@ -207,13 +207,13 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Email',
+                                  Text('Email :',
                                       style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 10,),
-                                  Text('How do you know this\nperson ?',
+                                  Text('How do you know this\nperson ? :',
                                       style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 5,),
-                                  Text('Length of Association',
+                                  Text('Length of Association :',
                                       style: ThemeManagerDark.customTextStyle(context)),
                                   const SizedBox(height: 5,),
                                   SizedBox(height: 30, width: 90,)

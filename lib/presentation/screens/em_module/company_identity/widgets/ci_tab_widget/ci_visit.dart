@@ -298,7 +298,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             children: [
               // Expanded(flex: 2, child: Container()),
               Padding(
-                padding: const EdgeInsets.only(left: 100),
+                padding: const EdgeInsets.only(left: 80),
                 child: Text(
                   AppString.srNo,
                   textAlign: TextAlign.center,
@@ -326,6 +326,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   ),
                 ),
               ),
+              Text("           "),
 
               ///EL clinician
               Padding(
@@ -342,7 +343,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 90.0),
+                padding: const EdgeInsets.only(right: 80),
                 child: Text(
                   AppString.actions,
                   textAlign: TextAlign.center,
@@ -483,6 +484,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                   color: Color(0xff686464)),
                                             ),
                                           ),
+
+                                          Text("                             "),
                                           // Expanded(flex: 1, child: Container()),
                                           Expanded(
                                             child: Row(
