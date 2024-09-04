@@ -7,6 +7,7 @@ import '../../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../../app/services/api/managers/sm_module_manager/notes_manager/notes_misc_manager.dart';
 import '../../../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../../widgets/constant_widgets/schedular_success_popup.dart';
 
@@ -47,6 +48,23 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
       });
     }
   }
+///
+//   String? _fileName;
+//   Future<void> _pickFile() async {
+//     FilePickerResult? result = await FilePicker.platform.pickFiles();
+//     if (result != null) {
+//       setState(() {
+//         _fileName = result.files.single.name;
+//       });
+//
+//       // Call the upload function after picking the file
+//       await uploadDocumentsMiscNotes(
+//         context: context,
+//         documentFile: result.files.single.bytes, // Pass the file's bytes
+//         miscNoteId: 123, // Replace with your actual miscNoteId
+//       );
+//     }
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -170,8 +188,68 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                 SizedBox(height: AppSize.s5),
                 widget.radioButton ?? Offstage(),
                 SizedBox(height: AppSize.s10),
-                widget.child2 ?? Offstage(),
+
                 SizedBox(height: AppSize.s10),
+                // FutureBuilder<List<EmployeeDocSetupModal>>(
+                //     future: getEmployeeDocSetupDropDown(context),
+                //     builder: (context,snapshot) {
+                //       if(snapshot.connectionState == ConnectionState.waiting){
+                //         return Container(
+                //           width: 350,
+                //           height: 30,
+                //           decoration: BoxDecoration(color: ColorManager.white,borderRadius: BorderRadius.circular(10)),
+                //         );
+                //
+                //       }
+                //       if (snapshot.data!.isEmpty) {
+                //         return Center(
+                //           child: Text(
+                //             AppString.dataNotFound,
+                //             style: CustomTextStylesCommon.commonStyle(
+                //               fontWeight: FontWeightManager.medium,
+                //               fontSize: FontSize.s12,
+                //               color: ColorManager.mediumgrey,
+                //             ),
+                //           ),
+                //         );
+                //       }
+                //       if(snapshot.hasData){
+                //         List dropDown = [];
+                //         int docType = 0;
+                //         List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                //         for(var i in snapshot.data!){
+                //           dropDownMenuItems.add(
+                //             DropdownMenuItem<String>(
+                //               child: Text(i.documentName),
+                //               value: i.documentName,
+                //             ),
+                //           );
+                //         }
+                //         return StatefulBuilder(
+                //           builder: (BuildContext context, void Function(void Function()) setState) {
+                //             return  CICCDropdown(
+                //                 initialValue: dropDownMenuItems[0].value,
+                //                 onChange: (val){
+                //                   for(var a in snapshot.data!){
+                //                     if(a.documentName == val){
+                //                       documentMetaDataId = a.employeeDocMetaDataId;
+                //                       documentSetupId = a.employeeDocTypeSetupId;
+                //                       //docMetaId = docType;
+                //                     }
+                //                   }
+                //                   print(":::${docType}");
+                //                   //print(":::<>${docMetaId}");
+                //                 },
+                //                 items:dropDownMenuItems
+                //             );
+                //           },
+                //         );
+                //       }else{
+                //         return SizedBox();
+                //       }
+                //     }
+                // ),
+                ///
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -203,7 +281,7 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          _fileName,
+                          _fileName!,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: FontWeightManager.regular,
@@ -225,6 +303,8 @@ class _MiscellaneousAddPopUpState extends State<MiscellaneousAddPopUp> {
                     ),
                   ),
                 ),
+                widget.child2 ?? Offstage(),
+
               ],
             ),
             SizedBox(

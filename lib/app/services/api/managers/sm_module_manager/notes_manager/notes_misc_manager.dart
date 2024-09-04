@@ -1,5 +1,6 @@
 ///Get
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/sm_data/Intake_deta/notes_data/intake_misc_note_data.dart';
@@ -173,9 +174,46 @@ Future<ApiData>NotesMiscPatch (
   }
 }
 
+///upload base 64
+Future<ApiData> uploadDocumentsMiscNotes({
+  required BuildContext context,
+  required dynamic documentFile,
+  required int miscNoteId,
 
-
-
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path: NotesRepository.uploadDocPost(
+          miscNoteId: miscNoteId
+      ),
+      data: {
+        'base64':documents
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Misc Notes Documents uploded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+///
 
 
 // Future<ApiData> NotesMiscPatch(

@@ -3,6 +3,7 @@ class NotesRepository{
   static String byPatientsId = "/ByPatientId";
   static String add = "/add";
   static String patch ="/intake-misc-note";
+  static String postUploadMisNotes ="/intake-misc-note/UploadNotesbase64/";
 
 
 
@@ -27,5 +28,8 @@ class NotesRepository{
     return "$patch/$miscNoteId";
   }
 
+  static String uploadDocPost({required int miscNoteId}){
+    return "$postUploadMisNotes$miscNoteId";
+  }
 
 }
