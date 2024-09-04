@@ -537,7 +537,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                                 startTimeController.clear();
                                                                                                 endTimeController.clear();
                                                                                                 //Navigator.pop(context);
-                                                                                              },
+                                                                                              }, title: 'Add Batche',
                                                                                             );
                                                                                           });
                                                                                     },

@@ -288,7 +288,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                   startTimeController.clear();
                                                                                   endTimeController.clear();
                                                                                   Navigator.pop(context);
-                                                                                },
+                                                                                }, title: 'Edit Batches',
                                                                               );
                                                                             }
                                                                           );
