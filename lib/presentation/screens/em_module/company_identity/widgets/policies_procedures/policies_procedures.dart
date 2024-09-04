@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -475,7 +476,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                 if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
-                      "No available policies & procedures !!",
+                     ErrorMessageString.noPolicyProcedure,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s12,

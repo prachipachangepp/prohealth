@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
@@ -266,7 +267,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       if (snapshot.hasData && snapshot.data!.isEmpty) {
                                         return Center(
                                           child: Text(
-                                            "No available visits !!",
+                                            ErrorMessageString.noVisitAdd,
                                             //AppString.dataNotFound,
                                             style: CustomTextStylesCommon.commonStyle(
                                               fontWeight: FontWeightManager.medium,
@@ -322,7 +323,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       if (snapshotZone.hasData && snapshotZone.data!.isEmpty) {
                                         return Center(
                                           child: Text(
-                                            "No available zones !!",
+                                            ErrorMessageString.noZoneAdded,
                                             //AppString.dataNotFound,
                                             style: CustomTextStylesCommon.commonStyle(
                                               fontWeight: FontWeightManager.medium,
@@ -438,7 +439,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No available pay rates!!",
+                        ErrorMessageString.noPayRates,
                         //AppString.dataNotFound,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
@@ -597,19 +598,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                   var payRates = snapshotPrefill.data?.payratesId;
                                                                   var visitTypeId = snapshotPrefill.data?.typeOfVisitId;
                                                                   var perMile = snapshotPrefill.data?.perMile;
-                                                                  print(
-                                                                      ":::PAYRATESTYPE${visitTypeId}");
+                                                                  print(":::PAYRATESTYPE${visitTypeId}");
                                                                   var zoneTypeId = snapshotPrefill.data?.ZoneId;
                                                                   payRatesController = TextEditingController(
-                                                                      text: snapshotPrefill
-                                                                          .data
-                                                                          ?.payratesId
-                                                                          .toString());
-                                                                  perMilesController = TextEditingController(
-                                                                      text: snapshotPrefill
-                                                                          .data
-                                                                          ?.perMile
-                                                                          .toString());
+                                                                      text: snapshotPrefill.data?.payratesId.toString());
+                                                                  perMilesController = TextEditingController(text: snapshotPrefill.data?.perMile.toString());
                                                                   return PayRatesPopup(
                                                                     visitTypeTextActive: false,
                                                                     title: 'Edit Payrate',

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
@@ -353,7 +354,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No available user !!"  ,                  // "No Data!",
+                         ErrorMessageString.noUser,                  // "No Data!",
                         style: TextStyle(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.medium,

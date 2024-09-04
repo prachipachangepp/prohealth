@@ -15,6 +15,7 @@ import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagina
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../app/constants/app_config.dart';
+import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/manage_insurance_manager/manage_corporate_compliance.dart';
 import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
@@ -92,7 +93,7 @@ class _CiMiscState extends State<CiMisc> {
                   if (snapshot.data!.isEmpty) {
                     return Center(
                       child: Text(
-                        "No available MISC !!",
+                        ErrorMessageString.noMISC,
                         style: CustomTextStylesCommon.commonStyle(
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s12,
