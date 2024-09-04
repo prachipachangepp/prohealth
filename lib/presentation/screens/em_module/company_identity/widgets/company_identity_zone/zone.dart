@@ -67,7 +67,7 @@ class _CiOrgDocumentState extends State<CiZone> {
       curve: Curves.ease,
     );
   }
-
+  String? selectedCounty;
   LatLng _selectedLocation = LatLng(37.7749, -122.4194); // Default location
   String _location = 'Lat/Long not selected'; // Default text
 
@@ -358,6 +358,10 @@ class _CiOrgDocumentState extends State<CiZone> {
                                             int docType = 0;
                                             List<DropdownMenuItem<String>>
                                                 dropDownTypesList = [];
+                                            dropDownTypesList.add(DropdownMenuItem<String>(
+                                              child: Text('Select County'),
+                                              value: 'Select County',
+                                            ));
                                             for (var i in snapshotZone.data!) {
                                               dropDownTypesList.add(
                                                 DropdownMenuItem<String>(
@@ -366,12 +370,15 @@ class _CiOrgDocumentState extends State<CiZone> {
                                                 ),
                                               );
                                             }
-                                            countyId = snapshotZone.data![0].countyId;
+                                            if (selectedCounty == null) {
+                                              selectedCounty = 'Select County';
+                                            }
                                             print('County Id : ${countyId}');
                                             return CICCDropdown(
                                                 initialValue:
                                                     dropDownTypesList[0].value,
                                                 onChange: (val) {
+                                                  selectedCounty = val;
                                                   for (var a
                                                       in snapshotZone.data!) {
                                                     if (a.countyName == val) {
