@@ -196,10 +196,10 @@ Future<List<PayRatesGet>> companyPayratesGet(BuildContext context,) async {
         itemsList.add(
           PayRatesGet(
             payratesId: item['payratesId'],
-            ZoneId: item['ZoneId'],
+            ZoneId: item['ZoneId']?? 0,
             rate: item['rate'],
             typeOfVisitId: item['typeOfVisitId'],
-            ZoneName: item['ZoneName'],
+            ZoneName: item['ZoneName'] ?? "--",
             perMile: item['perMile'],
             serviceTypeId: item['serviceTypeId'],
           ),
