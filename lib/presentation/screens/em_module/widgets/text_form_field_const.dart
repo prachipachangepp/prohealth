@@ -204,11 +204,16 @@ class _DemailSMTextFConstState extends State<DemailSMTextFConst> {
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom: 18, left: 15),
             ),
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
+            style: GoogleFonts.firaSans(
               fontSize: 12,
+              fontWeight: FontWeight.w500,
               color: Color(0xff686464),
             ),
+            // style: TextStyle(
+            //   fontWeight: FontWeight.w500,
+            //   fontSize: 12,
+            //   color: Color(0xff686464),
+            // ),
             onTap: widget.onChange,
             validator: widget.validator,
           ),

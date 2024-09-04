@@ -135,7 +135,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       'Add New Office',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s13,
+                        fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
                         color: ColorManager.white,
                         decoration: TextDecoration.none,
@@ -163,7 +163,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SizedBox(height: 10,),
-                    SMTextFConst(
+                    FirstSMTextFConst(
                       controller: widget.nameController,
                       keyboardType: TextInputType.text,
                       text: AppStringEM.name,

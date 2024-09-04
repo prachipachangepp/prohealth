@@ -306,7 +306,7 @@ class _HRManageTextFieldEmailState extends State<HRManageTextFieldEmail> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
+          style:  GoogleFonts.firaSans(fontSize: 12,fontWeight: FontWeight.w500, color: ColorManager.mediumgrey,),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -413,7 +413,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           focusNode: widget.focusNode,
           controller: widget.controller,
           textAlign: TextAlign.start,
-          style: GoogleFonts.firaSans(fontSize: 10,),
+          style: GoogleFonts.firaSans(fontSize: 12,fontWeight: FontWeight.w500 , color: ColorManager.mediumgrey,),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
           textInputAction: TextInputAction.next,
@@ -499,7 +499,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
               value: item,
               child: Text(
                 item,
-                style:GoogleFonts.firaSans(fontWeight: FontWeightManager.regular, fontSize: 10),
+                style:GoogleFonts.firaSans(fontSize: 12,fontWeight: FontWeight.w500, color: ColorManager.mediumgrey,),
 
                 // TextStyle(
                 //   fontSize: MediaQuery.of(context).size.width / 130,
