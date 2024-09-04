@@ -325,7 +325,11 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            IconButton(onPressed: (){
+                                            IconButton(
+                                                splashColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                onPressed: (){
                                               showDialog(context: context, builder: (context){
                                                 return FutureBuilder<ZipCodeGetPrefill>(
                                                   future: getZipcodeSetupPrefill(context, zipcode.zipcodeSetupId!),
@@ -490,7 +494,11 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                               });
                                             },
                                                 icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                            IconButton(onPressed: (){
+                                            IconButton(
+                                                splashColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                onPressed: (){
                                               showDialog(context: context, builder: (context) => DeletePopup(
                                                   title: 'Delete Zipcode',
                                                   onCancel: (){

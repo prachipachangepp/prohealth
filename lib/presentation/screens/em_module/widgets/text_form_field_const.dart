@@ -475,6 +475,7 @@ class FirstSMTextFConst extends StatefulWidget {
   final bool ? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
+  //final List<Textin>
 
   FirstSMTextFConst({
     Key? key,

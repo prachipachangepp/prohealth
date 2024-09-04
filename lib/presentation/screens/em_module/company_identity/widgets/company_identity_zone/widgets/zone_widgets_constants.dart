@@ -67,6 +67,41 @@ class CIZoneAddPopup extends StatefulWidget {
 
 class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
   bool isLoading = false;
+
+  // Variables to hold error messages
+  String? countyNameError;
+  String? zipcodeError;
+  String? mapError;
+  String? landmarkError;
+
+  // Method to validate the input fields
+  bool validateFields() {
+    bool isValid = true;
+
+    setState(() {
+      countyNameError = widget.countynameController.text.isEmpty
+          ? 'State name cannot be empty'
+          : null;
+      zipcodeError = widget.zipcodeController.text.isEmpty
+          ? 'Country cannot be empty'
+          : null;
+      mapError = widget.title3 != null && widget.mapController?.text.isEmpty == true
+          ? 'County field cannot be empty'
+          : null;
+      landmarkError = widget.title4 != null && widget.landmarkController?.text.isEmpty == true
+          ? 'Landmark cannot be empty'
+          : null;
+
+      // If any error message is not null, the form is invalid
+      isValid = countyNameError == null &&
+          zipcodeError == null &&
+          mapError == null &&
+          landmarkError == null;
+    });
+
+    return isValid;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -74,7 +109,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
       child: SingleChildScrollView(
         child: Container(
           width: AppSize.s407,
-          height: AppSize.s350,
+          height: AppSize.s400,
           decoration: BoxDecoration(
             color: ColorManager.white,
             borderRadius: BorderRadius.circular(8),
@@ -98,7 +133,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                       child: Text(
                         widget.title,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s10,
                           fontWeight: FontWeightManager.semiBold,
                           color: ColorManager.white,
                           decoration: TextDecoration.none,
@@ -117,9 +152,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: AppSize.s20,
-              ),
+              SizedBox(height: AppSize.s20),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: AppPadding.p6,
@@ -127,18 +160,41 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FirstSMTextFConst(
                       controller: widget.countynameController,
                       keyboardType: TextInputType.text,
                       text: widget.title1,
                     ),
+                    if (countyNameError != null)
+                      Text(
+                        countyNameError!,
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.red,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
                     SizedBox(height: AppSize.s20),
                     FirstSMTextFConst(
                       controller: widget.zipcodeController,
                       keyboardType: TextInputType.text,
                       text: widget.title2,
                     ),
+                    if (zipcodeError != null)
+                      Text(
+                        zipcodeError!,
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.red,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
                     if (widget.title3 != null) ...[
                       SizedBox(height: AppSize.s20),
                       FirstSMTextFConst(
@@ -146,6 +202,17 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                         keyboardType: TextInputType.text,
                         text: widget.title3!,
                       ),
+                      if (mapError != null)
+                        Text(
+                          mapError!,
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.red,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
                     ],
                     if (widget.title4 != null &&
                         widget.landmarkController != null) ...[
@@ -155,6 +222,17 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                         keyboardType: TextInputType.text,
                         text: widget.title4!,
                       ),
+                      if (landmarkError != null)
+                        Text(
+                          landmarkError!,
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.red,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
                     ],
                   ],
                 ),
@@ -165,36 +243,29 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                     bottom: AppPadding.p24, top: AppPadding.p14),
                 child: isLoading
                     ? SizedBox(
-                        height: AppSize.s25,
-                        width: AppSize.s25,
-                        child: CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        ))
+                    height: AppSize.s25,
+                    width: AppSize.s25,
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ))
                     : Center(
-                        child: CustomElevatedButton(
-                          width: AppSize.s105,
-                          height: AppSize.s30,
-                          text: AppStringEM.save,
-                          onPressed: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            await widget.onSavePressed();
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                ///
-                                return CountySuccessPopup(
-                                  message: 'Save Successfully',
-                                );
-                              },
-                            );
-                            setState(() {
-                              isLoading = false;
-                            });
-                          },
-                        ),
-                      ),
+                  child: CustomElevatedButton(
+                    width: AppSize.s105,
+                    height: AppSize.s30,
+                    text: AppStringEM.save,
+                    onPressed: () async {
+                      if (validateFields()) {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        await widget.onSavePressed();
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
+                    },
+                  ),
+                ),
               ),
             ],
           ),
@@ -203,6 +274,8 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
     );
   }
 }
+
+
 
 ///edit
 class AddZipCodePopup extends StatefulWidget {
