@@ -21,12 +21,14 @@ class EmployeeDocumentModal {
   final String idOfDocument;
   final int employeeDocTypesetupId;
   final int employeeDocTypeMetaId;
+  final int companyId;
   final bool sucess;
   final String message;
 
   EmployeeDocumentModal({
     required this.employeeDocTypeMetaId,
     required this.employeeDocTypesetupId,
+    required this.companyId,
     required this.docName,
     required this.idOfDocument,
     required this.expiry,
@@ -117,6 +119,7 @@ class GetEmployeeSetupPrefillData {
   final String idOfDocument;
   final int employeeDocTypesetupId;
   final int employeeDocTypeMetaId;
+  final int companyId;
   final bool sucess;
   final String message;
 
@@ -127,6 +130,7 @@ class GetEmployeeSetupPrefillData {
     required this.idOfDocument,
     required this.employeeDocTypesetupId,
     required this.employeeDocTypeMetaId,
+    required this.companyId,
     required this.sucess,
     required this.message,
   });

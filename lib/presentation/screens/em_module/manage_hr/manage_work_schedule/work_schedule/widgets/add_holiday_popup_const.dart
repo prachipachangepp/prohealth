@@ -221,6 +221,7 @@ class AddHolidayPopup extends StatefulWidget {
   final TextEditingController calenderDateController;
   final Future<void> Function() onPressed;
   final String title;
+  final String btnTitle;
 
   const AddHolidayPopup({
     super.key,
@@ -228,6 +229,7 @@ class AddHolidayPopup extends StatefulWidget {
     required this.calenderDateController,
     required this.onPressed,
     required this.title,
+    required this.btnTitle,
   });
 
   @override
@@ -425,9 +427,9 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                 child: isLoading
                     ? CircularProgressIndicator(color: ColorManager.blueprime)
                     : CustomElevatedButton(
-                  width: AppSize.s105,
+                  width: AppSize.s110,
                   height: AppSize.s30,
-                  text: "Add holiday",
+                  text: widget.btnTitle,
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
                       setState(() {

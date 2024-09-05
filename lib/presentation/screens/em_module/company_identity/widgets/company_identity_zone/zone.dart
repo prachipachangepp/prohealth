@@ -211,10 +211,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                   return const SizedBox();
                 },
               )
-
-                  : SizedBox(
-                      width: 354,
-                    ),
+                  : SizedBox(width: 354,),
 
               ///tabbar
               Padding(
@@ -324,12 +321,11 @@ class _CiOrgDocumentState extends State<CiZone> {
 
               ///button
               _selectedIndex == 0
-                  ? CustomIconButtonConst(
-                                  width: 79,
+                  ? CustomIconButtonConst(width: 79,
                       icon: Icons.add,
                       text:  AppStringEM.add,
                       onPressed: () {
-                                    countynameController.clear();
+                        countynameController.clear();
                         countyController.clear();
                         stateController.clear();
                         showDialog(

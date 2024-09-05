@@ -24,6 +24,7 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
           perMile: response.data['perMile'] ?? 0,
           typeOfVisitId: response.data['typeOfVisitId'] ?? "--",
           serviceTypeId: response.data['serviceTypeId'] ?? 0,
+        companyId: companyId
          );
     } else {
       print("Api Pay rates Data Error");
@@ -57,7 +58,7 @@ Future<ApiData> updatePayRatesSetupPost(
           'typeOfVisitId': typeOfVisitId,
           'perMile': perMile,
           'serviceTypeId': serviceTypeId,
-          // 'companyId': companyId
+          'companyId': companyId
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Pay Rates updates");
@@ -163,6 +164,7 @@ Future<ApiData> addPayrates(
           "typeOfVisitId": typeOfVisitId,
           "perMile": perMile,
           "serviceTypeId": serviceTypeId,
+          "companyId": companyId,
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("payrate Addded");
@@ -188,6 +190,7 @@ Future<ApiData> addPayrates(
 Future<List<PayRatesGet>> companyPayratesGet(BuildContext context,) async {
   List<PayRatesGet> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.getPayrates());
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -202,6 +205,7 @@ Future<List<PayRatesGet>> companyPayratesGet(BuildContext context,) async {
             ZoneName: item['ZoneName'] ?? "--",
             perMile: item['perMile'],
             serviceTypeId: item['serviceTypeId'],
+            companyId: companyId,
           ),
         );
       }
@@ -223,6 +227,7 @@ Future<ApiData> deletePayRatesId(
     int payRatesId,
     ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).delete(
         path: EstablishmentManagerRepository.deleteeditprefillPayRates(
             payRatesId: payRatesId));

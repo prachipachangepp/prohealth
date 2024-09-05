@@ -4,6 +4,7 @@ import 'package:prohealth/app/services/api/repository/establishment_manager/empl
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import '../../../../resources/const_string.dart';
+import '../../../token/token_manager.dart';
 import '../../api.dart';
 import '../../repository/establishment_manager/all_from_hr_repository.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
@@ -86,6 +87,7 @@ Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
     ) async {
   List<EmployeeDocumentModal> itemsList = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.getEmployeeDocSetUpMetaId(
          // metaDocId: metaDocID
@@ -104,6 +106,7 @@ Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
               employeeDocTypesetupId: item['EmployeeDocumentTypeSetupId'],
               employeeDocTypeMetaId: item['EmployeeDocumentTypeMetaDataId'],
               idOfDocument: item['idOfDocument'],
+              companyId: companyId,
               sucess: true,
               message: response.statusMessage!
           ),
@@ -230,6 +233,7 @@ Future<GetEmployeeSetupPrefillData> getPrefillEmployeeDocTab(BuildContext contex
    int  empDocTypeId) async {
   var itemsList;
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.getPrefillEmployeDocSetup(empDocTypeId: empDocTypeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -244,6 +248,7 @@ Future<GetEmployeeSetupPrefillData> getPrefillEmployeeDocTab(BuildContext contex
               employeeDocTypesetupId: response.data['EmployeeDocumentTypeSetupId'],
               employeeDocTypeMetaId: response.data['EmployeeDocumentTypeMetaDataId'],
                 idOfDocument: response.data['idOfDocument'] ?? "--",
+              companyId: companyId,
               sucess: true,
               message: response.statusMessage!
           );

@@ -618,7 +618,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   bool _isFormValid = true;
 
   // Error messages for each text field
-  //String? _idDocError;
+  String? _idDocError;
   String? _nameDocError;
 
   String? _validateTextField(String value, String fieldName) {
@@ -626,17 +626,17 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
       _isFormValid = false;
       return "Please Enter $fieldName";
     }
-    if (value[0] != value[0].toUpperCase()) {
-      _isFormValid = false;
-      return "$fieldName must start with a capital letter";
-    }
+    // if (value.isEmpty) {
+    //   _isFormValid = false;
+    //   return "$fieldName must start with a capital letter";
+    // }
     return null;
   }
 
   void _validateForm() {
     setState(() {
       _isFormValid = true;
-      //_idDocError = _validateTextField(widget.idDocController.text, 'ID of the Document');
+       _idDocError = _validateTextField(widget.idDocController.text, 'ID of the Document');
       _nameDocError = _validateTextField(widget.nameDocController.text, 'Name of the Document');
     });
   }
@@ -647,7 +647,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: widget.height ?? AppSize.s550,
+        height: widget.height ?? AppSize.s598,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -710,17 +710,17 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     keyboardType: TextInputType.text,
                     text: AppString.id_of_the_document,
                   ),
-                   // if (_idDocError != null)
-                   //  Padding(
-                   //    padding: const EdgeInsets.only(top: 2.0),
-                   //    child: Text(
-                   //      _idDocError!,
-                   //      style: TextStyle(
-                   //        color: Colors.red,
-                   //        fontSize: FontSize.s12,
-                   //      ),
-                   //    ),
-                   //  ),
+                   if (_idDocError != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2.0),
+                      child: Text(
+                        _idDocError!,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: FontSize.s12,
+                        ),
+                      ),
+                    ),
                   SizedBox(height: AppSize.s13),
 
                   /// Name of the Document

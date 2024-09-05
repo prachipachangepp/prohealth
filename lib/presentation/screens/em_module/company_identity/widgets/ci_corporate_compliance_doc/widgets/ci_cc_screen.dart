@@ -101,7 +101,7 @@ class _CiCorporateComplianceScreenState
       case AppConfig.subDocId3CICCMedicalCR:
         return "Medical Cost Reports";
       case AppConfig.subDocId4CapReport:
-        return "Cap Reports";
+        return "CAP Reports";
       case AppConfig.subDocId5BalReport:
         return "Quarterly Balance Reports";
       default:

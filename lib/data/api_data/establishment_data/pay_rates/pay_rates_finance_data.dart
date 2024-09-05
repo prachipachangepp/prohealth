@@ -34,13 +34,15 @@ class PayRatePrefillFinanceData {
   final String typeOfVisitId;
   final int perMile;
   final int serviceTypeId;
+  final int companyId;
   PayRatePrefillFinanceData(
       {required this.payratesId,
       required this.ZoneId,
       required this.rate,
       required this.typeOfVisitId,
       required this.perMile,
-      required this.serviceTypeId});
+      required this.serviceTypeId,
+      required this.companyId,});
 }
 
 ///zone data file dropdown
@@ -85,6 +87,7 @@ class PayRatesGet {
   final String ZoneName;
   final int perMile;
   final int serviceTypeId;
+  final int companyId;
 
   PayRatesGet({
     required this.payratesId,
@@ -94,5 +97,6 @@ class PayRatesGet {
     required this.ZoneName,
     required this.perMile,
     required this.serviceTypeId,
+    required this.companyId
   });
 }

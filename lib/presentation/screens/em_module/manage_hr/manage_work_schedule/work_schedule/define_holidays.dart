@@ -79,11 +79,12 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                   calenderController.clear();
               showDialog(context: context, builder: (BuildContext context){
                 return AddHolidayPopup(
+                  btnTitle: "Add holiday",
                   title: 'Add New Holiday',
                   controller: holidayNameController,
                   onPressed: () async{
                   await addHolidaysPost(context,
-                      holidayNameController.text, calenderController.text, 2024, 11);
+                      holidayNameController.text, calenderController.text, 2024,);
                   holidaysListGet(context).then((data) {
                     _controller.add(data);
                   }).catchError((error) {
@@ -301,6 +302,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                     holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
                                                                     calenderController = TextEditingController(text: snapshotPrefill.data?.date);
                                                                     return AddHolidayPopup(
+                                                                      btnTitle: "Save Changes",
                                                                       title: 'Edit Holiday',
                                                                       controller:
                                                                           holidayNameController,

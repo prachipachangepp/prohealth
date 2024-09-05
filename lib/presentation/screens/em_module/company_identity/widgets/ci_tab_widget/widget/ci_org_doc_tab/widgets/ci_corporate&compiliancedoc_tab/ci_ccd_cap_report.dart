@@ -334,7 +334,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                                             BuildContext context,
                                                             void Function(void Function()) setState) {
                                                           return CCScreenEditPopup(
-                                                            title: 'Edit Cap Reports',
+                                                            title: 'Edit CAP Reports',
                                                             //id: documentPreId,
                                                             idOfDocController: idOfDocController,
                                                             nameDocController: docNameController,
@@ -479,7 +479,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                                                   );
                                                                 }
                                                                 if (snapshot.hasData) {
-                                                                  String selectedDocType = "Cap Reports";
+                                                                  String selectedDocType = "CAP Reports";
                                                                   int docType = snapshot.data![0].docID;
 
                                                                   for (var i in snapshot.data!) {

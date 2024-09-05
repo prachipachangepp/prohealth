@@ -105,7 +105,6 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                 ],
               ),
             ),
-            SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p20,
@@ -126,7 +125,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                           color: ColorManager.mediumgrey,
                         ),
                       ) : Offstage(),
-                      SizedBox(height: 2,),
+                      SizedBox(height: 5,),
                       widget.child1,
                       SizedBox(height: 20,),
                       Text(
@@ -137,7 +136,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                           color: ColorManager.mediumgrey,
                         ),
                       ),
-                      SizedBox(height: 2,),
+                      SizedBox(height: 5,),
                       widget.child2,
                       SizedBox(height: 20,),
                       SMTextFConst(

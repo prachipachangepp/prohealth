@@ -10,6 +10,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
@@ -95,27 +96,26 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
       children: [
         /// Render top row with buttons only if both manage and whitelabelling screens are not shown
         if (!showManageScreen && !showWhitelabellingScreen)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomButton(
+          Padding(
+            padding: const EdgeInsets.only(right: 50.0,bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CustomButton(
+                  paddingVertical: 1,
                   borderRadius: 12,
                   text: 'White Labelling',
-                  style: CustomTextStylesCommon.commonStyle(
-                    fontSize: FontSize.s12,
+                  style: GoogleFonts.firaSans(
+                    fontSize: AppSize.s12,
                     fontWeight: FontWeightManager.bold,
                     color: ColorManager.white,
                   ),
                   width: 120,
-                  height: 30,
+                  height: 26,
                   onPressed: showWhitelabellingScreenFunction,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 50),
-                child: CustomIconButtonConst(
+                SizedBox(width: 10,),
+                CustomIconButtonConst(
                   width: 140,
                   text: 'Add New Office',
                   onPressed: () {
@@ -131,17 +131,14 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                           OptionalController: OptionalController,
                           onPressed: () async{
                             await
-                            addNewOffice(
-                              context,
+                            addNewOffice(context,
                               nameController.text,
                               addressController.text,
                               emailController.text,
                               mobNumController.text,
                               secNumController.text,
                             );
-                            companyOfficeListGet(
-                                context, 1, 30)
-                                .then((data) {
+                            companyOfficeListGet(context, 1, 30).then((data) {
                               _companyIdentityController
                                   .add(data);
                             }).catchError((error) {});
@@ -150,9 +147,9 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     );
                   },
                   icon: Icons.add,
-                )
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         /// Render heading only if both manage and whitelabelling screens are not shown
         if (!showManageScreen && !showWhitelabellingScreen)
