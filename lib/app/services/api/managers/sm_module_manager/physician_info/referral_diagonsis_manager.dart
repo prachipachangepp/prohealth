@@ -40,6 +40,8 @@ Future<ApiData> postRDoneScreen(
       print("Referring diagonsis data Saved");
       var patientIdresponse = response.data;
       int idPatient = patientIdresponse["patientId"];
+      int rdignosisid = patientIdresponse["rDignosisId"];
+
 
       // orgDocumentGet(context);
       showDialog(
@@ -100,7 +102,9 @@ Future<ApiData> postRDoneScreen(
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!,
-          patientId: idPatient);
+          patientId: idPatient,
+        rDignosisId: rdignosisid
+      );
     } else {
       print("Error 1");
       showDialog(

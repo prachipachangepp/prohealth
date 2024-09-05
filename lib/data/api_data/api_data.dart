@@ -6,16 +6,18 @@ class ApiData {
   final String? imageUrl;
   final int? employeeId;
   final int? patientId;
+  final int? rDignosisId;
 
   ApiData(
       {required this.statusCode,
       required this.success,
       required this.message,
       this.data, this.imageUrl, this.employeeId ,
-        this.patientId,});
+        this.patientId, this.rDignosisId,});
 }
 
 class ApiDataFilter {
+
   final int employeeId;
   final String code;
   final int userId;
