@@ -52,324 +52,328 @@ StreamController<SchedularData>();
           if(snapshot.hasData){
             return Column(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: ColorManager.whitebluecolor,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.25),
-                        spreadRadius: 0,
-                        blurRadius: 4,
-                        offset: Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  height: AppSize.s200,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          Row(
+                Padding(
+                  padding: const EdgeInsets.only(right:30,bottom:15),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: ColorManager.whitebluecolor,
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          spreadRadius: 0,
+                          blurRadius: 4,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    height: AppSize.s200,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                TextButton.icon(
+                                  onPressed: widget.onBack,
+                                  label: Text(
+                                    'Back',
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s14,
+                                        fontWeight: FontWeightManager.medium,
+                                        color: ColorManager.textBlack),
+                                  ),
+                                  icon: Icon(Icons.keyboard_arrow_left_rounded, color: ColorManager.textBlack),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: MediaQuery.of(context).size.height / 140),
+                            CircleAvatar(
+                              radius: 40, //MediaQuery.of(context).size.width * 0.03
+                              backgroundImage: AssetImage('images/profile.png'),
+                            ),
+                            SizedBox(height: MediaQuery.of(context).size.height / 60),
+                            Text(
+                              snapshot.data!.fullname,
+                              style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s10,
+                                  // fontSize: MediaQuery.of(context).size.width * 0.006,
+                                  fontWeight: FontWeightManager.medium),
+                            ),
+                            SizedBox(height: MediaQuery.of(context).size.height / 30),
+                            Text(
+                              snapshot.data!.status.capitalizeFirst!,
+                              style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s10,
+                                  // fontSize: MediaQuery.of(context).size.width * 0.006,
+                                  fontWeight: FontWeightManager.bold,
+                                  color: ColorManager.textPrimaryColor),
+                            )
+                          ],
+                        ),
+                        // SizedBox(width: MediaQuery.of(context).size.width / 40),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              TextButton.icon(
-                                onPressed: widget.onBack,
-                                label: Text(
-                                  'Back',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s14,
-                                      fontWeight: FontWeightManager.medium,
-                                      color: ColorManager.textBlack),
-                                ),
-                                icon: Icon(Icons.keyboard_arrow_left_rounded, color: ColorManager.textBlack),
-                              )
+                              Text(
+                                'Zone',
+                                style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeightManager.regular,
+                                    color: ColorManager.textPrimaryColor),
+                              ),
+                              Text(
+                                'Expertise',
+                                style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeightManager.regular,
+                                    color: ColorManager.textPrimaryColor),
+                              ),
+                              Text(
+                                'Current Location',
+                                style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeightManager.regular,
+                                    color: ColorManager.textPrimaryColor),
+                              ),
+                              Text(
+                                'Total patients',
+                                style: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeightManager.regular,
+                                    color: ColorManager.textPrimaryColor),
+                              ),
                             ],
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 140),
-                          CircleAvatar(
-                            radius: 40, //MediaQuery.of(context).size.width * 0.03
-                            backgroundImage: AssetImage('images/profile.png'),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 60),
-                          Text(
-                            snapshot.data!.fullname,
-                            style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                // fontSize: MediaQuery.of(context).size.width * 0.006,
-                                fontWeight: FontWeightManager.medium),
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height / 30),
-                          Text(
-                            snapshot.data!.status.capitalizeFirst!,
-                            style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                // fontSize: MediaQuery.of(context).size.width * 0.006,
-                                fontWeight: FontWeightManager.bold,
-                                color: ColorManager.textPrimaryColor),
-                          )
-                        ],
-                      ),
-                      // SizedBox(width: MediaQuery.of(context).size.width / 40),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Column(
+                        ),
+                        // SizedBox(width: MediaQuery.of(context).size.width / 60),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  snapshot.data!.zone,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: FontSize.s10,
+                                      fontWeight: FontWeightManager.regular,
+                                      color: ColorManager.textBlack),
+                                ),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width / 100),
+                                Container(
+                                  height: AppSize.s18,
+                                  width: AppSize.s72,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      String googleMapsUrl =
+                                          'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
+                                      if (await canLaunchUrlString(googleMapsUrl)) {
+                                        await launchUrlString(googleMapsUrl);
+                                      } else {
+                                        print('Could not open the map.');
+                                      }
+                                    },
+                                    child: Text(
+                                      'View Zone',
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: ColorManager.blueprime,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18),
+                                      ),
+                                      padding: EdgeInsets.zero,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              snapshot.data!.expertise,
+                              style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s10,
+                                  fontWeight: FontWeightManager.regular,
+                                  color: ColorManager.textBlack),
+                            ),
+                            Text(
+                              snapshot.data!.correntLocation,
+                              style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s10,
+                                  fontWeight: FontWeightManager.regular,
+                                  color: ColorManager.textBlack),
+                            ),
+                            Text(
+                            "${snapshot.data!.totalPatients}",
+                              style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s10,
+                                  fontWeight: FontWeightManager.regular,
+                                  color: ColorManager.textBlack),
+                            ),
+                          ],
+                        ),
+
+                        // SizedBox(width: MediaQuery.of(context).size.width/120),
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Zone',
+                              'Summary',
                               style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s10,
-                                  fontWeight: FontWeightManager.regular,
-                                  color: ColorManager.textPrimaryColor),
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.medium,
+                              ),
                             ),
-                            Text(
-                              'Expertise',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s10,
-                                  fontWeight: FontWeightManager.regular,
-                                  color: ColorManager.textPrimaryColor),
-                            ),
-                            Text(
-                              'Current Location',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s10,
-                                  fontWeight: FontWeightManager.regular,
-                                  color: ColorManager.textPrimaryColor),
-                            ),
-                            Text(
-                              'Total patients',
-                              style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s10,
-                                  fontWeight: FontWeightManager.regular,
-                                  color: ColorManager.textPrimaryColor),
-                            ),
+                            Container(
+                              height: AppSize.s144,
+                              width: MediaQuery.of(context).size.width / 7,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.25),
+                                      spreadRadius: 0,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 4),
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SummaryRowConst(
+                                      title: 'Visits', count1: '${snapshot.data!.summary.visit}', count2: '${snapshot.data!.summary.visit}'),
+                                  SummaryRowConst(
+                                      title: 'Travel',
+                                      count1: snapshot.data!.summary.travel,
+                                      count2: '--'),
+                                  SummaryRowConst(
+                                      title: 'Earning',
+                                      count1: '\$${snapshot.data!.summary.earning}',
+                                      count2: '\$--'),
+                                  SummaryRowConst(
+                                      title: 'Total OAISIS', count1: '${snapshot.data!.summary.totalQAISIS}', count2: '${snapshot.data!.summary.totalQAISIS}'),
+                                  SummaryRowConst(
+                                      title: 'Rescheduled', count1: '${snapshot.data!.summary.rescheduled}', count2: '${snapshot.data!.summary.rescheduled}'),
+                                  SummaryRowConst(
+                                      title: 'Reassigned', count1: '${snapshot.data!.summary.reAssigned}', count2: '${snapshot.data!.summary.reAssigned}')
+                                ],
+                              ),
+                            )
                           ],
                         ),
-                      ),
-                      // SizedBox(width: MediaQuery.of(context).size.width / 60),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                snapshot.data!.zone,
-                                style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s10,
-                                    fontWeight: FontWeightManager.regular,
-                                    color: ColorManager.textBlack),
+                        // SizedBox(width: MediaQuery.of(context).size.width/140),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Compliance',
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.medium,
                               ),
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width / 100),
-                              Container(
-                                height: AppSize.s18,
-                                width: AppSize.s72,
-                                child: ElevatedButton(
-                                  onPressed: () async {
-                                    String googleMapsUrl =
-                                        'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
-                                    if (await canLaunchUrlString(googleMapsUrl)) {
-                                      await launchUrlString(googleMapsUrl);
-                                    } else {
-                                      print('Could not open the map.');
-                                    }
-                                  },
-                                  child: Text(
-                                    'View Zone',
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: ColorManager.blueprime,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                    ),
-                                    padding: EdgeInsets.zero,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            snapshot.data!.expertise,
-                            style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.regular,
-                                color: ColorManager.textBlack),
-                          ),
-                          Text(
-                            snapshot.data!.correntLocation,
-                            style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.regular,
-                                color: ColorManager.textBlack),
-                          ),
-                          Text(
-                          "${snapshot.data!.totalPatients}",
-                            style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.regular,
-                                color: ColorManager.textBlack),
-                          ),
-                        ],
-                      ),
+                            ),
 
-                      // SizedBox(width: MediaQuery.of(context).size.width/120),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Summary',
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.medium,
-                            ),
-                          ),
-                          Container(
-                            height: AppSize.s144,
-                            width: MediaQuery.of(context).size.width / 7,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.25),
-                                    spreadRadius: 0,
-                                    blurRadius: 4,
-                                    offset: Offset(0, 4),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(8.0)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                SummaryRowConst(
-                                    title: 'Visits', count1: '${snapshot.data!.summary.visit}', count2: '${snapshot.data!.summary.visit}'),
-                                SummaryRowConst(
-                                    title: 'Travel',
-                                    count1: snapshot.data!.summary.travel,
-                                    count2: '--'),
-                                SummaryRowConst(
-                                    title: 'Earning',
-                                    count1: '\$${snapshot.data!.summary.earning}',
-                                    count2: '\$--'),
-                                SummaryRowConst(
-                                    title: 'Total OAISIS', count1: '${snapshot.data!.summary.totalQAISIS}', count2: '${snapshot.data!.summary.totalQAISIS}'),
-                                SummaryRowConst(
-                                    title: 'Rescheduled', count1: '${snapshot.data!.summary.rescheduled}', count2: '${snapshot.data!.summary.rescheduled}'),
-                                SummaryRowConst(
-                                    title: 'Reassigned', count1: '${snapshot.data!.summary.reAssigned}', count2: '${snapshot.data!.summary.reAssigned}')
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      // SizedBox(width: MediaQuery.of(context).size.width/140),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Compliance',
-                            style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s10,
-                              fontWeight: FontWeightManager.medium,
-                            ),
-                          ),
-
-                          // SizedBox(height: MediaQuery.of(context).size.height/160),
-                          Container(
-                            height: AppSize.s77,
-                            width: MediaQuery.of(context).size.width / 10,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.25),
-                                    spreadRadius: 0,
-                                    blurRadius: 4,
-                                    offset: Offset(0, 4),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(8.0)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                ComplianceRowConst(
-                                  title: 'Missed Visits',
-                                  count1: '${snapshot.data!.compliance.missedVisit}',
-                                ),
-                                ComplianceRowConst(
-                                  title: 'OAISIS Forms License',
-                                  count1: '${snapshot.data!.compliance.qaisisForms}',
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-
-                      // SizedBox(width: MediaQuery.of(context).size.width/120),
-                      Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: AppPadding.p15),
-                            child: Container(
-                              height: AppSize.s166,
-                              width: MediaQuery.of(context).size.width / 5,
+                            // SizedBox(height: MediaQuery.of(context).size.height/160),
+                            Container(
+                              height: AppSize.s77,
+                              width: MediaQuery.of(context).size.width / 10,
                               decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage('images/mapImage.png'),
-                                  fit: BoxFit.cover,
-                                ),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.25),
+                                      spreadRadius: 0,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 4),
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ComplianceRowConst(
+                                    title: 'Missed Visits',
+                                    count1: '${snapshot.data!.compliance.missedVisit}',
+                                  ),
+                                  ComplianceRowConst(
+                                    title: 'OAISIS Forms License',
+                                    count1: '${snapshot.data!.compliance.qaisisForms}',
+                                  )
+                                ],
                               ),
-                            ),
-                          ),
-                          Positioned.fill(
-                            child: Center(
+                            )
+                          ],
+                        ),
+
+                        // SizedBox(width: MediaQuery.of(context).size.width/120),
+                        Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: AppPadding.p15),
                               child: Container(
-                                height: AppSize.s18,
-                                width: AppSize.s72,
-                                child: ElevatedButton(
-                                  onPressed: () async {
-                                    String googleMapsUrl =
-                                        'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
-                                    if (await canLaunchUrlString(googleMapsUrl)) {
-                                      await launchUrlString(googleMapsUrl);
-                                    } else {
-                                      print('Could not open the map.');
-                                    }
-                                  },
-                                  child: Text(
-                                    'View map',
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.regular,
-                                      color: ColorManager.white,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: ColorManager.blueprime,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                    ),
-                                    padding: EdgeInsets.zero,
+                                height: AppSize.s166,
+                                width: MediaQuery.of(context).size.width / 5,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage('images/mapImage.png'),
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                            Positioned.fill(
+                              child: Center(
+                                child: Container(
+                                  height: AppSize.s18,
+                                  width: AppSize.s72,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      String googleMapsUrl =
+                                          'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
+                                      if (await canLaunchUrlString(googleMapsUrl)) {
+                                        await launchUrlString(googleMapsUrl);
+                                      } else {
+                                        print('Could not open the map.');
+                                      }
+                                    },
+                                    child: Text(
+                                      'View map',
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s10,
+                                        fontWeight: FontWeightManager.regular,
+                                        color: ColorManager.white,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: ColorManager.blueprime,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18),
+                                      ),
+                                      padding: EdgeInsets.zero,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Container(
