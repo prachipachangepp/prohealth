@@ -47,17 +47,33 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
   String? _location;
 
   bool _isFetchingIp = true;
-
+  String? _city;
+  String? _country;
   Future<void> _fetchIPAddress() async {
     try {
-      final response =
-      await http.get(Uri.parse('https://api.ipify.org?format=json'));
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        setState(() {
-          _ipAddress = data['ip'];
-          _isFetchingIp = false;
-        });
+      // Fetch the IP address first
+      final ipResponse = await http.get(Uri.parse('https://api.ipify.org?format=json'));
+      if (ipResponse.statusCode == 200) {
+        final ipData = jsonDecode(ipResponse.body);
+        _ipAddress = ipData['ip'];
+
+        // Use the IP address to fetch city and country information
+        final locationResponse = await http.get(Uri.parse('http://ip-api.com/json/$_ipAddress'));
+        if (locationResponse.statusCode == 200) {
+          final locationData = jsonDecode(locationResponse.body);
+
+          setState(() {
+            _city = locationData['city'];
+            _country = locationData['country'];
+            _isFetchingIp = false;
+          });
+          print('Fetched city and country ${_country} + ${_city}');
+        } else {
+          print('Failed to load location data');
+          setState(() {
+            _isFetchingIp = false;
+          });
+        }
       } else {
         print('Failed to load IP address');
         setState(() {
@@ -70,7 +86,6 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
         _isFetchingIp = false;
       });
     }
-
   }
   Future<String> getStateFromLatLng(double latitude, double longitude) async {
     try {
@@ -426,53 +441,22 @@ class _HomeScreenWebState extends State<HomeScreenWeb> {
                   ),
                    Row(
                     children: [
-                      FutureBuilder(
-                        future: _stateFuture,
-                        builder: (context, geoSnapshot) {
-                          if (geoSnapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Text(
-                              'Loading location...',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[800],
-                                decoration: TextDecoration.none,
-                              ),
-                            );
-                          }  if (geoSnapshot.hasError) {
-                            return Text(
-                              'Error fetching location',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[800],
-                                decoration: TextDecoration.none,
-                              ),
-                            );
-                          }  if (geoSnapshot.hasData) {
-                            // final location = geoSnapshot.data!;
-                            return Text(
-                              geoSnapshot.data ?? 'No location data',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[800],
-                                decoration: TextDecoration.none,
-                              ),
-                            );
-                          } else {
-                            return Text(
-                              'No location data',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[800],
-                                decoration: TextDecoration.none,
-                              ),
-                            );
-                          }
-                        },
+                      _city != null ? Text(
+                        '${_country} (${_city})',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                          decoration: TextDecoration.none,
+                        ),
+                      ) : Text(
+                        'No location data',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                          decoration: TextDecoration.none,
+                        ),
                       ),
                       SizedBox(
                         width: 50,

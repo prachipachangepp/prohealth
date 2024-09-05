@@ -123,9 +123,17 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                               // Navigator.pop(context);
                             },
                             onpressedSave: () async {
-                              await addLicensePost(context, countryController.text, widget.employeeId!, expiryDateController.text, issueDateController.text,
-                                  'url', livensureController.text, numberIDController.text, docName.toString(), docName.toString());
-                              Navigator.pop(context);
+                              await addLicensePost(context,
+                                  countryController.text,
+                                  widget.employeeId!,
+                                  expiryDateController.text,
+                                  issueDateController.text,
+                                  'url',
+                                  livensureController.text,
+                                  numberIDController.text,
+                                  docName.toString(),
+                                  docName.toString());
+                                  Navigator.pop(context);
                             },
                             title: 'Add Licence',
                             child: FutureBuilder<List<CiOrgDocumentCC>>(

@@ -13,12 +13,14 @@ import 'package:prohealth/app/services/api/managers/sm_module_manager/lab_report
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_lab_result/widget/lab_result_add_pop_up.dart';
 import 'package:prohealth/presentation/screens/scheduler_model/sm_Intake/widgets/intake_patients_data/widgets/patients_compliance/widget/compliance_add_popup.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/services/api/managers/sm_module_manager/patient_data/patient_data_compliance.dart';
+import '../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../data/api_data/sm_data/patient_data/patient_data_compliance.dart';
 import '../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../../widgets/constant_widgets/button_constant.dart';
@@ -417,6 +419,38 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                   itemCount: snapshot.data!.length,
                                   itemBuilder:
                                       (BuildContext context, index) {
+                                        var labResult = snapshot.data![index];
+                                        var fileUrl = labResult.docUrl;
+                                        final fileExtension = fileUrl!.split('/').last;
+
+                                        Widget fileWidget;
+
+                                        if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                                          fileWidget = Image.network(
+                                            fileUrl,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, error, stackTrace) {
+                                              return Icon(
+                                                Icons.broken_image,
+                                                size: 45,
+                                                color: ColorManager.faintGrey,
+                                              );
+                                            },
+                                          );
+                                        }
+                                        else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                                          fileWidget = Icon(
+                                            Icons.description,
+                                            size: 45,
+                                            color: ColorManager.faintGrey,
+                                          );
+                                        } else {
+                                          fileWidget = Icon(
+                                            Icons.insert_drive_file,
+                                            size: 45,
+                                            color: ColorManager.faintGrey,
+                                          );
+                                        }
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 8.0, horizontal: 40),
@@ -597,15 +631,29 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                       //             .size
                                                       //             .width /
                                                       //         120),
+                                                      // IconButton(
+                                                      //   icon: Icon(
+                                                      //     Icons
+                                                      //         .file_download_outlined,
+                                                      //     size: 20,
+                                                      //     color: ColorManager
+                                                      //         .granitegray,
+                                                      //   ),
+                                                      //   onPressed: () {},
+                                                      // ),
                                                       IconButton(
+                                                        onPressed: () {
+                                                          print("FileExtension:${fileExtension}");
+                                                          DowloadFile().downloadPdfFromBase64(
+                                                              fileExtension,"labResult.pdf");
+                                                          downloadFile(fileUrl);
+                                                          // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
+                                                        },
                                                         icon: Icon(
-                                                          Icons
-                                                              .file_download_outlined,
-                                                          size: 20,
-                                                          color: ColorManager
-                                                              .granitegray,
+                                                          Icons.save_alt_outlined,
+                                                          color: Color(0xff1696C8),
                                                         ),
-                                                        onPressed: () {},
+                                                        iconSize: 20,
                                                       ),
                                                       SizedBox(
                                                           width: MediaQuery.of(

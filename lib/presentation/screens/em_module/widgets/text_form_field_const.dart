@@ -22,9 +22,11 @@ class SMTextFConst extends StatefulWidget {
   final bool ? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
+  final FocusNode? focusNode;
 
    SMTextFConst({
      Key? key,
+     this.focusNode,
     required this.controller,
     required this.keyboardType,
      required this.text,
@@ -63,6 +65,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextFormField(
+            focusNode: widget.focusNode,
             autofocus: true,
             enabled: widget.enable == null ? true : false,
             controller: widget.controller,
@@ -466,7 +469,16 @@ class PhoneNumberInputFormatter extends TextInputFormatter {
 
 
 
-
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
+  }
+}
 
 ///first latter capital
 class FirstSMTextFConst extends StatefulWidget {
@@ -480,9 +492,11 @@ class FirstSMTextFConst extends StatefulWidget {
   final bool ? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
+  final List<TextInputFormatter>? inputFormated;
 
   FirstSMTextFConst({
     Key? key,
+    this.inputFormated,
     required this.controller,
     required this.keyboardType,
     required this.text,
@@ -545,10 +559,9 @@ class _FirstSMTextFConstState extends State<FirstSMTextFConst> {
             ),
             //validator: widget.validator,
             onTap: widget.onChange,
-            inputFormatters: [
+            inputFormatters: widget.inputFormated == null ?[
               CapitalizeFirstLetterFormatter(),
-            ],
-
+            ]: widget.inputFormated
           ),
         ),
       ],

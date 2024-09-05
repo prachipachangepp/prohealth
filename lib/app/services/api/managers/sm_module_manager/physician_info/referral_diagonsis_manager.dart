@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/data/api_data/sm_data/referringdiagnosis_data/referring_diagnosis_data.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../resources/const_string.dart';
+import '../../../../token/token_manager.dart';
 import '../../../api.dart';
 import '../../../repository/sm_repository/medications/medications_repo.dart';
 import '../../../repository/sm_repository/patient_data/patient_data_info_repo.dart';
 import '../../../repository/sm_repository/physician_info/physician_info_repo.dart';
 
-///Info save Post API
+///Info save first Post API /intake-physician-rdignosis/add
 Future<ApiData> postRDoneScreen(
   BuildContext context,
   int patientId,
@@ -216,8 +218,7 @@ Future<ApiData> postRDoneScreen(
   }
 }
 
-///post secoond
-///
+///intake-physician-rdignosis-pd/add post second
 Future<ApiData> postRDTWOScreen(
   BuildContext context,
   int patientId,
@@ -423,8 +424,7 @@ Future<ApiData> postRDTWOScreen(
   }
 }
 
-///post Third
-///
+///post Third Allergy and start effective date
 Future<ApiData> postRDThreeScreen(
   BuildContext context,
   int patientId,
@@ -437,7 +437,7 @@ Future<ApiData> postRDThreeScreen(
       path: PhysicianInfo.addThreeRD(),
       data: {
         "patientId": patientId,
-        "rDignosisId":rDignosisId,
+        "rDignosisId": rDignosisId,
         "allergies": allergies,
         "startEffectiveDate":
             "${startEffectiveDate}T00:00:00Z", //  "2024-08-22T03:59:47.130Z"
@@ -626,3 +626,89 @@ Future<ApiData> postRDThreeScreen(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+///get api /intake-physician-rdignosis-pd
+
+Future<ReferringDiagnosisModal> HrGetById(BuildContext context,) async {
+  var itemsList;
+  try {
+    final response = await Api(context)
+        .get(path:PhysicianInfo.getRD());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("ReferringDiagnosis:::::${itemsList}");
+      for (var item in response.data) {
+      itemsList =
+          ReferringDiagnosisModal(
+              rDignosisPDId: item['rDignosisPDId'],
+              rDignosisId: item['rDignosisId'],
+              patientId: item['patientId'],
+              title: item['title'],
+              description: item['description'],
+              icdCode: item['icdCode'],
+              pdDate: item['pdDate']
+          );
+      }
+      print("ReferringDiagnosis:::::${itemsList}");
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+//Future<List<ReferringDiagnosisModal>> getReferringDiagnosis(
+//   BuildContext context,
+// ) async {
+//   List<ReferringDiagnosisModal> itemsList = [];
+//
+//   try {
+//     final companyId = await TokenManager.getCompanyId();
+//     final response = await Api(context).get(path: PhysicianInfo.getRD());
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       // print("Org Document response:::::${itemsList}");
+//       print("1");
+//
+//       for (var item in response.data) {
+//         List<ReferringDiagnosisModal> clinicians = [];
+//         for (var item in item['']) {
+//           try {
+//             clinicians.add(ReferringDiagnosisModal(
+//                 rDignosisPDId: item['rDignosisPDId'],
+//                 rDignosisId: item['rDignosisId'],
+//                 patientId: item['patientId'],
+//                 title: item['title'],
+//                 description: item['description'],
+//                 icdCode: item['icdCode'],
+//                 pdDate: item['pdDate']
+//                 // empTypeId: clinical['employeeTypeId'],
+//                 // eligibleClinician: clinical['eligibleClinician'],
+//                 // color: clinical['color'],
+//                 ));
+//           } catch (e) {}
+//         }
+//         print("::Item${item}");
+//         // itemsList.add(
+//         //   ReferringDiagnosisModal(
+//         //     visitId: item['visitId'],
+//         //     typeofVisit: item['typeOfVisit'],
+//         //     eligibleClinician: clinicians,
+//         //     sucess: true,
+//         //     message: response.statusMessage!,
+//         //     // color:  item['color']
+//         //   ),
+//         // );
+//       }
+//     } else {
+//       print('Org Api Error');
+//       return itemsList;
+//     }
+//     // print("Org response:::::${response}");
+//     return itemsList;
+//   } catch (e) {
+//     print("Error $e");
+//     return itemsList;
+//   }
+// }

@@ -116,12 +116,7 @@ class _CustomPopupState extends State<CustomPopup> {
                   onPressed: () {
                     widget.onPressed();
                     Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddSuccessPopup(message: widget.successpopuptext,);
-                      },
-                    );
+
                   },
                 ),
               ),

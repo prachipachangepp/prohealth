@@ -205,7 +205,11 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              IconButton(onPressed: (){
+                                              IconButton(
+                                                splashColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  onPressed: (){
                                                 showDialog(context: context, builder: (context){
                                                   return FutureBuilder<CountyPrefillGet>(
                                                     future: countyPrefillGet(context,county.countyId),
@@ -224,7 +228,6 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                       var countryName = snapshotPrefill.data!.country;
                                                       countyController = TextEditingController(text:snapshotPrefill.data!.country);
 
-
                                                       return CIZoneAddPopup(
                                                         onSavePressed: ()async{
                                                           await updateCounty(context, county.countyId,
@@ -236,6 +239,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                           getZoneBYcompOffice(context, widget.officeId, 1, 20).then((data){
                                                             _contyController.add(data);
                                                           }).catchError((error){});
+                                                          Navigator.pop(context);
                                                         },
                                                         title: 'Edit County',
                                                         title1: 'State Name',
@@ -249,9 +253,13 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                   );
                                                 });
                                               }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                              IconButton(onPressed: (){
+                                              IconButton(
+                                                  splashColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  onPressed: (){
                                                 showDialog(context: context, builder: (context) => DeletePopup(
-                                                    title: 'Delete Country',
+                                                    title: 'Delete County',
                                                     onCancel: (){
                                                   Navigator.pop(context);
                                                 }, onDelete: ()async{

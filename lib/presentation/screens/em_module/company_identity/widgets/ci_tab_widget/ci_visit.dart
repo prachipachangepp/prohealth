@@ -298,7 +298,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             children: [
               // Expanded(flex: 2, child: Container()),
               Padding(
-                padding: const EdgeInsets.only(left: 80),
+                padding: const EdgeInsets.only(left: 90),
                 child: Text(
                   AppString.srNo,
                   textAlign: TextAlign.center,
@@ -314,7 +314,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 
               ///visit
               Padding(
-                padding: const EdgeInsets.only(left: 150),
+                padding: const EdgeInsets.only(left: 130),
                 child: Text(
                   AppString.visit,
                   textAlign: TextAlign.center,
@@ -326,11 +326,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   ),
                 ),
               ),
-              Text("           "),
 
               ///EL clinician
               Padding(
-                padding: const EdgeInsets.only(right: 200),
+                padding: const EdgeInsets.only(right: 220),
                 child: Text(
                   AppString.eligibleClinician,
                   textAlign: TextAlign.center,
@@ -343,7 +342,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 80),
+                padding: const EdgeInsets.only(right: 75.0),
                 child: Text(
                   AppString.actions,
                   textAlign: TextAlign.center,
@@ -484,8 +483,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                   color: Color(0xff686464)),
                                             ),
                                           ),
-
-                                          Text("                             "),
                                           // Expanded(flex: 1, child: Container()),
                                           Expanded(
                                             child: Row(

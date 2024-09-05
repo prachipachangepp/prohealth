@@ -15,12 +15,17 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_vendor_contract_tab/ci_vc_misc.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_vendor_contract_tab/ci_vd_md.dart';
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import '../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../company_identity_screen.dart';
 
 class CIVendorContract extends StatefulWidget {
   final int docId;
- // final String officeId;
-  const CIVendorContract({super.key, required this.docId,
+  final Function(int) onSubDocIdSelected;
+  String selectedSubDocType;
+  CIVendorContract({super.key, required this.docId,
+    required this.onSubDocIdSelected,
+    required this.selectedSubDocType,
   //  required this.officeId
   });
 
@@ -31,15 +36,14 @@ class CIVendorContract extends StatefulWidget {
 class _CIVendorContractState extends State<CIVendorContract> {
   final PageController _tabPageController = PageController();
 
-  late int currentPage;
-  late int itemsPerPage;
-  late List<String> items;
-
   int _selectedIndex = 0;
+  String selectedSubDocType = "";
 
   void _selectButton(int index) {
     setState(() {
       _selectedIndex = index;
+      selectedSubDocType = getSubDocTypeForIndex(index);
+      widget.onSubDocIdSelected(getSubDocIdForIndex(index));
     });
     _tabPageController.animateToPage(
       index,
@@ -47,6 +51,54 @@ class _CIVendorContractState extends State<CIVendorContract> {
       curve: Curves.ease,
     );
   }
+
+  int getSubDocIdForIndex(int index) {
+    switch (index) {
+      case 0:
+        return AppConfig.subDocId6Leases;
+      case 1:
+        return AppConfig.subDocId7SNF;
+      case 2:
+        return AppConfig.subDocId8DME;
+      case 3:
+        return AppConfig.subDocId9MD;
+      case 4:
+        return AppConfig.subDocId10MISC;
+      default:
+        return 0;
+    }
+  }
+
+  String getSubDocTypeForIndex(int index) {
+    switch (index) {
+      case 0:
+        return "Leases & Services";
+      case 1:
+        return "SNF";
+      case 2:
+        return "DME";
+      case 3:
+        return "MD";
+      case 4:
+        return "MISC";
+      default:
+        return "";
+    }
+  }
+  List<IdentityDocumentIdData> docSubTypeData = [];
+  void loadData() async {
+    docSubTypeData = await identityDocumentTypeGet(context, widget.docId);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    selectedSubDocType = getSubDocTypeForIndex(_selectedIndex);
+    // subDocId = getSubDocIdForIndex(
+    //     _selectedIndex); // Initialize subDocId based on the default tab
+    identityDocumentTypeGet(context, widget.docId);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -256,8 +308,10 @@ class _CIVendorContractState extends State<CIVendorContract> {
             child: NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {
+                _selectedIndex = index;
                 setState(() {
-                  _selectedIndex = index;
+                  selectedSubDocType = getSubDocTypeForIndex(index);
+                  //subDocId = getSubDocIdForIndex(index); // Update subDocId on page change
                 });
               },
               children: [

@@ -267,6 +267,9 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   IconButton(
+                                                      splashColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
                                                       onPressed: () {
                                                         showDialog(
                                                             context: context,
@@ -433,6 +436,9 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                         color: ColorManager.blueprime,
                                                       )),
                                                   IconButton(
+                                                      splashColor: Colors.transparent,
+                                                      hoverColor: Colors.transparent,
+                                                      highlightColor: Colors.transparent,
                                                       onPressed: () {
                                                         showDialog(
                                                             context: context,
