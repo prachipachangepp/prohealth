@@ -322,7 +322,7 @@ Future<SchedularData> getSchedularByClinitian({
         zoneId: responseData['ZoneId']??0,
         correntLocation: responseData['correntLocation'] ?? '',
         expertise: responseData['expertise'] ?? '',
-        fullname: responseData['fullname'] ?? '',
+        fullname: responseData['clinicianfullname'] ?? '',
         status: responseData['status'] ?? '',
         totalPatients: responseData['totalPatients']??0,
         compliance:Compliance(

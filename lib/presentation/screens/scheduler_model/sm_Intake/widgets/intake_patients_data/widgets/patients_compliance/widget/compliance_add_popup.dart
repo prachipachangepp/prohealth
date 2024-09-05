@@ -542,7 +542,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                           try {
                             ApiData response =  await addLabReport(
                               context: context,
-                              patientId: 1,
+                              patientId: widget.patientId!,
                               docTypeId: 1,
                               docType: widget.nameDocController.text,
                               name: widget.nameDocController.text,

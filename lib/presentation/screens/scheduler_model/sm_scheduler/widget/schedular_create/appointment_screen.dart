@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -22,17 +24,30 @@ class SmProfileBar extends StatefulWidget {
 }
 
 class _SmProfileBarState extends State<SmProfileBar> {
+final StreamController<SchedularData> _schedulerController =
+StreamController<SchedularData>();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: FutureBuilder<SchedularData>(
-        future: getSchedularByClinitian(context: context, clinicialId: 134),
+      child: StreamBuilder<SchedularData>(
+        stream: _schedulerController.stream,
         builder: (context,snapshot) {
+          getSchedularByClinitian(context: context, clinicialId: 134).then((data) {
+            _schedulerController.add(data);
+          }).catchError((error) {
+// Handle error
+          });
           if(snapshot.connectionState == ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 150),
+              child: Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),),
+            );
           }
           if(snapshot.data!.isBlank!){
-            return Center(child: Text('No record found!'),);
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 150),
+              child: Center(child: Text('No record found!'),),
+            );
           }
           if(snapshot.hasData){
             return Column(

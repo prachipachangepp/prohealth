@@ -102,45 +102,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                 calenderController: calenderController,
                                 idDocController: docIdController,
                                 nameDocController: namecontroller,
-                                onPressed: () async {
-                                  print('File path on pressed ${filePath}');
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-                                  String expiryTypeToSend =
-                                  selectedExpiryType == "Not Applicable"
-                                      ? "--"
-                                      : calenderController.text;
-                                  try {
-                                    ApiData response =  await addLabReport(
-                                      context: context,
-                                      patientId: 1,
-                                      docTypeId: 1,
-                                      docType: namecontroller.text,
-                                      name: namecontroller.text,
-                                      docUrl: "url",
-                                      createdAt: DateTime.now(),
-                                      expDate: "2024-08-16T09:39:48.030Z",
-                                    );
-                                    if(response.statusCode == 200 ||response.statusCode == 201 ){
-                                      await uploadDocumentsMiscNotes(context: context, documentFile: filePath, miscNoteId: response.labReportId!);
-                                    }
-                                    print("DocName${namecontroller.text}");
-                                    //GetLabReport(context, 1);
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      expiryType = '';
-                                      fileName ='';
-                                      calenderController.clear();
-                                      docIdController.clear();
-                                      namecontroller.clear();
-                                    });
-                                  } finally {
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
-                                  }
-                                },
+                                onPressed: () {},
                                 title: 'Add New Lab Report',
                                 patientId: widget.patientId,
 
@@ -370,72 +332,11 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                           right: 50.0),
                                                   child: Row(
                                                     children: [
-                                                      // IconButton(
-                                                      //   icon: Icon(
-                                                      //     Icons.history,
-                                                      //     size: 20,
-                                                      //     color: ColorManager
-                                                      //         .granitegray,
-                                                      //   ),
-                                                      //   onPressed: () {},
-                                                      // ),
-                                                      // SizedBox(
-                                                      //     width: MediaQuery.of(
-                                                      //                 context)
-                                                      //             .size
-                                                      //             .width /
-                                                      //         120),
-                                                      // IconButton(
-                                                      //   icon: Icon(
-                                                      //     Icons.print_outlined,
-                                                      //     size: 20,
-                                                      //     color: ColorManager
-                                                      //         .granitegray,
-                                                      //   ),
-                                                      //   onPressed: () async {
-                                                      //     final pdf =
-                                                      //         pw.Document();
-                                                      //
-                                                      //     pdf.addPage(
-                                                      //       pw.Page(
-                                                      //         build: (pw.Context
-                                                      //                 context) =>
-                                                      //             pw.Center(
-                                                      //           child: pw.Text(
-                                                      //               'Hello, this is a test print!'),
-                                                      //         ),
-                                                      //       ),
-                                                      //     );
-                                                      //
-                                                      //     await Printing
-                                                      //         .layoutPdf(
-                                                      //       onLayout: (PdfPageFormat
-                                                      //               format) async =>
-                                                      //           pdf.save(),
-                                                      //     );
-                                                      //   },
-                                                      // ),
-                                                      // SizedBox(
-                                                      //     width: MediaQuery.of(
-                                                      //                 context)
-                                                      //             .size
-                                                      //             .width /
-                                                      //         120),
-                                                      // IconButton(
-                                                      //   icon: Icon(
-                                                      //     Icons
-                                                      //         .file_download_outlined,
-                                                      //     size: 20,
-                                                      //     color: ColorManager
-                                                      //         .granitegray,
-                                                      //   ),
-                                                      //   onPressed: () {},
-                                                      // ),
                                                       IconButton(
                                                         onPressed: () {
                                                           print("FileExtension:${fileExtension}");
-                                                          DowloadFile().downloadPdfFromBase64(
-                                                              fileExtension,"labResult.pdf");
+                                                          // DowloadFile().downloadPdfFromBase64(
+                                                          //     fileExtension,"labResult.pdf");
                                                           downloadFile(fileUrl);
                                                           // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
                                                         },
@@ -475,7 +376,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                                                                 await deleteIntakeLabReport(context, snapshot.data![index].labReportId!);
                                                                                 setState(() async {
                                                                                   await GetLabReport(
-                                                                                      context, 1
+                                                                                      context, widget.patientId
                                                                                   ).then((data) {
                                                                                     _lapReportController.add(data);
                                                                                   }).catchError((error) {
