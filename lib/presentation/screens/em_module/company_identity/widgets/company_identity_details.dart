@@ -48,6 +48,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   bool checkboxValue2 = false;
   bool checkboxValue3 = false;
   bool checkboxValue4 = false;
+  final FocusNode _focusNode = FocusNode();
 
   List<String> dropdownItems1 = [
     'Home Health',
@@ -123,13 +124,25 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    addressController.addListener(_onAddressChanged);
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        // Populate _suggestionsNotifier with suggestions when the field is focused
+        addressController.addListener(_onAddressChanged);
+      } else {
+        // Clear suggestions when the field loses focus
+        _suggestionsNotifier.value = [];
+      }
+    });
+
     print(":::::OFFICE ID ${widget.officeId} + ${widget.companyId}");
   }
+
   // List<String> _suggestions = [];
   @override
   void dispose() {
-    addressController.removeListener(_onAddressChanged);
+    _focusNode.dispose();
+    _suggestionsNotifier.value = [];
+    addressController.dispose();
     super.dispose();
   }
   ValueNotifier<List<String>> _suggestionsNotifier = ValueNotifier([]);
@@ -329,9 +342,11 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             ),
                             const SizedBox(height: AppSize.s10),
                             SMTextFConst(
+                              focusNode: _focusNode,
                               controller: addressController,
                               keyboardType: TextInputType.text,
                               text: AppStringEM.address,
+
                             ),
                             //if (_suggestions.isNotEmpty)
                               ValueListenableBuilder<List<String>>(
@@ -369,6 +384,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                           ),
                                           onTap: () {
                                             addressController.text = suggestions[index];
+                                            _focusNode.unfocus();
                                             _suggestionsNotifier.value = [];
                                           },
                                         );

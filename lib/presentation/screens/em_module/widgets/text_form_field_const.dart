@@ -22,9 +22,11 @@ class SMTextFConst extends StatefulWidget {
   final bool ? enable;
   final Widget? prefixWidget;
   final String? Function(String?)? validator;
+  final FocusNode? focusNode;
 
    SMTextFConst({
      Key? key,
+     this.focusNode,
     required this.controller,
     required this.keyboardType,
      required this.text,
@@ -63,6 +65,7 @@ class _SMTextFConstState extends State<SMTextFConst> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextFormField(
+            focusNode: widget.focusNode,
             autofocus: true,
             enabled: widget.enable == null ? true : false,
             controller: widget.controller,

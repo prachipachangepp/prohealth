@@ -53,25 +53,35 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
         child: SingleChildScrollView(
           child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
-                          child: Text("Batches",style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s16,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.blueprime,
-                            decoration: TextDecoration.none,
-                          ),),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: ColorManager.bluebottom,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.close),
-                        ),
-                      ],
+                      ),
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 25),
+                            child: Text("Batches",style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s16,
+                              fontWeight: FontWeightManager.bold,
+                              color: ColorManager.white,
+                              decoration: TextDecoration.none,
+                            ),),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon:  Icon(Icons.close,color: ColorManager.white,),
+                          ),
+                        ],
+                      ),
                     ),
                     StreamBuilder<List<ShiftBachesData>>(
                         stream: workWeekShiftBatchesController.stream,
@@ -100,7 +110,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                           if(snapshot.hasData){
                             return Padding(
                               padding: const EdgeInsets.symmetric(
-                                vertical: AppPadding.p3,
+                                vertical: AppPadding.p10,
                                 horizontal: AppPadding.p20,
                               ),
                               child: Column(

@@ -133,7 +133,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                       child: Text(
                         widget.title,
                         style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s10,
+                          fontSize: FontSize.s12,
                           fontWeight: FontWeightManager.semiBold,
                           color: ColorManager.white,
                           decoration: TextDecoration.none,
