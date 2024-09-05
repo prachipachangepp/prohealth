@@ -217,8 +217,8 @@ Future<ApiData> updateScheduleCalender({
 }
 
 ///get api
-Future<List<CreateDataScheduler>> getScheduler(
-    BuildContext context, int patientId) async {
+Future<List<CreateDataScheduler>> getScheduler({
+    required BuildContext context, required int patientId}) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -254,6 +254,34 @@ Future<List<CreateDataScheduler>> getScheduler(
       }
     } else {
       print("Scheduler create");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
+/// get calender prefill
+Future<CreatePrefillDataScheduler> getPreFillCalenderData({
+  required BuildContext context, required int schedulerCreateId}) async {
+  var itemsData;
+  try {
+    final response = await Api(context)
+        .get(path: SchedulerSMRepo.getPreFillSchedule(schedulerId: schedulerCreateId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+        itemsData = CreatePrefillDataScheduler(
+          schedulerCreateId: response.data['schedulerCreateId'],
+          patientId: response.data['patientId'],
+          clinicianId: response.data['clinicianId'],
+          visitType: response.data['visitType'],
+          assignDate: response.data['assignDate'],
+          startTime: response.data['startTime'],
+          endTime: response.data['endTime'],
+          details: response.data['details'],
+        );
+    } else {
+      print("Scheduler Prefilled");
     }
     return itemsData;
   } catch (e) {
@@ -328,6 +356,9 @@ Future<SchedularData> getSchedularByClinitian({
             startTime: item['startTime'] ?? '',
             endTime: item['endTime'] ?? '',
             details: item['details'] ?? '',
+           patientFirstName: item['patientFirstName']??"",
+           patientLastName: item['patientLastName']??"",
+           patientAddress: item['patientAddress']??"",
           );
         } )
             .toList() ??
