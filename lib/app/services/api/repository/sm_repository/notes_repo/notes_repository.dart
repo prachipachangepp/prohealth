@@ -3,7 +3,7 @@ class NotesRepository{
   static String byPatientsId = "/ByPatientId";
   static String add = "/add";
   static String patch ="/intake-misc-note";
-  static String postUploadMisNotes ="/intake-misc-note/UploadNotesbase64/";
+  static String postUploadMisNotes ="/intake-lab-report/UploadReportbase64/";
 
 
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/api.dart';
+import 'package:prohealth/app/services/api/repository/sm_repository/notes_repo/notes_repository.dart';
 import 'package:prohealth/app/services/api/repository/sm_repository/patient_data/patient_data_info_repo.dart';
+import 'package:prohealth/app/services/base64/encode_decode_base64.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
@@ -79,29 +82,42 @@ Future<ApiData> addLabReport(
     required String docType,
     required String name,
     required String docUrl,
-    required String createdAt,
+    required DateTime createdAt,
     required String expDate}) async {
   try {
     final companyId = await TokenManager.getCompanyId();
+    var formatedDate = DateFormat('yyyy-MM-dd');
+    var actualCurrentDate = formatedDate.format(createdAt);
     var data = {
       "patientId": patientId,
       "docTypeId": docTypeId,
       "docType": docType,
       "name": name,
       "docUrl": docUrl,
-      "createdAt": createdAt,
+      "createdAt": actualCurrentDate,
       "expDate": expDate
     };
     print(' Post Intake Compliance $data');
     var response = await Api(context)
-        .post(path: PatientDataInfoRepo.labReportAdd(), data: data);
+        .post(path: PatientDataInfoRepo.labReportAdd(), data: {
+      "patientId": patientId,
+      "docTypeId": docTypeId,
+      "docType": docType,
+      "name": name,
+      "docUrl": docUrl,
+      "createdAt": "${actualCurrentDate}T00:00:00Z",
+      "expDate": expDate
+    });
     print('Lab Report Add ::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Compliance addded ");
+      var responseData = response.data;
+      var labId = responseData['labReportId'];
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
-          message: response.statusMessage!);
+          message: response.statusMessage!,
+      labReportId: labId);
     } else {
       print("Error 1");
       return ApiData(
@@ -141,6 +157,46 @@ Future<ApiData> deleteIntakeLabReport(
   } catch (e) {
     print("Error $e");
     print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+///upload base 64
+Future<ApiData> uploadDocumentsMiscNotes({
+  required BuildContext context,
+  required dynamic documentFile,
+  required int miscNoteId,
+}) async {
+  try {
+    String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
+    print("File :::${documents}" );
+    var response = await Api(context).post(
+      path: NotesRepository.uploadDocPost(
+          miscNoteId: miscNoteId
+      ),
+      data: {
+        'base64':documents
+      },
+    );
+    print("Response ${response.toString()}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Misc Notes Documents uploded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }

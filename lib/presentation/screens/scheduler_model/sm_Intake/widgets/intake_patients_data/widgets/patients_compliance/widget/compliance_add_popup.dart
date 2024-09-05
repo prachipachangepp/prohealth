@@ -1,9 +1,19 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/lab_report/lab_report_manager.dart';
+import 'package:prohealth/app/services/api/managers/sm_module_manager/patient_data/patient_data_compliance.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/data/api_data/sm_data/patient_data/patient_data_compliance.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../../../../../app/resources/color.dart';
@@ -21,18 +31,25 @@ class ComplianceAddPopUp extends StatefulWidget {
   final Widget? radioButton;
   final Widget? child2;
   final bool? loadingDuration;
+  final Widget? uploadField;
+  final int? patientId;
+   dynamic filePath;
+   String? fileName;
 
   ComplianceAddPopUp({
     super.key,
+    this.fileName,
+     this.patientId,
     required this.idDocController,
     required this.nameDocController,
     required this.calenderController,
     required this.onPressed,
+     this.uploadField,
     required this.title,
     this.radioButton,
     this.child2,
     this.child,
-    this.loadingDuration,
+    this.loadingDuration, this.filePath,
   });
 
   @override
@@ -40,16 +57,28 @@ class ComplianceAddPopUp extends StatefulWidget {
 }
 
 class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
+  final StreamController<List<PDComplianceModal>>
+  _compliancePatientDataController =
+  StreamController<List<PDComplianceModal>>();
   String _fileName = 'Upload';
-
+  int docTypeId = 0;
+  String? documentTypeName;
+  dynamic filePath;
+  String? selectedDocType;
+  String fileName ='';
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       setState(() {
-        _fileName = result.files.single.name;
+        filePath = result.files.first.bytes;
+        fileName = result.files.first.name;
+        print('File path ${filePath}');
+        print('File name ${fileName}');
       });
     }
   }
+  String? selectedExpiryType;
+  bool _isLoading =false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +101,14 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                   12,
                 ),
               ),
-              color: Color(0xff50B5E5),
+              color: ColorManager.blueprime,
             ),
             height: AppSize.s40,
             width: 408,
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Text(
                     widget.title,
                     style: GoogleFonts.firaSans(
@@ -108,7 +137,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
         ],
       ),
       content: Container(
-        height: 480,
+        height: 470,
         width: AppSize.s350,
         color: Colors.white,
         child: Column(
@@ -131,8 +160,77 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
-                widget.child ?? SizedBox(),
+                SizedBox(height: 5),
+                FutureBuilder<List<PatientDataComplianceDoc>>(
+                  future:
+                  getpatientDataComplianceDoc(context),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return Container(
+                        width: 350,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                          BorderRadius.circular(10),
+                        ),
+                      );
+                    }
+                    if (snapshot.data!.isEmpty) {
+                      return Center(
+                        child: Text(
+                          AppString.dataNotFound,
+                          style: CustomTextStylesCommon
+                              .commonStyle(
+                            fontWeight:
+                            FontWeightManager.medium,
+                            fontSize: FontSize.s12,
+                            color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      List<DropdownMenuItem<String>>
+                      dropDownMenuItems = snapshot.data!
+                          .map((doc) =>
+                          DropdownMenuItem<String>(
+                            value: doc.docType,
+                            child: Text(doc.docType!),
+                          ))
+                          .toList();
+                      docTypeId = snapshot.data![0].docTypeId!;
+                      documentTypeName = snapshot.data![0].docType!;
+                      return CICCDropdown(
+                        initialValue: selectedDocType ??
+                            dropDownMenuItems[0].value,
+                        onChange: (val) {
+                          setState(() {
+                            selectedDocType = val;
+                            for (var doc in snapshot.data!) {
+                              if (doc.docType == val) {
+                                docTypeId = doc.docTypeId!;
+                                documentTypeName = doc.docType;
+                              }
+                            }
+                            getComplianceByPatientId(
+                                context,
+                                1
+                            ).then((data) {
+                              _compliancePatientDataController
+                                  .add(data);
+                            }).catchError((error) {
+                              // Handle error
+                            });
+                          });
+                        },
+                        items: dropDownMenuItems,
+                      );
+                    } else {
+                      return SizedBox();
+                    }
+                  },
+                ),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -147,8 +245,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
-
+                SizedBox(height: 5),
                 ///name of doc
                 Container(
                   height: AppSize.s30,
@@ -181,9 +278,174 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
-                widget.radioButton ?? Offstage(),
-                SizedBox(height: MediaQuery.of(context).size.height / 20),
+                SizedBox(height: 10),
+
+                StatefulBuilder(
+                  builder: (BuildContext context, void Function(void Function()) setState) {
+                    return Column(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Expiry Type",
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.mediumgrey,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            CustomRadioListTile(
+                              value: "Not Applicable",
+                              groupValue: selectedExpiryType,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedExpiryType = value;
+                                });
+                              },
+                              title: "Not Applicable",
+                            ),
+                            CustomRadioListTile(
+                              value: 'Scheduled',
+                              groupValue: selectedExpiryType,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedExpiryType = value;
+                                });
+                              },
+                              title: 'Scheduled',
+                            ),
+                            CustomRadioListTile(
+                              value: 'Issuer Expiry',
+                              groupValue: selectedExpiryType,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedExpiryType = value;
+                                });
+                              },
+                              title: 'Issuer Expiry',
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10,),
+                        Visibility(
+                          visible: selectedExpiryType ==
+                              "Scheduled" ||
+                              selectedExpiryType == "Issuer Expiry",
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Expiry Date",
+                                style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorManager.mediumgrey,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                              FormField<String>(
+                                builder:
+                                    (FormFieldState<String> field) {
+                                  return SizedBox(
+                                    width: 354,
+                                    height: 30,
+                                    child: TextFormField(
+                                      controller: widget.calenderController,
+                                      cursorColor: ColorManager.black,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeight.w700,
+                                        color:
+                                        ColorManager.mediumgrey,
+                                        //decoration: TextDecoration.none,
+                                      ),
+                                      decoration: InputDecoration(
+                                        enabledBorder:
+                                        OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .fmediumgrey,
+                                              width: 1),
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              8),
+                                        ),
+                                        focusedBorder:
+                                        OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ColorManager
+                                                  .fmediumgrey,
+                                              width: 1),
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              8),
+                                        ),
+                                        hintText: 'mm-dd-yyyy',
+                                        hintStyle:
+                                        GoogleFonts.firaSans(
+                                          fontSize: FontSize.s12,
+                                          fontWeight: FontWeight.w700,
+                                          color:
+                                          ColorManager.mediumgrey,
+                                          //decoration: TextDecoration.none,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              8),
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: ColorManager
+                                                  .fmediumgrey),
+                                        ),
+                                        contentPadding:
+                                        EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        suffixIcon: Icon(
+                                            Icons
+                                                .calendar_month_outlined,
+                                            color: ColorManager
+                                                .blueprime),
+                                        errorText: field.errorText,
+                                      ),
+                                      onTap: () async {
+                                        DateTime? pickedDate =
+                                        await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(2000),
+                                          lastDate: DateTime(3101),
+                                        );
+                                        if (pickedDate != null) {
+                                          widget.calenderController.text =
+                                              DateFormat('MM-dd-yyyy')
+                                                  .format(pickedDate);
+                                        }
+                                      },
+                                      validator: (value) {
+                                        if (value == null ||
+                                            value.isEmpty) {
+                                          return 'please select birth date';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+          SizedBox(height: 10),
                 widget.child2 ?? Offstage(),
                 SizedBox(height: 10),
                 Row(
@@ -200,50 +462,54 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
-
                 /// upload  doc
-                Container(
-                  height: AppSize.s30,
-                  width: AppSize.s360,
-                  margin: EdgeInsets.symmetric(horizontal: 5),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: ColorManager.containerBorderGrey,
-                      width: 1,
+        Container(
+          height: AppSize.s30,
+          width: AppSize.s360,
+          margin: EdgeInsets.symmetric(horizontal: 5),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: ColorManager.containerBorderGrey,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: StatefulBuilder(
+            builder: (BuildContext context, void Function(void Function()) setState) {
+              return Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      fileName,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.regular,
+                        color: ColorManager.lightgreyheading,
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          _fileName,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: FontWeightManager.regular,
-                            color: ColorManager.lightgreyheading,
-                          ),
-                        ),
-                        IconButton(
-                          padding: EdgeInsets.all(4),
-                          onPressed: _pickFile,
-                          icon: Icon(
-                            Icons.file_upload_outlined,
-                            color: ColorManager.black,
-                            size: 17,
-                          ),
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                        ),
-                      ],
+                    IconButton(
+                      padding: EdgeInsets.all(4),
+                      onPressed:  _pickFile,
+                      icon: Icon(
+                        Icons.file_upload_outlined,
+                        color: ColorManager.black,
+                        size: 17,
+                      ),
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
                     ),
-                  ),
+                  ],
                 ),
+              );
+            },
+          ),
+        ),
+
               ],
             ),
             SizedBox(
@@ -264,7 +530,45 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                         width: AppSize.s105,
                         height: AppSize.s30,
                         text: AppStringEM.save,
-                        onPressed: widget.onPressed,
+                        onPressed: () async {
+                          print('File path on pressed ${filePath}');
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          String expiryTypeToSend =
+                          selectedExpiryType == "Not Applicable"
+                              ? "--"
+                              : widget.calenderController.text;
+                          try {
+                            ApiData response =  await addLabReport(
+                              context: context,
+                              patientId: 1,
+                              docTypeId: 1,
+                              docType: widget.nameDocController.text,
+                              name: widget.nameDocController.text,
+                              docUrl: "url",
+                              createdAt: DateTime.now(),
+                              expDate: "2024-08-16T09:39:48.030Z",
+                            );
+                            if(response.statusCode == 200 ||response.statusCode == 201 ){
+                              await uploadDocumentsMiscNotes(context: context, documentFile: filePath, miscNoteId: response.labReportId!);
+                            }
+                            print("DocName${widget.nameDocController.text}");
+                            //GetLabReport(context, 1);
+                            Navigator.pop(context);
+                            setState(() {
+                              selectedExpiryType = '';
+                              fileName ='';
+                              widget.calenderController.clear();
+                              //docIdController.clear();
+                              widget.nameDocController.clear();
+                            });
+                          } finally {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                          }
+                        },
                       ),
               ),
             ),
@@ -275,137 +579,6 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
   }
 }
 
-///old
-//
-// class AddClinicianPopup extends StatefulWidget {
-//
-//   final VoidCallback onPressed;
-//    final Widget? child;
-//   final String title;
-//   final String buttonTitle;
-//
-//    final bool? loadingDuration;
-//
-//   AddClinicianPopup({
-//     super.key,
-//
-//      required this.onPressed,
-//     required this.title,
-//      this.child,
-//      this.loadingDuration, required this.buttonTitle,
-//   });
-//
-//   @override
-//   State<AddClinicianPopup> createState() => _AddClinicianPopupState();
-// }
-//
-// class _AddClinicianPopupState extends State<AddClinicianPopup> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return AlertDialog(
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(20.0),
-//       ),
-//       backgroundColor: ColorManager.white,
-//       titlePadding: EdgeInsets.zero,
-//       title: Column(
-//         children: [
-//           Container(
-//             decoration: BoxDecoration(
-//               border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-//               borderRadius: BorderRadius.only(
-//                 topRight: Radius.circular(
-//                   12,
-//                 ),
-//                 topLeft: Radius.circular(
-//                   12,
-//                 ),
-//               ),
-//               color: Color(0xff50B5E5),
-//             ),
-//             height: AppSize.s40,
-//             width: 408,
-//             child: Row(
-//               children: [
-//                 Padding(
-//                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-//                   child: Text(
-//                     widget.title,
-//                     style: GoogleFonts.firaSans(
-//                       fontSize: FontSize.s14,
-//                       fontWeight: FontWeightManager.bold,
-//                       color: ColorManager.white,
-//                     ),
-//                   ),
-//                 ),
-//                 Spacer(),
-//                 IconButton(
-//                   onPressed: () {
-//                     Navigator.pop(context);
-//                   },
-//                   icon: Icon(
-//                     Icons.close,
-//                     color: ColorManager.white,
-//                   ),
-//                   splashColor: Colors.transparent,
-//                   highlightColor: Colors.transparent,
-//                   hoverColor: Colors.transparent,
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//       content: Container(
-//         height: 200,
-//         width: AppSize.s250,
-//         color: Colors.white,
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Text(
-//               "Select Type of Clinician",
-//               style: GoogleFonts.firaSans(
-//                 fontSize: FontSize.s12,
-//                 fontWeight: FontWeightManager.bold,
-//                 color: ColorManager.textPrimaryColor,
-//               ),
-//             ),
-//             SizedBox(
-//               height: AppSize.s5,
-//             ),
-//             SizedBox(height: 10),
-//             widget.child ?? SizedBox(),
-//             SizedBox(
-//               height: 10,
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
-//               child: Center(
-//                 child: widget.loadingDuration == true
-//                     ? SizedBox(
-//                   height: 25,
-//                   width: 25,
-//                   child: CircularProgressIndicator(
-//                     color: ColorManager.blueprime,
-//                   ),
-//                 )
-//                     : CustomElevatedButton(
-//                   width: AppSize.s105,
-//                   height: AppSize.s30,
-//                   text: widget.buttonTitle,
-//                   onPressed: widget.onPressed,
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 /// new
 class AddClinicianPopup extends StatefulWidget {
   final VoidCallback onPressed;

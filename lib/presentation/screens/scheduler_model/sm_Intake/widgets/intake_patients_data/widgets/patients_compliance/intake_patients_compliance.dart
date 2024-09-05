@@ -49,6 +49,18 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
   int docTypeId = 0;
   bool _isLoading = false;
   String? expiryType;
+  String fileName ='';
+  dynamic filePath;
+  Future<void> _pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      setState(() {
+        filePath = result.files.first.bytes;
+        fileName = result.files.single.name;
+        print('File path ${filePath}');
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -128,6 +140,46 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                       });
                                     }
                                   },
+                                  uploadField: Container(
+                                    height: AppSize.s30,
+                                    width: AppSize.s360,
+                                    margin: EdgeInsets.symmetric(horizontal: 5),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: ColorManager.containerBorderGrey,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            fileName,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeightManager.regular,
+                                              color: ColorManager.lightgreyheading,
+                                            ),
+                                          ),
+                                          IconButton(
+                                            padding: EdgeInsets.all(4),
+                                            onPressed:  _pickFile,
+                                            icon: Icon(
+                                              Icons.file_upload_outlined,
+                                              color: ColorManager.black,
+                                              size: 17,
+                                            ),
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                   child: FutureBuilder<List<PatientDataComplianceDoc>>(
                                     future:
                                     getpatientDataComplianceDoc(context),

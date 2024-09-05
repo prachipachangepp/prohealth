@@ -6,12 +6,13 @@ class ApiData {
   final String? imageUrl;
   final int? employeeId;
   final int? patientId;
+  final int? labReportId;
 
   ApiData(
       {required this.statusCode,
       required this.success,
       required this.message,
-      this.data, this.imageUrl, this.employeeId ,
+      this.labReportId,this.data, this.imageUrl, this.employeeId ,
         this.patientId,});
 }
 

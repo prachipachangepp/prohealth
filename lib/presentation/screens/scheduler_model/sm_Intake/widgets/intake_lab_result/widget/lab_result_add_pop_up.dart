@@ -28,11 +28,13 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
   String _selectedExpiryType = '';
 
   String _fileName = 'Upload';
+  dynamic filePath;
 
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       setState(() {
+        filePath = result.files.first.bytes;
         _fileName = result.files.single.name;
       });
     }
@@ -348,7 +350,9 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                     child: Text(AppString.submit,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
@@ -376,6 +380,3 @@ class _LabResultAddPopUpState extends State<LabResultAddPopUp> {
     );
   }
 }
-
-
-//////////////////
