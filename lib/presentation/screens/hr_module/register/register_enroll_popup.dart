@@ -156,7 +156,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
      widget.lastName.addListener(_validateFields);
      widget.email.addListener(_validateFields);
      speciality.addListener(_validateFields);
-     position.addListener(_validateFields);
+    // position.addListener(_validateFields);
      phone.addListener(_validateFields);
      // Add other controllers if necessary
    }
@@ -167,7 +167,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
            widget.lastName.text.isNotEmpty &&
            widget.email.text.isNotEmpty &&
            speciality.text.isNotEmpty &&
-           position.text.isNotEmpty &&
+           //position.text.isNotEmpty &&
            phone.text.isNotEmpty;
        // Add other conditions if necessary
      });
@@ -179,7 +179,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
      widget.lastName.removeListener(_validateFields);
      widget.email.removeListener(_validateFields);
      speciality.removeListener(_validateFields);
-     position.removeListener(_validateFields);
+     //position.removeListener(_validateFields);
      phone.removeListener(_validateFields);
      super.dispose();
    }
