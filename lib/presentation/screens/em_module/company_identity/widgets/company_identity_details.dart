@@ -18,7 +18,13 @@ import '../../widgets/button_constant.dart';
 import 'checkbox_constant.dart';
 
 class CIDetailsScreen extends StatefulWidget {
-   CIDetailsScreen({super.key, required this.officeId, required this.docTD, required this.companyId, required int companyID, required this.companyOfficeid});
+  CIDetailsScreen(
+      {super.key,
+      required this.officeId,
+      required this.docTD,
+      required this.companyId,
+      required int companyID,
+      required this.companyOfficeid});
   final int companyId;
   final int docTD;
   final int companyOfficeid;
@@ -145,6 +151,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
     addressController.dispose();
     super.dispose();
   }
+
   ValueNotifier<List<String>> _suggestionsNotifier = ValueNotifier([]);
 
   void _onAddressChanged() async {
@@ -187,7 +194,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
 
             List<Widget> serviceRows = [];
 
-
             for (int i = 0; i < snapshot.data!.serviceDetails!.length; i += 2) {
               List<Widget> rowChildren = [];
 
@@ -207,9 +213,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                   rowChildren.add(
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 25,left: 25,top: 10,bottom: 10),
+                        padding: const EdgeInsets.only(
+                            right: 25, left: 25, top: 10, bottom: 10),
                         child: Row(
-                         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             // CheckboxConstant(
@@ -235,7 +242,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             //   },
                             //   text: '',
                             // ),
-                           // const SizedBox(width: 100),
+                            // const SizedBox(width: 100),
 
                             CIDetailsDropdown(
                               initialValue: serviceDetail.serviceName,
@@ -281,7 +288,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: rowChildren,
-
               ));
             }
 
@@ -295,16 +301,21 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: AppPadding.p20),
                     child: Row(
                       children: [
                         Text(
                           AppStringEM.details,
-                          style: CompanyIdentityManageHeadings.customTextStyle(context),
+                          style: CompanyIdentityManageHeadings.customTextStyle(
+                              context),
                         ),
                       ],
                     ),
                   ),
+
+
+
                   Container(
                     height: AppSize.s350,
                     decoration: BoxDecoration(
@@ -421,7 +432,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     ),
                   ),
                   /// Service List
-                  if (snapshot.data!.serviceDetails != null && snapshot.data!.serviceDetails!.isNotEmpty)
+                  if (snapshot.data!.serviceDetails != null &&
+                      snapshot.data!.serviceDetails!.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Column(
@@ -429,7 +441,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         children: [
                           Text(
                             'Services',
-                            style: CompanyIdentityManageHeadings.customTextStyle(context),
+                            style:
+                                CompanyIdentityManageHeadings.customTextStyle(
+                                    context),
                           ),
                           const SizedBox(height: AppSize.s10),
                           Container(
@@ -457,6 +471,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                       ),
                     ),
                   SizedBox(height: AppSize.s10),
+
                   /// Button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -483,14 +498,18 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return AddSuccessPopup(message: 'Edited successfully.',);
+                              return AddSuccessPopup(
+                                message: 'Edited successfully.',
+                              );
                             },
                           );
                         },
                       ),
                     ],
                   ),
-                  SizedBox(height: 5,)
+                  SizedBox(
+                    height: 5,
+                  )
                 ],
               ),
             );

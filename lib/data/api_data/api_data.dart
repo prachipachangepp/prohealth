@@ -9,6 +9,7 @@ class ApiData {
   final int? labReportId;
   final int? miscNoteId;
 
+  final int? rDignosisId;
 
   ApiData(
       {required this.statusCode,
@@ -16,9 +17,12 @@ class ApiData {
       required this.message,
       this.labReportId,this.data, this.imageUrl, this.employeeId ,
         this.patientId,this.miscNoteId,});
+      this.data, this.imageUrl, this.employeeId ,
+        this.patientId, this.rDignosisId,});
 }
 
 class ApiDataFilter {
+
   final int employeeId;
   final String code;
   final int userId;

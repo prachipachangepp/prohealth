@@ -299,7 +299,7 @@ class _SmIntakePatientsScreenState extends State<SmIntakePatientsScreen> {
                       selectedReligion.toString() ?? '',
                       selectedMaritalStatus.toString() ?? '',
                       //"2024-08-12",
-                      ctlrDateOfDeath.text,
+                      ctlrDateOfDeath.text,    //  :"2024-08-14T00:00:00Z",
                       1,
                       'At Land OSC',
                       'case',

@@ -188,6 +188,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                       style: ThemeManagerDark.customTextStyle(context)),
                                 ],
                               ),
+
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
