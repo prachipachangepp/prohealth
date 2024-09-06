@@ -24,6 +24,7 @@ import '../../../../../app/services/api/managers/establishment_manager/company_i
 import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../scheduler_model/textfield_dropdown_constant/schedular_textfield_const.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/table_constant.dart';
 import '../../widgets/text_form_field_const.dart';
@@ -42,6 +43,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   TextEditingController addressController = TextEditingController();
   TextEditingController payRatesController = TextEditingController();
   TextEditingController perMilesController = TextEditingController();
+  TextEditingController dummyCtrl = TextEditingController();
   final StreamController<List<PayRatesGet>> _payRatesController =
       StreamController<List<PayRatesGet>>();
 
@@ -65,10 +67,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
     super.initState();
     _loadPayRatesData();
 
-    companyPayratesGet(context).then((data){
+    companyPayratesGet(context).then((data) {
       _payRatesController.add(data);
     }).catchError((error) {});
-
   }
 
   // List<PayRatesGet> allData = [];
@@ -196,11 +197,15 @@ class _FinanceScreenState extends State<FinanceScreen> {
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return Container(
-                                // width: 180,
-                                // height: 30,
-                                alignment: Alignment.center,
-                                child: loadingText,
+                              return dummeyTextField(
+                                width: 300,
+                                height: 30,
+                                controller: dummyCtrl,
+                                labelText: 'Select',
+                                suffixIcon: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: ColorManager.black,
+                                ),
                               );
                             }
                             if (snapshot.hasData && snapshot.data!.isEmpty) {
@@ -309,7 +314,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                         serviceTypeId,
                                       );
                                       setState(() {
-                                        companyPayratesGet(context).then((data){
+                                        companyPayratesGet(context)
+                                            .then((data) {
                                           _payRatesController.add(data);
                                         }).catchError((error) {});
                                       });
@@ -327,18 +333,10 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
-                                      return Container(
-                                        width: 300,
-                                        child: Text(
-                                          'Loading...',
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                                FontWeightManager.medium,
-                                            fontSize: FontSize.s12,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                        ),
+                                      return CICCDropDownExcel(
+                                        width: 354,
+                                        initialValue: 'Select',
+                                        items: [],
                                       );
                                     }
                                     if (snapshot.hasData &&
@@ -368,7 +366,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           ),
                                         );
                                       }
-                                      return CICCDropdown(
+                                      return CICCDropDownExcel(
                                         initialValue:
                                             dropDownZoneList.isNotEmpty
                                                 ? dropDownZoneList[0].value
@@ -391,18 +389,10 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   builder: (context, snapshotZone) {
                                     if (snapshotZone.connectionState ==
                                         ConnectionState.waiting) {
-                                      return Container(
-                                        width: 300,
-                                        child: Text(
-                                          'Loading...',
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            fontWeight:
-                                                FontWeightManager.medium,
-                                            fontSize: FontSize.s12,
-                                            color: ColorManager.mediumgrey,
-                                          ),
-                                        ),
+                                      return const CICCDropDownExcel(
+                                        width: 354,
+                                        initialValue: 'Select',
+                                        items: [],
                                       );
                                     }
                                     if (snapshotZone.hasData &&
@@ -432,7 +422,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           ),
                                         );
                                       }
-                                      return CICCDropdown(
+                                      return CICCDropDownExcel(
                                         initialValue:
                                             dropDownTypesList.isNotEmpty
                                                 ? dropDownTypesList[0].value
@@ -727,14 +717,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                                 snapshot) {
                                                                           if (snapshot.connectionState ==
                                                                               ConnectionState.waiting) {
-                                                                            return Shimmer.fromColors(
-                                                                                baseColor: Colors.grey[300]!,
-                                                                                highlightColor: Colors.grey[100]!,
-                                                                                child: Container(
-                                                                                  width: 354,
-                                                                                  height: 30,
-                                                                                  decoration: BoxDecoration(color: ColorManager.faintGrey, borderRadius: BorderRadius.circular(10)),
-                                                                                ));
+                                                                            return CICCDropDownExcel(
+                                                                              width: 354,
+                                                                              initialValue: 'Select',
+                                                                              items: [],
+                                                                            );
                                                                           }
                                                                           if (snapshot
                                                                               .data!
@@ -769,7 +756,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                                 ),
                                                                               );
                                                                             }
-                                                                            return CICCDropdown(
+                                                                            return CICCDropDownExcel(
                                                                                 initialValue: dropDownTypesList[0].value,
                                                                                 onChange: (val) {
                                                                                   for (var a in snapshot.data!) {
@@ -808,9 +795,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                       print(
                                                                           "ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
 
-                                                                      companyPayratesGet(context).then((data){
-                                                                        _payRatesController.add(data);
-                                                                      }).catchError((error) {});
+                                                                      companyPayratesGet(context).then(
+                                                                          (data) {
+                                                                        _payRatesController
+                                                                            .add(data);
+                                                                      }).catchError(
+                                                                          (error) {});
 
                                                                       // payRatesController
                                                                       //     .clear();
@@ -865,7 +855,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                               setState(() {
                                                                                 _isLoading = false;
                                                                               });
-                                                                              companyPayratesGet(context).then((data){
+                                                                              companyPayratesGet(context).then((data) {
                                                                                 _payRatesController.add(data);
                                                                               }).catchError((error) {});
                                                                               Navigator.pop(context);
