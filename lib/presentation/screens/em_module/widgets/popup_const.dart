@@ -26,8 +26,10 @@ class CustomDialog extends StatefulWidget {
   final TextEditingController roleController;
   final TextEditingController passwordController;
   final TextEditingController companyIdController ;
+  Widget child;
 
   CustomDialog({
+    required this.child,
     required this.title,
     required this.onSubmit,
     required this.userIdController,
@@ -187,13 +189,14 @@ class _CustomDialogState extends State<CustomDialog> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: HRManageDropdown(
-                    controller: widget.roleController,
-                    labelText: 'Role',
-                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                    labelFontSize: 12,
-                    items: ['Admin', 'Sales', 'Clinician'],
-                  ),
+                  child: widget.child,
+                  // HRManageDropdown(
+                  //   controller: widget.roleController,
+                  //   labelText: 'Role',
+                  //   labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                  //   labelFontSize: 12,
+                  //   items: ['Admin', 'Sales', 'Clinician'],
+                  // ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
@@ -367,24 +370,28 @@ class _CustomTextFieldWithIconState extends State<CustomTextFieldWithIcon> {
 class EditUserPopUp extends StatefulWidget {
   final String title;
   final VoidCallback onSubmit;
+  Widget child;
   final TextEditingController userIdController;
   final TextEditingController lastNameController;
   final TextEditingController emailController;
   final TextEditingController firstNameController;
    TextEditingController? roleController;
-  // final TextEditingController passwordController;
+   final TextEditingController passwordController;
   final TextEditingController companyIdController ;
+  final bool ? enable;
 
 
    EditUserPopUp({
     required this.title,
+    required this.child,
     required this.onSubmit,
     required this.userIdController,
     required this.lastNameController,
     required this.emailController,
     required this.firstNameController,
      this.roleController,
-    required this.companyIdController});
+    required this.companyIdController, required this.passwordController,
+   this.enable});
 
 
   @override
@@ -404,7 +411,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
         child: Stack(
           children: <Widget>[
             Container(
-              height: 420,
+              height: 480,
               width: 360,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -466,6 +473,8 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: HRManageTextField(
+                          readOnly: true,
+                          enabled: false,
                           controller: widget.userIdController,
                           keyboardType: TextInputType.phone,
                           text: "User ID",
@@ -502,13 +511,14 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           errorText: 'Last Name is required',
                         ),
                       ),
-                      HRManageDropdown(
-                        controller: widget.roleController!,
-                        labelText: 'Role',
-                        labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                        labelFontSize: 12,
-                        items: ['Admin', 'Staff', 'User'],
-                      ),
+                      widget.child,
+                      // HRManageDropdown(
+                      //   controller: widget.roleController!,
+                      //   labelText: 'Role',
+                      //   labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                      //   labelFontSize: 12,
+                      //   items: ['Admin', 'Staff', 'User'],
+                      // ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: HRManageTextFieldEmail(
@@ -522,19 +532,19 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                           errorText: 'Email is required',
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: HRManageTextField(
-                      //     controller: widget.companyIdController,
-                      //     keyboardType: TextInputType.phone,
-                      //     text: "Company ID",
-                      //     cursorHeight: 12,
-                      //     labelText: "Company ID",
-                      //     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                      //     labelFontSize: 12,
-                      //     errorText: 'Company ID is required',
-                      //   ),
-                      // ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: HRManageTextField(
+                          controller: widget.passwordController,
+                          keyboardType: TextInputType.visiblePassword,
+                          text: "Password",
+                          cursorHeight: 12,
+                          labelText: "Password",
+                          labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                          labelFontSize: 12,
+                          errorText: 'Password is required',
+                        ),
+                      ),
                       SizedBox(height: 24.0),
                       ReusableLoadingButton(
                         text: 'Submit',

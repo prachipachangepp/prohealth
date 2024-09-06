@@ -56,9 +56,11 @@ Future<UserModalPrefill> getUserPrefill(BuildContext context,int userId) async {
                 userId: response.data['userId'],
                 firstName: response.data['firstName'],
                 lastName: response.data['lastName']??"--",
-                role: response.data['role'],
+                deptId: response.data['departmentId'],
+                department: response.data['department'],
                 companyId: response.data['company_id'],
                 email: response.data['email'],
+                status: response.data['status'],
                 sucess: true,
                 message: response.statusMessage!);
 
@@ -80,18 +82,17 @@ Future<ApiData> createUserPost(
     BuildContext context,
     String firstName,
     String lastName,
-    String role,
+    int departmentId,
     String email,
     int companyId,
     String password
     ) async {
   try {
     // final companyId = await TokenManager.getCompanyId();
-
     var response = await Api(context).post(path: EstablishmentManagerRepository.createUserPost(), data: {
       'firstName':firstName,
       'lastName':lastName,
-      'role':role,
+      'departmentId':departmentId,
       'email':email,
       'company_id':1,
       'password':password
@@ -196,16 +197,19 @@ Future<ApiData> updateUserPatch(
     int userId,
     String firstName,
     String lastName,
-    String role,
+    int departmentId,
     String email,
-    int companyId
+    String password,
+    //int companyId
     ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(path: EstablishmentManagerRepository.userUpdatePatch(userId: userId), data: {
       'firstName':firstName,
       'lastName':lastName,
-      'role':role,
+      'departmentId':departmentId,
       'email':email,
+      'password':password,
       'company_id':companyId,
     });
     if (response.statusCode == 200 || response.statusCode == 201) {

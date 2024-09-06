@@ -292,12 +292,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       docZoneId != null) {
                                     try {
                                       int zoneId = docZoneId;
-                                      int rate =
-                                          int.parse(payRatesController.text);
-                                      String typeOfVisitId =
-                                          docAddVisitTypeId.toString();
-                                      int perMile =
-                                          int.parse(perMilesController.text);
+                                      int rate = int.parse(payRatesController.text);
+                                      String typeOfVisitId = docAddVisitTypeId.toString();
+                                      int perMile = int.parse(perMilesController.text);
                                       int serviceTypeId = selectedServiceId!;
 
                                       await addPayrates(
@@ -700,26 +697,17 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                         false,
                                                                     title:
                                                                         'Edit Payrate',
-                                                                    child1:
-                                                                        SMTextFConst(
-                                                                      enable:
-                                                                          false,
-                                                                      readOnly:
-                                                                          true,
-                                                                      controller:
-                                                                          TextEditingController(
+                                                                    child1: SMTextFConst(
+                                                                      enable: false,
+                                                                      readOnly: true,
+                                                                      controller: TextEditingController(
                                                                         text: visitTypeId
                                                                             .toString(),
                                                                       ),
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .number,
-                                                                      text:
-                                                                          'Type of Visit',
+                                                                      keyboardType: TextInputType.number,
+                                                                      text: 'Type of Visit',
                                                                     ),
-                                                                    child2: FutureBuilder<
-                                                                            List<
-                                                                                SortByZoneData>>(
+                                                                    child2: FutureBuilder<List<SortByZoneData>>(
                                                                         future: PayRateZoneDropdown(
                                                                             context),
                                                                         builder:
@@ -785,16 +773,13 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                           }
                                                                           return const SizedBox();
                                                                         }),
-                                                                    payRatesController:
-                                                                        payRatesController,
-                                                                    perMilesController:
-                                                                        perMilesController,
+                                                                    payRatesController: payRatesController,
+                                                                    perMilesController: perMilesController,
                                                                     onPressed:
                                                                         () async {
                                                                       await updatePayRatesSetupPost(
                                                                           context,
-                                                                          finance
-                                                                              .payratesId,
+                                                                          finance.payratesId,
                                                                           docZoneId,
                                                                           payRates == int.parse(payRatesController.text)
                                                                               ? payRates!

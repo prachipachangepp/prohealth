@@ -22,11 +22,16 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../app/services/api/managers/establishment_manager/user.dart';
+import '../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../data/api_data/establishment_data/user/user_modal.dart';
 import '../../../../data/api_data/hr_module_data/register_data/main_register_screen_data.dart';
+import '../../../widgets/establishment_text_const/text_widget_const.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../em_module/widgets/popup_const.dart';
 import '../manage/widgets/custom_icon_button_constant.dart';
 import 'confirmation_constant.dart';
@@ -97,6 +102,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
   bool _isLoading = false;
 
+  var deptId = 0;
+  int? firstDeptId;
+  String? selectedDeptName;
+  int? selectedDeptId;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -120,6 +130,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     emailController.clear();
                     companyIdController.clear();
                     passwordController.clear();
+                    if (selectedDeptId == null){
+                      setState(() {
+                        selectedDeptId = firstDeptId;
+                      });
+                    }
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -135,11 +150,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onSubmit: () async {
                             await createUserPost(
                                 context,
-
                                 // userIdController.text,
                                 firstNameController.text,
                                 lastNameController.text,
-                                roleController.text,
+                                selectedDeptId!,// roleController.text,
                                 emailController.text,
                                 1, // int.parse(companyIdController.text),
                                 passwordController.text);
@@ -155,6 +169,74 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             companyIdController.clear();
                             passwordController.clear();
                           },
+                          child: FutureBuilder<List<HRHeadBar>>(
+                            future: companyHRHeadApi(context, deptId),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Container(
+                                  // width: 180,
+                                  // height: 30,
+                                  alignment: Alignment.center,
+                                  child: loadingText,
+                                );
+                              }
+                              if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    ErrorMessageString.noroleAdded,
+                                    style: CustomTextStylesCommon.commonStyle(
+                                      fontWeight: FontWeightManager.medium,
+                                      fontSize: FontSize.s12,
+                                      color: ColorManager.mediumgrey,
+                                    ),
+                                  ),
+                                );
+                              }
+                              if (snapshot.hasData) {
+                                List<DropdownMenuItem<String>>
+                                dropDownServiceList = [];
+                                for (var dept in snapshot.data!) {
+                                  dropDownServiceList.add(
+                                    DropdownMenuItem<String>(
+                                      value: dept.deptName,
+                                      child: Text(dept.deptName ?? ''),
+                                    ),
+                                  );
+                                }
+
+                                // Store the service ID of the 0th position
+                                if (dropDownServiceList.isNotEmpty) {
+                                  firstDeptId = snapshot.data![0].deptId;
+                                }
+
+                                if (selectedDeptName == null &&
+                                    dropDownServiceList.isNotEmpty) {
+                                  selectedDeptName =
+                                      dropDownServiceList[0].value;
+                                  selectedDeptId = firstDeptId;
+                                }
+
+                                return CICCDropdown(
+                                  width: 300,
+                                  initialValue: selectedDeptName,
+                                  onChange: (val) {
+                                    setState(() {
+                                      selectedDeptName = val;
+                                      for (var dept in snapshot.data!) {
+                                        if (dept.deptName == val) {
+                                          selectedDeptId =
+                                              dept.deptId;
+                                        }
+                                      }
+                                    });
+                                  },
+                                  items: dropDownServiceList,
+                                );
+                              }
+                              return const SizedBox();
+                            },
+                          ),
                         );
                       },
                     );
