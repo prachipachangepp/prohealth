@@ -22,8 +22,10 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../../app/services/base64/download_file_base64.dart';
 import '../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../../em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+import '../../../../../../hr_module/onboarding/download_doc_const.dart';
 import '../../../../../widgets/constant_widgets/button_constant.dart';
 
 class IntakePComplianceScreen extends StatefulWidget {
@@ -125,7 +127,6 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                       print("DocName${docNamecontroller.text}");
                                       fetchPatientDataCompliance(
                                         context,
-
                                       );
                                       Navigator.pop(context);
                                       setState(() {
@@ -476,9 +477,42 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                 //       ? totalItems
                                 //       : (currentPage * itemsPerPage),
                                 // );
+
                                 return ListView.builder(
                                   itemCount: snapshot.data!.length,
                                   itemBuilder: (BuildContext context, index) {
+                                    var compliance = snapshot.data![index];
+                                    var fileUrl = compliance.docUrl;
+                                    final fileExtension = fileUrl!.split('/').last;
+
+                                    Widget fileWidget;
+
+                                    if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                                      fileWidget = Image.network(
+                                        fileUrl,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return Icon(
+                                            Icons.broken_image,
+                                            size: 45,
+                                            color: ColorManager.faintGrey,
+                                          );
+                                        },
+                                      );
+                                    }
+                                    else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                                      fileWidget = Icon(
+                                        Icons.description,
+                                        size: 45,
+                                        color: ColorManager.faintGrey,
+                                      );
+                                    } else {
+                                      fileWidget = Icon(
+                                        Icons.insert_drive_file,
+                                        size: 45,
+                                        color: ColorManager.faintGrey,
+                                      );
+                                    }
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 8.0, horizontal: 40),
@@ -663,14 +697,17 @@ class _IntakePComplianceScreenState extends State<IntakePComplianceScreen> {
                                                       //             .width /
                                                       //         120),
                                                       IconButton(
-                                                        icon: Icon(
-                                                          size: 20,
-                                                            Icons
-                                                                .file_download_outlined,
-                                                            color: ColorManager
-                                                                .textPrimaryColor),
-                                                        onPressed: () {},
-                                                      ),
+                                                      onPressed: () {
+                                                print("FileExtension:${fileExtension}");
+                                                DowloadFile().downloadPdfFromBase64(
+                                                fileExtension,"Compliance.pdf");
+                                                downloadFile(fileUrl);
+                                                // DowloadFile().downloadPdfFromBase64(fileExtension,"Compensation");
+                                                },
+                                                  icon: Icon(
+                                                    Icons.save_alt_outlined,
+                                                    color: Color(0xff1696C8),
+                                                  ),),
                                                       SizedBox(
                                                           width: MediaQuery.of(
                                                                       context)

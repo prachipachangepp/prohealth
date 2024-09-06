@@ -91,6 +91,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                         text: AppString.add_new,
                         icon: Icons.add,
                         onPressed: () async {
+                          print("patientId${widget.patientId}");
                           String? selectedDocType;
                           String? selectedExpiryType = expiryType;
                           showDialog(
@@ -114,7 +115,7 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                   try {
                                     ApiData response =  await addLabReport(
                                       context: context,
-                                      patientId: 1,
+                                      patientId: widget.patientId,
                                       docTypeId: 1,
                                       docType: namecontroller.text,
                                       name: namecontroller.text,
@@ -123,7 +124,9 @@ class _IntakeLabResultScreenState extends State<IntakeLabResultScreen> {
                                       expDate: "2024-08-16T09:39:48.030Z",
                                     );
                                     if(response.statusCode == 200 ||response.statusCode == 201 ){
-                                      await uploadDocumentsMiscNotes(context: context, documentFile: filePath, miscNoteId: response.labReportId!);
+                                      await uploadDocumentsLabReport(context: context,
+                                          documentFile: filePath,
+                                          labReportId: response.labReportId!);
                                     }
                                     print("DocName${namecontroller.text}");
                                     //GetLabReport(context, 1);

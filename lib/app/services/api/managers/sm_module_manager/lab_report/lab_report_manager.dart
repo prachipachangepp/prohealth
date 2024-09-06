@@ -73,7 +73,7 @@ class LabReportModal {
       this.expDate});
 }
 
-///Add Compliance
+///Add lab report
 Future<ApiData> addLabReport(
     {required BuildContext context,
 
@@ -97,7 +97,7 @@ Future<ApiData> addLabReport(
       "createdAt": actualCurrentDate,
       "expDate": expDate
     };
-    print(' Post Intake Compliance $data');
+    print(' Post lab report $data');
     var response = await Api(context)
         .post(path: PatientDataInfoRepo.labReportAdd(), data: {
       "patientId": patientId,
@@ -110,7 +110,7 @@ Future<ApiData> addLabReport(
     });
     print('Lab Report Add ::::$response ');
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Compliance addded ");
+      print("lab report addded ");
       var responseData = response.data;
       var labId = responseData['labReportId'];
       return ApiData(
@@ -164,17 +164,27 @@ Future<ApiData> deleteIntakeLabReport(
 
 
 ///upload base 64
-Future<ApiData> uploadDocumentsMiscNotes({
+Future<ApiData> uploadDocumentsLabReport({
   required BuildContext context,
   required dynamic documentFile,
-  required int miscNoteId,
+  required int labReportId,
+
+
+// "labReportId": 0,
+// "patientId": 0,
+// "docTypeId": 0,
+// "docType": "string",
+// "name": "string",
+// "docUrl": "string",
+// "createdAt": "2024-09-05T19:22:36.118Z",
+// "expDate": "2024-09-05T19:22:36.118Z"
 }) async {
   try {
     String documents = await AppFilePickerBase64.getEncodeBase64(bytes: documentFile);
     print("File :::${documents}" );
     var response = await Api(context).post(
-      path: NotesRepository.uploadDocPost(
-          miscNoteId: miscNoteId
+      path: NotesRepository.uploadDocPostLabReport(
+          labReportId: labReportId
       ),
       data: {
         'base64':documents
@@ -182,7 +192,7 @@ Future<ApiData> uploadDocumentsMiscNotes({
     );
     print("Response ${response.toString()}");
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Misc Notes Documents uploded");
+      print("Lab Report Documents uploded");
       // orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,

@@ -445,7 +445,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                     );
                   },
                 ),
-          SizedBox(height: 10),
+                SizedBox(height: 10),
                 widget.child2 ?? Offstage(),
                 SizedBox(height: 10),
                 Row(
@@ -542,7 +542,7 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                           try {
                             ApiData response =  await addLabReport(
                               context: context,
-                              patientId: 1,
+                              patientId: widget.patientId!,
                               docTypeId: 1,
                               docType: widget.nameDocController.text,
                               name: widget.nameDocController.text,
@@ -551,7 +551,10 @@ class _ComplianceAddPopUpState extends State<ComplianceAddPopUp> {
                               expDate: "2024-08-16T09:39:48.030Z",
                             );
                             if(response.statusCode == 200 ||response.statusCode == 201 ){
-                              await uploadDocumentsMiscNotes(context: context, documentFile: filePath, miscNoteId: response.labReportId!);
+                              await uploadDocumentsLabReport(
+                                  context: context,
+                                  documentFile: filePath,
+                                  labReportId: response.labReportId!);
                             }
                             print("DocName${widget.nameDocController.text}");
                             //GetLabReport(context, 1);

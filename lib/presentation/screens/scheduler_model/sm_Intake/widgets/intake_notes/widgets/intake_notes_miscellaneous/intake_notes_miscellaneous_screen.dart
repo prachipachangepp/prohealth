@@ -49,6 +49,8 @@ class _IntakeNotesMiscellaneousScreenState
   int docTypeId = 0;
   bool _isLoading = false;
   String? expiryType;
+  String fileName ='';
+  dynamic filePath;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -86,64 +88,13 @@ class _IntakeNotesMiscellaneousScreenState
                         builder: (BuildContext context) {
                           return MiscellaneousAddPopUp(
                               title: 'Add New Notes',
+                              patientId: widget.patientId,
+                              fileName: fileName,
+                              filePath: filePath,
                               idDocController: docIdController,
                               nameDocController: nameController,
                               calenderController: calenderController,
-                              child: FutureBuilder<List<PatientDataComplianceDoc>>(
-                                future: getpatientDataComplianceDoc(context),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Container(
-                                      width: AppSize.s350,
-                                      height: AppSize.s30,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    );
-                                  }
-                                  if (snapshot.data!.isEmpty) {
-                                    return Center(
-                                      child: Text(
-                                        AppString.dataNotFound,
-                                        style:
-                                            CustomTextStylesCommon.commonStyle(
-                                          fontWeight: FontWeightManager.medium,
-                                          fontSize: FontSize.s12,
-                                          color: ColorManager.mediumgrey,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  if (snapshot.hasData) {
-                                    List<DropdownMenuItem<String>>
-                                        dropDownMenuItems = snapshot.data!
-                                            .map((doc) =>
-                                                DropdownMenuItem<String>(
-                                                  value: doc.docType,
-                                                  child: Text(doc.docType!),
-                                                ))
-                                            .toList();
-                                    return CICCDropdown(
-                                      initialValue: selectedDocType ??
-                                          dropDownMenuItems[0].value,
-                                      onChange: (val) {
-                                        setState(() {
-                                          selectedDocType = val;
-                                          for (var doc in snapshot.data!) {
-                                            if (doc.docType == val) {
-                                              docTypeId = doc.docTypeId!;
-                                            }
-                                          }
-                                        });
-                                      },
-                                      items: dropDownMenuItems,
-                                    );
-                                  } else {
-                                    return SizedBox();
-                                  }
-                                },
-                              ),
+
                               // child2: ,
                               radioButton: StatefulBuilder(
                                 builder: (BuildContext context,
@@ -323,18 +274,27 @@ class _IntakeNotesMiscellaneousScreenState
                                 },
                               ),
                               onPressed: () async {
+                                print('File path on pressed ${filePath}');
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                String expiryTypeToSend =
+                                selectedExpiryType == "Not Applicable"
+                                    ? "--"
+                                    : calenderController.text;
                                 try {
                                   await addNotesMiscPost(
                                     context: context,
                                     patientId: widget.patientId,
-                                    docTypeId: 1, //  docTypeId,
+                                    docTypeId: docTypeId, //  docTypeId,
                                     docName: nameController.text,
                                     docUrl: "some_doc_url",
                                     createdAt: calenderController.text,
                                     docType: selectedDocType!,
-                                    expDate:
-                                        "${calenderController.text}T09:39:48.030Z",
+                                    // expDate: "${calenderController.text}T09:39:48.030Z",
+                                     expDate: "2024-08-16T09:39:48.030Z",
                                   );
+                                  print("DocName${nameController.text}");
                                 } catch (e) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
