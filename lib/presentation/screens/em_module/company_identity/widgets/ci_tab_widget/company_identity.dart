@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/establishment_resources/establishment_st
 import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -80,6 +81,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   int currentPage = 1;
   int itemsPerPage = 10;
   final int totalPages = 5;
+  bool _isHovered = false;
 
   void onPageNumberPressed(int page) {
     setState(() {
@@ -163,6 +165,10 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(left:25),
+                  child: Container(height: 20,width:100),
+                ),
                 Expanded(
                   child: Center(
                     child: Text(
@@ -259,7 +265,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                       children: [
                                         const SizedBox(height: 5),
                                         Container(
-                                          padding: const EdgeInsets.only(bottom: 5),
+                                          padding: const EdgeInsets.only(bottom: 5,top: 5),
                                           margin: const EdgeInsets.symmetric(horizontal: 50),
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -273,10 +279,61 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                               ),
                                             ],
                                           ),
-                                          height: 56,
+                                          height: 60,
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 25),
+                                                child: StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                    return Center(
+                                                      child: InkWell(
+                                                        onTap: () async{
+                                                          String googleMapsUrl =
+                                                              'https://www.google.com/maps/search/?api=1&query=19.113284653915976, 72.86915605796655';
+                                                          if (await canLaunchUrlString(googleMapsUrl)) {
+                                                          await launchUrlString(googleMapsUrl);
+                                                          } else {
+                                                          print('Could not open the map.');
+                                                          }
+                                                        },
+                                                        child: MouseRegion(
+                                                          onEnter: (_) {
+                                                            setState(() {
+                                                              _isHovered = true;
+                                                            });
+                                                          },
+                                                          onExit: (_) {
+                                                            setState(() {
+                                                              _isHovered = false;
+                                                            });
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment.center,
+                                                            children: [
+                                                              Container(
+                                                                height: 100,
+                                                                width: 100,
+                                                                child: Image.asset(
+                                                                  "images/mapImage.png",
+                                                                  fit: BoxFit.cover,
+                                                                ),
+                                                              ),
+                                                              if (_isHovered)
+                                                                Icon(
+                                                                  Icons.map,
+                                                                  size: 20,
+                                                                  color: ColorManager.blueprime,
+                                                                ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ); },
+                                                ),
+                                              ),
                                               Expanded(
                                                 child: Center(
                                                   child: Text(
@@ -303,13 +360,24 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                               ),
                                               Expanded(
                                                 child: Center(
-                                                  child: Text(
-                                                    paginatedData[index].address.toString(),
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.w700,
-                                                      color: const Color(0xff686464),
-                                                    ),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      // Text('View Map',style:GoogleFonts.firaSans(
+                                                      //   fontSize: 10,
+                                                      //   fontWeight: FontWeight.w700,
+                                                      //   color: const Color(0xff686464),
+                                                      // ),),
+                                                      // SizedBox(width:15),
+                                                      Text(
+                                                        paginatedData[index].address.toString(),
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w700,
+                                                          color: const Color(0xff686464),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ),

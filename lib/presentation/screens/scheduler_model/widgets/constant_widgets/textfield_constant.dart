@@ -98,6 +98,7 @@ try{
         ),
         cursorColor: ColorManager.black,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: 5,horizontal: 6),
           labelText: '',
           labelStyle: GoogleFonts.firaSans(
             fontSize: FontSize.s10,
@@ -105,21 +106,21 @@ try{
             color: ColorManager.greylight,
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
               width: AppSize.s1,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
               width: AppSize.s1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(
               color: ColorManager.containerBorderGrey,
               width: AppSize.s1,
