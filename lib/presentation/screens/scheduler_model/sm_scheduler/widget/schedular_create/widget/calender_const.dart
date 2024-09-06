@@ -366,6 +366,7 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/app/services/api/managers/sm_module_manager/scheduler/scheduler_create_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
+import 'package:prohealth/data/api_data/sm_data/scheduler_create_data/create_data.dart';
 import 'package:prohealth/data/api_data/sm_data/scheduler_create_data/schedular_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -374,6 +375,8 @@ import 'package:prohealth/presentation/screens/scheduler_model/sm_scheduler/widg
 import 'assign_visit_pop_up.dart';
 
 class CalenderConstant extends StatefulWidget {
+  final SchedularData schedularData;
+  CalenderConstant({required this.schedularData});
   @override
   _CalenderConstantState createState() => _CalenderConstantState();
 }
@@ -388,15 +391,14 @@ class _CalenderConstantState extends State<CalenderConstant> {
     fetchAndSetEvents(context, 134); // Assuming clinicianId is 134 for demonstration purposes
   }
   List<CalendarEventData> allEvents = [];
+  Map<CalendarEventData, int> eventSchedulerMap = {}; // Map to store the event and schedulerId
   Future<void> fetchAndSetEvents(BuildContext context, int clinicianId) async {
-    SchedularData? schedularData = await getSchedularByClinitian(context: context, clinicialId: clinicianId);
-
-    if (schedularData != null && schedularData.calender != null) {
+    if (widget.schedularData != null && widget.schedularData.calender != null) {
       var assignedDate;
       DateTime staticStartTime1 = DateTime(2024, 8, 29, 01, 00); // August 20, 2024, 10:00 AM
       //DateTime staticEndTime = DateTime(2024, 8, 29, 02, 30);
 
-      for (var calendarItem in schedularData.calender) {
+      for (var calendarItem in widget.schedularData.calender) {
         var date = DateTime.parse(calendarItem.assignDate);
         assignedDate =  DateFormat('yyyy, MM, dd').format(date);
         DateTime startTime = DateTime.parse(calendarItem.startTime);
@@ -431,8 +433,11 @@ class _CalenderConstantState extends State<CalenderConstant> {
           startTime: staticStartTime,
           endTime: staticendTime,
         );
+
         eventController.add(event);
+        eventSchedulerMap[event] = calendarItem.schedulerCreateId;
         print('EventController ${eventController}');
+        print('Event ${event.title} has schedulerId ${calendarItem.schedulerCreateId}');
 
         print("Event ${eventController.allEvents}");
         try{
@@ -532,131 +537,162 @@ class _CalenderConstantState extends State<CalenderConstant> {
                 children: events.map((event) {
                   return InkWell(
                     onTap: (){
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return EditCalenderSchedulePopup(onPressed: () async{
-                            var response = await updateScheduleCalender(context: context, schedulerCreateId: 15,
-                              patientId: 1, clinicianId: 134, visitType: docAddVisitType!, assignDate: ctlrassignedate.text, startTime: ctlrstarttime.text,
-                              endTime: ctlrendtime.text, details: ctlrdetails.text,);
-                            fetchAndSetEvents(context, 134);
+                      int? schedulerId = eventSchedulerMap[event];
+                      if(schedulerId != null){
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return FutureBuilder<CreatePrefillDataScheduler>(future: getPreFillCalenderData(context: context,schedulerCreateId: schedulerId),
+                              builder: (BuildContext context,snapshot) {
+                                if(snapshot.connectionState == ConnectionState.waiting){
+                                  return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                }
+                                var patientId = snapshot.data!.patientId;
+                                var details = snapshot.data!.details;
+                                ctlrdetails = TextEditingController(text: snapshot.data!.details);
 
-                            if(response.statusCode == 200 || response.statusCode == 201){
-                              ctlrassignedate.clear();
-                              ctlrstarttime.clear();
-                              ctlrendtime.clear();
-                              ctlrdetails.clear();
-                              Navigator.pop(context);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0), // Rounded corners
-                                    ),
-                                    child: Container(
-                                      height: 270,
-                                      width: 300,
-                                      padding: EdgeInsets.all(20.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15.0), // Rounded corners
-                                        color: Colors.white, // Background color
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.check_circle_outline,
-                                            color: Color(0xFF50B5E5),
-                                            size: 80.0,
+                                var assignedate = snapshot.data!.assignDate;
+                                ctlrassignedate = TextEditingController(text: snapshot.data!.assignDate);
+
+                                var startTime = snapshot.data!.startTime;
+                                ctlrstarttime = TextEditingController(text: snapshot.data!.startTime);
+
+                                var endTime = snapshot.data!.endTime;
+                                ctlrendtime = TextEditingController(text: snapshot.data!.endTime);
+                                return EditCalenderSchedulePopup(onPressed: () async{
+                                  var response = await updateScheduleCalender(
+                                    context: context, schedulerCreateId: schedulerId,
+                                    patientId: 1, clinicianId: 134,
+                                    visitType: docAddVisitType!,
+                                    assignDate: assignedate == ctlrassignedate.text ? assignedate.toString() : ctlrassignedate.text,
+                                    startTime: startTime == ctlrstarttime.text ? startTime.toString() :ctlrstarttime.text ,
+                                    endTime: endTime == ctlrendtime.text ? endTime.toString() : ctlrendtime.text,
+                                    details: details == ctlrdetails.text ? details.toString() : ctlrdetails.text,);
+
+                                  fetchAndSetEvents(context, 134);
+                                  if(response.statusCode == 200 || response.statusCode == 201){
+                                    ctlrassignedate.clear();
+                                    ctlrstarttime.clear();
+                                    ctlrendtime.clear();
+                                    ctlrdetails.clear();
+                                    Navigator.pop(context);
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(15.0), // Rounded corners
                                           ),
-                                          SizedBox(height: 20.0),
-                                          Text(
-                                            "Successfully Edit !",
-                                            style: GoogleFonts.firaSans(
-                                                fontSize: 16.0,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w700),
-                                            textAlign: TextAlign.center,
+                                          child: Container(
+                                            height: 270,
+                                            width: 300,
+                                            padding: EdgeInsets.all(20.0),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(15.0), // Rounded corners
+                                              color: Colors.white, // Background color
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.check_circle_outline,
+                                                  color: Color(0xFF50B5E5),
+                                                  size: 80.0,
+                                                ),
+                                                SizedBox(height: 20.0),
+                                                Text(
+                                                  "Successfully Edit !",
+                                                  style: GoogleFonts.firaSans(
+                                                      fontSize: 16.0,
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.w700),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                SizedBox(height: 30.0),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    CustomButton(
+                                                        height: 30,
+                                                        width: 130,
+                                                        text: 'Continue',
+                                                        onPressed: () {
+                                                          Navigator.pop(context);
+                                                        })
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          SizedBox(height: 30.0),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              CustomButton(
-                                                  height: 30,
-                                                  width: 130,
-                                                  text: 'Continue',
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  })
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            }
-                          },
-                            ctlrdetails: ctlrdetails, ctlrassignedate: ctlrassignedate,
-                            ctlrstarttime: ctlrstarttime, ctlrendtime: ctlrendtime,
-                            child: FutureBuilder<List<VisitListData>>(
-                              future: getVisitList(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return Container(
-                                    width: 354,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      color: ColorManager.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  );
-                                }
-                                if (snapshot.hasData && snapshot.data!.isEmpty) {
-                                  return Center(
-                                    child: Text(
-                                      AppString.dataNotFound,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        fontWeight: FontWeightManager.medium,
-                                        fontSize: FontSize.s12,
-                                        color: ColorManager.mediumgrey,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  List<DropdownMenuItem<String>> dropDownZoneList = [];
-                                  for (var i in snapshot.data!) {
-                                    dropDownZoneList.add(
-                                      DropdownMenuItem<String>(
-                                        child: Text(i.visitType),
-                                        value: i.visitType,
-                                      ),
+                                        );
+                                      },
                                     );
                                   }
-                                  return CICCDropdown(
-                                    initialValue: dropDownZoneList.isNotEmpty
-                                        ? dropDownZoneList[0].value
-                                        : null,
-                                    onChange: (val) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.visitType == val) {
-                                          docAddVisitType = a.visitType;
-                                        }
+                                },
+                                  ctlrdetails: ctlrdetails, ctlrassignedate: ctlrassignedate,
+                                  ctlrstarttime: ctlrstarttime, ctlrendtime: ctlrendtime,
+                                  child: FutureBuilder<List<VisitListData>>(
+                                    future: getVisitList(context),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                        return Container(
+                                          width: 354,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            color: ColorManager.white,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                        );
                                       }
+                                      if (snapshot.hasData && snapshot.data!.isEmpty) {
+                                        return Center(
+                                          child: Text(
+                                            AppString.dataNotFound,
+                                            style: CustomTextStylesCommon.commonStyle(
+                                              fontWeight: FontWeightManager.medium,
+                                              fontSize: FontSize.s12,
+                                              color: ColorManager.mediumgrey,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      if (snapshot.hasData) {
+                                        List<DropdownMenuItem<String>> dropDownZoneList = [];
+                                        for (var i in snapshot.data!) {
+                                          dropDownZoneList.add(
+                                            DropdownMenuItem<String>(
+                                              child: Text(i.visitType),
+                                              value: i.visitType,
+                                            ),
+                                          );
+                                        }
+                                        return CICCDropdown(
+                                          initialValue: dropDownZoneList.isNotEmpty
+                                              ? dropDownZoneList[0].value
+                                              : null,
+                                          onChange: (val) {
+                                            for (var a in snapshot.data!) {
+                                              if (a.visitType == val) {
+                                                docAddVisitType = a.visitType;
+                                              }
+                                            }
+                                          },
+                                          items: dropDownZoneList,
+                                        );
+                                      }
+                                      return const SizedBox();
                                     },
-                                    items: dropDownZoneList,
-                                  );
-                                }
-                                return const SizedBox();
+                                  ),
+                                );
                               },
-                            ),
-                          );
-                        },
-                      );
+
+                            );
+                          },
+                        );
+                      }else{
+                        print("ScheduleId error");
+                      }
+
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
@@ -791,4 +827,5 @@ class _CalenderConstantState extends State<CalenderConstant> {
     );
   }
 }
+
 

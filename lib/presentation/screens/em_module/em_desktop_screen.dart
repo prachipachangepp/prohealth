@@ -431,7 +431,6 @@ class EMDesktopScreen extends StatelessWidget {
                 children: [
                   Container(child:Image.asset('images/EMDASHBOARD.jpg',fit: BoxFit.contain,)),
                   CompanyIdentityScreen(),
-                  HrScreen(),
                   ManageWorkSchedule(),
                   ManageEmployDocument(),
                   FinanceScreen(),

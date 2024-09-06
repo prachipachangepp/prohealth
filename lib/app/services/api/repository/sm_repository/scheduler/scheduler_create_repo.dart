@@ -15,7 +15,9 @@ class SchedulerSMRepo{
   static String getSCreate({required int patientId}){
     return "$getscreate/$patientId";
   }
-
+  static String getPreFillSchedule({required int schedulerId}){
+    return "$schedule/$schedulerId";
+  }
   static String getScheduleBuClinitian({required int clinicianId}){
     return "$schecularCalender/$clinicianId";
   }

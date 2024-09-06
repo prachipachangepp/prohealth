@@ -277,7 +277,7 @@ class _SchedulerScreenState extends State<SMSchedulerScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.only(left:30.0),
                                         child: Text(
                                           'Scheduled Patients',
                                           style: GoogleFonts.firaSans(
