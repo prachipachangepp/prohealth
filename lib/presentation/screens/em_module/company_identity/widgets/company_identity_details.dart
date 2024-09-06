@@ -146,6 +146,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   // List<String> _suggestions = [];
   @override
   void dispose() {
+    _focusNode.removeListener(() {});
     _focusNode.dispose();
     _suggestionsNotifier.value = [];
     addressController.dispose();
