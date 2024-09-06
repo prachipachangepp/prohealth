@@ -1255,7 +1255,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
       case AppConfig.subDocId3CICCMedicalCR:
         return "Medical Cost Reports";
       case AppConfig.subDocId4CapReport:
-        return "Cap Reports";
+        return "CAP Reports";
       case AppConfig.subDocId5BalReport:
         return "Quarterly Balance Reports";
       default:
@@ -2345,7 +2345,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
             children: [
               _selectedIndex != 5
                   ? Container(
-                height: MediaQuery.of(context).size.height / 3.5,
+               // height: MediaQuery.of(context).size.height / 3.5,
                 decoration: BoxDecoration(
                     color: Color(0xFFF2F9FC),
                     borderRadius: BorderRadius.only(

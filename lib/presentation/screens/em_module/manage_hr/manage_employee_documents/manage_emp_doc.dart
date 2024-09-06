@@ -2444,7 +2444,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
             flex: 10,
             child: Stack(children: [
               Container(
-                height: MediaQuery.of(context).size.height / 3,
+                //height: MediaQuery.of(context).size.height / 3,
                 decoration: BoxDecoration(
                     color: Color(0xFFF2F9FC),
                     borderRadius: BorderRadius.only(

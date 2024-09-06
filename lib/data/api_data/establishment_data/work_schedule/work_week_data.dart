@@ -45,7 +45,7 @@ class DefineHolidayData {
   final String holidayName;
   final String date;
   final int holidayId;
-  final int? companyId;
+  final int companyId;
 
   DefineHolidayData(
       {required this.success,
@@ -53,7 +53,7 @@ class DefineHolidayData {
       required this.date,
       required this.holidayName,
       required this.holidayId,
-      this.companyId});
+      required this.companyId});
 }
 
 /// Get prefill Holidays

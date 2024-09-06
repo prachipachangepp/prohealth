@@ -316,7 +316,6 @@ class EstablishmentManagerRepository {
 
   ///employee doc list
   static String getEmployeeDocSetUpMetaId({
-    /// required int metaDocId
     required int pageNo, required int rowsNo,
     required int employeeDocTypeMetaDataId
   }) {

@@ -499,11 +499,10 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                       // Text('Picked Location: ${widget.locationController.text}'),
                       SizedBox(height: AppSize.s15),
                       FirstSMTextFConst(
-                        controller: widget.landmarkController!,
+                        controller: widget.landmarkController,
                         keyboardType: TextInputType.text,
                         text: 'Landmark',
                       ),
-
                     ],
                   ),
                 ),

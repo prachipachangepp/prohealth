@@ -1,15 +1,12 @@
 import 'dart:async';
-import 'dart:math';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
-import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/visit_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
@@ -19,12 +16,8 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
-import '../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
-import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../../hr_module/manage/controller/controller.dart';
 import '../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
-import '../policies_procedures/widgets/add_policies_popup.dart';
 
 class CiVisitScreen extends StatefulWidget {
   const CiVisitScreen({super.key});
@@ -41,8 +34,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   final StreamController<List<CiVisit>> _visitController =
   StreamController<List<CiVisit>>();
   late List<Color> hrcontainerColors;
-  // FocusNode _focusNode = FocusNode();
-  // bool _showList = false;
   int empTypeId = 0;
   @override
   void initState() {
@@ -71,7 +62,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     return perceivedBrightness <
         128;
   }
-//
+
   void deleteChip(String chip, int chipId) {
     setState(() {
     selectedChips.remove(chip);
@@ -282,7 +273,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
           ],
         ),
         SizedBox(
-          height: 10,
+          height: AppSize.s10,
         ),
 
         ///headings
@@ -298,43 +289,41 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             children: [
               // Expanded(flex: 2, child: Container()),
               Padding(
-                padding: const EdgeInsets.only(left: 90),
+                padding: const EdgeInsets.only(left: 80),
                 child: Text(
                   AppString.srNo,
                   textAlign: TextAlign.center,
                   // style: RegisterTableHead.customTextStyle(context),
                   style: GoogleFonts.firaSans(
-                      fontSize: 12,
+                      fontSize: AppSize.s12,
                       fontWeight: FontWeight.w700,
                       color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
                   ),
                 ),
               ),
 
               ///visit
               Padding(
-                padding: const EdgeInsets.only(left: 130),
+                padding: const EdgeInsets.only(left: 150),
                 child: Text(
                   AppString.visit,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.firaSans(
-                      fontSize: 12,
+                      fontSize: AppSize.s12,
                       fontWeight: FontWeight.w700,
                       color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
                   ),
                 ),
               ),
 
               ///EL clinician
               Padding(
-                padding: const EdgeInsets.only(right: 220),
+                padding: const EdgeInsets.only(right: 250),
                 child: Text(
                   AppString.eligibleClinician,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.firaSans(
-                      fontSize: 12,
+                      fontSize: AppSize.s12,
                       fontWeight: FontWeight.w700,
                       color: ColorManager.white
                     // color: isSelected ? Colors.white : Colors.black,
@@ -347,7 +336,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   AppString.actions,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.firaSans(
-                      fontSize: 12,
+                      fontSize: AppSize.s12,
                       fontWeight: FontWeight.w700,
                       color: ColorManager.white
                     // color: isSelected ? Colors.white : Colors.black,
@@ -464,7 +453,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                             child: Text(
                                               formattedSerialNumber,
                                               style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
+                                                  fontSize: AppSize.s10,
                                                   fontWeight: FontWeight.w700,
                                                   color: Color(0xff686464)),
                                               textAlign: TextAlign.center,
@@ -478,7 +467,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                   .toString(),
                                               textAlign: TextAlign.center,
                                               style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
+                                                  fontSize: AppSize.s10,
                                                   fontWeight: FontWeight.w700,
                                                   color: Color(0xff686464)),
                                             ),

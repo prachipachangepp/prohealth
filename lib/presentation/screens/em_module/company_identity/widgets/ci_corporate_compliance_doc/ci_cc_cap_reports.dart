@@ -231,7 +231,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                 return StatefulBuilder(
                                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                                     return CCScreenEditPopup(
-                                                                      title: 'Edit Cap Reports',
+                                                                      title: 'Edit CAP Reports',
                                                                       idOfDocController: idOfDocController,
                                                                       nameDocController: docNameController,
                                                                       loadingDuration: _isLoading,
@@ -375,7 +375,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                                             );
                                                                           }
                                                                           if (snapshot.hasData) {
-                                                                            String selectedDocType = "Cap Reports";
+                                                                            String selectedDocType = "CAP Reports";
                                                                             int docType = snapshot.data![0].docID;
 
                                                                             for (var i in snapshot.data!) {
