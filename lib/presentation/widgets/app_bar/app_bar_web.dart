@@ -353,7 +353,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                               ),
                                               value: _selectedValue,
                                               hint: Text(
-                                                'Role',
+                                                'Super User',
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w600,
@@ -361,6 +361,7 @@ class _AppBarWebState extends State<AppBarWeb> {
                                                 ),
                                               ),
                                               items: <String>[
+                                                'Super User',
                                                 'Admin',
                                                 'Staff',
                                                 'Patient'

@@ -934,7 +934,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
               ],
             ),
             child: Text(
-              "No avaiable zone",
+              "No available zone",
               style: GoogleFonts.firaSans(
                 fontSize: FontSize.s12,
                 fontWeight: FontWeightManager.bold,
