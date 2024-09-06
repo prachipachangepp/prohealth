@@ -15,6 +15,7 @@ class SchedularTextField extends StatefulWidget {
   final Icon? suffixIcon;
   final FormFieldValidator<String>? validator;
   final double? width;
+  final ValueChanged<String>? onChanged;
 
   const SchedularTextField({
     Key? key,
@@ -22,6 +23,7 @@ class SchedularTextField extends StatefulWidget {
     this.initialValue,
     this.controller,
     this.suffixIcon, this.validator, this.width,
+    this.onChanged
   }) : super(key: key);
 
   @override
@@ -34,7 +36,15 @@ class _SchedularTextFieldState extends State<SchedularTextField> {
   @override
   void initState() {
     super.initState();
+    // _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
     _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
+
+    // If onChanged is provided, listen to controller changes
+    _controller.addListener(() {
+      if (widget.onChanged != null) {
+        widget.onChanged!(_controller.text); // Trigger the onChanged callback
+      }
+    });
   }
 
   @override

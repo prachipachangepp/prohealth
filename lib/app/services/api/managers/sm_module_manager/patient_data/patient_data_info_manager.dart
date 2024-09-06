@@ -337,7 +337,7 @@ Future<List<PatientDataInfoModal>> PatientDataInfoGet(
 
 
 
-/////////////////////////////////
+/// intake info save button post api
 
 Future<ApiData> IntakeInfoSave(
     BuildContext context,
@@ -384,7 +384,8 @@ Future<ApiData> IntakeInfoSave(
       'mi': mi,
       'suffix': suffix,
       'activeTraineeStatus': activeTraineeStatus,
-      'dateofbirth': "${dateofbirth}T00:00:00Z",
+       'dateofbirth': "${dateofbirth}T00:00:00Z",
+       'dateOfDeath': dateofdeath?.isNotEmpty == true ? "${dateofdeath}T00:00:00Z" : '',
       'street': street,
       'state': state,
       'zipcode': zipcode,
@@ -409,12 +410,18 @@ Future<ApiData> IntakeInfoSave(
     };
 
     // Add dateofdeath field only if it is not null or empty
+    // if (dateofdeath != null && dateofdeath.isNotEmpty) {
+    //   requestData['dateofdeath'] = "${dateofdeath}T00:00:00Z";
+    // }else{
+    //   requestData['dateofdeath'] ="2024-08-14T00:00:00Z";
+    // }
+    // Add dateofdeath field only if it is not null or empty
     if (dateofdeath != null && dateofdeath.isNotEmpty) {
-      requestData['dateofdeath'] = "${dateofdeath}T00:00:00Z";
-    }else{
-      requestData['dateofdeath'] ="2024-08-14T00:00:00Z";
+      requestData['dateOfDeath'] = "${dateofdeath}T00:00:00Z";
+    } else {
+      // Remove dateOfDeath if it's null or empty
+      requestData.remove('dateOfDeath');
     }
-
     // Make the API request
     var response = await Api(context).post(
       path: PatientDataInfoRepo.addInfoPatientData(),
@@ -429,7 +436,9 @@ Future<ApiData> IntakeInfoSave(
       var patientIdresponse = response.data;
       int idPatient = patientIdresponse["patientId"];
       // Return a valid ApiData object (adjust according to your actual ApiData structure)
-      return ApiData(patientId: idPatient, statusCode:response.statusCode!, success: false, message: response.data['message']); // Replace with your actual ApiData constructor
+      return ApiData(patientId: idPatient,
+          statusCode:response.statusCode!,
+          success: false, message: response.statusMessage!); // Replace with your actual ApiData constructor
     } else {
       // Handle other status codes or errors
       print("Failed to save patient info: ${response.statusCode}");
