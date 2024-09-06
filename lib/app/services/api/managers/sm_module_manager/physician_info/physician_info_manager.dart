@@ -348,7 +348,7 @@ Future<List<RelationshipData>> getRelationshipDropDown(
 }
 
 
-///////
+///
 
 
 Future<List<LanguageSpokenData>> getlanguageSpokenDropDown(
@@ -377,7 +377,7 @@ Future<List<LanguageSpokenData>> getlanguageSpokenDropDown(
 
 
 
-///////
+///
 
 Future<List<MetrialStatusData>> getMaritalStatusDropDown(
     BuildContext context,
@@ -403,7 +403,7 @@ Future<List<MetrialStatusData>> getMaritalStatusDropDown(
   }
 }
 
-/////////
+///
 
 Future<List<RaceData>> getRaceDropDown(
     BuildContext context,
@@ -432,7 +432,7 @@ Future<List<RaceData>> getRaceDropDown(
 
 
 
-////////
+///
 Future<List<ReligionData>> getReligionDropDown(
     BuildContext context,
     ) async {
@@ -460,7 +460,7 @@ Future<List<ReligionData>> getReligionDropDown(
 
 
 
-//////
+/// status dropdown  getAPI
 Future<List<PatientStatusData>> StatusChange(
     BuildContext context,
     ) async {
@@ -488,7 +488,7 @@ Future<List<PatientStatusData>> StatusChange(
 
 
 
-/////
+///
 
 Future<List<PriorityDisasterData>> getPiorityDisastorDropDown(
     BuildContext context,
@@ -517,7 +517,7 @@ Future<List<PriorityDisasterData>> getPiorityDisastorDropDown(
 
 
 
-////
+///
 
 
 Future<List<EligiblityStatusData>> getEligiblityStatusDropDown(
@@ -546,9 +546,7 @@ Future<List<EligiblityStatusData>> getEligiblityStatusDropDown(
 
 
 
-////
-
-
+///
 Future<List<CategoryData>> getCategoryDropDown(
     BuildContext context,
     ) async {
@@ -575,10 +573,7 @@ Future<List<CategoryData>> getCategoryDropDown(
 
 
 
-//////
-
-
-
+///
 Future<List<SuppliesData>> getSuppliesDMEDropDown(
     BuildContext context,
     ) async {
@@ -605,8 +600,7 @@ Future<List<SuppliesData>> getSuppliesDMEDropDown(
 
 
 
-/////
-
+///
 Future<List<PharmacyData>> getPharmacyDropDown(
     BuildContext context,
     ) async {
@@ -634,8 +628,7 @@ Future<List<PharmacyData>> getPharmacyDropDown(
 
 
 
-//////
-
+///
 Future<List<FacilityData>> getFacilityDropDown(
     BuildContext context,
     ) async {
