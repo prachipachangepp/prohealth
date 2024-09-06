@@ -18,23 +18,466 @@ import 'company_identity/widgets/ci_tab_widget/ci_visit.dart';
 import 'manage_hr/hr_screen.dart';
 import 'manage_hr/manage_pay_rates/finance_screen.dart';
 ///final 05 saloni
-class EMDesktopScreen extends StatelessWidget {
-  final PageController _pageController = PageController();
-  final EMController smController = Get.put(EMController());
+// class EMDesktopScreen extends StatelessWidget {
+//   final PageController _pageController = PageController();
+//   final EMController smController = Get.put(EMController());
+//   final String? dropdownValue;
+//   final ValueChanged<String?>? onChanged;
+//   final HRController hrController = Get.put(HRController());
+//   final VoidCallback? onItem2Selected;
+//   String selectedOption = 'Select';
+//
+//   bool showSelectOption = true;
+//   final ButtonSelectionController myController =
+//   Get.put(ButtonSelectionController());
+//   EMDesktopScreen({
+//     this.dropdownValue,
+//     this.onChanged,
+//     this.onItem2Selected,
+//   });
+//
+//   void navigateToPage2() {
+//     if (_pageController.page != 2) {
+//       _pageController.animateToPage(
+//         2,
+//         duration: Duration(milliseconds: 500),
+//         curve: Curves.ease,
+//       );
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       body: Stack(children: [
+//         Column(
+//           children: [
+//             const ApplicationAppBar(headingText: "Establishment Manager"),
+//             ///2nd  buttons
+//             Container(
+//               margin: const EdgeInsets.symmetric(vertical: AppPadding.p20, horizontal: AppPadding.p20),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.start,
+//                     children: [
+//                       Obx(
+//                             () => CustomTitleButton(
+//                           height: 30,
+//                           width: 100,
+//                           onPressed: () {
+//                             //companyAll(context);
+//                             myController.selectButton(0);
+//                             _pageController.animateToPage(0,
+//                                 duration: Duration(milliseconds: 500),
+//                                 curve: Curves.ease);
+//                           },
+//                           text: 'Dashboard',
+//                           isSelected: myController.selectedIndex.value == 0,
+//                         ),
+//                       ),
+//                       SizedBox(width: 10,),
+//                       Obx(
+//                             () => CustomTitleButton(
+//                           height: 30,
+//                           width: 140,
+//                           onPressed: () {
+//                             // uploadCompanyLogoApi(context, 5, "employ");
+//                             companyByIdApi(context,);
+//                             // companyDetailsApi(context,5);
+//                             myController.selectButton(1);
+//                             _pageController.animateToPage(1,
+//                                 duration: Duration(milliseconds: 500),
+//                                 curve: Curves.ease);
+//                           },
+//                           text: 'Company Identity',
+//                           isSelected: myController.selectedIndex.value == 1,
+//                         ),
+//                       ),
+//                       SizedBox(width: 15,),
+//                       Obx(
+//                             () => Material(
+//                           elevation: 4,
+//                           borderRadius: BorderRadius.all(Radius.circular(12)),
+//                           child: CustomDropdownButton(
+//                             height: 30,
+//                             width: 170,
+//                             items: [
+//                               DropdownMenuItem<String>(
+//                                 value: 'Select a module',
+//                                 child: Text(
+//                                   'Select a module',
+//                                   textAlign: TextAlign.center,
+//                                   style: GoogleFonts.firaSans(
+//                                       fontSize: FontSize.s12,
+//                                       fontWeight: FontWeight.w700,
+//                                       color: ColorManager.textPrimaryColor
+//                                     // color: isSelected ? Colors.white : Colors.black,
+//                                   ),
+//                                 ),
+//                               ),
+//                               DropdownMenuItem<String>(
+//                                 value: 'User Management',
+//                                 child: Text(
+//                                   'User Management',
+//                                   textAlign: TextAlign.center,
+//                                   style: GoogleFonts.firaSans(
+//                                       fontSize: FontSize.s12,
+//                                       fontWeight: FontWeight.w700,
+//                                       color: ColorManager.textPrimaryColor
+//                                     // color: isSelected ? Colors.white : Colors.black,
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   // if (myController.selectedIndex.value != 5) {
+//                                   //   myController.selectButton(5);
+//                                   //   _pageController.animateToPage(
+//                                   //     5,
+//                                   //     duration: Duration(milliseconds: 500),
+//                                   //     curve: Curves.ease,
+//                                   //   );
+//                                   // }
+//                                 },
+//                               ),
+//                               DropdownMenuItem<String>(
+//                                 value: 'Users',
+//                                 child: Padding(
+//                                   padding: const EdgeInsets.only(left: 20.0),
+//                                   child: Text(
+//                                     'Users',
+//                                     textAlign: TextAlign.center,
+//                                     style: GoogleFonts.firaSans(
+//                                         fontSize: FontSize.s12,
+//                                         fontWeight: FontWeight.w400,
+//                                         color: ColorManager.textPrimaryColor
+//                                       // color: isSelected ? Colors.white : Colors.black,
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   if (myController.selectedIndex.value != 6) {
+//                                     myController.selectButton(6);
+//                                     _pageController.animateToPage(
+//                                       6,
+//                                       duration: Duration(milliseconds: 500),
+//                                       curve: Curves.ease,
+//                                     );
+//                                   }
+//                                 },
+//                               ),
+//                               DropdownMenuItem<String>(
+//                                 value: 'Role Manager',
+//                                 child: Padding(
+//                                   padding: EdgeInsets.only(left: 20),
+//                                   child: Text(
+//                                     'Role Manager',
+//                                     textAlign: TextAlign.center,
+//                                     style: GoogleFonts.firaSans(
+//                                         fontSize: FontSize.s12,
+//                                         fontWeight: FontWeight.w400,
+//                                         color: ColorManager.textPrimaryColor
+//                                       // color: isSelected ? Colors.white : Colors.black,
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   if (myController.selectedIndex.value != 7) {
+//                                     myController.selectButton(7);
+//                                     _pageController.animateToPage(
+//                                       7,
+//                                       duration: Duration(milliseconds: 500),
+//                                       curve: Curves.ease,
+//                                     );
+//                                   }
+//                                 },
+//                               ),
+//                               ///clinical
+//                               DropdownMenuItem<String>(
+//                                 value: 'Clinical',
+//                                 child: Text(
+//                                   'Clinical',
+//                                   textAlign: TextAlign.center,
+//                                   style: GoogleFonts.firaSans(
+//                                       fontSize: FontSize.s12,
+//                                       fontWeight: FontWeight.w700,
+//                                       color: ColorManager.textPrimaryColor
+//                                     // color: isSelected ? Colors.white : Colors.black,
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   // if (myController.selectedIndex.value != 5) {
+//                                   //   myController.selectButton(5);
+//                                   //   _pageController.animateToPage(
+//                                   //     5,
+//                                   //     duration: Duration(milliseconds: 500),
+//                                   //     curve: Curves.ease,
+//                                   //   );
+//                                   // }
+//                                 },
+//                               ),
+//                               DropdownMenuItem<String>(
+//                                 value: 'Visits',
+//                                 child: Padding(
+//                                   padding: EdgeInsets.only(left: 20),
+//                                   child: Text(
+//                                     'Visits',
+//                                     textAlign: TextAlign.center,
+//                                     style: GoogleFonts.firaSans(
+//                                         fontSize: FontSize.s12,
+//                                         fontWeight: FontWeight.w400,
+//                                         color: ColorManager.textPrimaryColor
+//                                       // color: isSelected ? Colors.white : Colors.black,
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   if (myController.selectedIndex.value != 8) {
+//                                     myController.selectButton(8);
+//                                     _pageController.animateToPage(
+//                                       8,
+//                                       duration: Duration(milliseconds: 500),
+//                                       curve: Curves.ease,
+//                                     );
+//                                   }
+//                                 },
+//                               ),
+//                               ///hr
+//                               DropdownMenuItem<String>(
+//                                 value: 'HR',
+//                                 child: Text(
+//                                   'HR',
+//                                   textAlign: TextAlign.center,
+//                                   style: GoogleFonts.firaSans(
+//                                       fontSize: FontSize.s12,
+//                                       fontWeight: FontWeight.w700,
+//                                       color: ColorManager.textPrimaryColor
+//                                     // color: isSelected ? Colors.white : Colors.black,
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   // if (myController.selectedIndex.value != 2) {
+//                                   //   myController.selectButton(2);
+//                                   //   _pageController.animateToPage(
+//                                   //     2,
+//                                   //     duration: Duration(milliseconds: 500),
+//                                   //     curve: Curves.ease,
+//                                   //   );
+//                                   // }
+//                                 },
+//                               ),
+//                               DropdownMenuItem<String>(
+//                                 value: 'Designation Settings',
+//                                 child: Padding(
+//                                   padding: EdgeInsets.only(left: 20),
+//                                   child: Text(
+//                                     'Designation Settings',
+//                                     textAlign: TextAlign.center,
+//                                     style: GoogleFonts.firaSans(
+//                                         fontSize: FontSize.s12,
+//                                         fontWeight: FontWeight.w400,
+//                                         color: ColorManager.textPrimaryColor
+//                                       // color: isSelected ? Colors.white : Colors.black,
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   if (myController.selectedIndex.value != 2) {
+//                                     myController.selectButton(2);
+//                                     _pageController.animateToPage(
+//                                       2,
+//                                       duration: Duration(milliseconds: 500),
+//                                       curve: Curves.ease,
+//                                     );
+//                                   }
+//                                 },
+//                               ),
+//                               DropdownMenuItem<String>(
+//                                 value: 'Work Schedule',
+//                                 child: Padding(
+//                                   padding: EdgeInsets.only(left: 20),
+//                                   child: Text(
+//                                     'Work Schedule',
+//                                     textAlign: TextAlign.center,
+//                                     style: GoogleFonts.firaSans(
+//                                         fontSize: FontSize.s12,
+//                                         fontWeight: FontWeight.w400,
+//                                         color: ColorManager.textPrimaryColor
+//                                       // color: isSelected ? Colors.white : Colors.black,
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   if (myController.selectedIndex.value != 3) {
+//                                     myController.selectButton(3);
+//                                     _pageController.animateToPage(
+//                                       3,
+//                                       duration: Duration(milliseconds: 500),
+//                                       curve: Curves.ease,
+//                                     );
+//                                   }
+//                                 },
+//                               ),
+//                               DropdownMenuItem<String>(
+//                                 value: 'Employee Documents',
+//                                 child: Padding(
+//                                   padding: EdgeInsets.only(left: 20),
+//                                   child: Text(
+//                                     'Employee Documents',
+//                                     textAlign: TextAlign.center,
+//                                     style: GoogleFonts.firaSans(
+//                                         fontSize: FontSize.s12,
+//                                         fontWeight: FontWeight.w400,
+//                                         color: ColorManager.textPrimaryColor
+//                                       // color: isSelected ? Colors.white : Colors.black,
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   if (myController.selectedIndex.value != 4) {
+//                                     myController.selectButton(4);
+//                                     _pageController.animateToPage(
+//                                       4,
+//                                       duration: Duration(milliseconds: 500),
+//                                       curve: Curves.ease,
+//                                     );
+//                                   }
+//                                 },
+//                               ),
+//                               ///finance
+//                               DropdownMenuItem<String>(
+//                                 value: 'Finance',
+//                                 child: Text(
+//                                   'Finance',
+//                                   textAlign: TextAlign.center,
+//                                   style: GoogleFonts.firaSans(
+//                                       fontSize: FontSize.s12,
+//                                       fontWeight: FontWeight.w700,
+//                                       color: ColorManager.textPrimaryColor
+//                                     // color: isSelected ? Colors.white : Colors.black,
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   // if (myController.selectedIndex.value != 5) {
+//                                   //   myController.selectButton(5);
+//                                   //   _pageController.animateToPage(
+//                                   //     5,
+//                                   //     duration: Duration(milliseconds: 500),
+//                                   //     curve: Curves.ease,
+//                                   //   );
+//                                   // }
+//                                 },
+//                               ),
+//                               DropdownMenuItem<String>(
+//                                 value: 'Pay Rates',
+//                                 child: Padding(
+//                                   padding: EdgeInsets.only(left: 20),
+//                                   child: Text(
+//                                     'Pay Rates',
+//                                     textAlign: TextAlign.center,
+//                                     style: GoogleFonts.firaSans(
+//                                         fontSize: FontSize.s12,
+//                                         fontWeight: FontWeight.w400,
+//                                         color: ColorManager.textPrimaryColor
+//                                       // color: isSelected ? Colors.white : Colors.black,
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 onTap: () {
+//                                   if (myController.selectedIndex.value != 5) {
+//                                     myController.selectButton(5);
+//                                     _pageController.animateToPage(
+//                                       5,
+//                                       duration: Duration(milliseconds: 500),
+//                                       curve: Curves.ease,
+//                                     );
+//                                   }
+//                                 },
+//                               ),
+//                             ],
+//                             selectedItem:  myController.selectedIndex.value == 8
+//                                 ? 'Visits'
+//                                 :myController.selectedIndex.value == 7
+//                                 ? 'Role Manager'
+//                                 : myController.selectedIndex.value == 6
+//                                 ? 'Users'
+//                                 : myController.selectedIndex.value == 2
+//                                 ? 'Designation Settings'
+//                                 : myController.selectedIndex.value == 3
+//                                 ? 'Work Schedule'
+//                                 : myController.selectedIndex.value == 4
+//                                 ? 'Employee Documents'
+//                                 : myController.selectedIndex.value == 5
+//                                 ? 'Finance'
+//                                 : 'Select a module',
+//                             onChanged: (newValue) {
+//                               // Not needed for this implementation
+//                             },
+//                           ),
+//                         ),
+//                       ),
+//                       SizedBox(width: 15,),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             Expanded(
+//               flex: 8,
+//               child: PageView(
+//                 controller: _pageController,
+//                 physics: NeverScrollableScrollPhysics(),
+//                 children: [
+//                   Container(child:Image.asset('images/EMDASHBOARD.jpg',fit: BoxFit.contain,)),
+//                   CompanyIdentityScreen(),
+//                   HrScreen(),
+//                   ManageWorkSchedule(),
+//                   ManageEmployDocument(),
+//                   FinanceScreen(),
+//                   SeeAllScreen(),
+//                   CiRoleManager(),
+//                   CiVisitScreen(),
+//                 ],
+//               ),
+//             ),
+//             BottomBarRow()
+//           ],
+//         ),
+//       ]),
+//     );
+//   }
+// }
+
+///06
+class EMDesktopScreen extends StatefulWidget {
   final String? dropdownValue;
   final ValueChanged<String?>? onChanged;
-  final HRController hrController = Get.put(HRController());
   final VoidCallback? onItem2Selected;
-  String selectedOption = 'Select';
 
-  bool showSelectOption = true;
-  final ButtonSelectionController myController =
-  Get.put(ButtonSelectionController());
   EMDesktopScreen({
     this.dropdownValue,
     this.onChanged,
     this.onItem2Selected,
   });
+
+  @override
+  State<EMDesktopScreen> createState() => _EMDesktopScreenState();
+}
+
+class _EMDesktopScreenState extends State<EMDesktopScreen> {
+  final PageController _pageController = PageController();
+
+  final EMController smController = Get.put(EMController());
+
+  final HRController hrController = Get.put(HRController());
+
+  String selectedOption = 'Select';
+
+  bool showSelectOption = true;
+
+  final ButtonSelectionController myController =
+  Get.put(ButtonSelectionController());
 
   void navigateToPage2() {
     if (_pageController.page != 2) {
@@ -45,6 +488,34 @@ class EMDesktopScreen extends StatelessWidget {
       );
     }
   }
+
+  String? selectedMainCategory;
+
+  String? selectedSubItem;
+
+  OverlayEntry? overlayEntry;
+
+  Map<String, List<Map<String, dynamic>>> menuOptions = {
+    'User Management': [
+      {'title': 'Users', 'pageIndex': 2},
+      {'title': 'Role Manager', 'pageIndex': 3},
+    ],
+    'Clinical': [
+      {'title': 'Visits', 'pageIndex': 4},
+    ],
+    'HR': [
+      {'title': 'Designation Settings', 'pageIndex': 5},
+      {'title': 'Work Schedule', 'pageIndex': 6},
+      {'title': 'Employee Documents', 'pageIndex': 7},
+    ],
+    'Finance': [
+      {'title': 'Pay Rates', 'pageIndex': 8},
+    ],
+  };
+
+  List<String> mainCategories = ['User Management', 'Clinical', 'HR', 'Finance'];
+
+  final GlobalKey mainDropdownKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -97,332 +568,70 @@ class EMDesktopScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 15,),
-                      Obx(
-                            () => Material(
-                          elevation: 4,
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                          child: CustomDropdownButton(
-                            height: 30,
-                            width: 170,
-                            items: [
-                              DropdownMenuItem<String>(
-                                value: 'Select a module',
-                                child: Text(
-                                  'Select a module',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.textPrimaryColor
-                                    // color: isSelected ? Colors.white : Colors.black,
-                                  ),
-                                ),
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'User Management',
-                                child: Text(
-                                  'User Management',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.textPrimaryColor
-                                    // color: isSelected ? Colors.white : Colors.black,
-                                  ),
-                                ),
-                                onTap: () {
-                                  // if (myController.selectedIndex.value != 5) {
-                                  //   myController.selectButton(5);
-                                  //   _pageController.animateToPage(
-                                  //     5,
-                                  //     duration: Duration(milliseconds: 500),
-                                  //     curve: Curves.ease,
-                                  //   );
-                                  // }
-                                },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Users',
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Text(
-                                    'Users',
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 6) {
-                                    myController.selectButton(6);
-                                    _pageController.animateToPage(
-                                      6,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Role Manager',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Role Manager',
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 7) {
-                                    myController.selectButton(7);
-                                    _pageController.animateToPage(
-                                      7,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-                              ///clinical
-                              DropdownMenuItem<String>(
-                                value: 'Clinical',
-                                child: Text(
-                                  'Clinical',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.textPrimaryColor
-                                    // color: isSelected ? Colors.white : Colors.black,
-                                  ),
-                                ),
-                                onTap: () {
-                                  // if (myController.selectedIndex.value != 5) {
-                                  //   myController.selectButton(5);
-                                  //   _pageController.animateToPage(
-                                  //     5,
-                                  //     duration: Duration(milliseconds: 500),
-                                  //     curve: Curves.ease,
-                                  //   );
-                                  // }
-                                },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Visits',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Visits',
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 8) {
-                                    myController.selectButton(8);
-                                    _pageController.animateToPage(
-                                      8,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-                              ///hr
-                              DropdownMenuItem<String>(
-                                value: 'HR',
-                                child: Text(
-                                  'HR',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.textPrimaryColor
-                                    // color: isSelected ? Colors.white : Colors.black,
-                                  ),
-                                ),
-                                onTap: () {
-                                  // if (myController.selectedIndex.value != 2) {
-                                  //   myController.selectButton(2);
-                                  //   _pageController.animateToPage(
-                                  //     2,
-                                  //     duration: Duration(milliseconds: 500),
-                                  //     curve: Curves.ease,
-                                  //   );
-                                  // }
-                                },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Designation Settings',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Designation Settings',
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 2) {
-                                    myController.selectButton(2);
-                                    _pageController.animateToPage(
-                                      2,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Work Schedule',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Work Schedule',
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 3) {
-                                    myController.selectButton(3);
-                                    _pageController.animateToPage(
-                                      3,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Employee Documents',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Employee Documents',
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 4) {
-                                    myController.selectButton(4);
-                                    _pageController.animateToPage(
-                                      4,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
-                              ///finance
-                              DropdownMenuItem<String>(
-                                value: 'Finance',
-                                child: Text(
-                                  'Finance',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: FontSize.s12,
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.textPrimaryColor
-                                    // color: isSelected ? Colors.white : Colors.black,
-                                  ),
-                                ),
-                                onTap: () {
-                                  // if (myController.selectedIndex.value != 5) {
-                                  //   myController.selectButton(5);
-                                  //   _pageController.animateToPage(
-                                  //     5,
-                                  //     duration: Duration(milliseconds: 500),
-                                  //     curve: Curves.ease,
-                                  //   );
-                                  // }
-                                },
-                              ),
-                              DropdownMenuItem<String>(
-                                value: 'Pay Rates',
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Pay Rates',
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorManager.textPrimaryColor
-                                      // color: isSelected ? Colors.white : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  if (myController.selectedIndex.value != 5) {
-                                    myController.selectButton(5);
-                                    _pageController.animateToPage(
-                                      5,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  }
-                                },
-                              ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        height: 50,
+                        decoration: selectedMainCategory != 'Select a module'
+                            ? BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xff51B5E6),
+                              Color(0xff008ABD),
                             ],
-                            selectedItem:  myController.selectedIndex.value == 8
-                                ? 'Visits'
-                                :myController.selectedIndex.value == 7
-                                ? 'Role Manager'
-                                : myController.selectedIndex.value == 6
-                                ? 'Users'
-                                : myController.selectedIndex.value == 2
-                                ? 'Designation Settings'
-                                : myController.selectedIndex.value == 3
-                                ? 'Work Schedule'
-                                : myController.selectedIndex.value == 4
-                                ? 'Employee Documents'
-                                : myController.selectedIndex.value == 5
-                                ? 'Finance'
-                                : 'Select a module',
-                            onChanged: (newValue) {
-                              // Not needed for this implementation
+                          ),
+                        )
+                            : const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            key: mainDropdownKey,
+                            hint: Text('Select a module',),
+                            value: selectedMainCategory,
+                            items: mainCategories.map((String category) {
+                              return DropdownMenuItem<String>(
+                                value: category,
+                                child: Text(category),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              if (value != null) {
+                                setState(() {
+                                  selectedMainCategory = value;
+                                });
+                                // Show the overlay dropdown for sub-items
+                                showSubmenuDropdown(context, value);
+                              }
                             },
                           ),
                         ),
                       ),
+                      // Expanded(
+                      //   child: PageView(
+                      //     controller: _pageController,
+                      //     physics: NeverScrollableScrollPhysics(),
+                      //     children: [
+                      //       Center(child: Text('Dashboard')),           // Page 0
+                      //       Center(child: Text('Users Page')),           // Page 1
+                      //       Center(child: Text('Role Manager Page')),    // Page 2
+                      //       Center(child: Text('Visits Page')),          // Page 3
+                      //       Center(child: Text('Designation Settings')), // Page 4
+                      //       Center(child: Text('Work Schedule')),        // Page 5
+                      //       Center(child: Text('Employee Documents')),   // Page 6
+                      //       Center(child: Text('Pay Rates')),            // Page 7
+                      //     ],
+                      //   ),
+                      // ),
+                    ],
+                  ),
                       SizedBox(width: 15,),
                     ],
                   ),
-                ],
+
               ),
-            ),
+
             Expanded(
               flex: 8,
               child: PageView(
@@ -431,13 +640,14 @@ class EMDesktopScreen extends StatelessWidget {
                 children: [
                   Container(child:Image.asset('images/EMDASHBOARD.jpg',fit: BoxFit.contain,)),
                   CompanyIdentityScreen(),
+                  SeeAllScreen(),
+                  CiRoleManager(),
+                  CiVisitScreen(),
                   HrScreen(),
                   ManageWorkSchedule(),
                   ManageEmployDocument(),
                   FinanceScreen(),
-                  SeeAllScreen(),
-                  CiRoleManager(),
-                  CiVisitScreen(),
+
                 ],
               ),
             ),
@@ -447,7 +657,86 @@ class EMDesktopScreen extends StatelessWidget {
       ]),
     );
   }
+
+  // Show an overlay dropdown with submenu items for the selected main category
+  void showSubmenuDropdown(BuildContext context, String mainCategory) {
+    // Remove the previous overlay if it exists
+    if (overlayEntry != null && overlayEntry!.mounted) {
+      overlayEntry!.remove();
+    }
+
+    // Get the position and size of the main dropdown
+    final RenderBox renderBox = mainDropdownKey.currentContext!.findRenderObject() as RenderBox;
+    final size = renderBox.size;
+    final offset = renderBox.localToGlobal(Offset.zero);
+
+    // Create a new overlay entry for submenu
+    overlayEntry = OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          left: offset.dx, // Position it below the dropdown
+          top: offset.dy + size.height, // Just below the main dropdown
+          width: size.width, // Use the same width as the main dropdown
+          child: Material(
+            elevation: 4.0,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 200), // Limit dropdown height if needed
+              child: ListView(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                children: menuOptions[mainCategory]!.map((subItem) {
+                  return ListTile(
+                    title: Text(subItem['title'],style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeight.w700,
+                      color: subItem.values == 'Select a module'
+                          ? ColorManager.textPrimaryColor
+                          : (selectedSubItem == subItem.values
+                          ? Colors.white
+                          : ColorManager.textPrimaryColor),
+                    ),),
+                    onTap: () {
+                      setState(() {
+                        selectedSubItem = subItem['title'];
+                        if (overlayEntry != null) {
+                          overlayEntry!.remove(); // Close the submenu when an item is selected
+                        }
+                      });
+                      _navigateToPage(subItem['pageIndex']);
+                    },
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    // Insert the overlay entry into the overlay stack
+    Overlay.of(context)?.insert(overlayEntry!);
+  }
+
+  void _navigateToPage(int pageIndex) {
+    // Navigate to the corresponding page
+    _pageController.animateToPage(
+      pageIndex,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 class EMController extends GetxController {
   var selectedItem = 'Admin'.obs;
