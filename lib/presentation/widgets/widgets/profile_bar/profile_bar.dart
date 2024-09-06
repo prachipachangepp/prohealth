@@ -189,13 +189,13 @@ class _ProfileBarState extends State<ProfileBar> {
                               //          base64String: base64Decode),
                               //    );
                               //  }),
-
+                              //
                               Icon(
                                 Icons.person,
                                 color: ColorManager.white,
                                 size: AppSize.s50,
                               ),
-                              // Image.network(searchByEmployeeIdProfileData!.imgurl,
+                              // Image.network(widget.searchByEmployeeIdProfileData!.imgurl,
                               //     height: AppSize.s50, width: AppSize.s50),
                               // you can replace
                               SizedBox(
